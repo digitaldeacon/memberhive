@@ -1,0 +1,18 @@
+.tag {
+  display: inline;
+  padding: 7px;
+  font-size: 85%;
+  font-weight: 700;
+  line-height: 1;
+  color: $text-color;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: baseline;
+  border-radius: 10px;
+  margin-right: 3px;
+  background-color: background-color('300');
+}
+.status-tag {
+  color: #fff;
+  background-color: accent-color('500');
+}

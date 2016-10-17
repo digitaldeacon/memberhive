@@ -1,0 +1,55 @@
+<md-toolbar class="md-whiteframe-z1 header-toolbar" layout="row" layout-align="center center">
+  <div hide-gt-md class="item">
+    <md-button
+      id="mh-toogle-menu"
+      class="md-icon-button mh-toogle-button"
+      aria-label="Toogle Menu"
+      ng-click="appCtrl.toggleLeft()">
+      <ng-md-icon icon="menu"></ng-md-icon>
+    </md-button>
+  </div>
+  <div class="item" hide show-gt-xs>
+    <span class="sub-title"> {{appCtrl.getSubTitle()}} </span>
+  </div>
+
+  <div flex class="item search">
+      <md-autocomplete
+          md-search-text="headerCtrl.searchText"
+          md-selected-item-change="headerCtrl.selectedItemChange(item)"
+          md-items="item in headerCtrl.querySearch(headerCtrl.searchText)"
+          md-min-length="2"
+          placeholder="{{'Search…'|translate}}"
+          md-selected-item="headerCtrl.selectedItem"
+          md-selected-item-change="headerCtrl.selectedItemChange(item)"
+          class="header-search"
+        >
+        <img ng-src="{{headerCtrl.avatarUrl(item)}}" class="img-circle"/>
+        <span md-highlight-text="headerCtrl.searchText" md-highlight-flags="^i">
+          {{item | formatName}}
+        </span>
+
+      </md-autocomplete>
+
+  </div>
+  <div class="item button">
+    <md-menu>
+      <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu()">
+        <ng-md-icon icon="more_vert"></ng-md-icon>
+      </md-button>
+      <md-menu-content width="4">
+        <md-menu-item ng-repeat="item in headerCtrl.personalMenu">
+          <md-button ui-sref="{{item.link}}">
+            <ng-md-icon md-menu-align-target icon="{{item.icon}}"></ng-md-icon>
+            <span>{{item.name}}</span>
+          </md-button>
+        </md-menu-item>
+
+        <md-button ng-click="headerCtrl.logout()" ng-href="#">
+          <ng-md-icon md-menu-align-target icon="logout"></ng-md-icon>
+          <span>Logout</span>
+        </md-button>
+
+      </md-menu-content>
+    </md-menu>
+  </div>
+ </md-toolbar>

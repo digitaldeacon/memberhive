@@ -1,0 +1,23 @@
+<md-chips ng-model="ngModel" class="status-chips dusk-background" md-autocomplete-snap md-require-match>
+  <md-autocomplete
+    md-search-text="query"
+    md-items="item in search(query)"
+    md-item-text="item"
+    md-min-length="1"
+    md-search-text-change="null">
+    <md-item-template>
+      <span md-highlight-text="query">{{item.name}}</span>
+    </md-item-template>
+  </md-autocomplete>
+  <md-chip-template>
+    <span>
+      {{$chip.name}}
+    </span>
+  </md-chip-template>
+  <div class="md-chip-remove-container">
+    <button md-chip-remove class="md-primary">
+      <md-icon md-svg-icon="md-close" class="md-default-theme"></md-icon>
+    </button>
+  </div>
+</md-chips>
+

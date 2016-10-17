@@ -1,0 +1,27 @@
+
+
+$brand-primary: #ff0;
+$text-color: #333333 !default;
+$text-color-light: #eee !default;
+$text-color-dark: #333 !default;
+
+$border-radius: 5px;
+
+$toolbar-height: 55px;
+
+$dark-background: #3B3834;
+
+$sidebar-background-color: $dark-background;
+$sidebar-toolbar-background-color: primary-color('700');
+$sidebar-text-color: $text-color-light;
+$sidebar-icon-color: $text-color-light;
+$sidebar-accent-color: accent-color('500');
+
+$toolbar-background-color: primary-color('700');
+
+
+$break-lg: 1200px;
+$break-md: 960px;
+$break-sm: 600px;
+
+@import "variablesMaterial";

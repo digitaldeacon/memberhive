@@ -1,0 +1,66 @@
+<div class="mh-content" layout="column">
+  <h3 translate>Event Information</h3>
+  
+  <md-input-container>
+    <label translate>Event Name</label>
+    <input ng-model="ctrl.item.name">
+  </md-input-container>
+  
+  <md-input-container>
+    <label translate>Tags</label>
+    <mh-tags ng-model="ctrl.item.tags" source="Event"></mh-tags>
+  </md-input-container>
+  
+  <md-input-container>
+    <label translate>Template</label>
+    <md-select ng-model="ctrl.templateId" ng-change="ctrl.updateTemplate()" aria-label="Template ID">
+      <md-option ng-repeat="template in ctrl.templates" ng-value="template.id" aria-label="{{template.name}}">{{template.name}}</md-option>
+    </md-select>
+  </md-input-container>
+  
+  <md-datepicker ng-model="ctrl.item.date" md-placeholder="Enter event date"></md-datepicker>
+  
+ 
+  
+</div>
+
+<h3 translate ng-if="ctrl.template.data"> Optionen </h3>
+<div class="mh-content event-template-item" ng-repeat="option in ctrl.template.data track by $index">
+    <div layout="row">
+      <b>{{option.name}}</b>
+      <div layout="row" class="event-status">
+        <span ng-repeat="(id, status) in ctrl.statusOptions">
+          <ng-md-icon 
+            icon="{{status.icon}}" 
+            ng-click="ctrl.selectStatus(id, $parent.$index)" 
+            ng-style="{'fill' : ctrl.statusColor(id, $parent.$index)}"
+            ></ng-md-icon>
+        </span>
+      </div>
+    </div>
+    <div ng-if="option.type == 'text'">
+      <md-input-container>
+        <input type="text" ng-model="ctrl.item.data[$index]" aria-label="{{option.name}}"/>
+      </md-input-container>
+    </div>
+    <div ng-if="option.type == 'date'">
+      <md-datepicker ng-model="ctrl.item.data[$index]"></md-datepicker>
+    </div>
+    <div ng-if="option.type == 'person'">
+        <mh-person-chips ng-model="ctrl.item.data[$index]"></mh-person-chips>
+    </div>
+    <div ng-if="option.type == 'group'">
+        <mh-group-chips ng-model="ctrl.item.data[$index]"></mh-group-chips>
+    </div>
+</div>
+
+<div layout-align="end center" layout="row">
+  <md-button class="md-primary" ui-sref="event.list">
+    <translate>Back</translate>
+  </md-button>
+  <md-button class="md-primary"  ng-click="ctrl.save()">
+    <translate>Save</translate>
+  </md-button>
+  
+</div>
+

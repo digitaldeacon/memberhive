@@ -1,0 +1,15 @@
+<md-chips ng-model="ngModel" md-autocomplete-snap>
+  <md-autocomplete
+      md-selected-item="selectedItem"
+      md-search-text="query"
+      md-items="item in querySearch(query)"
+      md-item-text="item.name"
+      placeholder="Search for a Group">
+    <span md-highlight-text="query">{{item.name}}</span>
+  </md-autocomplete>
+  <md-chip-template>
+    <span>
+      <strong>{{$chip.name}}</strong>
+    </span>
+  </md-chip-template>
+</md-chips>

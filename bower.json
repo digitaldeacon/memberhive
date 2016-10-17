@@ -1,0 +1,63 @@
+{
+  "name": "MemberHive",
+  "version": "0.1.1",
+  "dependencies": {
+    "jquery": "2.2.0",
+    "angular": "1.4.9",
+    "angular-animate": "1.4.13",
+    "angular-gettext": "2.1.0",
+    "angular-google-maps": "2.3.3",
+    "angular-keyboard": "angular-keyboard-shortcuts#0.2.0",
+    "angular-loading-bar": "0.7.1",
+    "angular-material": "1.1.1",
+    "angular-material-icons": "0.6.0",
+    "angular-messages": "1.4.13",
+    "angular-moment": "0.10.3",
+    "angular-sanitize": "1.4.13",
+    "angular-spinkit": "0.3.3",
+    "angular-ui-router": "0.2.15",
+    "angular-resource": "1.4.13",
+    "angular-i18n": "1.4.13",
+    "lodash": "4.6.1",
+    "ng-file-upload": "6.0.2",
+    "ngInfiniteScroll": "1.2.2",
+    "material-calendar": "0.2",
+    "moment": "2.11.2",
+    "roboto-fontface": "0.4.2",
+    "iso-3166-country-codes-angular": "1.1.1",
+    "svg-morpheus": "0.1.8",
+    "angular-retina": "0.3.12",
+    "angular-dragula": "1.2.6",
+    "ng-jcrop": "2.1.2"
+  },
+  "devDependencies": {},
+  "appPath": "client/app",
+  "resolutions": {
+    "angular": "1.4.13",
+    "angular-material": "1.1.1",
+    "moment": ">=2.8.0 <2.11.0"
+  },
+  "overrides": {
+    "codemirror": {
+      "main": [
+        "lib/codemirror.js",
+        "lib/codemirror.css",
+        "addon/mode/simple.js",
+        "addon/mode/multiplex.js",
+        "mode/xml/xml.js",
+        "mode/handlebars/handlebars.js"
+      ]
+    },
+    "moment": {
+      "main": [
+        "min/moment.min.js",
+        "locale/de.js"
+      ]
+    },
+    "angular-i18n": {
+      "main": [
+        "angular-locale_de-de.js"
+      ]
+    }
+  }
+}

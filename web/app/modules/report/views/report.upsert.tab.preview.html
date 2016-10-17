@@ -1,0 +1,20 @@
+<div layout="row">
+  <md-tabs>
+    <md-tab>
+      <md-tab-label>
+        <translate>HTML</translate>
+      </md-tab-label>
+      <md-tab-body layout-padding>
+        <iframe ng-src="{{reportCtrl.htmlPreviewURL}}" width="800" height="600" id="htmlPreviewFrame"></iframe>
+      </md-tab-body>
+    </md-tab>
+    <md-tab>
+      <md-tab-label>
+        <translate>PDF</translate>
+      </md-tab-label>
+      <md-tab-body layout-padding>
+        <iframe ng-src="{{reportCtrl.pdfPreviewURL}}" width="800" height="600" id="pdfPreviewFrame"></iframe>
+      </md-tab-body>
+    </md-tab>
+  </md-tabs>
+</div>

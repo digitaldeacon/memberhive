@@ -1,0 +1,32 @@
+<div ng-if="item.children">
+  <md-menu>
+    <md-button
+      md-menu-origin
+      aria-label="{{item.label | translate}}"
+      class="md-icon-button"
+      ng-click="$mdOpenMenu()"
+    >
+      <ng-md-icon size="32" icon="{{item.icon}}"></ng-md-icon>
+    </md-button>
+
+    <md-menu-content width="4" >
+      <md-menu-item ng-repeat="child in item.children">
+        <md-button ui-sref="{{child.route}}" ui-sref-active="md-accent">
+          <ng-md-icon class="menu-item-child-icon" icon="{{child.icon}}"></ng-md-icon>
+          <span>{{child.label | translate}}</span>
+        </md-button>
+      </md-menu-item>
+    </md-menu-content>
+  </md-menu>
+</div>
+
+
+<div ng-if="!item.children">
+  <a ui-sref="{{item.route}}" ui-sref-active="md-accent">
+    <md-button aria-label="{{item.label | translate}}" class="md-icon-button" >
+      <ng-md-icon size="32" icon="{{item.icon}}"></ng-md-icon>
+    </md-button>
+  </a>
+</div>
+
+

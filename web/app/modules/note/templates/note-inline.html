@@ -1,0 +1,24 @@
+<div layout="column">
+    <md-radio-group ng-model="ctrl.type" class="radio-buttons-hz">
+      <md-radio-button ng-repeat="notetype in ctrl.noteTypes"
+                       ng-value="notetype.value"
+                       aria-label="{{notetype.title}}">
+        <md-tooltip>{{notetype.title}}</md-tooltip>
+        <ng-md-icon icon="{{notetype.icon}}" style="fill:#61697E"></ng-md-icon>
+      </md-radio-button>
+    </md-radio-group>
+    <md-input-container>
+      <label translate>Title</label>
+      <input ng-model="ctrl.title" type="text"></input>
+    </md-input-container>
+    <md-input-container>
+      <label translate>Note</label>
+      <textarea ng-model="ctrl.content" rows="5"></textarea>
+    </md-input-container>
+  </md-dialog-content>
+  
+  <div layout="row" layout-align="end center">
+    <md-button ng-click="ctrl.create()" class="md-primary"><translate>Create Note</translate></md-button>
+  </div>
+  
+</div>

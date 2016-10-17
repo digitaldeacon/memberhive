@@ -1,0 +1,20 @@
+<div class="mh-content"  ng-controller="PersonImportImagesController as personCtrl">
+  <p translate>
+    You can drop your profile images here. They should be square. If not you can upload it using the person view and crop it there.
+    The files should be named FirstName_LastName.jpg, eg. John_Doe.jpg, because they will be automaticly assigned to the Person.
+  </p>
+  <div
+    ngf-drop
+    ngf-select
+    ng-model="files"
+    ngf-multiple="true"
+    class="fileupload-drop-box"
+    ngf-drag-over-class="fileupload-dragover"
+  >
+      <translate>Drop the Images here</translate>
+  </div>
+  <div ng-if="personCtrl.importStarted">
+    <md-progress-circular class="md-primary" md-mode="determinate" ng-value="personCtrl.progress"></md-progress-circular>
+    <translate> Import started </translate>
+  </div>
+</div>

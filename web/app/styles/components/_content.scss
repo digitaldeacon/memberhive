@@ -1,0 +1,17 @@
+.content-background {
+  background-color: background-color('100') !important;
+  @media screen and (min-width: $break-lg) {
+    padding: 1em;
+  }
+}
+
+.content-info {
+  background-color: #FFF8E4;
+  margin: 1em;
+  padding: 1em;
+  border: 1px solid darken(saturate(#FFF8E4, 20%), 15%);
+}
+
+#content {
+  margin: 24px;
+}

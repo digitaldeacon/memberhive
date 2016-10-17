@@ -1,0 +1,25 @@
+.event-template-item {
+  padding: 1em;
+  margin-bottom: 1em;
+  
+  .event-status {
+    margin-left: 1em;
+  }
+}
+
+.event-calender-item {
+  background-color:$primary-color;
+  color: $text-color-light;
+  border-radius: 3px;
+  padding: 2px;
+  margin: 2px;
+}
+
+.next-events {
+  .status {
+    margin-left: 2em;
+  }
+  .text {
+    margin-right: 1em;
+  }
+}

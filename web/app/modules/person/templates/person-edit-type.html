@@ -1,0 +1,5 @@
+<md-select ng-model="key" aria-label="{{key}}">
+  <md-option ng-repeat="(ckey, value) in personService[type]" value="{{ckey}}" aria-label="{{value.text}}">
+      <ng-md-icon icon="{{value.icon}}"></ng-md-icon> {{value.text}}
+  </md-option>
+</md-select>

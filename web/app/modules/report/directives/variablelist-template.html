@@ -1,0 +1,19 @@
+<div ng-repeat="(collection, values) in dataSources">
+  <h4>{{collection}}</h4>
+  <table class="table">
+    <thead>
+    <tr>
+      <th translate>Name</th>
+      <th translate>Variable Name</th>
+      <th translate>Type</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="elem in values">
+      <td>{{elem.label}}</td>
+      <td><code>{{elem.id}}</code></td>
+      <td>{{elem.type}}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>

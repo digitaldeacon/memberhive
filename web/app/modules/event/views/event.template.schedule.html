@@ -1,0 +1,46 @@
+<div layout="column" class="mh-content">
+  <h2 translate>General</h2>
+  <md-input-container >
+    <label translate>Schedule Name</label>
+    <input ng-model="ctrl.schedule.name">
+  </md-input-container>
+</div>
+
+<div layout="row">
+  <h3 translate>Schedule Items</h3>
+  <md-button class="md-primary" ng-click="ctrl.newItem()">
+    <translate>Add an item</translate>
+  </md-button>
+</div>
+
+<div dragula='"bag-one"' >
+<div ng-repeat="(id, item) in ctrl.schedule.data" dragula-model="ctrl.schedule.data" class="mh-content" layout="column">
+  <div layout="row">
+    <md-input-container flex>
+      <label translate>Name</label>
+      <input ng-model="item.name">
+    </md-input-container>
+    <md-input-container flex>
+      <label translate>Type</label>
+      <md-select ng-model="item.type">
+        <md-option ng-repeat="type in ctrl.types" value="{{type.value}}">{{type.name}}</md-option>
+      </md-select>
+    </md-input-container>
+  </div>
+  <div layout="row">
+    <md-input-container flex>
+      <label translate>Length in Minutes</label>
+      <input ng-model="item.length" type="number">
+    </md-input-container>
+    
+    <div layout-align="end center">
+      <md-button  ng-click="ctrl.deleteItem(id)"><ng-md-icon icon="delete"></ng-md-icon> <translate>Remove</translate></md-button>
+    </div>
+  </div>
+</div>
+</div>
+<div layout-align="end center" layout="row">
+  <md-button class="md-primary" ng-click="ctrl.save()">
+    <translate>Save</translate>
+  </md-button>
+</div>
