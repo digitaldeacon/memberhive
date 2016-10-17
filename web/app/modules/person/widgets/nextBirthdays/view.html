@@ -1,0 +1,20 @@
+<h3 translate> Birthdays next week </h3>
+<md-list>
+  <md-list-item
+    ng-repeat="person in persons track by $index"
+    flex layout="row"
+    class="person-list-item">
+
+    <mh-avatar person="::person" size="xs" circle ui-sref="person.view({ id: person.id })" class="avatar">
+    </mh-avatar>
+
+    <div flex layout-padding class="md-list-item-text">
+      <h4>
+        <a class="simple-link" ui-sref="person.view({ id: person.id })" ng-bind="::person.fullName"></a>
+      </h4>
+      <span class="text-muted">
+        {{::person.dates.birthday | date:'d. MMMM yyyy'}}
+      </span>
+    </div>
+  </md-list-item>
+</md-list>

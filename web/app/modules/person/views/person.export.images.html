@@ -1,0 +1,10 @@
+<div class="mh-content"  ng-controller="PersonExportImagesController as personCtrl">
+  <h2 translate> Avatar Images Export </h2>
+  <p translate> You can download all the contact images.</p>
+  <div layout="column">
+    <mh-person-search ng-model="personCtrl.query" query-model="exportCtrl.queryModel"></mh-person-search>
+  </div>
+  <md-button class="md-primary md-raised" ng-click="personCtrl.getImages()">
+    <translate>Download</translate>
+  </md-button>
+</div>

@@ -1,0 +1,79 @@
+  <calendar-md flex layout layout-fill
+    calendar-direction="direction"
+    on-day-click="ctrl.dayClick"
+    title-format="'MMMM y'"
+    ng-model='selectedDate'
+    week-starts-on="1"
+    day-format="'d'"
+    day-label-format="'EEE'"
+    day-label-tooltip-format="'EEEE'"
+    day-tooltip-format="'fullDate'"
+    day-content="ctrl.setDayContent">
+  </calendar-md>
+
+<div layout-gt-sm="row" layout="column">
+  <div flex class="mh-content">
+    <h2>
+      <translate>Templates</translate>
+    </h2>
+    <p ng-if="ctrl.templates.length == 0">
+      <translate> A Event Template is a model for many events, defining what possible options a event may have. Start by creating an template
+      with the button below</translate>
+    </p>
+    <md-list ng-if="ctrl.templates.length > 0">
+      <md-list-item ng-repeat="template in ctrl.templates" flex layout="row">
+        <h3>
+          <a ui-sref="event.viewTemplate({templateId: template.id})">{{template.name}}</a>
+        </h3>
+        <md-button ui-sref="event.create({templateId: template.id})" class="md-secondary">Create new Event</md-button>
+      </md-list-item>
+    </md-list>
+
+    <a ui-sref="event.template({})">
+      <md-button>
+        <translate>Add New Template</translate>
+      </md-button>
+    </a>
+  </div>
+  <div flex class="mh-content next-events">
+   <h2>
+      <translate>Next Events</translate>
+    </h2>
+    <div ng-if="ctrl.nextEvents.length == 0">
+      <ng-md-icon icon="info"></ng-md-icon> <translate>Currently there are no events.</translate>
+      <p ng-if="ctrl.templates.length == 0"><translate>Add first a event template before you create an event</translate></p>
+    </div>
+    <md-list ng-if="ctrl.nextEvents.length > 0">
+      <md-list-item ng-repeat="event in ctrl.nextEvents" flex layout="row">
+        <h3>
+          <a ui-sref="event.edit({eventId: event.id})">{{event.name}} ({{event.date | date:'mediumDate'}})</a>
+        </h3>
+        <div layout="row" class="status">
+           <span ng-repeat="(id, status) in ctrl.statusOptions">
+            <ng-md-icon
+            icon="{{status.icon}}"
+            ng-style="{'fill' : ctrl.countStatus(event, id) > 0 ? status.color : '#AEAEAE'}"></ng-md-icon>
+            <span class="text">{{::ctrl.countStatus(event, id)}}</span>
+          </span>
+        </div>
+      </md-list-item>
+    </md-list>
+  </div>
+</div>
+<a ui-sref="event.template({})"  ng-if="ctrl.templates.length == 0">
+  <md-button class="md-fab md-fab-floating-br md-accent">
+    <md-tooltip md-direction="top">
+      <translate>Add new event</translate>
+    </md-tooltip>
+    <ng-md-icon icon="add"></ng-md-icon>
+  </md-button>
+</a>
+
+<a ui-sref="event.create"  ng-if="ctrl.templates.length > 0">
+  <md-button class="md-fab md-fab-floating-br md-accent">
+    <md-tooltip md-direction="top">
+      <translate>Add new event</translate>
+    </md-tooltip>
+    <ng-md-icon icon="add"></ng-md-icon>
+  </md-button>
+</a>

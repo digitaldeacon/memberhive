@@ -1,0 +1,7 @@
+<form role="form">
+  <div class="form-group">
+    <select placeholder="{{'Select Report'|translate}}" ng-model="config.selectedReport">
+      <option ng-repeat="report in reportHtmlEditCtrl.reports" ng-value="report">{{report.name}}</option>
+    </select>
+  </div>
+</form>

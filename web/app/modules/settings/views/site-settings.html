@@ -1,0 +1,12 @@
+<h2> Site Settings </h2>
+
+<div class="mh-content">
+  <h3 translate> MailChimp </h3>
+
+  <md-input-container class="md-block">
+      <label>API Key</label>
+      <input ng-model="ctrl.values.mailchimp.apiKey" ng-change="ctrl.update('mailchimp')" ng-model-options="{debounce: 750}"></input>
+  </md-input-container>
+</div>
+
+{{ctrl.ad}}

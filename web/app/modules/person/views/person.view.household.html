@@ -1,0 +1,35 @@
+<md-card>
+  <md-card-content>
+    <div layout-gt-md="row" layout-wrap>
+
+      <div flex="100">
+        <h3>
+          {{::personCtrl.person.household.name}}
+        </h3>
+      </div>
+
+      <div flex="80">
+        <ul class="list-inline">
+          <li ng-repeat="person in personCtrl.getHouseholdMembers()">
+            <a ui-sref="person.view({ id: person.id })">
+              <mh-avatar class="pull-left" person="person" size="xs"></mh-avatar>
+              <div class="person-info">
+                <h4><b>{{::person | formatFirstName}}</b></h4>
+                <small class="text-muted" ng-if="person.relationType">
+                  {{::personCtrl.relationTypes[person.relationType.type]}}
+                </small>
+                <small>{{::person.birthdate | fromNowMoment: true}}</small>
+              </div>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div flex="20">
+        <b translate>Household Address</b>
+        <formataddress address="::personCtrl.person.household.address"></formataddress>
+      </div>
+
+    </div>
+  </md-card-content>
+</md-card>

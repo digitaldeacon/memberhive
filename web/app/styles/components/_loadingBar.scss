@@ -1,0 +1,19 @@
+#loading-bar .bar {
+  background: accent-color('500');
+}
+#loading-bar-spinner .spinner-icon {
+  border-top-color:  #00AC34;
+  border-left-color: #00AC34;
+}
+#loading-bar .peg {
+  -moz-box-shadow: #00AC34 1px 0 6px 1px;
+  -ms-box-shadow: #00AC34 1px 0 6px 1px;
+  -webkit-box-shadow: #00AC34 1px 0 6px 1px;
+  box-shadow: #00AC34 1px 0 6px 1px;
+}
+
+.loading-spinner {
+  -webkit-animation:spin 1s linear infinite;
+  -moz-animation:spin 1s linear infinite;
+  animation:spin 1s linear infinite;
+}

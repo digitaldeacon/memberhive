@@ -1,0 +1,32 @@
+ <!-- sidebar: left -->
+<md-sidenav md-component-id="left"
+            class="side-menu-content admin-sidebar-left md-sidenav-left md-closed md-locked-open"
+            md-is-locked-open="$mdMedia('gt-md')"
+            ng-class="sidebarCtrl.menuClass()"
+            md-swipe-right="sidebarCtrl.closeMenu()"
+            flex
+  >
+  <md-toolbar class="sidebar-left-toolbar">
+    <div class="md-toolbar-tools" layout="row" layout-align="start center">
+
+      <div class="sidebar-left-logo">
+        <img alt="MemberHive" width="28px" src="app/images/logo-xs.png">
+      </div>
+
+      <h2 flex class="sidebar-left-title">MemberHive</h2>
+      <button class="md-icon-button sidebar-left-icon md-button" ng-click="sidebarCtrl.toggleMenuLock()" tabindex="0">
+        <ng-md-icon icon="{{sidebarCtrl.menuLockIcon()}}" style="fill:#fefefe"></ng-md-icon>
+        <div class="md-ripple-container"></div>
+      </button>
+    </div>
+  </md-toolbar>
+  
+  <side-menu>
+    <md-content layout-fill class="side-menu-content no-scroll">
+      <side-menu-item ng-repeat="entry in sidebarCtrl.mainMenu">
+        <mh-menu-item item="::entry"></mh-menu-item>
+      </side-menu-item>
+    </md-content>
+  </side-menu>
+</md-sidenav>
+ <!-- /sidebar: left -->

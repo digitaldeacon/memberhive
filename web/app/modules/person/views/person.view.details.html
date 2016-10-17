@@ -1,0 +1,7 @@
+<ul class="list-unstyled">
+  <li ng-show="personCtrl.person.baptismDate" tooltip="{{personCtrl.person.baptismDate | amDateFormat:'ll'}}">
+    {{timeFromNow = (personCtrl.person.baptismDate | fromNowMoment: true);""}}
+    <fa name="tint"></fa>
+    <translate>Baptized {{timeFromNow}} ago</translate>
+  </li>
+</ul>

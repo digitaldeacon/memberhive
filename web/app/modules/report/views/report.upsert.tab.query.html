@@ -1,0 +1,49 @@
+<div class="portlet-default">
+  <md-input-container flex>
+    <label translate>Report Name</label>
+    <input ng-model="reportCtrl.report.name">
+  </md-input-container>
+
+  <b translate>Order by</b>
+  <div layout="row" layout-align="start center">
+    <md-select ng-model="reportCtrl.report.order.first.property" placeholder="{{'Select property'|translate}}">
+      <md-option ng-repeat="property in reportCtrl.dataSources.persons" value="{{property.id}}">{{property.label}}</md-option>
+    </md-select>
+    <md-select name="orderFirstDirection" ng-model="reportCtrl.report.order.first.direction"
+               ng-required="reportCtrl.report.order.first.property" placeholder="{{'Sort direction'|translate}}">
+      <md-option value="ASC"><translate>Ascending</translate></md-option>
+      <md-option value="DESC"><translate>Descending</translate></md-option>
+    </md-select>
+    <md-button class="md-icon-button" ng-show="!reportCtrl.report.order.second" aria-label="{{'Remove'|translate}}"
+               ng-click="reportCtrl.report.order.first=undefined;">
+      <ng-md-icon icon="clear"></ng-md-icon>
+    </md-button>
+    <span class="errormsg" ng-messages="reportBuilderForm.orderFirstDirection.$error">
+      <ng-message when="required"><translate>Please select a sort direction.</translate></ng-message>
+    </span>
+  </div>
+
+
+  <div ng-show="reportCtrl.report.order.first">
+    <b translate>Then by</b>
+    <div layout="row" layout-align="start center">
+      <md-select ng-model="reportCtrl.report.order.second.property" placeholder="{{'Select property'|translate}}">
+        <md-option ng-repeat="property in reportCtrl.dataSources.persons" value="{{property.id}}">{{property.label}}</md-option>
+      </md-select>
+      <md-select name="orderSecondDirection" ng-model="reportCtrl.report.order.second.direction"
+                 ng-required="reportCtrl.report.order.second.property" placeholder="{{'Sort direction'|translate}}">
+        <md-option value="ASC"><translate>Ascending</translate></md-option>
+        <md-option value="DESC"><translate>Descending</translate></md-option>
+      </md-select>
+      <md-button class="md-icon-button" ng-click="reportCtrl.report.order.second=undefined;" aria-label="{{'Remove'|translate}}">
+        <ng-md-icon icon="clear"></ng-md-icon>
+      </md-button>
+      <span class="errormsg" ng-messages="reportBuilderForm.orderSecondDirection.$error">
+        <ng-message when="required"><translate>Please select a sort direction.</translate></ng-message>
+      </span>
+    </div>
+  </div>
+
+  <label class="control-label" translate>Build Query</label>
+  <gem-querybuilder></gem-querybuilder>
+</div>

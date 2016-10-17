@@ -1,0 +1,62 @@
+.md-pagination {
+  text-align: center;
+  padding: 0;
+  li {
+    display: inline-block;
+    list-style: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    overflow: hidden;
+    position: relative;
+  }
+  li:first-child i, li:last-child i {
+    margin: 5px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    background-color: primary-color('500');
+  }
+  li.active {
+    background: primary-color('500');
+    a {
+      color: #FFFFFF;
+    }
+  }
+  span {
+    margin: 5px;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    line-height: 30px;
+  }
+  
+  a {
+    text-decoration: none;
+    color: background-color('600');
+  }
+  
+  a:active {
+    color: primary-color('500');
+  }
+  
+  a:after {
+    content: "";
+    transform: scale(0.2);
+    opacity: 0.2;
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    border-radius: 100%;
+    background: rgba(0, 0, 0, 0.1);
+    transition: transform 0s ease-out 0.2s, opacity 0.2s ease-out 0s;
+  }
+  a:active:after {
+    transform: scale(1);
+    opacity: 1;
+    transition: transform 0.2s ease-out, opacity 0.3s ease-out 0.1s;
+  }
+}

@@ -1,0 +1,23 @@
+<h2 translate>Map</h2>
+
+<div class="mh-content">
+  <mh-person-search ng-model="ctrl.query" query-model="ctrl.queryModel"></mh-person-search>
+  <md-radio-group ng-model="ctrl.mapType">
+    <md-radio-button value="marker"><translate>Marker</translate></md-radio-button>
+    <md-radio-button value="heatmap"><translate>Heatmap</translate></md-radio-button>
+  </md-radio-group>
+  </md-switch>
+
+  <md-button ng-click="ctrl.updateGeo()">
+  <translate>Update Geocoordinates</translate> {{ctrl.persons.length}}/{{ctrl.allPersons.length}}
+  </md-button>
+</div>
+
+<ui-gmap-google-map center="ctrl.map.center" zoom="ctrl.map.zoom" ng-if="ctrl.mapType == 'marker'">
+  <ui-gmap-marker ng-repeat="person in ctrl.persons" coords="person.geocode" idkey="person.id" click="ctrl.open(person)"></ui-gmap-marker>
+</ui-gmap-google-map>
+
+<ui-gmap-google-map center='ctrl.map.center' zoom='ctrl.map.zoom' ng-if="ctrl.mapType == 'heatmap'">
+    <ui-gmap-layer namespace="visualization" type="HeatmapLayer" onCreated="ctrl.heatLayer"></ui-gmap-layer>
+</ui-gmap-google-map>
+

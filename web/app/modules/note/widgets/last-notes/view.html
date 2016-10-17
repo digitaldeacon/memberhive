@@ -1,0 +1,11 @@
+<h3 translate> Last Notes </h3>
+<md-list>
+  <md-list-item ng-repeat="note in notes">
+    <ng-md-icon icon="mode_comment"></ng-md-icon>
+    <div flex class="md-list-item-text">
+        <p><a ui-sref="note.edit({ id: note.id })"><b>{{note.title}}</b></a> <small class="text-muted"> {{note.created | date: 'longDate'}}</small></p>
+        <p class="text-muted">{{note.content | limitTo: 80}}...</p>
+    </div>
+    <md-divider ng-if="!$last"></md-divider>
+  </md-list-item>
+</md-list>

@@ -1,0 +1,31 @@
+<form layout="column" class="mh-content">
+  <md-input-container>
+    <label translate>Title</label>
+    <input ng-model="groupCtrl.group.name" required>
+  </md-input-container>
+   <md-input-container>
+    <md-switch ng-model="groupCtrl.group.isMinistry" aria-label="is a ministry">
+      <translate>Is a ministry</translate> {{ data.cb2 }}
+    </md-switch>
+  </md-input-container>
+  
+  <md-input-container>
+    <label translate>Description</label>
+    <textarea ng-model="groupCtrl.group.description" columns="2" ></textarea>
+  </md-input-container>
+  
+  <md-input-container>
+    <label translate>Tags</label>
+    <mh-tags ng-model="groupCtrl.group.tags" source="Group"></mh-tags>
+  </md-input-container>
+  
+</form>
+<div layout="row" layout-align="end center">
+  <md-button ng-click="groupCtrl.save()">
+    <translate>Save</translate>
+  </md-button>
+  <md-button class="md-primary" ng-click="groupCtrl.saveAndClose()">
+    <translate>Save &amp; Close</translate>
+  </md-button>
+
+</div>

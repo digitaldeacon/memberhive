@@ -1,0 +1,24 @@
+<md-chips
+  class="person-search"
+  ng-model="queryModel"
+  md-autocomplete-snap
+  md-transform-chip="transformChip($chip)"
+  md-require-match="false">
+
+  <md-autocomplete
+    md-selected-item="selectedItem"
+    md-search-text="searchText"
+    md-items="item in querySearch(searchText)"
+    md-item-text="item.name"
+    md-no-cache="true"
+    md-min-length="0"
+    placeholder="Search">
+        <span md-highlight-text="searchText">{{item.display}}</span>
+  </md-autocomplete>
+
+  <md-chip-template>
+    <span class="{{$chip.cat}}">
+      <strong>{{$chip.display}}</strong><span ng-if="$chip.cat == 'query' || $chip.cat == 'externQuery'">:</span>
+    </span>
+  </md-chip-template>
+</md-chips>

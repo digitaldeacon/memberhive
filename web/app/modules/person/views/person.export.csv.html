@@ -1,0 +1,10 @@
+<div class="mh-content" ng-controller="PersonExportCSVController as personCtrl">
+  <h2 translate> CSV Export </h2>
+  <p translate> You can download all the contacts saved in Memberhive in the CSV format.</p>
+
+  <mh-person-search ng-model="personCtrl.query" query-model="exportCtrl.queryModel"></mh-person-search>
+
+  <md-button class="md-primary md-raised" ng-click="personCtrl.getAllCSV()">
+    <translate>Download all in csv</translate>
+  </md-button>
+</div>

@@ -1,0 +1,60 @@
+a {
+  text-decoration: none;
+}
+
+i {
+  vertical-align: middle;
+  font-size: 24px;
+}
+
+
+.md-breadcrumb {
+  padding-left:88px;  
+}
+
+.md-table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+.md-table tbody tr:hover, .md-table tbody tr:focus {
+  cursor:pointer;
+  background-color:rgba(63,81,181,0.2);
+}
+
+.md-table thead {
+  border-bottom: 1px solid rgb(230,230,230);
+  color: rgb(130,130,130);
+  text-align: left;
+  font-size: 0.75em;
+  font-weight: 700;
+  padding: 16px 16px 16px 0;
+
+  a{
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+.md-table tbody {
+  white-space: nowrap;
+  font-size: 0.8em;
+  padding: 16px 16px 16px 0;
+  height: 72px;
+}
+.md-table-thumbs {
+  max-width: 104px;
+  width: 104px;
+  padding: 16px 32px;
+}
+
+.md-table-thumbs div {
+  overflow:hidden;
+  width: 40px;
+  height:40px;
+  border-radius:20px;
+  border: 1px solid rgba(0,0,0,0.2);
+  background-size:cover;
+  box-shadow: 0 8px 10px rgba(0,0,0,.3);
+  -webkit-box-shadow: 0 8px 10px rgba(0,0,0,.1);
+}

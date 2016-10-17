@@ -1,0 +1,22 @@
+<h3 translate>Next Events</h3>
+<div class="next-events">
+  <div ng-if="nextEvents.length == 0">
+    <ng-md-icon icon="info"></ng-md-icon> <translate>Currently there are no events.</translate>
+  </div>
+  <md-list ng-if="nextEvents.length > 0">
+    <md-list-item ng-repeat="event in nextEvents" flex layout="row">
+      <h4>
+        <a ui-sref="event.edit({eventId: event.id})">{{event.name}} ({{event.date | date:'mediumDate'}})</a>
+      </h4>
+      <div layout="row" class="status">
+         <span ng-repeat="(id, status) in statusOptions">
+          <ng-md-icon
+          icon="{{status.icon}}"
+          ng-style="{'fill' : countStatus(event, id) > 0 ? status.color : '#AEAEAE'}"></ng-md-icon>
+          <span class="text">{{::countStatus(event, id)}}</span>
+        </span>
+        </div>
+    </md-list-item>
+  </md-list>
+</div>
+

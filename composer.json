@@ -1,0 +1,54 @@
+{
+    "name": "digitaldeacon/memberhive-server",
+    "description": "The Memberhive Server",
+    "keywords": ["yii2"],
+    "homepage": "http://www.memberhive.com/",
+    "type": "project",
+    "license": "GPLv3",
+    "support": {
+    },
+    "minimum-stability": "dev",
+    "require": {
+        "php": ">=5.4.0",
+        "ext-apc" : "*",
+        "ext-mysqli" : "*",
+        "ext-curl" : "*",
+        "ext-intl" : "*",
+        "yiisoft/yii2": ">=2.0.5",
+        "boundstate/yii2-mailgun": "*",
+    },
+    "require-dev": {
+        "yiisoft/yii2-debug": "*",
+        "yiisoft/yii2-gii": "*"
+    },
+    "config": {
+        "process-timeout": 1800
+    },
+    "scripts": {
+        "post-create-project-cmd": [
+            "yii\\composer\\Installer::postCreateProject"
+        ]
+    },
+    "extra": {
+        "yii\\composer\\Installer::postCreateProject": {
+            "setPermission": [
+                {
+                    "runtime": "0777",
+                    "web/assets": "0777",
+                    "yii": "0755"
+                }
+            ],
+            "generateCookieValidationKey": [
+                "config/web.php"
+            ]
+        },
+        "asset-installer-paths": {
+            "npm-asset-library": "vendor/npm",
+            "bower-asset-library": "vendor/bower"
+        }
+    },"autoload": {
+        "files": [
+            "globals.php"
+        ]
+    }
+}

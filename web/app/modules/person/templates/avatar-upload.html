@@ -1,0 +1,17 @@
+<label for="avatar" translate>Select Avatar</label>
+<!--<input id="avatar" type="file" ngf-drop ngf-select ngf-change="personCtrl.onAvatarSelected($files, $event)" ngf-accept="'image/*'">-->
+<div ngf-drop ngf-select ng-model="files" class="drop-zone"
+      ngf-drag-over-class="dragover" ngf-multiple="true" ngf-allow-dir="true"
+      accept="image/*"
+      ngf-change="personCtrl.onAvatarSelected($files, $event)"><translate>Drop images here or click to upload</translate></div>
+<div ngf-no-file-drop><translate>File Drag/Drop is not supported for this browser</translate></div>
+
+<div class="cropArea">
+  <img-crop image="personCtrl.uploadedAvatar"
+            result-image="personCtrl.croppedAvatar"
+            area-type="square"
+            result-image-size="800"
+            result-image-format="image/jpeg">
+  </img-crop>
+</div>
+<a class="btn btn-default" ng-if="personCtrl.isEditingAvatar" ng-click="personCtrl.cancelEditingAvatar()">Cancel Editing</a>

@@ -1,0 +1,25 @@
+<md-chips ng-model="ngModel" md-transform-chip="transform($chip)" class="status-chips dusk-background" md-autocomplete-snap md-require-match>
+  <md-autocomplete
+    md-search-text="query"
+    md-items="household in searchHousehold(query)"
+    md-item-text="household"
+    md-min-length="1"
+    md-search-text-change="null"
+
+    placeholder="{{'Assign a household' | translate}}">
+    <md-item-template>
+      <span md-highlight-text="query">{{household.name}}</span>
+    </md-item-template>
+  </md-autocomplete>
+  <md-chip-template>
+    <span>
+      {{$chip.name}}
+    </span>
+  </md-chip-template>
+  <div class="md-chip-remove-container">
+    <button md-chip-remove class="md-primary">
+      <md-icon md-svg-icon="md-close" class="md-default-theme"></md-icon>
+    </button>
+  </div>
+</md-chips>
+

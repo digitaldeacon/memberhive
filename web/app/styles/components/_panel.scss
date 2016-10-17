@@ -1,0 +1,18 @@
+.mh-item-header {
+  background-color: primary-color('400') !important;
+  
+  .section {
+    height: 100%;
+    padding-top: 20px;
+    text-align: center;
+    margin-right: 1em;
+    margin-left: 1em;
+   
+  }
+  .highlight {
+    $bg: primary-color('300');
+    background-color: $bg;
+    border-left: 1px solid lighten($bg, 10%);
+    border-right: 1px solid lighten($bg, 10%);
+  }
+}
