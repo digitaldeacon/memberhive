@@ -1,6 +1,9 @@
-vendor/
 .idea/
 node_modules
+
+#API Ignore
+api/vendor
+api/runtime
 
 # Misc
 dist
@@ -13,5 +16,3 @@ npm-debug.log
 
 
 # Generated files
-
-
