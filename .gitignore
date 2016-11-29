@@ -9,11 +9,8 @@ dist
 .sass-cache
 .idea
 typings
-.strong-pm
 npm-debug.log
 
-
 # Generated files
-client/app/scripts/lb-services.js
-client/app/scripts/translations.js
+
 

@@ -15,7 +15,7 @@
         "ext-curl" : "*",
         "ext-intl" : "*",
         "yiisoft/yii2": ">=2.0.5",
-        "boundstate/yii2-mailgun": "*",
+        "boundstate/yii2-mailgun": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

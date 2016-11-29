@@ -2,8 +2,8 @@
 $params = require(__DIR__ . '/params.php');
 
 $config = [
-    'id' => 'bko3',
-    'name' => "Bibelkunde Admin",
+    'id' => 'memberhive',
+    'name' => "MemberHive",
     'language' => 'de',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

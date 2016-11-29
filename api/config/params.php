@@ -5,7 +5,7 @@ if(file_exists(__DIR__ . '/secrets.php')) {
     $secrets = [];
 }
 return [
-    'adminEmail' => 'bko@ebtc-online.org',
+    'adminEmail' => 'queen@memberhive.com',
     'bugsEmail' => 'pw@ebtc-online.org',
     'secrets' => $secrets,
     'autoSaveInterval' => 21, //in secs
