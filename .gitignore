@@ -12,6 +12,8 @@ dist
 .idea/
 .idea
 typings
+.DS_Store
+
 npm-debug.log
 
 
