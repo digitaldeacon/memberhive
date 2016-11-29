@@ -1,15 +1,16 @@
 vendor/
 .idea/
-bower_components
 node_modules
 
 # Misc
 dist
 .tmp
 .sass-cache
+.idea/
 .idea
 typings
 npm-debug.log
+
 
 # Generated files
 
