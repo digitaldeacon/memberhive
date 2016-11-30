@@ -8,31 +8,30 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'components' => [
-        'assetManager' => [
-        ],
-        'request' => [
-            // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
-            'cookieValidationKey' => 'OjciaUHovs9udClZwsmkWaAhOcjisjo72nUJbBU0',
-        ],
-        'cache' => [
-            'class' => 'yii\caching\ApcCache',
-        ],
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => false,
+            'enableStrictParsing' => true,
+            'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => [
+                    'person',
+                    'user'
+                ]],
+            ],
         ],
+        'request' => [
+            'class' => '\yii\web\Request',
+            'parsers' => [
+                'application/json' => 'yii\web\JsonParser',
+            ],
+            'enableCookieValidation' => false,
+        ],
+        // Set this enable authentication in our API ... TODO: should be Person??
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
-            'authTimeout' => 60*60*24*30,//30 tage
-        ],
-        'errorHandler' => [
-            'errorAction' => 'site/error',
-
+            'identityClass'  => 'app\models\User',
+            'enableAutoLogin'  => false, // Don't forget to set Auto login to false
         ],
         'mailer' => require(__DIR__ . '/mail_local.php'),
-
         'log' => [
             'traceLevel' => 3,
             'targets' => [
@@ -44,24 +43,6 @@ $config = [
             ],
         ],
         'db'    => require(__DIR__ . '/db_local.php'),
-      
-        'i18n'  => [
-            'translations' => [
-                '*' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'fileMap' => [
-                        'app' => 'app.php',
-                        'app/error' => 'error.php',
-                    ],
-                ],
-            ],
-        ],
-
-    ],
-    'modules' => [
-        'gridview' =>  [
-            'class' => '\kartik\grid\Module'
-        ]
     ],
     'params' => $params,
 ];
@@ -74,6 +55,5 @@ if(YII_DEBUG === true) {
         'class' => 'yii\log\FileTarget',
         'levels' => ['info']
     ];
-
 }
 return $config;
