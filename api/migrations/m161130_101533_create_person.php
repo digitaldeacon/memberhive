@@ -16,6 +16,7 @@ class m161130_101533_create_person extends Migration
             'suffix' => $this->string(20),
             'email'  => $this->string()->notNull()->unique(),
             'authKey' => $this->string(),
+            'accessToken' => $this->string(),
             'passwordHash' => $this->string(),
             'passwordResetToken' => $this->string(),
             'passwordResetExpireDate' => $this->dateTime(),

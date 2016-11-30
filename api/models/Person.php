@@ -2,37 +2,9 @@
 
 namespace app\models;
 
-use Yii;
+use yii\web\IdentityInterface;
 
-/**
- * This is the model class for table "person".
- *
- * @property integer $id
- * @property string $firstName
- * @property string $middleName
- * @property string $lastName
- * @property string $nickName
- * @property string $prefix
- * @property string $suffix
- * @property string $email
- * @property string $authKey
- * @property string $passwordHash
- * @property string $passwordResetToken
- * @property string $passwordResetExpireDate
- * @property string $gender
- * @property string $address
- * @property string $tags
- * @property string $status
- * @property string $primaryContact
- * @property string $custom
- * @property string $avatarUrl
- * @property string $settings
- * @property string $language
- * @property string $lastLogin
- * @property string $createdAt
- * @property string $updatedAt
- */
-class Person extends \yii\db\ActiveRecord
+class Person extends \yii\db\ActiveRecord implements IdentityInterface
 {
     /**
      * @inheritdoc
@@ -51,7 +23,7 @@ class Person extends \yii\db\ActiveRecord
             [['firstName', 'lastName', 'email'], 'required'],
             [['passwordResetExpireDate', 'lastLogin', 'createdAt', 'updatedAt'], 'safe'],
             [['address', 'tags', 'primaryContact', 'custom', 'settings'], 'string'],
-            [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'authKey', 'passwordHash', 'passwordResetToken', 'status', 'avatarUrl', 'language'], 'string', 'max' => 255],
+            [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'authKey', 'passwordHash', 'accessToken', 'passwordResetToken', 'status', 'avatarUrl', 'language'], 'string', 'max' => 255],
             [['prefix'], 'string', 'max' => 10],
             [['suffix'], 'string', 'max' => 20],
             [['gender'], 'string', 'max' => 1],
@@ -90,5 +62,46 @@ class Person extends \yii\db\ActiveRecord
             'createdAt' => 'Created At',
             'updatedAt' => 'Updated At',
         ];
+    }
+
+    /**
+     * Finds an identity by the given token.
+     *
+     * @param string $token the token to be looked for
+     * @return IdentityInterface|null the identity object that matches the given token.
+     */
+    public static function findIdentityByAccessToken($token, $type = null)
+    {
+        return static::findOne(['accessToken' => $token]);
+    }
+
+    /**
+     * @return int|string current user ID
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string current user auth key
+     */
+    public function getAuthKey()
+    {
+        return $this->auth_key;
+    }
+
+    /**
+     * @param string $authKey
+     * @return boolean if auth key is valid for current user
+     */
+    public function validateAuthKey($authKey)
+    {
+        return $this->getAuthKey() === $authKey;
+    }
+
+    public static function findIdentity($id)
+    {
+        return static::findOne($id);
     }
 }

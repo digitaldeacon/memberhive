@@ -4,7 +4,6 @@ namespace app\models;
 
 use Yii;
 use yii\base\NotSupportedException;
-use app\behaviors\TimeBehavior;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
