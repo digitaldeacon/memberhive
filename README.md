@@ -16,5 +16,5 @@ The following seed projects were used to set this up:
 In the next commits we will remove unnecessary files and folders
  as we are defining our own structure.
  
- ## License
- All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive/blob/master/LICENSE).
+## License
+All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive/blob/master/LICENSE).
