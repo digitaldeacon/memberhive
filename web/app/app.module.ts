@@ -14,7 +14,8 @@ import { CovalentPagingModule } from '@covalent/paging';
 import { CovalentSearchModule } from '@covalent/search';
 
 import { AppComponent } from './app.component';
-import { appRoutes, appRoutingProviders } from './app.routes';
+import { AppRoutingModule }   from './app-routing.module';
+
 
 import { ButtonDisableFix } from '../directives/button-disable-fix.directive';
 
@@ -39,10 +40,9 @@ import { RequestInterceptor } from '../config/interceptors/request.interceptor';
     CovalentMarkdownModule.forRoot(),
     CovalentPagingModule.forRoot(),
     CovalentSearchModule.forRoot(),
-    appRoutes,
-  ], // modules needed to run this module
+    AppRoutingModule
+  ],
   providers: [
-    appRoutingProviders,
     Title,
   ], // additional providers needed for this module
   entryComponents: [ TD_LOADING_ENTRY_COMPONENTS ],

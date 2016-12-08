@@ -12,19 +12,20 @@ import { CovalentPagingModule } from '@covalent/paging';
 import { CovalentSearchModule } from '@covalent/search';
 
 import { PersonComponent } from './person.component';
+import { PersonListComponent } from './list/person-list.component';
+
+import { PersonRoutingModule } from './person-routing.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-  ], // directives, components, and pipes owned by this NgModule
+    PersonComponent,
+    PersonListComponent
+  ],
   imports: [
-    personRoutes,
-  ], // modules needed to run this module
+    PersonRoutingModule,
+  ],
   providers: [
-    appRoutingProviders,
     Title,
-  ], // additional providers needed for this module
-  entryComponents: [ TD_LOADING_ENTRY_COMPONENTS ],
-  bootstrap: [ PersonComponent ],
+  ],
 })
 export class PersonModule {}
