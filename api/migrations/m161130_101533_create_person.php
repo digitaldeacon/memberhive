@@ -8,30 +8,20 @@ class m161130_101533_create_person extends Migration
     {
         $this->createTable('person', [
             'id' => $this->primaryKey(),
+
             'firstName' => $this->string()->notNull(),
             'middleName' => $this->string(),
             'lastName' => $this->string()->notNull(),
             'nickName' => $this->string(),
-            'prefix' => $this->string(10),
-            'suffix' => $this->string(20),
-            'email'  => $this->string()->notNull()->unique(),
-            'authKey' => $this->string(),
-            'accessToken' => $this->string(),
-            'passwordHash' => $this->string(),
-            'passwordResetToken' => $this->string(),
-            'passwordResetExpireDate' => $this->dateTime(),
+
+            'prefix' => $this->string(),
+            'suffix' => $this->string(),
+
             'gender' => $this->string(1),
+
             'address' => $this->text(),
-            'tags' => $this->text(),
-            'status' => $this->string(),
-            'primaryContact' => $this->text(),
             'custom' => $this->text(),
             'avatarUrl' => $this->string(),
-            'settings' => $this->text(),
-            'language' => $this->string(),
-            'lastLogin' => $this->dateTime(),
-            'createdAt' => $this->dateTime(),
-            'updatedAt' => $this->dateTime()
         ]);
     }
 
@@ -40,14 +30,5 @@ class m161130_101533_create_person extends Migration
         $this->dropTable('person');
     }
 
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
 
-    public function safeDown()
-    {
-    }
-    */
 }
