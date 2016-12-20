@@ -5,12 +5,14 @@ import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
 
 const routes: Routes = [
-  { path: '',
+  { path: '', redirectTo: 'list', pathMatch: 'full'},
+  { path: '/person',
     component: PersonComponent,
     children: [
       { path: '/list', component: PersonListComponent },
     ]
   }
+
 ];
 
 @NgModule({
