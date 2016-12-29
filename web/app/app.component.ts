@@ -1,9 +1,8 @@
 import { Component, ViewContainerRef } from '@angular/core';
 
 import { TdLoadingService, LoadingType, ILoadingOptions } from '@covalent/core';
-
 @Component({
-  selector: 'qs-app',
+  selector: 'mh-app',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
 })

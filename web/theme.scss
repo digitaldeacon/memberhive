@@ -1,4 +1,3 @@
-
 @import '~@angular/material/core/theming/all-theme';
 @import '~@covalent/core/styles/theming/all-theme';
 // Plus imports for other components in your app.
@@ -10,7 +9,7 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
-$primary: md-palette($md-blue, 700);
+$primary: md-palette($md-orange, 700);
 $accent:  md-palette($md-orange, 800, A100, A400);
 
 // The warn palette is optional (defaults to red).
