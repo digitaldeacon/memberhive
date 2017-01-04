@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { TdLoadingService } from '@covalent/core';
+import {LoginService} from 'app/common/auth/login.service';
 
 @Component({
     selector: 'mh-login',
@@ -14,9 +15,12 @@ export class LoginComponent {
     password: string;
 
     constructor(private _router: Router,
-                private _loadingService: TdLoadingService) {}
+                private _loadingService: TdLoadingService,
+                private loginService: LoginService
+    ) {}
 
     login(): void {
+        this.loginService.login(this.username, this.password);
         this._loadingService.register('main');
         alert('Mock log in as ' + this.username);
         setTimeout(() => {

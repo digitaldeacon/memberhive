@@ -14,6 +14,7 @@ import {ButtonDisableFix} from '../directives/button-disable-fix.directive';
 import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 import {LoginComponent} from "./login.component";
 import {ViewComponent} from "./view.component";
+import {CommonModule} from "./common/common.module";
 @NgModule({
     declarations: [
         AppComponent,
@@ -25,11 +26,11 @@ import {ViewComponent} from "./view.component";
     imports: [
         BrowserModule,
         CovalentCoreModule.forRoot(),
-        AppRoutingModule
+        AppRoutingModule,
+        CommonModule
     ],
     providers: [
-        Title,
-        TitleService
+        Title
     ], // additional providers needed for this module
     bootstrap: [AppComponent],
 })
