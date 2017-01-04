@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
     moduleId: 'mh-person',
@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
     templateUrl: './person.component.html'
 })
 export class PersonComponent implements OnInit {
-    constructor() { }
+    constructor() {
+    }
 
-    ngOnInit() { }
+    ngOnInit() {
+    }
 }

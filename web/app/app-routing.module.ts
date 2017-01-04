@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'person', pathMatch: 'full'},
-  { path: 'person', loadChildren: './person/person-routing.module#PersonRoutingModule' },
+  { path: 'person', loadChildren: './person/person.module#PersonModule' },
 ];
 
 @NgModule({
