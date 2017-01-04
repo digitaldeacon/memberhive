@@ -1,7 +1,16 @@
-<nav>
-    <a routerLink="person" routerLinkActive="active">Person</a>
-    <a routerLink="person/list" routerLinkActive="active">Person List</a>
-    <a routerLink="person/view" routerLinkActive="active">Person View</a>
-</nav>
-
-<router-outlet></router-outlet>
+<td-layout #layout sidenavTitle="Sidenav Title" logo="svgIconName">
+    <md-nav-list menu-items>
+        <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
+            <md-icon>{{item.icon}}</md-icon>
+            {{item.title}}
+        </a>
+    </md-nav-list>
+    <td-layout-nav toolbarTitle="{{titleService.getModule()}}" logo="svgIconName">
+        <td-layout-card-over cardTitle="{{titleService.getTitle()}}" cardSubtitle="{{titleService.getSubTitle()}}" cardWidth="75">
+            <router-outlet></router-outlet>
+        </td-layout-card-over>
+        <td-layout-footer>
+            Optional footer
+        </td-layout-footer>
+    </td-layout-nav>
+</td-layout>

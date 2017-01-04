@@ -15,7 +15,16 @@
       "../node_modules/@types"
     ],
     "types": [
-      "jasmine", "hammerjs"
-    ]
+      "hammerjs"
+    ],
+    "baseUrl": ".",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   }
 }

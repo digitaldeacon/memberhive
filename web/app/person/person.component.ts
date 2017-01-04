@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import {TitleService} from "app/common/title.service";
 
 @Component({
     moduleId: 'mh-person',
@@ -6,7 +7,8 @@ import {Component, OnInit} from '@angular/core';
     templateUrl: './person.component.html'
 })
 export class PersonComponent implements OnInit {
-    constructor() {
+    constructor(titleService: TitleService) {
+        titleService.module = "Persons";
     }
 
     ngOnInit() {

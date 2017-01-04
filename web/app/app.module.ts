@@ -6,6 +6,7 @@ import { CovalentCoreModule } from '@covalent/core';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
+import { TitleService }   from './common/title.service';
 
 
 import { ButtonDisableFix } from '../directives/button-disable-fix.directive';
@@ -25,6 +26,7 @@ import { RequestInterceptor } from '../config/interceptors/request.interceptor';
   ],
   providers: [
     Title,
+    TitleService
   ], // additional providers needed for this module
   bootstrap: [ AppComponent ],
 })
