@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
     moduleId: 'mh-person',
-    selector: 'mh-person-list',
-    templateUrl: './person-list.component.html'
+    selector: 'mh-person-view',
+    templateUrl: './person-view.component.html'
 })
-export class PersonListComponent implements OnInit {
+export class PersonViewComponent implements OnInit {
     constructor() { }
 
     ngOnInit() { }

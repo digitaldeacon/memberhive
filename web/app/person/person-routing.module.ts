@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
+import { PersonViewComponent } from './view/person-view.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'list', pathMatch: 'full'},
@@ -10,6 +11,7 @@ const routes: Routes = [
     component: PersonComponent,
     children: [
       { path: '/list', component: PersonListComponent },
+      { path: '/view', component: PersonViewComponent },
     ]
   }
 

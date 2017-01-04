@@ -1,17 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, Title }  from '@angular/platform-browser';
 
-import { CovalentCoreModule, TD_LOADING_ENTRY_COMPONENTS } from '@covalent/core';
-import { CovalentChipsModule } from '@covalent/chips';
-import { CovalentFileModule } from '@covalent/file-upload';
-import { CovalentHttpModule } from '@covalent/http';
-import { CovalentHighlightModule } from '@covalent/highlight';
-import { CovalentJsonFormatterModule } from '@covalent/json-formatter';
-import { CovalentMarkdownModule } from '@covalent/markdown';
-import { CovalentChartsModule } from '@covalent/charts';
-import { CovalentDataTableModule } from '@covalent/data-table';
-import { CovalentPagingModule } from '@covalent/paging';
-import { CovalentSearchModule } from '@covalent/search';
+import { CovalentCoreModule } from '@covalent/core';
+
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
@@ -30,22 +21,11 @@ import { RequestInterceptor } from '../config/interceptors/request.interceptor';
   imports: [
     BrowserModule,
     CovalentCoreModule.forRoot(),
-    CovalentChartsModule.forRoot(),
-    CovalentChipsModule.forRoot(),
-    CovalentDataTableModule.forRoot(),
-    CovalentFileModule.forRoot(),
-    CovalentHttpModule.forRoot([RequestInterceptor]),
-    CovalentHighlightModule.forRoot(),
-    CovalentJsonFormatterModule.forRoot(),
-    CovalentMarkdownModule.forRoot(),
-    CovalentPagingModule.forRoot(),
-    CovalentSearchModule.forRoot(),
     AppRoutingModule
   ],
   providers: [
     Title,
   ], // additional providers needed for this module
-  entryComponents: [ TD_LOADING_ENTRY_COMPONENTS ],
   bootstrap: [ AppComponent ],
 })
 export class AppModule {}
