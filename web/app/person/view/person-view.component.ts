@@ -7,7 +7,7 @@ import {TitleService} from "app/common/title.service";
 })
 export class PersonViewComponent implements OnInit {
     constructor(titleService: TitleService) {
-        titleService.title = "Person View";
+        titleService.setTitle('Person View');
     }
 
     ngOnInit() { }

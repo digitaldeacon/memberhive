@@ -11,7 +11,7 @@ import {TitleService} from "./common/title.service";
 export class AppComponent {
     routes: Object[] = [
         {
-            title: "Home", route: "/", icon: "home"
+            title: "Home", route: "/dashboard", icon: "home"
         }, {
             title: "Persons", route: "/person", icon: "people"
         }, {

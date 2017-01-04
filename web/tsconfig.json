@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "mapRoot": "./",
     "lib": ["es6", "dom"],
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/out-tsc",
     "sourceMap": true,

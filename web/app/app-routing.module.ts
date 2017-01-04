@@ -1,9 +1,10 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 
 export const routes: Routes = [
-  { path: '', redirectTo: 'person', pathMatch: 'full'},
-  { path: 'person', loadChildren: './person/person.module#PersonModule' },
+    {path: '', redirectTo: 'person', pathMatch: 'full'},
+    {path: 'person', loadChildren: './person/person.module#PersonModule'},
+    {path: 'dashboard', loadChildren: './dashboard/dashboard.module#DashboardModule'},
 ];
 
 @NgModule({
@@ -11,4 +12,5 @@ export const routes: Routes = [
     exports: [RouterModule]
 })
 
-export class AppRoutingModule {}
+export class AppRoutingModule {
+}
