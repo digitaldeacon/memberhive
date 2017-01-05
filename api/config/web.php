@@ -11,7 +11,7 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
-            'enableStrictParsing' => true,
+            'enableStrictParsing' => false,
             'rules' => [
                 ['class' => 'yii\rest\UrlRule', 'controller' => [
                     'person',
@@ -26,7 +26,7 @@ $config = [
             ],
             'enableCookieValidation' => false,
         ],
-        // Set this enable authentication in our API ... TODO: should be Person??
+
         'user' => [
             'identityClass'  => 'app\models\User',
             'enableAutoLogin'  => false, // Don't forget to set Auto login to false

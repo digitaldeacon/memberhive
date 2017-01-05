@@ -1,18 +1,29 @@
 <?php
 namespace app\controllers;
 
-class PersonController extends \yii\rest\ActiveController
+class PersonController extends MHController
 {
     public $modelClass = 'app\models\Person';
 
     public function behaviors()
     {
         $behaviors = parent::behaviors();
-
-        $behaviors['authenticator'] = [
-            'class' => \yii\filters\auth\HttpBearerAuth::className(),
+        $behaviors['access'] = [
+            'class' => \yii\filters\AccessControl::className(),
+            'rules' => [
+                [
+                    'actions' => ['test'],
+                    'allow' => true,
+                    'roles' => ['@'],
+                ],
+            ],
         ];
-
         return $behaviors;
+
+    }
+
+    public function actionTest()
+    {
+        return ["response" => "test"];
     }
 }

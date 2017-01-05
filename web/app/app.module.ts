@@ -9,6 +9,8 @@ import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 import {LoginComponent} from "./login.component";
 import {ViewComponent} from "./view.component";
 import {CommonModule} from "./common/common.module";
+import { HttpModule } from '@angular/http';
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -18,8 +20,12 @@ import {CommonModule} from "./common/common.module";
     imports: [
         BrowserModule,
         CovalentCoreModule.forRoot(),
+        HttpModule,
+
         AppRoutingModule,
-        CommonModule
+
+        CommonModule,
+
     ],
     providers: [
         Title

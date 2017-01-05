@@ -2,7 +2,9 @@ import {NgModule} from '@angular/core';
 
 import {LoginService} from "./auth/login.service";
 import {TitleService} from "./title.service";
+import {HttpService} from "./http.service";
 import {Ng2Webstorage} from 'ng2-webstorage';
+import {AuthService} from "./auth/auth.service";
 
 @NgModule({
     declarations: [
@@ -12,7 +14,10 @@ import {Ng2Webstorage} from 'ng2-webstorage';
     ],
     providers: [
         LoginService,
-        TitleService
+        TitleService,
+        AuthService,
+        HttpService
+
     ],
     exports: [
 
