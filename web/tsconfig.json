@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "mapRoot": "./",
     "lib": ["es6", "dom"],
-    "module": "es6",
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/out-tsc",
     "sourceMap": true,
@@ -15,7 +15,16 @@
       "../node_modules/@types"
     ],
     "types": [
-      "jasmine", "hammerjs"
-    ]
+      "hammerjs"
+    ],
+    "baseUrl": ".",
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "noImplicitUseStrict": false,
+    "noFallthroughCasesInSwitch": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true
   }
 }

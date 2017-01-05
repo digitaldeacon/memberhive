@@ -20,11 +20,10 @@
       "styles": [
         "styles.scss",
         "theme.scss",
-        "../node_modules/@covalent/core/styles/platform.css"
+        "../node_modules/@covalent/core/common/platform.css"
       ],
       "scripts": [
-        "../node_modules/hammerjs/hammer.min.js",
-        "../node_modules/showdown/dist/showdown.js"
+        "../node_modules/hammerjs/hammer.min.js"
       ],
       "environments": {
         "source": "environments/environment.ts",

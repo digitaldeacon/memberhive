@@ -1,51 +1,38 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule, Title }  from '@angular/platform-browser';
+import {NgModule} from '@angular/core';
+import {BrowserModule, Title}  from '@angular/platform-browser';
 
-import { CovalentCoreModule, TD_LOADING_ENTRY_COMPONENTS } from '@covalent/core';
-import { CovalentChipsModule } from '@covalent/chips';
-import { CovalentFileModule } from '@covalent/file-upload';
-import { CovalentHttpModule } from '@covalent/http';
-import { CovalentHighlightModule } from '@covalent/highlight';
-import { CovalentJsonFormatterModule } from '@covalent/json-formatter';
-import { CovalentMarkdownModule } from '@covalent/markdown';
-import { CovalentChartsModule } from '@covalent/charts';
-import { CovalentDataTableModule } from '@covalent/data-table';
-import { CovalentPagingModule } from '@covalent/paging';
-import { CovalentSearchModule } from '@covalent/search';
-
-import { AppComponent } from './app.component';
-import { AppRoutingModule }   from './app-routing.module';
+import {CovalentCoreModule} from '@covalent/core';
 
 
-import { ButtonDisableFix } from '../directives/button-disable-fix.directive';
+import {AppComponent} from './app.component';
+import {AppRoutingModule}   from './app-routing.module';
+import {TitleService}   from './common/title.service';
 
-import { RequestInterceptor } from '../config/interceptors/request.interceptor';
 
+import {ButtonDisableFix} from '../directives/button-disable-fix.directive';
+
+import {RequestInterceptor} from '../config/interceptors/request.interceptor';
+import {LoginComponent} from "./login.component";
+import {ViewComponent} from "./view.component";
+import {CommonModule} from "./common/common.module";
 @NgModule({
-  declarations: [
-    AppComponent,
-    // Bugfix for disabled anchor button in material.alpha-10 (remove in alpha-11)
-    ButtonDisableFix,
-  ], // directives, components, and pipes owned by this NgModule
-  imports: [
-    BrowserModule,
-    CovalentCoreModule.forRoot(),
-    CovalentChartsModule.forRoot(),
-    CovalentChipsModule.forRoot(),
-    CovalentDataTableModule.forRoot(),
-    CovalentFileModule.forRoot(),
-    CovalentHttpModule.forRoot([RequestInterceptor]),
-    CovalentHighlightModule.forRoot(),
-    CovalentJsonFormatterModule.forRoot(),
-    CovalentMarkdownModule.forRoot(),
-    CovalentPagingModule.forRoot(),
-    CovalentSearchModule.forRoot(),
-    AppRoutingModule
-  ],
-  providers: [
-    Title,
-  ], // additional providers needed for this module
-  entryComponents: [ TD_LOADING_ENTRY_COMPONENTS ],
-  bootstrap: [ AppComponent ],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        ViewComponent,
+        // Bugfix for disabled anchor button in material.alpha-10 (remove in alpha-11)
+        ButtonDisableFix,
+    ], // directives, components, and pipes owned by this NgModule
+    imports: [
+        BrowserModule,
+        CovalentCoreModule.forRoot(),
+        AppRoutingModule,
+        CommonModule
+    ],
+    providers: [
+        Title
+    ], // additional providers needed for this module
+    bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+}

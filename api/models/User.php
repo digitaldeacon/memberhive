@@ -9,6 +9,7 @@ use yii\web\IdentityInterface;
  *
  * @property integer $id
  *
+ * @property string $username
  * @property string $email
  * @property string $lastLogin
  * @property string $createdAt
@@ -33,10 +34,9 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['id'], 'integer'],
-            [['email'], 'required'],
+            [['username', 'email'], 'required'],
             [['password'], 'string', 'min' => 6],
-            ['email', 'email'],
-            ['email', 'unique'],
+            ['username', 'unique'],
         ];
     }
     public function attributeLabels()
@@ -124,7 +124,16 @@ class User extends ActiveRecord implements IdentityInterface
         }
         return $data == 1;
     }
-
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->generateAuthKey();
+            }
+            return true;
+        }
+        return false;
+    }
     public function afterSave($insert, $changedAttributes)
     {
         if($insert === true) {
