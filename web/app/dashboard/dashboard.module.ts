@@ -1,5 +1,4 @@
 import {NgModule} from '@angular/core';
-import {Title}  from '@angular/platform-browser';
 import {DashboardComponent} from './dashboard.component';
 
 import {DashboardRoutingModule} from './dashboard-routing.module';
@@ -10,9 +9,6 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
     ],
     imports: [
         DashboardRoutingModule,
-    ],
-    providers: [
-        Title,
     ],
 })
 export class DashboardModule {

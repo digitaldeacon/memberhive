@@ -7,7 +7,7 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 
-class SiteController extends Controller
+class SiteController extends MHController
 {
     public function behaviors()
     {
@@ -45,8 +45,6 @@ class SiteController extends Controller
     {
         echo "Memberhive";
     }
-
-
 
 
 
