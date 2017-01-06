@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {Title}  from '@angular/platform-browser';
 
 import {LoginService} from "./auth/login.service";
 import {TitleService} from "./title.service";
@@ -12,6 +13,7 @@ import {AuthService} from "./auth/auth.service";
         Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
     ],
     providers: [
+        Title,
         LoginService,
         TitleService,
         AuthService,

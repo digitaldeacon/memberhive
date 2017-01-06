@@ -7,16 +7,16 @@ import {HttpService} from "../../common/http.service";
     templateUrl: './person-list.component.html'
 })
 export class PersonListComponent implements OnInit {
-    private test: string;
+    private persons: any;
 
     constructor(titleService: TitleService, private http: HttpService) {
         titleService.setTitle('Person List');
     }
 
     ngOnInit() {
-        this.http.get('person/index')
+        this.http.get('person/list')
             .subscribe(
-                (response) => this.test = response.response
+                (response) => this.persons = response.response
             )
     }
 }

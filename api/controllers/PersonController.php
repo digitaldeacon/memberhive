@@ -1,5 +1,7 @@
 <?php
 namespace app\controllers;
+use app\models\Person;
+
 class PersonController extends MHController
 {
     public function behaviors()
@@ -9,7 +11,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['test', 'index'],
+                    'actions' => ['test', 'index', 'list'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -25,5 +27,15 @@ class PersonController extends MHController
     public function actionIndex()
     {
         return ["response" => "test"];
+    }
+
+    public function actionList()
+    {
+        $ret = [];
+        foreach(Person::find()->each() as $person) {
+            /** $person Person */
+            $ret[] = $person->toResponseArray();
+        }
+        return ['response' => $ret];
     }
 }
