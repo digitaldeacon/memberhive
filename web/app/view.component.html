@@ -12,7 +12,18 @@
 
 
 <md-toolbar color="primary">
-    <span>{{titleService.getModule()}}</span>
+    <div class="flex-container" fxLayout="row">
+        <div class="flex-item" fxFlex="60px">
+            <img src="assets/images/logo-xs.png" width="28px"/>
+        </div>
+        <div class="flex-item" fxFlex="300px">
+            <span>{{titleService.getModule()}}</span>
+        </div>
+        <div class="flex-item" fxFlexFill>
+
+        </div>
+    </div>
+
 </md-toolbar>
 
 
