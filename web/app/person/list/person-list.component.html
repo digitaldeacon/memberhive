@@ -1,0 +1,13 @@
+<div class="flex-container" fxLayout='column'>
+
+    <md-card class="flex-item" fxFlex fxFlexFill>
+        List with Persons.
+
+        <md-list>
+            <md-list-item *ngFor="let person of persons">
+                <img md-list-avatar src="{{person.avatarUrlSmall}}" alt="...">
+                <h3 md-line> {{person.fullName}} </h3>
+            </md-list-item>
+        </md-list>
+    </md-card>
+</div>

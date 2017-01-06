@@ -13,10 +13,6 @@ $config = [
             'showScriptName' => false,
             'enableStrictParsing' => false,
             'rules' => [
-                ['class' => 'yii\rest\UrlRule', 'controller' => [
-                    'person',
-                    'user'
-                ]],
             ],
         ],
         'request' => [
@@ -28,8 +24,8 @@ $config = [
         ],
 
         'user' => [
-            'identityClass'  => 'app\models\User',
-            'enableAutoLogin'  => false, // Don't forget to set Auto login to false
+            'identityClass' => 'app\models\User',
+            'enableAutoLogin' => false, // Don't forget to set Auto login to false
         ],
         'mailer' => require(__DIR__ . '/mail_local.php'),
         'log' => [
@@ -42,13 +38,13 @@ $config = [
 
             ],
         ],
-        'db'    => require(__DIR__ . '/db_local.php'),
+        'db' => require(__DIR__ . '/db_local.php'),
     ],
     'params' => $params,
 ];
 
-    
-if(YII_DEBUG === true) {
+
+if (YII_DEBUG === true) {
     $debug = require(__DIR__ . '/debug.php');
     $config = \yii\helpers\ArrayHelper::merge($config, $debug);
     $config['components']['log']['targets'][] = [

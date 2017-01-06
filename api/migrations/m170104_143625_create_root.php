@@ -15,9 +15,8 @@ class m170104_143625_create_root extends Migration
 
     public function down()
     {
-        echo "m170104_143625_create_root cannot be reverted.\n";
-
-        return false;
+        \app\models\User::deleteAll();
+        return true;
     }
 
     /*

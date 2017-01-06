@@ -11,9 +11,9 @@ class m161130_101533_create_person extends Migration
 
             'firstName' => $this->string()->notNull(),
             'middleName' => $this->string(),
-            'lastName' => $this->string()->notNull(),
-            'nickName' => $this->string(),
+            'lastName' => $this->string(),
 
+            'nickName' => $this->string(),
             'prefix' => $this->string(),
             'suffix' => $this->string(),
 
@@ -21,7 +21,9 @@ class m161130_101533_create_person extends Migration
 
             'address' => $this->text(),
             'custom' => $this->text(),
-            'avatarUrl' => $this->string(),
+            'avatarUrlSmall' => $this->string(),
+            'avatarUrlMedium' => $this->string(),
+            'avatarUrlBig' => $this->string(),
         ]);
     }
 

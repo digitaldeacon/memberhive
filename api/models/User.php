@@ -19,6 +19,7 @@ use yii\web\IdentityInterface;
  * @property string $passwordHash
  * @property string $passwordResetToken
  * @property string $passwordResetExpireDate
+ * @property string $accessToken
  *
  */
 class User extends ActiveRecord implements IdentityInterface
@@ -61,7 +62,7 @@ class User extends ActiveRecord implements IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        return false;
+        return static::findOne(['accessToken' => $token]);
     }
     public function getId()
     {
@@ -128,7 +129,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
-                $this->generateAuthKey();
+                $this->accessToken = Yii::$app->security->generateRandomString();
             }
             return true;
         }
@@ -137,6 +138,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function afterSave($insert, $changedAttributes)
     {
         if($insert === true) {
+
         }
         return parent::afterSave($insert, $changedAttributes);
     }

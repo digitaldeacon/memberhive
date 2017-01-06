@@ -1,1 +1,25 @@
- 
+
+.login-container {
+  background-color: #D8D8D6;
+  background: url(/assets/images/login/bg/2.jpg) no-repeat center center fixed;
+  background-size: cover;
+  height: 100%;
+
+  .logo {
+    padding: 10px;
+    text-align: center;
+    margin: 0 auto;
+  }
+  .login-content {
+    @media screen and (min-width: 800px) {
+      width: 360px;
+    }
+    @media screen and (max-width: 800px) {
+      width: 70%;
+    }
+    padding: 30px;
+    margin: 20px auto;
+
+    background-color: rgba(255,255,255,0.9) !important;
+  }
+}

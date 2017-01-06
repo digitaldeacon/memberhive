@@ -1,16 +1,45 @@
-<td-layout #layout sidenavTitle="Sidenav Title" logo="svgIconName">
-    <md-nav-list menu-items>
-        <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="layout.close()">
-            <md-icon>{{item.icon}}</md-icon>
-            {{item.title}}
-        </a>
-    </md-nav-list>
+<!--<td-layout #layout sidenavTitle="Sidenav Title" logo="svgIconName">
+
     <td-layout-nav toolbarTitle="{{titleService.getModule()}}" logo="svgIconName">
         <td-layout-card-over cardTitle="{{titleService.getTitle()}}" cardSubtitle="{{titleService.getSubTitle()}}" cardWidth="75">
-            <router-outlet></router-outlet>
+
         </td-layout-card-over>
         <td-layout-footer>
             Optional footer
         </td-layout-footer>
     </td-layout-nav>
-</td-layout>
+</td-layout>-->
+
+
+<md-toolbar color="primary">
+    <div class="flex-container" fxLayout="row">
+        <div class="flex-item" fxFlex="60px">
+            <img src="assets/images/logo-xs.png" width="28px"/>
+        </div>
+        <div class="flex-item" fxFlex="300px">
+            <span>{{titleService.getModule()}}</span>
+        </div>
+        <div class="flex-item" fxFlexFill>
+
+        </div>
+    </div>
+
+</md-toolbar>
+
+
+<div class="flex-container" fxLayout="row">
+    <div class="flex-item" fxFlex="60px">
+        <md-nav-list menu-items>
+            <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
+                <md-icon>{{item.icon}}</md-icon>
+            </a>
+        </md-nav-list>
+    </div>
+    <div class="flex-item" fxFlex fxFlexFill>
+        <div class="main-content">
+            <h1>{{titleService.getTitle()}}</h1>
+            <router-outlet></router-outlet>
+        </div>
+
+    </div>
+</div>

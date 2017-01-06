@@ -17,6 +17,7 @@ class m161220_183635_create_user_table extends Migration
             'email' => $this->string()->unique(),
             'username' => $this->string()->unique(),
             'authKey' => $this->string(),
+            'accessToken' => $this->string(),
             'passwordHash' => $this->string(),
             'passwordResetToken' => $this->string(),
             'passwordResetExpireDate' => $this->dateTime(),

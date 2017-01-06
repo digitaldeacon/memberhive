@@ -1,16 +1,19 @@
 import {NgModule} from '@angular/core';
-import {BrowserModule, Title}  from '@angular/platform-browser';
-import {CovalentCoreModule} from '@covalent/core';
+import { FormsModule }   from '@angular/forms';
+import {BrowserModule}  from '@angular/platform-browser';
+import {MaterialModule} from '@angular/material';
+import {HttpModule} from '@angular/http';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule}   from './app-routing.module';
+import {CommonModule} from "./common/common.module";
 
-import {RequestInterceptor} from '../config/interceptors/request.interceptor';
 import {LoginComponent} from "./login.component";
 import {ViewComponent} from "./view.component";
-import {CommonModule} from "./common/common.module";
-import { HttpModule } from '@angular/http';
 
+
+import 'hammerjs';
 @NgModule({
     declarations: [
         AppComponent,
@@ -19,8 +22,11 @@ import { HttpModule } from '@angular/http';
     ],
     imports: [
         BrowserModule,
-        CovalentCoreModule.forRoot(),
+        FormsModule,
         HttpModule,
+
+        MaterialModule.forRoot(),
+        FlexLayoutModule.forRoot(),
 
         AppRoutingModule,
 
@@ -28,7 +34,7 @@ import { HttpModule } from '@angular/http';
 
     ],
     providers: [
-        Title
+
     ],
     bootstrap: [AppComponent],
 })

@@ -1,11 +1,11 @@
 import {Component} from '@angular/core';
 
-import {} from '@covalent/core';
 import {TitleService} from "./common/title.service";
 
 @Component({
     selector: 'mh-view',
     templateUrl: './view.component.html',
+    styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent {
     routes: Object[] = [
@@ -14,9 +14,9 @@ export class ViewComponent {
         }, {
             title: "Persons", route: "/person", icon: "people"
         }, {
-            title: "Events", route: "/event", icon: "today"
+            title: "Events", route: "", icon: "today"
         }, {
-            title: "Groups", route: "/group", icon: "people_outline"
+            title: "Groups", route: "", icon: "people_outline"
         }
     ];
 
