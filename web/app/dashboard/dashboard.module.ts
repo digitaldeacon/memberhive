@@ -1,4 +1,5 @@
 import {NgModule} from '@angular/core';
+import {MaterialModule} from '@angular/material';
 import {DashboardComponent} from './dashboard.component';
 
 import {DashboardRoutingModule} from './dashboard-routing.module';
@@ -8,6 +9,7 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
         DashboardComponent,
     ],
     imports: [
+        MaterialModule.forRoot(),
         DashboardRoutingModule,
     ],
 })

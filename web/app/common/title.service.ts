@@ -1,13 +1,15 @@
 /* config.service.ts */
 
 import {Injectable} from '@angular/core';
-
+import {Title}  from '@angular/platform-browser';
 @Injectable()
 export class TitleService {
     public module: string = "";
     public title: string = "";
     public subTitle: string = "";
+    constructor(private browserTitle: Title) {
 
+    }
     public getModule() {
         return this.module;
     }
@@ -27,6 +29,7 @@ export class TitleService {
     }
 
     public setTitle(title: string, subTitle: string = "") {
+        this.browserTitle.setTitle('Memberhive [' + this.module + '] ' + this.title);
         this.title = title;
         this.subTitle = subTitle;
     }
