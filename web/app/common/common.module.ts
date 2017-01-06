@@ -7,10 +7,9 @@ import {Ng2Webstorage} from 'ng2-webstorage';
 import {AuthService} from "./auth/auth.service";
 
 @NgModule({
-    declarations: [
-    ], // directives, components, and pipes owned by this NgModule
+    declarations: [], // directives, components, and pipes owned by this NgModule
     imports: [
-        Ng2Webstorage.forRoot({ prefix: 'mh', separator: '.' })
+        Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
     ],
     providers: [
         LoginService,
@@ -19,9 +18,7 @@ import {AuthService} from "./auth/auth.service";
         HttpService
 
     ],
-    exports: [
-
-    ]
+    exports: []
 })
 export class CommonModule {
 }

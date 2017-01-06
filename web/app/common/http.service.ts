@@ -5,7 +5,7 @@ import {AuthService} from "./auth/auth.service";
 @Injectable()
 export class HttpService {
 
-    constructor(private http: Http, private auth:AuthService) {
+    constructor(private http: Http, private auth: AuthService) {
     }
 
     get(url: string): Observable<any> {
@@ -22,7 +22,7 @@ export class HttpService {
 
         let options = new BaseRequestOptions();
         options.headers = headers;
-        options.url = 'http://localhost/memberhive2/api/'+url;
+        options.url = 'http://localhost/memberhive2/api/' + url;
         options.method = RequestMethod.Post;
         options.body = JSON.stringify(body);
         options.withCredentials = false;
@@ -40,7 +40,7 @@ export class HttpService {
 
         let options = new BaseRequestOptions();
         options.headers = headers;
-        options.url = 'http://localhost/memberhive2/api/'+url;
+        options.url = 'http://localhost/memberhive2/api/' + url;
         options.method = method;
         options.body = JSON.stringify(body);
         options.withCredentials = true;

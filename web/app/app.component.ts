@@ -1,6 +1,4 @@
-import {Component,} from '@angular/core';
-
-import {} from '@covalent/core';
+import {Component} from '@angular/core';
 
 @Component({
     selector: 'mh-app',

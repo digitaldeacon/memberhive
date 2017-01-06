@@ -14,8 +14,7 @@ import {PersonRoutingModule} from './person-routing.module';
     imports: [
         PersonRoutingModule,
     ],
-    providers: [
-    ],
+    providers: [],
 })
 export class PersonModule {
 }

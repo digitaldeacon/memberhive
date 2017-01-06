@@ -5,12 +5,13 @@ import {HttpService} from "../http.service";
 @Injectable()
 export class LoginService {
 
-    constructor(private http:HttpService, private auth:AuthService, private router: Router,) {
+    constructor(private http: HttpService, private auth: AuthService, private router: Router,) {
 
     }
+
     public login(username: string, password: string) {
         this.http.unauthenicatedPost(
-            'user/login',
+            'login/login',
             {username: username, password: password},
         )
             .subscribe(
@@ -21,8 +22,7 @@ export class LoginService {
 
     }
 
-    private storeToken(response:any)
-    {
+    private storeToken(response: any) {
         this.auth.setToken(response.token);
         this.router.navigate(['/']);
     }
