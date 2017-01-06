@@ -27,7 +27,7 @@ git clone git@github.com:digitaldeacon/memberhive2.git
 nvm install 6.9
 nvm use 6.9
 nvm alias default 6.9
-npm i -g angular-cli@latest typescript tslint
+npm i -g angular-cli@latest typescript@2.0.10 tslint
 npm install
 cd api && composer install
 ```
