@@ -1,17 +1,20 @@
 language: php
-php: '7.0'
+php: '5.6'
 sudo: false
 branches:
   only:
     - master
 env:
   - NODE_JS_VERSION=6.9
+addons:
+  mariadb: '10.0'
 cache:
   directories:
     - "$HOME/.nvm"
     - node_modules
     - api/vendor
 before_install:
+  - mysql -e 'CREATE DATABASE memberhive;'
   - phpenv config-rm xdebug.ini
   - echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
