@@ -1,16 +1,20 @@
-language: node_js
-node_js:
-  - 6.9
+language: php
+php: '7.0'
 sudo: false
 branches:
   only:
     - master
+env:
+  - NODE_JS_VERSION=6.9
 cache:
   directories:
     - "$HOME/.nvm"
     - node_modules
     - api/vendor
 before_install:
+  - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
+  - bash -c "nvm use $NODE_JS_VERSION" || true
+  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - npm i -g angular-cli@latest typescript@2.0.10 tslint
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
