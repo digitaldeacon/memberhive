@@ -6,6 +6,7 @@ import {TitleService} from "./title.service";
 import {HttpService} from "./http.service";
 import {Ng2Webstorage} from 'ng2-webstorage';
 import {AuthService} from "./auth/auth.service";
+import {AuthGuard} from "./auth/auth-guard.service";
 
 @NgModule({
     declarations: [], // directives, components, and pipes owned by this NgModule
@@ -17,7 +18,8 @@ import {AuthService} from "./auth/auth.service";
         LoginService,
         TitleService,
         AuthService,
-        HttpService
+        HttpService,
+        AuthGuard
 
     ],
     exports: []

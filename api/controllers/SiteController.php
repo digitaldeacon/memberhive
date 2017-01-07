@@ -11,24 +11,23 @@ class SiteController extends MHController
 {
     public function behaviors()
     {
-        return [
-            'access' => [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' => [
-                    [
-                        'actions' => ['login', 'error', 'log-js'],
-                        'allow' => true,
-                        'roles' => ['?', '@'],
-                    ],
-
-                    [
-                        'actions' => ['logout', 'index', ],
-                        'allow' => true,
-                        'roles' => ['@'],
-                    ],
+        $behaviors = parent::behaviors();
+        $behaviors['access'] = [
+            'class' => \yii\filters\AccessControl::className(),
+            'rules' => [
+                [
+                    'actions' => ['index', 'error', 'log-js'],
+                    'allow' => true,
+                    'roles' => ['?'],
+                ],
+                [
+                    'actions' => ['test-login'],
+                    'allow' => true,
+                    'roles' => ['@'],
                 ],
             ],
         ];
+        return $behaviors;
     }
 
     public function actions()
@@ -55,6 +54,11 @@ class SiteController extends MHController
         if ($exception !== null) {
             return $this->render('error', ['exception' => $exception]);
         }
+    }
+
+    public function actionTestLogin()
+    {
+        return ["ok"];
     }
 
 }
