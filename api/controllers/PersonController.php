@@ -11,7 +11,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['test', 'index', 'list'],
+                    'actions' => ['list', 'view'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -20,14 +20,7 @@ class PersonController extends MHController
         return $behaviors;
     }
 
-    public function actionTest()
-    {
-        return ["response" => "test"];
-    }
-    public function actionIndex()
-    {
-        return ["response" => "test"];
-    }
+
 
     public function actionList()
     {
@@ -37,5 +30,11 @@ class PersonController extends MHController
             $ret[] = $person->toResponseArray();
         }
         return ['response' => $ret];
+    }
+
+    public function actionView($id)
+    {
+        $person = Person::findOne($id);
+        return ['response' => $person->toResponseArray()];
     }
 }

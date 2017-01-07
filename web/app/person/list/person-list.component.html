@@ -4,7 +4,7 @@
         List with Persons.
 
         <md-list>
-            <md-list-item *ngFor="let person of persons">
+            <md-list-item *ngFor="let person of persons" [routerLink]="['/person/view', person.id]">
                 <img md-list-avatar src="{{person.avatarUrlSmall}}" alt="...">
                 <h3 md-line> {{person.fullName}} </h3>
             </md-list-item>

@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
             {path: '', component: PersonListComponent},
             {path: 'list', component: PersonListComponent},
-            {path: 'view', component: PersonViewComponent},
+            {path: 'view/:id', component: PersonViewComponent},
         ]
     }
 

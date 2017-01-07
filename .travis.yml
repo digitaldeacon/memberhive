@@ -16,7 +16,7 @@ cache:
 before_install:
   - mysql -e 'CREATE DATABASE memberhive;'
   - phpenv config-rm xdebug.ini
-  - echo "extension = apc.so" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - yes '' | pecl install apcu
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
   - bash -c "nvm use $NODE_JS_VERSION" || true
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
