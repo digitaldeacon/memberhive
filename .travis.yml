@@ -15,12 +15,14 @@ before_install:
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
   - bash -c "nvm use $NODE_JS_VERSION" || true
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
+  - nvm use 6.9
+  - nvm alias default 6.9
   - npm i -g angular-cli@latest typescript@2.0.10 tslint
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
 install:
   - npm install --optional
-  - cd api && composer install
+  - cd api && composer install --prefer-dist
 before_script:
   - export NODE_ENV="travis"
 script:
