@@ -1,0 +1,32 @@
+language: node_js
+node_js:
+  - 6.9
+sudo: false
+env:
+  global:
+    - SAUCE_USERNAME=metaxy
+    - secure: "RcImy4+WzmwU0SWekhtuRz/lKSxcklHXfa4KOPYZtny/9fJnAMHpOULc1bjv+4M34WTvxPczS1biMRgnZ4NymMRpfXkQk/KefpVNGIO7kiZWr8RE3BVI+eu+cnCIwSFOOpuZt2+4d+7r9BUMwVhWGAnZywhK+JS94wz9bEw2Da0p2sOK9Mgca3Z4q/NQRS26/Kt9DW3bP+wakV7jP+jR6R4YuP4AwhC9uofPuXbClyYfsr4EzJ/dzBrH9AvrMdvrik09abtCBEJhbTaQB3/jPyN5UJZsV9vPastcOMp+c/H+fKHWEuFbqh/B/+3PtD6XO3WvLYdlBKEAyF20ByXfNyX1LXHE+kD3sgMRIq1UO7kQB8IgCKXKMuvCvhP4T5x6nXdJHbnwXd1LXtxpuQ5F6Z6LDj1Yis87PkdyIRGbsOR7ZWHi0eS9xppkMkg6akeBNSMTSzc7nE8Lv+lBeNz1C1Vo5f4jOTrZWeipaIQIe7IBnP1SgUVvFKse9VWMYUqbSLxmFkX9x5fPebF80Jw8l3szfPs/ZH61VJBg1VKOLiGAgK4V/2ZV3SPtw04Ckb/boJtfDltE6oChB2F01yHVY6mFdXfteyiAqJXMGhjQiAkpMPnE1c+CodrD3XkzG/WfI0rEZQOHT1rcohgfSnnyLSY2ytURe/HkmmnkXa+/BE8="
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - "$HOME/.nvm"
+    - node_modules
+    - api/vendor
+before_install:
+  - openssl aes-256-cbc -K $encrypted_f977bfde2ef3_key -iv $encrypted_f977bfde2ef3_iv -in id_rsa.enc -out id_rsa -d
+  - npm i -g angular-cli@latest typescript@2.0.10 tslint
+  - cp id_rsa ~/.ssh/id_rsa
+  - chmod 600 ~/.ssh/id_rsa
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - npm set progress=false
+install:
+  - npm install --optional
+  - cd api && composer install
+before_script:
+  - export NODE_ENV="travis"
+script:
+after_success:
+  - ng build
+  - ls dist/
