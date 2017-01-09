@@ -25,6 +25,6 @@ cd api && composer install
 
 # Developing
 
-Serve App : `ng serve`
+Serve App : `npm start`
 
 Undo all migrations : `php yii migrate/down all --interactive=0`

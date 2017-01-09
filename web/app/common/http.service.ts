@@ -22,7 +22,7 @@ export class HttpService {
 
         let options = new BaseRequestOptions();
         options.headers = headers;
-        options.url = 'http://localhost/memberhive2/api/' + url;
+        options.url = '/api/' + url;
         options.method = RequestMethod.Post;
         options.body = JSON.stringify(body);
         options.withCredentials = false;
@@ -40,7 +40,7 @@ export class HttpService {
 
         let options = new BaseRequestOptions();
         options.headers = headers;
-        options.url = 'http://localhost/memberhive2/api/' + url;
+        options.url = '/api/' + url;
         options.method = method;
         options.body = JSON.stringify(body);
         options.withCredentials = true;

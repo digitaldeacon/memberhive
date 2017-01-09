@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {LoginService} from 'app/common/auth/login.service';
+import {LoginService} from './common/auth/login.service';
 import {LocalStorage} from 'ng2-webstorage';
 
 @Component({
