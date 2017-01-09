@@ -18,6 +18,8 @@
       "prefix": "app",
       "mobile": false,
       "styles": [
+        "../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss",
+        "../node_modules/material-design-icons/iconfont/material-icons.css",
         "styles.scss",
         "theme.scss"
       ],
