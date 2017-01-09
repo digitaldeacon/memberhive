@@ -11,7 +11,7 @@ export class LoginService {
     }
 
     public login(username: string, password: string): void {
-        this.http.unauthenicatedPost(
+        this.http.unauthenticatedPost(
             'login/login',
             {username: username, password: password}
         )

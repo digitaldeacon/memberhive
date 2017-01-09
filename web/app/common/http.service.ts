@@ -16,7 +16,7 @@ export class HttpService {
         return this.request(url, RequestMethod.Post, body);
     }
 
-    unauthenicatedPost(url: string, body: any): Observable<any> {
+    unauthenticatedPost(url: string, body: any): Observable<any> {
         let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
 

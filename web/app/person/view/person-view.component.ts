@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TitleService} from "app/common/title.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {PersonService} from "../person.service";
+import {Person} from "../person";
 
 @Component({
     moduleId: 'mh-person',
@@ -9,7 +10,7 @@ import {PersonService} from "../person.service";
     templateUrl: './person-view.component.html'
 })
 export class PersonViewComponent implements OnInit {
-    private person: any = {};
+    private person: Person;
     constructor(titleService: TitleService,  private route: ActivatedRoute, private personService: PersonService) {
         titleService.setTitle('Person View');
     }
@@ -17,6 +18,6 @@ export class PersonViewComponent implements OnInit {
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.personService.getPerson(+params['id']))
-            .subscribe((person: any) => this.person = person);
+            .subscribe((person: Person) => this.person = person);
     }
 }
