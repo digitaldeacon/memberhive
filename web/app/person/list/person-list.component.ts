@@ -16,8 +16,6 @@ export class PersonListComponent implements OnInit {
 
     ngOnInit(): void {
         this.personService.getPersons()
-            .subscribe(
-                (persons: Array<Person>) => this.persons = persons
-            );
+            .subscribe((persons: Array<Person>) => this.persons = persons);
     }
 }

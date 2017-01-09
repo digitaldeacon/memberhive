@@ -1,7 +1,8 @@
 <?php
 namespace app\controllers;
 use app\models\Person;
-use yii\web\ServerErrorHttpException;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 
 class PersonController extends MHController
 {
@@ -35,16 +36,16 @@ class PersonController extends MHController
 
     public function actionGet($id)
     {
-        $person = Person::findOne($id);
+        $person = $this->findModel($id);
         return ['response' => $person->toResponseArray()];
     }
     public function actionUpdate($id)
     {
-        $person = Person::findOne($id);
+        $person = $this->findModel($id);
         if ($person->load(\Yii::$app->request->post()) && $person->save()) {
             return ['response' => $person->toResponseArray()];
         } else {
-            throw new ServerErrorHttpException($person->errors);
+            throw new BadRequestHttpException($person->errors);
         }
     }
     public function actionCreate()
@@ -53,7 +54,16 @@ class PersonController extends MHController
         if ($person->load(\Yii::$app->request->post()) && $person->save()) {
             return ['response' => $person->toResponseArray()];
         } else {
-            throw new ServerErrorHttpException($person->errors);
+            throw new BadRequestHttpException($person->errors);
         }
+    }
+
+
+    protected function findModel($id)
+    {
+        $user = Person::findOne($id);
+        if ($user === null)
+            throw new NotFoundHttpException('The requested person does not exist.');
+        return $user;
     }
 }

@@ -13,7 +13,7 @@ export class PersonService {
     }
     public getPerson(id: number): Observable<Person> {
         return this.http.get('person/get?id=' + id)
-            .map((resp: any) => new Person().deserialize(resp.response));
+            .map(this.deserialize);
     }
     public updatePerson(person: Person): Observable<Person> {
         return this.http.post('person/update?id=' + person.id, person.serialize())
@@ -28,7 +28,7 @@ export class PersonService {
         return new Person().deserialize(resp.response);
     }
     private deserializeList(resp: any): Array<Person> {
-        return resp.response.map(this.deserialize);
+        return resp.response.map((r: any) => new Person().deserialize(r));
     }
 
 }
