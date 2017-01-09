@@ -17,7 +17,7 @@
     "types": [
       "hammerjs"
     ],
-    "baseUrl": ".",
+    "baseUrl": "./web",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noImplicitAny": true,
@@ -26,5 +26,7 @@
     "noFallthroughCasesInSwitch": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
-  }
+  },
+  "exclude": [ "test.ts" ],
+  "angularCompilerOptions": { "genDir": "web/i18n" }
 }
