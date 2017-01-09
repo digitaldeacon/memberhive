@@ -7,6 +7,7 @@ import {PersonListComponent} from './list/person-list.component';
 import {PersonViewComponent} from './view/person-view.component';
 
 import {PersonRoutingModule} from './person-routing.module';
+import {PersonService} from "./person.service";
 
 @NgModule({
     declarations: [
@@ -19,7 +20,9 @@ import {PersonRoutingModule} from './person-routing.module';
         MaterialModule.forRoot(),
         PersonRoutingModule,
     ],
-    providers: [],
+    providers: [
+        PersonService
+    ],
 })
 export class PersonModule {
 }

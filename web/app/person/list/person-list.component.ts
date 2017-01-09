@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {TitleService} from "app/common/title.service";
-import {HttpService} from "../../common/http.service";
+import {PersonService} from "../person.service";
 @Component({
     moduleId: 'mh-person',
     selector: 'mh-person-list',
@@ -9,14 +9,14 @@ import {HttpService} from "../../common/http.service";
 export class PersonListComponent implements OnInit {
     private persons: any;
 
-    constructor(titleService: TitleService, private http: HttpService) {
+    constructor(titleService: TitleService, private personService : PersonService) {
         titleService.setTitle('Person List');
     }
 
     ngOnInit() {
-        this.http.get('person/list')
+        this.personService.getPersons()
             .subscribe(
-                (response) => this.persons = response.response
+                (persons) => this.persons = persons
             )
     }
 }

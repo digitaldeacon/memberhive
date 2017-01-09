@@ -1,0 +1,36 @@
+language: php
+php: '5.6'
+sudo: false
+branches:
+  only:
+    - master
+env:
+  - NODE_JS_VERSION=6.9
+addons:
+  mariadb: '10.0'
+cache:
+  directories:
+    - "$HOME/.nvm"
+    - node_modules
+    - api/vendor
+before_install:
+  - mysql -e 'CREATE DATABASE memberhive;'
+  - phpenv config-rm xdebug.ini
+  - yes '' | pecl install apcu
+  - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh # update nvm
+  - bash -c "nvm use $NODE_JS_VERSION" || true
+  - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
+  - nvm use 6.9
+  - nvm alias default 6.9
+  - npm i -g angular-cli@latest typescript@2.0.10 tslint
+  - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
+  - npm set progress=false
+install:
+  - npm install --optional
+  - cd api && composer install --prefer-dist
+before_script:
+  - export NODE_ENV="travis"
+script:
+  - ng build
+after_success:
+  - ls dist/
