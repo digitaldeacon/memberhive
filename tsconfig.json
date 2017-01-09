@@ -5,7 +5,10 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "mapRoot": "./",
-    "lib": ["es6", "dom"],
+    "lib": [
+      "es6",
+      "dom"
+    ],
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "../dist/out-tsc",
@@ -27,6 +30,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
-  "exclude": [ "test.ts" ],
-  "angularCompilerOptions": { "genDir": "web/i18n" }
+  "exclude": [
+    "test.ts"
+  ]
 }

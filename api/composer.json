@@ -10,7 +10,6 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "ext-apc" : "*",
         "ext-mysqli" : "*",
         "ext-curl" : "*",
         "ext-intl" : "*",
