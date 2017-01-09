@@ -32,5 +32,6 @@ before_script:
   - export NODE_ENV="travis"
 script:
   - ng build
+  - ng build --aot --prod
 after_success:
   - ls dist/
