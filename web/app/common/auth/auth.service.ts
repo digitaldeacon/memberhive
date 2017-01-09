@@ -4,14 +4,11 @@ import {LocalStorage} from 'ng2-webstorage';
 export class AuthService {
     @LocalStorage() private token: string;
 
-    constructor() {
-    }
-
-    public setToken(token: string) {
+    public setToken(token: string): void {
         this.token = token;
     }
 
-    public getToken() {
+    public getToken(): string {
         return this.token;
     }
 

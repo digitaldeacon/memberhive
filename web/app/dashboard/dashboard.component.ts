@@ -1,17 +1,9 @@
-import {Component, OnInit} from '@angular/core';
-import {TitleService} from "app/common/title.service";
+import {Component} from '@angular/core';
 
 @Component({
     moduleId: 'mh-dashboard',
     selector: 'mh-dashboard',
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
-    constructor(titleService: TitleService) {
-        titleService.changeModule("Dashboard");
-        titleService.setTitle('Main Dashboard');
-    }
-
-    ngOnInit() {
-    }
+export class DashboardComponent  {
 }

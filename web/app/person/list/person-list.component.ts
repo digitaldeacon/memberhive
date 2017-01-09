@@ -9,14 +9,14 @@ import {PersonService} from "../person.service";
 export class PersonListComponent implements OnInit {
     private persons: any;
 
-    constructor(titleService: TitleService, private personService : PersonService) {
+    constructor(titleService: TitleService, private personService: PersonService) {
         titleService.setTitle('Person List');
     }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.personService.getPersons()
             .subscribe(
-                (persons) => this.persons = persons
-            )
+                (persons: any) => this.persons = persons
+            );
     }
 }

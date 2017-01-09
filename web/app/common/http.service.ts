@@ -12,43 +12,42 @@ export class HttpService {
         return this.request(url, RequestMethod.Get);
     }
 
-    post(url: string, body: any) {
+    post(url: string, body: any): Observable<any> {
         return this.request(url, RequestMethod.Post, body);
     }
 
     unauthenicatedPost(url: string, body: any): Observable<any> {
-        let headers = new Headers();
+        let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        let options = new BaseRequestOptions();
+        let options: BaseRequestOptions = new BaseRequestOptions();
         options.headers = headers;
         options.url = '/api/' + url;
         options.method = RequestMethod.Post;
         options.body = JSON.stringify(body);
         options.withCredentials = false;
 
-        let request = new Request(options);
+        let request: Request = new Request(options);
 
-        return this.http.request(request).map(response => response.json());
+        return this.http.request(request).map((response: Response) => response.json());
     }
 
     private request(url: string, method: RequestMethod, body?: any): Observable<any> {
 
-        let headers = new Headers();
+        let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `Bearer ${this.auth.getToken()}`);
 
-        let options = new BaseRequestOptions();
+        let options: BaseRequestOptions = new BaseRequestOptions();
         options.headers = headers;
         options.url = '/api/' + url;
         options.method = method;
         options.body = JSON.stringify(body);
         options.withCredentials = true;
 
-        let request = new Request(options);
+        let request: Request = new Request(options);
 
-        return this.http.request(request).map(response => response.json());
+        return this.http.request(request).map((response: Response) => response.json());
     }
-
 
 }

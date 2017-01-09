@@ -6,7 +6,7 @@ import {LocalStorage} from 'ng2-webstorage';
 @Component({
     selector: 'mh-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.scss'],
+    styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
 

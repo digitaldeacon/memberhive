@@ -6,33 +6,32 @@ import {Observable} from "rxjs";
 @Injectable()
 export class LoginService {
     public redirectUrl: string;
-    constructor(private http: HttpService, private auth: AuthService, private router: Router,) {
+    constructor(private http: HttpService, private auth: AuthService, private router: Router) {
         this.redirectUrl = '/';
     }
 
-    public login(username: string, password: string) {
+    public login(username: string, password: string): void {
         this.http.unauthenicatedPost(
             'login/login',
-            {username: username, password: password},
+            {username: username, password: password}
         )
             .subscribe(
-                response => this.storeToken(response),
-                (error) => console.log(error),
-                () => console.log('Authentication Complete')
+                (response: any) => this.storeToken(response)
             );
-
     }
 
-    private storeToken(response: any) {
+    public isLoggedIn(): Observable<boolean> {
+        if (this.auth.getToken() === undefined) {
+            return Observable.of(false);
+        }
+        return this.http.get('site/test-login').map((e: any) => {
+            return e !== "";
+        });
+    }
+
+    private storeToken(response: any): void {
         this.auth.setToken(response.token);
         this.router.navigate([this.redirectUrl]);
     }
 
-    public isLoggedIn() : Observable<boolean>{
-        if(this.auth.getToken() == null)
-            return Observable.of(false);
-        return this.http.get('site/test-login').map(e => {
-            return e != "";
-        });
-    }
 }
