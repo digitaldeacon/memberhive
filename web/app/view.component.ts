@@ -1,16 +1,16 @@
 import {Component} from '@angular/core';
 
-import {TitleService} from "./common/title.service";
+import {TitleService} from './common/title.service';
 
 @Component({
     selector: 'mh-view',
     templateUrl: './view.component.html',
-    styleUrls: ['./view.component.scss'],
+    styleUrls: ['./view.component.scss']
 })
 export class ViewComponent {
     routes: Object[] = [
         {
-            title: "Home", route: "/dashboard", icon: "home"
+            title: 'Home', route: '/dashboard', icon: "home"
         }, {
             title: "Persons", route: "/person", icon: "people"
         }, {
@@ -26,4 +26,3 @@ export class ViewComponent {
         this.titleService = titleService;
     }
 }
-

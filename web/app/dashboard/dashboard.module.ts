@@ -6,12 +6,12 @@ import {DashboardRoutingModule} from './dashboard-routing.module';
 
 @NgModule({
     declarations: [
-        DashboardComponent,
+        DashboardComponent
     ],
     imports: [
         MaterialModule.forRoot(),
-        DashboardRoutingModule,
-    ],
+        DashboardRoutingModule
+    ]
 })
 export class DashboardModule {
 }

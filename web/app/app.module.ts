@@ -7,18 +7,17 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import {AppComponent} from './app.component';
 import {AppRoutingModule}   from './app-routing.module';
-import {CommonModule} from "./common/common.module";
+import {CommonModule} from './common/common.module';
 
-import {LoginComponent} from "./login.component";
-import {ViewComponent} from "./view.component";
-
+import {LoginComponent} from './login.component';
+import {ViewComponent} from './view.component';
 
 import 'hammerjs';
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        ViewComponent,
+        ViewComponent
     ],
     imports: [
         BrowserModule,
@@ -30,13 +29,11 @@ import 'hammerjs';
 
         AppRoutingModule,
 
-        CommonModule,
-
+        CommonModule
     ],
-    providers: [
-
-    ],
-    bootstrap: [AppComponent],
+    providers: [],
+    bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }

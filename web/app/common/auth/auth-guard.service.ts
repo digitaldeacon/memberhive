@@ -9,7 +9,7 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router, private loginService : LoginService) {}
+    constructor(private router: Router, private loginService: LoginService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         let url: string = state.url;
@@ -18,7 +18,7 @@ export class AuthGuard implements CanActivate {
     }
 
     checkLogin(url: string): Observable<boolean> {
-        return this.loginService.isLoggedIn().map(e => {
+        return this.loginService.isLoggedIn().map((e: boolean) => {
             return e;
         }).catch(() => {
             this.loginService.redirectUrl = url;

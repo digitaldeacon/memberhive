@@ -18,11 +18,11 @@ import {PersonService} from "./person.service";
     imports: [
         CommonModule,
         MaterialModule.forRoot(),
-        PersonRoutingModule,
+        PersonRoutingModule
     ],
     providers: [
         PersonService
-    ],
+    ]
 })
 export class PersonModule {
 }

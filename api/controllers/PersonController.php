@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
 use app\models\Person;
+use yii\web\BadRequestHttpException;
+use yii\web\NotFoundHttpException;
 
 class PersonController extends MHController
 {
@@ -11,7 +13,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list', 'view'],
+                    'actions' => ['list', 'get', 'update', 'create'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -32,9 +34,36 @@ class PersonController extends MHController
         return ['response' => $ret];
     }
 
-    public function actionView($id)
+    public function actionGet($id)
     {
-        $person = Person::findOne($id);
+        $person = $this->findModel($id);
         return ['response' => $person->toResponseArray()];
+    }
+    public function actionUpdate($id)
+    {
+        $person = $this->findModel($id);
+        if ($person->load(\Yii::$app->request->post()) && $person->save()) {
+            return ['response' => $person->toResponseArray()];
+        } else {
+            throw new BadRequestHttpException($person->errors);
+        }
+    }
+    public function actionCreate()
+    {
+        $person = new Person();
+        if ($person->load(\Yii::$app->request->post()) && $person->save()) {
+            return ['response' => $person->toResponseArray()];
+        } else {
+            throw new BadRequestHttpException($person->errors);
+        }
+    }
+
+
+    protected function findModel($id)
+    {
+        $user = Person::findOne($id);
+        if ($user === null)
+            throw new NotFoundHttpException('The requested person does not exist.');
+        return $user;
     }
 }

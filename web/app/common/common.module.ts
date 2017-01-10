@@ -20,10 +20,9 @@ import {AuthGuard} from "./auth/auth-guard.service";
         AuthService,
         HttpService,
         AuthGuard
-
     ],
     exports: []
 })
+
 export class CommonModule {
 }
-

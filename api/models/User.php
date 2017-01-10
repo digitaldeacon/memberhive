@@ -58,7 +58,7 @@ class User extends ActiveRecord implements IdentityInterface
     /**
      * @param string $token
      * @param string $type
-     * @return boolean
+     * @return User
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
