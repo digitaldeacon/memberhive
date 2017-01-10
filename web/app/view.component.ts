@@ -5,7 +5,7 @@ import {TitleService} from './common/title.service';
 @Component({
     selector: 'mh-view',
     templateUrl: './view.component.html',
-    styleUrls: ['./view.component.scss']
+    styleUrls: ['./view.component.scss'],
 })
 export class ViewComponent {
     routes: Object[] = [
@@ -25,4 +25,6 @@ export class ViewComponent {
     constructor(titleService: TitleService) {
         this.titleService = titleService;
     }
+
+    alwaysVisible: false
 }

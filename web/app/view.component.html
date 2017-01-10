@@ -12,15 +12,18 @@
 
 
 <md-toolbar color="primary">
-    <div class="flex-container" fxLayout="row">
+    <div class="flex-container" fxLayout="row" style="width: 100%;">
         <div class="flex-item" fxFlex="60px">
             <img src="assets/images/logo-xs.png" width="28px"/>
         </div>
-        <div class="flex-item" fxFlex="300px">
-            <span>{{titleService.getModule()}}</span>
+        <div class="flex-item" fxFlex>
+            <mh-search-box backIcon="arrow_back"
+                           placeholder="Search here"
+                           [alwaysVisible]="alwaysVisible"
+                           flex></mh-search-box>
         </div>
-        <div class="flex-item" fxFlexFill>
-
+        <div class="flex-item" fxFlex="100px">
+            <button md-icon-button><md-icon>more_vert</md-icon></button>
         </div>
     </div>
 
