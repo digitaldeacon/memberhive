@@ -130,7 +130,7 @@ export class MhSearchBoxComponent {
         this.onSearch.emit(value);
         console.log(this.value);
         //console.log(this._input.value);
-        this.personService.getPersons()
+        this.personService.searchPersons(this.value)
             .subscribe((persons: Array<Person>) => this.items = persons);
     }
 

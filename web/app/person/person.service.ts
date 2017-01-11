@@ -23,6 +23,10 @@ export class PersonService {
         return this.http.post('person/create', person.serialize())
             .map(this.deserialize);
     }
+    public searchPersons(query: string): Observable<Person[]> {
+        return this.http.post('person/search', query)
+            .map(this.deserializeList);
+    }
 
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);

@@ -13,7 +13,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list', 'get', 'update', 'create'],
+                    'actions' => ['list', 'get', 'update', 'create','search'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -23,8 +23,17 @@ class PersonController extends MHController
     }
 
 
-
     public function actionList()
+    {
+        $ret = [];
+        foreach(Person::find()->each() as $person) {
+            /** $person Person */
+            $ret[] = $person->toResponseArray();
+        }
+        return ['response' => $ret];
+    }
+
+    public function actionSearch()
     {
         $ret = [];
         foreach(Person::find()->each() as $person) {
@@ -57,7 +66,6 @@ class PersonController extends MHController
             throw new BadRequestHttpException($person->errors);
         }
     }
-
 
     protected function findModel($id)
     {
