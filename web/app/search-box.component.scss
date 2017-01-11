@@ -3,7 +3,7 @@
 }
 .mh-search-box {
   height: 64px;
-  mh-search-input {
+  md-input-container {
     margin-left: 12px;
     /deep/ {
       .md-input-placeholder.md-focused {

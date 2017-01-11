@@ -1,10 +1,15 @@
 import { Component, ViewChild, Input, Output, EventEmitter,
     trigger, state, style, transition, animate } from '@angular/core';
 
+import {PersonService} from "./person/person.service";
+import {Person} from "./person/person";
+import { MdInputDirective } from '@angular/material';
+
 @Component({
     selector: 'mh-search-box',
     templateUrl: './search-box.component.html',
     styleUrls: ['./search-box.component.scss' ],
+    providers: [PersonService],
     animations: [
         trigger('inputState', [
             state('false', style({
@@ -35,9 +40,10 @@ import { Component, ViewChild, Input, Output, EventEmitter,
 export class MhSearchBoxComponent {
 
     private _searchVisible: boolean = false;
-    // @ViewChild(MhSearchInputComponent) private _searchInput: MhSearchInputComponent;
 
-    public items: Array<any> = [{ name: 'Berlin', value: '1' },{ name: 'Stuttgart', value: '2' }];
+    @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
+
+    public items: Array<any>;
     public item: any;
 
     /**
@@ -89,11 +95,13 @@ export class MhSearchBoxComponent {
      */
     @Output('clear') onClear: EventEmitter<void> = new EventEmitter<void>();
 
+    @Output('blur') onBlur: EventEmitter<void> = new EventEmitter<void>();
+
     set value(value: any) {
-        // this._searchInput.value = value;
+        this._searchInput.value = value;
     }
     get value(): any {
-         return ''; // this._searchInput.value;
+         return this._searchInput.value;
     }
 
     get searchVisible(): boolean {
@@ -105,7 +113,7 @@ export class MhSearchBoxComponent {
      */
     searchClicked(): void {
         if (this.alwaysVisible || !this._searchVisible) {
-            // this._searchInput.focus();
+            this._searchInput.focus();
         }
         this.toggleVisibility();
     }
@@ -120,9 +128,26 @@ export class MhSearchBoxComponent {
 
     handleSearch(value: string): void {
         this.onSearch.emit(value);
+        console.log(this.value);
+        //console.log(this._input.value);
+        this.personService.getPersons()
+            .subscribe((persons: Array<Person>) => this.items = persons);
     }
 
     handleClear(): void {
         this.onClear.emit(undefined);
+        console.log('clear');
     }
+
+    handleBlur(): void {
+        this.onBlur.emit(undefined);
+        this.value = '';
+        console.log('blur');
+    }
+
+    stopPropagation(event: Event): void {
+        event.stopPropagation();
+    }
+
+    constructor(private personService: PersonService) {}
 }

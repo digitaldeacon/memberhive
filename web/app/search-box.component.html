@@ -1,10 +1,20 @@
-<div class="" layout="row" layout-align="end center">
-    <div class="mh-search-input" layout="row" layout-align="end center">
-        <md2-autocomplete [items]="items"
-                          item-text="name"
-                          [(ngModel)]="item"
-                          required
-                          placeholder="{{placeholder}}">
-        </md2-autocomplete>
-    </div>
+<div class="mh-search-box" layout="row" layout-align="end center">
+    <md-input-container style="width: 100%;">
+        <input mdInput
+               placeholder="Suche..."
+               type="search"
+               [mdAutocomplete]="auto"
+               (blur)="handleBlur()"
+               (search)="handleSearch($event)"
+               (keyup)="handleSearch($event)"
+               (searchDebounce)="handleSearchDebounce($event)"
+               (clear)="handleClear(); toggleVisibility()"
+               style="width:100%">
+    </md-input-container>
+    <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let item of items" [value]="item.id" [routerLink]="['/person/view', item.id]">
+            <img md-list-avatar src="{{item.avatarUrlSmall}}" alt="...">
+            {{ item.fullName }}
+        </md-option>
+    </md-autocomplete>
 </div>
