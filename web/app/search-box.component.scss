@@ -2,9 +2,9 @@
   display: block;
 }
 .mh-search-box {
-  height: 64px;
+  width: 100%;
   md-input-container {
-    margin-left: 12px;
+    width: 80%;
     /deep/ {
       .md-input-placeholder.md-focused {
         visibility: hidden;

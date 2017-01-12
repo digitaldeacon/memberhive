@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component,animate,transition,style,state,trigger} from '@angular/core';
 
 import {TitleService} from './common/title.service';
 
@@ -7,6 +7,20 @@ import {TitleService} from './common/title.service';
     selector: 'mh-view',
     templateUrl: './view.component.html',
     styleUrls: ['./view.component.scss'],
+    animations: [
+        trigger('inputState', [
+            state('false', style({
+                width: '0%',
+                'margin-left': '0px',
+            })),
+            state('true',  style({
+                width: '100%',
+                'margin-left': '*',
+            })),
+            transition('0 => 1', animate('200ms ease-in')),
+            transition('1 => 0', animate('200ms ease-out')),
+        ]),
+    ],
 })
 export class ViewComponent {
 
@@ -24,7 +38,13 @@ export class ViewComponent {
 
     titleService: TitleService;
 
+    alwaysVisible: boolean = false;
+
     constructor(titleService: TitleService) {
         this.titleService = titleService;
+    }
+
+    toggleAlwaysVisible(): void {
+        this.alwaysVisible = !this.alwaysVisible;
     }
 }

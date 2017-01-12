@@ -1,5 +1,9 @@
 <div class="mh-search-box" layout="row" layout-align="end center">
-    <md-input-container style="width: 100%;">
+    <button md-icon-button type="button" class="mh-search-icon" flex="none" (click)="searchClicked()">
+        <md-icon *ngIf="searchVisible">{{backIcon}}</md-icon>
+        <md-icon *ngIf="!searchVisible">search</md-icon>
+    </button>
+    <md-input-container flex *ngIf="searchVisible">
         <input mdInput
                placeholder="Suche..."
                type="search"

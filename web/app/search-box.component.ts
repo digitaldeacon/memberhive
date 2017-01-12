@@ -9,33 +9,7 @@ import { MdInputDirective } from '@angular/material';
     selector: 'mh-search-box',
     templateUrl: './search-box.component.html',
     styleUrls: ['./search-box.component.scss' ],
-    providers: [PersonService],
-    animations: [
-        trigger('inputState', [
-            state('false', style({
-                width: '0%',
-                'margin-left': '0px'
-            })),
-            state('true',  style({
-                width: '100%',
-                'margin-left': '*'
-            })),
-            transition('0 => 1', animate('200ms ease-in')),
-            transition('1 => 0', animate('200ms ease-out'))
-        ]),
-        trigger('searchState', [
-            state('false', style({
-                transform: 'translateX(150%)',
-                display: 'none'
-            })),
-            state('true',  style({
-                transform: 'translateX(0%)',
-                display: 'block'
-            })),
-            transition('0 => 1', animate('200ms ease-in')),
-            transition('1 => 0', animate('200ms ease-out'))
-        ])
-    ]
+    providers: [PersonService]
 })
 export class MhSearchBoxComponent {
 
@@ -112,8 +86,8 @@ export class MhSearchBoxComponent {
      * Method executed when the search icon is clicked.
      */
     searchClicked(): void {
-        if (this.alwaysVisible || !this._searchVisible) {
-            this._searchInput.focus();
+        if (!this._searchVisible) {
+            // this._searchInput.focus();
         }
         this.toggleVisibility();
     }
