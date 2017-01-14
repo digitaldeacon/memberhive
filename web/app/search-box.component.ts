@@ -71,6 +71,8 @@ export class MhSearchBoxComponent {
 
     @Output('blur') onBlur: EventEmitter<void> = new EventEmitter<void>();
 
+    constructor(private personService: PersonService) {}
+
     set value(value: any) {
         this._searchInput.value = value;
     }
@@ -102,26 +104,22 @@ export class MhSearchBoxComponent {
 
     handleSearch(value: string): void {
         this.onSearch.emit(value);
-        console.log(this.value);
-        //console.log(this._input.value);
         this.personService.searchPersons(this.value)
             .subscribe((persons: Array<Person>) => this.items = persons);
     }
 
     handleClear(): void {
         this.onClear.emit(undefined);
-        console.log('clear');
+        // console.log('clear');
     }
 
     handleBlur(): void {
         this.onBlur.emit(undefined);
         this.value = '';
-        console.log('blur');
+        // console.log('blur');
     }
 
     stopPropagation(event: Event): void {
         event.stopPropagation();
     }
-
-    constructor(private personService: PersonService) {}
 }

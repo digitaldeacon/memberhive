@@ -1,7 +1,5 @@
-import {Component,animate,transition,style,state,trigger} from '@angular/core';
-
+import {Component, animate, transition, style, state, trigger} from '@angular/core';
 import {TitleService} from './common/title.service';
-
 
 @Component({
     selector: 'mh-view',
@@ -11,16 +9,16 @@ import {TitleService} from './common/title.service';
         trigger('inputState', [
             state('false', style({
                 width: '0%',
-                'margin-left': '0px',
+                'margin-left': '0px'
             })),
             state('true',  style({
                 width: '100%',
-                'margin-left': '*',
+                'margin-left': '*'
             })),
             transition('0 => 1', animate('200ms ease-in')),
-            transition('1 => 0', animate('200ms ease-out')),
-        ]),
-    ],
+            transition('1 => 0', animate('200ms ease-out'))
+        ])
+    ]
 })
 export class ViewComponent {
 
