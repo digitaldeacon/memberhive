@@ -14,8 +14,6 @@ import {ViewComponent} from './view.component';
 
 import {MhSearchBoxComponent} from './search-box.component';
 
-import { Md2Module }  from 'md2';
-
 import 'hammerjs';
 @NgModule({
     declarations: [
@@ -28,10 +26,9 @@ import 'hammerjs';
         BrowserModule,
         FormsModule,
         HttpModule,
+        MaterialModule,
 
-        MaterialModule.forRoot(),
         FlexLayoutModule.forRoot(),
-        Md2Module.forRoot(),
 
         AppRoutingModule,
 

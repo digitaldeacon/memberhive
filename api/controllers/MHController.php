@@ -1,13 +1,14 @@
 <?php
 namespace app\controllers;
+
 use yii\filters\Cors;
 use yii\web\Controller;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
 use app\helpers\MhAuth;
+
 class MHController extends Controller
 {
-
     public function behaviors()
     {
         return [
