@@ -24,7 +24,7 @@ export class PersonService {
             .map(this.deserialize);
     }
     public searchPersons(query: string): Observable<Person[]> {
-        return this.http.post('person/search', query)
+        return this.http.get('search/search?q=' + query)
             .map(this.deserializeList);
     }
 
