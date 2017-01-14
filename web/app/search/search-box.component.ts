@@ -1,8 +1,8 @@
 import { Component, ViewChild, Input, Output, EventEmitter,
     trigger, state, style, transition, animate } from '@angular/core';
 
-import {PersonService} from "./person/person.service";
-import {Person} from "./person/person";
+import {PersonService} from "../person/person.service";
+import {Person} from "../person/person";
 import { MdInputDirective } from '@angular/material';
 
 @Component({

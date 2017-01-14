@@ -16,9 +16,11 @@
                style="width:100%">
     </md-input-container>
     <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let item of items" [value]="item.id" [routerLink]="['/person/view', item.id]">
-            <img md-list-avatar src="{{item.avatarUrlSmall}}" alt="...">
-            {{ item.fullName }}
+        <md-option *ngFor="let item of items"
+                   [value]="item.id"
+                   [routerLink]="['/person/view', item.id]">
+            <img md-list-avatar src="{{item.avatarUrlSmall}}" alt="..." class="svg-ic_rounded_corner_24px">
+            <span style="padding-left: 4px">{{ item.fullName }}</span>
         </md-option>
     </md-autocomplete>
 </div>

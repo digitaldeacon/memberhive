@@ -12,7 +12,7 @@ import {CommonModule} from './common/common.module';
 import {LoginComponent} from './login.component';
 import {ViewComponent} from './view.component';
 
-import {MhSearchBoxComponent} from './search-box.component';
+import {MhSearchBoxComponent} from './search/search-box.component';
 
 import 'hammerjs';
 @NgModule({
