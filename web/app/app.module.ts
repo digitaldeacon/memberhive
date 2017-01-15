@@ -11,16 +11,13 @@ import {CommonModule} from './common/common.module';
 
 import {LoginComponent} from './login.component';
 import {ViewComponent} from './view.component';
+import {SearchModule} from "./search/search.module";
 
-import {MhSearchBoxComponent} from './search/search-box.component';
-
-import 'hammerjs';
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        ViewComponent,
-        MhSearchBoxComponent
+        ViewComponent
     ],
     imports: [
         BrowserModule,
@@ -32,7 +29,8 @@ import 'hammerjs';
 
         AppRoutingModule,
 
-        CommonModule
+        CommonModule,
+        SearchModule,
     ],
     providers: [],
     bootstrap: [AppComponent]

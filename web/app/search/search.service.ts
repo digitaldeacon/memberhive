@@ -8,11 +8,7 @@ export class SearchService {
 
     public search(query: string): Observable<any[]> {
         return this.http.get('search/search?q=' + query)
-            .map(this.deserializeList);
-    }
-
-    private deserializeList(resp: any): Array<any> {
-        return resp.response.map((r: any) => r);
+            .map((r: any) => r.response);
     }
 
 }

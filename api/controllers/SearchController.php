@@ -33,7 +33,14 @@ class SearchController extends MHController
 
         foreach(Person::find()->where($query)->each() as $person) {
             /** $person Person */
-            $ret[] = $person->toResponseArray();
+            $ret[] = [
+                'id' => $person->id,
+                'uid' => 'person'.$person->id,
+                'text' => $person->fullName,
+                'icon' => $person->avatarUrlSmall,
+                'type' => 'person',
+                'url' => ['/person/view', $person->id]
+            ];
         }
         return ['response' => $ret];
     }

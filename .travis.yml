@@ -33,5 +33,6 @@ script:
   - ng build
   - ng build --aot --prod
   - npm run tslint
+  - npm run phplint
 after_success:
   - ls dist/

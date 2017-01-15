@@ -12,3 +12,15 @@
     }
   }
 }
+.item {
+  padding-top: 5px;
+  padding-bottom: 5px;
+
+  .img {
+    border-radius: 50%;
+  }
+  .text {
+    padding-left: 4px;
+  }
+
+}

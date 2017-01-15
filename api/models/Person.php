@@ -2,7 +2,18 @@
 
 namespace app\models;
 
-
+/**
+ * Class Person
+ * @package app\models
+ *
+ * @property $firstName string
+ * @property $lastName string
+ * @property $fullName string
+ * @property $gender string
+ * @property $avatarUrlSmall string
+ * @property $avatarUrlMedium string
+ * @property $avatarUrlBig string
+ */
 class Person extends \yii\db\ActiveRecord
 {
     /**
@@ -57,13 +68,18 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             'id' => $this->id,
-            'fullName' => $this->firstName . ' ' . $this->lastName,
+            'fullName' => $this->fullName,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
             'avatarUrlSmall' => $this->avatarUrlSmall,
             'avatarUrlMedium' => $this->avatarUrlMedium,
             'avatarUrlBig' => $this->avatarUrlBig,
         ];
+    }
+
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
     }
 
 
