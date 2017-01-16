@@ -6,13 +6,13 @@ namespace app\models;
  * Class Person
  * @package app\models
  *
- * @property $firstName string
- * @property $lastName string
- * @property $fullName string
- * @property $gender string
- * @property $avatarUrlSmall string
- * @property $avatarUrlMedium string
- * @property $avatarUrlBig string
+ * @property string $firstName
+ * @property string $lastName
+ * @property string $fullName
+ * @property string $gender
+ * @property string $avatarUrlSmall
+ * @property string $avatarUrlMedium
+ * @property string $avatarUrlBig
  */
 class Person extends \yii\db\ActiveRecord
 {
