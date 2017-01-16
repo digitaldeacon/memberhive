@@ -13,23 +13,21 @@ import {Router} from "@angular/router";
 export class SearchBoxComponent {
 
     private _searchVisible: boolean = false;
+    private backIcon: string = 'arrow_back';
+    private showUnderline: boolean = false;
+    private debounce: number = 400;
+    private alwaysVisible: boolean = false;
 
     @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
     public items: Array<any>;
     public item: any;
 
-    private backIcon: string = 'arrow_back';
-    private showUnderline: boolean = false;
-    private debounce: number = 400;
-    private alwaysVisible: boolean = false;
-
     /**
      * placeholder?: string
      * Placeholder for the underlying input component.
      */
     @Input('placeholder') placeholder: string;
-
 
     constructor(private searchService: SearchService, private router: Router) {}
 
@@ -58,16 +56,9 @@ export class SearchBoxComponent {
         this._searchVisible = !this._searchVisible;
     }
 
-    handleSearchDebounce(value: string): void {
-    }
-
     handleSearch(value: string): void {
         this.searchService.search(this.value)
             .subscribe((results: Array<any>) => this.items = results);
-    }
-
-    handleClear(): void {
-
     }
 
     handleBlur(): void {
@@ -78,7 +69,7 @@ export class SearchBoxComponent {
         event.stopPropagation();
     }
 
-    resultClicked(item: any) {
+    resultClicked(item: any): void {
         this.router.navigate([item.url]);
     }
 }

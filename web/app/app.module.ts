@@ -30,7 +30,7 @@ import {SearchModule} from "./search/search.module";
         AppRoutingModule,
 
         CommonModule,
-        SearchModule,
+        SearchModule
     ],
     providers: [],
     bootstrap: [AppComponent]
