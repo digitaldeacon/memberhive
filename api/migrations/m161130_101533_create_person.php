@@ -18,6 +18,7 @@ class m161130_101533_create_person extends Migration
             'suffix' => $this->string(),
 
             'gender' => $this->string(1),
+            'email' => $this->string()->unique(),
 
             'address' => $this->text(),
             'custom' => $this->text(),

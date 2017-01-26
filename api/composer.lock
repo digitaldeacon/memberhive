@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "db6c3813b14b0923ec8b90421943d49d",
-    "content-hash": "8548fd7114e5402b692c2f80bc03c8a8",
+    "hash": "ab52611635457f1e95a27510576d4ce8",
+    "content-hash": "30da3106fced8143a136d44f5458bd6b",
     "packages": [
         {
             "name": "boundstate/yii2-mailgun",
@@ -86,16 +86,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.2.7",
+            "version": "3.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "5a72c563b502b8e05958a524cdfffafe9987be38"
+                "reference": "8a882bc471ba4077c4f8ecbe3d9d61c7558f3ef2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5a72c563b502b8e05958a524cdfffafe9987be38",
-                "reference": "5a72c563b502b8e05958a524cdfffafe9987be38",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/8a882bc471ba4077c4f8ecbe3d9d61c7558f3ef2",
+                "reference": "8a882bc471ba4077c4f8ecbe3d9d61c7558f3ef2",
                 "shasum": ""
             },
             "require": {
@@ -104,7 +104,14 @@
             "type": "bower-asset-library",
             "extra": {
                 "bower-asset-main": [
-                    "./dist/inputmask/inputmask.js"
+                    "./dist/inputmask/inputmask.dependencyLib",
+                    "./dist/inputmask/inputmask",
+                    "./dist/inputmask/inputmask.extensions",
+                    "./dist/inputmask/inputmask.date.extensions",
+                    "./dist/inputmask/inputmask.numeric.extensions",
+                    "./dist/inputmask/inputmask.phone.extensions",
+                    "./dist/inputmask/inputmask.regex.extensions",
+                    "./dist/inputmask/jquery.inputmask"
                 ],
                 "bower-asset-ignore": [
                     "**/*",
@@ -253,21 +260,66 @@
             "time": "2016-12-11 13:37:11"
         },
         {
-            "name": "ezyang/htmlpurifier",
-            "version": "v4.8.0",
+            "name": "elvanto/api-php",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
+                "url": "https://github.com/elvanto/api-php.git",
+                "reference": "026fd88ca45d04ac97d2e762647969ecc9f8d4d4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "url": "https://api.github.com/repos/elvanto/api-php/zipball/026fd88ca45d04ac97d2e762647969ecc9f8d4d4",
+                "reference": "026fd88ca45d04ac97d2e762647969ecc9f8d4d4",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ben Sinclair",
+                    "homepage": "https://www.elvanto.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "API PHP Library for Elvanto church management software.",
+            "homepage": "https://github.com/elvanto/api-php/",
+            "keywords": [
+                "api",
+                "elvanto"
+            ],
+            "time": "2016-08-01 03:51:29"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.9.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "a1c09b09e398687deeb8e309a6305def4b43439b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/a1c09b09e398687deeb8e309a6305def4b43439b",
+                "reference": "a1c09b09e398687deeb8e309a6305def4b43439b",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
             },
             "type": "library",
             "autoload": {
@@ -294,7 +346,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-07-16 12:58:58"
+            "time": "2017-01-13 12:31:37"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -355,12 +407,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/guzzle/RingPHP.git",
-                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c"
+                "reference": "4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/9465032ac5d6beaa55f10923403e6e1c36018d9c",
-                "reference": "9465032ac5d6beaa55f10923403e6e1c36018d9c",
+                "url": "https://api.github.com/repos/guzzle/RingPHP/zipball/4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539",
+                "reference": "4c8fe4c48a0fb7cc5e41ef529e43fecd6da4d539",
                 "shasum": ""
             },
             "require": {
@@ -398,7 +450,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
-            "time": "2015-05-21 17:23:02"
+            "time": "2017-01-13 20:44:38"
         },
         {
             "name": "guzzlehttp/streams",
@@ -540,12 +592,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "9e8646cb9ad696083b418f020e4e1a150677e0c9"
+                "reference": "51bcb06ecfebf718bad102fc3a8011fd0eb091dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9e8646cb9ad696083b418f020e4e1a150677e0c9",
-                "reference": "9e8646cb9ad696083b418f020e4e1a150677e0c9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/51bcb06ecfebf718bad102fc3a8011fd0eb091dd",
+                "reference": "51bcb06ecfebf718bad102fc3a8011fd0eb091dd",
                 "shasum": ""
             },
             "require": {
@@ -632,7 +684,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-01-07 20:15:30"
+            "time": "2017-01-25 08:00:13"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -806,12 +858,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "bd2427e162226297891670c77be286385ca4805c"
+                "reference": "1629f04186cc74ba544c7f17e223020e1d2f944e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/bd2427e162226297891670c77be286385ca4805c",
-                "reference": "bd2427e162226297891670c77be286385ca4805c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/1629f04186cc74ba544c7f17e223020e1d2f944e",
+                "reference": "1629f04186cc74ba544c7f17e223020e1d2f944e",
                 "shasum": ""
             },
             "require": {
@@ -848,7 +900,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2016-12-19 12:53:18"
+            "time": "2017-01-17 21:50:17"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -903,12 +955,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "e28ccc70fe052187c2d060f67241d05e95ff5eae"
+                "reference": "c813f7f4b7393afdcf28c816e0dce6e2a8256f3f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/e28ccc70fe052187c2d060f67241d05e95ff5eae",
-                "reference": "e28ccc70fe052187c2d060f67241d05e95ff5eae",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/c813f7f4b7393afdcf28c816e0dce6e2a8256f3f",
+                "reference": "c813f7f4b7393afdcf28c816e0dce6e2a8256f3f",
                 "shasum": ""
             },
             "require": {
@@ -948,7 +1000,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2016-12-21 16:50:20"
+            "time": "2017-01-25 20:09:12"
         }
     ],
     "aliases": [],

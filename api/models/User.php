@@ -10,7 +10,6 @@ use yii\web\IdentityInterface;
  * @property integer $id
  *
  * @property string $username
- * @property string $email
  * @property string $lastLogin
  * @property string $createdAt
  * @property string $updatedAt
@@ -35,7 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             [['id'], 'integer'],
-            [['username', 'email'], 'required'],
+            [['username'], 'required'],
             [['password'], 'string', 'min' => 6],
             ['username', 'unique'],
         ];
@@ -44,7 +43,6 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => t('ID'),
-            'email' => t('user.email'),
         ];
     }
     /**

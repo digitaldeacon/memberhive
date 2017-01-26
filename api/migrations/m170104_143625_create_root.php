@@ -7,7 +7,6 @@ class m170104_143625_create_root extends Migration
     public function up()
     {
         $user = new \app\models\User();
-        $user->email = "test@memberhive.com";
         $user->username = "root";
         $user->setPassword("bibel");
         $user->save();
