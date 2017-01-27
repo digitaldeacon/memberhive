@@ -30,7 +30,7 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstName', 'lastName'], 'required'],
+            [['firstName'], 'required'],
             [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig'], 'string', 'max' => 255],
             [['gender'], 'string', 'max' => 1],
         ];
