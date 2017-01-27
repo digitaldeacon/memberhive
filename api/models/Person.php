@@ -71,9 +71,12 @@ class Person extends \yii\db\ActiveRecord
             'fullName' => $this->fullName,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
+            'email' => $this->email,
+            'address' => $this->address,
             'avatarUrlSmall' => $this->avatarUrlSmall,
             'avatarUrlMedium' => $this->avatarUrlMedium,
             'avatarUrlBig' => $this->avatarUrlBig,
+            'avatar' => $this->avatar,
         ];
     }
 
@@ -82,5 +85,9 @@ class Person extends \yii\db\ActiveRecord
         return $this->firstName . ' ' . $this->lastName;
     }
 
-
+    public function getAvatar($size='s')
+    {
+        $default = 'assets/images/avatar/'.$this->gender.'.png';
+        return empty($this->avatarUrlSmall) ? $default : $this->avatarUrlSmall;
+    }
 }

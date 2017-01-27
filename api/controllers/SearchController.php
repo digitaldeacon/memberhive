@@ -37,7 +37,7 @@ class SearchController extends MHController
                 'id' => $person->id,
                 'uid' => 'person'.$person->id,
                 'text' => $person->fullName,
-                'icon' => $person->avatarUrlSmall,
+                'icon' => $person->avatar,
                 'type' => 'person',
                 'url' => ['/person/view', $person->id]
             ];

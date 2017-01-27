@@ -7,7 +7,7 @@ import {Person} from "../person";
 @Component({
     moduleId: 'mh-person',
     selector: 'mh-person-view',
-    templateUrl: './person-view.component.html'
+    templateUrl: './person-view.component.html',
 })
 export class PersonViewComponent implements OnInit {
     private person: Person;

@@ -1,9 +1,51 @@
-<div class="flex-container" fxLayout='column'>
-
-    <div class="flex-item" fxFlex fxLayoutAlign="center center">
-        <img md-list-avatar src="{{person?.avatarUrlBig}}" alt="...">
+<div [fxLayout]="row" [fxLayout.sm]="column" fxLayoutAlign="start stretch">
+    <div fxFlex="25" fxLayoutAlign="space-between start">
+        <md-card>
+            <img md-card-image src="{{person?.avatarUrlBig}}" alt="...">
+            <md-card-header>
+                <md-card-title><h1>{{person?.fullName}}</h1></md-card-title>
+            </md-card-header>
+            <md-card-content>
+                <md-list>
+                    <md-list-item>
+                        <md-icon md-list-avatar>email</md-icon>
+                        <div md-line>{{person?.email}}</div>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-icon md-list-avatar>call</md-icon>
+                        <div md-line>{{person?.phone}}</div>
+                    </md-list-item>
+                    <md-list-item>
+                        <md-icon md-list-avatar>place</md-icon>
+                        <div md-line>{{person?.address}}</div>
+                    </md-list-item>
+                </md-list>
+            </md-card-content>
+        </md-card>
     </div>
-    <div class="flex-item" fxFlex fxLayoutAlign="center center">
-        <h2>{{person?.fullName}}</h2>
+    <div fxFlex fxFill>
+        <md-card>
+            <md-tab-group>
+                <md-tab label="Notizen">
+
+                </md-tab>
+                <md-tab label="Bearbeiten">
+                    <form class="person-edit">
+                        <div>
+                            <md-input-container><input mdInput value="{{person?.firstName}}" placeholder="Vorname"></md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container><input mdInput value="{{person?.lastName}}" placeholder="Nachname"></md-input-container>
+                        </div>
+                        <div>
+                            <md-input-container><input mdInput value="{{person?.email}}" placeholder="E-Mail"></md-input-container>
+                        </div>
+                    </form>
+                </md-tab>
+                <md-tab label="Verlauf">
+
+                </md-tab>
+            </md-tab-group>
+        </md-card>
     </div>
 </div>

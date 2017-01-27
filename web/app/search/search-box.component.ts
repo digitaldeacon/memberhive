@@ -70,6 +70,7 @@ export class SearchBoxComponent {
     }
 
     resultClicked(item: any): void {
+        console.log(item.url);
         this.router.navigate([item.url]);
     }
 }
