@@ -34,32 +34,47 @@
                     <form class="person-edit" [fxLayout]="row">
                         <div fxFlex="50">
                             <div>
-                                <md-input-container><input mdInput value="{{person?.firstName}}" placeholder="Vorname"></md-input-container>
+                                <md-input-container><input mdInput value="{{person?.prefix}}" placeholder="Prefix" i18n-placeholder="Prefix"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.lastName}}" placeholder="Nachname"></md-input-container>
+                                <md-input-container><input mdInput value="{{person?.firstName}}" placeholder="Firstname" i18n-placeholder="Firstname"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.email}}" placeholder="E-Mail"></md-input-container>
+                                <md-input-container><input mdInput value="{{person?.middleName}}" placeholder="Middlename" i18n-placeholder="Middlename"></md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container><input mdInput value="{{person?.lastName}}" placeholder="Surname" i18n-placeholder="Surname"></md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container><input mdInput value="{{person?.nickName}}" placeholder="Nickname" i18n-placeholder="Nickname"></md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container><input mdInput value="{{person?.suffix}}" placeholder="Suffix" i18n-placeholder="Suffix"></md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container><input mdInput value="{{person?.email}}" placeholder="Email" i18n-placeholder="Email"></md-input-container>
+                            </div>
+                            <div>
+                                <md-input-container><input mdInput value="{{person?.gender}}" placeholder="Gender" i18n-placeholder="Gender"></md-input-container>
                             </div>
                         </div>
                         <div fxFlex="50">
                             <div>
-                                <md-input-container><input mdInput value="{{user?.username}}" placeholder="Benutzername"></md-input-container>
+                                <md-input-container><input mdInput value="{{user?.username}}" placeholder="Username" i18n-placeholder="Username"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{user?.passwordHash}}" placeholder="Konto Passwort"></md-input-container>
+                                <md-input-container><input mdInput value="{{user?.passwordHash}}" placeholder="Password" i18n-placeholder="Password"></md-input-container>
                             </div>
                         </div>
                     </form>
                 </md-tab>
-                <md-tab label="Verlauf">
+                <md-tab label="Aktivität" i18n-label="Aktivität">
 
                 </md-tab>
-                <md-tab label="Familie">
+                <md-tab label="Familie" i18n-label="Familie">
 
                 </md-tab>
-                <md-tab label="Gruppen">
+                <md-tab label="Gruppen" i18n-label="Gruppen">
 
                 </md-tab>
             </md-tab-group>

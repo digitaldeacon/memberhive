@@ -45,4 +45,8 @@ export class ViewComponent {
     toggleAlwaysVisible(): void {
         this.alwaysVisible = !this.alwaysVisible;
     }
+
+    logout(): void {
+        console.log('logging out');
+    }
 }
