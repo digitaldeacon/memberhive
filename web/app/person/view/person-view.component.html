@@ -1,5 +1,5 @@
 <div [fxLayout]="row" [fxLayout.sm]="column" fxLayoutAlign="start stretch">
-    <div fxFlex="20" fxFlex.sm="100" fxLayoutAlign="space-between start">
+    <div fxFlex="25" fxFlex.sm="100" fxLayoutAlign="space-between start">
         <md-card fxFlex>
             <md-card-actions fxFlex  fxLayoutAlign="space-between center">
                 <a md-button><md-icon>chevron_left</md-icon>Previous</a>
@@ -27,12 +27,12 @@
     <div fxFlex fxFill>
         <md-card fxFlexOffset="10px">
             <md-tab-group>
-                <md-tab label="Notizen">
+                <md-tab label="Memos">
 
                 </md-tab>
-                <md-tab label="Bearbeiten">
+                <md-tab label="Edit">
                     <form class="person-edit" [fxLayout]="row">
-                        <div fxFlex="50">
+                        <div fxFlex.sm="50">
                             <div>
                                 <md-input-container><input mdInput value="{{person?.prefix}}" placeholder="Prefix" i18n-placeholder="Prefix"></md-input-container>
                             </div>
@@ -58,7 +58,7 @@
                                 <md-input-container><input mdInput value="{{person?.gender}}" placeholder="Gender" i18n-placeholder="Gender"></md-input-container>
                             </div>
                         </div>
-                        <div fxFlex="50">
+                        <div fxFlex.sm="50" fxFlexOffset="20px">
                             <div>
                                 <md-input-container><input mdInput value="{{user?.username}}" placeholder="Username" i18n-placeholder="Username"></md-input-container>
                             </div>
@@ -68,13 +68,13 @@
                         </div>
                     </form>
                 </md-tab>
-                <md-tab label="Aktivität" i18n-label="Aktivität">
+                <md-tab label="Activity" i18n-label="Activity">
 
                 </md-tab>
-                <md-tab label="Familie" i18n-label="Familie">
+                <md-tab label="Family" i18n-label="Family">
 
                 </md-tab>
-                <md-tab label="Gruppen" i18n-label="Gruppen">
+                <md-tab label="Groups" i18n-label="Groups">
 
                 </md-tab>
             </md-tab-group>
