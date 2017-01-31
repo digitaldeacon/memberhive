@@ -11,13 +11,16 @@ import {Person} from "../person";
 })
 export class PersonViewComponent implements OnInit {
     private person: Person;
-    constructor(titleService: TitleService,  private route: ActivatedRoute, private personService: PersonService) {
-        titleService.setTitle('Person View');
+    constructor(private titleService: TitleService,  private route: ActivatedRoute, private personService: PersonService) {
+
     }
 
     ngOnInit(): void {
         this.route.params
             .switchMap((params: Params) => this.personService.getPerson(+params['id']))
-            .subscribe((person: Person) => this.person = person);
+            .subscribe((person: Person) => {
+                this.person = person;
+                this.titleService.setTitle('Person: '+person.fullName)
+        });
     }
 }

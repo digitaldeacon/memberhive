@@ -48,6 +48,7 @@
     "build": "ng build --prod",
     "extract-i18n": "cd web && ng-xi18n",
     "tslint": "tslint \"**/*.ts\" -c web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "phplint": "phplint 'api/**/*.php' '!api/vendor/**'"
+    "phplint": "phplint 'api/**/*.php' '!api/vendor/**'",
+    "i18n": "ng-xi18n"
   }
 }
