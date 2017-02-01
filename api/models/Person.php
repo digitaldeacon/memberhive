@@ -31,7 +31,9 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             [['firstName'], 'required'],
-            [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig'], 'string', 'max' => 255],
+            [['firstName','middleName','lastName','nickName','email','avatarUrlSmall','avatarUrlMedium','avatarUrlBig'], 'string', 'max' => 255],
+            [['maritalStatus'], 'string','max'=>10],
+            [['birthday','baptized','anniversary','deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
         ];
     }
