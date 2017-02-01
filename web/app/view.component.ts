@@ -47,6 +47,6 @@ export class ViewComponent {
     }
 
     logout(): void {
-        console.log('logging out');
+        // console.log('logging out');
     }
 }

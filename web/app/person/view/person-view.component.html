@@ -1,31 +1,32 @@
-<div [fxLayout]="row" [fxLayout.sm]="column" fxLayoutAlign="start stretch">
-    <div fxFlex="25" fxFlex.sm="100" fxLayoutAlign="space-between start">
+<div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
+    <div fxFlex="20" fxLayoutAlign="space-between start">
         <md-card fxFlex>
-            <md-card-actions fxFlex  fxLayoutAlign="space-between center">
+            <md-card-actions fxFlex fxLayoutAlign="space-between center">
                 <a md-button><md-icon>chevron_left</md-icon>Previous</a>
+                <img md-card-avatar src="{{person?.avatarUrlBig}}" alt="..." fxHide.gt-sm fxShow.xs fxShow.sm>
                 <a md-button>Next<md-icon>chevron_right</md-icon></a>
             </md-card-actions>
-            <img md-card-image src="{{person?.avatarUrlBig}}" alt="...">
-            <md-card-content>
+            <img md-card-image src="{{person?.avatarUrlBig}}" alt="..." fxHide.sm fxHide.xs>
+            <md-card-content fxHide.sm fxHide.xs>
                 <md-list>
                     <md-list-item>
-                        <md-icon md-list-avatar>email</md-icon>
-                        <div md-line>{{person?.email}}</div>
+                        <md-icon>email</md-icon>
+                        <div >{{person?.email}}</div>
                     </md-list-item>
                     <md-list-item>
-                        <md-icon md-list-avatar>call</md-icon>
-                        <div md-line>{{person?.phone}}</div>
+                        <md-icon>call</md-icon>
+                        <div >{{person?.phone}}</div>
                     </md-list-item>
                     <md-list-item>
-                        <md-icon md-list-avatar>place</md-icon>
-                        <div md-line>{{person?.address}}</div>
+                        <md-icon>place</md-icon>
+                        <div >{{person?.address}}</div>
                     </md-list-item>
                 </md-list>
             </md-card-content>
         </md-card>
     </div>
     <div fxFlex fxFill>
-        <md-card fxFlexOffset="10px">
+        <md-card>
             <md-tab-group>
                 <md-tab label="Memos">
 
@@ -34,28 +35,28 @@
                     <form class="person-edit" [fxLayout]="row">
                         <div fxFlex.sm="50">
                             <div>
-                                <md-input-container><input mdInput value="{{person?.prefix}}" placeholder="Prefix" i18n-placeholder="Prefix"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.prefix}}" placeholder="Prefix" i18n-placeholder="Prefix"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.firstName}}" placeholder="Firstname" i18n-placeholder="Firstname"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.firstName}}" placeholder="Firstname" i18n-placeholder="Firstname"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.middleName}}" placeholder="Middlename" i18n-placeholder="Middlename"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.middleName}}" placeholder="Middlename" i18n-placeholder="Middlename"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.lastName}}" placeholder="Surname" i18n-placeholder="Surname"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.lastName}}" placeholder="Surname" i18n-placeholder="Surname"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.nickName}}" placeholder="Nickname" i18n-placeholder="Nickname"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.nickName}}" placeholder="Nickname" i18n-placeholder="Nickname"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.suffix}}" placeholder="Suffix" i18n-placeholder="Suffix"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.suffix}}" placeholder="Suffix" i18n-placeholder="Suffix"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.email}}" placeholder="Email" i18n-placeholder="Email"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.email}}" placeholder="Email" i18n-placeholder="Email"></md-input-container>
                             </div>
                             <div>
-                                <md-input-container><input mdInput value="{{person?.gender}}" placeholder="Gender" i18n-placeholder="Gender"></md-input-container>
+                                <md-input-container flex><input mdInput value="{{person?.gender}}" placeholder="Gender" i18n-placeholder="Gender"></md-input-container>
                             </div>
                         </div>
                         <div fxFlex.sm="50" fxFlexOffset="20px">

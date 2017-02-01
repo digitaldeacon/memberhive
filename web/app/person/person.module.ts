@@ -20,7 +20,7 @@ import {PersonService} from "./person.service";
         CommonModule,
         MaterialModule,
         PersonRoutingModule,
-        FlexLayoutModule.forRoot(),
+        FlexLayoutModule.forRoot()
     ],
     providers: [
         PersonService

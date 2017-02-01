@@ -8,10 +8,13 @@ import {Person} from "../person";
     moduleId: 'mh-person',
     selector: 'mh-person-view',
     templateUrl: './person-view.component.html',
+    styleUrls: ['./person-view.component.scss']
 })
 export class PersonViewComponent implements OnInit {
     private person: Person;
-    constructor(private titleService: TitleService,  private route: ActivatedRoute, private personService: PersonService) {
+    constructor(private titleService: TitleService,
+                private route: ActivatedRoute,
+                private personService: PersonService) {
     }
 
     ngOnInit(): void {
@@ -19,7 +22,7 @@ export class PersonViewComponent implements OnInit {
             .switchMap((params: Params) => this.personService.getPerson(+params['id']))
             .subscribe((person: Person) => {
                 this.person = person;
-                this.titleService.setTitle('Person: '+person.fullName);
+                this.titleService.setTitle('Person: ' + person.fullName);
         });
     }
 }
