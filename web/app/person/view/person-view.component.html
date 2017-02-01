@@ -66,6 +66,17 @@
                             <div>
                                 <md-input-container><input mdInput value="{{user?.passwordHash}}" placeholder="Password" i18n-placeholder="Password"></md-input-container>
                             </div>
+                            <div>
+                                <div class="file-upload">
+                                    <span class="text">upload</span>
+                                    <input id="custom-input" type="file" (change)="fileChangeListener($event)">
+                                </div>
+                                <!--<img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>-->
+                                <br>
+                                <span class="result rounded" *ngIf="data.image" >
+                                    <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
+                                </span>
+                            </div>
                         </div>
                     </form>
                 </md-tab>
