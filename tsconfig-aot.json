@@ -6,13 +6,12 @@
     "experimentalDecorators": true,
     "mapRoot": "./",
     "lib": [
-      "es6",
+      "es2015",
       "dom"
     ],
-    "module": "commonjs",
+    "module": "es2015",
     "moduleResolution": "node",
     "outDir": "dist",
-    "genDir": "web/locale",
     "sourceMap": true,
     "target": "es5",
     "typeRoots": [
@@ -31,7 +30,19 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true
   },
+  "angularCompilerOptions": {
+    "genDir": "web/locale",
+    "skipMetadataEmit" : true
+  },
+  "files": [
+    "web/app/app.module.ts",
+    "web/main.ts"
+  ],
   "exclude": [
-    "test.ts"
+    "test.ts",
+    "node_modules",
+    "dist",
+    "web/polyfills.ts",
+    "web/i18n-providers.ts"
   ]
 }

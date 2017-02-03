@@ -3,6 +3,5 @@
           "target": "http://localhost",
           "secure": false,
           "pathRewrite": {"^/api" : "/memberhive2/api"}
-
     }
 }
