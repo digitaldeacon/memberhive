@@ -71,9 +71,9 @@ class ImportController extends Controller
         return 0;
     }
 
-    public function actionMemberhivePersons($access_token)
+    public function actionMemberhivePersons($domain,$access_token)
     {
-        $url = "https://ecg.memberhive.com/api/Persons?access_token=j1IAW8S8WcdTdM7kGuM3GyvZno5lKD5fetYOkEwHpgjEjldGp6Anfxqp9ZqFXltA";
+        $url = "https://$domain.memberhive.com/api/Persons?access_token=$access_token";
 
         $ch = curl_init();
         // Disable SSL verification
