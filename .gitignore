@@ -7,11 +7,6 @@
 # dependencies
 /node_modules
 
-
-#Yii Ignore
-api/vendor
-api/runtime
-q
 # IDEs and editors
 /.idea
 .project

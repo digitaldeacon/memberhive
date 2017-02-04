@@ -18,7 +18,6 @@
         <md-list>
             <md-list-item *ngFor="let item of items"
                           [routerLink]="['/person/view', item.id]"
-                          (blur)="handleBlur()"
                           class="item" style="cursor: pointer">
                 <img md-list-avatar src="{{item.icon}}" alt="..." class="img"
                      style="max-width: 40px;max-height:40px">

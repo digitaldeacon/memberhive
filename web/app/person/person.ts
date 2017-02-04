@@ -10,6 +10,7 @@ export class Person {
     public avatarUrlBig: string;
     public avatarUrlMedium: string;
     public avatarUrlSmall: string;
+    public avatar: string;
 
     public deserialize(input: any): Person {
         this.id = +input.id;
@@ -19,6 +20,7 @@ export class Person {
         this.fullName = input.fullName;
         this.email = input.email;
         this.gender = input.gender;
+        this.avatar = input.avatar;
         this.avatarUrlBig = input.avatarUrlBig;
         this.avatarUrlMedium = input.avatarUrlMedium;
         this.avatarUrlSmall = input.avatarUrlSmall;
@@ -35,7 +37,8 @@ export class Person {
             gender: this.gender,
             avatarUrlBig: this.avatarUrlBig,
             avatarUrlMedium: this.avatarUrlMedium,
-            avatarUrlSmall: this.avatarUrlSmall
+            avatarUrlSmall: this.avatarUrlSmall,
+            avatar: this.avatar
         };
     }
 }
