@@ -70,4 +70,24 @@ class ImportController extends Controller
         echo "Successfully inserted $inserted and updated $updated Persons\n";
         return 0;
     }
+
+    public function actionMemberhivePersons($access_token)
+    {
+        $url = "https://ecg.memberhive.com/api/Persons?access_token=j1IAW8S8WcdTdM7kGuM3GyvZno5lKD5fetYOkEwHpgjEjldGp6Anfxqp9ZqFXltA";
+
+        $ch = curl_init();
+        // Disable SSL verification
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        // Will return the response, if false it print the response
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // Set the url
+        curl_setopt($ch, CURLOPT_URL,$url);
+        // Execute
+        $result=curl_exec($ch);
+        // Closing
+        curl_close($ch);
+
+        var_dump(json_decode($result, true));
+        return 0;
+    }
 }

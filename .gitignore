@@ -6,6 +6,7 @@
 
 # dependencies
 /node_modules
+api/vendor
 
 # IDEs and editors
 /.idea
