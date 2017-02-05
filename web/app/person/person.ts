@@ -7,6 +7,7 @@ export class Person {
     public fullName: string;
     public email: string;
     public gender: string;
+    public birthday: string;
     public avatarUrlBig: string;
     public avatarUrlMedium: string;
     public avatarUrlSmall: string;
@@ -20,6 +21,7 @@ export class Person {
         this.fullName = input.fullName;
         this.email = input.email;
         this.gender = input.gender;
+        this.birthday = input.birthday;
         this.avatar = input.avatar;
         this.avatarUrlBig = input.avatarUrlBig;
         this.avatarUrlMedium = input.avatarUrlMedium;
