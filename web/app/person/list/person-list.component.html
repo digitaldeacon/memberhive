@@ -13,7 +13,7 @@
                 <img md-card-avatar src="{{person.avatar}}" alt="..." />
                 <md-card-title>
                     <a [routerLink]="['/person/view', person.id]">{{person.fullName}}</a>
-                    <span><md-icon class="md-10">email</md-icon> {{person.birthday | date: 'dd/MM/yyyy'}}</span>
+                    <span>{{person.birthday | date: 'dd/MM/yyyy'}}</span>
                     <span md-line="">{{person.email}}</span>
                 </md-card-title>
                 <md-card-subtitle>

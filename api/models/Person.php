@@ -77,6 +77,7 @@ class Person extends \yii\db\ActiveRecord
             'address' => $this->address,
             'gender' => $this->gender,
             'birthday' => $this->birthday,
+            'maritalStatus' => $this->maritalStatus,
             'avatarUrlSmall' => $this->avatarUrlSmall,
             'avatarUrlMedium' => $this->avatarUrlMedium,
             'avatarUrlBig' => $this->avatarUrlBig,

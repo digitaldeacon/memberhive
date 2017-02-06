@@ -13,6 +13,8 @@ import {ImageCropperComponent, CropperSettings, Bounds} from 'ng2-img-cropper';
 })
 export class PersonViewComponent implements OnInit {
     private person: Person;
+
+    showNotesActions:boolean;
     data:any;
     cropperSettings:CropperSettings;
     @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
@@ -42,6 +44,7 @@ export class PersonViewComponent implements OnInit {
         this.cropperSettings.noFileInput = true;
 
         this.data = {};
+        this.showNotesActions = false;
     }
 
     ngOnInit(): void {
@@ -65,5 +68,9 @@ export class PersonViewComponent implements OnInit {
         };
 
         myReader.readAsDataURL(file);
+    }
+
+    showActions($event) {
+        this.showNotesActions = true;
     }
 }

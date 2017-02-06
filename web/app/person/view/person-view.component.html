@@ -1,39 +1,112 @@
-<div fxFlex fxLayout="row" fxLayout.sm="column" fxLayout.xs="column">
-    <div fxFlex="20" fxLayoutAlign="space-between start">
-        <md-card fxFlex>
-            <md-card-actions fxFlex fxLayoutAlign="space-between center">
-                <a md-button><md-icon>chevron_left</md-icon>Previous</a>
-                <img md-card-avatar src="{{person?.avatarUrlBig}}" alt="..." fxHide.gt-sm fxShow.xs fxShow.sm>
-                <a md-button>Next<md-icon>chevron_right</md-icon></a>
-            </md-card-actions>
-            <img md-card-image src="{{person?.avatarUrlBig}}" alt="..." fxHide.sm fxHide.xs>
-            <md-card-content fxHide.sm fxHide.xs>
-                <md-list>
-                    <md-list-item>
-                        <md-icon>email</md-icon>
-                        <div >{{person?.email}}</div>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-icon>call</md-icon>
-                        <div >{{person?.phone}}</div>
-                    </md-list-item>
-                    <md-list-item>
-                        <md-icon>place</md-icon>
-                        <div >{{person?.address}}</div>
-                    </md-list-item>
-                </md-list>
-            </md-card-content>
-        </md-card>
-    </div>
-    <div fxFlex fxFill>
-        <md-card>
+<div class="flex-container" fxLayout='column'>
+    <md-card-actions fxFlex fxHide.gt-xs>
+        <a md-button><md-icon>chevron_left</md-icon>Previous</a>
+        <a md-button>Next<md-icon>chevron_right</md-icon></a>
+    </md-card-actions>
+    <md-card class="person-card">
+        <md-card-header class="person-card-header">
+            <img md-card-avatar src="{{person?.avatar}}" alt="...">
+            <md-card-title-group fxFlex>
+                <md-card-title>
+                    <md-chip-list>
+                        <md-chip>Mitglied</md-chip>
+                        <md-chip>Begrüßungsdienst</md-chip>
+                    </md-chip-list>
+                </md-card-title>
+                <md-card-subtitle>
+                    <div>
+                        <md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a>
+                        <md-icon>phone</md-icon><a href="tel:0303-345546">0303-345546</a>
+                        <md-icon>favorite</md-icon>{{person?.maritalStatus}}
+                    </div>
+                    <div><md-icon>cake</md-icon> {{person?.birthday}}</div>
+                </md-card-subtitle>
+                <md-card-actions fxHide.xs>
+                    <a md-button><md-icon>chevron_left</md-icon>Previous</a>
+                    <a md-button>Next<md-icon>chevron_right</md-icon></a>
+                </md-card-actions>
+            </md-card-title-group>
+        </md-card-header>
+
+        <md-card-content>
             <md-tab-group>
                 <md-tab label="Memos">
-
+                    <md-card class="notes" fxLayout="column">
+                        <md-input-container fxFlex fxFill>
+                            <textarea
+                                    mdInput
+                                    placeholder="Write a quick note"
+                                    (click)="showActions()"></textarea>
+                        </md-input-container>
+                        <md-card-actions *ngIf="showNotesActions">
+                            <md-button-toggle-group #group="mdButtonToggleGroup">
+                                <md-button-toggle value="comment" checked="true" mdTooltip="Note">
+                                    <md-icon class="note-comment">comment</md-icon>
+                                </md-button-toggle>
+                                <md-button-toggle value="meeting" mdTooltip="Meeting">
+                                    <md-icon class="note-meeting">forum</md-icon>
+                                </md-button-toggle>
+                                <md-button-toggle value="email" mdTooltip="Email">
+                                    <md-icon class="note-email">email</md-icon>
+                                </md-button-toggle>
+                                <md-button-toggle value="phone" mdTooltip="Phone call">
+                                    <md-icon class="note-phone">contact_phone</md-icon>
+                                </md-button-toggle>
+                            </md-button-toggle-group>
+                            <button md-raised-button>Send</button>
+                        </md-card-actions>
+                    </md-card>
+                    <div class="notes">
+                        <md-card fxFlex>
+                            <md-card-header>
+                                <md-icon md-card-avatar class="note-comment">comment</md-icon>
+                                <md-card-subtitle>20. Feb. 17, 13:45 - by Thomas</md-card-subtitle>
+                            </md-card-header>
+                            <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+                            <md-card-actions fxLayoutAlign="end">
+                                <button md-button md-icon-button><md-icon class="md-18">edit</md-icon></button>
+                                <button md-button md-icon-button><md-icon class="md-18">reply</md-icon></button>
+                            </md-card-actions>
+                        </md-card>
+                        <md-card fxFlex>
+                            <md-card-header>
+                                <md-icon md-card-avatar class="note-meeting">forum</md-icon>
+                                <md-card-subtitle>02. Feb. 17, 09:45 - by Theo</md-card-subtitle>
+                            </md-card-header>
+                            <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+                            <md-card-actions fxLayoutAlign="end">
+                                <button md-button md-icon-button><md-icon class="md-18">edit</md-icon></button>
+                                <button md-button md-icon-button><md-icon class="md-18">reply</md-icon></button>
+                            </md-card-actions>
+                        </md-card>
+                        <md-card fxFlex>
+                            <md-card-header>
+                                <md-icon md-card-avatar class="note-email">email</md-icon>
+                                <md-card-subtitle>12. Jan. 17, 18:30 - by Theo</md-card-subtitle>
+                            </md-card-header>
+                            <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+                            <md-card-actions fxLayoutAlign="end">
+                                <button md-button md-icon-button><md-icon class="md-18">edit</md-icon></button>
+                                <button md-button md-icon-button><md-icon class="md-18">reply</md-icon></button>
+                            </md-card-actions>
+                        </md-card>
+                        <md-card fxFlex>
+                            <md-card-header>
+                                <md-icon md-card-avatar class="note-phone">contact_phone</md-icon>
+                                <md-card-subtitle>31. Jan. 17, 20:30 - by Theo</md-card-subtitle>
+                            </md-card-header>
+                            <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, </md-card-content>
+                            <md-card-actions fxLayoutAlign="end">
+                                <button md-button md-icon-button><md-icon class="md-18">edit</md-icon></button>
+                                <button md-button md-icon-button><md-icon class="md-18">reply</md-icon></button>
+                            </md-card-actions>
+                        </md-card>
+                    </div>
                 </md-tab>
                 <md-tab label="Edit">
                     <form class="person-edit" [fxLayout]="row">
-                        <div fxFlex.sm="50">
+                        <fieldset fxFlex.sm="50">
+                            <legend>Personal</legend>
                             <div>
                                 <md-input-container flex><input mdInput value="{{person?.prefix}}" placeholder="Prefix" i18n-placeholder="Prefix"></md-input-container>
                             </div>
@@ -58,8 +131,9 @@
                             <div>
                                 <md-input-container flex><input mdInput value="{{person?.gender}}" placeholder="Gender" i18n-placeholder="Gender"></md-input-container>
                             </div>
-                        </div>
-                        <div fxFlex.sm="50" fxFlexOffset="20px">
+                        </fieldset>
+                        <fieldset fxFlex.sm="50" fxFlexOffset="20px">
+                            <legend>Account</legend>
                             <div>
                                 <md-input-container><input mdInput value="{{user?.username}}" placeholder="Username" i18n-placeholder="Username"></md-input-container>
                             </div>
@@ -77,7 +151,7 @@
                                     <img [src]="data.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight">
                                 </span>
                             </div>
-                        </div>
+                        </fieldset>
                     </form>
                 </md-tab>
                 <md-tab label="Activity" i18n-label="Activity">
@@ -90,6 +164,6 @@
 
                 </md-tab>
             </md-tab-group>
-        </md-card>
-    </div>
+        </md-card-content>
+    </md-card>
 </div>

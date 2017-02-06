@@ -6,6 +6,7 @@ export class Person {
     public middleName: string;
     public fullName: string;
     public email: string;
+    public maritalStatus: string;
     public gender: string;
     public birthday: string;
     public avatarUrlBig: string;
@@ -22,6 +23,7 @@ export class Person {
         this.email = input.email;
         this.gender = input.gender;
         this.birthday = input.birthday;
+        this.maritalStatus = input.maritalStatus;
         this.avatar = input.avatar;
         this.avatarUrlBig = input.avatarUrlBig;
         this.avatarUrlMedium = input.avatarUrlMedium;
@@ -37,6 +39,8 @@ export class Person {
             middleName: this.middleName,
             email: this.email,
             gender: this.gender,
+            maritalStatus: this.maritalStatus,
+            birthday: this.birthday,
             avatarUrlBig: this.avatarUrlBig,
             avatarUrlMedium: this.avatarUrlMedium,
             avatarUrlSmall: this.avatarUrlSmall,

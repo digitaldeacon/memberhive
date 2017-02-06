@@ -1,5 +1,67 @@
-.person-edit {
-  md-input-container {
-    width: 100%;
+.person-card {
+  .person-edit {
+    md-input-container {
+      width: 100%;
+    }
+    fieldset {
+      border: none;
+      margin-top: 10px;
+      legend {
+        padding: 10px 0 10px 0;
+        font-weight: 800;
+        font-size: 18px
+      }
+    }
+  }
+  .person-card-header {
+    height: 100px;
+    img[md-card-avatar] {
+      height: 80px;
+      width: 80px;
+    }
+    md-card-subtitle {
+      md-icon {
+        font-size: 16px;
+      }
+      a {
+        color: rgba(0, 0, 0, 0.54);
+      }
+    }
+  }
+}
+
+.notes {
+  md-list-item {
+    padding: 10px
+  }
+  md-card-header {
+    margin: -8px 0 4px;
+    height: 24px;
+    .md-card-header-text {
+      height:24px;
+    }
+  }
+  md-card-content {
+    margin-bottom: 4px;
+  }
+  md-card-actions {
+    padding: 0;
+    button {
+      md-icon {
+        font-size: 16px
+      }
+    }
+  }
+  md-button-toggle-group {
+    margin-bottom: 4px;
+  }
+  .note-comment {
+    color: #7a43b6;
+  }
+  .note-phone {
+    color: #0000aa;
+  }
+  .note-meeting {
+    color: #ff49a3;
   }
 }
