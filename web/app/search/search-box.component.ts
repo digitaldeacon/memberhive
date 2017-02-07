@@ -1,8 +1,16 @@
-import { Component, ViewChild, Input} from '@angular/core';
+import {Component, ViewChild, Input, OnInit} from '@angular/core';
+import {FormControl} from '@angular/forms';
 
-import { MdInputDirective } from '@angular/material';
+import {MdInputDirective} from '@angular/material';
 import {SearchService} from "./search.service";
 import {Router} from "@angular/router";
+
+import 'rxjs/add/operator/startWith';
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import { Subject } from 'rxjs/Subject';
 
 @Component({
     moduleId: 'mh-search',
@@ -10,63 +18,44 @@ import {Router} from "@angular/router";
     templateUrl: './search-box.component.html',
     styleUrls: ['./search-box.component.scss' ]
 })
-export class SearchBoxComponent {
+export class SearchBoxComponent implements OnInit {
 
     private _searchVisible: boolean = false;
     private backIcon: string = 'arrow_back';
-    private showUnderline: boolean = false;
-    private debounce: number = 400;
-    private alwaysVisible: boolean = false;
+    private searchTermStream = new Subject<string>();
+    itemCtrl: FormControl;
+    currentItem = '';
 
     @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
-    public items: Array<any>;
+    public items: Observable<string[]>;
     public item: any;
 
-    /**
-     * placeholder?: string
-     * Placeholder for the underlying input component.
-     */
-    @Input('placeholder') placeholder: string;
-
-    constructor(private searchService: SearchService, private router: Router) {}
-
-    set value(value: any) {
-        this._searchInput.value = value;
-    }
-    get value(): any {
-         return this._searchInput.value;
+    constructor(private searchService: SearchService, private router: Router) {
+        this.itemCtrl = new FormControl();
     }
 
-    get searchVisible(): boolean {
-        return this._searchVisible;
+    get searchVisible(): boolean { return this._searchVisible; }
+
+    search(term: string) { this.searchTermStream.next(term); }
+
+    ngOnInit() {
+        this.items = this.searchTermStream
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .switchMap((term: string) => this.searchService.search(term));
     }
 
-    /**
-     * Method executed when the search icon is clicked.
-     */
     searchClicked(): void {
         if (!this._searchVisible) {
-            // this._searchInput.focus();
+            //this._searchInput.focus();
         }
         this.toggleVisibility();
+        console.log(this._searchVisible);
     }
 
     toggleVisibility(): void {
         this._searchVisible = !this._searchVisible;
-    }
-
-    handleSearch(value: string): void {
-        this.searchService.search(this.value)
-            .subscribe((results: Array<any>) => this.items = results);
-    }
-
-    handleBlur(): void {
-        this.value = '';
-    }
-
-    stopPropagation(event: Event): void {
-        event.stopPropagation();
     }
 
     resultClicked(item: any): void {

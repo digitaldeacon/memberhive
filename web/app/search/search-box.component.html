@@ -3,26 +3,20 @@
         <md-icon *ngIf="searchVisible">{{backIcon}}</md-icon>
         <md-icon *ngIf="!searchVisible">search</md-icon>
     </button>
-    <md-input-container flex *ngIf="searchVisible">
+    <md-input-container fxFlex *ngIf="searchVisible">
         <input mdInput
                placeholder="Suche..."
                type="search"
                [mdAutocomplete]="auto"
-               (blur)="handleBlur()"
-               (search)="handleSearch($event)"
-               (keyup)="handleSearch($event)"
+               [formControl]="itemCtrl"
+               (keyup)="search(term.value)"
                (clear)="toggleVisibility()"
-               style="width:100%">
+                #term>
     </md-input-container>
     <md-autocomplete #auto="mdAutocomplete">
-        <md-list>
-            <md-list-item *ngFor="let item of items"
-                          [routerLink]="['/person/view', item.id]"
-                          class="item" style="cursor: pointer">
-                <img md-list-avatar src="{{item.icon}}" alt="..." class="img"
-                     style="max-width: 40px;max-height:40px">
-                <span class="text" md-line>{{ item.text }}</span>
-            </md-list-item>
-        </md-list>
+        <md-option *ngFor="let item of items | async" class="item">
+            <img md-list-avatar src="{{item.icon}}" alt="...">
+            <span class="text" md-line>{{ item.text }}</span>
+        </md-option>
     </md-autocomplete>
 </div>

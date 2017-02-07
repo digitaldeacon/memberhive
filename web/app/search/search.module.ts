@@ -1,6 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule}  from '@angular/common';
 import {MaterialModule} from '@angular/material';
+import {FormsModule, ReactiveFormsModule}   from '@angular/forms';
 
 import {SearchBoxComponent} from './search-box.component';
 
@@ -14,7 +15,9 @@ import {RouterModule} from "@angular/router";
     imports: [
         CommonModule,
         MaterialModule,
-        RouterModule
+        RouterModule,
+        FormsModule,
+        ReactiveFormsModule
     ],
     providers: [
         SearchService
