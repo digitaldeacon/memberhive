@@ -1,0 +1,35 @@
+.notes {
+  md-list-item {
+    padding: 10px
+  }
+  md-card-header {
+    margin: -8px 0 4px;
+    height: 24px;
+    .md-card-header-text {
+      height:24px;
+    }
+  }
+  md-card-content {
+    margin-bottom: 4px;
+  }
+  md-card-actions {
+    padding: 0;
+    button {
+      md-icon {
+        font-size: 16px
+      }
+    }
+  }
+  md-button-toggle-group {
+    margin-bottom: 4px;
+  }
+  .note-comment {
+    color: #7a43b6;
+  }
+  .note-phone {
+    color: #0000aa;
+  }
+  .note-meeting {
+    color: #ff49a3;
+  }
+}

@@ -1,0 +1,18 @@
+.person-edit {
+    md-input-container {
+        width: 100%;
+    }
+    fieldset {
+        border: none;
+        margin-top: 10px;
+        legend {
+            padding: 10px 0 10px 0;
+            font-weight: 800;
+            font-size: 18px
+        }
+    }
+    button[type="submit"] {
+        background: #07aa38;
+        color: #ffffff;
+    }
+}

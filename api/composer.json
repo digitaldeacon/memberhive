@@ -10,16 +10,14 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=5.4.0",
-        "ext-mysqli" : "*",
-        "ext-curl" : "*",
-        "ext-intl" : "*",
         "yiisoft/yii2": ">=2.0.5",
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
-        "yiisoft/yii2-gii": "*"
+        "yiisoft/yii2-gii": "*",
+        "squizlabs/php_codesniffer": "2.*"
     },
     "config": {
         "process-timeout": 1800

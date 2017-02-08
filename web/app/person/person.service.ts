@@ -2,11 +2,11 @@ import {Injectable} from '@angular/core';
 import {HttpService} from "../common/http.service";
 import {Observable} from "rxjs";
 import {Person} from "./person";
+
 @Injectable()
 export class PersonService {
-    constructor(private http: HttpService) {
+    constructor(private http: HttpService) {}
 
-    }
     public getPersons(): Observable<Person[]> {
         return this.http.get('person/list')
             .map(this.deserializeList);
@@ -27,12 +27,10 @@ export class PersonService {
         return this.http.get('search/search?q=' + query)
             .map(this.deserializeList);
     }
-
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);
     }
     private deserializeList(resp: any): Array<Person> {
         return resp.response.map((r: any) => new Person().deserialize(r));
     }
-
 }

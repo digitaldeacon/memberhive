@@ -3,6 +3,8 @@
 # compiled output
 /dist
 /tmp
+/src
+/e2e
 
 # dependencies
 /node_modules

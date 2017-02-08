@@ -1,0 +1,55 @@
+<!--<button md-fab (click)="openDialog()"><md-icon>add</md-icon></button>-->
+<md-card class="notes" fxLayout="column">
+    <md-input-container fxFlex fxFill>
+        <textarea mdInput
+                placeholder="Write a quick note"
+                (click)="showTypes()"></textarea>
+    </md-input-container>
+    <md-card-actions *ngIf="showTypeSelector">
+        <md-button-toggle-group #group="mdButtonToggleGroup">
+            <md-button-toggle value="comment" checked="true" mdTooltip="Note">
+                <md-icon class="note-comment">comment</md-icon>
+            </md-button-toggle>
+            <md-button-toggle value="meeting" mdTooltip="Meeting">
+                <md-icon class="note-meeting">forum</md-icon>
+            </md-button-toggle>
+            <md-button-toggle value="email" mdTooltip="Email">
+                <md-icon class="note-email">email</md-icon>
+            </md-button-toggle>
+            <md-button-toggle value="phone" mdTooltip="Phone call">
+                <md-icon class="note-phone">contact_phone</md-icon>
+            </md-button-toggle>
+        </md-button-toggle-group>
+        <button md-raised-button>Send</button>
+    </md-card-actions>
+</md-card>
+<div class="notes">
+    <md-card fxFlex>
+        <md-card-header>
+            <md-icon md-card-avatar class="note-comment">comment</md-icon>
+            <md-card-subtitle>20. Feb. 17, 13:45 - by Thomas</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+    </md-card>
+    <md-card fxFlex>
+        <md-card-header>
+            <md-icon md-card-avatar class="note-meeting">forum</md-icon>
+            <md-card-subtitle>02. Feb. 17, 09:45 - by Theo</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+    </md-card>
+    <md-card fxFlex>
+        <md-card-header>
+            <md-icon md-card-avatar class="note-email">email</md-icon>
+            <md-card-subtitle>12. Jan. 17, 18:30 - by Theo</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit </md-card-content>
+    </md-card>
+    <md-card fxFlex>
+        <md-card-header>
+            <md-icon md-card-avatar class="note-phone">contact_phone</md-icon>
+            <md-card-subtitle>31. Jan. 17, 20:30 - by Theo</md-card-subtitle>
+        </md-card-header>
+        <md-card-content>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, </md-card-content>
+    </md-card>
+</div>
