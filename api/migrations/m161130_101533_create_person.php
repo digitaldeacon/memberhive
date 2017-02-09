@@ -7,7 +7,8 @@ class m161130_101533_create_person extends Migration
     public function up()
     {
         $this->createTable('person', [
-            'id' => $this->string(36)->notNull(),
+            'id' => $this->primaryKey(),
+            'uid' => $this->string(36)->notNull(),
 
             'firstName' => $this->string()->notNull(),
             'middleName' => $this->string(),
@@ -32,6 +33,9 @@ class m161130_101533_create_person extends Migration
             'avatarUrlSmall' => $this->string(),
             'avatarUrlMedium' => $this->string(),
             'avatarUrlBig' => $this->string(),
+
+            'created_at' => $this->integer(11),
+            'updated_at' => $this->integer(11)
         ]);
     }
 

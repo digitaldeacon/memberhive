@@ -1,6 +1,7 @@
 <?php
 namespace app\commands;
 
+use app\models\Import;
 use app\models\Person;
 use yii\console\Controller;
 use Elvanto_API;
@@ -66,9 +67,23 @@ class ImportController extends Controller
                 var_dump($person->getErrors());
                 return 1;
             }
+
+            $this->logImport('elvanto',$item->id,$person);
         }
         echo "Successfully inserted $inserted and updated $updated Persons\n";
         return 0;
+    }
+
+    private function logImport($type,$remoteId,$object)
+    {
+        $import = new Import();
+        $import->type = $type;
+        $import->refTable = $object->tableName();
+        $import->refId = $object->id;
+        $import->remoteId = $remoteId;
+        if(!$import->save()) {
+            var_dump($import->getErrors());
+        }
     }
 
     public function actionMemberhivePersons($domain,$access_token)

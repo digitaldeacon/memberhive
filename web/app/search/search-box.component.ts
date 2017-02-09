@@ -22,7 +22,7 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchVisible: boolean = false;
     private backIcon: string = 'arrow_back';
-    private searchTermStream: Subject = new Subject<string>();
+    private searchTermStream: Subject<string> = new Subject<string>();
     @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
     itemCtrl: FormControl;

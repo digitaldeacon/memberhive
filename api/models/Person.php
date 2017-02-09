@@ -27,8 +27,10 @@ class Person extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
+            \yii\behaviors\TimestampBehavior::className(),
             [
-                'class' => \aracoool\uuid\UuidBehavior::class
+                'class' => \aracoool\uuid\UuidBehavior::class,
+                'defaultAttribute' => 'uid'
             ]
         ];
     }
@@ -44,7 +46,8 @@ class Person extends \yii\db\ActiveRecord
             [['maritalStatus'], 'string','max'=>10],
             [['birthday','baptized','anniversary','deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
-            ['id', '\aracoool\uuid\UuidValidator']
+            [['created_at', 'updated_at'], 'integer'],
+            ['uid', '\aracoool\uuid\UuidValidator']
         ];
     }
 

@@ -42,7 +42,6 @@
     "test.ts",
     "node_modules",
     "dist",
-    "web/polyfills.ts",
-    "web/i18n-providers.ts"
+    "web/polyfills.ts"
   ]
 }
