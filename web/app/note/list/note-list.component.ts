@@ -2,8 +2,8 @@ import {Component, OnInit, Input} from '@angular/core';
 import {TitleService} from "../../common/title.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {MemoService} from "../note.service";
-import {Memo} from "../note.interface";
+import {NoteService} from "../note.service";
+import {Note} from "../note.interface";
 
 @Component({
     selector: 'mh-memo-list',
@@ -11,14 +11,14 @@ import {Memo} from "../note.interface";
     styleUrls: ['note-list.component.scss']
 })
 export class NoteListComponent implements OnInit {
-    @Input() memo: Memo;
+    @Input() note: Note;
     selectedOption: string;
 
     showTypeSelector: boolean = false;
 
     constructor(private titleService: TitleService,
                 private route: ActivatedRoute,
-                private memoService: MemoService,
+                private noteService: NoteService,
                 public dialog: MdDialog) {
     }
 
