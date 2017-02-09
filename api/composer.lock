@@ -4,9 +4,56 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d26ef6b02049e2a5e4608d931e20b2b5",
-    "content-hash": "046e8cdc5a5bfad78a67c3b6ccb6fb40",
+    "hash": "dbd8df811578566bc5a8e086db7d095a",
+    "content-hash": "031c453a0d8ad7986ff4748c1d2ee467",
     "packages": [
+        {
+            "name": "aracoool/yii2-uuid",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ARACOOOL/yii2-uuid.git",
+                "reference": "5e141bf3ac0b378902082a973436427d965d593f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ARACOOOL/yii2-uuid/zipball/5e141bf3ac0b378902082a973436427d965d593f",
+                "reference": "5e141bf3ac0b378902082a973436427d965d593f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.0",
+                "yiisoft/yii2": "*"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^5.6"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "aracoool\\uuid\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Askar Fuzaylov",
+                    "email": "tkdforever@gmail.com"
+                }
+            ],
+            "description": "Yii 2 UUID Extension. A PHP 7.0+ library for generating RFC 4122 version 3, 4, and 5 universally unique identifiers (UUID).",
+            "homepage": "https://github.com/ARACOOOL/yii2-uuid",
+            "keywords": [
+                "guid",
+                "uuid",
+                "yii",
+                "yii2"
+            ],
+            "time": "2017-01-21 20:09:19"
+        },
         {
             "name": "boundstate/yii2-mailgun",
             "version": "dev-master",

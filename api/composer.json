@@ -9,10 +9,11 @@
     },
     "minimum-stability": "dev",
     "require": {
-        "php": ">=5.4.0",
+        "php": ">=7.0.0",
         "yiisoft/yii2": ">=2.0.5",
         "boundstate/yii2-mailgun": "*",
-        "elvanto/api-php": "*"
+        "elvanto/api-php": "*",
+        "aracoool/yii2-uuid": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

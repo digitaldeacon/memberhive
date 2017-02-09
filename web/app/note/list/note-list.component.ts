@@ -2,15 +2,15 @@ import {Component, OnInit, Input} from '@angular/core';
 import {TitleService} from "../../common/title.service";
 import {ActivatedRoute, Params} from "@angular/router";
 import {MdDialog, MdDialogRef} from '@angular/material';
-import {MemoService} from "../memo.service";
-import {Memo} from "../memo.interface";
+import {MemoService} from "../note.service";
+import {Memo} from "../note.interface";
 
 @Component({
     selector: 'mh-memo-list',
-    templateUrl: 'memo-list.component.html',
-    styleUrls: ['memo-list.component.scss']
+    templateUrl: 'note-list.component.html',
+    styleUrls: ['note-list.component.scss']
 })
-export class MemoListComponent implements OnInit {
+export class NoteListComponent implements OnInit {
     @Input() memo: Memo;
     selectedOption: string;
 
@@ -29,7 +29,7 @@ export class MemoListComponent implements OnInit {
         this.showTypeSelector = true;
     }
     openDialog() {
-        let dialogRef = this.dialog.open(MemoDialogComponent);
+        let dialogRef = this.dialog.open(NoteDialogComponent);
         dialogRef.afterClosed().subscribe(result => {
             this.selectedOption = result;
         });
@@ -37,9 +37,9 @@ export class MemoListComponent implements OnInit {
 }
 
 @Component({
-    selector: 'memo-dialog',
-    templateUrl: './memo-dialog.html',
+    selector: 'note-dialog',
+    templateUrl: 'note-dialog.html',
 })
-export class MemoDialogComponent {
-    constructor(public dialogRef: MdDialogRef<MemoDialogComponent>) {}
+export class NoteDialogComponent {
+    constructor(public dialogRef: MdDialogRef<NoteDialogComponent>) {}
 }

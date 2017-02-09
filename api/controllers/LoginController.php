@@ -46,7 +46,6 @@ class LoginController extends MHController
         }
     }
 
-
     public function actionLogout()
     {
         Yii::$app->user->logout();

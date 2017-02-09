@@ -12,8 +12,8 @@ import {PersonEditComponent} from './edit/person-edit.component';
 import {PersonRoutingModule} from './person-routing.module';
 import {PersonService} from "./person.service";
 
-import {MemoListComponent,MemoDialogComponent} from '../memo/list/memo-list.component';
-import {MemoService} from "../memo/memo.service";
+import {NoteListComponent,NoteDialogComponent} from '../note/list/note-list.component';
+import {NoteService} from "../note/note.service";
 
 @NgModule({
     declarations: [
@@ -21,8 +21,8 @@ import {MemoService} from "../memo/memo.service";
         PersonListComponent,
         PersonViewComponent,
         PersonEditComponent,
-        MemoListComponent,
-        MemoDialogComponent
+        NoteListComponent,
+        NoteDialogComponent
     ],
     imports: [
         CommonModule,
@@ -34,7 +34,7 @@ import {MemoService} from "../memo/memo.service";
     ],
     providers: [
         PersonService,
-        MemoService
+        NoteService
     ]
 })
 export class PersonModule {

@@ -9,6 +9,7 @@
 # dependencies
 /node_modules
 api/vendor
+api/shares.sec
 
 # IDEs and editors
 /.idea

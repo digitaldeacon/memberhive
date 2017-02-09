@@ -7,7 +7,7 @@ class m161130_101533_create_person extends Migration
     public function up()
     {
         $this->createTable('person', [
-            'id' => $this->primaryKey(),
+            'id' => $this->string(36)->notNull(),
 
             'firstName' => $this->string()->notNull(),
             'middleName' => $this->string(),

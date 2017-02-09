@@ -24,6 +24,15 @@ class Person extends \yii\db\ActiveRecord
         return 'person';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => \aracoool\uuid\UuidBehavior::class
+            ]
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -35,6 +44,7 @@ class Person extends \yii\db\ActiveRecord
             [['maritalStatus'], 'string','max'=>10],
             [['birthday','baptized','anniversary','deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
+            ['id', '\aracoool\uuid\UuidValidator']
         ];
     }
 

@@ -1,4 +1,4 @@
-export interface Memo {
+export interface Note {
     type?: string; // required
     text?: string;
     author?: string;

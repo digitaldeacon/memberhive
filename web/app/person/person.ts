@@ -1,6 +1,6 @@
 
 export class Person {
-    public id: number;
+    public id: string;
     public firstName: string;
     public lastName: string;
     public middleName: string;
@@ -15,7 +15,7 @@ export class Person {
     public avatar: string;
 
     public deserialize(input: any): Person {
-        this.id = +input.id;
+        this.id = input.id;
         this.firstName = input.firstName;
         this.middleName = input.middleName;
         this.lastName = input.lastName;

@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../common/http.service";
 import {Observable} from "rxjs";
-import {Memo} from "./memo.interface";
+import {Memo} from "./note.interface";
 
 @Injectable()
-export class MemoService {
+export class NoteService {
     constructor(private http: HttpService) {}
-    public getMemos(): Observable<Memo[]> {
+    public getMemos(): Observable<Note[]> {
         return;
     }
 }
