@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpService} from "../common/http.service";
 import {Observable} from "rxjs";
-import {Memo} from "./note.interface";
+import {Note} from "./note.interface";
 
 @Injectable()
 export class NoteService {

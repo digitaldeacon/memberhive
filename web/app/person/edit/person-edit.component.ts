@@ -11,9 +11,9 @@ import { Person } from '../person';
 })
 
 export class PersonEditComponent implements OnInit {
-    public myForm: FormGroup; // our model driven form
-    public submitted: boolean; // keep track on whether form is submitted
-    public events: any[] = []; // use later to display form changes
+    public myForm: FormGroup;  // our model driven form
+    public submitted: boolean;  // keep track on whether form is submitted
+    public events: any[] = [];  // use later to display form changes
     public data:any;
 
     cropperSettings:CropperSettings;
@@ -46,9 +46,9 @@ export class PersonEditComponent implements OnInit {
         this.data = {};
     }
 
-    ngOnInit() {
+    ngOnInit():void {
         // we will initialize our form model here
-        console.log(this.person);
+        // console.log(this.person);
         this.myForm = this.fb.group({
             personal: this.fb.group({
                 firstName: ['', [<any>Validators.required, <any>Validators.minLength(5)]],
@@ -61,22 +61,21 @@ export class PersonEditComponent implements OnInit {
         });
     }
 
-    save(model: Person, isValid: boolean) {
+    save(model: Person, isValid: boolean):void {
         this.submitted = true; // set form submit to true
         // check if model is valid
         // if valid, call API to save customer
-        console.log(model, isValid);
+        // console.log(model, isValid);
     }
 
-    fileChangeListener($event) {
-        var image:any = new Image();
-        var file:File = $event.target.files[0];
-        var myReader:FileReader = new FileReader();
-        var that = this;
+    fileChangeListener($event):void {
+        let image:any = new Image();
+        let file:File = $event.target.files[0];
+        let myReader:FileReader = new FileReader();
+        let that = this;
         myReader.onloadend = function (loadEvent:any) {
             image.src = loadEvent.target.result;
             that.cropper.setImage(image);
-
         };
         myReader.readAsDataURL(file);
     }

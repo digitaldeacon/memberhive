@@ -23,6 +23,7 @@ export class NoteListComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        this.showTypeSelector = false;
     }
 
     showTypes(): void {
@@ -37,7 +38,7 @@ export class NoteListComponent implements OnInit {
 }
 
 @Component({
-    selector: 'note-dialog',
+    selector: 'mh-note-dialog',
     templateUrl: 'note-dialog.html',
 })
 export class NoteDialogComponent {
