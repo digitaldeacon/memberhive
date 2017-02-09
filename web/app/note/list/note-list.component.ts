@@ -29,18 +29,5 @@ export class NoteListComponent implements OnInit {
     showTypes(): void {
         this.showTypeSelector = true;
     }
-    openDialog() {
-        let dialogRef = this.dialog.open(NoteDialogComponent);
-        dialogRef.afterClosed().subscribe(result => {
-            this.selectedOption = result;
-        });
-    }
-}
 
-@Component({
-    selector: 'mh-note-dialog',
-    templateUrl: 'note-dialog.html',
-})
-export class NoteDialogComponent {
-    constructor(public dialogRef: MdDialogRef<NoteDialogComponent>) {}
 }

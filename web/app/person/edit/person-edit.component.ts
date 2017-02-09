@@ -14,10 +14,10 @@ export class PersonEditComponent implements OnInit {
     public myForm: FormGroup;  // our model driven form
     public submitted: boolean;  // keep track on whether form is submitted
     public events: any[] = [];  // use later to display form changes
-    public data:any;
+    public data: any;
 
-    cropperSettings:CropperSettings;
-    @ViewChild('cropper', undefined) cropper:ImageCropperComponent;
+    cropperSettings: CropperSettings;
+    @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
     @Input('person') person: Person;
 
@@ -46,7 +46,7 @@ export class PersonEditComponent implements OnInit {
         this.data = {};
     }
 
-    ngOnInit():void {
+    ngOnInit(): void {
         // we will initialize our form model here
         // console.log(this.person);
         this.myForm = this.fb.group({
@@ -61,19 +61,20 @@ export class PersonEditComponent implements OnInit {
         });
     }
 
-    save(model: Person, isValid: boolean):void {
+    save(model: Person, isValid: boolean): void {
         this.submitted = true; // set form submit to true
         // check if model is valid
         // if valid, call API to save customer
         // console.log(model, isValid);
     }
 
-    fileChangeListener($event):void {
-        let image:any = new Image();
-        let file:File = $event.target.files[0];
-        let myReader:FileReader = new FileReader();
-        let that = this;
-        myReader.onloadend = function (loadEvent:any) {
+    fileChangeListener($event): void {
+        let image: any = new Image();
+        let file: File = $event.target.files[0];
+        let myReader: FileReader = new FileReader();
+        let that: PersonEditComponent = this;
+
+        myReader.onloadend = function (loadEvent: any): void {
             image.src = loadEvent.target.result;
             that.cropper.setImage(image);
         };

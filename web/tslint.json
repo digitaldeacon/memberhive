@@ -22,7 +22,7 @@
         ],
         "interface-name": [
             true,
-            "always-prefix"
+            "never-prefix"
         ],
         "jsdoc-format": true,
         "label-position": true,

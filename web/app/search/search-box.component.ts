@@ -22,11 +22,11 @@ export class SearchBoxComponent implements OnInit {
 
     private _searchVisible: boolean = false;
     private backIcon: string = 'arrow_back';
-    private searchTermStream = new Subject<string>();
-    itemCtrl: FormControl;
-    currentItem = '';
-
+    private searchTermStream: Subject = new Subject<string>();
     @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
+
+    itemCtrl: FormControl;
+    currentItem: string = '';
 
     public items: Observable<string[]>;
     public item: any;
@@ -37,9 +37,9 @@ export class SearchBoxComponent implements OnInit {
 
     get searchVisible(): boolean { return this._searchVisible; }
 
-    search(term: string) { this.searchTermStream.next(term); }
+    search(term: string): void { this.searchTermStream.next(term); }
 
-    ngOnInit() {
+    ngOnInit(): void {
         this.items = this.searchTermStream
             .debounceTime(300)
             .distinctUntilChanged()
@@ -48,10 +48,10 @@ export class SearchBoxComponent implements OnInit {
 
     searchClicked(): void {
         if (!this._searchVisible) {
-            //this._searchInput.focus();
+            // this._searchInput.focus();
         }
         this.toggleVisibility();
-        console.log(this._searchVisible);
+        // console.log(this._searchVisible);
     }
 
     toggleVisibility(): void {

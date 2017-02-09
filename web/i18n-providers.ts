@@ -27,6 +27,6 @@ export function getTranslationProviders(): Promise<Object[]> {
 
 declare var System: any;
 
-function getTranslationsWithSystemJs(file: string) {
+function getTranslationsWithSystemJs(file: string): Promise<Object[]> {
     return System.import(file + '!text'); // relies on text plugin
 }

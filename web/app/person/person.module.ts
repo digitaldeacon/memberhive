@@ -12,7 +12,7 @@ import {PersonEditComponent} from './edit/person-edit.component';
 import {PersonRoutingModule} from './person-routing.module';
 import {PersonService} from "./person.service";
 
-import {NoteListComponent,NoteDialogComponent} from '../note/list/note-list.component';
+import {NoteListComponent} from '../note/list/note-list.component';
 import {NoteService} from "../note/note.service";
 
 @NgModule({
@@ -21,8 +21,7 @@ import {NoteService} from "../note/note.service";
         PersonListComponent,
         PersonViewComponent,
         PersonEditComponent,
-        NoteListComponent,
-        NoteDialogComponent
+        NoteListComponent
     ],
     imports: [
         CommonModule,
