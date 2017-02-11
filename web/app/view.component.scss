@@ -51,4 +51,16 @@ html, body, mh-app, md-sidenav-container, .my-content {
     margin-right: 25px;
   }
 
+  .material-icons.mdl-badge[data-badge]::after,
+  .material-label.mdl-badge[data-badge]::after{
+    font-size: .3em;
+    width: 2em;
+    height: 2em;
+  }
+
+  .material-icons.mdl-badge[data-badge]::after {
+    top: -1em;
+    right: -1em;
+  }
+
 }
