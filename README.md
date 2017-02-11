@@ -6,20 +6,21 @@
 ## Note
 MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
 
-Also note that Material2 (material design for angular2) is also still under active development. Thinsg may change rather quiclly there. So be patient :)
+Also note that Material2 (material design for angular2) is also still under active development. Things may change rather quickly there. So be patient :)
 ## Introduction
 Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular2 (using TypeScript) and swicthed to a RDBMS. All this make development quicker and more robust.
 
-Memberhive is a church relationship management system. Out focus is facilitating pastoral relationships within small and mid-sized churches.
+Memberhive is a **church relationship management system** (CRMS). Out focus is facilitating pastoral relationships within small and mid-sized churches.
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
 ## Caveat
-We started with memberhive in 2015 because it was hard to find a church management system that was mutli-lingual, had its focus on relations, was affordable, had a modern UI and was technologically not outdated.
+We started with MemberHive in 2015 because it was hard to find a church management system that was multi-lingual, had its focus on relationships, was affordable, had a modern UI and was technologically not outdated.
 
 If you are interested in some of the projects we looked at you should check this [page](https://github.com/digitaldeacon/memberhive2/wiki/Similar-Software).
 
-During the initial phase of our redevelopment in 2016 we came across a software that did exactly what we had planned to do. This software is called [ELVANTO](https://www.elvanto.com/eu/). Check it out and see if you want to use it. It is the kitchensink when it comes to church management.
+During the initial phase of our redevelopment in 2016 we came across a software that did exactly what we had planned to do. This software is called [ELVANTO](https://www.elvanto.com/eu/). 
+Check it out and see if you want to use it. It is the kitchensink when it comes to church management.
 
 So why continue with this project?
 
@@ -42,13 +43,14 @@ We will slowing down the development progress, for the moment. Unless we can **f
 ## Dependencies
 - Angular2
 - Yii2
-- Typescript
+- Typescript2
 - MariaDB/MySQL
 - PHP7
 - Material2
  
 ## License
 All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive2/blob/master/LICENSE).
+I.e. you may fork but not resell.
 
 
 # Install
