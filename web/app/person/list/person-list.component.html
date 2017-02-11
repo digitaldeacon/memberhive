@@ -27,7 +27,7 @@
                 <div class="mat-list-text" fxLayout="row">
                     <h2 fxFlex="25">{{person.fullName}}</h2>
                     <div fxFlex fxFlexFill md-line fxLayout="row" fxLayoutAlign="space-between">
-                        <span >{{person.birthday | date: 'dd/MM/yyyy'}}</span>
+                        <span >{{person.birthday | date: 'mediumDate'}}</span>
                         <span >{{person.email}}</span>
                         <md-chip-list fxHide.xs>
                             <md-chip>Mitglied</md-chip>

@@ -14,7 +14,7 @@
                     </md-chip-list>
                 </md-card-title>
                 <md-card-subtitle>
-                    <md-icon>cake</md-icon> {{person?.birthday}}
+                    <md-icon>cake</md-icon> {{person?.birthday | date: 'longDate'}}
                     <md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a>
                     <md-icon>phone</md-icon><a href="tel:0303-345546">0303-345546</a>
                     <md-icon>favorite</md-icon>{{person?.maritalStatus}}
