@@ -32,20 +32,28 @@
             </md-menu>
 
         </md-toolbar>
+        <md-toolbar>
+            <h4>{{titleService.getTitle()}}</h4>
+        </md-toolbar>
     </div>
 
 
     <div class="flex-container" fxLayout="row">
-        <div class="flex-item" fxFlex="60px" fxHide.xs fxHide.sm>
+        <div class="flex-item" fxFlex="200px" fxHide.xs fxHide.sm>
             <md-nav-list menu-items>
                 <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
-                    <md-icon>{{item.icon}}</md-icon>
+                    <md-icon md-list-icon>{{item.icon}}</md-icon>
+                    <h4 md-line>{{item.title}}</h4>
+                </a>
+                <md-divider></md-divider>
+                <a md-button class="menu-toggle">
+                    <md-icon>first_page</md-icon>
+                    <span md-line>collapse</span>
                 </a>
             </md-nav-list>
         </div>
         <div class="flex-item" fxFlex >
             <div class="main-content">
-                <h3>{{titleService.getTitle()}}</h3>
                 <router-outlet></router-outlet>
             </div>
 
