@@ -11,7 +11,7 @@ export class PersonService {
         return this.http.get('person/list')
             .map(this.deserializeList);
     }
-    public getPerson(id: number): Observable<Person> {
+    public getPerson(id: string): Observable<Person> {
         return this.http.get('person/get?id=' + id)
             .map(this.deserialize);
     }

@@ -13,7 +13,7 @@
                (clear)="toggleVisibility()"
                 #term>
     </md-input-container>
-    <md-autocomplete #auto="mdAutocomplete">
+    <md-autocomplete #auto="mdAutocomplete" fxFlexLayout="row">
         <md-option *ngFor="let item of items | async" class="item">
             <img md-list-avatar src="{{item.icon}}" alt="...">
             <span class="text" md-line>{{ item.text }}</span>

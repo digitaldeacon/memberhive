@@ -68,7 +68,7 @@ export class PersonEditComponent implements OnInit {
         // console.log(model, isValid);
     }
 
-    fileChangeListener($event): void {
+    fileChangeListener($event: any): void {
         let image: any = new Image();
         let file: File = $event.target.files[0];
         let myReader: FileReader = new FileReader();

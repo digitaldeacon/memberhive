@@ -27,7 +27,7 @@ import {NoteService} from "../note/note.service";
         CommonModule,
         MaterialModule,
         PersonRoutingModule,
-        FlexLayoutModule.forRoot(),
+        FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule
     ],

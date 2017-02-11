@@ -25,8 +25,7 @@ import {SearchModule} from "./search/search.module";
         ReactiveFormsModule,
         HttpModule,
         MaterialModule,
-
-        FlexLayoutModule.forRoot(),
+        FlexLayoutModule,
 
         AppRoutingModule,
 

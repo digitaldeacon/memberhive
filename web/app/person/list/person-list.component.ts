@@ -6,7 +6,8 @@ import {Person} from "../person";
 @Component({
     moduleId: 'mh-person',
     selector: 'mh-person-list',
-    templateUrl: './person-list.component.html'
+    templateUrl: './person-list.component.html',
+    styleUrls: ['./person-list.component.scss']
 })
 
 export class PersonListComponent implements OnInit {

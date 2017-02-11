@@ -1,6 +1,7 @@
 
 export class Person {
     public id: string;
+    public uid: string;
     public firstName: string;
     public lastName: string;
     public middleName: string;
@@ -16,6 +17,7 @@ export class Person {
 
     public deserialize(input: any): Person {
         this.id = input.id;
+        this.uid = input.uid;
         this.firstName = input.firstName;
         this.middleName = input.middleName;
         this.lastName = input.lastName;
@@ -34,6 +36,7 @@ export class Person {
     public serialize(): any {
         return {
             id: this.id,
+            uid: this.uid,
             firstName: this.firstName,
             lastName: this.lastName,
             middleName: this.middleName,

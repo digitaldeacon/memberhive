@@ -83,6 +83,7 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             'id' => $this->id,
+            'uid' => $this->uid,
             'fullName' => $this->fullName,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,

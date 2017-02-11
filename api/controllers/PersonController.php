@@ -45,7 +45,7 @@ class PersonController extends MHController
 
     public function actionGet($id)
     {
-        $person = $this->findModel($id);
+        $person = $this->findModelByUID($id);
         return ['response' => $person->toResponseArray()];
     }
     public function actionUpdate($id)
@@ -70,6 +70,14 @@ class PersonController extends MHController
     protected function findModel($id)
     {
         $user = Person::findOne($id);
+        if ($user === null)
+            throw new NotFoundHttpException('The requested person does not exist.');
+        return $user;
+    }
+
+    protected function findModelByUID($id)
+    {
+        $user = Person::findOne(['uid'=>$id]);
         if ($user === null)
             throw new NotFoundHttpException('The requested person does not exist.');
         return $user;

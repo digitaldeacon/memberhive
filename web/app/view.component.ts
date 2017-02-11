@@ -1,4 +1,4 @@
-import {Component, animate, transition, style, state, trigger} from '@angular/core';
+import {Component, animate, transition, style, state, trigger, ElementRef} from '@angular/core';
 import {TitleService} from './common/title.service';
 
 @Component({
@@ -38,7 +38,7 @@ export class ViewComponent {
 
     alwaysVisible: boolean = false;
 
-    constructor(titleService: TitleService) {
+    constructor(titleService: TitleService, private _element: ElementRef) {
         this.titleService = titleService;
     }
 
@@ -48,5 +48,18 @@ export class ViewComponent {
 
     logout(): void {
         // console.log('logging out');
+    }
+
+    toggleFullscreen(): void {
+        let elem: any = this._element.nativeElement.querySelector('.demo-content');
+        if (elem.requestFullscreen) {
+            elem.requestFullscreen();
+        } else if (elem.webkitRequestFullScreen) {
+            elem.webkitRequestFullScreen();
+        } else if (elem.mozRequestFullScreen) {
+            elem.mozRequestFullScreen();
+        } else if (elem.msRequestFullScreen) {
+            elem.msRequestFullScreen();
+        }
     }
 }

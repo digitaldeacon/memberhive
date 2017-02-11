@@ -2,16 +2,44 @@ html, body, mh-app, md-sidenav-container, .my-content {
   margin: 0;
   width: 100%;
   height: 100%;
+
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  .main-content {
+    padding: 1em;
+    box-sizing: border-box;
+  }
+
+  .mat-sidenav {
+    min-width: 15%;
+
+    .mat-button {
+      width: 100%;
+      position: relative;
+      bottom: 0;
+      margin: 24px 0;
+    }
+  }
+  .mat-toolbar {
+    .mat-icon {
+      cursor: pointer;
+    }
+  }
 }
 
 .main-content {
-  padding: 1em;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .top-toolbar {
 
-  md-icon {
-    padding: 0 14px;
+  .md-icon-logo {
+    padding: 0 15px 0 15px;
   }
 
   md-toolbar-row {

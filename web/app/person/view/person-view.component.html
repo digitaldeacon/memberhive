@@ -20,8 +20,8 @@
                     <md-icon>favorite</md-icon>{{person?.maritalStatus}}
                 </md-card-subtitle>
                 <md-card-actions fxHide.xs>
-                    <a md-button><md-icon>chevron_left</md-icon>Previous</a>
-                    <a md-button>Next<md-icon>chevron_right</md-icon></a>
+                    <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon>Previous</a>
+                    <a md-button (click)="nextPerson()">Next<md-icon>chevron_right</md-icon></a>
                 </md-card-actions>
             </md-card-title-group>
         </md-card-header>

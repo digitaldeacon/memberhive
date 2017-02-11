@@ -1,41 +1,54 @@
-<div class="top-toolbar">
-    <md-toolbar color="primary">
+<md-sidenav-container class="example-container" fullscreen>
 
-        <md-icon class="md-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></md-icon>
-
-        <mh-search-box #searchInput
-                class="search-box"
-                flex style="text-align: right"></mh-search-box>
-
-        <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-        <md-menu #menu="mdMenu">
-            <button md-menu-item>
-                <md-icon>account_circle</md-icon>
-                <span i18n>My Profile</span>
-            </button>
-            <button md-menu-item (click)="logout()">
-                <md-icon>exit_to_app</md-icon>
-                <span i18n>Logout</span>
-            </button>
-        </md-menu>
-
-    </md-toolbar>
-</div>
-
-
-<div class="flex-container" fxLayout="row">
-    <div class="flex-item" fxFlex="60px">
-        <md-nav-list menu-items>
-            <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
-                <md-icon>{{item.icon}}</md-icon>
+    <md-sidenav #sidenav>
+        <md-nav-list>
+            <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]" (click)="sidenav.close()">
+                <md-icon md-list-icon>{{item.icon}}</md-icon>
+                <h4 md-line>{{item.title}}</h4>
             </a>
         </md-nav-list>
-    </div>
-    <div class="flex-item" fxFlex fxFlexFill>
-        <div class="main-content">
-            <h2>{{titleService.getTitle()}}</h2>
-            <router-outlet></router-outlet>
-        </div>
+        <button md-button (click)="sidenav.close()">CLOSE</button>
+    </md-sidenav>
 
+    <div class="top-toolbar">
+        <md-toolbar color="primary">
+            <button md-icon-button (click)="sidenav.open()" class="burger"><md-icon class="md-24">menu</md-icon></button>
+            <md-icon class="md-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></md-icon>
+            <span fxHide.xs>MemberHive</span>
+            <mh-search-box #searchInput
+                           class="search-box"
+                           flex style="text-align: right"></mh-search-box>
+
+            <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+            <md-menu #menu="mdMenu">
+                <button md-menu-item>
+                    <md-icon>account_circle</md-icon>
+                    <span i18n>My Profile</span>
+                </button>
+                <button md-menu-item (click)="logout()">
+                    <md-icon>exit_to_app</md-icon>
+                    <span i18n>Logout</span>
+                </button>
+            </md-menu>
+
+        </md-toolbar>
     </div>
-</div>
+
+
+    <div class="flex-container" fxLayout="row">
+        <div class="flex-item" fxFlex="60px" fxHide.xs fxHide.sm>
+            <md-nav-list menu-items>
+                <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
+                    <md-icon>{{item.icon}}</md-icon>
+                </a>
+            </md-nav-list>
+        </div>
+        <div class="flex-item" fxFlex >
+            <div class="main-content">
+                <h2>{{titleService.getTitle()}}</h2>
+                <router-outlet></router-outlet>
+            </div>
+
+        </div>
+    </div>
+</md-sidenav-container>
