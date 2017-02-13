@@ -28,6 +28,7 @@ export class NoteListComponent implements OnInit {
 
     showTypes(): void {
         this.showTypeSelector = true;
+
     }
 
 }

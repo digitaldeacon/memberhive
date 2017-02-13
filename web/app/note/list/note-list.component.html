@@ -3,8 +3,9 @@
 <md-card class="notes" fxLayout="column">
     <md-input-container fxFlex fxFill>
         <textarea mdInput
-                placeholder="Write a quick note"
-                (click)="showTypes()"></textarea>
+                  mdTextareaAutosize
+                  placeholder="Write a quick note"
+                  (click)="showTypes()"></textarea>
     </md-input-container>
     <md-card-actions *ngIf="showTypeSelector">
         <md-button-toggle-group #group="mdButtonToggleGroup">

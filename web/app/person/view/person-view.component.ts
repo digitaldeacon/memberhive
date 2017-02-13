@@ -3,7 +3,6 @@ import {TitleService} from "../../common/title.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import {PersonService} from "../person.service";
 import {Person} from "../person";
-import {Observable} from "rxjs";
 
 @Component({
     moduleId: 'mh-person',
@@ -13,7 +12,7 @@ import {Observable} from "rxjs";
 })
 export class PersonViewComponent implements OnInit {
     private persons: Array<Person>;
-    @Input() person: Person;
+    person: Person;
 
     constructor(private titleService: TitleService,
                 private router: Router,
