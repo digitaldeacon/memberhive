@@ -21,6 +21,8 @@ before_install:
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - nvm use $NODE_JS_VERSION
   - nvm alias default $NODE_JS_VERSION
+  - npm uninstall -g angular-cli @angular/cli
+  - npm cache clean
   - npm i -g @angular/cli typescript@2.0.10 tslint
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
