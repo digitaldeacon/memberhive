@@ -1,8 +1,10 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
 import {TitleService} from "../../common/title.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
+import {MdDialog, MdDialogRef} from '@angular/material';
 import {PersonService} from "../person.service";
 import {Person} from "../person";
+import {PersonRelationsDialog} from "../dialogs/person-relations.dialog";
 
 @Component({
     moduleId: 'mh-person',
@@ -13,11 +15,14 @@ import {Person} from "../person";
 export class PersonViewComponent implements OnInit {
     private persons: Array<Person>;
     person: Person;
+    dialogRef: MdDialogRef<PersonRelationsDialog>;
+    lastCloseResult: string;
 
     constructor(private titleService: TitleService,
                 private router: Router,
                 private route: ActivatedRoute,
-                private personService: PersonService) {
+                private personService: PersonService,
+                public dialog: MdDialog) {
     }
 
     ngOnInit(): void {
@@ -52,5 +57,13 @@ export class PersonViewComponent implements OnInit {
                         this.router.navigate(['/person/view', this.persons[idx].uid]);
                     }
                 });
+    }
+    openDlgRelationships(): void {
+        this.dialogRef = this.dialog.open(PersonRelationsDialog);
+
+        this.dialogRef.afterClosed().subscribe((result: string) => {
+            this.lastCloseResult = result;
+            this.dialogRef = null;
+        });
     }
 }

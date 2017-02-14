@@ -2,12 +2,16 @@
   .person-card-header {
     height: 100px;
     img[md-card-avatar] {
-      height: 80px;
-      width: 80px;
+      height: 100px;
+      width: 100px;
     }
     md-card-subtitle {
       md-icon {
         font-size: 16px;
+        width: 18px;
+      }
+      div {
+        margin-right: 8px;
       }
       a {
         color: rgba(0, 0, 0, 0.54);

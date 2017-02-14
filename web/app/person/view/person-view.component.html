@@ -1,11 +1,12 @@
 <div class="flex-container" fxLayout='column'>
-    <md-card-actions fxFlex fxHide.gt-xs>
+    <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row">
         <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon>Previous</a>
+        <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs style="width:80px">
         <a md-button (click)="nextPerson()">Next<md-icon>chevron_right</md-icon></a>
-    </md-card-actions>
+    </div>
     <md-card class="person-card">
         <md-card-header class="person-card-header">
-            <img md-card-avatar src="{{person?.avatar}}" alt="...">
+            <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.xs>
             <md-card-title-group fxFlex>
                 <md-card-title>
                     <md-chip-list>
@@ -13,11 +14,15 @@
                         <md-chip>Begrüßungsdienst</md-chip>
                     </md-chip-list>
                 </md-card-title>
+                <md-card-subtitle fxLayout.gt-xs="row" fyLayout.xs="column">
+                    <div><md-icon>cake</md-icon>{{person?.birthday | date: 'longDate'}}</div>
+                    <div><md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
+                    <div><md-icon>phone</md-icon><a href="tel:0303-345546">0303-345546</a></div>
+                    <div *ngIf="person?.maritalStatus"><md-icon>favorite</md-icon>{{person?.maritalStatus}}</div>
+                </md-card-subtitle>
                 <md-card-subtitle>
-                    <md-icon>cake</md-icon> {{person?.birthday | date: 'longDate'}}
-                    <md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a>
-                    <md-icon>phone</md-icon><a href="tel:0303-345546">0303-345546</a>
-                    <md-icon>favorite</md-icon>{{person?.maritalStatus}}
+                    <md-icon>loyalty</md-icon> <a href="#">Thomas Hochstetter</a> (mentor), <a href="#">Marco Bartholomä</a> (friend)
+                    ... <button md-icon-button color="accent" (click)="openDlgRelationships()"><md-icon>edit</md-icon></button>
                 </md-card-subtitle>
                 <md-card-actions fxHide.xs>
                     <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon>Previous</a>
@@ -25,10 +30,9 @@
                 </md-card-actions>
             </md-card-title-group>
         </md-card-header>
-
         <md-card-content>
             <md-tab-group>
-                <md-tab label="Memos">
+                <md-tab label="Notes">
                     <mh-memo-list></mh-memo-list>
                 </md-tab>
                 <md-tab label="Edit">
@@ -47,3 +51,7 @@
         </md-card-content>
     </md-card>
 </div>
+
+<template>
+    I'm a template dialog. I've been opened {{numTemplateOpens}} times!
+</template>

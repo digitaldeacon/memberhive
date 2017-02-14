@@ -9,6 +9,8 @@ import {PersonListComponent} from './list/person-list.component';
 import {PersonViewComponent} from './view/person-view.component';
 import {PersonEditComponent} from './edit/person-edit.component';
 
+import {PersonRelationsDialog} from "./dialogs/person-relations.dialog";
+
 import {PersonRoutingModule} from './person-routing.module';
 import {PersonService} from "./person.service";
 
@@ -21,7 +23,8 @@ import {NoteService} from "../note/note.service";
         PersonListComponent,
         PersonViewComponent,
         PersonEditComponent,
-        NoteListComponent
+        NoteListComponent,
+        PersonRelationsDialog
     ],
     imports: [
         CommonModule,
@@ -34,6 +37,9 @@ import {NoteService} from "../note/note.service";
     providers: [
         PersonService,
         NoteService
+    ],
+    entryComponents: [
+        PersonRelationsDialog
     ]
 })
 export class PersonModule {
