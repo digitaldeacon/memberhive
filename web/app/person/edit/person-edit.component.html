@@ -30,7 +30,7 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="text"  placeholder="Email" i18n-placeholder="Email">
+                <input mdInput fxFlex type="email" formControlName="email" placeholder="Email" i18n-placeholder="Email">
             </md-input-container>
             <small [hidden]="myForm.controls.personal.controls.email.valid || (myForm.controls.personal.controls.email.pristine && !submitted)">
                 Email is required (minimum 5 characters).
