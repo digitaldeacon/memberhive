@@ -11,6 +11,11 @@
         </div>
         <div>
             <md-input-container>
+                <input mdInput fxFlex type="text" formControlName="middleName" placeholder="Middle Name" i18n-placeholder="Middle Name">
+            </md-input-container>
+        </div>
+        <div>
+            <md-input-container>
                 <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Surname" i18n-placeholder="Surname">
             </md-input-container>
             <small [hidden]="myForm.controls.personal.controls.lastName.valid || (myForm.controls.personal.controls.lastName.pristine && !submitted)">
@@ -25,10 +30,25 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="text" formControlName="email" placeholder="Email" i18n-placeholder="Email">
+                <input mdInput fxFlex type="text"  placeholder="Email" i18n-placeholder="Email">
             </md-input-container>
             <small [hidden]="myForm.controls.personal.controls.email.valid || (myForm.controls.personal.controls.email.pristine && !submitted)">
                 Email is required (minimum 5 characters).
+            </small>
+        </div>
+        <div class="mat-input-wrapper">
+            <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder="Marital Status">
+                <md-option *ngFor="let status of mStatus" [value]="status.value">
+                    {{status.viewValue}}
+                </md-option>
+            </md-select>
+        </div>
+        <div>
+            <md-input-container>
+                <input mdInput fxFlex type="date" formControlName="birthday" placeholder="Birthday" i18n-placeholder="Birthday">
+            </md-input-container>
+            <small [hidden]="myForm.controls.personal.controls.birthday.valid || (myForm.controls.personal.controls.birthday.pristine && !submitted)">
+                Birthday is required.
             </small>
         </div>
     </fieldset>

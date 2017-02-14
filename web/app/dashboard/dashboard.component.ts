@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {TitleService} from '../common/title.service';
 
 @Component({
     moduleId: 'mh-dashboard',
@@ -6,4 +7,7 @@ import {Component} from '@angular/core';
     templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent  {
+    constructor(titleService: TitleService) {
+        titleService.setTitle('Dashboard');
+    }
 }

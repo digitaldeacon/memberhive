@@ -39,16 +39,17 @@
 
 
     <div class="flex-container" fxLayout="row">
-        <div class="flex-item" fxFlex="200px" fxHide.xs fxHide.sm>
+        <div class="flex-item" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
                     <md-icon md-list-icon>{{item.icon}}</md-icon>
                     <h4 md-line>{{item.title}}</h4>
                 </a>
                 <md-divider></md-divider>
-                <a md-button class="menu-toggle">
-                    <md-icon>first_page</md-icon>
-                    <span md-line>collapse</span>
+                <a md-button class="menu-toggle" (click)="toggleDrawer()">
+                    <md-icon *ngIf="!drawerVisible">first_page</md-icon>
+                    <md-icon *ngIf="drawerVisible">last_page</md-icon>
+                    <span md-line *ngIf="!drawerVisible">collapse</span>
                 </a>
             </md-nav-list>
         </div>
@@ -56,7 +57,6 @@
             <div class="main-content">
                 <router-outlet></router-outlet>
             </div>
-
         </div>
     </div>
 </md-sidenav-container>

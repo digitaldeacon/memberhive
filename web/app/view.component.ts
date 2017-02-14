@@ -6,17 +6,19 @@ import {TitleService} from './common/title.service';
     templateUrl: './view.component.html',
     styleUrls: ['./view.component.scss'],
     animations: [
-        trigger('inputState', [
+        trigger('drawer', [
             state('false', style({
-                width: '0%',
-                'margin-left': '0px'
+                width: '200px'
             })),
             state('true',  style({
-                width: '100%',
-                'margin-left': '*'
-            })),
-            transition('0 => 1', animate('200ms ease-in')),
-            transition('1 => 0', animate('200ms ease-out'))
+                width: '50px',
+                flex: '1 1 50px;',
+                'min-width': '50px',
+                'max-width': '50px',
+                'margin-left': '5px'
+            }))
+            /*transition('0 => 1', animate('200ms ease-in')),
+            transition('1 => 0', animate('200ms ease-out'))*/
         ])
     ]
 })
@@ -37,6 +39,8 @@ export class ViewComponent {
     titleService: TitleService;
 
     alwaysVisible: boolean = false;
+    drawerVisible: boolean = false;
+    sidenavStatus: string = 'open';
 
     constructor(titleService: TitleService, private _element: ElementRef) {
         this.titleService = titleService;
@@ -61,5 +65,9 @@ export class ViewComponent {
         } else if (elem.msRequestFullScreen) {
             elem.msRequestFullScreen();
         }
+    }
+
+    toggleDrawer(): void {
+        this.drawerVisible = this.drawerVisible ? false : true;
     }
 }

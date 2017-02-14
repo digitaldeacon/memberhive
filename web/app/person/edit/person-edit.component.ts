@@ -17,6 +17,13 @@ export class PersonEditComponent implements OnInit {
     public myForm: FormGroup;  // our model driven form
     public submitted: boolean;  // keep track on whether form is submitted
     public events: any[] = [];  // use later to display form changes
+    public mStatus: any[] = [
+        {value: 'single', viewValue: 'Single'},
+        {value: 'married', viewValue: 'Married'},
+        {value: 'widdow', viewValue: 'Widdow'},
+        {value: 'divorce-living', viewValue: 'Living in Divorce'},
+        {value: 'divorce-active', viewValue: 'Divorced'}
+    ];
 
     @Input()
     set person(value: Person) {
@@ -39,11 +46,15 @@ export class PersonEditComponent implements OnInit {
                         personal: this.fb.group({
                             firstName: [this.person['firstName'],
                                         [<any>Validators.required, <any>Validators.minLength(5)]],
+                            middleName: [this.person['middleName']],
                             lastName: [this.person['lastName'],
                                         [<any>Validators.required, <any>Validators.minLength(5)]],
                             email: [this.person['email'],
                                 [<any>Validators.required, <any>Validators.minLength(5)]],
-                            gender: [this.person['gender']]
+                            gender: [this.person['gender']],
+                            maritalStatus: [this.person['maritalStatus']],
+                            birthday: [this.person['birthday'],
+                                [<any>Validators.required]]
                         }),
                         user: this.fb.group({
                             username: [this.person['username'],
