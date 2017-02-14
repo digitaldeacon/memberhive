@@ -40,7 +40,10 @@ export class PersonEditComponent implements OnInit {
                             firstName: [this.person['firstName'],
                                         [<any>Validators.required, <any>Validators.minLength(5)]],
                             lastName: [this.person['lastName'],
-                                        [<any>Validators.required, <any>Validators.minLength(5)]]
+                                        [<any>Validators.required, <any>Validators.minLength(5)]],
+                            email: [this.person['email'],
+                                [<any>Validators.required, <any>Validators.minLength(5)]],
+                            gender: [this.person['gender']]
                         }),
                         user: this.fb.group({
                             username: [this.person['username'],

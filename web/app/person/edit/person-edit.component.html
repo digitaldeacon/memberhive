@@ -17,6 +17,20 @@
                 Lastname is required (minimum 5 characters).
             </small>
         </div>
+        <div class="mat-input-wrapper">
+            <md-radio-group formControlName="gender" fxFlex>
+                <md-radio-button value="f" i18n>Female</md-radio-button>
+                <md-radio-button value="m" i18n>Male</md-radio-button>
+            </md-radio-group>
+        </div>
+        <div>
+            <md-input-container>
+                <input mdInput fxFlex type="text" formControlName="email" placeholder="Email" i18n-placeholder="Email">
+            </md-input-container>
+            <small [hidden]="myForm.controls.personal.controls.email.valid || (myForm.controls.personal.controls.email.pristine && !submitted)">
+                Email is required (minimum 5 characters).
+            </small>
+        </div>
     </fieldset>
     <fieldset fxFlex.sm="50" fxFlexOffset="20px" formGroupName="user">
         <legend>Account</legend>
