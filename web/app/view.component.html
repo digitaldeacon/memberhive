@@ -17,7 +17,19 @@
             <span fxHide.xs class="material-label mdl-badge" data-badge="2">MemberHive</span>
             <mh-search-box #searchInput
                            class="search-box"
-                           flex style="text-align: right"></mh-search-box>
+                           fxFlex style="text-align: right"></mh-search-box>
+
+            <button md-icon-button [mdMenuTriggerFor]="interactions" mdTooltip="Interactions"><md-icon>forum</md-icon></button>
+            <md-menu #interactions="mdMenu">
+                <button md-menu-item>
+                    <md-icon>account_circle</md-icon>
+                    <span i18n>My Profile</span>
+                </button>
+                <button md-menu-item (click)="logout()">
+                    <md-icon>exit_to_app</md-icon>
+                    <span i18n>Logout</span>
+                </button>
+            </md-menu>
 
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
             <md-menu #menu="mdMenu">

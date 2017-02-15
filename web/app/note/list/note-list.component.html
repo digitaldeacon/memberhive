@@ -8,21 +8,23 @@
                   (click)="showTypes()"></textarea>
     </md-input-container>
     <md-card-actions *ngIf="showTypeSelector">
-        <md-button-toggle-group #group="mdButtonToggleGroup">
-            <md-button-toggle value="comment" checked="true" mdTooltip="Note">
-                <md-icon class="note-comment">comment</md-icon>
-            </md-button-toggle>
-            <md-button-toggle value="meeting" mdTooltip="Meeting">
-                <md-icon class="note-meeting">forum</md-icon>
-            </md-button-toggle>
-            <md-button-toggle value="email" mdTooltip="Email">
-                <md-icon class="note-email">email</md-icon>
-            </md-button-toggle>
-            <md-button-toggle value="phone" mdTooltip="Phone call">
-                <md-icon class="note-phone">contact_phone</md-icon>
-            </md-button-toggle>
-        </md-button-toggle-group>
-        <button md-raised-button>Send</button>
+        <div>
+            <md-button-toggle-group #group="mdButtonToggleGroup">
+                <md-button-toggle value="comment" checked="true" mdTooltip="Note">
+                    <md-icon class="note-comment">comment</md-icon>
+                </md-button-toggle>
+                <md-button-toggle value="meeting" mdTooltip="Meeting">
+                    <md-icon class="note-meeting">forum</md-icon>
+                </md-button-toggle>
+                <md-button-toggle value="email" mdTooltip="Email">
+                    <md-icon class="note-email">email</md-icon>
+                </md-button-toggle>
+                <md-button-toggle value="phone" mdTooltip="Phone call">
+                    <md-icon class="note-phone">contact_phone</md-icon>
+                </md-button-toggle>
+            </md-button-toggle-group>
+            <button md-raised-button>Note it!</button>
+        </div>
     </md-card-actions>
 </md-card>
 <div class="notes">
