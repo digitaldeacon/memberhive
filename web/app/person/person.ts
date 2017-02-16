@@ -50,8 +50,7 @@ export class Person {
             birthday: this.birthday,
             avatarUrlBig: this.avatarUrlBig,
             avatarUrlMedium: this.avatarUrlMedium,
-            avatarUrlSmall: this.avatarUrlSmall,
-            avatar: this.avatar
+            avatarUrlSmall: this.avatarUrlSmall
         };
     }
 }

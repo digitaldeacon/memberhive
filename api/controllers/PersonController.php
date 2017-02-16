@@ -22,6 +22,17 @@ class PersonController extends MHController
         return $behaviors;
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'update') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
+    }
 
     public function actionList()
     {
@@ -50,8 +61,15 @@ class PersonController extends MHController
     }
     public function actionUpdate($id)
     {
-        $person = $this->findModel($id);
-        if ($person->load(\Yii::$app->request->post()) && $person->save()) {
+        $person = $this->findModelByUID($id);
+        $post = \Yii::$app->request->post();
+        if ($person && $post) {
+            $person->firstName = $post['firstName'];
+            $person->middleName = $post['middleName'];
+            $person->lastName = $post['lastName'];
+            if(!$person->save()) {
+                return ['response' => json_encode($person->errors)];
+            }
             return ['response' => $person->toResponseArray()];
         } else {
             throw new BadRequestHttpException($person->errors);

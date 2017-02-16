@@ -16,11 +16,11 @@ export class PersonService {
             .map(this.deserialize);
     }
     public updatePerson(person: Person): Observable<Person> {
-        return this.http.post('person/update?id=' + person.id, person.serialize())
+        return this.http.post('person/update?id=' + person.uid, person)
             .map(this.deserialize);
     }
     public createPerson(person: Person): Observable<Person> {
-        return this.http.post('person/create', person.serialize())
+        return this.http.post('person/create', person)
             .map(this.deserialize);
     }
     public searchPersons(query: string): Observable<Person[]> {
