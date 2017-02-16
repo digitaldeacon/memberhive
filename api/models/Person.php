@@ -87,6 +87,7 @@ class Person extends \yii\db\ActiveRecord
             'fullName' => $this->fullName,
             'firstName' => $this->firstName,
             'lastName' => $this->lastName,
+            'middleName' => $this->middleName,
             'email' => $this->email,
             'address' => $this->address,
             'gender' => $this->gender,

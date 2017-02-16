@@ -31,7 +31,7 @@ $config = [
             'traceLevel' => 3,
             'targets' => [
                 [
-                    'class' => 'yii\log\SyslogTarget',
+                    'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning'],
                 ],
 
