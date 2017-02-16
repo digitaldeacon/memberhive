@@ -64,7 +64,10 @@ md-nav-list {
   .drawer {
     background: rgb(56, 53, 53);
     md-nav-list, .mat-list-item {
-      COLOR: #FFFFFF;
+      color: #ffffff;
+    }
+    .mat-divider {
+      border-top-color: #666;
     }
   }
 }
