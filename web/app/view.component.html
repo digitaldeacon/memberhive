@@ -1,4 +1,4 @@
-<md-sidenav-container class="example-container" fullscreen>
+<md-sidenav-container class="sidenav-container" fullscreen>
 
     <md-sidenav #sidenav>
         <md-nav-list>
@@ -51,7 +51,7 @@
 
 
     <div class="flex-container" fxLayout="row">
-        <div class="flex-item" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
+        <div class="flex-item drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
                     <md-icon md-list-icon>{{item.icon}}</md-icon>

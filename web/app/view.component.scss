@@ -2,20 +2,16 @@ html, body, mh-app, md-sidenav-container, .my-content {
   margin: 0;
   width: 100%;
   height: 100%;
-
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
   .main-content {
     padding: 1em;
     box-sizing: border-box;
   }
-
   .mat-sidenav {
     min-width: 20%;
-
     .mat-button {
       width: 100%;
       position: relative;
@@ -29,13 +25,11 @@ html, body, mh-app, md-sidenav-container, .my-content {
     }
   }
 }
-
 .main-content {
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
-
 md-nav-list {
   .menu-toggle {
     width: 100%;
@@ -45,30 +39,32 @@ md-nav-list {
 }
 
 .top-toolbar {
-
   .md-icon-logo {
     padding: 0 15px 0 15px;
   }
-
   md-toolbar-row {
     height: 64px;
   }
-
   .search-box {
     flex: 1 1 auto;
     margin-right: 25px;
   }
-
   .material-icons.mdl-badge[data-badge]::after,
   .material-label.mdl-badge[data-badge]::after{
     font-size: .3em;
     width: 2em;
     height: 2em;
   }
-
   .material-icons.mdl-badge[data-badge]::after {
     top: -1em;
     right: -1em;
   }
-
+}
+.sidenav-container {
+  .drawer {
+    background: rgb(56, 53, 53);
+    md-nav-list, .mat-list-item {
+      COLOR: #FFFFFF;
+    }
+  }
 }

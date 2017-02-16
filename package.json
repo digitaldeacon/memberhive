@@ -30,7 +30,7 @@
     "@angular/flex-layout": "^2.0.0-beta.3",
     "@angular/forms": "^2.4.3",
     "@angular/http": "^2.4.3",
-    "@angular/material": "2.0.0-beta.2",
+    "@angular/material": "https://github.com/angular/material2-builds.git",
     "@angular/platform-browser": "^2.4.3",
     "@angular/platform-browser-dynamic": "^2.4.3",
     "@angular/router": "^3.4.3",
@@ -46,8 +46,8 @@
     "zone.js": "^0.7.2"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.0-beta.30",
-    "@angular/compiler-cli": "^2.3.1",
+    "@angular/cli": "^1.0.0-beta.31",
+    "@angular/compiler-cli": "^2.4.3",
     "@angular/platform-server": "^2.4.3",
     "@types/hammerjs": "^2.0.30",
     "@types/jasmine": "2.5.38",
