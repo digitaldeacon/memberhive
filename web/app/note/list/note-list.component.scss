@@ -16,20 +16,23 @@
     padding: 0;
     button {
       md-icon {
-        font-size: 16px
+        font-size: 18px
       }
     }
   }
   md-button-toggle-group {
     margin-bottom: 4px;
   }
-  .note-comment {
+  md-icon[aria-label="comment"] {
     color: #7a43b6;
   }
-  .note-phone {
+  md-icon[aria-label="phone"] {
     color: #0000aa;
   }
-  .note-meeting {
+  md-icon[aria-label="forum"] {
     color: #ff49a3;
+  }
+  md-icon[aria-label="email"] {
+    color: #6c6c6c;
   }
 }

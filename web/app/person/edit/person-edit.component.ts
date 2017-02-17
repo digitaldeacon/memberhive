@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Rx';
 
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 
+import { TitleService } from "../../common/title.service";
+import { ShoutService } from "../../common/shout.service";
 import { PersonService } from "../person.service";
 import { Person } from '../person';
 
@@ -36,12 +38,14 @@ export class PersonEditComponent implements OnInit {
         return this._data.getValue();
     }
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
-    updateParent() {
+    updateParent(): void {
         this.personChange.emit(this.person);
     }
 
-    constructor(private fb: FormBuilder,
-                private personService: PersonService) {
+    constructor(private shout: ShoutService,
+                private fb: FormBuilder,
+                private personService: PersonService,
+                private titleService: TitleService) {
     }
 
     // TODO: check this for performance issues.
@@ -67,6 +71,7 @@ export class PersonEditComponent implements OnInit {
                             password: [this.person['password']]
                         })
                     });
+                    this.titleService.setTitle('Person: ' + this.person.fullName); // TODO: move this to parent
                 }
             });
     }
@@ -82,13 +87,14 @@ export class PersonEditComponent implements OnInit {
                         this.person = person;
                         this.myForm.patchValue(person);
                         this.updateParent();
+                        this.shout.out('Successfully updated "' + person.fullName + '"');
                         return true;
                     },
-                    error => {
-                        console.error("Error in save!");
-                        return Observable.throw(error);
+                    (error: any) => {
+                        this.shout.out('Error while saving!');
+                        return false;
                     }
-                )
+                );
         }
     }
 }

@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild, TemplateRef} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TitleService} from "../../common/title.service";
 import {Router, ActivatedRoute, Params} from "@angular/router";
 import {MdDialog, MdDialogRef} from '@angular/material';

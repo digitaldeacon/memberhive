@@ -17,6 +17,8 @@ import {PersonService} from "./person.service";
 import {NoteListComponent} from '../note/list/note-list.component';
 import {NoteService} from "../note/note.service";
 
+import {ShoutService} from "../common/shout.service";
+
 @NgModule({
     declarations: [
         PersonComponent,
@@ -36,7 +38,8 @@ import {NoteService} from "../note/note.service";
     ],
     providers: [
         PersonService,
-        NoteService
+        NoteService,
+        ShoutService
     ],
     entryComponents: [
         PersonRelationsDialogComponent

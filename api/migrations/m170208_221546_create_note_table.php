@@ -14,17 +14,31 @@ class m170208_221546_create_note_table extends Migration
     {
         $this->createTable('note', [
             'id' => $this->primaryKey(),
-            'title' => $this->text(),
             'text' => $this->text(),
             'typeId' => $this->integer(),
-            'ownerId' => $this->integer(),
+            'ownerId' => $this->string(36),
+            'dueOn' => $this->dateTime(),
             'isPrivate' => $this->boolean(),
-            'createdAt' => $this->dateTime(),
-            'updatedAt' => $this->dateTime()
+            'created_at' => $this->integer(11),
+            'updated_at' => $this->integer(11)
         ]);
 
-        $this->createIndex('idx_note_ownerId','note','ownerId');
-        $this->addForeignKey('fk_note_ownerId_person_id','note','ownerId','person','id');
+        $this->createIndex(
+            'idx-note-ownerId',
+            'note',
+            'ownerId');
+
+        $this->createIndex(
+            'idx-note-typeId',
+            'note',
+            'typeId'
+        );
+
+        /*$this->addForeignKey(
+            'fk-note-typeId',
+            'note', 'typeId',
+            'note_type', 'id'
+        );*/
     }
 
     /**

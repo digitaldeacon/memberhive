@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\models\Note;
+use app\models\NoteType;
 
 class NoteController extends MHController
 {
@@ -12,13 +13,25 @@ class NoteController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create'],
+                    'actions' => ['list','get','update','create','list-types'],
                     'allow' => true,
-                    'roles' => ['?'],
+                    'roles' => ['@'],
                 ],
             ],
         ];
         return $behaviors;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function beforeAction($action)
+    {
+        if ($action->id == 'create') {
+            $this->enableCsrfValidation = false;
+        }
+
+        return parent::beforeAction($action);
     }
 
     /**
@@ -27,20 +40,33 @@ class NoteController extends MHController
     public function actionCreate()
     {
         $note = new Note();
-        if ($note->load(\Yii::$app->request->post()) && $note->save()) {
-            return ['response' => 'ok'];
+        $post = \Yii::$app->request->post();
+        if ($post) {
+            $note->text = $post['text'];
+            $note->typeId = $post['type'];
+            $note->ownerId = $post['ownerId'];
+            if(!$note->save()) {
+                return ['response' => json_encode($note->errors)];
+            }
+            return ['response' => $note->toResponseArray()];
         } else {
             throw new BadRequestHttpException($note->errors);
         }
     }
 
-    public function actionList($personId)
+    public function actionListTypes()
     {
-        if(!isset($personId) || empty($personId))
-            throw new BadRequestHttpException('Person ID cannot be empty');
-
         $ret = [];
-        foreach(Note::find()->where(['ownerId'=>$personId])->each() as $note) {
+        foreach(NoteType::find()->each() as $type) {
+            $ret[] = $type->toResponseArray();
+        }
+        return ['response' => $ret];
+    }
+
+    public function actionList($id)
+    {
+        $ret = [];
+        foreach(Note::find()->where(['ownerId'=>$id])->orderBy(['created_at'=>SORT_DESC])->each() as $note) {
             $ret[] = $note->toResponseArray();
         }
         return ['response' => $ret];
