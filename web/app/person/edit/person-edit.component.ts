@@ -87,11 +87,11 @@ export class PersonEditComponent implements OnInit {
                         this.person = person;
                         this.myForm.patchValue(person);
                         this.updateParent();
-                        this.shout.out('Successfully updated "' + person.fullName + '"');
+                        this.shout.success('Successfully updated "' + person.fullName + '"');
                         return true;
                     },
                     (error: any) => {
-                        this.shout.out('Error while saving!');
+                        this.shout.error('Error while saving!');
                         return false;
                     }
                 );

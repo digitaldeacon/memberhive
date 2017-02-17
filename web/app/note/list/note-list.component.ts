@@ -62,13 +62,12 @@ export class NoteListComponent implements OnInit {
                         this.noteForm.reset();
                         this.notes.push(data);
                         // TODO: fix sort
-                        this.notes.sort((n1: Note, n2: Note)
-                            => (n1.createdAt > n2.createdAt) ? 0 : 1);
-                        this.shout.out('Note is saved!');
+                        this.notes.sort((n1: Note, n2: Note) => (n1.createdAt > n2.createdAt) ? 0 : 1);
+                        this.shout.success('Note is saved!');
                         return true;
                     },
                     (error: any) => {
-                        this.shout.out('Error in save!');
+                        this.shout.error('Error in save!');
                         return false;
                     }
                 );
