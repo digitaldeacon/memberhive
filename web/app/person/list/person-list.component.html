@@ -1,10 +1,22 @@
 <div class="flex-container" fxLayout='column'>
-    <md-card class="flex-item">
-        <md-input-container fxLayout="row">
-            <input fxFlex fxFlexFill mdInput
+    <md-card class="flex-item" fxLayout="row">
+        <md-input-container fxFlex fxFlexFill>
+            <input mdInput
                    placeholder="Suche..."
                    type="search">
         </md-input-container>
+        <button md-icon-button [mdMenuTriggerFor]="saveMenu"><md-icon>more_vert</md-icon></button>
+        <md-menu #saveMenu="mdMenu">
+            <button md-menu-item>
+                <span i18n>Save Filter</span>
+            </button>
+            <button md-menu-item>
+                <span i18n>Export Filter</span>
+            </button>
+            <button md-menu-item>
+                <span i18n>Import</span>
+            </button>
+        </md-menu>
     </md-card>
 
     <!--<div *ngFor="let person of persons" class="list">

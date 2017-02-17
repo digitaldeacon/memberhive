@@ -12,7 +12,7 @@ import {TitleService} from './common/title.service';
             })),
             state('true',  style({
                 width: '60px',
-                flex: '1 1 50px;',
+                flex: '1 1 60px;',
                 'min-width': '60px',
                 'max-width': '60px'
             }))
@@ -25,7 +25,7 @@ export class ViewComponent {
 
     routes: Object[] = [
         {
-            title: 'Home', route: '/dashboard', icon: "home"
+            title: 'Dashboard', route: '/dashboard', icon: "dashboard"
         }, {
             title: "Persons", route: "/person", icon: "people"
         }, {
