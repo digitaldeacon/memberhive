@@ -29,7 +29,7 @@
             <md-icon md-card-avatar>{{note.icon}}</md-icon>
             <md-card-subtitle>
                 {{note.createdAt | date: 'medium'}}
-                - by <a [routerLink]="['/person/view', note.ownerId]" *ngIf="!iOwn(note.ownerId)">{{note.authorName}}</a>
+                - by <a *ngIf="!iOwn(note.ownerId)">{{note.authorName}}</a>
                 <span *ngIf="iOwn(note.ownerId)" i18n>me</span>
             </md-card-subtitle>
         </md-card-header>

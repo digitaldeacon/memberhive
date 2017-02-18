@@ -1,21 +1,20 @@
-import {NgModule} from '@angular/core';
-import {CommonModule}  from '@angular/common';
-import {MaterialModule} from '@angular/material';
-import {FlexLayoutModule} from '@angular/flex-layout';
-import {FormsModule, ReactiveFormsModule}   from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule }  from '@angular/common';
+import { MaterialModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
-import {PersonComponent} from './person.component';
-import {PersonListComponent} from './list/person-list.component';
-import {PersonViewComponent} from './view/person-view.component';
-import {PersonEditComponent} from './edit/person-edit.component';
+import { NoteModule } from "../note/note.module";
 
-import {PersonRelationsDialogComponent} from "./dialogs/person-relations.dialog";
+import { PersonComponent } from './person.component';
+import { PersonListComponent } from './list/person-list.component';
+import { PersonViewComponent } from './view/person-view.component';
+import { PersonEditComponent } from './edit/person-edit.component';
 
-import {PersonRoutingModule} from './person-routing.module';
-import {PersonService} from "./person.service";
+import { PersonRelationsDialogComponent } from "./dialogs/person-relations.dialog";
 
-import {NoteListComponent} from '../note/list/note-list.component';
-import {NoteService} from "../note/note.service";
+import { PersonRoutingModule } from './person-routing.module';
+import { PersonService } from "./person.service";
 
 import {ShoutService} from "../common/shout.service";
 
@@ -25,7 +24,6 @@ import {ShoutService} from "../common/shout.service";
         PersonListComponent,
         PersonViewComponent,
         PersonEditComponent,
-        NoteListComponent,
         PersonRelationsDialogComponent
     ],
     imports: [
@@ -34,11 +32,11 @@ import {ShoutService} from "../common/shout.service";
         PersonRoutingModule,
         FlexLayoutModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NoteModule
     ],
     providers: [
         PersonService,
-        NoteService,
         ShoutService
     ],
     entryComponents: [

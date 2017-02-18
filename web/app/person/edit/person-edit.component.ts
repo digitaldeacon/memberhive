@@ -1,7 +1,6 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Observable } from 'rxjs/Rx';
 
 import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper';
 
