@@ -50,7 +50,7 @@
     </div>
 
 
-    <div class="flex-container" fxLayout="row" fxLayoutAlign="start stretch">
+    <div class="flex-container" fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <div class="flex-item drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
