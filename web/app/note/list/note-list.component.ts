@@ -55,14 +55,15 @@ export class NoteListComponent implements OnInit {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
-            model.ownerId = this.ownerId;
+            model.ownerId = this.route.snapshot.params['id'];
             this.noteService.createNote(model)
                 .subscribe(
                     (data: Note) => {
                         this.noteForm.reset();
-                        this.notes.push(data);
+                        this.notes.unshift(data);
+                        // this.notes.push(data);
                         // TODO: fix sort
-                        this.notes.sort((n1: Note, n2: Note) => (n1.createdAt > n2.createdAt) ? 0 : 1);
+                        // this.notes.sort((n1: Note, n2: Note) => (n1.createdAt > n2.createdAt) ? 0 : 1);
                         this.shout.success('Note is saved!');
                         return true;
                     },
