@@ -17,6 +17,7 @@ class m170208_221546_create_note_table extends Migration
             'text' => $this->text(),
             'typeId' => $this->integer(),
             'ownerId' => $this->string(36),
+            'authorId' => $this->string(36),
             'dueOn' => $this->dateTime(),
             'isPrivate' => $this->boolean(),
             'created_at' => $this->integer(11),

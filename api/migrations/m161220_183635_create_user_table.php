@@ -20,8 +20,11 @@ class m161220_183635_create_user_table extends Migration
             'passwordHash' => $this->string(),
             'passwordResetToken' => $this->string(),
             'passwordResetExpireDate' => $this->dateTime(),
-            'personId' => $this->string(36)
+            'personId' => $this->integer()
         ]);
+
+        $this->createIndex('idx-user-personId','user','personId');
+        $this->addForeignKey('fk-user-personId','user','personId','person','id','CASCADE');
     }
 
     /**

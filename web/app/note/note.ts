@@ -9,16 +9,19 @@ export class Note {
     createdAt: number;
     updatedAt: number;
     ownerId: string;
+    authorId: string;
 
     public deserialize(input: any): Note {
         this.id = input.id;
         this.uid = input.uid;
         this.type = input.type;
         this.text = input.text;
-        this.authorName = input.authorName;
         this.icon = input.icon;
         this.createdAt = input.createdAt;
+        this.updatedAt = input.updatedAt;
         this.ownerId = input.ownerId;
+        this.authorName = input.authorName;
+        this.authorId = input.authorId;
         return this;
     }
 }

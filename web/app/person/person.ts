@@ -16,6 +16,7 @@ export class Person {
     public avatar: string;
     public username: string;
     public password: string;
+    public user: Object = {};
 
     public deserialize(input: any): Person {
         this.id = input.id;
@@ -34,6 +35,7 @@ export class Person {
         this.avatarUrlSmall = input.avatarUrlSmall;
         this.username = input.username;
         this.password = input.password;
+        this.user = input.user;
         return this;
     }
 

@@ -13,7 +13,7 @@ class NoteController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create','list-types'],
+                    'actions' => ['list','get','update','create','list-types','delete'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -27,11 +27,27 @@ class NoteController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'create') {
+        if ($action->id == 'create' || $action->id == 'delete') {
             $this->enableCsrfValidation = false;
         }
 
         return parent::beforeAction($action);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionDelete() // on post
+    {
+        $post = \Yii::$app->request->post();
+        if(!empty($post)) {
+            $note = $this->findModel($post['id']);
+            if($note->ownerId == $post['curuid']) {
+                if(!$note->delete())
+                    return ['response' => json_encode($note->errors)];
+                return ['response' => true];
+            }
+        }
     }
 
     /**
@@ -41,10 +57,11 @@ class NoteController extends MHController
     {
         $note = new Note();
         $post = \Yii::$app->request->post();
-        if ($post) {
+        if (!empty($post)) {
             $note->text = $post['text'];
             $note->typeId = $post['type'];
             $note->ownerId = $post['ownerId'];
+            $note->authorId = $post['authorId'];
             if(!$note->save()) {
                 return ['response' => json_encode($note->errors)];
             }

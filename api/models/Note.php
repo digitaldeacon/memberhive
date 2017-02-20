@@ -39,11 +39,11 @@ class Note extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text','ownerId', 'typeId'], 'required'],
+            [['text','ownerId', 'typeId', 'authorId'], 'required'],
             [['text'], 'string'],
             [['typeId', 'isPrivate'], 'integer'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
-            [['ownerId'], 'string', 'max' => 36],
+            [['ownerId','authorId'], 'string', 'max' => 36],
         ];
     }
 
@@ -57,6 +57,7 @@ class Note extends \yii\db\ActiveRecord
             'text' => 'Text',
             'typeId' => 'Type ID',
             'ownerId' => 'Owner ID',
+            'authorId' => 'Owner ID',
             'isPrivate' => 'Is Private',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -70,7 +71,7 @@ class Note extends \yii\db\ActiveRecord
 
     public function getAuthor()
     {
-        return $this->hasOne(Person::className(), ['uid' => 'ownerId']);
+        return $this->hasOne(Person::className(), ['uid' => 'authorId']);
     }
 
     public function toResponseArray()
@@ -78,8 +79,9 @@ class Note extends \yii\db\ActiveRecord
         return [
             'id' => $this->id,
             'text' => $this->text,
-            'authorName' => $this->author->fullName,
+            'authorName' => isset($this->author) ? $this->author->fullName : '',
             'ownerId' => $this->ownerId,
+            'authorId' => $this->authorId,
             'type' => $this->type->type,
             'icon' => $this->type->iconString,
             'isPrivate' => $this->isPrivate,

@@ -7,6 +7,7 @@ import { ImageCropperComponent, CropperSettings, Bounds } from 'ng2-img-cropper'
 import { TitleService } from "../../common/title.service";
 import { ShoutService } from "../../common/shout.service";
 import { PersonService } from "../person.service";
+import { AuthService } from '../../common/auth/auth.service';
 import { Person } from '../person';
 
 @Component({
@@ -44,7 +45,8 @@ export class PersonEditComponent implements OnInit {
     constructor(private shout: ShoutService,
                 private fb: FormBuilder,
                 private personService: PersonService,
-                private titleService: TitleService) {
+                private titleService: TitleService,
+                private auth: AuthService) {
     }
 
     // TODO: check this for performance issues.
@@ -86,6 +88,7 @@ export class PersonEditComponent implements OnInit {
                         this.person = person;
                         this.myForm.patchValue(person);
                         this.updateParent();
+                        this.auth.setPerson(person);
                         this.shout.success('Successfully updated "' + person.fullName + '"');
                         return true;
                     },

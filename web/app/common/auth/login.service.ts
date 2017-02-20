@@ -1,11 +1,14 @@
-import {Injectable} from '@angular/core';
-import {AuthService} from "./auth.service";
-import {Router} from '@angular/router';
-import {HttpService} from "../http.service";
-import {Observable} from "rxjs";
+import { Injectable } from '@angular/core';
+import { AuthService } from "./auth.service";
+import { Router} from '@angular/router';
+import { HttpService } from "../http.service";
+import { Observable } from "rxjs";
+
 @Injectable()
 export class LoginService {
+
     public redirectUrl: string;
+
     constructor(private http: HttpService, private auth: AuthService, private router: Router) {
         this.redirectUrl = '/';
     }
@@ -16,7 +19,7 @@ export class LoginService {
             {username: username, password: password}
         )
             .subscribe(
-                (response: any) => this.storeToken(response)
+                (response: any) => this.store(response)
             );
     }
 
@@ -29,8 +32,10 @@ export class LoginService {
         });
     }
 
-    private storeToken(response: any): void {
-        this.auth.setToken(response.token);
+    private store(response: any): void {
+        this.auth.setToken(response.user.token);
+        if (response.user.person)
+            this.auth.setPerson(response.user.person);
         this.router.navigate([this.redirectUrl]);
     }
 

@@ -22,6 +22,10 @@ export class NoteService {
         return this.http.post('note/create', note)
             .map(this.deserialize);
     }
+    public deleteNote(noteId: number): Observable<string> {
+        return this.http.post('note/delete', noteId)
+            .map((r: any) => r.json());
+    }
     public getNoteTypes(): Observable<NoteType[]> {
         return this.http.get('note/list-types')
             .map(this.deserializeTypeList);

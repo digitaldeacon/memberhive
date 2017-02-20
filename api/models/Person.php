@@ -105,6 +105,11 @@ class Person extends \yii\db\ActiveRecord
         return $this->firstName . ' ' . $this->lastName;
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['personId' => 'id']);
+    }
+
     public function getAvatar($size='s')
     {
         $default = 'assets/images/avatar/'.$this->gender.'.png';

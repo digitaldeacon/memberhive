@@ -40,7 +40,7 @@ class LoginController extends MHController
         }
         if ($model->validatePassword($post["password"])) {
             $model->save(false);
-            return ['token' => $model->accessToken]; //return whole user model including auth_key or you can just return $model["auth_key"];
+            return ['user' => $model->toResponseArray()];
         } else {
             throw new \yii\web\ForbiddenHttpException();
         }

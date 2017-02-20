@@ -7,6 +7,7 @@ import { NoteService } from "../note.service";
 import { Note, NoteType } from "../note";
 
 import { ShoutService } from "../../common/shout.service";
+import { AuthService } from '../../common/auth/auth.service';
 
 @Component({
     selector: 'mh-note-list',
@@ -26,6 +27,7 @@ export class NoteListComponent implements OnInit {
                 private route: ActivatedRoute,
                 private noteService: NoteService,
                 private shout: ShoutService,
+                private auth: AuthService,
                 public dialog: MdDialog) {
         this.noteService.getNoteTypes()
             .subscribe((types: Array<NoteType>) => {
@@ -34,7 +36,7 @@ export class NoteListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ownerId = this.route.snapshot.params['id'];
+        this.ownerId = this.auth.getPerson().uid;
         this.noteForm = this.fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
@@ -45,6 +47,7 @@ export class NoteListComponent implements OnInit {
             .subscribe((notes: Array<Note>) => {
                 this.notes = notes;
             });
+
     }
 
     showTypes(): void {
@@ -56,14 +59,12 @@ export class NoteListComponent implements OnInit {
         this.showTypeSelector = false;
         if (isValid) {
             model.ownerId = this.route.snapshot.params['id'];
+            model.authorId = this.ownerId;
             this.noteService.createNote(model)
                 .subscribe(
                     (data: Note) => {
                         this.noteForm.reset();
                         this.notes.unshift(data);
-                        // this.notes.push(data);
-                        // TODO: fix sort
-                        // this.notes.sort((n1: Note, n2: Note) => (n1.createdAt > n2.createdAt) ? 0 : 1);
                         this.shout.success('Note is saved!');
                         return true;
                     },
@@ -77,5 +78,19 @@ export class NoteListComponent implements OnInit {
 
     iOwn(uid: string): boolean {
         return uid === this.ownerId;
+    }
+
+    deleteNote(note: Note): void {
+        this.noteService.deleteNote(note.id)
+            .subscribe(
+                (data: string) => {
+                    this.shout.success(data);
+                    return true;
+                },
+                (error: any) => {
+                    this.shout.error('Error in note delete!');
+                    return false;
+                }
+            );
     }
 }

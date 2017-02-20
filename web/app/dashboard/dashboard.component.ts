@@ -1,13 +1,23 @@
-import {Component} from '@angular/core';
-import {TitleService} from '../common/title.service';
+import { Component, OnInit } from '@angular/core';
+import { TitleService } from '../common/title.service';
+import { AuthService } from '../common/auth/auth.service';
+import { Person } from '../person/person';
 
 @Component({
     moduleId: 'mh-dashboard',
     selector: 'mh-dashboard',
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent  {
-    constructor(titleService: TitleService) {
+export class DashboardComponent implements OnInit {
+
+    user: Person;
+
+    constructor(titleService: TitleService,
+                private auth: AuthService) {
         titleService.setTitle('Dashboard');
+    }
+
+    ngOnInit(): void {
+        this.user = this.auth.getPerson();
     }
 }

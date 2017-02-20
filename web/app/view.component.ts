@@ -1,5 +1,7 @@
-import {Component, animate, transition, style, state, trigger, ElementRef} from '@angular/core';
-import {TitleService} from './common/title.service';
+import { Component, style, state, trigger, ElementRef } from '@angular/core';
+import { TitleService } from './common/title.service';
+import { AuthService } from './common/auth/auth.service';
+import { Person } from './person/person';
 
 @Component({
     selector: 'mh-view',
@@ -11,10 +13,10 @@ import {TitleService} from './common/title.service';
                 width: '200px'
             })),
             state('true',  style({
-                width: '60px',
-                flex: '1 1 60px;',
-                'min-width': '60px',
-                'max-width': '60px'
+                width: '75px',
+                flex: '1 1 75px;',
+                'min-width': '75px',
+                'max-width': '75px'
             }))
             /*transition('0 => 1', animate('200ms ease-in')),
             transition('1 => 0', animate('200ms ease-out'))*/
@@ -36,13 +38,19 @@ export class ViewComponent {
     ];
 
     titleService: TitleService;
+    auth: AuthService;
+    user: Person;
 
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
     sidenavStatus: string = 'open';
 
-    constructor(titleService: TitleService, private _element: ElementRef) {
+    constructor(titleService: TitleService,
+                auth: AuthService,
+                private _element: ElementRef) {
         this.titleService = titleService;
+        this.auth = auth;
+        this.user = auth.getPerson();
     }
 
     toggleAlwaysVisible(): void {
