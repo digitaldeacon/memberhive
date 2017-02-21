@@ -46,7 +46,6 @@ export class NoteListComponent implements OnInit {
             .switchMap((params: Params) => this.noteService.getNotes(params['id']))
             .subscribe((notes: Array<Note>) => {
                 this.notes = notes;
-                console.log(notes);
             });
 
     }

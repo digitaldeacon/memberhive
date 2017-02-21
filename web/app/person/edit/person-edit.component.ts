@@ -30,23 +30,25 @@ export class PersonEditComponent implements OnInit {
         {value: 'divorce-active', viewValue: 'Divorced'}
     ];
 
-    @Input()
-    set person(value: Person) {
-        this._data.next(value);
-    }
-    get person(): Person {
-        return this._data.getValue();
-    }
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
-    updateParent(): void {
-        this.personChange.emit(this.person);
-    }
 
     constructor(private shout: ShoutService,
                 private fb: FormBuilder,
                 private personService: PersonService,
                 private titleService: TitleService,
                 private auth: AuthService) {
+    }
+
+    updateParent(): void {
+        this.personChange.emit(this.person);
+    }
+
+    @Input()
+    set person(value: Person) {
+        this._data.next(value);
+    }
+    get person(): Person {
+        return this._data.getValue();
     }
 
     // TODO: check this for performance issues.
