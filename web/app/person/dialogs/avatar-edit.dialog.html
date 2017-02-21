@@ -1,0 +1,32 @@
+<h2 md-dialog-title>Manage my profile picture</h2>
+<md-dialog-content>
+    <div>
+        <!--<div tdFileDrop (fileDrop)="fileChangeListener($event)" class="drop-zone"></div>-->
+        <div class="mat-input-wrapper">
+            <td-file-upload defaultColor="accent"
+                            activeColor="warn"
+                            cancelColor="primary"
+                            (upload)="fileChangeListener($event)"
+                            accept=".png,.jpg">
+            </td-file-upload>
+        </div>
+
+        <img-cropper #cropper [image]="data" [settings]="cropperSettings"></img-cropper>
+        <br>
+        <span class="result rounded" *ngIf="data.image" >
+                <img [src]="data.image"
+                     [width]="cropperSettings.croppedWidth"
+                     [height]="cropperSettings.croppedHeight">
+        </span>
+    </div>
+</md-dialog-content>
+<md-dialog-actions >
+    <button
+            md-raised-button
+            color="primary"
+            md-dialog-close>Close</button>
+    <button
+            md-button
+            color="secondary"
+            (click)="save()">Save</button>
+</md-dialog-actions>

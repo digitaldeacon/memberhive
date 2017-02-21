@@ -44,14 +44,15 @@
             </md-menu>
 
         </md-toolbar>
-        <md-toolbar>
-            <h4>{{titleService.getTitle()}}</h4>
-        </md-toolbar>
     </div>
 
 
     <div class="flex-container" fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <div class="flex-item drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
+            <md-toolbar>
+                <md-icon md-list-icon>person_circle</md-icon>
+                <span md-line>{{titleService.getModule()}}</span>
+            </md-toolbar>
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{user.avatar}}" alt="{{user.fullName}}" />
@@ -70,7 +71,10 @@
                 </a>
             </md-nav-list>
         </div>
-        <div class="flex-item" fxFlex >
+        <div class="flex-item" fxFlex>
+            <md-toolbar>
+                <h4>{{titleService.getTitle()}}</h4>
+            </md-toolbar>
             <div class="main-content">
                 <router-outlet></router-outlet>
             </div>

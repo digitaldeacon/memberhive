@@ -27,6 +27,12 @@ export class PersonService {
         return this.http.get('search/search?q=' + query)
             .map(this.deserializeList);
     }
+    public uploadAvatar(file: File): Observable<any> {
+        const formData: FormData = new FormData();
+        formData.append('file', file);
+        return this.http.post('person/avatar-upload', formData) // TODO: extend http.service to upload files too
+            .map(this.deserialize);
+    }
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);
     }

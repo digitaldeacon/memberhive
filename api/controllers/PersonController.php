@@ -13,7 +13,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list', 'get', 'update', 'create','search'],
+                    'actions' => ['list','get','update','create','search','avatar-upload'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -27,11 +27,18 @@ class PersonController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'update') {
+        if ($action->id == 'update' ||
+            $action->id == 'upload-avatar') {
             $this->enableCsrfValidation = false;
         }
 
         return parent::beforeAction($action);
+    }
+
+    public function actionAvatarUpload()
+    {
+        $ret = [json_encode($_POST)];
+        return ['response' => $ret];
     }
 
     public function actionList()
