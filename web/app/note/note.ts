@@ -9,7 +9,8 @@ export class Note {
     createdAt: number;
     updatedAt: number;
     ownerId: string;
-    authorId: string;
+    recipients: Array<string> = [];
+    recipientType: string;
 
     public deserialize(input: any): Note {
         this.id = input.id;
@@ -21,7 +22,8 @@ export class Note {
         this.updatedAt = input.updatedAt;
         this.ownerId = input.ownerId;
         this.authorName = input.authorName;
-        this.authorId = input.authorId;
+        this.recipients = input.recipients;
+        this.recipientType = input.recipientType;
         return this;
     }
 }

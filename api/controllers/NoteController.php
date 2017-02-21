@@ -3,9 +3,14 @@ namespace app\controllers;
 
 use app\models\Note;
 use app\models\NoteType;
+use app\models\Person;
+use app\models\PersonNote;
+use yii\web\BadRequestHttpException;
 
 class NoteController extends MHController
 {
+    private $noteType = 'person';
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -13,7 +18,7 @@ class NoteController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create','list-types','delete'],
+                    'actions' => ['list','get','update','create-person','create-group','list-types','delete'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -27,7 +32,9 @@ class NoteController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'create' || $action->id == 'delete') {
+        if ($action->id == 'create-person' ||
+            $action->id == 'create-group' ||
+            $action->id == 'delete') {
             $this->enableCsrfValidation = false;
         }
 
@@ -51,24 +58,55 @@ class NoteController extends MHController
     }
 
     /**
-     * old url: /api/sermons/insert SermonsInsertR POST
+     * url: /api/note/create-person or create-group note POST
      */
-    public function actionCreate()
+    private function actionCreate()
     {
         $note = new Note();
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
-            $note->text = $post['text'];
-            $note->typeId = $post['type'];
-            $note->ownerId = $post['ownerId'];
-            $note->authorId = $post['authorId'];
-            if(!$note->save()) {
-                return ['response' => json_encode($note->errors)];
+            $transaction = Note::getDb()->beginTransaction();
+            try {
+                $note->text = $post['text'];
+                $note->typeId = $post['type'];
+                $note->ownerId = $post['ownerId'];
+                $note->save();
+
+                if($this->noteType=='person') {
+                    foreach ($post['recipients'] as $recipient) {
+                        \Yii::warning('Recipient:'.$recipient,__METHOD__);
+                        $junction = new PersonNote();
+                        $junction->note_id = $note->id;
+                        $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
+                        $junction->save();
+                    }
+                } elseif($this->noteType=='group') {
+                    // new GroupNote();
+                }
+                $transaction->commit();
+            } catch(\Exception $e) {
+                $transaction->rollBack();
+                throw new BadRequestHttpException($e->getMessage());
+            } catch(\Throwable $e) {
+                $transaction->rollBack();
+                throw new BadRequestHttpException($e->getMessage());
             }
             return ['response' => $note->toResponseArray()];
         } else {
             throw new BadRequestHttpException($note->errors);
         }
+    }
+
+    public function actionCreatePerson()
+    {
+        $this->noteType = 'person';
+        return $this->actionCreate();
+    }
+
+    public function actionCreateGroup()
+    {
+        $this->noteType = 'group';
+        return $this->actionCreate();
     }
 
     public function actionListTypes()
@@ -83,7 +121,16 @@ class NoteController extends MHController
     public function actionList($id)
     {
         $ret = [];
-        foreach(Note::find()->where(['ownerId'=>$id])->orderBy(['created_at'=>SORT_DESC])->each() as $note) {
+        $person = Person::find()
+            ->with([
+                'notes' => function($q) {
+                    $q->orderBy(['created_at'=>SORT_DESC]);
+                }]
+            )
+            ->where(['uid'=>$id])
+            ->orderBy(['created_at'=>SORT_DESC])
+            ->all();
+        foreach($person[0]->notes as $note) {
             $ret[] = $note->toResponseArray();
         }
         return ['response' => $ret];

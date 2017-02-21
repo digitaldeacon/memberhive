@@ -29,7 +29,7 @@ export class NoteListComponent implements OnInit {
                 private shout: ShoutService,
                 private auth: AuthService,
                 public dialog: MdDialog) {
-        this.noteService.getNoteTypes()
+        this.noteService.getNoteTypes() // TODO: move this into the options table
             .subscribe((types: Array<NoteType>) => {
                 this.noteTypes = types;
             });
@@ -46,6 +46,7 @@ export class NoteListComponent implements OnInit {
             .switchMap((params: Params) => this.noteService.getNotes(params['id']))
             .subscribe((notes: Array<Note>) => {
                 this.notes = notes;
+                console.log(notes);
             });
 
     }
@@ -58,9 +59,9 @@ export class NoteListComponent implements OnInit {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
-            model.ownerId = this.route.snapshot.params['id'];
-            model.authorId = this.ownerId;
-            this.noteService.createNote(model)
+            model.ownerId = this.ownerId;
+            model.recipients = [this.route.snapshot.params['id']];
+            this.noteService.createNotePerson(model)
                 .subscribe(
                     (data: Note) => {
                         this.noteForm.reset();
@@ -69,7 +70,7 @@ export class NoteListComponent implements OnInit {
                         return true;
                     },
                     (error: any) => {
-                        this.shout.error('Error in save!');
+                        this.shout.error('Error in save!' + error);
                         return false;
                     }
                 );

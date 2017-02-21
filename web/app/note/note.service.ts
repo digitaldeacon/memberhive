@@ -18,8 +18,12 @@ export class NoteService {
         return this.http.get('note/get?id=' + id)
             .map(this.deserialize);
     }
-    public createNote(note: Note): Observable<Note> {
-        return this.http.post('note/create', note)
+    public createNotePerson(note: Note): Observable<Note> {
+        return this.http.post('note/create-person', note)
+            .map(this.deserialize);
+    }
+    public createNoteGroup(note: Note): Observable<Note> {
+        return this.http.post('note/create-group', note)
             .map(this.deserialize);
     }
     public deleteNote(noteId: number): Observable<string> {

@@ -34,8 +34,9 @@ export class LoginService {
 
     private store(response: any): void {
         this.auth.setToken(response.user.token);
-        if (response.user.person)
+        if (response.user.person) {
             this.auth.setPerson(response.user.person);
+        }
         this.router.navigate([this.redirectUrl]);
     }
 

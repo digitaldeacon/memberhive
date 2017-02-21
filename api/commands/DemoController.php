@@ -1,5 +1,6 @@
 <?php
 namespace app\commands;
+use app\models\Note;
 use app\models\Person;
 use yii\console\Controller;
 use app\helpers\Curl;
@@ -32,6 +33,18 @@ class DemoController extends Controller
 
     }
 
+    public function actionGetNotes($uid)
+    {
+        $person = Person::find()
+            ->with('notes')
+            ->where(['uid'=>$uid])
+            ->all();
+        $notes = $person[0]->notes;
 
+        foreach($notes as $note) {
+            //$ret[] = $note->toResponseArray();
+            var_dump($note->toResponseArray());
+        }
+    }
 
 }

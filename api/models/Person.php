@@ -110,6 +110,23 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['personId' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonNotes()
+    {
+        return $this->hasMany(PersonNote::className(), ['person_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getNotes()
+    {
+        return $this->hasMany(Note::className(), ['id' => 'note_id'])
+            ->viaTable('person_note', ['person_id' => 'id']);
+    }
+
     public function getAvatar($size='s')
     {
         $default = 'assets/images/avatar/'.$this->gender.'.png';
