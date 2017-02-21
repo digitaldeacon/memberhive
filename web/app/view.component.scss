@@ -73,3 +73,9 @@ md-nav-list {
     }
   }
 }
+
+.active-list-item {
+  border-color: red;
+  border-width: 0 2px 0 0;
+  border-style: solid;
+}

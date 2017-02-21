@@ -5,6 +5,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
+import { TitleService } from "../common/title.service";
+
 @NgModule({
     declarations: [
         DashboardComponent
@@ -16,4 +18,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
     ]
 })
 export class DashboardModule {
+    constructor(titleService: TitleService) {
+        titleService.changeModule('Dashboard');
+    }
 }

@@ -49,17 +49,16 @@
 
     <div class="flex-container" fxLayout="row" fxLayoutAlign="start stretch" fxFill>
         <div class="flex-item drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
-            <md-toolbar>
-                <md-icon md-list-icon>person_circle</md-icon>
-                <span md-line>{{titleService.getModule()}}</span>
-            </md-toolbar>
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{user.avatar}}" alt="{{user.fullName}}" />
                     <h4 md-line>{{user.fullName}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
-                <a *ngFor="let item of routes" md-list-item [routerLink]="[item.route]">
+                <a *ngFor="let item of routes"
+                   md-list-item
+                   [routerLink]="[item.route]"
+                   [ngClass]="{'active-list-item': isActiveItem(item.title) }">
                     <md-icon md-list-icon>{{item.icon}}</md-icon>
                     <h4 md-line>{{item.title}}</h4>
                 </a>

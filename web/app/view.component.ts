@@ -37,7 +37,6 @@ export class ViewComponent {
         }
     ];
 
-    titleService: TitleService;
     auth: AuthService;
     user: Person;
 
@@ -45,10 +44,9 @@ export class ViewComponent {
     drawerVisible: boolean = false;
     sidenavStatus: string = 'open';
 
-    constructor(titleService: TitleService,
+    constructor(private titleService: TitleService,
                 auth: AuthService,
                 private _element: ElementRef) {
-        this.titleService = titleService;
         this.auth = auth;
         this.user = auth.getPerson();
     }
@@ -76,5 +74,9 @@ export class ViewComponent {
 
     toggleDrawer(): void {
         this.drawerVisible = this.drawerVisible ? false : true;
+    }
+
+    isActiveItem(title: any): boolean {
+        return this.titleService.getModule() == title;
     }
 }

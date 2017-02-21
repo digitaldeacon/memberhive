@@ -57,5 +57,4 @@ export class PersonModule {
     constructor(titleService: TitleService) {
         titleService.changeModule('Persons');
     }
-
 }
