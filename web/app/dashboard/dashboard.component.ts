@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
 
     constructor(titleService: TitleService,
                 private auth: AuthService) {
-        let currentDate = new Date();
+        let currentDate: Date = new Date();
         titleService.setTitle(currentDate.toDateString());
     }
 

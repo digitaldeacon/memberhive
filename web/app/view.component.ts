@@ -77,6 +77,6 @@ export class ViewComponent {
     }
 
     isActiveItem(title: any): boolean {
-        return this.titleService.getModule() == title;
+        return this.titleService.getModule() === title;
     }
 }
