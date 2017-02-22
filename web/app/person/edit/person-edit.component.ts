@@ -76,8 +76,8 @@ export class PersonEditComponent implements OnInit {
                         birthday: [this.person['birthday'],
                             [<any>Validators.required]],
                         user: this.fb.group({
-                            username: [this.person['username']],
-                            password: [this.person['password']]
+                            username: [this.person['user']['username']],
+                            password: [undefined]
                         })
                     });
                     this.titleService.setTitle(this.person.fullName); // TODO: move this to parent
