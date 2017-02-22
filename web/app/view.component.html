@@ -63,10 +63,10 @@
                     <h4 md-line>{{item.title}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
-                <a md-button md-list-icon class="menu-toggle" (click)="toggleDrawer()">
-                    <md-icon *ngIf="!drawerVisible">first_page</md-icon>
-                    <md-icon *ngIf="drawerVisible">last_page</md-icon>
-                    <span md-line *ngIf="!drawerVisible">collapse</span>
+                <a md-list-item (click)="toggleDrawer()">
+                    <md-icon md-list-icon *ngIf="!drawerVisible">first_page</md-icon>
+                    <md-icon md-list-icon *ngIf="drawerVisible">last_page</md-icon>
+                    <h4 md-line *ngIf="!drawerVisible">collapse</h4>
                 </a>
             </md-nav-list>
         </div>
