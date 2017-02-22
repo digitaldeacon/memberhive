@@ -70,11 +70,12 @@ class NoteController extends MHController
                 $note->text = $post['text'];
                 $note->typeId = $post['type'];
                 $note->ownerId = $post['ownerId'];
+                $note->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i',strtotime($post['dueOn'])) : null;
+                $note->isPrivate = isset($post['isPrivate']) ? boolval($post['isPrivate']) : false;
                 $note->save();
 
                 if($this->noteType=='person') {
                     foreach ($post['recipients'] as $recipient) {
-                        \Yii::warning('Recipient:'.$recipient,__METHOD__);
                         $junction = new PersonNote();
                         $junction->note_id = $note->id;
                         $junction->person_id = Person::findOne(['uid'=>$recipient])->id;

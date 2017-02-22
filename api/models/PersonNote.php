@@ -9,6 +9,10 @@ use Yii;
  *
  * @property int $person_id
  * @property int $note_id
+ * @property string $doneOn
+ * @property string $response
+ * @property int $delegatedBy
+ * @property string $delegatedOn
  *
  * @property Note $note
  * @property Person $person
@@ -30,7 +34,9 @@ class PersonNote extends \yii\db\ActiveRecord
     {
         return [
             [['person_id', 'note_id'], 'required'],
-            [['person_id', 'note_id'], 'integer'],
+            [['person_id', 'note_id', 'delegatedBy'], 'integer'],
+            [['doneOn', 'delegatedOn'], 'safe'],
+            [['response'], 'string', 'max' => 255],
             [['note_id'], 'exist', 'skipOnError' => true, 'targetClass' => Note::className(), 'targetAttribute' => ['note_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['person_id' => 'id']],
         ];
@@ -44,6 +50,10 @@ class PersonNote extends \yii\db\ActiveRecord
         return [
             'person_id' => 'Person ID',
             'note_id' => 'Note ID',
+            'doneOn' => 'Done On',
+            'response' => 'Response',
+            'delegatedBy' => 'Delegated By',
+            'delegatedOn' => 'Delegated On',
         ];
     }
 

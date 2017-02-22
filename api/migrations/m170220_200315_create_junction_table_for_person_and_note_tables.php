@@ -19,6 +19,10 @@ class m170220_200315_create_junction_table_for_person_and_note_tables extends Mi
         $this->createTable('person_note', [
             'person_id' => $this->integer(),
             'note_id' => $this->integer(),
+            'doneOn' => $this->dateTime(),
+            'response' => $this->string(),
+            'delegatedBy' => $this->integer(),
+            'delegatedOn' => $this->dateTime(),
             'PRIMARY KEY(person_id, note_id)',
         ]);
 

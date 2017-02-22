@@ -98,7 +98,7 @@ class Person extends \yii\db\ActiveRecord
             'avatarUrlBig' => $this->avatarUrlBig,
             'avatar' => $this->avatar,
             'user' => [
-                'username' => $this->user->username
+                'username' => $this->user ? $this->user->username : ''
             ]
         ];
     }

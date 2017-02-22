@@ -12,10 +12,21 @@
                       placeholder="Write a note"
                       (click)="showTypes()"></textarea>
             </md-input-container>
+            <!--<div class="mat-input-wrapper">
+                <md-checkbox>Private</md-checkbox>
+                <md-input-container>
+                    <input mdInput type="datetime-local" placeholder="Due On" />
+                </md-input-container>
+                <md-input-container>
+                    <input mdInput type="text" placeholder="Assign to" />
+                </md-input-container>
+            </div>-->
         </md-card-content>
         <md-card-actions *ngIf="showTypeSelector" fxFlex>
             <md-button-toggle-group #group="mdButtonToggleGroup" formControlName="type">
-                <md-button-toggle value="{{noteType.id}}" mdTooltip="{{noteType.type}}" *ngFor="let noteType of noteTypes">
+                <md-button-toggle value="{{noteType.id}}"
+                                  mdTooltip="{{noteType.type}}"
+                                  *ngFor="let noteType of noteTypes">
                     <md-icon>{{noteType.iconString}}</md-icon>
                 </md-button-toggle>
             </md-button-toggle-group>

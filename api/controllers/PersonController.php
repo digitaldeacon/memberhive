@@ -28,7 +28,7 @@ class PersonController extends MHController
     public function beforeAction($action)
     {
         if ($action->id == 'update' ||
-            $action->id == 'upload-avatar') {
+            $action->id == 'avatar-upload') {
             $this->enableCsrfValidation = false;
         }
 
@@ -37,7 +37,8 @@ class PersonController extends MHController
 
     public function actionAvatarUpload()
     {
-        $ret = [json_encode($_POST)];
+        $ret[] = \Yii::$app->request->post();
+        $ret[] = $_FILES;
         return ['response' => $ret];
     }
 

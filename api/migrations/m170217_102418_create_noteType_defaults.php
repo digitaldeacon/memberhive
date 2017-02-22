@@ -7,10 +7,11 @@ class m170217_102418_create_noteType_defaults extends Migration
     public function up()
     {
         $types = [
-            ['type'=>'comment','iconString'=>'comment'],
+            ['type'=>'note','iconString'=>'comment'],
             ['type'=>'meeting','iconString'=>'forum'],
             ['type'=>'email','iconString'=>'email'],
-            ['type'=>'phone','iconString'=>'contact_phone']
+            ['type'=>'phone','iconString'=>'contact_phone'],
+            ['type'=>'interaction','iconString'=>'swap_vertical_circle'],
         ];
 
         foreach ($types as $key => $type) {
