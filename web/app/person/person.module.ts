@@ -18,7 +18,7 @@ import { PersonRoutingModule } from './person-routing.module';
 import { PersonService } from "./person.service";
 
 import { ShoutService } from "../common/shout.service";
-import { ImageCropperComponent } from 'ng2-img-cropper';
+import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { CovalentFileModule } from '@covalent/core';
 
@@ -31,8 +31,7 @@ import { TitleService } from "../common/title.service";
         PersonViewComponent,
         PersonEditComponent,
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent,
-        ImageCropperComponent
+        AvatarEditDialogComponent
     ],
     imports: [
         CommonModule,
@@ -42,6 +41,7 @@ import { TitleService } from "../common/title.service";
         FormsModule,
         ReactiveFormsModule,
         NoteModule,
+        ImageCropperModule,
         CovalentFileModule.forRoot()
     ],
     providers: [
