@@ -6,13 +6,30 @@
 ## Note
 MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
 
-Also note that Material2 (material design for angular2) is also still under active development. Things may change rather quickly there. So be patient :)
+Also note that Material2 (material design for angular2) is also still under active development. Things may change/ break rather quickly because of it. So be patient :)
 ## Introduction
-Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular2 (using TypeScript) and swicthed to a RDBMS. All this make development quicker and more robust.
+Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular2 (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
 
-Memberhive is a **church relationship management system** (CRMS). Out focus is facilitating pastoral relationships within small and mid-sized churches.
+Memberhive is a **church relationship management system** (CRMS). Our focus is facilitating pastoral relationships within small and mid-sized churches.
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
+
+## Contribute
+If you care to contribute you should bring some of the following skills to the table:
++ Good experience with Angular development
++ Experience in RDBMS design
++ Ideally also experience with Yii2 (or similar frameworks)
++ Have some sense for SCSS and styling with Material Design
+
+See also *Dependencies* below.
+
+## Dependencies
+- Angular2
+- Yii2
+- Typescript2
+- MariaDB/MySQL
+- PHP7
+- Material2
 
 ## Caveat
 We started with MemberHive in 2015 because it was hard to find a church management system that was multi-lingual, had its focus on relationships, was affordable, had a modern UI and was technologically not outdated.
@@ -28,26 +45,18 @@ A fair question.
 
 Here are some reasons:
 + **Complexity**. We do not know if the average church pastor (in middle Europe) will need/want the kind of complexity that Elvanto and others offer. These are software solutions for large churches.
-+ **Relationships**. The above mentioned software majors on church planning, group management and events. Others focus function mainly as a CRM. What is missing here is a good relationship management (such as dsicipleship)
++ **Relationships**. The above mentioned software majors on church planning, group management and events. Others function mainly as a CRM. What is missing here is a good relationship management (e.g. discipleship)
 + **Printed member lists**. Although Elvanto does a great job with reports, it does not fit our needs when it comes to a printed version of the church membership list.
 + **Tags**. Elvanto is missing a tag system. We kind of got used to that.
 + **UI (speed + design)**. This is not the strongest argument, but Angular/Material makes page naviagtion quick and clean.
 + **Closed Source**. Most other systems are closed source (understandably so). As we build on Open Source we want to give something back (of course, we will also cover the hosting for you, which will cost).
 
-So the plan is to major on the above reasons. We want to be **simple**, enforce **easy realtionship management**, make **printed church lists** a breeze, stay with our **tag absed system**, and ... the rest seems obvious.
+So the plan is to major on the above reasons. We want to be **simple**, enforce **easy realtionship management**, make **printed church lists** a breeze, stay with our **tag based system**, and ... the rest seems obvious.
 
-We will slowing down the development progress, for the moment. Unless we can **find more contributors**.
+We will be slowing down the development progress, for the moment. Unless we can **find more contributors**.
 
 **So** if you share this reasons and see the value in it then **PLEASE DO CONTRIBUTE**! All of us here are pastorally involved in our churches. We have family and many other responsibilities. Any help will be welcome.
 
-## Dependencies
-- Angular2
-- Yii2
-- Typescript2
-- MariaDB/MySQL
-- PHP7
-- Material2
- 
 ## License
 All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive2/blob/master/LICENSE).
 I.e. you may fork but not resell.
