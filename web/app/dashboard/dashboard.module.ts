@@ -1,20 +1,31 @@
 import { NgModule } from '@angular/core';
+import { CommonModule }  from '@angular/common';
 import { MaterialModule } from '@angular/material';
-import { DashboardComponent } from './dashboard.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { MomentModule } from 'angular2-moment';
 
+import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
+import { DashletBirthdaysComponent } from './dashlets/dashlet-birthdays.component';
+
 import { TitleService } from "../common/title.service";
+import { PersonService } from "../person/person.service";
 
 @NgModule({
     declarations: [
-        DashboardComponent
+        DashboardComponent,
+        DashletBirthdaysComponent
     ],
     imports: [
+        CommonModule,
         MaterialModule,
         DashboardRoutingModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        MomentModule
+    ],
+    providers: [
+        PersonService
     ]
 })
 export class DashboardModule {

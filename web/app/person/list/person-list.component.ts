@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {TitleService} from '../../common/title.service';
-import {PersonService} from "../person.service";
-import {Person} from "../person";
+import { Component, OnInit } from '@angular/core';
+import { TitleService } from '../../common/title.service';
+import { PersonService } from "../person.service";
+import { Person } from "../person";
 
 @Component({
     moduleId: 'mh-person',
@@ -11,9 +11,10 @@ import {Person} from "../person";
 })
 
 export class PersonListComponent implements OnInit {
-    private persons: Array<Person>;
+    persons: Array<Person>;
 
-    constructor(titleService: TitleService, private personService: PersonService) {
+    constructor(private personService: PersonService,
+                titleService: TitleService) {
         titleService.setTitle('Person List');
     }
 

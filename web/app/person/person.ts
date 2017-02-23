@@ -9,14 +9,15 @@ export class Person {
     public email: string;
     public maritalStatus: string;
     public gender: string;
-    public birthday: string;
+    public birthday: Date;
+    public age: string;
     public avatarUrlBig: string;
     public avatarUrlMedium: string;
     public avatarUrlSmall: string;
     public avatar: string;
     public username: string;
     public password: string;
-    public user: Object = {};
+    public user: any;
 
     public deserialize(input: any): Person {
         this.id = input.id;
@@ -27,7 +28,8 @@ export class Person {
         this.fullName = input.fullName;
         this.email = input.email;
         this.gender = input.gender;
-        this.birthday = input.birthday;
+        this.birthday = new Date(input.birthday);
+        this.age = input.age;
         this.maritalStatus = input.maritalStatus;
         this.avatar = input.avatar;
         this.avatarUrlBig = input.avatarUrlBig;

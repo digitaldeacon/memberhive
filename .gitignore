@@ -42,3 +42,8 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+#compile files
+*.metadata.json
+*.map.js
+*.js  # or /src/**/*.js

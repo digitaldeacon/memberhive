@@ -40,7 +40,7 @@ export class PersonService {
     private deserializeList(resp: any): Array<Person> {
         return resp.response.map((r: any) => new Person().deserialize(r));
     }
-    private extractData(res: Response) {
+    private extractData(res: Response): any {
         return res || { };
     }
 }

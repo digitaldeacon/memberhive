@@ -92,6 +92,7 @@ class Person extends \yii\db\ActiveRecord
             'address' => $this->address,
             'gender' => $this->gender,
             'birthday' => $this->birthday,
+            'age' => $this->age,
             'maritalStatus' => $this->maritalStatus,
             'avatarUrlSmall' => $this->avatarUrlSmall,
             'avatarUrlMedium' => $this->avatarUrlMedium,
@@ -134,5 +135,16 @@ class Person extends \yii\db\ActiveRecord
     {
         $default = 'assets/images/avatar/'.$this->gender.'.png';
         return empty($this->avatarUrlSmall) ? $default : $this->avatarUrlSmall;
+    }
+
+    public function getAge()
+    {
+        if(empty($this->birthday))
+            return null;
+
+        $now = new \DateTime();
+        $bDay = new \DateTime($this->birthday);
+        $interval = $bDay->diff($now);
+        return $interval->y;
     }
 }

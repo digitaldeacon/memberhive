@@ -1,34 +1,3 @@
 <div fxLayout="row" fxFlexLayout="space-around center" fxLayoutGap="10px">
-    <md-card fxFlex="50">
-        <md-card-header fxLayout="row">
-            <md-card-title>
-                <h4>Upcoming birthdays</h4>
-            </md-card-title>
-            <div>
-                <button md-icon-button><md-icon>more_vert</md-icon></button>
-            </div>
-        </md-card-header>
-        <md-card-content>
-            <md-nav-list>
-                <img md-list-avatar src="" alt="Thomas" />
-                <div class="mat-list-text">Thomas Hochstetter</div>
-            </md-nav-list>
-        </md-card-content>
-    </md-card>
-    <md-card fxFlex="50">
-        <md-card-header fxLayout="row">
-            <md-card-title>
-                <h4>Upcoming birthdays</h4>
-            </md-card-title>
-            <div>
-                <button md-icon-button><md-icon>more_vert</md-icon></button>
-            </div>
-        </md-card-header>
-        <md-card-content>
-            <md-nav-list>
-                <img md-list-avatar src="" alt="Thomas" />
-                <div class="mat-list-text">Thomas Hochstetter</div>
-            </md-nav-list>
-        </md-card-content>
-    </md-card>
+    <mh-dashlet-birthdays [persons]="persons" fxFlex.gt-sm="50"></mh-dashlet-birthdays>
 </div>
