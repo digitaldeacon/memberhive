@@ -23,24 +23,28 @@ export class DashletBirthdaysComponent implements OnChanges {
         if (changes['persons']) {
             if (this.persons) {
                 this.personsFilter = this.persons.filter((p: Person) => {
-                    let bday = p.birthday;
+                    let bday: Date = p.birthday;
                     bday.setFullYear(this.now.getFullYear());
-                    if (!p.birthday) return false;
+                    if (!p.birthday) {
+                        return false;
+                    }
                     return bday > this.now && bday < this.week;
                 });
                 this.personsFilter.sort((p1: Person, p2: Person) => {
                     let left: number = Number(p1.birthday);
                     let right: number = Number(p2.birthday);
-                    return left-right;
+                    return left - right;
                 });
             }
         }
     }
-    birthdayIn(birthday: string) {
+
+    // could become a pipe, in case momentjs does not work with AOT
+    birthdayIn(birthday: string): number  {
         let bDay: Date = new Date(birthday);
         bDay.setFullYear(this.now.getFullYear());
-        let interval = Math.floor(bDay.getTime() - this.now.getTime()) / 1000;
-        let days = Math.floor(interval / 86400);
-        console.log(days);
+        let interval: number = Math.floor(bDay.getTime() - this.now.getTime()) / 1000;
+        let days: number = Math.floor(interval / 86400);
+        return days;
     }
 }
