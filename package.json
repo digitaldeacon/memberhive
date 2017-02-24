@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --prod",
+    "build": "ng build --aot --prod",
     "extract-i18n": "cd web && ng-xi18n",
     "clean-install": "npm uninstall -g angular-cli @angular/cli && npm cache clean && npm install -g @angular/cli@latest && rm -rf node_modules dist && npm install --save-dev @angular/cli@latest && npm install && cd api && rm -rf vendor/ && composer install && cd ../",
     "clean-update": "rm -rf node_modules dist && npm install && cd api && rm -rf vendor/ && composer install",

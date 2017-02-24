@@ -109,11 +109,17 @@ export class PersonEditComponent implements OnInit {
     }
 
     openDlgAvatar(): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            context: 'person',
+            id: this.person.uid
+        };
 
-        this.dialogRef = this.dialog.open(AvatarEditDialogComponent);
+        this.dialogRef = this.dialog.open(AvatarEditDialogComponent, config);
 
         this.dialogRef.afterClosed().subscribe((result: string) => {
             // console.log(result);
+            // update and refesh the person being edited
             this.dialogRef = undefined;
         });
     }

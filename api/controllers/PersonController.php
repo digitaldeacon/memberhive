@@ -35,10 +35,37 @@ class PersonController extends MHController
         return parent::beforeAction($action);
     }
 
+    // returns Person
     public function actionAvatarUpload()
     {
-        $ret[] = \Yii::$app->request->post();
-        $ret[] = $_FILES;
+        $ret = [];
+        $post = \Yii::$app->request->post();
+        $split = explode(',',$post['base']);
+        $data = null;
+
+        if(!isset($post['base']))
+            throw new BadRequestHttpException('No image data received');
+        if(!isset($post['id']) || empty($post['id']))
+            throw new BadRequestHttpException('No person id received');
+
+        $person = Person::findOne(['uid'=>$post['id']]);
+        $type = explode('/',$post['type'])[1];
+        $data = base64_decode($split[1]);
+
+        // set the proper path to save so that Angular can read the image
+        $imagePath = \Yii::getAlias('@webroot').'/../files/';
+        $image = $post['id'].'.'.$type;
+
+        if(file_put_contents($imagePath.$image,$data))
+        {
+            // don't store the actual url here, the app should define where the files are located
+            // this will make moving of files easier
+            $person->avatarUrlSmall = $image;
+            if(!$person->save())
+                throw new BadRequestHttpException($person->errors);
+            $ret[] = $person;
+        }
+
         return ['response' => $ret];
     }
 

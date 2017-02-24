@@ -28,11 +28,10 @@ export class PersonService {
         return this.http.get('search/search?q=' + query)
             .map(this.deserializeList);
     }
-    public uploadAvatar(file: File): Observable<any> {
-        const formData: FormData = new FormData();
-        formData.append('file', file);
-        return this.http.post('person/avatar-upload', formData)
-            .map(this.extractData);
+    // receives jsonified base64 string to pass to api
+    public uploadAvatar(image: Object): Observable<any> {
+        return this.http.post('person/avatar-upload', image)
+            .map(this.deserialize);
     }
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);

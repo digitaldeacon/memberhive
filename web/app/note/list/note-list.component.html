@@ -10,6 +10,7 @@
                       mdTextareaAutosize
                       formControlName="text"
                       placeholder="Write a note"
+                      i18n-placeholder
                       (click)="showTypes()"></textarea>
             </md-input-container>
             <!--<div class="mat-input-wrapper">
@@ -30,7 +31,7 @@
                     <md-icon>{{noteType.iconString}}</md-icon>
                 </md-button-toggle>
             </md-button-toggle-group>
-            <button md-raised-button type="submit" [disabled]="!noteForm.valid">Note it!</button>
+            <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
         </md-card-actions>
     </md-card>
 </form>
@@ -40,7 +41,7 @@
             <md-icon md-card-avatar>{{note.icon}}</md-icon>
             <md-card-subtitle>
                 {{note.createdAt | date: 'medium'}}
-                - by <a *ngIf="!iOwn(note.ownerId)">{{note.authorName}}</a>
+                - <span i18n>by</span> <a *ngIf="!iOwn(note.ownerId)">{{note.authorName}}</a>
                 <span *ngIf="iOwn(note.ownerId)" i18n>me</span>
             </md-card-subtitle>
         </md-card-header>

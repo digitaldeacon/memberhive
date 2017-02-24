@@ -1,7 +1,8 @@
-import { Component, ViewChild } from '@angular/core';
-import { MdDialogRef } from '@angular/material';
+import { Component, ViewChild, Input, Inject } from '@angular/core';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { PersonService } from "../person.service";
+import { Person } from "../person";
 
 @Component({
     selector: 'mh-dialog-avatar-edit',
@@ -9,22 +10,25 @@ import { PersonService } from "../person.service";
     styleUrls: ['./avatar-edit.dialog.scss']
 })
 export class AvatarEditDialogComponent {
-    data: any;
+    imageData: any;
     cropperSettings: CropperSettings;
     file: File;
     @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
     constructor(private personService: PersonService,
-        public dialogRef: MdDialogRef<AvatarEditDialogComponent>) {
+                public dialogRef: MdDialogRef<AvatarEditDialogComponent>,
+                @Inject(MD_DIALOG_DATA) public dialogData: any) {
 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.noFileInput = true;
         this.cropperSettings.rounded = true;
 
-        this.cropperSettings.minHeight = 200;
-        this.cropperSettings.minWidth = 200;
+        this.cropperSettings.width = 400;
+        this.cropperSettings.height = 400;
+        this.cropperSettings.croppedWidth = 400;
+        this.cropperSettings.croppedHeight = 400;
 
-        this.data = {};
+        this.imageData = {};
     }
 
     fileChangeListener($event: any): void {
@@ -37,14 +41,28 @@ export class AvatarEditDialogComponent {
             image.src = loadEvent.target.result;
             that.cropper.setImage(image);
         };
-
         myReader.readAsDataURL(this.file);
     }
 
     save(): void {
-        // console.log(this.file);
-        this.personService.uploadAvatar(this.file).subscribe((response: any) => {
-            // console.log(response);
-        });
+        let image: Object = {
+            base: JSON.stringify(this.imageData.image),
+            id: this.dialogData.id,
+            type: this.file.type
+        };
+        if (this.dialogData.context === 'person') {
+            this.personService.uploadAvatar(image).subscribe(
+                (person: Person) => {
+                    // send person to parent component and close
+                    this.dialogRef.close();
+                    return true;
+                },
+                (error: any) => {
+                    // send error and close
+                    this.dialogRef.close();
+                    return false;
+                }
+            );
+        }
     }
 }
