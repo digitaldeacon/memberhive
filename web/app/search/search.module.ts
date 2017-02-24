@@ -1,12 +1,13 @@
-import {NgModule} from '@angular/core';
-import {CommonModule}  from '@angular/common';
-import {MaterialModule} from '@angular/material';
-import {FormsModule, ReactiveFormsModule}   from '@angular/forms';
+import { NgModule } from '@angular/core';
+import { CommonModule }  from '@angular/common';
+import { MaterialModule } from '@angular/material';
+import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { RouterModule } from "@angular/router";
+import { FlexLayoutModule } from '@angular/flex-layout';
 
-import {SearchBoxComponent} from './search-box.component';
+import { SearchBoxComponent } from './search-box.component';
+import { SearchService } from "./search.service";
 
-import {SearchService} from "./search.service";
-import {RouterModule} from "@angular/router";
 
 @NgModule({
     declarations: [
@@ -16,6 +17,7 @@ import {RouterModule} from "@angular/router";
         CommonModule,
         MaterialModule,
         RouterModule,
+        FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule
     ],

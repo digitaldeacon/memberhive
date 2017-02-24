@@ -39,7 +39,7 @@ class SearchController extends MHController
                 'text' => $person->fullName,
                 'icon' => $person->avatar,
                 'type' => 'person',
-                'url' => ['/person/view', $person->id]
+                'url' => ['/person/view', $person->uid]
             ];
         }
         return ['response' => $ret];
