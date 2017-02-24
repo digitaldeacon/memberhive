@@ -9,28 +9,46 @@ import { Person } from '../../person/person';
 export class DashletBirthdaysComponent implements OnChanges {
 
     private now: Date = new Date();
-    private week: Date;
+    private rangeDate: Date;
 
     @Input() persons: Array<Person>;
-    personsFilter: Array<Person>;
+    personsBdRange: Array<Person>;
+    personsBdToday: Array<Person>;
+
+    range: number = 7; // TODO: get this from user settings
 
     constructor() {
-        this.week = new Date(this.now);
-        this.week.setDate(this.week.getDate() + 7);
+        this.rangeDate = new Date(this.now);
+        this.rangeDate.setDate(this.rangeDate.getDate() + this.range);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['persons']) {
             if (this.persons) {
-                this.personsFilter = this.persons.filter((p: Person) => {
+                // Filter for birthdays within a range (default 7 days)
+                this.personsBdRange = this.persons.filter((p: Person) => {
                     let bday: Date = p.birthday;
                     bday.setFullYear(this.now.getFullYear());
                     if (!p.birthday) {
                         return false;
                     }
-                    return bday > this.now && bday < this.week;
+                    return bday > this.now && bday < this.rangeDate;
                 });
-                this.personsFilter.sort((p1: Person, p2: Person) => {
+                this.personsBdRange.sort((p1: Person, p2: Person) => {
+                    let left: number = Number(p1.birthday);
+                    let right: number = Number(p2.birthday);
+                    return left - right;
+                });
+                // Filter for today's birthdays
+                this.personsBdToday = this.persons.filter((p: Person) => {
+                    let bday: Date = p.birthday;
+                    bday.setFullYear(this.now.getFullYear());
+                    if (!p.birthday) {
+                        return false;
+                    }
+                    return bday === this.now;
+                });
+                this.personsBdToday.sort((p1: Person, p2: Person) => {
                     let left: number = Number(p1.birthday);
                     let right: number = Number(p2.birthday);
                     return left - right;

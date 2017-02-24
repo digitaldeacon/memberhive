@@ -1,23 +1,41 @@
 <md-card>
     <md-card-header>
         <md-card-title fxLayout="row" fxLayoutAlign="space-around center">
-            <h4>Upcoming birthdays</h4>
+            <h4 i18n>Upcoming birthdays</h4>
             <div>
                 <button md-icon-button><md-icon>more_vert</md-icon></button>
             </div>
         </md-card-title>
     </md-card-header>
     <md-card-content>
-        <md-nav-list>
-            <a md-list-item *ngFor="let person of personsFilter" [routerLink]="['/person/view', person.uid]">
-                <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
-                <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
-                <div md-line>
-                    <span md-line>{{person.fullName}}</span>
-                    <span md-line>{{person.birthday | amTimeAgo}}</span>
-                </div>
-                <div><b>{{person.age}}</b></div>
-            </a>
-        </md-nav-list>
+        <div>
+            <md-card-subtitle i18n>Today <md-divider></md-divider></md-card-subtitle>
+            <p *ngIf="personsBdToday?.length == 0" i18n>No birthdays today</p>
+            <md-nav-list>
+                <a md-list-item *ngFor="let person of personsBdToday" [routerLink]="['/person/view', person.uid]">
+                    <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
+                    <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+                    <div md-line>
+                        <span md-line>{{person.fullName}}</span>
+                        <span md-line>{{person.birthday | amTimeAgo}}</span>
+                    </div>
+                    <div><b>{{person.age}}</b></div>
+                </a>
+            </md-nav-list>
+        </div>
+        <div>
+            <md-card-subtitle i18n>Next {{range}} days <md-divider></md-divider></md-card-subtitle>
+            <md-nav-list>
+                <a md-list-item *ngFor="let person of personsBdRange" [routerLink]="['/person/view', person.uid]">
+                    <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
+                    <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+                    <div md-line>
+                        <span md-line>{{person.fullName}}</span>
+                        <span md-line>{{person.birthday | amTimeAgo}}</span>
+                    </div>
+                    <div><b>{{person.age}}</b></div>
+                </a>
+            </md-nav-list>
+        </div>
     </md-card-content>
 </md-card>
