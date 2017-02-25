@@ -1,5 +1,7 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { DatePipe } from '@angular/common';
+
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ENTER } from "@angular/material";
@@ -42,6 +44,7 @@ export class PersonEditComponent implements OnInit {
                 private personService: PersonService,
                 private titleService: TitleService,
                 private auth: AuthService,
+                private datePipe: DatePipe,
                 public dialog: MdDialog) {
     }
 
@@ -73,7 +76,7 @@ export class PersonEditComponent implements OnInit {
                             [<any>Validators.required, <any>Validators.minLength(5)]],
                         gender: [this.person['gender']],
                         maritalStatus: [this.person['maritalStatus']],
-                        birthday: [this.person['birthday'],
+                        birthday: [this.datePipe.transform(this.person['birthday'],'yyyy-MM-dd'),
                             [<any>Validators.required]],
                         user: this.fb.group({
                             username: [this.person['user']['username']],
@@ -93,6 +96,7 @@ export class PersonEditComponent implements OnInit {
             this.personService.updatePerson(model)
                 .subscribe(
                     (person: Person) => {
+                        console.log(person);
                         this.person = person;
                         this.form.patchValue(person);
                         this.updateParent();

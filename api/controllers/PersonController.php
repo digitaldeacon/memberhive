@@ -53,6 +53,7 @@ class PersonController extends MHController
         $data = base64_decode($split[1]);
 
         // set the proper path to save so that Angular can read the image
+        // should be ./assets/images/avatar, so that images get uploaded correctly on dev and prod?
         $imagePath = \Yii::getAlias('@webroot').'/../files/';
         $image = $post['id'].'.'.$type;
 

@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 
 export class Person {
     public id: number;
@@ -10,7 +11,7 @@ export class Person {
     public maritalStatus: string;
     public gender: string;
     public birthday: Date;
-    public age: string;
+    public age: number;
     public avatarUrlBig: string;
     public avatarUrlMedium: string;
     public avatarUrlSmall: string;
