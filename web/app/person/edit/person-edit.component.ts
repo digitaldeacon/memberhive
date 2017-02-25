@@ -76,7 +76,7 @@ export class PersonEditComponent implements OnInit {
                             [<any>Validators.required, <any>Validators.minLength(5)]],
                         gender: [this.person['gender']],
                         maritalStatus: [this.person['maritalStatus']],
-                        birthday: [this.datePipe.transform(this.person['birthday'],'yyyy-MM-dd'),
+                        birthday: [this.datePipe.transform(this.person['birthday'], 'yyyy-MM-dd'),
                             [<any>Validators.required]],
                         user: this.fb.group({
                             username: [this.person['user']['username']],
@@ -96,7 +96,7 @@ export class PersonEditComponent implements OnInit {
             this.personService.updatePerson(model)
                 .subscribe(
                     (person: Person) => {
-                        console.log(person);
+                        // console.log(person);
                         this.person = person;
                         this.form.patchValue(person);
                         this.updateParent();
