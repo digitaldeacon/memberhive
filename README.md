@@ -24,12 +24,12 @@ If you care to contribute you should bring some of the following skills to the t
 See also *Dependencies* below.
 
 ## Dependencies
-- Angular2
+- Angular (v2.4.8, with angular/cli and AOT compilation)
 - Yii2
 - Typescript2
 - MariaDB/MySQL
 - PHP7
-- Material2
+- Material2 (using angular/flex-layout)
 
 ## Caveat
 We started with MemberHive in 2015 because it was hard to find a church management system that was multi-lingual, had its focus on relationships, was affordable, had a modern UI and was technologically not outdated.
