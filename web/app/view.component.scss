@@ -1,3 +1,5 @@
+@import "../theme.scss";
+
 html, body, mh-app, md-sidenav-container, .my-content {
   margin: 0;
   width: 100%;
@@ -75,7 +77,7 @@ md-nav-list {
 }
 
 .active-list-item {
-  border-color: red;
+  border-color: mat-color($mh-app-warn, A400);
   border-width: 0 3px 0 0;
   border-style: solid;
 }

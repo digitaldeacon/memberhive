@@ -15,7 +15,7 @@ export class ShoutService {
         let config: MdSnackBarConfig = new MdSnackBarConfig();
         config.duration = this.autoHide;
         config.extraClasses = ['shout-' + type];
-        this.snackBar.open(message, this.action && this.actionButtonLabel, config);
+        this.snackBar.open(message, this.actionButtonLabel, config);
     }
     error(message: string): void {
         this.out(message, 'warn');

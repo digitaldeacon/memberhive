@@ -55,9 +55,8 @@
         </md-toolbar>
     </div>
 
-
-    <div class="flex-container" fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-        <div class="flex-item drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+        <div class="drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{user.avatar}}" alt="{{user.fullName}}" />
@@ -79,7 +78,7 @@
                 </a>
             </md-nav-list>
         </div>
-        <div class="flex-item" fxFlex>
+        <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
             <md-toolbar>
                 <h4>{{titleService.getTitle()}}</h4>
             </md-toolbar>

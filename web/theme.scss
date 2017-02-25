@@ -8,11 +8,13 @@
 // Define the palettes for your theme using the Material Design palettes available in palette.scss
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue.
+// see also: https://material.io/guidelines/style/color.html#
 $mh-app-primary: mat-palette($mat-blue);
 $mh-app-accent:  mat-palette($mat-orange, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $mh-app-warn:    mat-palette($mat-red);
+$mh-app-green:  mat-palette($mat-green);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $mh-app-theme: mat-light-theme($mh-app-primary, $mh-app-accent, $mh-app-warn);

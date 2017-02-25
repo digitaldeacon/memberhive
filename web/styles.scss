@@ -15,10 +15,10 @@ mh-app {
 }
 
 .shout-success {
-  background: #5a9b35 !important;
+  background: mat-color($mh-app-green, 500) !important;
 }
 .shout-warn {
-  background: #d32f2f !important;
+  background: mat-color($mh-app-warn, A400) !important;
 }
 .mat-autocomplete-panel {
   max-width: none !important;

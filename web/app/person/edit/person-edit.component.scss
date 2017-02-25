@@ -1,3 +1,5 @@
+@import "../../../theme.scss";
+
 .person-edit {
     md-input-container {
         width: 100%;
@@ -12,7 +14,7 @@
         }
     }
     button[type="submit"] {
-        background: #07aa38;
+        background: mat-color($mh-app-green, 500);
         color: #ffffff;
         margin: 10px 0;
         font-weight: 800;

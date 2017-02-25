@@ -26,7 +26,6 @@ export class SearchBoxComponent implements OnInit {
     @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
     itemCtrl: FormControl;
-    currentItem: string = '';
 
     public items: Observable<string[]>;
 
@@ -49,6 +48,7 @@ export class SearchBoxComponent implements OnInit {
     searchClicked(): void {
         if (!this._searchVisible) {
             this.itemCtrl.reset();
+            //searchBar.focus(); //TODO: find focus on click
         }
         this.toggleVisibility();
     }
