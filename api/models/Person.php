@@ -114,6 +114,11 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasOne(User::className(), ['personId' => 'id']);
     }
 
+    public function setUser($user)
+    {
+        return $this->user = $user;
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -34,7 +34,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function rules()
     {
         return [
-            [['id'], 'integer'],
+            [['id','personId'], 'integer'],
             [['username'], 'required'],
             [['password'], 'string', 'min' => 6],
             ['username', 'unique'],
@@ -105,6 +105,12 @@ class User extends ActiveRecord implements IdentityInterface
         if($password ==! "") {
             $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
+    }
+
+    public function generateRandomPassword($length = 8)
+    {
+        $rpw = Yii::$app->security->generateRandomString($length);
+        $this->setPassword($rpw);
     }
 
     public function getPassword()

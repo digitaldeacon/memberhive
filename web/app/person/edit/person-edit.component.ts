@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -24,6 +24,9 @@ import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 export class PersonEditComponent implements OnInit {
 
     private _data: any = new BehaviorSubject<Person[]>([]);
+    private _pwFormControl: FormControl;
+    private _pwRandCheckbox: FormControl;
+
     form: FormGroup;  // our model driven form
     submitted: boolean;  // keep track on whether form is submitted
     events: any[] = [];  // use later to display form changes
@@ -34,6 +37,7 @@ export class PersonEditComponent implements OnInit {
         {value: 'divorce-living', viewValue: 'Living in Divorce'},
         {value: 'divorce-active', viewValue: 'Divorced'}
     ];
+    randomPassword: boolean = true;
     separatorKeys: Array<any> = [ENTER, 186];
     dialogRef: MdDialogRef<AvatarEditDialogComponent>;
 
@@ -60,12 +64,13 @@ export class PersonEditComponent implements OnInit {
         return this._data.getValue();
     }
 
-    // TODO: check this for performance issues.
-    // It should include BehaviorSubject.takeWhile() to unsubscribe again
     ngOnInit(): void {
         this._data
             .subscribe((x: Person) => {
                 if (this.person) {
+                    this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
+                    this._pwRandCheckbox = this.fb.control(this.randomPassword);
+
                     this.form = this.fb.group({
                         firstName: [this.person['firstName'],
                                     [<any>Validators.required, <any>Validators.minLength(5)]],
@@ -80,7 +85,9 @@ export class PersonEditComponent implements OnInit {
                             [<any>Validators.required]],
                         user: this.fb.group({
                             username: [this.person['user']['username']],
-                            password: [undefined]
+                            password: this._pwFormControl,
+                            nocreds: [undefined],
+                            setpw: [undefined]
                         })
                     });
                     this.titleService.setTitle(this.person.fullName); // TODO: move this to parent
@@ -96,11 +103,11 @@ export class PersonEditComponent implements OnInit {
             this.personService.updatePerson(model)
                 .subscribe(
                     (person: Person) => {
-                        // console.log(person);
                         this.person = person;
                         this.form.patchValue(person);
                         this.updateParent();
-                        this.auth.setPerson(person);
+                        // this.auth.setPerson(person);
+                        this.toggleRPW();
                         this.shout.success('Successfully updated "' + person.fullName + '"');
                         return true;
                     },
@@ -120,11 +127,24 @@ export class PersonEditComponent implements OnInit {
         };
 
         this.dialogRef = this.dialog.open(AvatarEditDialogComponent, config);
-
         this.dialogRef.afterClosed().subscribe((result: string) => {
             // console.log(result);
             // update and refesh the person being edited
             this.dialogRef = undefined;
         });
+    }
+
+    toggleRPW(): void {
+        this.randomPassword = this.randomPassword ? false : true;
+        if (this.randomPassword) {
+            this._pwFormControl.disable();
+        } else {
+            this._pwFormControl.enable();
+            this._pwFormControl.setValue(this.generateRandomPW());
+        }
+    }
+
+    generateRandomPW(): string {
+        return Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
     }
 }

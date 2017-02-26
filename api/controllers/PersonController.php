@@ -1,6 +1,8 @@
 <?php
 namespace app\controllers;
+
 use app\models\Person;
+use app\models\User;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 
@@ -105,8 +107,31 @@ class PersonController extends MHController
             $person->lastName = $post['lastName'];
             $person->gender = $post['gender'];
             $person->maritalStatus = $post['maritalStatus'];
+            if(empty($person->user) && !empty($post['user']['password'])) {
+                $user = new User();
+                $user->personId = $person->id;
+                $user->username = trim($post['user']['username']);
+                $user->setPassword(trim($post['user']['password']));
+                if(!$user->save()) {
+                    throw new BadRequestHttpException($user->errors);
+                }
+            } elseif(!empty($person->user) && !empty($post['user']['password'])) {
+                $user = $person->user;
+                $user->username = trim($post['user']['username']);
+                $user->setPassword(trim($post['user']['password']));
+                if(!$user->save()) {
+                    throw new BadRequestHttpException($user->errors);
+                }
+            }
             if(!$person->save()) {
-                return ['response' => json_encode($person->errors)];
+                throw new BadRequestHttpException($person->errors);
+            }
+            if(isset($user)) {
+                $person->user = $user;
+                if(!isset($post['user']['noreds']) |
+                    empty($post['user']['nocreds'])) {
+                    $this->sendCredentials($person,trim($post['user']['password']));
+                }
             }
             return ['response' => $person->toResponseArray()];
         } else {
@@ -130,12 +155,27 @@ class PersonController extends MHController
             throw new NotFoundHttpException('The requested person does not exist.');
         return $user;
     }
-
     protected function findModelByUID($id)
     {
         $user = Person::findOne(['uid'=>$id]);
         if ($user === null)
             throw new NotFoundHttpException('The requested person does not exist.');
         return $user;
+    }
+
+    // TODO: make this into an authenticate process
+    private function sendCredentials($person, $pw)
+    {
+        \Yii::$app->mailer
+            ->compose('newpw',
+                [
+                    'name' => $person->firstName,
+                    'username' => $person->user->username,
+                    'password' => $pw
+                ])
+            ->setFrom('mailbee@memberhive.com')
+            ->setTo('thomas.hochstetter@me.com') //$person->firstName
+            ->setSubject('MH - New Credentials')
+            ->send();
     }
 }

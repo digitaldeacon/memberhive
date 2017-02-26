@@ -74,7 +74,7 @@
                     </md-chip-list>
                 </md-input-container>
             </div>-->
-            <legend>Account</legend>
+            <legend i18n>Account</legend>
             <div>
                 <md-input-container>
                     <input mdInput formControlName="username" placeholder="Username" i18n-placeholder="Username">
@@ -85,18 +85,26 @@
             </div>
             <div>
                 <md-input-container>
-                    <input mdInput type="password" formControlName="password" placeholder="Password" i18n-placeholder="Password">
+                    <input mdInput
+                           type="text"
+                           formControlName="password"
+                           placeholder="Password"
+                           i18n-placeholder>
                 </md-input-container>
                 <small [hidden]="form.controls.user.controls.username.valid || (form.controls.user.controls.username.pristine && !submitted)">
-                    Password is required (minimum 5 characters).
+                    Password is required (minimum 8 characters).
                 </small>
+            </div>
+            <div>
+                <md-checkbox formControlName="setpw" (change)="toggleRPW()">Set new Password</md-checkbox>
+                <md-checkbox formControlName="nocreds">Don't mail credentials</md-checkbox>
             </div>
         </fieldset>
         <div>
-            <button md-raised-button type="button" (click)="openDlgAvatar()">Change avatar</button>
+            <button md-raised-button type="button" (click)="openDlgAvatar()" i18n>Manage avatar</button>
         </div>
     </div>
     <div>
-        <button md-button type="submit" [disabled]="!form.valid">Submit</button>
+        <button md-button type="submit" [disabled]="!form.valid" i18n>Submit</button>
     </div>
 </form>
