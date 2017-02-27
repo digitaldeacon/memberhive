@@ -1,4 +1,4 @@
-import { Component, style, state, trigger, ElementRef } from '@angular/core';
+import { Component, style, state, trigger, ElementRef, OnInit } from '@angular/core';
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
 import { Person } from './person/person';
@@ -23,7 +23,7 @@ import { Person } from './person/person';
         ])
     ]
 })
-export class ViewComponent {
+export class ViewComponent implements OnInit{
 
     routes: Object[] = [
         {
@@ -38,7 +38,7 @@ export class ViewComponent {
     ];
 
     auth: AuthService;
-    user: Person;
+    currentUser: Person;
 
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
@@ -48,15 +48,15 @@ export class ViewComponent {
                 auth: AuthService,
                 private _element: ElementRef) {
         this.auth = auth;
-        this.user = auth.getPerson();
+    }
+
+    ngOnInit(): void {
+        this.currentUser = this.auth.getCurrentUser();
+        console.log(this.currentUser);
     }
 
     toggleAlwaysVisible(): void {
         this.alwaysVisible = !this.alwaysVisible;
-    }
-
-    logout(): void {
-        // console.log('logging out');
     }
 
     toggleFullscreen(): void {

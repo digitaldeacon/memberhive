@@ -1,5 +1,5 @@
 import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import {FormGroup, FormBuilder, Validators, FormControl} from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
@@ -106,7 +106,9 @@ export class PersonEditComponent implements OnInit {
                         this.person = person;
                         this.form.patchValue(person);
                         this.updateParent();
-                        // this.auth.setPerson(person);
+                        if (person.uid === this.auth.getCurrentUser().uid) {
+                            this.auth.setCurrentUser(person); // i.e. update my own card
+                        }
                         this.toggleRPW();
                         this.shout.success('Successfully updated "' + person.fullName + '"');
                         return true;

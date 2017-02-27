@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 
 import {LoginService} from './common/auth/login.service';
 import {LocalStorage} from 'ng2-webstorage';
@@ -8,12 +9,17 @@ import {LocalStorage} from 'ng2-webstorage';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
 
     @LocalStorage() username: string;
     password: string;
+    returnUrl: string;
 
     constructor(private loginService: LoginService) {
+    }
+
+    ngOnInit(): void {
+        this.loginService.logout();
     }
 
     login(): void {

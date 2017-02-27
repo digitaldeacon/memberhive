@@ -11,7 +11,7 @@ import { PersonService } from "../person/person.service";
 })
 export class DashboardComponent implements OnInit {
 
-    user: Person;
+    currentUser: Person;
     persons: Array<Person>;
 
     constructor(titleService: TitleService,
@@ -19,7 +19,7 @@ export class DashboardComponent implements OnInit {
                 private personService: PersonService) {
         let currentDate: Date = new Date();
         titleService.setTitle(currentDate.toDateString());
-        this.user = this.auth.getPerson();
+        this.currentUser = this.auth.getCurrentUser();
     }
 
     ngOnInit(): void {

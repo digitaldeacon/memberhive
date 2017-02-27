@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AuthService } from "./auth.service";
-import { Router} from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { HttpService } from "../http.service";
 import { Observable } from "rxjs";
 
@@ -9,8 +9,11 @@ export class LoginService {
 
     public redirectUrl: string;
 
-    constructor(private http: HttpService, private auth: AuthService, private router: Router) {
-        this.redirectUrl = '/';
+    constructor(private http: HttpService,
+                private auth: AuthService,
+                private router: Router,
+                private route: ActivatedRoute) {
+        this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
     }
 
     public login(username: string, password: string): void {
@@ -35,9 +38,13 @@ export class LoginService {
     private store(response: any): void {
         this.auth.setToken(response.user.token);
         if (response.user.person) {
-            this.auth.setPerson(response.user.person);
+            this.auth.setCurrentUser(response.user.person);
         }
         this.router.navigate([this.redirectUrl]);
     }
 
+    public logout(): void {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+    }
 }

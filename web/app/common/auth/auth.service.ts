@@ -5,7 +5,7 @@ import { Person } from '../../person/person';
 @Injectable()
 export class AuthService {
     @LocalStorage() private token: string;
-    @LocalStorage() private person: Person;
+    @LocalStorage() private currentUser: Person;
 
     public setToken(token: string): void {
         this.token = token;
@@ -15,11 +15,12 @@ export class AuthService {
         return this.token;
     }
 
-    public setPerson(person: Person): void {
-        this.person = person;
+    public setCurrentUser(person: Person): void {
+        this.currentUser = person;
+        this.currentUser = this.currentUser; // because of issue with extension
     }
 
-    public getPerson(): Person {
-        return this.person;
+    public getCurrentUser(): Person {
+        return this.currentUser;
     }
 }

@@ -34,7 +34,7 @@
                     <md-icon>account_circle</md-icon>
                     <span i18n>My Profile</span>
                 </button>
-                <button md-menu-item (click)="logout()">
+                <button md-menu-item>
                     <md-icon>exit_to_app</md-icon>
                     <span i18n>Logout</span>
                 </button>
@@ -46,7 +46,7 @@
                     <md-icon>account_circle</md-icon>
                     <span i18n>My Profile</span>
                 </button>
-                <button md-menu-item (click)="logout()">
+                <button md-menu-item [routerLink]="['/login']">
                     <md-icon>exit_to_app</md-icon>
                     <span i18n>Logout</span>
                 </button>
@@ -59,8 +59,8 @@
         <div class="drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a md-list-item>
-                    <img md-list-avatar src="{{user.avatar}}" alt="{{user.fullName}}" />
-                    <h4 md-line>{{user.fullName}}</h4>
+                    <img md-list-avatar src="{{currentUser.avatar}}" alt="{{currentUser.fullName}}" />
+                    <h4 md-line>{{currentUser.fullName}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
                 <a *ngFor="let item of routes"

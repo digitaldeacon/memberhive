@@ -36,7 +36,7 @@ export class NoteListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ownerId = this.auth.getPerson().uid;
+        this.ownerId = this.auth.getCurrentUser().uid;
         this.noteForm = this.fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
