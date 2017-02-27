@@ -169,9 +169,15 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function afterSave($insert, $changedAttributes)
     {
-        if($insert === true) {
-        }
-        return parent::afterSave($insert, $changedAttributes);
+        parent::afterSave($insert, $changedAttributes);
+
+        $log = new ActionLog();
+        $log->context = User::tableName();
+        $log->refId = $this->id;
+        $log->refUserId = 1;
+        $log->type = $insert ? 'insert' : 'update';
+        $log->diff = json_encode($changedAttributes);
+        $log->save();
     }
 
 }

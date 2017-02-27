@@ -95,4 +95,19 @@ class Note extends \yii\db\ActiveRecord
             'updatedAt' => date('Y-M-d H:i',$this->updated_at),
         ];
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $refUser = 1;
+
+        ActionLog::log(
+            Note::tableName(),
+            $this->id,
+            $refUser,
+            $insert,
+            $changedAttributes
+        );
+    }
 }

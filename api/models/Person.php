@@ -42,9 +42,9 @@ class Person extends \yii\db\ActiveRecord
     {
         return [
             [['firstName'], 'required'],
-            [['firstName','middleName','lastName','nickName','email','avatarUrlSmall','avatarUrlMedium','avatarUrlBig'], 'string', 'max' => 255],
-            [['maritalStatus'], 'string','max'=>10],
-            [['birthday','baptized','anniversary','deceased'], 'date', 'format' => 'php:Y-m-d'],
+            [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig'], 'string', 'max' => 255],
+            [['maritalStatus'], 'string', 'max' => 10],
+            [['birthday', 'baptized', 'anniversary', 'deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
             [['created_at', 'updated_at'], 'integer'],
             ['uid', '\aracoool\uuid\UuidValidator']
@@ -136,20 +136,36 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable('person_note', ['person_id' => 'id']);
     }
 
-    public function getAvatar($size='s')
+    public function getAvatar($size = 's')
     {
-        $default = 'assets/images/avatar/'.$this->gender.'.png';
+        $default = 'assets/images/avatar/' . $this->gender . '.png';
         return empty($this->avatarUrlSmall) ? $default : $this->avatarUrlSmall;
     }
 
     public function getAge()
     {
-        if(empty($this->birthday))
+        if (empty($this->birthday))
             return null;
 
         $now = new \DateTime();
         $bDay = new \DateTime($this->birthday);
         $interval = $bDay->diff($now);
         return $interval->y;
+    }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        $refUser = 1;
+
+        ActionLog::log(
+            Person::tableName(),
+            $this->id,
+            $refUser,
+            $insert,
+            $changedAttributes
+        );
+
     }
 }

@@ -71,20 +71,25 @@ class NoteController extends MHController
                 $note->typeId = $post['type'];
                 $note->ownerId = $post['ownerId'];
                 $note->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i',strtotime($post['dueOn'])) : null;
-                $note->isPrivate = isset($post['isPrivate']) ? boolval($post['isPrivate']) : false;
-                $note->save();
-
-                if($this->noteType=='person') {
-                    foreach ($post['recipients'] as $recipient) {
-                        $junction = new PersonNote();
-                        $junction->note_id = $note->id;
-                        $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
-                        $junction->save();
+                $note->isPrivate = isset($post['isPrivate']) ? intval($post['isPrivate']) : 0;
+                if($note->save()) {
+                    if($this->noteType=='person') {
+                        foreach ($post['recipients'] as $recipient) {
+                            $junction = new PersonNote();
+                            $junction->note_id = $note->id;
+                            $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
+                            if(!$junction->save()) {
+                                $transaction->rollBack();
+                                throw new BadRequestHttpException(json_encode($junction->errors));
+                            }
+                        }
+                    } elseif($this->noteType=='group') {
+                        // new GroupNote();
                     }
-                } elseif($this->noteType=='group') {
-                    // new GroupNote();
+                    $transaction->commit();
+                } else {
+                    throw new BadRequestHttpException(json_encode($note->errors));
                 }
-                $transaction->commit();
             } catch(\Exception $e) {
                 $transaction->rollBack();
                 throw new BadRequestHttpException($e->getMessage());
