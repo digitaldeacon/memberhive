@@ -32,6 +32,4 @@ class MHController extends Controller
             ],
         ];
     }
-
-
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "dbd8df811578566bc5a8e086db7d095a",
-    "content-hash": "031c453a0d8ad7986ff4748c1d2ee467",
+    "hash": "c6950a5bc0c22d6f655e5b3038bc4b91",
+    "content-hash": "6ef3dc89fb2895e0d5a1ba2c7bb9403c",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -631,17 +631,95 @@
             "time": "2016-12-22 14:09:01"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/029305e754dde022c4c8ee48d392c16b61fffe2a",
+                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.1.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "bin": [
+                "scripts/phpcs",
+                "scripts/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "CodeSniffer.php",
+                    "CodeSniffer/CLI.php",
+                    "CodeSniffer/Exception.php",
+                    "CodeSniffer/File.php",
+                    "CodeSniffer/Fixer.php",
+                    "CodeSniffer/Report.php",
+                    "CodeSniffer/Reporting.php",
+                    "CodeSniffer/Sniff.php",
+                    "CodeSniffer/Tokens.php",
+                    "CodeSniffer/Reports/",
+                    "CodeSniffer/Tokenizers/",
+                    "CodeSniffer/DocGenerators/",
+                    "CodeSniffer/Standards/AbstractPatternSniff.php",
+                    "CodeSniffer/Standards/AbstractScopeSniff.php",
+                    "CodeSniffer/Standards/AbstractVariableSniff.php",
+                    "CodeSniffer/Standards/IncorrectPatternException.php",
+                    "CodeSniffer/Standards/Generic/Sniffs/",
+                    "CodeSniffer/Standards/MySource/Sniffs/",
+                    "CodeSniffer/Standards/PEAR/Sniffs/",
+                    "CodeSniffer/Standards/PSR1/Sniffs/",
+                    "CodeSniffer/Standards/PSR2/Sniffs/",
+                    "CodeSniffer/Standards/Squiz/Sniffs/",
+                    "CodeSniffer/Standards/Zend/Sniffs/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2017-02-26 22:15:53"
+        },
+        {
             "name": "yiisoft/yii2",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "aff4b29a8b52666ed9a49b04e42c0c09f770bf35"
+                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/aff4b29a8b52666ed9a49b04e42c0c09f770bf35",
-                "reference": "aff4b29a8b52666ed9a49b04e42c0c09f770bf35",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
+                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
                 "shasum": ""
             },
             "require": {
@@ -728,7 +806,75 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-02-08 09:08:37"
+            "time": "2017-02-27 10:47:37"
+        },
+        {
+            "name": "yiisoft/yii2-coding-standards",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yiisoft/yii2-coding-standards.git",
+                "reference": "84660f44652aa3df30b7bebe5fb666fbe5523f66"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yiisoft/yii2-coding-standards/zipball/84660f44652aa3df30b7bebe5fb666fbe5523f66",
+                "reference": "84660f44652aa3df30b7bebe5fb666fbe5523f66",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "squizlabs/php_codesniffer": ">=2.3.1"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Qiang Xue",
+                    "email": "qiang.xue@gmail.com",
+                    "homepage": "http://www.yiiframework.com/",
+                    "role": "Founder and project lead"
+                },
+                {
+                    "name": "Alexander Makarov",
+                    "email": "sam@rmcreative.ru",
+                    "homepage": "http://rmcreative.ru/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Maurizio Domba",
+                    "homepage": "http://mdomba.info/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc",
+                    "homepage": "http://cebe.cc/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Timur Ruziev",
+                    "email": "resurtm@gmail.com",
+                    "homepage": "http://resurtm.com/",
+                    "role": "Core framework development"
+                },
+                {
+                    "name": "Paul Klimov",
+                    "email": "klimov.paul@gmail.com",
+                    "role": "Core framework development"
+                }
+            ],
+            "description": "Yii PHP Framework Version 2 - Coding standard tools",
+            "homepage": "http://www.yiiframework.com/",
+            "keywords": [
+                "codesniffer",
+                "framework",
+                "yii"
+            ],
+            "time": "2016-11-07 16:09:12"
         },
         {
             "name": "yiisoft/yii2-composer",
@@ -897,95 +1043,17 @@
             "time": "2016-04-07 12:29:16"
         },
         {
-            "name": "squizlabs/php_codesniffer",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "575ed7d6ff2bf77f2e55f76f79189d5130b77c9a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/575ed7d6ff2bf77f2e55f76f79189d5130b77c9a",
-                "reference": "575ed7d6ff2bf77f2e55f76f79189d5130b77c9a",
-                "shasum": ""
-            },
-            "require": {
-                "ext-simplexml": "*",
-                "ext-tokenizer": "*",
-                "ext-xmlwriter": "*",
-                "php": ">=5.1.2"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.0"
-            },
-            "bin": [
-                "scripts/phpcs",
-                "scripts/phpcbf"
-            ],
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "classmap": [
-                    "CodeSniffer.php",
-                    "CodeSniffer/CLI.php",
-                    "CodeSniffer/Exception.php",
-                    "CodeSniffer/File.php",
-                    "CodeSniffer/Fixer.php",
-                    "CodeSniffer/Report.php",
-                    "CodeSniffer/Reporting.php",
-                    "CodeSniffer/Sniff.php",
-                    "CodeSniffer/Tokens.php",
-                    "CodeSniffer/Reports/",
-                    "CodeSniffer/Tokenizers/",
-                    "CodeSniffer/DocGenerators/",
-                    "CodeSniffer/Standards/AbstractPatternSniff.php",
-                    "CodeSniffer/Standards/AbstractScopeSniff.php",
-                    "CodeSniffer/Standards/AbstractVariableSniff.php",
-                    "CodeSniffer/Standards/IncorrectPatternException.php",
-                    "CodeSniffer/Standards/Generic/Sniffs/",
-                    "CodeSniffer/Standards/MySource/Sniffs/",
-                    "CodeSniffer/Standards/PEAR/Sniffs/",
-                    "CodeSniffer/Standards/PSR1/Sniffs/",
-                    "CodeSniffer/Standards/PSR2/Sniffs/",
-                    "CodeSniffer/Standards/Squiz/Sniffs/",
-                    "CodeSniffer/Standards/Zend/Sniffs/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Greg Sherwood",
-                    "role": "lead"
-                }
-            ],
-            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
-            "homepage": "http://www.squizlabs.com/php-codesniffer",
-            "keywords": [
-                "phpcs",
-                "standards"
-            ],
-            "time": "2017-02-05 23:38:58"
-        },
-        {
             "name": "yiisoft/yii2-bootstrap",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "cd6b7463b3f6ead4a9901e162a57e7d40d270b72"
+                "reference": "6c46dce6217c022b18ecfbede7a9dd9a3b91e9e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/cd6b7463b3f6ead4a9901e162a57e7d40d270b72",
-                "reference": "cd6b7463b3f6ead4a9901e162a57e7d40d270b72",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/6c46dce6217c022b18ecfbede7a9dd9a3b91e9e5",
+                "reference": "6c46dce6217c022b18ecfbede7a9dd9a3b91e9e5",
                 "shasum": ""
             },
             "require": {
@@ -1022,7 +1090,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2017-01-30 22:58:04"
+            "time": "2017-02-25 21:12:18"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -1030,12 +1098,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "7bfe34392a176ad1c60f6f4c033263612251fa3d"
+                "reference": "f0dd1bad82628fd2b17784ec8b98f95d65aa4d23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/7bfe34392a176ad1c60f6f4c033263612251fa3d",
-                "reference": "7bfe34392a176ad1c60f6f4c033263612251fa3d",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/f0dd1bad82628fd2b17784ec8b98f95d65aa4d23",
+                "reference": "f0dd1bad82628fd2b17784ec8b98f95d65aa4d23",
                 "shasum": ""
             },
             "require": {
@@ -1069,7 +1137,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-02-08 09:02:13"
+            "time": "2017-02-22 13:47:31"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -1077,12 +1145,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "a8a3cda6c60cf92b0c1009a3e29a9266aa290231"
+                "reference": "5182458848359f08505b21ab71c0bd05c74617a5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/a8a3cda6c60cf92b0c1009a3e29a9266aa290231",
-                "reference": "a8a3cda6c60cf92b0c1009a3e29a9266aa290231",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/5182458848359f08505b21ab71c0bd05c74617a5",
+                "reference": "5182458848359f08505b21ab71c0bd05c74617a5",
                 "shasum": ""
             },
             "require": {
@@ -1122,7 +1190,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-02-02 22:45:14"
+            "time": "2017-02-25 23:13:18"
         }
     ],
     "aliases": [],
@@ -1131,7 +1199,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=5.4.0"
+        "php": ">=7.0.0"
     },
     "platform-dev": []
 }

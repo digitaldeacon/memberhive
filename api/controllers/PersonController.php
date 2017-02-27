@@ -42,30 +42,32 @@ class PersonController extends MHController
     {
         $ret = [];
         $post = \Yii::$app->request->post();
-        $split = explode(',',$post['base']);
+        $split = explode(',', $post['base']);
         $data = null;
 
-        if(!isset($post['base']))
+        if (!isset($post['base'])) {
             throw new BadRequestHttpException('No image data received');
-        if(!isset($post['id']) || empty($post['id']))
+        }
+        if (!isset($post['id']) || empty($post['id'])) {
             throw new BadRequestHttpException('No person id received');
+        }
 
         $person = Person::findOne(['uid'=>$post['id']]);
-        $type = explode('/',$post['type'])[1];
+        $type = explode('/', $post['type'])[1];
         $data = base64_decode($split[1]);
 
         // set the proper path to save so that Angular can read the image
         // should be ./assets/images/avatar, so that images get uploaded correctly on dev and prod?
-        $imagePath = \Yii::getAlias('@webroot').'/../files/';
-        $image = $post['id'].'.'.$type;
+        $imagePath = \Yii::getAlias('@webroot') . '/../files/';
+        $image = $post['id'] . '.' . $type;
 
-        if(file_put_contents($imagePath.$image,$data))
-        {
+        if (file_put_contents($imagePath . $image, $data)) {
             // don't store the actual url here, the app should define where the files are located
             // this will make moving of files easier
             $person->avatarUrlSmall = $image;
-            if(!$person->save())
+            if (!$person->save()) {
                 throw new BadRequestHttpException($person->errors);
+            }
             $ret[] = $person;
         }
 
@@ -75,7 +77,7 @@ class PersonController extends MHController
     public function actionList()
     {
         $ret = [];
-        foreach(Person::find()->each() as $person) {
+        foreach (Person::find()->each() as $person) {
             /** $person Person */
             $ret[] = $person->toResponseArray();
         }
@@ -85,7 +87,7 @@ class PersonController extends MHController
     public function actionSearch()
     {
         $ret = [];
-        foreach(Person::find()->each() as $person) {
+        foreach (Person::find()->each() as $person) {
             /** $person Person */
             $ret[] = $person->toResponseArray();
         }
@@ -107,30 +109,30 @@ class PersonController extends MHController
             $person->lastName = $post['lastName'];
             $person->gender = $post['gender'];
             $person->maritalStatus = $post['maritalStatus'];
-            if(empty($person->user) && !empty($post['user']['password'])) {
+            if (empty($person->user) && !empty($post['user']['password'])) {
                 $user = new User();
                 $user->personId = $person->id;
                 $user->username = trim($post['user']['username']);
                 $user->setPassword(trim($post['user']['password']));
-                if(!$user->save()) {
+                if (!$user->save()) {
                     throw new BadRequestHttpException(json_encode($user->errors));
                 }
-            } elseif(!empty($person->user) && !empty($post['user']['password'])) {
+            } elseif (!empty($person->user) && !empty($post['user']['password'])) {
                 $user = $person->user;
                 $user->username = trim($post['user']['username']);
                 $user->setPassword(trim($post['user']['password']));
-                if(!$user->save()) {
+                if (!$user->save()) {
                     throw new BadRequestHttpException(json_encode($user->errors));
                 }
             }
-            if(!$person->save()) {
+            if (!$person->save()) {
                 throw new BadRequestHttpException($person->errors);
             }
-            if(isset($user)) {
+            if (isset($user)) {
                 $person->user = $user;
-                if(!isset($post['user']['noCredentials']) OR
+                if (!isset($post['user']['noCredentials']) ||
                     empty($post['user']['noCredentials'])) {
-                    $this->sendCredentials($person,trim($post['user']['password']));
+                    $this->sendCredentials($person, trim($post['user']['password']));
                 }
             }
             return ['response' => $person->toResponseArray()];
@@ -151,15 +153,17 @@ class PersonController extends MHController
     protected function findModel($id)
     {
         $user = Person::findOne($id);
-        if ($user === null)
+        if ($user === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
+        }
         return $user;
     }
     protected function findModelByUID($id)
     {
         $user = Person::findOne(['uid'=>$id]);
-        if ($user === null)
+        if ($user === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
+        }
         return $user;
     }
 
@@ -167,8 +171,7 @@ class PersonController extends MHController
     private function sendCredentials($person, $pw)
     {
         \Yii::$app->mailer
-            ->compose('newpw',
-                [
+            ->compose('newpw', [
                     'name' => $person->firstName,
                     'username' => $person->user->username,
                     'password' => $pw

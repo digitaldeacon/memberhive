@@ -11,9 +11,11 @@
     "require": {
         "php": ">=7.0.0",
         "yiisoft/yii2": ">=2.0.5",
+        "yiisoft/yii2-coding-standards": "*",
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*",
-        "aracoool/yii2-uuid": "*"
+        "aracoool/yii2-uuid": "*",
+        "squizlabs/php_codesniffer": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
