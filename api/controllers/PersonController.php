@@ -113,14 +113,14 @@ class PersonController extends MHController
                 $user->username = trim($post['user']['username']);
                 $user->setPassword(trim($post['user']['password']));
                 if(!$user->save()) {
-                    throw new BadRequestHttpException($user->errors);
+                    throw new BadRequestHttpException(json_encode($user->errors));
                 }
             } elseif(!empty($person->user) && !empty($post['user']['password'])) {
                 $user = $person->user;
                 $user->username = trim($post['user']['username']);
                 $user->setPassword(trim($post['user']['password']));
                 if(!$user->save()) {
-                    throw new BadRequestHttpException($user->errors);
+                    throw new BadRequestHttpException(json_encode($user->errors));
                 }
             }
             if(!$person->save()) {
@@ -128,14 +128,14 @@ class PersonController extends MHController
             }
             if(isset($user)) {
                 $person->user = $user;
-                if(!isset($post['user']['noreds']) |
+                if(!isset($post['user']['nocreds']) OR
                     empty($post['user']['nocreds'])) {
                     $this->sendCredentials($person,trim($post['user']['password']));
                 }
             }
             return ['response' => $person->toResponseArray()];
         } else {
-            throw new BadRequestHttpException($person->errors);
+            throw new BadRequestHttpException(json_encode($person->errors));
         }
     }
     public function actionCreate()
