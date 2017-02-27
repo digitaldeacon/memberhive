@@ -128,8 +128,8 @@ class PersonController extends MHController
             }
             if(isset($user)) {
                 $person->user = $user;
-                if(!isset($post['user']['nocreds']) OR
-                    empty($post['user']['nocreds'])) {
+                if(!isset($post['user']['noCredentials']) OR
+                    empty($post['user']['noCredentials'])) {
                     $this->sendCredentials($person,trim($post['user']['password']));
                 }
             }

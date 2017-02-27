@@ -64,14 +64,13 @@ class ActionLog extends \yii\db\ActiveRecord
 
     public static function log($context,
                                $refId,
-                               $refUserId,
                                $insert,
                                $changedAttributes)
     {
         $log = new ActionLog();
         $log->context = $context;
         $log->refId = $refId;
-        $log->refUserId = $refUserId;
+        $log->refUserId = \Yii::$app->user->identity->id;
         $log->type = $insert ? 'insert' : 'update';
         $log->diff = $insert ? null : json_encode($changedAttributes);
         $log->save();

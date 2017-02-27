@@ -100,12 +100,9 @@ class Note extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $refUser = 1;
-
         ActionLog::log(
             Note::tableName(),
             $this->id,
-            $refUser,
             $insert,
             $changedAttributes
         );

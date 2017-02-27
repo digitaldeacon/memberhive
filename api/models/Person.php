@@ -157,12 +157,9 @@ class Person extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $refUser = 1;
-
         ActionLog::log(
             Person::tableName(),
             $this->id,
-            $refUser,
             $insert,
             $changedAttributes
         );
