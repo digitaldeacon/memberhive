@@ -8,7 +8,7 @@
         <legend>Personal</legend>
         <div>
             <md-input-container fxFlex>
-                <input mdInput fxFlex type="text" formControlName="firstName" placeholder="Firstname" i18n-placeholder="Firstname">
+                <input mdInput fxFlex type="text" formControlName="firstName" placeholder="Firstname" i18n-placeholder>
             </md-input-container>
             <small [hidden]="form.controls.firstName.valid || (form.controls.firstName.pristine && !submitted)">
                 Name is required (minimum 5 characters).
@@ -16,12 +16,12 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="text" formControlName="middleName" placeholder="Middle Name" i18n-placeholder="Middle Name">
+                <input mdInput fxFlex type="text" formControlName="middleName" placeholder="Middle Name" i18n-placeholder>
             </md-input-container>
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Surname" i18n-placeholder="Surname">
+                <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Surname" i18n-placeholder>
             </md-input-container>
             <small [hidden]="form.controls.lastName.valid || (form.controls.lastName.pristine && !submitted)">
                 Lastname is required (minimum 5 characters).
@@ -35,14 +35,14 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="email" formControlName="email" placeholder="Email" i18n-placeholder="Email">
+                <input mdInput fxFlex type="email" formControlName="email" placeholder="Email" i18n-placeholder>
             </md-input-container>
             <small [hidden]="form.controls.email.valid || (form.controls.email.pristine && !submitted)">
                 Email is required (minimum 5 characters).
             </small>
         </div>
         <div class="mat-input-wrapper">
-            <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder="Marital Status">
+            <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
                 <md-option *ngFor="let status of mStatus" [value]="status.value">
                     {{status.viewValue}}
                 </md-option>
@@ -50,11 +50,8 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="date" formControlName="birthday" placeholder="Birthday" i18n-placeholder="Birthday">
+                <input mdInput fxFlex type="date" formControlName="birthday" placeholder="Birthday" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.birthday.valid || (form.controls.birthday.pristine && !submitted)">
-                Birthday is required.
-            </small>
         </div>
     </fieldset>
     <div fxFlex.sm="50" fxFlexOffset="20px" >
@@ -77,7 +74,7 @@
             <legend i18n>Account</legend>
             <div>
                 <md-input-container>
-                    <input mdInput formControlName="username" placeholder="Username" i18n-placeholder="Username">
+                    <input mdInput formControlName="username" placeholder="Username" i18n-placeholder>
                 </md-input-container>
                 <small [hidden]="form.controls.user.controls.username.valid || (form.controls.user.controls.username.pristine && !submitted)">
                     Username is required (minimum 5 characters).
@@ -96,8 +93,8 @@
                 </small>
             </div>
             <div fxLayoutAlign="space-between">
-                <md-checkbox formControlName="setpw" (change)="toggleRPW()">Set new Password</md-checkbox>
-                <md-checkbox formControlName="nocreds">Don't mail credentials</md-checkbox>
+                <md-checkbox formControlName="setPassword" (change)="toggleRPW()" i18n>Set new Password</md-checkbox>
+                <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
             </div>
         </fieldset>
         <div>

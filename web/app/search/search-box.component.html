@@ -3,7 +3,7 @@
         <md-icon *ngIf="searchVisible">{{backIcon}}</md-icon>
         <md-icon *ngIf="!searchVisible">search</md-icon>
     </button>
-    <md-input-container *ngIf="searchVisible">
+    <md-input-container *ngIf="searchVisible" floatPlaceholder="never">
         <input mdInput
                type="search"
                [mdAutocomplete]="auto"

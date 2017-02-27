@@ -86,8 +86,8 @@ export class PersonEditComponent implements OnInit {
                         user: this.fb.group({
                             username: [this.person['user']['username']],
                             password: this._pwFormControl,
-                            nocreds: [undefined],
-                            setpw: [undefined]
+                            noCredentials: [undefined],
+                            setPassword: [undefined]
                         })
                     });
                     this.titleService.setTitle(this.person.fullName); // TODO: move this to parent
