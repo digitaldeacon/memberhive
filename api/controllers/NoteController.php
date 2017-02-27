@@ -9,6 +9,8 @@ use yii\web\BadRequestHttpException;
 
 class NoteController extends MHController
 {
+    public $noteType = 'person';
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
