@@ -9,7 +9,7 @@ import {LocalStorage} from 'ng2-webstorage';
     templateUrl: './login.component.html',
     styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit{
+export class LoginComponent implements OnInit {
 
     @LocalStorage() username: string;
     password: string;

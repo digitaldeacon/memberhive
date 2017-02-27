@@ -23,7 +23,7 @@ import { Person } from './person/person';
         ])
     ]
 })
-export class ViewComponent implements OnInit{
+export class ViewComponent implements OnInit {
 
     routes: Object[] = [
         {
@@ -52,7 +52,6 @@ export class ViewComponent implements OnInit{
 
     ngOnInit(): void {
         this.currentUser = this.auth.getCurrentUser();
-        console.log(this.currentUser);
     }
 
     toggleAlwaysVisible(): void {

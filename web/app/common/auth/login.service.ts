@@ -35,16 +35,16 @@ export class LoginService {
         });
     }
 
+    public logout(): void {
+        localStorage.removeItem('currentUser');
+        localStorage.removeItem('token');
+    }
+
     private store(response: any): void {
         this.auth.setToken(response.user.token);
         if (response.user.person) {
             this.auth.setCurrentUser(response.user.person);
         }
         this.router.navigate([this.redirectUrl]);
-    }
-
-    public logout(): void {
-        localStorage.removeItem('currentUser');
-        localStorage.removeItem('token');
     }
 }
