@@ -18,7 +18,7 @@ class m170226_235104_create_actionlog_table extends Migration
             'refId' => $this->integer(),
             'type' => $this->string(),
             'diff' => $this->text(),
-            'refUserId' => $this->integer(),
+            'refUser' => $this->string(),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
         ]);

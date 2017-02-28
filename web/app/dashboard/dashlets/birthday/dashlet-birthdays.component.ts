@@ -1,5 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { Person } from '../../person/person';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Person } from '../../../person/person';
+import { DashletEditDialogComponent } from '../dashlet-edit.dialog';
 
 @Component({
     selector: 'mh-dashlet-birthdays',
@@ -16,8 +18,9 @@ export class DashletBirthdaysComponent implements OnChanges {
     personsBdToday: Array<Person>;
 
     range: number = 7; // TODO: get this from user settings
+    dialogRef: MdDialogRef<DashletEditDialogComponent>;
 
-    constructor() {
+    constructor(public dialog: MdDialog) {
         this.rangeDate = new Date(this.now);
         this.rangeDate.setDate(this.rangeDate.getDate() + this.range);
     }
@@ -46,7 +49,7 @@ export class DashletBirthdaysComponent implements OnChanges {
                     if (!p.birthday) {
                         return false;
                     }
-                    return bday === this.now;
+                    return bday.toLocaleDateString() === this.now.toLocaleDateString();
                 });
                 this.personsBdToday.sort((p1: Person, p2: Person) => {
                     let left: number = Number(p1.birthday);
@@ -55,6 +58,20 @@ export class DashletBirthdaysComponent implements OnChanges {
                 });
             }
         }
+    }
+
+    settingsDlg(): void {
+        // open dialog for
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+        };
+
+        this.dialogRef = this.dialog.open(DashletEditDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: string) => {
+            // console.log(result);
+            // update and refesh the person being edited
+            this.dialogRef = undefined;
+        });
     }
 
     // could become a pipe, in case momentjs does not work with AOT

@@ -1,8 +1,8 @@
 <div class="flex-container" fxLayout='column'>
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon>Previous</a>
+        <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon><span>Previous</span></a>
         <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs style="width:80px">
-        <a md-button (click)="nextPerson()">Next<md-icon>chevron_right</md-icon></a>
+        <a md-button (click)="nextPerson()"><span i18n>Next</span><md-icon>chevron_right</md-icon></a>
     </div>
     <md-card class="person-card">
         <md-card-header class="person-card-header">

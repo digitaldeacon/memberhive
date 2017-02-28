@@ -1,0 +1,16 @@
+<h2 md-dialog-title i18n>Dashlet Settings</h2>
+<md-dialog-content>
+    <md-input-container>
+        <input type="number" mdInput>
+    </md-input-container>
+</md-dialog-content>
+<md-dialog-actions >
+    <button
+            md-raised-button
+            color="primary"
+            md-dialog-close i18n>Close</button>
+    <button
+            md-button
+            color="secondary"
+            (click)="save()" i18n>Save</button>
+</md-dialog-actions>

@@ -39,8 +39,8 @@ class ActionLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['refId', 'refUserId', 'created_at', 'updated_at'], 'integer'],
-            [['diff'], 'string'],
+            [['refId', 'created_at', 'updated_at'], 'integer'],
+            [['diff','refUser'], 'string'],
             [['context', 'type'], 'string', 'max' => 255],
         ];
     }
@@ -56,7 +56,7 @@ class ActionLog extends \yii\db\ActiveRecord
             'refId' => 'Ref ID',
             'type' => 'Type',
             'diff' => 'Diff',
-            'refUserId' => 'Ref User ID',
+            'refUser' => 'Ref User Name',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -70,7 +70,7 @@ class ActionLog extends \yii\db\ActiveRecord
         $log = new ActionLog();
         $log->context = $context;
         $log->refId = $refId;
-        $log->refUserId = \Yii::$app->user->identity->id;
+        $log->refUser = \Yii::$app->user->identity->username;
         $log->type = $insert ? 'insert' : 'update';
         $log->diff = $insert ? null : json_encode($changedAttributes);
         $log->save();

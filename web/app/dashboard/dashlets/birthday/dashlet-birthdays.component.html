@@ -3,7 +3,7 @@
         <md-card-title fxLayout="row" fxLayoutAlign="stretch center">
             <h4 i18n>Upcoming birthdays</h4>
             <div>
-                <button md-icon-button><md-icon>more_vert</md-icon></button>
+                <button md-icon-button (click)="settingsDlg()"><md-icon>more_vert</md-icon></button>
             </div>
         </md-card-title>
     </md-card-header>
@@ -13,7 +13,7 @@
             <p *ngIf="personsBdToday?.length == 0" i18n>No birthdays today</p>
             <md-nav-list>
                 <a md-list-item *ngFor="let person of personsBdToday" [routerLink]="['/person/view', person.uid]">
-                    <md-icon>birthday</md-icon>
+                    <md-icon md-list-icon class="birthday-notice">cake</md-icon>
                     <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <div md-line>
                         <span>{{person.fullName}}</span>
