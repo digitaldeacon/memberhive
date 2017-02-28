@@ -11,6 +11,6 @@ export class DashletEditDialogComponent {
         public dialogRef: MdDialogRef<DashletEditDialogComponent>) { }
 
     save(): void {
-
+        // saving settings data
     }
 }
