@@ -87,7 +87,7 @@ class ImportController extends Controller
                     ]
             ]);
 
-            if (!$person->save()) {
+            if(!$person->save()) {
                 var_dump($person->getErrors());
                 return 1;
             }
