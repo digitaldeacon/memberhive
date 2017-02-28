@@ -42,7 +42,7 @@ class SiteController extends MHController
 
     public function actionIndex()
     {
-        echo "Memberhive";
+        echo 'Memberhive';
     }
 
 
@@ -58,7 +58,6 @@ class SiteController extends MHController
 
     public function actionTestLogin()
     {
-        return ["ok"];
+        return ['ok'];
     }
-
 }

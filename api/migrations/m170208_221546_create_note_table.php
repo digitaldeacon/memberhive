@@ -14,6 +14,7 @@ class m170208_221546_create_note_table extends Migration
     {
         $this->createTable('note', [
             'id' => $this->primaryKey(),
+            'uid' => $this->string(36),
             'text' => $this->text(),
             'typeId' => $this->integer(),
             'ownerId' => $this->string(36),
@@ -26,7 +27,8 @@ class m170208_221546_create_note_table extends Migration
         $this->createIndex(
             'idx-note-ownerId',
             'note',
-            'ownerId');
+            'ownerId'
+        );
 
         $this->createIndex(
             'idx-note-typeId',

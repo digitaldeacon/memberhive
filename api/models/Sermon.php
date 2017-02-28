@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models;
+
 /**
  * Class Sermon
  * @package app\models
@@ -16,6 +17,7 @@ namespace app\models;
  * @property integer $sermonCategoryId
  * @property SermonCategory $sermonCategory
  */
+
 class Sermon extends \yii\db\ActiveRecord
 {
     public static function tableName()
@@ -42,7 +44,9 @@ class Sermon extends \yii\db\ActiveRecord
     public function getFiles()
     {
         $data = json_decode($this->filesJson, true);
-        if($data === false) return [];
+        if ($data === false) {
+            return [];
+        }
         return $data;
     }
     public function setFiles($response)
@@ -52,12 +56,13 @@ class Sermon extends \yii\db\ActiveRecord
     public function getScriptures()
     {
         $data = json_decode($this->scripturesJson, true);
-        if($data === false) return [];
+        if ($data === false) {
+            return [];
+        }
         return $data;
     }
     public function setScriptures($response)
     {
         $this->scripturesJson = json_encode($response);
     }
-
 }

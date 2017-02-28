@@ -43,6 +43,4 @@ class m161130_101533_create_person extends Migration
     {
         $this->dropTable('person');
     }
-
-
 }

@@ -20,7 +20,6 @@ class m170217_102418_create_noteType_defaults extends Migration
             $newType->iconString = $type['iconString'];
             $newType->save();
         }
-
     }
 
     public function down()
@@ -28,15 +27,4 @@ class m170217_102418_create_noteType_defaults extends Migration
         \app\models\NoteType::deleteAll();
         return true;
     }
-
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-
-    public function safeDown()
-    {
-    }
-    */
 }

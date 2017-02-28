@@ -1,5 +1,6 @@
 <?php
 namespace app\commands;
+
 use app\models\Note;
 use app\models\Person;
 use yii\console\Controller;
@@ -15,12 +16,12 @@ class DemoController extends Controller
         $resp = $curl->get('https://randomuser.me/api/', ['nat' => 'de', 'results' => 50]);
         $data = json_decode($resp);
 
-        foreach($data->results as $item) {
+        foreach ($data->results as $item) {
             print_r($item);
             $person = new Person();
             $person->firstName = ucfirst($item->name->first);
             $person->lastName = ucfirst($item->name->last);
-            if($item->gender == 'male') {
+            if ($item->gender == 'male') {
                 $person->gender = 'm';
             } else {
                 $person->gender = 'f';
@@ -30,7 +31,6 @@ class DemoController extends Controller
             $person->avatarUrlBig = $item->picture->large;
             $person->save();
         }
-
     }
 
     public function actionGetNotes($uid)
@@ -41,10 +41,10 @@ class DemoController extends Controller
             ->all();
         $notes = $person[0]->notes;
 
-        foreach($notes as $note) {
-            //$ret[] = $note->toResponseArray();
-            var_dump($note->toResponseArray());
+        foreach ($notes as $note) {
+            // $ret[] = $note->toResponseArray();
+            $p = \app\models\PersonNote::findOne(['note_id'=>$note->id]);
+            var_dump($p->person->uid);
         }
     }
-
 }

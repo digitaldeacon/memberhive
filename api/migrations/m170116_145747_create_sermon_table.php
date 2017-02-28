@@ -35,8 +35,10 @@ class m170116_145747_create_sermon_table extends Migration
         // add foreign key for table `sermon_category`
         $this->addForeignKey(
             'fk-sermon-sermonCategoryId',
-            'sermon', 'sermonCategoryId',
-            'sermon_category', 'id',
+            'sermon',
+            'sermonCategoryId',
+            'sermon_category',
+            'id',
             'CASCADE'//on delete
         );
     }

@@ -2,8 +2,8 @@
 
 namespace app\helpers;
 
-
-class Cache {
+class Cache
+{
     /**
      * simple caching method.
      *

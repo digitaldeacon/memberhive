@@ -20,7 +20,4 @@ class SermonCategory extends \yii\db\ActiveRecord
             [['name', 'code'], 'required'],
         ];
     }
-
-
-
 }

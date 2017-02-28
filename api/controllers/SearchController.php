@@ -31,11 +31,11 @@ class SearchController extends MHController
             ['like','address',$q]
         ];
 
-        foreach(Person::find()->where($query)->each() as $person) {
+        foreach (Person::find()->where($query)->each() as $person) {
             /** $person Person */
             $ret[] = [
                 'id' => $person->id,
-                'uid' => 'person'.$person->id,
+                'uid' => $person->uid,
                 'text' => $person->fullName,
                 'icon' => $person->avatar,
                 'type' => 'person',

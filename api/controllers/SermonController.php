@@ -67,9 +67,9 @@ class SermonController extends MHController
     protected function findModel($id)
     {
         $sermon = Sermon::findOne($id);
-        if ($sermon === null)
+        if ($sermon === null) {
             throw new NotFoundHttpException('The requested sermon does not exist.');
+        }
         return $sermon;
     }
-
 }

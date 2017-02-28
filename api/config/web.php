@@ -3,7 +3,7 @@ $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'memberhive',
-    'name' => "MemberHive",
+    'name' => 'MemberHive',
     'language' => 'de',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],

@@ -8,7 +8,7 @@ use Elvanto_API;
 
 class ImportController extends Controller
 {
-    private $verb = 'updated';
+    private $_verb = 'updated';
 
     //Set the API Key as part of the call: e.g. yii import/elvanto-persons pOO7Pk....
     public function actionElvantoPersons($api)
@@ -16,10 +16,11 @@ class ImportController extends Controller
         $inserted = 0;
         $updated = 0;
 
-        if(empty($api))
+        if (empty($api)) {
             return 1;
+        }
 
-        $authDetails = array('api_key' => $api);
+        $authDetails = ['api_key' => $api];
         $elvanto = new Elvanto_API($authDetails);
 
         // see https://www.elvanto.com/api/people-fields/, Optional Fields
@@ -33,14 +34,14 @@ class ImportController extends Controller
             'custom_c8b91d7b-e660-11e6-8f05-0a6b0d448233' //taufdatum
         ];
 
-        $results = $elvanto->call('people/getAll',['fields'=>$extraFields]);
+        $results = $elvanto->call('people/getAll', ['fields'=>$extraFields]);
         /*$customs = $elvanto->call('people/customFields/getAll');
         var_dump($customs);
         return 0;*/
 
-        foreach($results->people->person as $item) {
+        foreach ($results->people->person as $item) {
             $person = Person::findOne(['firstName'=>$item->firstname,'lastName'=>$item->lastname]);
-            if(empty($person)) {
+            if (empty($person)) {
                 $person = new Person();
                 $inserted++;
             } else {
@@ -50,7 +51,7 @@ class ImportController extends Controller
             $person->firstName = ucfirst($item->firstname);
             $person->lastName = ucfirst($item->lastname);
             $person->email = $item->email;
-            if($item->gender == 'Male') {
+            if ($item->gender == 'Male') {
                 $person->gender = 'm';
             } else {
                 $person->gender = 'f';
@@ -63,30 +64,30 @@ class ImportController extends Controller
             $person->baptized = $item->{'custom_c8b91d7b-e660-11e6-8f05-0a6b0d448233'};
             $person->maritalStatus = $item->anniversary;
 
-            if(!$person->save()) {
+            if (!$person->save()) {
                 var_dump($person->getErrors());
                 return 1;
             }
 
-            $this->logImport('elvanto',$item->id,$person);
+            $this->logImport('elvanto', $item->id, $person);
         }
         echo "Successfully inserted $inserted and updated $updated Persons\n";
         return 0;
     }
 
-    private function logImport($type,$remoteId,$object)
+    private function logImport($type, $remoteId, $object)
     {
         $import = new Import();
         $import->type = $type;
         $import->refTable = $object->tableName();
         $import->refId = $object->id;
         $import->remoteId = $remoteId;
-        if(!$import->save()) {
+        if (!$import->save()) {
             var_dump($import->getErrors());
         }
     }
 
-    public function actionMemberhivePersons($domain,$access_token)
+    public function actionMemberhivePersons($domain, $access_token)
     {
         $url = "https://$domain.memberhive.com/api/Persons?access_token=$access_token";
 
@@ -96,7 +97,7 @@ class ImportController extends Controller
         // Will return the response, if false it print the response
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         // Set the url
-        curl_setopt($ch, CURLOPT_URL,$url);
+        curl_setopt($ch, CURLOPT_URL, $url);
         // Execute
         $result=curl_exec($ch);
         // Closing

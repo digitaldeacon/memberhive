@@ -1,5 +1,6 @@
 <?php
 namespace app\controllers;
+
 use app\models\User;
 use yii\filters\Cors;
 use yii\filters\ContentNegotiator;
@@ -34,7 +35,7 @@ class LoginController extends MHController
         if (empty($post)) {
             return [];
         }
-        $model = User::findOne(["username" => $post['username']]);
+        $model = User::findOne(['username' => $post['username']]);
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('User not found');
         }

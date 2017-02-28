@@ -1,9 +1,10 @@
 <?php
 namespace app\models;
+
 use Yii;
-use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+
 /**
  * This is the model class for table "user".
  *
@@ -85,6 +86,11 @@ class User extends ActiveRecord implements IdentityInterface
         return $this->id;
     }
 
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
     public function getAuthKey()
     {
         return $this->authKey;
@@ -102,7 +108,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function setPassword($password)
     {
-        if($password ==! "") {
+        if ($password ==! '') {
             $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
     }
@@ -115,7 +121,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getPassword()
     {
-        return "";
+        return '';
     }
 
     public function generateAuthKey()
@@ -179,5 +185,4 @@ class User extends ActiveRecord implements IdentityInterface
         $log->diff = json_encode($changedAttributes);
         $log->save();
     }
-
 }
