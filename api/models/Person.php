@@ -144,8 +144,9 @@ class Person extends \yii\db\ActiveRecord
 
     public function getAge()
     {
-        if (empty($this->birthday))
+        if (empty($this->birthday)) {
             return null;
+        }
 
         $now = new \DateTime();
         $bDay = new \DateTime($this->birthday);
@@ -159,10 +160,9 @@ class Person extends \yii\db\ActiveRecord
 
         ActionLog::log(
             Person::tableName(),
-            $this->id,
+            $this->uid,
             $insert,
             $changedAttributes
         );
-
     }
 }

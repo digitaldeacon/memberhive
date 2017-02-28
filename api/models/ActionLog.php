@@ -39,9 +39,10 @@ class ActionLog extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['refId', 'created_at', 'updated_at'], 'integer'],
-            [['diff','refUser'], 'string'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['diff', 'refUser'], 'string'],
             [['context', 'type'], 'string', 'max' => 255],
+            [['refId'], 'string', 'max' => 36]
         ];
     }
 
@@ -62,17 +63,35 @@ class ActionLog extends \yii\db\ActiveRecord
         ];
     }
 
-    public static function log($context,
-                               $refId,
-                               $insert,
-                               $changedAttributes)
+    public function toResponseArray()
     {
+        return [
+            'id' => $this->id,
+            'context' => $this->context,
+            'refId' => $this->refId,
+            'refUser' => $this->refUser,
+            'type' => $this->type,
+            'diff' => $this->diff,
+            'createdAt' => date('Y-M-d H:i', $this->created_at),
+            'updatedAt' => date('Y-M-d H:i', $this->updated_at),
+        ];
+    }
+
+    public static function log($context, $refId, $insert, $changedAttributes)
+    {
+        // when updates changes nothing then return
+        if (!$insert && empty($changedAttributes)) {
+            return;
+        }
+
         $log = new ActionLog();
         $log->context = $context;
         $log->refId = $refId;
         $log->refUser = \Yii::$app->user->identity->username;
         $log->type = $insert ? 'insert' : 'update';
         $log->diff = $insert ? null : json_encode($changedAttributes);
-        $log->save();
+        if (!$log->save()) {
+            throw new \yii\web\BadRequestHttpException(json_encode($log->errors));
+        }
     }
 }

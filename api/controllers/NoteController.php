@@ -93,14 +93,14 @@ class NoteController extends MHController
                 }
             } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException($e->getMessage());
+                throw new BadRequestHttpException(json_encode($e));
             } catch (\Throwable $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException($e->getMessage());
+                throw new BadRequestHttpException(json_encode($e));
             }
             return ['response' => $note->toResponseArray()];
         } else {
-            throw new BadRequestHttpException($note->errors);
+            throw new BadRequestHttpException('No valid data was received');
         }
     }
 

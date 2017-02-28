@@ -5,6 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { NoteModule } from "../note/note.module";
+import { AuditModule } from "../audit/audit.module";
 
 import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
@@ -41,6 +42,7 @@ import { TitleService } from "../common/title.service";
         FormsModule,
         ReactiveFormsModule,
         NoteModule,
+        AuditModule,
         ImageCropperModule,
         CovalentFileModule.forRoot()
     ],

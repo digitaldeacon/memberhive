@@ -72,4 +72,16 @@ class PersonNote extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Person::className(), ['id' => 'person_id']);
     }
+
+    public function afterSave($insert, $changedAttributes)
+    {
+        parent::afterSave($insert, $changedAttributes);
+
+        ActionLog::log(
+            Note::tableName(),
+            $this->person->uid,
+            $insert,
+            $changedAttributes
+        );
+    }
 }

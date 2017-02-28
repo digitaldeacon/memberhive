@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService } from "../../common/title.service";
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MdDialog, MdDialogRef } from '@angular/material';
+
+import { TitleService } from "../../common/title.service";
 import { PersonService } from "../person.service";
 import { Person } from "../person";
+
 import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
 
 @Component({

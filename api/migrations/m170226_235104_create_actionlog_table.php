@@ -15,7 +15,7 @@ class m170226_235104_create_actionlog_table extends Migration
         $this->createTable('actionlog', [
             'id' => $this->primaryKey(),
             'context' => $this->string(),
-            'refId' => $this->integer(),
+            'refId' => $this->string(36),
             'type' => $this->string(),
             'diff' => $this->text(),
             'refUser' => $this->string(),
