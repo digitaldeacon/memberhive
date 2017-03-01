@@ -13,8 +13,6 @@ import { PersonService } from "../person.service";
 import { AuthService } from '../../common/auth/auth.service';
 import { Person } from '../person';
 
-import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
-
 @Component({
     selector: 'mh-person-edit',
     templateUrl: 'person-edit.component.html',
@@ -39,7 +37,7 @@ export class PersonEditComponent implements OnInit {
     ];
     randomPassword: boolean = true;
     separatorKeys: Array<any> = [ENTER, 186];
-    dialogRef: MdDialogRef<AvatarEditDialogComponent>;
+    persons: Array<Person>;
 
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
 
@@ -48,8 +46,7 @@ export class PersonEditComponent implements OnInit {
                 private personService: PersonService,
                 private titleService: TitleService,
                 private auth: AuthService,
-                private datePipe: DatePipe,
-                public dialog: MdDialog) {
+                private datePipe: DatePipe) {
     }
 
     updateParent(): void {
@@ -93,6 +90,8 @@ export class PersonEditComponent implements OnInit {
                     this.titleService.setTitle(this.person.fullName); // TODO: move this to parent
                 }
             });
+        /* this.personService.getPersons()
+            .subscribe((persons: Array<Person>) => this.persons = persons); */
     }
 
     save(model: Person, isValid: boolean): void {
@@ -119,21 +118,6 @@ export class PersonEditComponent implements OnInit {
                     }
                 );
         }
-    }
-
-    openDlgAvatar(): void {
-        let config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-            context: 'person',
-            id: this.person.uid
-        };
-
-        this.dialogRef = this.dialog.open(AvatarEditDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: string) => {
-            // console.log(result);
-            // update and refesh the person being edited
-            this.dialogRef = undefined;
-        });
     }
 
     toggleRPW(): void {

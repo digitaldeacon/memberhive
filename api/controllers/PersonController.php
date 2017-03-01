@@ -53,12 +53,21 @@ class PersonController extends MHController
         }
 
         $person = Person::findOne(['uid'=>$post['id']]);
-        $type = explode('/', $post['type'])[1];
+
+        // this freaky conversion is because we cannot (yet) pass the file type in avatar-edit.dialog.ts
+        // additional downside: the image cropper wants to convert everything to .png!
+        // TODO: this needs revision!
+        $ftype = explode(';', $split[0]);
+        $type = explode('/', $ftype[0])[1];
+
+        $type = ($type=='jpeg') ? 'jpg' : $type;
         $data = base64_decode($split[1]);
 
         // set the proper path to save so that Angular can read the image
         // should be ./assets/images/avatar, so that images get uploaded correctly on dev and prod?
-        $imagePath = \Yii::getAlias('@webroot') . '/../files/';
+        $dir = file_exists(__DIR__ . '/../config/debug.php') ? 'web' : 'src';
+
+        $imagePath =  \Yii::getAlias('@webroot') . "/../$dir/assets/images/avatar/person/";
         $image = $post['id'] . '.' . $type;
 
         if (file_put_contents($imagePath . $image, $data)) {
@@ -99,6 +108,7 @@ class PersonController extends MHController
         $person = $this->findModelByUID($id);
         return ['response' => $person->toResponseArray()];
     }
+
     public function actionUpdate($id)
     {
         $person = $this->findModelByUID($id);
@@ -140,6 +150,7 @@ class PersonController extends MHController
             throw new BadRequestHttpException(json_encode($person->errors));
         }
     }
+
     public function actionCreate()
     {
         $person = new Person();

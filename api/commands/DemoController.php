@@ -46,5 +46,7 @@ class DemoController extends Controller
             $p = \app\models\PersonNote::findOne(['note_id'=>$note->id]);
             var_dump($p->person->uid);
         }
+
+        var_dump(defined('YII_ENV'));
     }
 }

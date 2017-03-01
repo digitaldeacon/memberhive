@@ -1,13 +1,16 @@
 <h2 md-dialog-title i18n>Manage my profile picture</h2>
 <md-dialog-content>
     <div>
-        <!--<div tdFileDrop (fileDrop)="fileChangeListener($event)" class="drop-zone"></div>-->
         <div class="mat-input-wrapper">
             <td-file-upload defaultColor="accent"
                             activeColor="warn"
                             cancelColor="primary"
-                            (upload)="fileChangeListener($event)"
+                            (upload)="fileChangeListener($event)" #singleFileUpload
                             accept=".png,.jpg">
+                <md-icon>file_upload</md-icon><span>{{ singleFileUpload.files?.name }}</span>
+                <template td-file-input-label>
+                    <md-icon>attach_file</md-icon><span i18n>Choose a file...</span>
+                </template>
             </td-file-upload>
         </div>
 
@@ -20,7 +23,7 @@
         </span>
     </div>
 </md-dialog-content>
-<md-dialog-actions >
+<md-dialog-actions>
     <button
             md-raised-button
             color="primary"

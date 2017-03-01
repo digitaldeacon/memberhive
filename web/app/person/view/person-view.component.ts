@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from "@angular/router";
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { TitleService } from "../../common/title.service";
 import { PersonService } from "../person.service";
 import { Person } from "../person";
 
+import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
 
 @Component({
@@ -65,6 +66,23 @@ export class PersonViewComponent implements OnInit {
 
         this.dialogRef.afterClosed().subscribe((result: string) => {
             this.lastCloseResult = result;
+            this.dialogRef = undefined;
+        });
+    }
+    openDlgAvatar(): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            context: 'person',
+            id: this.person.uid,
+            avatar: this.person.avatar
+        };
+
+        this.dialogRef = this.dialog.open(AvatarEditDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: any) => {
+            if (result === typeof Person) {
+                this.person = result;
+            }
+            // update and refesh the person being edited
             this.dialogRef = undefined;
         });
     }

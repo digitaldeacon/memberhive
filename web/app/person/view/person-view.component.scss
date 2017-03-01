@@ -23,3 +23,32 @@
 .mobile-avatar {
   padding-bottom: 10px;
 }
+
+.avatar-container {
+  margin-right: 30px;
+  cursor: pointer;
+  span {
+    position: absolute;
+    line-height: 100px;
+    text-align: center;
+    width: 100px;
+    color: #fff;
+    background: rgba(0, 0, 0, .4);
+    border-radius: 50%;
+    height: 100px;
+    z-index: 2;
+    font-weight: 700;
+    display: none;
+    -webkit-transition: all 1s ease-out;
+    -moz-transition: all 1s ease-out; /* firefox */
+    -o-transition: all 1s ease-out; /* opera */
+  }
+}
+.avatar-container:hover {
+  span {
+    display: block;
+    -webkit-transition: all 0.5s ease-in;
+    -moz-transition: all 0.5s ease-in; /* firefox */
+    -o-transition: all 0.5s ease-in; /* opera */
+  }
+}

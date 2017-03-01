@@ -138,8 +138,14 @@ class Person extends \yii\db\ActiveRecord
 
     public function getAvatar($size = 's')
     {
-        $default = 'assets/images/avatar/' . $this->gender . '.png';
-        return empty($this->avatarUrlSmall) ? $default : $this->avatarUrlSmall;
+        $avatar_root = 'assets/images/avatar/';
+        $default =  $avatar_root . $this->gender . '.png';
+        $url = $this->avatarUrlSmall;
+        if (!empty($url)) {
+            $parsed = parse_url($url);
+            $url = empty($parsed['scheme']) ? $avatar_root . 'person/' . $url : $url;
+        }
+        return empty($url) ? $default : $url;
     }
 
     public function getAge()
