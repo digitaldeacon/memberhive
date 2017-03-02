@@ -11,7 +11,7 @@
     ],
     "module": "es2015",
     "moduleResolution": "node",
-    "outDir": "src",
+    "outDir": "dist",
     "genDir": "web/locale",
     "sourceMap": true,
     "target": "es5",
