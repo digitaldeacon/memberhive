@@ -20,7 +20,8 @@
                 <md-card-subtitle fxLayout.gt-xs="row" fyLayout.xs="column">
                     <div><md-icon>cake</md-icon>{{person?.birthday | date: 'longDate'}}</div>
                     <div><md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
-                    <div><md-icon>phone</md-icon><a href="tel:0303-345546">0303-345546</a></div>
+                    <div *ngIf="person?.phoneHome"><md-icon>phone</md-icon><a href="tel:{{person.phoneHome}}">{{person.phoneHome}}</a></div>
+                    <div *ngIf="person?.phoneMobile"><md-icon>phonelink_ring</md-icon><a href="tel:{{person.phoneMobile}}">{{person.phoneMobile}}</a></div>
                     <div *ngIf="person?.maritalStatus"><md-icon>favorite</md-icon>{{person?.maritalStatus}}</div>
                 </md-card-subtitle>
                 <md-card-subtitle>

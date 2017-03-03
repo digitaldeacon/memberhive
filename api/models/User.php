@@ -49,17 +49,17 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
-    public function getPerson()
-    {
-        return $this->hasOne(Person::className(), ['id' => 'personId']);
-    }
-
     public function toResponseArray()
     {
         return [
             'token' => $this->accessToken,
             'person' => isset($this->person) ? $this->person->toResponseArray() : null
         ];
+    }
+
+    public function getPerson()
+    {
+        return $this->hasOne(Person::className(), ['id' => 'personId']);
     }
 
     /**
@@ -177,12 +177,13 @@ class User extends ActiveRecord implements IdentityInterface
     {
         parent::afterSave($insert, $changedAttributes);
 
-        $log = new ActionLog();
-        $log->context = User::tableName();
-        $log->refId = $this->id;
-        $log->refUserId = 1;
-        $log->type = $insert ? 'insert' : 'update';
-        $log->diff = json_encode($changedAttributes);
-        $log->save();
+        $uid = !empty($this->person->uid) ? $this->person->uid : 'root';
+
+        ActionLog::log(
+            Person::tableName(),
+            $uid,
+            $insert,
+            $changedAttributes
+        );
     }
 }

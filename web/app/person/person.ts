@@ -12,10 +12,13 @@ export class Person {
     public age: number;
     public avatar: string;
     public username: string;
-    public password: string;
+    public phoneHome: string;
+    public phoneWork: string;
+    public phoneMobile: string;
     // Objects
     public user: any;
     public address: PersonAddress;
+    public socialContact: any;
 
     public deserialize(input: any): Person {
         this.id = input.id;
@@ -31,9 +34,12 @@ export class Person {
         this.maritalStatus = input.maritalStatus;
         this.avatar = input.avatar;
         this.username = input.username;
-        this.password = input.password;
         this.user = input.user;
         this.address = JSON.parse(input.address);
+        this.socialContact = JSON.parse(input.socialContact);
+        this.phoneHome = input.phoneHome;
+        this.phoneMobile = input.phoneMobile;
+        this.phoneWork = input.phoneWork;
         return this;
     }
 

@@ -20,7 +20,7 @@ export class PersonService {
         return this.http.post('person/update?id=' + person.uid, person)
             .map(this.deserialize);
     }
-    // @params: column Array<string>, takes column name and value
+    // @params: column Object{}, takes column name and value
     public updateColumn(column: any, id: string): Observable<Person> {
         return this.http.post('person/update-column?id=' + id, column)
             .map(this.deserialize);

@@ -82,10 +82,9 @@ export class PersonEditComponent implements OnInit {
                         maritalStatus: [this.person['maritalStatus']],
                         birthday: [this.datePipe.transform(this.person['birthday'], 'yyyy-MM-dd'),
                             [<any>Validators.required]],
-                        phoneHome: [],
-                        phoneMobile: [],
-                        phoneWork: [],
-                        fax: [],
+                        phoneHome: [this.person['phoneHome']],
+                        phoneWork: [this.person['phoneWork']],
+                        phoneMobile: [this.person['phoneMobile']],
                         user: this.fb.group({
                             username: [this.person['user']['username']],
                             password: this._pwFormControl,

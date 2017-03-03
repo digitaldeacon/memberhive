@@ -48,7 +48,8 @@ class Person extends \yii\db\ActiveRecord
             [['gender'], 'string', 'max' => 1],
             [['created_at', 'updated_at'], 'integer'],
             ['uid', '\aracoool\uuid\UuidValidator'],
-            [['address'], 'string'],
+            [['address', 'socialContact'], 'string'],
+            [['phoneHome','phoneWork', 'phoneMobile'], 'string'],
         ];
     }
 
@@ -58,25 +59,6 @@ class Person extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'firstName' => 'First Name',
-            'middleName' => 'Middle Name',
-            'lastName' => 'Last Name',
-            'nickName' => 'Nick Name',
-            'prefix' => 'Prefix',
-            'suffix' => 'Suffix',
-            'email' => 'Email',
-            'gender' => 'Gender',
-            'address' => 'Address',
-            'tags' => 'Tags',
-            'status' => 'Status',
-            'primaryContact' => 'Primary Contact',
-            'custom' => 'Custom',
-            'avatarUrl' => 'Avatar Url',
-            'settings' => 'Settings',
-            'language' => 'Language',
-            'createdAt' => 'Created At',
-            'updatedAt' => 'Updated At',
         ];
     }
 
@@ -97,6 +79,10 @@ class Person extends \yii\db\ActiveRecord
             'maritalStatus' => $this->maritalStatus,
             'avatar' => $this->avatar,
             'address' => $this->address,
+            'socialContact' => $this->socialContact,
+            'phoneHome' => $this->phoneHome,
+            'phoneWork' => $this->phoneWork,
+            'phoneMobile' => $this->phoneMobile,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
             ]

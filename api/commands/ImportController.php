@@ -74,6 +74,8 @@ class ImportController extends Controller
             $person->anniversary = $item->anniversary;
             $person->baptized = $item->{'custom_c8b91d7b-e660-11e6-8f05-0a6b0d448233'};
             $person->maritalStatus = $item->anniversary;
+            $person->phoneHome = $item->phone;
+            $person->phoneMobile = $item->mobile;
 
             // addreses
             $person->address = json_encode([

@@ -136,6 +136,9 @@ class PersonController extends MHController
             $person->gender = $post['gender'];
             $person->maritalStatus = $post['maritalStatus'];
             $person->address = json_encode($post['address']);
+            $person->phoneHome = $post['phoneHome'];
+            $person->phoneWork = $post['phoneWork'];
+            $person->phoneMobile = $post['phoneMobile'];
             if (empty($person->user) && !empty($post['user']['password'])) {
                 $user = new User();
                 $user->personId = $person->id;

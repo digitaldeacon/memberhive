@@ -35,6 +35,12 @@ class m161130_101533_create_person extends Migration
             'avatarUrlMedium' => $this->string(),
             'avatarUrlBig' => $this->string(),
 
+            'phoneHome' => $this->string(),
+            'phoneWork' => $this->string(),
+            'phoneMobile' => $this->string(),
+
+            'socialContact' => $this->text(),
+
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
         ]);
