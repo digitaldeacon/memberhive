@@ -48,6 +48,22 @@
                 </md-option>
             </md-select>
         </div>
+        <div fxLayout.gt-xs="row" fxLayout.xs="column">
+            <md-input-container>
+                <input mdInput fxFlex type="phone" formControlName="phoneHome" placeholder="Phone (Home)" i18n-placeholder>
+            </md-input-container>
+            <md-input-container>
+                <input mdInput fxFlex type="phone" formControlName="phoneMobile" placeholder="Phone (Mobile)" i18n-placeholder>
+            </md-input-container>
+        </div>
+        <div fxLayout.gt-xs="row" fxLayout.xs="column">
+            <md-input-container>
+                <input mdInput fxFlex type="phone" formControlName="phoneWork" placeholder="Phone (Work)" i18n-placeholder>
+            </md-input-container>
+            <md-input-container>
+                <input mdInput fxFlex type="phone" formControlName="fax" placeholder="Fax" i18n-placeholder>
+            </md-input-container>
+        </div>
         <div>
             <md-input-container>
                 <input mdInput fxFlex type="date" formControlName="birthday" placeholder="Birthday" i18n-placeholder>
