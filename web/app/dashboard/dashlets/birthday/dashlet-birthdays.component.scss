@@ -1,7 +1,9 @@
+@import "../../../../theme.scss";
+
 .date-rounded {
   font-weight: 600;
   font-size: 14px;
-  background: #ff4081;
+  background: mat-color($mh-app-warn, A200);
   color: #fff;
   align-items: center;
   align-content: center;
@@ -13,7 +15,7 @@
   padding: 2px;
 }
 .birthday-notice {
-  color: #ff4081;
+  color: mat-color($mh-app-warn, A200);
 }
 .dashlet-card {
   .mat-card-header {
