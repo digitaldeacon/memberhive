@@ -78,15 +78,18 @@
                 </small>
             </div>
             <div fxLayoutAlign="space-between">
-                <md-checkbox formControlName="setPassword" (change)="toggleRPW()" i18n>Set new Password</md-checkbox>
+                <md-checkbox formControlName="setPassword" (change)="toggleRandomPassword()" i18n>Set new Password</md-checkbox>
                 <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
             </div>
         </fieldset>
         <fieldset formGroupName="address">
             <legend i18n>Addresses</legend>
-            {{person.address.home.geocode | json}}
             <div formGroupName="home">
-                <h4 i18n>Home</h4>
+                <div fxLayout="row" fxLayoutAlign="space-between center">
+                    <h4 i18n>Home</h4>
+                    <a *ngIf="person.address.home.geocode" href="">
+                        <md-icon>map</md-icon></a>
+                </div>
                 <md-input-container>
                     <input mdInput
                            type="text"

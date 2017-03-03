@@ -12,6 +12,8 @@ import { PersonService } from "../person.service";
 import { AuthService } from '../../common/auth/auth.service';
 import { Person, PersonAddress } from '../person';
 
+import * as _ from 'lodash';
+
 @Component({
     selector: 'mh-person-edit',
     templateUrl: 'person-edit.component.html',
@@ -90,12 +92,14 @@ export class PersonEditComponent implements OnInit {
                             home: this.fb.group({
                                 street: [address.home.street],
                                 zip: [address.home.zip],
-                                city: [address.home.city]
+                                city: [address.home.city],
+                                geocode: [address.home.geocode]
                             }),
                             postal: this.fb.group({
                                 street: [address.postal.street],
                                 zip: [address.postal.zip],
-                                city: [address.postal.city]
+                                city: [address.postal.city],
+                                geocode: [address.postal.geocode]
                             })
                         })
                     });
@@ -107,10 +111,10 @@ export class PersonEditComponent implements OnInit {
     }
 
     save(model: Person, isValid: boolean): void {
+        let oldAttributes: Person = this.person;
         this.submitted = true;
         model.uid = this.person.uid;
         model.id = this.person.id;
-        this.calcGeocode(model.address);
         if (isValid) {
             this.personService.updatePerson(model)
                 .subscribe(
@@ -121,13 +125,19 @@ export class PersonEditComponent implements OnInit {
                         if (person.uid === this.auth.getCurrentUser().uid) {
                             this.auth.setCurrentUser(person); // i.e. update my own card
                         }
-                        this.toggleRPW();
+                        this.toggleRandomPassword();
                         this.shout.success('Successfully updated "' + person.fullName + '"');
                         return true;
                     },
                     (error: any) => {
                         this.shout.error('Error while saving!');
                         return false;
+                    },
+                    () => {
+                        // recalc lat/long when address has changed
+                        if (!_.isEqual(oldAttributes.address, this.person.address)) {
+                            this.calcGeocode(model.address);
+                        }
                     }
                 );
         }
@@ -135,10 +145,10 @@ export class PersonEditComponent implements OnInit {
 
     calcGeocode(address: any): boolean {
         let adr: string;
-
-        if (address === this.person.address) {
-            return true;
-        }
+        let column: any = {
+            name: '',
+            value: ''
+        };
 
         adr = address.home.street ? address.home.street : '';
         adr += address.home.zip ? ', ' + address.home.zip : '';
@@ -147,14 +157,32 @@ export class PersonEditComponent implements OnInit {
         this.personService.geocode(adr).subscribe(
             (data: any) => {
                 address.home.geocode = data.results[0].geometry.location;
-                // update db from here
-                return true;
+            },
+            (error: any) => {
+                this.shout.error('Error while saving geocode data!');
+                return false;
+            },
+            () => {
+                column.name = 'address';
+                column.value = address;
+                this.personService.updateColumn(column, this.person.uid)
+                    .subscribe(
+                        (person: Person) => {
+                            this.person = person;
+                            this.form.patchValue(person.address);
+                            this.updateParent();
+                        },
+                            (error: any) => {
+                                this.shout.error('Error while updating address with geocodes!');
+                                return false;
+                        }
+                    );
             }
         );
         return false;
     }
 
-    toggleRPW(): void {
+    toggleRandomPassword(): void {
         this.randomPassword = this.randomPassword ? false : true;
         if (this.randomPassword) {
             this._pwFormControl.disable();

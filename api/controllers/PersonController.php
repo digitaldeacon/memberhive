@@ -15,7 +15,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create','search','avatar-upload'],
+                    'actions' => ['list','get','update', 'update-column', 'create','search','avatar-upload'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -30,6 +30,7 @@ class PersonController extends MHController
     public function beforeAction($action)
     {
         if ($action->id == 'update' ||
+            $action->id == 'update-column' ||
             $action->id == 'avatar-upload') {
             $this->enableCsrfValidation = false;
         }
@@ -106,6 +107,21 @@ class PersonController extends MHController
     public function actionGet($id)
     {
         $person = $this->findModelByUID($id);
+        return ['response' => $person->toResponseArray()];
+    }
+
+    public function actionUpdateColumn($id)
+    {
+        $person = $this->findModelByUID($id);
+        $post = \Yii::$app->request->post();
+        if ($person && !empty($post['name'])) {
+            $person->{$post['name']} = trim(json_encode($post['value']));
+            if (!$person->save()) {
+                throw new BadRequestHttpException(json_encode($person->errors));
+            }
+        } else {
+            throw new BadRequestHttpException('Bad parameters encountered: for uid "'.$id.'"" person: ' . json_encode($person) . ' __ post: ' . json_encode($post));
+        }
         return ['response' => $person->toResponseArray()];
     }
 
