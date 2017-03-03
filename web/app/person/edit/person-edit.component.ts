@@ -5,13 +5,12 @@ import { DatePipe } from '@angular/common';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 import { ENTER } from "@angular/material";
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { TitleService } from "../../common/title.service";
 import { ShoutService } from "../../common/shout.service";
 import { PersonService } from "../person.service";
 import { AuthService } from '../../common/auth/auth.service';
-import { Person } from '../person';
+import { Person, PersonAddress } from '../person';
 
 @Component({
     selector: 'mh-person-edit',
@@ -25,9 +24,8 @@ export class PersonEditComponent implements OnInit {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
 
-    form: FormGroup;  // our model driven form
-    submitted: boolean;  // keep track on whether form is submitted
-    events: any[] = [];  // use later to display form changes
+    form: FormGroup;
+    submitted: boolean;
     mStatus: any[] = [ // TODO: move this to the system settings in the options table
         {value: 'single', viewValue: 'Single'},
         {value: 'married', viewValue: 'Married'},
@@ -36,7 +34,7 @@ export class PersonEditComponent implements OnInit {
         {value: 'divorce-active', viewValue: 'Divorced'}
     ];
     randomPassword: boolean = true;
-    separatorKeys: Array<any> = [ENTER, 186];
+    separatorKeys: Array<any> = [ENTER, 186]; // for the chip list, separators
     persons: Array<Person>;
 
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
@@ -65,6 +63,8 @@ export class PersonEditComponent implements OnInit {
         this._data
             .subscribe((x: Person) => {
                 if (this.person) {
+                    let address: PersonAddress = new PersonAddress(this.person['address']);
+
                     this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
                     this._pwRandCheckbox = this.fb.control(this.randomPassword);
 
@@ -85,6 +85,18 @@ export class PersonEditComponent implements OnInit {
                             password: this._pwFormControl,
                             noCredentials: [undefined],
                             setPassword: [undefined]
+                        }),
+                        address: this.fb.group({
+                            home: this.fb.group({
+                                street: [address.home.street],
+                                zip: [address.home.zip],
+                                city: [address.home.city]
+                            }),
+                            postal: this.fb.group({
+                                street: [address.postal.street],
+                                zip: [address.postal.zip],
+                                city: [address.postal.city]
+                            })
                         })
                     });
                     this.titleService.setTitle(this.person.fullName); // TODO: move this to parent
@@ -98,6 +110,7 @@ export class PersonEditComponent implements OnInit {
         this.submitted = true;
         model.uid = this.person.uid;
         model.id = this.person.id;
+        this.calcGeocode(model.address);
         if (isValid) {
             this.personService.updatePerson(model)
                 .subscribe(
@@ -118,6 +131,27 @@ export class PersonEditComponent implements OnInit {
                     }
                 );
         }
+    }
+
+    calcGeocode(address: any): boolean {
+        let adr: string;
+
+        if (address === this.person.address) {
+            return true;
+        }
+
+        adr = address.home.street ? address.home.street : '';
+        adr += address.home.zip ? ', ' + address.home.zip : '';
+        adr += address.home.city ? ' ' + address.home.city : '';
+
+        this.personService.geocode(adr).subscribe(
+            (data: any) => {
+                address.home.geocode = data.results[0].geometry.location;
+                // update db from here
+                return true;
+            }
+        );
+        return false;
     }
 
     toggleRPW(): void {

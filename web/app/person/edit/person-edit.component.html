@@ -56,21 +56,6 @@
     </fieldset>
     <div fxFlex.sm="50" fxFlexOffset="20px" >
         <fieldset formGroupName="user">
-            <!--<div>
-                <md-input-container>
-                    <md-chip-list>
-                        <md-chip *ngFor="let person of people"
-                                 [color]="color" [selectable]="selectable"
-                                 [removable]="removable" (remove)="remove(person)">
-                            {{person.name}}
-                            <md-icon mdChipRemove>cancel</md-icon>
-                        </md-chip>
-                        <input mdInput placeholder="New Contributor..."
-                               mdChipInput (chipAdded)="add($event)"
-                               [separatorKeys]="separatorKeys" [addOnBlur]="addOnBlur" />
-                    </md-chip-list>
-                </md-input-container>
-            </div>-->
             <legend i18n>Account</legend>
             <div>
                 <md-input-container>
@@ -95,6 +80,62 @@
             <div fxLayoutAlign="space-between">
                 <md-checkbox formControlName="setPassword" (change)="toggleRPW()" i18n>Set new Password</md-checkbox>
                 <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
+            </div>
+        </fieldset>
+        <fieldset formGroupName="address">
+            <legend i18n>Addresses</legend>
+            {{person.address.home.geocode | json}}
+            <div formGroupName="home">
+                <h4 i18n>Home</h4>
+                <md-input-container>
+                    <input mdInput
+                           type="text"
+                           formControlName="street"
+                           placeholder="Street"
+                           i18n-placeholder>
+                </md-input-container>
+                <div fxLayout="row">
+                    <md-input-container>
+                        <input mdInput
+                               type="text"
+                               formControlName="zip"
+                               placeholder="Postal Code"
+                               i18n-placeholder>
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput
+                               type="text"
+                               formControlName="city"
+                               placeholder="City"
+                               i18n-placeholder>
+                    </md-input-container>
+                </div>
+            </div>
+            <div formGroupName="postal">
+                <h4 i18n>Postal <small i18n>(if it differs from home address)</small></h4>
+                <md-input-container>
+                    <input mdInput
+                           type="text"
+                           formControlName="street"
+                           placeholder="Street"
+                           i18n-placeholder>
+                </md-input-container>
+                <div fxLayout="row">
+                    <md-input-container>
+                        <input mdInput
+                               type="text"
+                               formControlName="zip"
+                               placeholder="Postal Code"
+                               i18n-placeholder>
+                    </md-input-container>
+                    <md-input-container>
+                        <input mdInput
+                               type="text"
+                               formControlName="city"
+                               placeholder="City"
+                               i18n-placeholder>
+                    </md-input-container>
+                </div>
             </div>
         </fieldset>
     </div>

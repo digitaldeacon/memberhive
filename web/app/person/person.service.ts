@@ -33,6 +33,10 @@ export class PersonService {
         return this.http.post('person/avatar-upload', image)
             .map(this.deserialize);
     }
+    public geocode(address: string): Observable<any> {
+        return this.http.getRaw('https://maps.googleapis.com/maps/api/geocode/json?address=' + address)
+            .map((r: any) => r.json());
+    }
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);
     }

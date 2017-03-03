@@ -1,5 +1,3 @@
-import { DatePipe } from '@angular/common';
-
 export class Person {
     public id: number;
     public uid: string;
@@ -12,13 +10,12 @@ export class Person {
     public gender: string;
     public birthday: Date;
     public age: number;
-    public avatarUrlBig: string;
-    public avatarUrlMedium: string;
-    public avatarUrlSmall: string;
     public avatar: string;
     public username: string;
     public password: string;
+    // Objects
     public user: any;
+    public address: PersonAddress;
 
     public deserialize(input: any): Person {
         this.id = input.id;
@@ -33,12 +30,10 @@ export class Person {
         this.age = input.age;
         this.maritalStatus = input.maritalStatus;
         this.avatar = input.avatar;
-        this.avatarUrlBig = input.avatarUrlBig;
-        this.avatarUrlMedium = input.avatarUrlMedium;
-        this.avatarUrlSmall = input.avatarUrlSmall;
         this.username = input.username;
         this.password = input.password;
         this.user = input.user;
+        this.address = JSON.parse(input.address);
         return this;
     }
 
@@ -53,9 +48,28 @@ export class Person {
             gender: this.gender,
             maritalStatus: this.maritalStatus,
             birthday: this.birthday,
-            avatarUrlBig: this.avatarUrlBig,
-            avatarUrlMedium: this.avatarUrlMedium,
-            avatarUrlSmall: this.avatarUrlSmall
+            address: this.address,
+            user: this.user
         };
+    }
+}
+
+export class PersonAddress {
+    home: any = {
+        street: '',
+        zip: '',
+        city: '',
+        geocode: {}
+    };
+    postal: any = {
+        street: '',
+        zip: '',
+        city: '',
+        geocode: {}
+    };
+
+    constructor(input: any) {
+        this.home = input.home ? input.home : this.home;
+        this.postal = input.postal ? input.postal : this.postal;
     }
 }

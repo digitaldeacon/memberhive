@@ -57,4 +57,9 @@ class Import extends \yii\db\ActiveRecord
             'created_at' => 'Created At',
         ];
     }
+
+    public function getPerson()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'refId']);
+    }
 }

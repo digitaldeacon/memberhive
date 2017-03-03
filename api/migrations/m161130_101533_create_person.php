@@ -29,7 +29,8 @@ class m161130_101533_create_person extends Migration
             'anniversary' => $this->date(),
 
             'address' => $this->text(),
-            'custom' => $this->text(),
+            'custom' => $this->text(), // custom fields? how should we search them from here?
+
             'avatarUrlSmall' => $this->string(),
             'avatarUrlMedium' => $this->string(),
             'avatarUrlBig' => $this->string(),

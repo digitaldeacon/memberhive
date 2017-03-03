@@ -119,6 +119,7 @@ class PersonController extends MHController
             $person->lastName = $post['lastName'];
             $person->gender = $post['gender'];
             $person->maritalStatus = $post['maritalStatus'];
+            $person->address = json_encode($post['address']);
             if (empty($person->user) && !empty($post['user']['password'])) {
                 $user = new User();
                 $user->personId = $person->id;
@@ -136,7 +137,7 @@ class PersonController extends MHController
                 }
             }
             if (!$person->save()) {
-                throw new BadRequestHttpException($person->errors);
+                throw new BadRequestHttpException(json_encode($person->errors));
             }
             if (isset($user)) {
                 $person->user = $user;

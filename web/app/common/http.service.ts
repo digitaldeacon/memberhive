@@ -1,7 +1,8 @@
-import {Injectable} from "@angular/core";
-import {Http, Headers, Response, Request, BaseRequestOptions, RequestMethod} from "@angular/http";
-import {Observable} from "rxjs";
-import {AuthService} from "./auth/auth.service";
+import { Injectable } from "@angular/core";
+import { Http, Headers, Response, Request, BaseRequestOptions, RequestMethod } from "@angular/http";
+import { Observable } from "rxjs";
+import { AuthService } from "./auth/auth.service";
+
 @Injectable()
 export class HttpService {
 
@@ -14,6 +15,10 @@ export class HttpService {
 
     post(url: string, body: any): Observable<any> {
         return this.request(url, RequestMethod.Post, body);
+    }
+
+    getRaw(url: string): any {
+        return this.http.get(url);
     }
 
     unauthenticatedPost(url: string, body: any): Observable<any> {

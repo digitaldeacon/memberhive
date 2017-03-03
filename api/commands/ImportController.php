@@ -29,6 +29,9 @@ class ImportController extends Controller
             'birthday',
             'anniversary',
             'marital_status',
+            'home_address',
+            'home_postcode',
+            'home_city',
             'family', // TODO check whether person has been created (associate), else create and associate
             'custom_f5430935-e88a-11e6-8f05-0a6b0d448233',//verantworltich
             'custom_c8b91d7b-e660-11e6-8f05-0a6b0d448233' //taufdatum
@@ -40,10 +43,18 @@ class ImportController extends Controller
         return 0;*/
 
         foreach ($results->people->person as $item) {
-            $person = Person::findOne(['firstName'=>$item->firstname,'lastName'=>$item->lastname]);
+            $person = Person::findOne([
+                'firstName'=>$item->firstname,
+                'lastName'=>$item->lastname]);
+
             if (empty($person)) {
-                $person = new Person();
-                $inserted++;
+                $person = Person::findOne(['email'=>$item->email]);
+                if (empty($person)) {
+                    $person = new Person();
+                    $inserted++;
+                } else {
+                    $updated++;
+                }
             } else {
                 $updated++;
             }
@@ -64,15 +75,39 @@ class ImportController extends Controller
             $person->baptized = $item->{'custom_c8b91d7b-e660-11e6-8f05-0a6b0d448233'};
             $person->maritalStatus = $item->anniversary;
 
+            // addreses
+            $person->address = json_encode([
+                'home' => [
+                    'street' => $item->home_address,
+                    'zip' => $item->home_postcode,
+                    'city' => $item->home_city,
+                    'geocode' => []
+                    ]
+            ]);
+
             if (!$person->save()) {
                 var_dump($person->getErrors());
                 return 1;
             }
 
-            $this->logImport('elvanto', $item->id, $person);
+            //$this->logImport('elvanto', $item->id, $person);
         }
         echo "Successfully inserted $inserted and updated $updated Persons\n";
         return 0;
+    }
+
+    private function getGeoCode($home_address, $home_postcode, $home_city)
+    {
+        $address = "$home_address, $home_postcode $home_city";
+        $prepAddr = str_replace(' ', '+', $address);
+        $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false');
+        $output= json_decode($geocode);
+        $latitude = $output->results[0]->geometry->location->lat;
+        $longitude = $output->results[0]->geometry->location->lng;
+        return [
+            'lat' => $latitude,
+            'long' => $longitude
+        ];
     }
 
     private function logImport($type, $remoteId, $object)

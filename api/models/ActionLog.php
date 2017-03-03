@@ -83,6 +83,10 @@ class ActionLog extends \yii\db\ActiveRecord
         if (!$insert && empty($changedAttributes)) {
             return;
         }
+        // skip if call comes from CLI
+        if (is_a(Yii::$app, 'yii\console\Application')) {
+            return;
+        }
 
         $log = new ActionLog();
         $log->context = $context;

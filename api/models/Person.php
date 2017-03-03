@@ -47,7 +47,8 @@ class Person extends \yii\db\ActiveRecord
             [['birthday', 'baptized', 'anniversary', 'deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
             [['created_at', 'updated_at'], 'integer'],
-            ['uid', '\aracoool\uuid\UuidValidator']
+            ['uid', '\aracoool\uuid\UuidValidator'],
+            [['address'], 'string'],
         ];
     }
 
@@ -94,10 +95,8 @@ class Person extends \yii\db\ActiveRecord
             'birthday' => $this->birthday,
             'age' => $this->age,
             'maritalStatus' => $this->maritalStatus,
-            'avatarUrlSmall' => $this->avatarUrlSmall,
-            'avatarUrlMedium' => $this->avatarUrlMedium,
-            'avatarUrlBig' => $this->avatarUrlBig,
             'avatar' => $this->avatar,
+            'address' => $this->address,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
             ]
@@ -134,6 +133,11 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Note::className(), ['id' => 'note_id'])
             ->viaTable('person_note', ['person_id' => 'id']);
+    }
+
+    public function getImport()
+    {
+        return $this->hasOne(Import::className(), ['refId' => 'id']);
     }
 
     public function getAvatar($size = 's')
