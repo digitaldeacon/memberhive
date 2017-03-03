@@ -120,7 +120,7 @@ class PersonController extends MHController
                 throw new BadRequestHttpException(json_encode($person->errors));
             }
         } else {
-            throw new BadRequestHttpException('Bad parameters encountered: for uid "'.$id.'"" person: ' . json_encode($person) . ' __ post: ' . json_encode($post));
+            throw new BadRequestHttpException('Bad parameters encountered!');
         }
         return ['response' => $person->toResponseArray()];
     }
