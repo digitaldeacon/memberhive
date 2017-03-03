@@ -50,8 +50,18 @@ export class NoteListComponent implements OnInit {
 
     }
 
-    showTypes(): void {
-        this.showTypeSelector = true;
+    toggleTypes(): void {
+        if (this.showTypeSelector && !this.noteForm.dirty) {
+            this.noteForm.reset();
+            this.showTypeSelector = false;
+        } else {
+            this.showTypeSelector = true;
+        }
+    }
+
+    clearForm(): void {
+        this.noteForm.reset();
+        this.showTypeSelector = false;
     }
 
     save(model: Note, isValid: boolean): void {

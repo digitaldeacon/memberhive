@@ -9,9 +9,10 @@
                 <textarea mdInput
                           mdTextareaAutosize
                           formControlName="text"
-                          placeholder="Write a note"
+                          placeholder="Write something or create an interaction"
                           i18n-placeholder
-                          (click)="showTypes()"></textarea>
+                          (focus)="toggleTypes()"
+                          (blur)="toggleTypes()"></textarea>
             </md-input-container>
             <!--<div class="mat-input-wrapper">
                 <md-checkbox>Private</md-checkbox>
@@ -26,12 +27,13 @@
         <md-card-actions *ngIf="showTypeSelector" fxFlex>
             <md-button-toggle-group #group="mdButtonToggleGroup" formControlName="type">
                 <md-button-toggle value="{{noteType.id}}"
-                                  mdTooltip="{{noteType.type}}"
+                                  mdTooltip="{{noteType.type | uppercase}}"
                                   *ngFor="let noteType of noteTypes">
                     <md-icon>{{noteType.iconString}}</md-icon>
                 </md-button-toggle>
             </md-button-toggle-group>
             <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
+            <button md-button i18n (click)="clearForm()">Clear</button>
         </md-card-actions>
     </md-card>
 </form>

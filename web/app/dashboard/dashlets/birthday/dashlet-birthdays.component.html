@@ -23,9 +23,9 @@
             </md-nav-list>
         </div>
         <div>
-            <md-card-subtitle i18n>Next {{range}} days <md-divider></md-divider></md-card-subtitle>
+            <md-card-subtitle><ng-container i18n>Next {{range}} days</ng-container> <md-divider></md-divider></md-card-subtitle>
             <md-nav-list>
-                <a md-list-item *ngFor="let person of personsBdRange" [routerLink]="['/person/view', person.uid]">
+                <md-list-item *ngFor="let person of personsBdRange" [routerLink]="['/person/view', person.uid]">
                     <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
                     <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <div md-line>
@@ -35,8 +35,8 @@
                             <ng-container i18n>days</ng-container>
                         </span>
                     </div>
-                    <div><b>{{person.age}}</b></div>
-                </a>
+                    <b>{{person.age}}</b>
+                </md-list-item>
             </md-nav-list>
         </div>
     </md-card-content>
