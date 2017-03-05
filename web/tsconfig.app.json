@@ -6,7 +6,7 @@
     "experimentalDecorators": true,
     "mapRoot": "./",
     "lib": [
-      "es2015",
+      "es2016",
       "dom"
     ],
     "module": "es2015",
