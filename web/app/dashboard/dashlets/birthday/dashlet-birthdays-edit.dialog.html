@@ -1,7 +1,13 @@
 <h2 md-dialog-title i18n>Dashlet Settings</h2>
 <md-dialog-content>
     <md-input-container>
-        <input type="number" mdInput>
+        <input type="number"
+               #input
+               value="{{range}}"
+               mdInput
+               placeholder="Set range"
+               min="1">
+        <md-hint i18n>Range starting from today</md-hint>
     </md-input-container>
 </md-dialog-content>
 <md-dialog-actions >
@@ -12,5 +18,5 @@
     <button
             md-button
             color="secondary"
-            (click)="save()" i18n>Save</button>
+            (click)="save(input.value)" i18n>Save</button>
 </md-dialog-actions>

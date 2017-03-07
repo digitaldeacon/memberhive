@@ -10,9 +10,9 @@
     <md-card-content>
         <div>
             <md-card-subtitle i18n>Today <md-divider></md-divider></md-card-subtitle>
-            <p *ngIf="personsBdToday?.length == 0" i18n>No birthdays today</p>
+            <p *ngIf="peopleBdToday?.length == 0" i18n>No birthdays today</p>
             <md-nav-list>
-                <a md-list-item *ngFor="let person of personsBdToday" [routerLink]="['/person/view', person.uid]">
+                <a md-list-item *ngFor="let person of peopleBdToday" [routerLink]="['/person/view', person.uid]">
                     <md-icon md-list-icon class="birthday-notice">cake</md-icon>
                     <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <div md-line>
@@ -25,7 +25,7 @@
         <div>
             <md-card-subtitle><ng-container i18n>Next {{range}} days</ng-container> <md-divider></md-divider></md-card-subtitle>
             <md-nav-list>
-                <md-list-item *ngFor="let person of personsBdRange" [routerLink]="['/person/view', person.uid]">
+                <md-list-item *ngFor="let person of peopleBdRange" [routerLink]="['/person/view', person.uid]">
                     <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
                     <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <div md-line>

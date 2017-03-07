@@ -7,7 +7,7 @@ import { MomentModule } from 'angular2-moment';
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 
-import { DashletEditDialogComponent } from "./dashlets/dashlet-edit.dialog";
+import { DashletEditDialogComponent } from "./dashlets/birthday/dashlet-birthdays-edit.dialog";
 import { DashletBirthdaysComponent } from './dashlets/birthday/dashlet-birthdays.component';
 
 import { TitleService } from "../common/title.service";
