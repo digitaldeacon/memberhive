@@ -30,7 +30,7 @@ export class AuditLogComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['person']) {
-            if(this.person) {
+            if (this.person) {
                 this.auditService.getLogPerson(this.person.uid)
                     .subscribe((logs: Array<ActionLog>) => {
                         this.logs = logs;
@@ -41,9 +41,9 @@ export class AuditLogComponent implements OnInit, OnChanges {
 
     getDiffDetails(diff: any): string {
         let diffObject: string[];
-        if(diff) {
+        if (diff) {
             diffObject = Object.keys(JSON.parse(diff));
-            diffObject.splice(diffObject.indexOf('updated_at',1));
+            diffObject.splice(diffObject.indexOf('updated_at', 1));
         }
         return diffObject.toString();
     }
