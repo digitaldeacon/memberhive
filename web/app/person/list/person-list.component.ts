@@ -11,7 +11,7 @@ import { Person } from "../person";
 })
 
 export class PersonListComponent implements OnInit {
-    persons: Array<Person>;
+    people: Array<Person>;
 
     constructor(private personService: PersonService,
                 titleService: TitleService) {
@@ -20,6 +20,6 @@ export class PersonListComponent implements OnInit {
 
     ngOnInit(): void {
         this.personService.getPersons()
-            .subscribe((persons: Array<Person>) => this.persons = persons);
+            .subscribe((people: Array<Person>) => this.people = people);
     }
 }

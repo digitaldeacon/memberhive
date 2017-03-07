@@ -16,7 +16,7 @@ import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dial
     styleUrls: ['./person-view.component.scss']
 })
 export class PersonViewComponent implements OnInit {
-    private persons: Array<Person>;
+    private people: Array<Person>;
     person: Person;
     dialogRef: MdDialogRef<PersonRelationsDialogComponent>;
     lastCloseResult: string;
@@ -40,24 +40,24 @@ export class PersonViewComponent implements OnInit {
     prevPerson(): void {
         this.personService.getPersons() // TODO: get them from the cache
             .subscribe(
-                (persons: Array<Person>) => {
-                    this.persons = persons;
-                    let idx: number = this.persons.findIndex((p: Person) => p.uid === this.person.uid);
+                (people: Array<Person>) => {
+                    this.people = people;
+                    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
                     idx--;
-                    if (this.persons[idx]) {
-                        this.router.navigate(['/person/view', this.persons[idx].uid]);
+                    if (this.people[idx]) {
+                        this.router.navigate(['/person/view', this.people[idx].uid]);
                     }
                 });
     }
     nextPerson(): void {
         this.personService.getPersons() // TODO: get them from the cache
             .subscribe(
-                (persons: Array<Person>) => {
-                    this.persons = persons;
-                    let idx: number = this.persons.findIndex((p: Person) => p.uid === this.person.uid);
+                (people: Array<Person>) => {
+                    this.people = people;
+                    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
                     idx++;
-                    if (this.persons[idx]) {
-                        this.router.navigate(['/person/view', this.persons[idx].uid]);
+                    if (this.people[idx]) {
+                        this.router.navigate(['/person/view', this.people[idx].uid]);
                     }
                 });
     }
