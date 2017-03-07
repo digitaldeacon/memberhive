@@ -63,6 +63,13 @@ I.e. you may fork but not resell.
 
 
 # Install
+
+## Prerequisites
+You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
+
+On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
+
+## Installation
 If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
 
 Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
