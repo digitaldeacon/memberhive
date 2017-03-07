@@ -1,0 +1,22 @@
+<form class="person-edit"
+      [formGroup]="form"
+      novalidate
+      (ngSubmit)="save(form.value, form.valid)"
+      [fxLayout]="row">
+    <fieldset fxFlex.sm="50">
+        <legend>Personal</legend>
+        <div *ngFor="let item of items" class="form-row">
+            <mh-fd-items [item]="item" [form]="form"></mh-fd-items>
+        </div>
+    </fieldset>
+    <div fxFlex.sm="50" fxFlexOffset="20px" >
+
+    </div>
+    <div>
+        <button md-button type="submit" [disabled]="!form.valid" i18n>Submit</button>
+    </div>
+</form>
+
+<div *ngIf="payLoad" class="form-row">
+    <strong>Saved the following values</strong><br>{{payLoad}}
+</div>

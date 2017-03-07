@@ -1,0 +1,19 @@
+<div [formGroup]="form">
+    <div [ngSwitch]="item.controlType">
+
+        <md-input-container *ngSwitchCase="'textbox'">
+            <input mdInput [formControlName]="item.key"
+                   [id]="item.key" [type]="item.type"
+                   placeholder="{{item.label}}">
+        </md-input-container>
+
+        <div class="mat-input-wrapper" *ngSwitchCase="'dropdown'">
+            <md-select [id]="item.key" [formControlName]="item.key" placeholder="{{item.label}}" i18n-placeholder>
+                <md-option *ngFor="let opt of item.options" [value]="opt.key">
+                    {{opt.value}}
+                </md-option>
+            </md-select>
+        </div>
+    </div>
+    <div class="errorMessage" *ngIf="!isValid">{{item.label}} is required</div>
+</div>
