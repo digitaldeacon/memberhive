@@ -79,13 +79,13 @@ class Person extends \yii\db\ActiveRecord
             'maritalStatus' => $this->maritalStatus,
             'avatar' => $this->avatar,
             'address' => $this->address,
-            'socialContact' => $this->socialContact,
+            // 'socialContact' => $this->socialContact,
             'phoneHome' => $this->phoneHome,
             'phoneWork' => $this->phoneWork,
             'phoneMobile' => $this->phoneMobile,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
-            ]
+            ],
         ];
     }
 
@@ -119,6 +119,15 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Note::className(), ['id' => 'note_id'])
             ->viaTable('person_note', ['person_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCustomFields()
+    {
+        return $this->hasMany(Custom::className(), ['id' => 'custom_id'])
+            ->viaTable('person_custom', ['person_id' => 'id']);
     }
 
     public function getImport()

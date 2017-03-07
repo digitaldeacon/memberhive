@@ -12,6 +12,9 @@ import { PersonListComponent } from './list/person-list.component';
 import { PersonViewComponent } from './view/person-view.component';
 import { PersonEditComponent } from './edit/person-edit.component';
 
+import { FormDynamicComponent } from '../form/form-dynamic.component'
+import { FormDynamicItemComponent } from '../form/form-dynamic-item.component'
+
 import { PersonRelationsDialogComponent } from "./dialogs/person-relations.dialog";
 import { AvatarEditDialogComponent } from "./dialogs/avatar-edit.dialog";
 
@@ -32,7 +35,9 @@ import { TitleService } from "../common/title.service";
         PersonViewComponent,
         PersonEditComponent,
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent
+        AvatarEditDialogComponent,
+        FormDynamicComponent,
+        FormDynamicItemComponent
     ],
     imports: [
         CommonModule,

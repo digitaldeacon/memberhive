@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6950a5bc0c22d6f655e5b3038bc4b91",
-    "content-hash": "6ef3dc89fb2895e0d5a1ba2c7bb9403c",
+    "hash": "3b8c1e1e16e4f47fdb2ec8f1cb47a9ce",
+    "content-hash": "08277214cd99bbcd62f396f4d010c584",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -636,12 +636,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a"
+                "reference": "922097f1dbd89749c46a4ba9cd62fa095ee6ebe4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/029305e754dde022c4c8ee48d392c16b61fffe2a",
-                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/922097f1dbd89749c46a4ba9cd62fa095ee6ebe4",
+                "reference": "922097f1dbd89749c46a4ba9cd62fa095ee6ebe4",
                 "shasum": ""
             },
             "require": {
@@ -706,7 +706,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-02-26 22:15:53"
+            "time": "2017-03-03 00:55:12"
         },
         {
             "name": "yiisoft/yii2",
@@ -714,12 +714,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25"
+                "reference": "55aef2ed39c7d04043e969b6d935f07df9c54aa4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
-                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/55aef2ed39c7d04043e969b6d935f07df9c54aa4",
+                "reference": "55aef2ed39c7d04043e969b6d935f07df9c54aa4",
                 "shasum": ""
             },
             "require": {
@@ -806,7 +806,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-02-27 10:47:37"
+            "time": "2017-03-07 07:15:28"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1199,7 +1199,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.0.0",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*"
     },
     "platform-dev": []
 }

@@ -4,6 +4,10 @@ import { Observable } from "rxjs";
 import { Person } from "./person";
 import { Response } from '@angular/http';
 
+import { Dropdown } from '../form/form.dropdown';
+import { FormBase } from '../form/form.base';
+import { Textbox }  from '../form/form.textbox';
+
 @Injectable()
 export class PersonService {
     constructor(private http: HttpService) {}
@@ -14,6 +18,10 @@ export class PersonService {
     }
     public getPerson(id: string): Observable<Person> {
         return this.http.get('person/get?id=' + id)
+            .map(this.deserialize);
+    }
+    public getCustomFields(id: string): Observable<Person> {
+        return this.http.get('person/custom?id=' + id)
             .map(this.deserialize);
     }
     public updatePerson(person: Person): Observable<Person> {
@@ -42,6 +50,42 @@ export class PersonService {
         return this.http.getRaw('https://maps.googleapis.com/maps/api/geocode/json?address=' + address)
             .map((r: any) => r.json());
     }
+    public getSettings() {
+        /*new Textbox({
+         key: 'firstName',
+         label: 'First name',
+         value: 'Bombasto',
+         required: true,
+         order: 4
+         }),
+         new Dropdown({
+         key: 'brave',
+         label: 'Bravery Rating',
+         options: [
+         {key: 'solid',  value: 'S4olid'},
+         {key: 'great',  value: 'Great'},
+         {key: 'good',   value: 'Good'},
+         {key: 'unproven', value: 'Unproven'}
+         ],
+         order: 3
+         })*/
+        let meta = {
+            'firstName':
+                {
+                    type: 'textbox',
+                    label: 'First Name',
+                    value: '',
+                    required: true,
+                    order: 1
+                }
+        };
+        // forEach meta push
+        // people.push();
+        // TODO: shold we map a meta structure that we get from a setup table?
+        // or get the person data as object back, including the type definitions?
+        return meta; //.sort((a, b) => a.order - b.order); // sort this from the api
+    }
+
     private deserialize(resp: any): Person {
         return new Person().deserialize(resp.response);
     }

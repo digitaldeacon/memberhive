@@ -18,7 +18,7 @@ export class Person {
     // Objects
     public user: any;
     public address: PersonAddress;
-    public socialContact: any;
+    public customFields: any;
 
     public deserialize(input: any): Person {
         this.id = input.id;
@@ -36,7 +36,7 @@ export class Person {
         this.username = input.username;
         this.user = input.user;
         this.address = JSON.parse(input.address);
-        this.socialContact = JSON.parse(input.socialContact);
+        // this.customFields = JSON.parse(input.customFields);
         this.phoneHome = input.phoneHome;
         this.phoneMobile = input.phoneMobile;
         this.phoneWork = input.phoneWork;

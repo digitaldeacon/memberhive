@@ -10,14 +10,21 @@ import { TitleService } from "../../common/title.service";
 import { ShoutService } from "../../common/shout.service";
 import { PersonService } from "../person.service";
 import { AuthService } from '../../common/auth/auth.service';
+import { FormControlService } from "../../form/form-control.service";
+
 import { Person, PersonAddress } from '../person';
+
+import { Dropdown } from '../../form/form.dropdown';
+import { FormBase } from '../../form/form.base';
+import { Textbox }  from '../../form/form.textbox';
 
 import * as _ from 'lodash';
 
 @Component({
     selector: 'mh-person-edit',
-    templateUrl: 'person-edit.component.html',
-    styleUrls: ['person-edit.component.scss']
+    templateUrl: 'person-edit-fd.component.html',
+    styleUrls: ['person-edit.component.scss'],
+    providers:  [ FormControlService ]
 })
 
 export class PersonEditComponent implements OnInit {
@@ -38,6 +45,7 @@ export class PersonEditComponent implements OnInit {
     randomPassword: boolean = true;
     separatorKeys: Array<any> = [ENTER, 186]; // for the chip list, separators
     persons: Array<Person>;
+    people: FormBase<any>[] = [];
 
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
 
@@ -62,9 +70,27 @@ export class PersonEditComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        let settings: any = this.personService.getSettings();
+
         this._data
             .subscribe((x: Person) => {
                 if (this.person) {
+
+                    _.forEach(this.person,(value: any,key: string) => {
+                        if (settings[key]) {
+                            console.log(settings[key].type);
+                            if (settings[key].type === 'textbox') {
+                                this.people.push(new Textbox({
+                                    key: 'firstName',
+                                    label: 'First name',
+                                    value: value,
+                                    required: true,
+                                    order: 4
+                                }));
+                            }
+                        }
+                    });
+
                     let address: PersonAddress = new PersonAddress(this.person['address']);
 
                     this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
