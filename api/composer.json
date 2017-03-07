@@ -10,6 +10,8 @@
     "minimum-stability": "dev",
     "require": {
         "php": ">=7.0.0",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*",
         "yiisoft/yii2": ">=2.0.5",
         "yiisoft/yii2-coding-standards": "*",
         "boundstate/yii2-mailgun": "*",
