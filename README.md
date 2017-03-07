@@ -68,11 +68,12 @@ If you are on a *nix based system (including OS X) you should use nvm to install
 Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-git clone git@github.com:digitaldeacon/memberhive2.git
 nvm install 6.9
 nvm use 6.9
 nvm alias default 6.9
 npm i -g angular-cli@latest typescript@2.0.10 tslint
+git clone git@github.com:digitaldeacon/memberhive2.git
+cd memberhive2
 npm install
 cd api 
 composer install
