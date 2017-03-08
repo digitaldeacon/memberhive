@@ -31,7 +31,7 @@
                     <div md-line>
                         <span md-line>{{person.fullName}}</span>
                         <span md-line>
-                            {{person.birthday | amDifference: now: 'days'}}
+                            {{birthdayIn(person.birthday)}}
                             <ng-container i18n>days</ng-container>
                         </span>
                     </div>

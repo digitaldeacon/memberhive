@@ -88,7 +88,7 @@ export class DashletBirthdaysComponent implements OnChanges {
         let bDay: Date = new Date(birthday);
         bDay.setFullYear(this.now.getFullYear());
         let interval: number = Math.floor(bDay.getTime() - this.now.getTime()) / 1000;
-        let days: number = Math.floor(interval / 86400);
+        let days: number = Math.ceil(interval / 86400);
         return days;
     }
 }
