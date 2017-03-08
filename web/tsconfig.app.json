@@ -27,9 +27,7 @@
     "noImplicitAny": true,
     "noImplicitReturns": true,
     "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true
+    "noFallthroughCasesInSwitch": true
   },
   "exclude": [
     "test.ts"
