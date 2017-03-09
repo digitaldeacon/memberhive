@@ -87,8 +87,8 @@ class PersonController extends MHController
     public function actionList()
     {
         $ret = [];
-        foreach (Person::find()->each() as $person) {
-            /** $person Person */
+        // TODO: include relevant joins here. Don't allow lazy loading (too many calls)
+        foreach (Person::find()->orderBy(['lastName' => SORT_ASC])->each() as $person) {
             $ret[] = $person->toResponseArray();
         }
         return ['response' => $ret];
@@ -97,8 +97,8 @@ class PersonController extends MHController
     public function actionSearch()
     {
         $ret = [];
+        // TODO: include relevant joins here. Don't allow lazy loading (too many calls)
         foreach (Person::find()->each() as $person) {
-            /** $person Person */
             $ret[] = $person->toResponseArray();
         }
         return ['response' => $ret];

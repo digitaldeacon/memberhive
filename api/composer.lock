@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c6950a5bc0c22d6f655e5b3038bc4b91",
-    "content-hash": "6ef3dc89fb2895e0d5a1ba2c7bb9403c",
+    "hash": "be06bd81afc223c9dd2f67af9ad99719",
+    "content-hash": "7c35dc7f99d53ba464e01ef5f4afef09",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -350,20 +350,23 @@
         },
         {
             "name": "ezyang/htmlpurifier",
-            "version": "v4.8.0",
+            "version": "v4.9.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ezyang/htmlpurifier.git",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2"
+                "reference": "de82f9845f2a0f9f27abec67d6a4958427e6f5d6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
-                "reference": "d0c392f77d2f2a3dcf7fcb79e2a1e2b8804e75b2",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/de82f9845f2a0f9f27abec67d6a4958427e6f5d6",
+                "reference": "de82f9845f2a0f9f27abec67d6a4958427e6f5d6",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "^1.1"
             },
             "type": "library",
             "autoload": {
@@ -390,7 +393,7 @@
             "keywords": [
                 "html"
             ],
-            "time": "2016-07-16 12:58:58"
+            "time": "2017-03-08 08:22:36"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -636,12 +639,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a"
+                "reference": "1ad86bf7e5486def140344fd501b9e07b0c96a72"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/029305e754dde022c4c8ee48d392c16b61fffe2a",
-                "reference": "029305e754dde022c4c8ee48d392c16b61fffe2a",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/1ad86bf7e5486def140344fd501b9e07b0c96a72",
+                "reference": "1ad86bf7e5486def140344fd501b9e07b0c96a72",
                 "shasum": ""
             },
             "require": {
@@ -706,7 +709,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-02-26 22:15:53"
+            "time": "2017-03-09 07:18:04"
         },
         {
             "name": "yiisoft/yii2",
@@ -714,12 +717,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25"
+                "reference": "2b429f5a9459235a7fe024bbb4e856255e1c3c59"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
-                "reference": "7f5dd62a6502cc5c70b7ae5629016e0b0be48e25",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/2b429f5a9459235a7fe024bbb4e856255e1c3c59",
+                "reference": "2b429f5a9459235a7fe024bbb4e856255e1c3c59",
                 "shasum": ""
             },
             "require": {
@@ -806,7 +809,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-02-27 10:47:37"
+            "time": "2017-03-08 23:52:36"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1145,12 +1148,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "5182458848359f08505b21ab71c0bd05c74617a5"
+                "reference": "c66d897f4aa3bf99a0a1ff81c86ee984430fe5c9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/5182458848359f08505b21ab71c0bd05c74617a5",
-                "reference": "5182458848359f08505b21ab71c0bd05c74617a5",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/c66d897f4aa3bf99a0a1ff81c86ee984430fe5c9",
+                "reference": "c66d897f4aa3bf99a0a1ff81c86ee984430fe5c9",
                 "shasum": ""
             },
             "require": {
@@ -1190,7 +1193,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-02-25 23:13:18"
+            "time": "2017-03-07 11:12:54"
         }
     ],
     "aliases": [],
@@ -1199,7 +1202,9 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.0.0"
+        "php": ">=7.1.0",
+        "ext-mbstring": "*",
+        "ext-simplexml": "*"
     },
     "platform-dev": []
 }
