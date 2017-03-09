@@ -98,7 +98,7 @@ export class NoteListComponent implements OnInit {
         this.noteService.deleteNote(note)
             .subscribe(
                 (data: string) => {
-                    this.notes.splice(this.notes.indexOf(note),1);
+                    this.notes.splice(this.notes.indexOf(note), 1);
                     this.shout.success('Note is deleted!');
                     return true;
                 },
