@@ -1,7 +1,4 @@
 # Memberhive v2
-<img src="http://memberhive.com/images/mh-logo.png" alt="Logo Memberhive" width="300px" />
-
-[![travis](https://travis-ci.org/digitaldeacon/memberhive2.svg?branch=master)](https://travis-ci.org/digitaldeacon/memberhive2)
 
 ## Note
 MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
@@ -85,14 +82,35 @@ npm install
 cd api 
 composer install
 ```
+Now you should have the client and the Yii backend in place. Next you need to create a database:
+
+Under 'api/config/examples' you will find `db_local.example.php`. Copy this file to the parent folder (config) and edit 
+this according to your needs.
+
+After you have a DB you need to run: `php api/yii migrate`. This will create all necessary tables and set a default user
+with the following credentials: `root/ bibel`.
+
 # Update
+## NPM
 If you have Memberhive2 installed and want to update the system you have two scripts as part of the package.json:
 + ```npm run clean-update``` (reinstall NPM and Composer packages)
 + ```npm run clean-install``` (reinstall NPM and Composer packages + new Angular-CLI)
+## YARN
+Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command for updating is: `yarn upgrade`.
 
 # Developing
 
-Serve App : `npm start`
+## Serve App
+`npm start` or `yarn run start`
 
-Undo all migrations : `php api/yii migrate/down all --interactive=0`
-Then redo all migrations again: `php api/yii migrate`
+## Linting your code
+**Everything**: `yarn run lint`
+
+**Typescript**: `yarn run tslint` or `npm run tslint`
+
+**PHP**: `yarn run phplint` or `npm run phplint`
+
+## Changes to DB
+
++ Undo all migrations : `php api/yii migrate/down all --interactive=0`
++ Then redo all migrations again: `php api/yii migrate`

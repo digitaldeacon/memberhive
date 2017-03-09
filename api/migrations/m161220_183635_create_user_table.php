@@ -32,6 +32,8 @@ class m161220_183635_create_user_table extends Migration
      */
     public function down()
     {
+        $this->dropForeignKey('fk-user-personId', 'user');
+
         $this->dropTable('user');
     }
 }

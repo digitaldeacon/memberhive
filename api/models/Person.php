@@ -130,7 +130,7 @@ class Person extends \yii\db\ActiveRecord
     {
         $avatar_root = 'assets/images/avatar/';
         $default =  $avatar_root . $this->gender . '.png';
-        $url = $this->avatarUrlSmall;
+        $url = empty($this->avatarUrlMedium) ? $this->avatarUrlSmall : $this->avatarUrlMedium;
         if (!empty($url)) {
             $parsed = parse_url($url);
             $url = empty($parsed['scheme']) ? $avatar_root . 'person/' . $url : $url;

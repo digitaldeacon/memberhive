@@ -61,7 +61,7 @@ class Curl
         // the options of curl should be init here.
         $this->resetopt();
         if (!empty($options['debug'])) {
-            $this->debug = true;
+            $this->_debug = true;
         }
         if (!empty($options['cookie'])) {
             if ($options['cookie'] === true) {
@@ -183,7 +183,7 @@ class Curl
      */
     private function formatHeader($ch, $header)
     {
-        $this->count++;
+        $this->_count++;
         if (strlen($header) > 2) {
             list($key, $value) = explode(' ', rtrim($header, "\r\n"), 2);
             $key = rtrim($key, ':');
@@ -240,7 +240,7 @@ class Curl
         }
         curl_setopt($curl, CURLOPT_HTTPHEADER, $this->header);
 
-        if ($this->debug) {
+        if ($this->_debug) {
             echo '<h1>Options</h1>';
             var_dump($this->_options);
             echo '<h1>Header</h1>';
@@ -347,7 +347,7 @@ class Curl
         $this->info = curl_getinfo($curl);
         $this->error = curl_error($curl);
 
-        if ($this->debug) {
+        if ($this->_debug) {
             echo '<h1>Return Data</h1>';
             var_dump($ret);
             echo '<h1>Info</h1>';
