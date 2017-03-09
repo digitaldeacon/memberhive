@@ -1,13 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { MdDialog } from '@angular/material';
+import {MdDialog, MdButtonToggleChange} from '@angular/material';
 
 import { NoteService } from "../note.service";
 import { Note, NoteType } from "../note";
 
 import { ShoutService } from "../../common/shout.service";
 import { AuthService } from '../../common/auth/auth.service';
+
+import { PersonService } from "../../person/person.service";
+import { Person } from '../../person/person';
 
 @Component({
     selector: 'mh-note-list',
@@ -16,17 +19,20 @@ import { AuthService } from '../../common/auth/auth.service';
 })
 export class NoteListComponent implements OnInit {
     private notes: Array<Note>;
-    private noteTypes: Array<NoteType>;
-    private ownerId: string;
+    private owner: Person;
 
-    showTypeSelector: boolean = false;
+    noteTypes: Array<NoteType>;
+    selectedType: any;
     noteForm: FormGroup;
+    showTypeSelector: boolean = false;
     submitted: boolean = false;
+    allowedContacts: Array<Person>;
 
     constructor(private fb: FormBuilder,
                 private route: ActivatedRoute,
                 private noteService: NoteService,
                 private shout: ShoutService,
+                private personService: PersonService,
                 private auth: AuthService,
                 public dialog: MdDialog) {
         this.noteService.getNoteTypes() // TODO: move this into the options table
@@ -36,10 +42,12 @@ export class NoteListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.ownerId = this.auth.getCurrentUser().uid;
+        this.owner = this.auth.getCurrentUser();
         this.noteForm = this.fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
+            owner: [this.owner.uid],
+            assigned: [undefined],
             private: [undefined]
         });
         this.route.params
@@ -47,7 +55,13 @@ export class NoteListComponent implements OnInit {
             .subscribe((notes: Array<Note>) => {
                 this.notes = notes;
             });
+        this.getAllowedContacts();
+    }
 
+    getAllowedContacts() {
+        // TODO: get only those users that I can select
+        this.personService.getPersons()
+            .subscribe((people: Array<Person>) => this.allowedContacts = people);
     }
 
     toggleTypes(): void {
@@ -59,16 +73,23 @@ export class NoteListComponent implements OnInit {
         }
     }
 
+    toggleFields(event: MdButtonToggleChange): void {
+        if (event.value === 'interaction') {
+            // show interaction fields here
+        }
+    }
+
     clearForm(): void {
         this.noteForm.reset();
         this.showTypeSelector = false;
+        this.noteForm.get('owner').setValue(this.owner.uid);
     }
 
     save(model: Note, isValid: boolean): void {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
-            model.ownerId = this.ownerId;
+            model.ownerId = this.owner.uid;
             model.recipients = [this.route.snapshot.params['id']];
             this.noteService.createNotePerson(model)
                 .subscribe(
@@ -87,7 +108,7 @@ export class NoteListComponent implements OnInit {
     }
 
     iOwn(uid: string): boolean {
-        return uid === this.ownerId;
+        return uid === this.owner.uid;
     }
 
     deleteNote(note: Note): void {

@@ -3,38 +3,44 @@
       [formGroup]="noteForm"
       novalidate
       (ngSubmit)="save(noteForm.value, noteForm.valid)">
+
     <md-card class="notes" fxLayout="column">
         <md-card-content>
+
             <md-input-container fxFlex fxFill>
                 <textarea mdInput
                           mdTextareaAutosize
                           formControlName="text"
                           placeholder="Write something or create an interaction"
                           i18n-placeholder
-                          (focus)="toggleTypes()"
-                          (blur)="toggleTypes()"></textarea>
+                          (focus)="toggleTypes()"></textarea>
             </md-input-container>
-            <!--<div class="mat-input-wrapper">
-                <md-checkbox>Private</md-checkbox>
-                <md-input-container>
-                    <input mdInput type="datetime-local" placeholder="Due On" />
-                </md-input-container>
-                <md-input-container>
-                    <input mdInput type="text" placeholder="Assign to" />
-                </md-input-container>
-            </div>-->
+
+            <div class="mat-input-wrapper" fxLayout="row" *ngIf="showTypeSelector">
+                <md-select placeholder="Owner" formControlName="owner">
+                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+                        {{person.fullName}}
+                    </md-option>
+                </md-select>
+
+                <md-select placeholder="Assign to" formControlName="assigned">
+                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+                        {{person.fullName}}
+                    </md-option>
+                </md-select>
+            </div>
+            <md-card-actions *ngIf="showTypeSelector" fxFlex>
+                <md-button-toggle-group formControlName="type" (change)="toggleFields($event)">
+                    <md-button-toggle value="{{noteType.type}}"
+                                      mdTooltip="{{noteType.type | uppercase}}"
+                                      *ngFor="let noteType of noteTypes">
+                        <md-icon>{{noteType.iconString}}</md-icon>
+                    </md-button-toggle>
+                </md-button-toggle-group>
+                <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
+                <button md-button i18n (click)="clearForm()">Clear</button>
+            </md-card-actions>
         </md-card-content>
-        <md-card-actions *ngIf="showTypeSelector" fxFlex>
-            <md-button-toggle-group #group="mdButtonToggleGroup" formControlName="type">
-                <md-button-toggle value="{{noteType.id}}"
-                                  mdTooltip="{{noteType.type | uppercase}}"
-                                  *ngFor="let noteType of noteTypes">
-                    <md-icon>{{noteType.iconString}}</md-icon>
-                </md-button-toggle>
-            </md-button-toggle-group>
-            <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
-            <button md-button i18n (click)="clearForm()">Clear</button>
-        </md-card-actions>
     </md-card>
 </form>
 <div class="notes">
