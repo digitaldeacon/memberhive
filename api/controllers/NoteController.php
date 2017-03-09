@@ -49,13 +49,16 @@ class NoteController extends MHController
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
             $note = $this->findModel($post['id']);
-            if ($note->ownerId == $post['curuid']) {
+            if ($note->ownerId == $post['owner']) {
                 if (!$note->delete()) {
                     return ['response' => json_encode($note->errors)];
                 }
                 return ['response' => true];
+            } else {
+                throw new BadRequestHttpException('This is not yours to delete!');
             }
         }
+        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
     }
 
     /**

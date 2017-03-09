@@ -91,14 +91,20 @@ export class NoteListComponent implements OnInit {
     }
 
     deleteNote(note: Note): void {
-        this.noteService.deleteNote(note.id)
+
+        if (!this.iOwn(note.ownerId)) {
+            return;
+        }
+        this.noteService.deleteNote(note)
             .subscribe(
                 (data: string) => {
-                    this.shout.success(data);
+                    this.notes.splice(this.notes.indexOf(note),1);
+                    this.shout.success('Note is deleted!');
                     return true;
                 },
                 (error: any) => {
                     this.shout.error('Error in note delete!');
+                    // console.log(error);
                     return false;
                 }
             );

@@ -26,9 +26,9 @@ export class NoteService {
         return this.http.post('note/create-group', note)
             .map(this.deserialize);
     }
-    public deleteNote(noteId: number): Observable<string> {
-        return this.http.post('note/delete', noteId)
-            .map((r: any) => r.json());
+    public deleteNote(note: Note): Observable<string> {
+        return this.http.post('note/delete', {id: note.id, owner: note.ownerId})
+            .map((r: any) => r);
     }
     public getNoteTypes(): Observable<NoteType[]> {
         return this.http.get('note/list-types')
