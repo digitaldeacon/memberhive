@@ -17,7 +17,6 @@ before_install:
   - mysql -e 'CREATE DATABASE memberhive;'
   - phpenv config-rm xdebug.ini
   - if [[ $TRAVIS_PHP_VERSION != 'hhvm' ]] ; then pecl channel-update pecl.php.net; fi;
-  - echo yes | pecl install apcu;
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - nvm use $NODE_JS_VERSION
