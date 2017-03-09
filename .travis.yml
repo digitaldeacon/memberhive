@@ -1,5 +1,5 @@
 language: php
-php: '7.0'
+php: '7.1'
 sudo: false
 branches:
   only:
@@ -16,7 +16,8 @@ cache:
 before_install:
   - mysql -e 'CREATE DATABASE memberhive;'
   - phpenv config-rm xdebug.ini
-  - pecl config-set preferred_state beta; echo yes | pecl install apcu; fi;
+  - if [[ $TRAVIS_PHP_VERSION != 'hhvm' ]] ; then pecl channel-update pecl.php.net; fi;
+  - echo yes | pecl install apcu; fi;
   - curl -o ~/.nvm/nvm.sh https://raw.githubusercontent.com/creationix/nvm/v0.31.0/nvm.sh
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - nvm use $NODE_JS_VERSION
