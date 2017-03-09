@@ -2,7 +2,8 @@
     <md-card class="flex-item" fxLayout="row">
         <md-input-container fxFlex fxFlexFill>
             <input mdInput
-                   placeholder="Suche..."
+                   placeholder="Filter..."
+                   i18n-placeholder
                    type="search">
         </md-input-container>
         <button md-icon-button [mdMenuTriggerFor]="saveMenu"><md-icon>more_vert</md-icon></button>
@@ -18,20 +19,6 @@
             </button>
         </md-menu>
     </md-card>
-
-    <!--<div *ngFor="let person of persons" class="list">
-        <md-card [routerLink]="['/person/view', person.id]">
-            <md-card-header>
-                <img md-card-avatar src="{{person.avatar}}" alt="..." />
-                <md-card-title>
-                    <h3>{{person.fullName}}</h3>
-                    <span>{{person.birthday | date: 'dd/MM/yyyy'}}</span>
-                    <span md-line="">{{person.email}}</span>
-                </md-card-title>
-            </md-card-header>
-        </md-card>
-        <md-divider></md-divider>
-    </div>-->
     <md-card>
         <md-nav-list>
             <a md-list-item *ngFor="let person of people" [routerLink]="['/person/view', person.uid]">
