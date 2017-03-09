@@ -1,4 +1,7 @@
 # Memberhive v2
+<img src="http://memberhive.com/images/mh-logo.png" alt="Logo Memberhive" width="300px" />
+
+[![travis](https://travis-ci.org/digitaldeacon/memberhive2.svg?branch=master)](https://travis-ci.org/digitaldeacon/memberhive2)
 
 ## Note
 MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
