@@ -69,6 +69,8 @@ You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is 
 
 On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
 
+Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any system, and we are not using system specific features (such as JSON fields), you are welcome to use another system (at your own risk).
+
 ## Installation
 If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
 
@@ -98,7 +100,8 @@ with the following credentials: `root/ bibel`.
 If you have Memberhive2 installed and want to update the system you have two scripts as part of the package.json:
 + ```npm run clean-update``` (reinstall NPM and Composer packages)
 + ```npm run clean-install``` (reinstall NPM and Composer packages + new Angular-CLI)
-## YARN
+
+## YARN (what we use now)
 Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command for updating is: `yarn upgrade`.
 
 # Developing
