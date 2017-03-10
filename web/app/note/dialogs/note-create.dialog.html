@@ -1,0 +1,42 @@
+<h2 md-dialog-title i18n>Create notes & interactions</h2>
+<md-dialog-content>
+    <form class="note-form"
+          [formGroup]="noteForm"
+          novalidate
+          (ngSubmit)="save(noteForm.value, noteForm.valid)">
+
+            <div class="mat-input-wrapper">
+                <md-button-toggle-group formControlName="type" (change)="toggleFields($event)">
+                    <md-button-toggle value="{{noteType.type}}"
+                                      mdTooltip="{{noteType.type | uppercase}}"
+                                      *ngFor="let noteType of noteTypes">
+                        <md-icon>{{noteType.iconString}}</md-icon>
+                    </md-button-toggle>
+                </md-button-toggle-group>
+            </div>
+
+            <div class="mat-input-wrapper">
+                <mh-tinymce [elementId]="'note-editor'"
+                            formControlName="text"></mh-tinymce>
+            </div>
+
+            <div class="mat-input-wrapper" fxLayout="row">
+                <md-select placeholder="Owner" formControlName="owner">
+                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+                        {{person.fullName}}
+                    </md-option>
+                </md-select>
+
+                <md-select placeholder="Assign to" formControlName="assigned">
+                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+                        {{person.fullName}}
+                    </md-option>
+                </md-select>
+            </div>
+
+            <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
+            <button md-button i18n (click)="clearForm()">Clear</button>
+
+    </form>
+    <pre>{{ noteForm?.value | json }}</pre>
+</md-dialog-content>

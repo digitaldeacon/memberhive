@@ -1,0 +1,43 @@
+md-list-item {
+  padding: 10px
+}
+md-card-header {
+  margin: -8px 0 4px;
+  height: 24px;
+  .md-card-header-text {
+    height:24px;
+  }
+}
+md-card-content {
+  margin-bottom: 4px;
+}
+md-card-actions {
+  padding: 0;
+  button {
+    md-icon {
+      font-size: 18px
+    }
+  }
+}
+md-button-toggle-group {
+  margin-bottom: 4px;
+}
+md-icon[aria-label="comment"] {
+  color: #7a43b6;
+}
+md-icon[aria-label="phone"] {
+  color: #0000aa;
+}
+md-icon[aria-label="forum"] {
+  color: #ff49a3;
+}
+md-icon[aria-label="email"] {
+  color: #6c6c6c;
+}
+md-icon[aria-label="swap_vertical_circle"] {
+  color: #ffab40;
+}
+.mat-select {
+  min-width: 200px;
+  margin-right: 10px;
+}

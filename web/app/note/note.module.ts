@@ -6,10 +6,12 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { NoteListComponent } from './list/note-list.component';
 import { NoteService } from "./note.service";
+import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
 
 @NgModule({
     declarations: [
-        NoteListComponent
+        NoteListComponent,
+        TinyMCEComponent
     ],
     imports: [
         CommonModule,
@@ -22,7 +24,8 @@ import { NoteService } from "./note.service";
         NoteService
     ],
     exports: [
-        NoteListComponent
+        NoteListComponent,
+        TinyMCEComponent
     ]
 })
 export class NoteModule {

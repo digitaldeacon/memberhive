@@ -14,6 +14,7 @@ import { PersonEditComponent } from './edit/person-edit.component';
 
 import { PersonRelationsDialogComponent } from "./dialogs/person-relations.dialog";
 import { AvatarEditDialogComponent } from "./dialogs/avatar-edit.dialog";
+import { NoteCreateDialogComponent } from '../note/dialogs/note-create.dialog';
 
 import { PersonRoutingModule } from './person-routing.module';
 import { PersonService } from "./person.service";
@@ -32,7 +33,8 @@ import { TitleService } from "../common/title.service";
         PersonViewComponent,
         PersonEditComponent,
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent
+        AvatarEditDialogComponent,
+        NoteCreateDialogComponent
     ],
     imports: [
         CommonModule,
@@ -53,7 +55,8 @@ import { TitleService } from "../common/title.service";
     ],
     entryComponents: [
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent
+        AvatarEditDialogComponent,
+        NoteCreateDialogComponent
     ]
 })
 export class PersonModule {

@@ -9,6 +9,8 @@ import { Person } from "../person";
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
 
+import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog';
+
 @Component({
     moduleId: 'mh-person',
     selector: 'mh-person-view',
@@ -83,6 +85,21 @@ export class PersonViewComponent implements OnInit {
                 this.person = result;
             }
             // update and refesh the person being edited
+            this.dialogRef = undefined;
+        });
+    }
+    openDlgInteractions(): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            id: this.person.uid
+        };
+
+        this.dialogRef = this.dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: any) => {
+            if (result === typeof Person) {
+                this.person = result;
+            }
+            // update and refresh the interactions for this person
             this.dialogRef = undefined;
         });
     }

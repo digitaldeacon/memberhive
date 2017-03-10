@@ -1,48 +1,4 @@
 <!--<button md-fab (click)="openDialog()" style="position: fixed; z-index: 99999;right: 5px;"><md-icon>add</md-icon></button>-->
-<form class="note-form"
-      [formGroup]="noteForm"
-      novalidate
-      (ngSubmit)="save(noteForm.value, noteForm.valid)">
-
-    <md-card class="notes" fxLayout="column">
-        <md-card-content>
-
-            <md-input-container fxFlex fxFill>
-                <textarea mdInput
-                          mdTextareaAutosize
-                          formControlName="text"
-                          placeholder="Write something or create an interaction"
-                          i18n-placeholder
-                          (focus)="toggleTypes()"></textarea>
-            </md-input-container>
-
-            <div class="mat-input-wrapper" fxLayout="row" *ngIf="showTypeSelector">
-                <md-select placeholder="Owner" formControlName="owner">
-                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
-                        {{person.fullName}}
-                    </md-option>
-                </md-select>
-
-                <md-select placeholder="Assign to" formControlName="assigned">
-                    <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
-                        {{person.fullName}}
-                    </md-option>
-                </md-select>
-            </div>
-            <md-card-actions *ngIf="showTypeSelector" fxFlex>
-                <md-button-toggle-group formControlName="type" (change)="toggleFields($event)">
-                    <md-button-toggle value="{{noteType.type}}"
-                                      mdTooltip="{{noteType.type | uppercase}}"
-                                      *ngFor="let noteType of noteTypes">
-                        <md-icon>{{noteType.iconString}}</md-icon>
-                    </md-button-toggle>
-                </md-button-toggle-group>
-                <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
-                <button md-button i18n (click)="clearForm()">Clear</button>
-            </md-card-actions>
-        </md-card-content>
-    </md-card>
-</form>
 <div class="notes">
     <md-card fxFlex *ngFor="let note of notes">
         <md-card-header>
