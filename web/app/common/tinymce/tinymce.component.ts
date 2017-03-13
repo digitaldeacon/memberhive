@@ -13,12 +13,13 @@ import {
     NG_VALIDATORS } from '@angular/forms';
 
 import 'tinymce';
-import  '../../../../web/assets/tiny/themes/inlite';
+// import  '../../../../web/assets/tiny/themes/inlite';
 import  '../../../../web/assets/tiny/themes/modern';
 
-import 'tinymce/plugins/table';
 import 'tinymce/plugins/paste';
 import 'tinymce/plugins/link';
+import 'tinymce/plugins/lists';
+import 'tinymce/plugins/autoresize';
 
 declare var tinymce: any;
 
@@ -46,8 +47,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class TinyMCEComponent
     implements AfterViewInit, OnDestroy, ControlValueAccessor {
 
-    @Input()
-    _value: any = '';
+    @Input() _value: any = '';
+    @Input() inline: boolean = true;
     @Input() elementId: String;
 
     editor: any;
@@ -59,7 +60,7 @@ export class TinyMCEComponent
         this.propagateChange(this._value);
     }
 
-    propagateChange = (_: any) => {
+    propagateChange = (_: any): void => {
         // dummy function
     }
 
@@ -86,15 +87,18 @@ export class TinyMCEComponent
     ngAfterViewInit(): void {
         tinymce.init({
             selector: '#' + this.elementId,
-            plugins: ['link', 'paste', 'table'],
-            skin_url: '/assets/tiny/skins/lightgray',
+            fixed_toolbar_container: '#toolbar',
+            plugins: ['link', 'paste', 'lists', 'autoresize'],
+            skin_url: '/assets/tiny/skins/light',
             // theme_url: '/assets/tiny/themes/inlite',
-            menubar: 'false',
-            statusbar: 'false',
-            toolbar: 'undo redo | styleselect | bold italic | link',
+            theme: 'modern',
+            menubar: false,
+            elementpath: false,
+            toolbar: 'undo redo | bold italic | bullist numlist | link',
             content_style: 'body {font-family: Roboto, "Helvetica Neue", sans-serif !important;'
-                         + 'color: #202020 !important;}',
-            // inline: 'true',
+                         + 'color: #202020 !important; font-size: 14px !important;}',
+            height: 420,
+            inline: this.inline,
             // theme: 'inlite',
             setup: (editor: any) => {
                 this.editor = editor;

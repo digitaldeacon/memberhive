@@ -9,6 +9,8 @@ import { Person } from "../person";
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
 
+import { Note } from "../../note/note";
+import { NoteService } from "../../note/note.service";
 import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog';
 
 @Component({
@@ -18,15 +20,17 @@ import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog
     styleUrls: ['./person-view.component.scss']
 })
 export class PersonViewComponent implements OnInit {
-    private people: Array<Person>;
+    notes: Array<Note>;
+    people: Array<Person>;
     person: Person;
-    dialogRef: MdDialogRef<PersonRelationsDialogComponent>;
+    dialogRef: MdDialogRef<any>;
     lastCloseResult: string;
 
     constructor(private titleService: TitleService,
                 private router: Router,
                 private route: ActivatedRoute,
                 private personService: PersonService,
+                private noteService: NoteService,
                 public dialog: MdDialog) {
     }
 
@@ -36,6 +40,8 @@ export class PersonViewComponent implements OnInit {
             .subscribe((person: Person) => {
                 this.person = person;
                 this.titleService.setTitle('Person: ' + person.fullName);
+                this.noteService.getNotes(person.uid)
+                    .subscribe((notes: Array<Note>) => this.notes = notes);
         });
     }
 
@@ -96,10 +102,9 @@ export class PersonViewComponent implements OnInit {
 
         this.dialogRef = this.dialog.open(NoteCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result === typeof Person) {
-                this.person = result;
+            if (result instanceof Note) {
+                this.notes.unshift(result);
             }
-            // update and refresh the interactions for this person
             this.dialogRef = undefined;
         });
     }

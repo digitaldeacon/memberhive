@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Params } from "@angular/router";
-import { MdDialog } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { NoteService } from "../note.service";
 import { Note } from "../note";
+import { NoteService } from "../note.service";
+import { NoteCreateDialogComponent } from '../dialogs/note-create.dialog';
 
 import { ShoutService } from "../../common/shout.service";
 import { AuthService } from '../../common/auth/auth.service';
@@ -16,8 +17,9 @@ import { Person } from '../../person/person';
     styleUrls: ['note-list.component.scss', '../note-common.styles.scss']
 })
 export class NoteListComponent implements OnInit {
-    private notes: Array<Note>;
-    private owner: Person;
+    private author: Person;
+    dialogRef: MdDialogRef<NoteCreateDialogComponent>;
+    @Input() notes: Array<Note>;
 
     constructor(private route: ActivatedRoute,
                 private noteService: NoteService,
@@ -27,21 +29,23 @@ export class NoteListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.owner = this.auth.getCurrentUser();
-        this.route.params
-            .switchMap((params: Params) => this.noteService.getNotes(params['id']))
-            .subscribe((notes: Array<Note>) => {
-                this.notes = notes;
-            });
+        this.author = this.auth.getCurrentUser();
+        if (!this.notes) {
+            this.route.params
+                .switchMap((params: Params) => this.noteService.getNotes(params['id']))
+                .subscribe((notes: Array<Note>) => {
+                    this.notes = notes;
+                });
+        }
     }
 
     iOwn(uid: string): boolean {
-        return uid === this.owner.uid;
+        return uid === this.author.uid;
     }
 
     deleteNote(note: Note): void {
 
-        if (!this.iOwn(note.ownerId)) {
+        if (!this.iOwn(note.authorId)) {
             return;
         }
         this.noteService.deleteNote(note)
@@ -57,5 +61,20 @@ export class NoteListComponent implements OnInit {
                     return false;
                 }
             );
+    }
+    openDlgInteractions(note: Note): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            note: note
+        };
+
+        this.dialogRef = this.dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: any) => {
+            if (result instanceof Note) {
+                // let prev = this.notes.indexOf(result);
+                // console.log(prev);
+            }
+            this.dialogRef = undefined;
+        });
     }
 }

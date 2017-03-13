@@ -6,8 +6,9 @@
           (ngSubmit)="save(noteForm.value, noteForm.valid)">
 
             <div class="mat-input-wrapper">
-                <md-button-toggle-group formControlName="type" (change)="toggleFields($event)">
-                    <md-button-toggle value="{{noteType.type}}"
+                <label i18n for="typeSelect">Select type:</label>
+                <md-button-toggle-group id="typeSelect" formControlName="type" (change)="toggleFields($event)">
+                    <md-button-toggle value="{{noteType.id}}"
                                       mdTooltip="{{noteType.type | uppercase}}"
                                       *ngFor="let noteType of noteTypes">
                         <md-icon>{{noteType.iconString}}</md-icon>
@@ -15,8 +16,9 @@
                 </md-button-toggle-group>
             </div>
 
-            <div class="mat-input-wrapper">
+            <div class="mat-input-wrapper" style="margin-bottom: 30px">
                 <mh-tinymce [elementId]="'note-editor'"
+                            [inline]="false"
                             formControlName="text"></mh-tinymce>
             </div>
 
@@ -27,16 +29,24 @@
                     </md-option>
                 </md-select>
 
-                <md-select placeholder="Assign to" formControlName="assigned">
+                <md-select placeholder="Assign to" formControlName="recipients" multiple>
                     <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
                         {{person.fullName}}
                     </md-option>
                 </md-select>
             </div>
 
-            <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
-            <button md-button i18n (click)="clearForm()">Clear</button>
+            <md-input-container>
+                <input type="date" mdInput placeholder="Complete by" formControlName="dueOn">
+            </md-input-container>
+
+            <div class="mat-input-wrapper" fxLayout="row" fxLayoutAlign="end">
+                <button md-raised-button type="submit" [disabled]="!noteForm.valid" i18n>Note it!</button>
+                <button md-button (click)="clearForm()" i18n>
+                    <md-icon>clear</md-icon> Clear</button>
+                <button md-button md-dialog-close i18n>Close</button>
+            </div>
 
     </form>
-    <pre>{{ noteForm?.value | json }}</pre>
+    <pre *ngIf="error">{{ error | json }}</pre>
 </md-dialog-content>

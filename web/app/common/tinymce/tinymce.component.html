@@ -1,6 +1,7 @@
-<!--<div id="{{elementId}}"
-     (blur)="onTouched()"
-     name="text">
+<div id="toolbar"></div>
+<div id="{{elementId}}"
+     name="text"
+    *ngIf="inline">
 
-</div>-->
-<textarea id="{{elementId}}" [(value)]="value"></textarea>
+</div>
+<textarea id="{{elementId}}" [(value)]="value" *ngIf="!inline"></textarea>

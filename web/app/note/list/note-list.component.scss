@@ -1,0 +1,21 @@
+md-list-item {
+  padding: 10px
+}
+md-card-header {
+  margin: -8px 0 4px;
+  height: 24px;
+  .md-card-header-text {
+    height:24px;
+  }
+}
+md-card-content {
+  margin-bottom: 4px;
+}
+md-card-actions {
+  padding: 0;
+  button {
+    md-icon {
+      font-size: 18px
+    }
+  }
+}

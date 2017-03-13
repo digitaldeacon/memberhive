@@ -43,11 +43,11 @@ class Note extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text','ownerId', 'typeId'], 'required'],
+            [['text','ownerId','typeId','authorId'], 'required'],
             [['text'], 'string'],
             [['typeId', 'isPrivate'], 'integer'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
-            [['ownerId'], 'string', 'max' => 36],
+            [['ownerId', 'authorId'], 'string', 'max' => 36],
             ['uid', '\aracoool\uuid\UuidValidator']
         ];
     }
@@ -62,6 +62,7 @@ class Note extends \yii\db\ActiveRecord
             'text' => 'Text',
             'typeId' => 'Type ID',
             'ownerId' => 'Owner ID',
+            'authorId' => 'Author ID', // who created this
             'isPrivate' => 'Is Private',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
@@ -78,23 +79,37 @@ class Note extends \yii\db\ActiveRecord
         return $this->hasOne(Person::className(), ['uid' => 'ownerId']);
     }
 
-    public function getPerson()
+    public function getAuthor()
     {
-        return $this->hasOne(Person::className(), ['id' => 'person_id'])
+        return $this->hasOne(Person::className(), ['uid' => 'authorId']);
+    }
+
+    public function getRecipients()
+    {
+        return $this->hasMany(Person::className(), ['id' => 'person_id'])
             ->viaTable('person_note', ['note_id' => 'id']);
     }
 
-    public function toResponseArray()
+    public function toResponseArray($noMarkup = true)
     {
+        $recipients = [];
+        foreach ($this->recipients as $recipient) {
+            $recipients[] = $recipient->uid;
+        }
+
         return [
             'id' => $this->id,
             'uid' => $this->uid,
-            'text' => $this->text,
+            'text' => $noMarkup ? strip_tags($this->text) : $this->text,
+            'authorId' => $this->authorId,
             'authorName' => isset($this->author) ? $this->author->fullName : '',
             'ownerId' => $this->ownerId,
             'type' => $this->type->type,
+            'typeId' => $this->typeId,
             'icon' => $this->type->iconString,
+            'dueOn' => $this->dueOn,
             'isPrivate' => $this->isPrivate,
+            'recipients' => $recipients,
             'createdAt' => date('Y-M-d H:i', $this->created_at),
             'updatedAt' => date('Y-M-d H:i', $this->updated_at),
         ];
