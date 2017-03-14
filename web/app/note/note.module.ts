@@ -5,13 +5,16 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { NoteListComponent } from './list/note-list.component';
+import { NoteCreateDialogComponent } from './dialogs/note-create.dialog';
+
 import { NoteService } from "./note.service";
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
 
 @NgModule({
     declarations: [
         NoteListComponent,
-        TinyMCEComponent
+        TinyMCEComponent,
+        NoteCreateDialogComponent
     ],
     imports: [
         CommonModule,
@@ -25,7 +28,11 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
     ],
     exports: [
         NoteListComponent,
-        TinyMCEComponent
+        TinyMCEComponent,
+        NoteCreateDialogComponent
+    ],
+    entryComponents: [
+        NoteCreateDialogComponent
     ]
 })
 export class NoteModule {

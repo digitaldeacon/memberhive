@@ -35,13 +35,13 @@ export class ViewComponent implements OnInit {
 
     routes: Object[] = [
         {
-            title: 'Dashboard', route: '/dashboard', icon: "dashboard"
+            title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
         }, {
-            title: "Persons", route: "/person", icon: "people"
+            title: 'Persons', route: '/person', icon: 'people'
         }, {
-            title: "Events", route: "", icon: "today"
+            title: 'Events', route: '', icon: 'today'
         }, {
-            title: "Groups", route: "", icon: "people_outline"
+            title: 'Groups', route: '', icon: 'people_outline'
         }
     ];
 
@@ -49,7 +49,6 @@ export class ViewComponent implements OnInit {
 
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
-    sidenavStatus: string = 'open';
 
     constructor(private _titleService: TitleService,
                 private _shoutService: ShoutService,

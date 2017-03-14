@@ -12,8 +12,7 @@ import { SearchModule } from "./search/search.module";
 import { NoteModule } from "./note/note.module";
 
 import { LoginComponent } from './login.component';
-import { ViewComponent } from './view.component';
-import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
+import { ViewComponent } from './view.component';;
 
 import { PersonService } from "./person/person.service";
 
@@ -21,8 +20,7 @@ import { PersonService } from "./person/person.service";
     declarations: [
         AppComponent,
         LoginComponent,
-        ViewComponent,
-        NoteCreateDialogComponent
+        ViewComponent
     ],
     imports: [
         BrowserModule,
@@ -40,9 +38,6 @@ import { PersonService } from "./person/person.service";
     ],
     providers: [
         PersonService
-    ],
-    entryComponents: [
-        NoteCreateDialogComponent
     ],
     bootstrap: [AppComponent]
 })
