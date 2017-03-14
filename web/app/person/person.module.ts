@@ -21,8 +21,6 @@ import { PersonService } from "./person.service";
 import { ShoutService } from "../common/shout.service";
 import { ImageCropperModule } from 'ng2-img-cropper';
 
-import { CovalentFileModule } from '@covalent/core';
-
 import { TitleService } from "../common/title.service";
 
 @NgModule({
@@ -43,8 +41,7 @@ import { TitleService } from "../common/title.service";
         ReactiveFormsModule,
         NoteModule,
         AuditModule,
-        ImageCropperModule,
-        CovalentFileModule.forRoot()
+        ImageCropperModule
     ],
     providers: [
         PersonService,
