@@ -14,6 +14,7 @@ export class Note {
     recipients: Array<string> = [];
     recipientType: string;
     dueOn: string;
+    doneOn: Date;
 
     public deserialize(input: any): Note {
         this.id = input.id;
@@ -29,6 +30,7 @@ export class Note {
         this.authorName = input.authorName;
         this.recipients = input.recipients;
         this.recipientType = input.recipientType;
+        this.doneOn = input.doneOn ? new Date(input.doneOn) : undefined;
         this.dueOn = input.dueOn;
         return this;
     }

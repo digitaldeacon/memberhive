@@ -90,6 +90,11 @@ class Note extends \yii\db\ActiveRecord
             ->viaTable('person_note', ['note_id' => 'id']);
     }
 
+    public function getPersonNote()
+    {
+        return $this->hasOne(PersonNote::className(), ['note_id' => 'id']);
+    }
+
     public function toResponseArray($noMarkup = true)
     {
         $recipients = [];
@@ -108,6 +113,7 @@ class Note extends \yii\db\ActiveRecord
             'typeId' => $this->typeId,
             'icon' => $this->type->iconString,
             'dueOn' => $this->dueOn,
+            'doneOn' => $this->personNote->doneOn,
             'isPrivate' => $this->isPrivate,
             'recipients' => $recipients,
             'createdAt' => date('Y-M-d H:i', $this->created_at),

@@ -26,6 +26,10 @@ export class NoteService {
             + '&noMarkup=' + noMarkup + '&u=' + this.me)
             .map(this.deserialize);
     }
+    public getMyInteractions(noMarkup: boolean = true): Observable<Note[]> {
+        return this.http.get('note/mine?id=' + this.me + '&noMarkup=' + noMarkup)
+            .map(this.deserializeList);
+    }
     public createNotePerson(note: Note): Observable<Note> {
         return this.http.post('note/create-person', note)
             .map(this.deserialize);

@@ -117,6 +117,14 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getNotes()
     {
+        return $this->hasMany(Note::className(), ['uid' => 'ownerId']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getInteractions()
+    {
         return $this->hasMany(Note::className(), ['id' => 'note_id'])
             ->viaTable('person_note', ['person_id' => 'id']);
     }

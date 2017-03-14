@@ -18,7 +18,7 @@ class NoteController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create-person','create-group','list-types','delete'],
+                    'actions' => ['list','get','update','create-person','create-group','list-types','delete','mine'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -150,6 +150,29 @@ class NoteController extends MHController
             ->with('recipients', 'author')
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();
+        foreach ($notes as $note) {
+            $ret[] = $note->toResponseArray($noMarkup);
+        }
+        return ['response' => $ret];
+    }
+
+    public function actionMine($id)
+    {
+        $ret = [];
+        $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
+        $notes = Note::find()
+            ->with([
+                'recipients' => function ($query) use ($id) {
+                    $query->andWhere(['id' => $id]);
+                }
+            ])
+            ->orderBy(['updated_at'=>SORT_DESC])
+            ->all();
+        /*$person = Person::find()
+            ->where(['uid' => $id])
+            ->with('interactions')
+            ->all();*/
+
         foreach ($notes as $note) {
             $ret[] = $note->toResponseArray($noMarkup);
         }

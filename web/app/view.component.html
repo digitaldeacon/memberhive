@@ -28,9 +28,17 @@
                            class="search-box"
                            fxFlex style="text-align: right"></mh-search-box>
 
-            <button md-icon-button [mdMenuTriggerFor]="interactions" mdTooltip="Interactions"><md-icon>forum</md-icon></button>
+            <button md-icon-button [mdMenuTriggerFor]="interactions" mdTooltip="Interactions" class="my-interactions">
+                <md-icon *ngIf="!myOutstanding">forum</md-icon>
+                <b *ngIf="myOutstanding">{{myOutstanding.length}}</b>
+            </button>
             <md-menu #interactions="mdMenu">
-                <div >No interactions</div>
+                <div *ngIf="!myOutstanding">No interactions</div>
+                <md-nav-list *ngIf="myOutstanding">
+                    <md-list-item *ngFor="let action of myOutstanding">
+                        {{action.text}}
+                    </md-list-item>
+                </md-nav-list>
                 <md-divider></md-divider>
                 <button md-menu-item (click)="openDlgInteractions()" i18n>Create interaction</button>
             </md-menu>

@@ -38,10 +38,10 @@ export class DashletBirthdaysComponent implements OnChanges {
             // Filter for birthdays within a range (default 7 days)
             this.peopleBdRange = this.people.filter((p: Person) => {
                 let bday: Date = p.birthday;
-                bday.setFullYear(this.now.getFullYear());
                 if (!p.birthday) {
                     return false;
                 }
+                bday.setFullYear(this.now.getFullYear());
                 return bday > this.now && bday < this.rangeDate;
             });
             this.peopleBdRange.sort((p1: Person, p2: Person) => {
@@ -52,10 +52,10 @@ export class DashletBirthdaysComponent implements OnChanges {
             // Filter for today's birthdays
             this.peopleBdToday = this.people.filter((p: Person) => {
                 let bday: Date = p.birthday;
-                bday.setFullYear(this.now.getFullYear());
                 if (!p.birthday) {
                     return false;
                 }
+                bday.setFullYear(this.now.getFullYear());
                 return bday.toLocaleDateString() === this.now.toLocaleDateString();
             });
             // Sort it, closest date on top

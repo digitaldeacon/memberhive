@@ -63,6 +63,12 @@ md-nav-list {
     top: -1em;
     right: -1em;
   }
+  .my-interactions {
+    background-color: mat-color($mh-app-warn, 500);
+    width: 30px;
+    height: 30px;
+    line-height: 0 !important;
+  }
 }
 .sidenav-container {
   .drawer {

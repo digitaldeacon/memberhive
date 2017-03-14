@@ -8,6 +8,7 @@ import { Person } from './person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Note } from "./note/note";
+import { NoteService } from "./note/note.service";
 import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
 
 @Component({
@@ -46,6 +47,8 @@ export class ViewComponent implements OnInit {
     ];
 
     currentUser: Person;
+    myInteractions: Array<Note>;
+    myOutstanding: Array<Note>;
 
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
@@ -53,12 +56,17 @@ export class ViewComponent implements OnInit {
     constructor(private _titleService: TitleService,
                 private _shoutService: ShoutService,
                 private _auth: AuthService,
+                private _noteService: NoteService,
                 public _dialog: MdDialog,
                 private _element: ElementRef) {
     }
 
     ngOnInit(): void {
         this.currentUser = this._auth.getCurrentUser();
+        this._noteService.getMyInteractions().subscribe((notes: Array<Note>) => {
+            this.myInteractions = notes;
+            this.myOutstanding = this.myInteractions.filter((n: Note) => n.dueOn && !n.doneOn);
+        });
     }
 
     toggleAlwaysVisible(): void {

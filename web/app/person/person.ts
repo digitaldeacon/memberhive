@@ -29,7 +29,7 @@ export class Person {
         this.fullName = input.fullName;
         this.email = input.email;
         this.gender = input.gender;
-        this.birthday = new Date(input.birthday);
+        this.birthday = input.birthday ? new Date(input.birthday) : undefined;
         this.age = input.age;
         this.maritalStatus = input.maritalStatus;
         this.avatar = input.avatar;
