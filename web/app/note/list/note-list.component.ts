@@ -63,6 +63,7 @@ export class NoteListComponent implements OnInit {
             );
     }
     openDlgInteractions(note: Note): void {
+        let oldNote = note;
         let config: MdDialogConfig = new MdDialogConfig();
         config.data = {
             note: note
@@ -71,8 +72,8 @@ export class NoteListComponent implements OnInit {
         this.dialogRef = this.dialog.open(NoteCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result instanceof Note) {
-                // let prev = this.notes.indexOf(result);
-                // console.log(prev);
+                this.notes.splice(this.notes.indexOf(oldNote));
+                this.notes.unshift(result);
             }
             this.dialogRef = undefined;
         });

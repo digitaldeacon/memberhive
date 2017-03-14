@@ -147,7 +147,7 @@ class NoteController extends MHController
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
         $notes = Note::find(['ownerId' => $id])
             ->with('recipients', 'author')
-            ->orderBy(['created_at'=>SORT_DESC]);
+            ->orderBy(['updated_at'=>SORT_DESC]);
         foreach ($notes->all() as $note) {
             $ret[] = $note->toResponseArray($noMarkup);
         }

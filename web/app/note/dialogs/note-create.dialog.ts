@@ -19,11 +19,15 @@ import { AuthService } from '../../common/auth/auth.service';
 export class NoteCreateDialogComponent implements OnInit {
     private author: Person;
 
-    allowedContacts: Array<Person>;
     noteForm: FormGroup;
     noteTypes: Array<NoteType>;
+    note: Note;
+
+    allowedContacts: Array<Person>;
+
     showTypeSelector: boolean = false;
     submitted: boolean = false;
+    editMode: boolean = false;
     error: string;
 
     private initDefaults(): void {
@@ -34,10 +38,12 @@ export class NoteCreateDialogComponent implements OnInit {
             this.noteForm.get('owner').setValue(this.dialogData.id);
         }
         if (this.dialogData.note) {
-            this.noteForm.get('owner').setValue(this.dialogData.note.ownerId);
-            this.noteForm.get('text').setValue(this.dialogData.note.text);
-            this.noteForm.get('type').setValue(this.dialogData.note.typeId);
-            this.noteForm.get('recipients').setValue(this.dialogData.note.recipients);
+            this.note = this.dialogData.note;
+            this.noteForm.get('owner').setValue(this.note.ownerId);
+            this.noteForm.get('text').setValue(this.note.text);
+            this.noteForm.get('type').setValue(this.note.typeId);
+            this.noteForm.get('recipients').setValue(this.note.recipients);
+            this.editMode = true;
         }
     }
 
