@@ -12,15 +12,6 @@ import {
     NG_VALUE_ACCESSOR,
     NG_VALIDATORS } from '@angular/forms';
 
-import 'tinymce';
-// import  '../../../../web/assets/tiny/themes/inlite';
-import  '../../../../web/assets/tiny/themes/modern';
-
-import 'tinymce/plugins/paste';
-import 'tinymce/plugins/link';
-import 'tinymce/plugins/lists';
-import 'tinymce/plugins/autoresize';
-
 declare var tinymce: any;
 
 // in case we ever want to validate the editor apart from the std validators
@@ -90,14 +81,13 @@ export class TinyMCEComponent
             fixed_toolbar_container: '#toolbar',
             plugins: ['link', 'paste', 'lists', 'autoresize'],
             skin_url: '/assets/tiny/skins/light',
-            // theme_url: '/assets/tiny/themes/inlite',
             theme: 'modern',
             menubar: false,
             elementpath: false,
             toolbar: 'undo redo | bold italic | bullist numlist | link',
             content_style: 'body {font-family: Roboto, "Helvetica Neue", sans-serif !important;'
                          + 'color: #202020 !important; font-size: 14px !important;}',
-            height: 420,
+            height: 200,
             inline: this.inline,
             // theme: 'inlite',
             setup: (editor: any) => {
