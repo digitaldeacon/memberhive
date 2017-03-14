@@ -63,7 +63,7 @@ export class NoteListComponent implements OnInit {
             );
     }
     openDlgInteractions(note: Note): void {
-        let oldNote = note;
+        let oldNote: Note = note;
         let config: MdDialogConfig = new MdDialogConfig();
         config.data = {
             note: note

@@ -12,7 +12,7 @@ import { SearchModule } from "./search/search.module";
 import { NoteModule } from "./note/note.module";
 
 import { LoginComponent } from './login.component';
-import { ViewComponent } from './view.component';;
+import { ViewComponent } from './view.component';
 
 import { PersonService } from "./person/person.service";
 

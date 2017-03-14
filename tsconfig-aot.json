@@ -10,10 +10,10 @@
       "dom"
     ],
     "module": "es2015",
+    "target": "es5",
     "moduleResolution": "node",
     "outDir": "dist",
     "sourceMap": true,
-    "target": "es5",
     "typeRoots": [
       "node_modules/@types"
     ],

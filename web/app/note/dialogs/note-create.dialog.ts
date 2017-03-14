@@ -30,23 +30,6 @@ export class NoteCreateDialogComponent implements OnInit {
     editMode: boolean = false;
     error: string;
 
-    private initDefaults(): void {
-        if (this.noteForm && this.author && !this.dialogData.note) {
-            this.noteForm.get('recipients').setValue([this.author.uid]);
-        }
-        if (this.dialogData.id && !this.dialogData.note) {
-            this.noteForm.get('owner').setValue(this.dialogData.id);
-        }
-        if (this.dialogData.note) {
-            this.note = this.dialogData.note;
-            this.noteForm.get('owner').setValue(this.note.ownerId);
-            this.noteForm.get('text').setValue(this.note.text);
-            this.noteForm.get('type').setValue(this.note.typeId);
-            this.noteForm.get('recipients').setValue(this.note.recipients);
-            this.editMode = true;
-        }
-    }
-
     constructor(private fb: FormBuilder,
                 private personService: PersonService,
                 private noteService: NoteService,
@@ -125,6 +108,23 @@ export class NoteCreateDialogComponent implements OnInit {
                         return false;
                     }
                 );
+        }
+    }
+
+    private initDefaults(): void {
+        if (this.noteForm && this.author && !this.dialogData.note) {
+            this.noteForm.get('recipients').setValue([this.author.uid]);
+        }
+        if (this.dialogData.id && !this.dialogData.note) {
+            this.noteForm.get('owner').setValue(this.dialogData.id);
+        }
+        if (this.dialogData.note) {
+            this.note = this.dialogData.note;
+            this.noteForm.get('owner').setValue(this.note.ownerId);
+            this.noteForm.get('text').setValue(this.note.text);
+            this.noteForm.get('type').setValue(this.note.typeId);
+            this.noteForm.get('recipients').setValue(this.note.recipients);
+            this.editMode = true;
         }
     }
 }
