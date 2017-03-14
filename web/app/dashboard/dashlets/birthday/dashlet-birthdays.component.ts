@@ -28,11 +28,11 @@ export class DashletBirthdaysComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['people']) {
-            this.filterPeople();
+            this.filter();
         }
     }
 
-    filterPeople(): void {
+    filter(): void {
         if (this.people) {
             this.rangeDate.setDate(new Date(this.now).getDate() + this.range);
             // Filter for birthdays within a range (default 7 days)
@@ -77,7 +77,7 @@ export class DashletBirthdaysComponent implements OnChanges {
             let range: number = +result;
             if (range && range !== this.range) {
                 this.range = range;
-                this.filterPeople();
+                this.filter();
             }
             this.dialogRef = undefined;
         });
