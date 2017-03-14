@@ -26,51 +26,51 @@ export class PersonViewComponent implements OnInit {
     dialogRef: MdDialogRef<any>;
     lastCloseResult: string;
 
-    constructor(private titleService: TitleService,
-                private router: Router,
-                private route: ActivatedRoute,
-                private personService: PersonService,
-                private noteService: NoteService,
-                public dialog: MdDialog) {
+    constructor(private _titleService: TitleService,
+                private _router: Router,
+                private _route: ActivatedRoute,
+                private _personService: PersonService,
+                private _noteService: NoteService,
+                public _dialog: MdDialog) {
     }
 
     ngOnInit(): void {
-        this.route.params
-            .switchMap((params: Params) => this.personService.getPerson(params['id']))
+        this._route.params
+            .switchMap((params: Params) => this._personService.getPerson(params['id']))
             .subscribe((person: Person) => {
                 this.person = person;
-                this.titleService.setTitle('Person: ' + person.fullName);
-                this.noteService.getNotes(person.uid)
+                this._titleService.setTitle('Person: ' + person.fullName);
+                this._noteService.getNotes(person.uid)
                     .subscribe((notes: Array<Note>) => this.notes = notes);
         });
     }
 
     prevPerson(): void {
-        this.personService.getPersons() // TODO: get them from the cache
+        this._personService.getPersons() // TODO: get them from the cache
             .subscribe(
                 (people: Array<Person>) => {
                     this.people = people;
                     let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
                     idx--;
                     if (this.people[idx]) {
-                        this.router.navigate(['/person/view', this.people[idx].uid]);
+                        this._router.navigate(['/person/view', this.people[idx].uid]);
                     }
                 });
     }
     nextPerson(): void {
-        this.personService.getPersons() // TODO: get them from the cache
+        this._personService.getPersons() // TODO: get them from the cache
             .subscribe(
                 (people: Array<Person>) => {
                     this.people = people;
                     let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
                     idx++;
                     if (this.people[idx]) {
-                        this.router.navigate(['/person/view', this.people[idx].uid]);
+                        this._router.navigate(['/person/view', this.people[idx].uid]);
                     }
                 });
     }
     openDlgRelationships(): void {
-        this.dialogRef = this.dialog.open(PersonRelationsDialogComponent);
+        this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
 
         this.dialogRef.afterClosed().subscribe((result: string) => {
             this.lastCloseResult = result;
@@ -85,7 +85,7 @@ export class PersonViewComponent implements OnInit {
             avatar: this.person.avatar
         };
 
-        this.dialogRef = this.dialog.open(AvatarEditDialogComponent, config);
+        this.dialogRef = this._dialog.open(AvatarEditDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result === typeof Person) {
                 this.person = result;
@@ -100,7 +100,7 @@ export class PersonViewComponent implements OnInit {
             id: this.person.uid
         };
 
-        this.dialogRef = this.dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result instanceof Note) {
                 this.notes.unshift(result);

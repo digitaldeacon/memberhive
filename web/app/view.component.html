@@ -30,14 +30,9 @@
 
             <button md-icon-button [mdMenuTriggerFor]="interactions" mdTooltip="Interactions"><md-icon>forum</md-icon></button>
             <md-menu #interactions="mdMenu">
-                <button md-menu-item>
-                    <md-icon>account_circle</md-icon>
-                    <span i18n>My Profile</span>
-                </button>
-                <button md-menu-item>
-                    <md-icon>exit_to_app</md-icon>
-                    <span i18n>Logout</span>
-                </button>
+                <div >No interactions</div>
+                <md-divider></md-divider>
+                <button md-menu-item (click)="openDlgInteractions()" i18n>Create interaction</button>
             </md-menu>
 
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
@@ -60,7 +55,7 @@
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{currentUser.avatar}}" alt="{{currentUser.fullName}}" />
-                    <h4 md-line>{{currentUser.fullName}}</h4>
+                    <h4 md-line>{{currentUser.firstName}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
                 <a *ngFor="let item of routes"
@@ -80,7 +75,7 @@
         </div>
         <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
             <md-toolbar>
-                <h4>{{titleService.getTitle()}}</h4>
+                <h4>{{_titleService.getTitle()}}</h4>
             </md-toolbar>
             <div class="main-content">
                 <router-outlet></router-outlet>

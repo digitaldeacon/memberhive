@@ -1,7 +1,14 @@
 import { Component, style, state, trigger, ElementRef, OnInit } from '@angular/core';
+
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
+import { ShoutService } from "./common/shout.service";
+
 import { Person } from './person/person';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+
+import { Note } from "./note/note";
+import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
 
 @Component({
     selector: 'mh-view',
@@ -24,6 +31,7 @@ import { Person } from './person/person';
     ]
 })
 export class ViewComponent implements OnInit {
+    private dialogRef: MdDialogRef<any>;
 
     routes: Object[] = [
         {
@@ -37,21 +45,21 @@ export class ViewComponent implements OnInit {
         }
     ];
 
-    auth: AuthService;
     currentUser: Person;
 
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
     sidenavStatus: string = 'open';
 
-    constructor(private titleService: TitleService,
-                auth: AuthService,
+    constructor(private _titleService: TitleService,
+                private _shoutService: ShoutService,
+                private _auth: AuthService,
+                public _dialog: MdDialog,
                 private _element: ElementRef) {
-        this.auth = auth;
     }
 
     ngOnInit(): void {
-        this.currentUser = this.auth.getCurrentUser();
+        this.currentUser = this._auth.getCurrentUser();
     }
 
     toggleAlwaysVisible(): void {
@@ -76,6 +84,20 @@ export class ViewComponent implements OnInit {
     }
 
     isActiveItem(title: any): boolean {
-        return this.titleService.getModule() === title;
+        return this._titleService.getModule() === title;
+    }
+
+    openDlgInteractions(): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+        };
+
+        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: any) => {
+            if (result instanceof Note) {
+                this._shoutService.success('Interaction created!');
+            }
+            this.dialogRef = undefined;
+        });
     }
 }

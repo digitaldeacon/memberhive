@@ -8,16 +8,21 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
 import { CommonModule } from './common/common.module';
+import { SearchModule } from "./search/search.module";
+import { NoteModule } from "./note/note.module";
 
 import { LoginComponent } from './login.component';
 import { ViewComponent } from './view.component';
-import { SearchModule } from "./search/search.module";
+import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
+
+import { PersonService } from "./person/person.service";
 
 @NgModule({
     declarations: [
         AppComponent,
         LoginComponent,
-        ViewComponent
+        ViewComponent,
+        NoteCreateDialogComponent
     ],
     imports: [
         BrowserModule,
@@ -30,9 +35,15 @@ import { SearchModule } from "./search/search.module";
         AppRoutingModule,
 
         CommonModule,
-        SearchModule
+        SearchModule,
+        NoteModule
     ],
-    providers: [],
+    providers: [
+        PersonService
+    ],
+    entryComponents: [
+        NoteCreateDialogComponent
+    ],
     bootstrap: [AppComponent]
 })
 
