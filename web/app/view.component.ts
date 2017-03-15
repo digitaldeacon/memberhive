@@ -65,6 +65,7 @@ export class ViewComponent implements OnInit {
         this.currentUser = this._auth.getCurrentUser();
         this._noteService.getMyInteractions().subscribe((notes: Array<Note>) => {
             this.myInteractions = notes;
+            console.log(this.myInteractions);
             this.myOutstanding = this.myInteractions.filter((n: Note) => n.dueOn && !n.doneOn);
         });
     }

@@ -106,8 +106,11 @@ class Note extends \yii\db\ActiveRecord
             'id' => $this->id,
             'uid' => $this->uid,
             'text' => $noMarkup ? strip_tags($this->text) : $this->text,
-            'authorId' => $this->authorId,
-            'authorName' => isset($this->author) ? $this->author->fullName : '',
+            'author' => [
+                'id' => $this->authorId,
+                'name' => isset($this->author) ? $this->author->fullName : '',
+                'avatar' => isset($this->author->avatar) ? $this->author->avatar : ''
+            ],
             'ownerId' => $this->ownerId,
             'type' => $this->type->type,
             'typeId' => $this->typeId,

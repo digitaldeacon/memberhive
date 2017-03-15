@@ -21,11 +21,25 @@ mh-app {
   background: mat-color($mh-app-warn, A400) !important;
 }
 
+.date-rounded {
+  font-weight: 600;
+  font-size: 14px;
+  background: mat-color($mh-app-warn, A200);
+  color: #fff;
+  align-items: center;
+  align-content: center;
+  flex-wrap: wrap;
+  flex-direction: row;
+  display: flex;
+  vertical-align: middle;
+  text-align: center;
+  padding: 2px;
+}
+
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {
   max-width: none !important;
 }
-rgb(56, 53, 53)
 .dashlet-card {
   .mat-card-header {
     .mat-card-header-text {

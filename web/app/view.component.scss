@@ -54,7 +54,7 @@ md-nav-list {
     margin-right: 25px;
   }
   .material-icons.mdl-badge[data-badge]::after,
-  .material-label.mdl-badge[data-badge]::after{
+  .material-label.mdl-badge[data-badge]::after {
     font-size: .3em;
     width: 2em;
     height: 2em;
@@ -64,7 +64,7 @@ md-nav-list {
     right: -1em;
   }
   .my-interactions {
-    background-color: mat-color($mh-app-warn, 500);
+    background-color: mat-color($mh-app-warn, 400);
     width: 30px;
     height: 30px;
     line-height: 0 !important;

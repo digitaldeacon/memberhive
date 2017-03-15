@@ -6,7 +6,11 @@ export class Note {
     typeId: number; // TODO: remove when types move to options
     text: string;
     icon: string;
-    authorName: string;
+    author: any = {
+        id: '',
+        name: '',
+        avatar: ''
+    };
     createdAt: number;
     updatedAt: number;
     ownerId: string;
@@ -27,7 +31,7 @@ export class Note {
         this.updatedAt = input.updatedAt;
         this.ownerId = input.ownerId;
         this.authorId = input.authorId;
-        this.authorName = input.authorName;
+        this.author = input.author;
         this.recipients = input.recipients;
         this.recipientType = input.recipientType;
         this.doneOn = input.doneOn ? new Date(input.doneOn) : undefined;
