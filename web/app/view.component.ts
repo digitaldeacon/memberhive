@@ -3,6 +3,7 @@ import { Component, style, state, trigger, ElementRef, OnInit } from '@angular/c
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
 import { ShoutService } from "./common/shout.service";
+import { InteractionService } from "./common/interaction.service";
 
 import { Person } from './person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
@@ -55,6 +56,7 @@ export class ViewComponent implements OnInit {
 
     constructor(private _titleService: TitleService,
                 private _shoutService: ShoutService,
+                private _interactionService: InteractionService,
                 private _auth: AuthService,
                 private _noteService: NoteService,
                 public _dialog: MdDialog,
@@ -65,8 +67,8 @@ export class ViewComponent implements OnInit {
         this.currentUser = this._auth.getCurrentUser();
         this._noteService.getMyInteractions().subscribe((notes: Array<Note>) => {
             this.myInteractions = notes;
-            console.log(this.myInteractions);
             this.myOutstanding = this.myInteractions.filter((n: Note) => n.dueOn && !n.doneOn);
+            this._interactionService.setMyInteractions(this.myInteractions);
         });
     }
 

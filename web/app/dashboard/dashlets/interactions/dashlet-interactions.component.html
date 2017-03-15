@@ -10,7 +10,11 @@
     <md-card-content>
         <div>
             <md-card-subtitle i18n>ToDo <md-divider></md-divider></md-card-subtitle>
-
+            <md-list>
+                <md-list-item *ngFor="let note of myOutstanding">
+                    <md-checkbox>{{note.text | slice:0:50}}</md-checkbox>
+                </md-list-item>
+            </md-list>
         </div>
     </md-card-content>
 </md-card>

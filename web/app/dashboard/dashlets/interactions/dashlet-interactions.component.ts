@@ -1,6 +1,8 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
+import { InteractionService } from "../../../common/interaction.service";
+
 import { Note } from '../../../note/note';
 
 @Component({
@@ -14,9 +16,12 @@ export class DashletInteractionsComponent implements OnChanges {
     private rangeDate: Date;
 
     @Input() interactions: Array<Note>;
-    myInteractions: Array<Note>;
+    myOutstanding: Array<Note>;
 
-    constructor(public dialog: MdDialog) {
+    constructor(public dialog: MdDialog,
+                private _interactionService: InteractionService) {
+        this.interactions = this._interactionService.getMyInteractions();
+        this.myOutstanding = this.interactions.filter((n: Note) => n.dueOn && !n.doneOn);
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -26,10 +31,10 @@ export class DashletInteractionsComponent implements OnChanges {
     }
 
     filter(): void {
-
+        // filter function
     }
 
     settingsDlg(): void {
-
+        // open settings dialog
     }
 }
