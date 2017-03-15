@@ -10,6 +10,8 @@ import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashletEditDialogComponent } from "./dashlets/birthday/dashlet-birthdays-edit.dialog";
 import { DashletBirthdaysComponent } from './dashlets/birthday/dashlet-birthdays.component';
 
+import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-interactions.component';
+
 import { TitleService } from "../common/title.service";
 import { PersonService } from "../person/person.service";
 
@@ -17,7 +19,8 @@ import { PersonService } from "../person/person.service";
     declarations: [
         DashboardComponent,
         DashletBirthdaysComponent,
-        DashletEditDialogComponent
+        DashletEditDialogComponent,
+        DashletInteractionsComponent
     ],
     imports: [
         CommonModule,
