@@ -164,7 +164,10 @@ class NoteController extends MHController
             ->with([
                 'recipients' => function ($query) use ($id) {
                     $query->andWhere(['id' => $id]);
-                }
+                },
+                'author',
+                'personNote',
+                'type'
             ])
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();

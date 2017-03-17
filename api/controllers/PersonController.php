@@ -87,8 +87,12 @@ class PersonController extends MHController
     public function actionList()
     {
         $ret = [];
-        // TODO: include relevant joins here. Don't allow lazy loading (too many calls)
-        foreach (Person::find()->orderBy(['lastName' => SORT_ASC])->each() as $person) {
+        $people = Person::find()
+            ->with('user')
+            ->orderBy(['lastName' => SORT_ASC])
+            ->all();
+
+        foreach ($people as $person) {
             $ret[] = $person->toResponseArray();
         }
         return ['response' => $ret];
