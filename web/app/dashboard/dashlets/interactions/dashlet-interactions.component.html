@@ -1,7 +1,7 @@
 <md-card class="dashlet-card">
     <md-card-header>
         <md-card-title fxLayout="row" fxLayoutAlign="stretch center">
-            <h4 i18n>My interactions</h4>
+            <h4 i18n fxFlex>My interactions</h4>
             <div>
                 <button md-icon-button (click)="settingsDlg()"><md-icon>more_vert</md-icon></button>
             </div>
@@ -12,7 +12,19 @@
             <md-card-subtitle i18n>ToDo <md-divider></md-divider></md-card-subtitle>
             <md-list>
                 <md-list-item *ngFor="let note of myOutstanding">
-                    <md-checkbox>{{note.text | slice:0:50}}</md-checkbox>
+                    <md-checkbox
+                            #todo
+                            fxFlex
+                            [class.completed]="todo.checked"
+                            [checked]="note.actions.completedOn"
+                            (change)="complete(note, todo.checked)">
+                        {{note.text | slice:0:50}}
+                    </md-checkbox>
+                    <span fxFlex="10" *ngIf="todo.checked">
+                        <a md-icon-button (click)="delete(note)" mdTooltip="Delete">
+                            <md-icon>close</md-icon>
+                        </a>
+                    </span>
                 </md-list-item>
             </md-list>
         </div>

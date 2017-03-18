@@ -6,6 +6,14 @@ export class Note {
     typeId: number; // TODO: remove when types move to options
     text: string;
     icon: string;
+    actions: any = {
+        doneOn: undefined,
+        completedOn: undefined,
+        completedBy: '',
+        response: '',
+        delegatedBy: '',
+        delegatedOn: undefined
+    };
     author: any = {
         id: '',
         name: '',
@@ -18,7 +26,6 @@ export class Note {
     recipients: Array<string> = [];
     recipientType: string;
     dueOn: string;
-    doneOn: Date;
 
     public deserialize(input: any): Note {
         this.id = input.id;
@@ -34,7 +41,7 @@ export class Note {
         this.author = input.author;
         this.recipients = input.recipients;
         this.recipientType = input.recipientType;
-        this.doneOn = input.doneOn ? new Date(input.doneOn) : undefined;
+        this.actions = input.actions;
         this.dueOn = input.dueOn;
         return this;
     }

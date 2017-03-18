@@ -1,25 +1,23 @@
 import { Injectable } from '@angular/core';
-import { LocalStorage } from 'ng2-webstorage';
+import { Subject }    from 'rxjs/Subject';
 import { Note } from '../note/note';
+import { NoteService } from '../note/note.service';
+import {Observable} from "rxjs";
 
 @Injectable()
 export class InteractionService {
-    @LocalStorage() private myInteractions: Array<Note>;
+    private myInteractionsSubject: Subject<Note[]> = new Subject<Note[]>();
 
-    public setMyInteractions(notes: Array<Note>): void {
-        this.myInteractions = notes;
-        this.myInteractions = this.myInteractions; // because of issue with extension
+    myInteractions$: Observable<any> = this.myInteractionsSubject.asObservable();
+
+    constructor(private _noteService: NoteService) {
+        this._noteService.getMyInteractions()
+            .subscribe((notes: Array<Note>) => {
+                this.setInteraction(notes);
+            });
     }
 
-    public getMyInteractions(): Array<Note> {
-        return this.myInteractions;
-    }
-
-    public addInteraction(note: Note): void {
-        this.myInteractions.push(note);
-    }
-
-    public removeInteraction(note: Note): void {
-        this.myInteractions.slice(this.myInteractions.indexOf(note), 1);
+    setInteraction(interactions: Note[]): void {
+        this.myInteractionsSubject.next(interactions);
     }
 }

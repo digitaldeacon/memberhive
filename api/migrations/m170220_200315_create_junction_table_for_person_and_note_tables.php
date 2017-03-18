@@ -20,6 +20,8 @@ class m170220_200315_create_junction_table_for_person_and_note_tables extends Mi
             'person_id' => $this->integer(),
             'note_id' => $this->integer(),
             'doneOn' => $this->dateTime(),
+            'completedBy' => $this->integer(),
+            'completedOn' => $this->dateTime(),
             'response' => $this->string(),
             'delegatedBy' => $this->integer(),
             'delegatedOn' => $this->dateTime(),

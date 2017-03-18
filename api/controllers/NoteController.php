@@ -18,7 +18,17 @@ class NoteController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update','create-person','create-group','list-types','delete','mine'],
+                    'actions' => [
+                        'list',
+                        'get',
+                        'update',
+                        'create-person',
+                        'create-group',
+                        'list-types',
+                        'delete',
+                        'mine',
+                        'complete',
+                        'end'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -32,12 +42,17 @@ class NoteController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'create-person' ||
-            $action->id == 'create-group' ||
-            $action->id == 'delete') {
+        $allowedActions = [
+            'create-person',
+            'create-group',
+            'delete',
+            'complete',
+            'end'
+        ];
+
+        if (in_array($action->id, $allowedActions)) {
             $this->enableCsrfValidation = false;
         }
-
         return parent::beforeAction($action);
     }
 
@@ -56,6 +71,48 @@ class NoteController extends MHController
                 return ['response' => true];
             } else {
                 throw new BadRequestHttpException('This is not yours to delete!');
+            }
+        }
+        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionComplete() // on post
+    {
+        $post = \Yii::$app->request->post();
+        if (!empty($post)) {
+            $pnote = PersonNote::findOne(['note_id'=>$post['id']]);
+            if ($pnote->note->authorId == $post['author']) {
+                $pnote->completedOn = boolval($post['complete']) ? date('Y-m-d H:i:s') : null;
+                if (!$pnote->save()) {
+                    return ['response' => json_encode($pnote->errors)];
+                }
+                return ['response' => true];
+            } else {
+                throw new BadRequestHttpException('This is not yours to delete!');
+            }
+        }
+        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function actionEnd() // on post
+    {
+        $post = \Yii::$app->request->post();
+        if (!empty($post)) {
+            $pnote = PersonNote::findOne(['note_id'=>$post['id']]);
+            if ($pnote->note->authorId == $post['author']) {
+                $pnote->doneOn = date('Y-m-d H:i:s');
+                if (!$pnote->save()) {
+                    return ['response' => json_encode($pnote->errors)];
+                }
+                return ['response' => true];
+            } else {
+                throw new BadRequestHttpException('This is not yours to end!');
             }
         }
         throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
@@ -171,11 +228,6 @@ class NoteController extends MHController
             ])
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();
-        /*$person = Person::find()
-            ->where(['uid' => $id])
-            ->with('interactions')
-            ->all();*/
-
         foreach ($notes as $note) {
             $ret[] = $note->toResponseArray($noMarkup);
         }

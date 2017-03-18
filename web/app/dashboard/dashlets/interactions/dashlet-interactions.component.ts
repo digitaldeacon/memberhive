@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { InteractionService } from "../../../common/interaction.service";
+import { NoteService } from '../../../note/note.service';
 
 import { Note } from '../../../note/note';
 
@@ -15,13 +15,14 @@ export class DashletInteractionsComponent implements OnChanges {
     private now: Date = new Date();
     private rangeDate: Date;
 
-    @Input() interactions: Array<Note>;
     myOutstanding: Array<Note>;
 
     constructor(public dialog: MdDialog,
-                private _interactionService: InteractionService) {
-        this.interactions = this._interactionService.getMyInteractions();
-        this.myOutstanding = this.interactions.filter((n: Note) => n.dueOn && !n.doneOn);
+                private _noteService: NoteService) {
+        this._noteService.getMyInteractions()
+            .subscribe((notes: Note[]) => {
+                this.myOutstanding = notes.filter((n: Note) => n.dueOn && !n.actions.doneOn);
+        });
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -36,5 +37,20 @@ export class DashletInteractionsComponent implements OnChanges {
 
     settingsDlg(): void {
         // open settings dialog
+    }
+
+    complete(note: Note, checked: boolean): void {
+        this._noteService.completeInteraction(note, checked)
+            .subscribe((r: any) => {
+                // notify the service about this change
+            });
+    }
+
+    delete(note: Note): void {
+        this._noteService.endInteraction(note)
+            .subscribe((r: any) => {
+                this.myOutstanding.splice(this.myOutstanding.indexOf(note));
+                // notify the service about this change
+            });
     }
 }

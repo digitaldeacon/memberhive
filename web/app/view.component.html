@@ -28,13 +28,19 @@
                            class="search-box"
                            fxFlex style="text-align: right"></mh-search-box>
 
-            <button md-icon-button [mdMenuTriggerFor]="interactions" mdTooltip="Interactions" class="my-interactions">
-                <md-icon *ngIf="!myOutstanding">forum</md-icon>
-                <b *ngIf="myOutstanding">{{myOutstanding.length}}</b>
+            <button
+                    md-icon-button
+                    [mdMenuTriggerFor]="interactions"
+                    mdTooltip="Interactions"
+                    class="my-interactions"
+                    [class.has-interactions]="myOutstanding?.length">
+                <md-icon *ngIf="!myOutstanding?.length">forum</md-icon>
+                <b *ngIf="myOutstanding?.length">{{myOutstanding.length}}</b>
             </button>
+
             <md-menu #interactions="mdMenu">
-                <div *ngIf="!myOutstanding">No interactions</div>
-                <md-nav-list *ngIf="myOutstanding">
+                <div *ngIf="!myOutstanding?.length">No interactions</div>
+                <md-nav-list *ngIf="myOutstanding?.length">
                     <md-list-item *ngFor="let note of myOutstanding">
                         <span md-list-avatar class="date-rounded">{{note.dueOn | date: 'MMM d'}}</span>
                         <span md-line>{{note.text | slice:0:20}}...</span>

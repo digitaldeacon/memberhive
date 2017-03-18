@@ -106,6 +106,14 @@ class Note extends \yii\db\ActiveRecord
             'id' => $this->id,
             'uid' => $this->uid,
             'text' => $noMarkup ? strip_tags($this->text) : $this->text,
+            'actions' => [
+                'doneOn' => isset($this->personNote) ? $this->personNote->doneOn : null,
+                'completedOn' => isset($this->personNote) ? $this->personNote->completedOn : null,
+                'completedBy' => isset($this->personNote) ? $this->personNote->completedBy : '',
+                'response' => isset($this->personNote) ? $this->personNote->response : '',
+                'delegatedBy' => isset($this->personNote) ? $this->personNote->delegatedBy : '',
+                'delegatedOn' => isset($this->personNote) ? $this->personNote->delegatedOn : null
+            ],
             'author' => [
                 'id' => $this->authorId,
                 'name' => isset($this->author) ? $this->author->fullName : '',
@@ -116,7 +124,6 @@ class Note extends \yii\db\ActiveRecord
             'typeId' => $this->typeId,
             'icon' => $this->type->iconString,
             'dueOn' => $this->dueOn,
-            'doneOn' => $this->personNote->doneOn,
             'isPrivate' => $this->isPrivate,
             'recipients' => $recipients,
             'createdAt' => date('Y-M-d H:i', $this->created_at),

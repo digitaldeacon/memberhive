@@ -64,10 +64,12 @@ md-nav-list {
     right: -1em;
   }
   .my-interactions {
-    background-color: mat-color($mh-app-warn, 400);
     width: 30px;
     height: 30px;
     line-height: 0 !important;
+  }
+  .has-interactions {
+    background-color: mat-color($mh-app-warn, 400);
   }
 }
 .sidenav-container {

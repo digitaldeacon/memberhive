@@ -10,6 +10,8 @@ use Yii;
  * @property int $person_id
  * @property int $note_id
  * @property string $doneOn
+ * @property int $completedBy
+ * @property string $completedOn
  * @property string $response
  * @property int $delegatedBy
  * @property string $delegatedOn
@@ -34,8 +36,8 @@ class PersonNote extends \yii\db\ActiveRecord
     {
         return [
             [['person_id', 'note_id'], 'required'],
-            [['person_id', 'note_id', 'delegatedBy'], 'integer'],
-            [['doneOn', 'delegatedOn'], 'safe'],
+            [['person_id', 'note_id', 'completedBy', 'delegatedBy'], 'integer'],
+            [['doneOn', 'completedOn', 'delegatedOn'], 'safe'],
             [['response'], 'string', 'max' => 255],
             [['note_id'], 'exist', 'skipOnError' => true, 'targetClass' => Note::className(), 'targetAttribute' => ['note_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['person_id' => 'id']],
@@ -51,6 +53,8 @@ class PersonNote extends \yii\db\ActiveRecord
             'person_id' => 'Person ID',
             'note_id' => 'Note ID',
             'doneOn' => 'Done On',
+            'completedBy' => 'Completed By',
+            'completedOn' => 'Completed On',
             'response' => 'Response',
             'delegatedBy' => 'Delegated By',
             'delegatedOn' => 'Delegated On',
@@ -76,7 +80,6 @@ class PersonNote extends \yii\db\ActiveRecord
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
-
         ActionLog::log(
             Note::tableName(),
             $this->person->uid,

@@ -1,4 +1,4 @@
-import { Component, style, state, trigger, ElementRef, OnInit } from '@angular/core';
+import { Component, style, state, trigger, ElementRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
@@ -30,9 +30,10 @@ import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
             /*transition('0 => 1', animate('200ms ease-in')),
             transition('1 => 0', animate('200ms ease-out'))*/
         ])
-    ]
+    ],
+    providers: [InteractionService]
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent implements OnInit, OnChanges {
     private dialogRef: MdDialogRef<any>;
 
     routes: Object[] = [
@@ -65,11 +66,15 @@ export class ViewComponent implements OnInit {
 
     ngOnInit(): void {
         this.currentUser = this._auth.getCurrentUser();
-        this._noteService.getMyInteractions().subscribe((notes: Array<Note>) => {
-            this.myInteractions = notes;
-            this.myOutstanding = this.myInteractions.filter((n: Note) => n.dueOn && !n.doneOn);
-            this._interactionService.setMyInteractions(this.myInteractions);
-        });
+        this._noteService.getMyInteractions()
+            .subscribe((notes: Array<Note>) => {
+                this.myInteractions = notes;
+                this.myOutstanding = this.myInteractions.filter((n: Note) => n.dueOn && !n.actions.doneOn);
+            });
+    }
+
+    ngOnChanges(change: SimpleChanges): void {
+        // console.log(change);
     }
 
     toggleAlwaysVisible(): void {
@@ -105,6 +110,7 @@ export class ViewComponent implements OnInit {
         this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result instanceof Note) {
+                this.myInteractions.push(result);
                 this._shoutService.success('Interaction created!');
             }
             this.dialogRef = undefined;
