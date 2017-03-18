@@ -4,6 +4,8 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Person } from '../../../person/person';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
+import { NoteCreateDialogComponent } from '../../../note/dialogs/note-create.dialog';
+
 @Component({
     selector: 'mh-dashlet-birthdays',
     templateUrl: './dashlet-birthdays.component.html',
@@ -19,9 +21,9 @@ export class DashletBirthdaysComponent implements OnChanges {
     peopleBdToday: Array<Person>;
 
     range: number = 7;
-    dialogRef: MdDialogRef<DashletEditDialogComponent>;
+    dialogRef: MdDialogRef<any>;
 
-    constructor(public dialog: MdDialog) {
+    constructor(private _dialog: MdDialog) {
         this.rangeDate = new Date(this.now);
         this.rangeDate.setDate(this.rangeDate.getDate() + this.range);
     }
@@ -71,12 +73,27 @@ export class DashletBirthdaysComponent implements OnChanges {
         config.data = {
             range: this.range
         };
-        this.dialogRef = this.dialog.open(DashletEditDialogComponent, config);
+        this.dialogRef = this._dialog.open(DashletEditDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: string) => {
             let range: number = +result;
             if (range && range !== this.range) {
                 this.range = range;
                 this.filter();
+            }
+            this.dialogRef = undefined;
+        });
+    }
+
+    interactionsDlg(person: Person): void {
+        let config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            person: person
+        };
+
+        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: any) => {
+            if (result instanceof Person) {
+                // do something
             }
             this.dialogRef = undefined;
         });

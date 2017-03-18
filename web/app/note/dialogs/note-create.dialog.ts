@@ -17,7 +17,8 @@ import { AuthService } from '../../common/auth/auth.service';
     styleUrls: ['./note-create.dialog.scss', '../note-common.styles.scss']
 })
 export class NoteCreateDialogComponent implements OnInit {
-    private author: Person;
+    private _author: Person;
+    private _refPerson: Person;
 
     noteForm: FormGroup;
     noteTypes: Array<NoteType>;
@@ -30,22 +31,22 @@ export class NoteCreateDialogComponent implements OnInit {
     editMode: boolean = false;
     error: string;
 
-    constructor(private fb: FormBuilder,
-                private personService: PersonService,
-                private noteService: NoteService,
-                private auth: AuthService,
-                public dialogRef: MdDialogRef<NoteCreateDialogComponent>,
+    constructor(private _fb: FormBuilder,
+                private _personService: PersonService,
+                private _noteService: NoteService,
+                private _auth: AuthService,
+                private _dialogRef: MdDialogRef<NoteCreateDialogComponent>,
                 @Inject(MD_DIALOG_DATA) public dialogData: any) {
-        this.noteService.getNoteTypes() // TODO: move this into the options table
+        this._noteService.getNoteTypes() // TODO: move this into the options table
             .subscribe((types: Array<NoteType>) => {
                 this.noteTypes = types;
             });
-        this.author = this.auth.getCurrentUser();
+        this._author = this._auth.getCurrentUser();
     }
 
     ngOnInit(): void {
         this.getAllowedContacts();
-        this.noteForm = this.fb.group({
+        this.noteForm = this._fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
             owner: [undefined, [<any>Validators.required]],
@@ -58,7 +59,7 @@ export class NoteCreateDialogComponent implements OnInit {
 
     getAllowedContacts(): void {
         // TODO: get only those users that I can select
-        this.personService.getPersons()
+        this._personService.getPersons()
             .subscribe((people: Array<Person>) => this.allowedContacts = people);
     }
 
@@ -92,15 +93,15 @@ export class NoteCreateDialogComponent implements OnInit {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
-            model.authorId = this.author.uid;
+            model.authorId = this._author.uid;
             if (this.dialogData.note) {
                 model.uid = this.dialogData.note.uid;
             }
-            this.noteService.createNotePerson(model)
+            this._noteService.createNotePerson(model)
                 .subscribe(
                     (note: Note) => {
                         this.noteForm.reset();
-                        this.dialogRef.close(note);
+                        this._dialogRef.close(note);
                         return true;
                     },
                     (error: any) => {
@@ -112,9 +113,10 @@ export class NoteCreateDialogComponent implements OnInit {
     }
 
     private initDefaults(): void {
-        if (this.noteForm && this.author && !this.dialogData.note) {
-            this.noteForm.get('recipients').setValue([this.author.uid]);
+        if (this.noteForm && this._author && !this.dialogData.note) {
+            this.noteForm.get('recipients').setValue([this._author.uid]);
         }
+        // person related interaction
         if (this.dialogData.id && !this.dialogData.note) {
             this.noteForm.get('owner').setValue(this.dialogData.id);
         }
@@ -125,6 +127,12 @@ export class NoteCreateDialogComponent implements OnInit {
             this.noteForm.get('type').setValue(this.note.typeId);
             this.noteForm.get('recipients').setValue(this.note.recipients);
             this.editMode = true;
+        }
+        // birthday interactions
+        if (this.dialogData.person) {
+            this._refPerson = this.dialogData.person;
+            this.noteForm.get('owner').setValue(this._refPerson.uid);
+            this.noteForm.get('dueOn').setValue(this._refPerson.birthday);
         }
     }
 }

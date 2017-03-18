@@ -11,13 +11,12 @@ import { Note } from '../../../note/note';
     styleUrls: ['./dashlet-interactions.component.scss']
 })
 export class DashletInteractionsComponent implements OnChanges {
-
     private now: Date = new Date();
     private rangeDate: Date;
 
     myOutstanding: Array<Note>;
 
-    constructor(public dialog: MdDialog,
+    constructor(private _dialog: MdDialog,
                 private _noteService: NoteService) {
         this._noteService.getMyInteractions()
             .subscribe((notes: Note[]) => {

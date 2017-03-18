@@ -1,7 +1,6 @@
 <md-card class="dashlet-card">
     <md-card-header>
         <md-card-title fxLayout="row" fxLayoutAlign="space-between center">
-            <md-icon>cake</md-icon>
             <h3 i18n>Upcoming Birthdays</h3>
             <div>
                 <button md-icon-button (click)="settingsDlg()"><md-icon>more_vert</md-icon></button>
@@ -21,7 +20,9 @@
                     </div>
                     <div md-line>
                         <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
-                        <a href="javascript:void(0)" i18n>interaction</a>
+                        <a href="javascript:void(0)"
+                           (click)="interactionsDlg(person)"
+                           i18n>interaction</a>
                     </div>
                     <div><b>{{person.age}}</b></div>
                 </md-list-item>
@@ -45,7 +46,9 @@
                         </span>
                         <span md-line>
                             <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
-                            <a href="javascript:void(0)" i18n>reminde me</a>
+                            <a href="javascript:void(0)"
+                               (click)="interactionsDlg(person)"
+                               i18n>reminde me</a>
                         </span>
                     </div>
                     <b>{{person.age}}</b>

@@ -1,7 +1,10 @@
 @import "../../../../theme.scss";
 
 .birthday-notice {
-  color: mat-color($mh-app-warn, A200);
+  font-weight: 200;
+  background: mat-color($mh-app-warn, A200);
+  color: #fff;
+  padding: 8px !important;
 }
 .dashlet-card {
   .mat-card-header {

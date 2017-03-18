@@ -29,13 +29,13 @@
             </div>
 
             <div class="mat-input-wrapper" fxLayout="row">
-                <md-select placeholder="Owner" formControlName="owner">
+                <md-select placeholder="Relates to" i18n-placeholder formControlName="owner">
                     <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
                         {{person.fullName}}
                     </md-option>
                 </md-select>
 
-                <md-select placeholder="Assign to" formControlName="recipients" multiple>
+                <md-select placeholder="Assign to" i18n-placeholder formControlName="recipients" multiple>
                     <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
                         {{person.fullName}}
                     </md-option>
@@ -43,7 +43,7 @@
             </div>
 
             <md-input-container>
-                <input type="date" mdInput placeholder="Complete by" formControlName="dueOn">
+                <input type="date" mdInput placeholder="Complete by" i18n-placeholder formControlName="dueOn">
             </md-input-container>
 
             <div class="mat-input-wrapper" fxLayout="row" fxLayoutAlign="end">
