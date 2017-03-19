@@ -95,6 +95,11 @@ this according to your needs.
 After you have a DB you need to run: `php api/yii migrate`. This will create all necessary tables and set a default user
 with the following credentials: `root/ bibel`.
 
+# DEMO Data
+You can load some sample demo data by running the following command: `php api/yii demo/create-people`.
+
+This will load 50 random profiles into the app. You can play with this data during development.
+
 # Update
 ## NPM
 If you have Memberhive2 installed and want to update the system you have two scripts as part of the package.json:
