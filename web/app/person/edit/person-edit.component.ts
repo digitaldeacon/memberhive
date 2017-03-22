@@ -138,8 +138,8 @@ export class PersonEditComponent implements OnInit {
                     },
                     () => {
                         // recalc lat/long when address has changed
-                        if (this.person.address &&
-                            !_.isEqual(oldAttributes.address, this.person.address)) {
+                        if (model.address &&
+                            !_.isEqual(oldAttributes.address, model.address)) {
                             this.calcGeocode(model.address);
                         }
                     }
