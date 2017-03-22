@@ -15,6 +15,7 @@ Memberhive is a **church relationship management system** (CRMS). Our focus is f
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
 ## High-Level Items for April
+_In order of importance_
 - [ ] Layout fixes desktop (#56)
 - [ ] Layout fixes mobile (#56)
 - [ ] Interactions (#19)
