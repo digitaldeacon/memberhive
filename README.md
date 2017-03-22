@@ -14,6 +14,15 @@ Memberhive is a **church relationship management system** (CRMS). Our focus is f
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
+## High-Level Items for April
+- [ ] Layout fixes desktop (#56)
+- [ ] Layout fixes mobile (#56)
+- [ ] Interactions (#19)
+- [ ] Dashboard: Interactions (#60)
+- [ ] Deployment (Ansible) (#42)
+- [ ] Upgrade to Angular4 (when dependencies are ready)(#63)
+- [ ] Tags (depends on Material2 chips/ autocomplete)(#42)
+
 ## Contribute
 If you care to contribute you should bring some of the following skills to the table:
 + Good experience with Angular development
