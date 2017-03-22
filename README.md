@@ -18,8 +18,9 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 
 ## High-Level Items for April
 _In order of importance_
-- [ ] Layout fixes desktop (#56)
-- [ ] Layout fixes mobile (#56)
+- [x] Layout fixes desktop (#56)
+- [x] Layout fixes mobile (#56)
+- [ ] Display fixes Safari (input elements) (#56)
 - [ ] Interactions (#19)
 - [ ] Dashboard: Interactions (#60)
 - [ ] Deployment (Ansible) (#42)
