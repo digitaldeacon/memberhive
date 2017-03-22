@@ -1,7 +1,7 @@
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon><span>Prev</span></a>
-        <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs style="width:80px">
+        <button md-button (click)="prevPerson()" [disabled]="!hasMorePeople"><md-icon>chevron_left</md-icon><span>Prev</span></button>
+        <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
         <a md-button (click)="nextPerson()"><span i18n>Next</span><md-icon>chevron_right</md-icon></a>
     </div>
     <md-card class="person-card" fxFlex>
@@ -17,7 +17,7 @@
                         <md-chip>Begrüßungsdienst</md-chip>
                     </md-chip-list>
                 </md-card-title>
-                <md-card-subtitle fxLayout.gt-xs="row" fyLayout.xs="column">
+                <md-card-subtitle fyLayout.xs="column">
                     <div><md-icon>cake</md-icon>{{person?.birthday | date: 'longDate'}}</div>
                     <div><md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
                     <div *ngIf="person?.phoneHome"><md-icon>phone</md-icon><a href="tel:{{person.phoneHome}}">{{person.phoneHome}}</a></div>
@@ -33,13 +33,16 @@
             <a md-button (click)="prevPerson()" fxHide.xs><md-icon>chevron_left</md-icon>Prev</a>
             <a md-button (click)="nextPerson()" fxHide.xs>Next<md-icon>chevron_right</md-icon></a>
             <button md-raised-button (click)="openDlgInteractions()" color="accent">
-                <md-icon>queue</md-icon> Interactions</button>
+                <md-icon>forum</md-icon> <span fxHide.xs i18n>Interactions</span></button>
             <button md-raised-button (click)="openDlgRelationships()" color="accent">
-                <md-icon>loyalty</md-icon> Relationships</button>
+                <md-icon>loyalty</md-icon> <span fxHide.xs i18n>Relationships</span></button>
             <button md-raised-button (click)="openDlgAvatar()" color="accent">
-                <md-icon>camera</md-icon> Avatar</button>
+                <md-icon>camera</md-icon> <span fxHide.xs i18n>Avatar</span></button>
         </md-card-actions>
-        <md-divider></md-divider>
+
+    </md-card>
+    <md-divider></md-divider>
+    <md-card>
         <md-card-content>
             <md-tab-group>
                 <md-tab label="Interactions">

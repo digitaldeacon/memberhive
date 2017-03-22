@@ -1,6 +1,6 @@
 .person-card {
   .person-card-header {
-    height: 100px;
+
     img[md-card-avatar] {
       height: 100px;
       width: 100px;
@@ -22,6 +22,10 @@
 
 .mobile-avatar {
   padding-bottom: 10px;
+  img[md-card-avatar] {
+    height: 60px;
+    width: 60px;
+  }
 }
 
 .avatar-container {

@@ -24,14 +24,14 @@ export class PersonViewComponent implements OnInit {
     people: Array<Person>;
     person: Person;
     dialogRef: MdDialogRef<any>;
-    lastCloseResult: string;
+    hasMorePeople: boolean = false;
 
     constructor(private _titleService: TitleService,
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _personService: PersonService,
                 private _noteService: NoteService,
-                public _dialog: MdDialog) {
+                private _dialog: MdDialog) {
     }
 
     ngOnInit(): void {
@@ -52,12 +52,14 @@ export class PersonViewComponent implements OnInit {
                     this.people = people;
                     let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
                     idx--;
+                    this.hasMorePeople = (idx > 0);
                     if (this.people[idx]) {
                         this._router.navigate(['/person/view', this.people[idx].uid]);
                     }
                 });
     }
     nextPerson(): void {
+        this.hasMorePeople = true;
         this._personService.getPersons() // TODO: get them from the cache
             .subscribe(
                 (people: Array<Person>) => {
@@ -73,7 +75,7 @@ export class PersonViewComponent implements OnInit {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
 
         this.dialogRef.afterClosed().subscribe((result: string) => {
-            this.lastCloseResult = result;
+            // this.lastCloseResult = result;
             this.dialogRef = undefined;
         });
     }

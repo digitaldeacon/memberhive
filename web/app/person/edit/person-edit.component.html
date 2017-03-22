@@ -3,8 +3,9 @@
       [formGroup]="form"
       novalidate
       (ngSubmit)="save(form.value, form.valid)"
-      [fxLayout]="row">
-    <fieldset fxFlex.sm="50">
+      fxLayout.gt-sm="row"
+      fxLayout.xs="column">
+    <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
         <legend>Personal</legend>
         <div>
             <md-input-container fxFlex>
@@ -67,7 +68,7 @@
             </md-input-container>
         </div>
     </fieldset>
-    <div fxFlex.sm="50" fxFlexOffset="20px" >
+    <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
         <fieldset formGroupName="user">
             <legend i18n>Account</legend>
             <div>
