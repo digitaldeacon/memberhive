@@ -1,6 +1,6 @@
 @import "../theme.scss";
 
-html, body, mh-app, md-sidenav-container, .my-content {
+html, body, mh-app, md-sidenav-container {
   margin: 0;
   width: 100%;
   height: 100%;
@@ -8,24 +8,27 @@ html, body, mh-app, md-sidenav-container, .my-content {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .main-content {
-    padding: 1em;
-    box-sizing: border-box;
-  }
-  .mat-sidenav {
-    min-width: 20%;
-    .mat-button {
-      width: 100%;
-      position: relative;
-      bottom: 0;
-      margin: 24px 0;
+  main {
+    min-height: 100%;
+    .main-content {
+      padding: 1em;
+      box-sizing: border-box;
     }
-  }
-  .mat-toolbar {
-    box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
-    z-index: 1;
-    .mat-icon {
-      cursor: pointer;
+    .mat-sidenav {
+      min-width: 30vw;
+      .mat-button {
+        width: 100%;
+        position: relative;
+        bottom: 0;
+        margin: 24px 0;
+      }
+    }
+    .mat-toolbar {
+      box-shadow: 0 2px 1px -1px rgba(0,0,0,.2), 0 1px 1px 0 rgba(0,0,0,.14), 0 1px 3px 0 rgba(0,0,0,.12);
+      z-index: 1;
+      .mat-icon {
+        cursor: pointer;
+      }
     }
   }
 }

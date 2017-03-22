@@ -11,10 +11,11 @@
                 <h4 md-line>{{item.title}}</h4>
             </a>
         </md-nav-list>
+        <hr>
         <button md-button (click)="sidenav.close()" i18n>CLOSE</button>
     </md-sidenav>
 
-    <div class="top-toolbar">
+    <header class="top-toolbar">
         <md-toolbar color="primary">
             <button md-icon-button
                     (click)="sidenav.open()"
@@ -64,10 +65,14 @@
             </md-menu>
 
         </md-toolbar>
-    </div>
+    </header>
 
-    <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-        <div class="drawer" fxFlex="200px" fxHide.xs fxHide.sm [@drawer]="drawerVisible">
+    <main fxLayout="row">
+        <div class="drawer"
+             fxFlex="200px"
+             fxHide.xs
+             fxHide.sm
+             [@drawer]="drawerVisible">
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{currentUser.avatar}}" alt="{{currentUser.fullName}}" />
@@ -89,13 +94,13 @@
                 </a>
             </md-nav-list>
         </div>
-        <div fxFlex fxLayout="column" fxLayoutAlign="start stretch">
+        <div fxFlex fxLayout="column" fxFill>
             <md-toolbar>
                 <h4>{{_titleService.getTitle()}}</h4>
             </md-toolbar>
-            <div class="main-content">
+            <div class="main-content" fxFlex>
                 <router-outlet></router-outlet>
             </div>
         </div>
-    </div>
+    </main>
 </md-sidenav-container>
