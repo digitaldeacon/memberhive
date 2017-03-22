@@ -17,14 +17,17 @@
 
     <header class="top-toolbar">
         <md-toolbar color="primary">
+
             <button md-icon-button
                     (click)="sidenav.open()"
                     class="burger"
                     fxHide
                     fxShow.xs
                     fxShow.sm><md-icon class="md-24">menu</md-icon></button>
+
             <md-icon class="md-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></md-icon>
             <span fxHide.xs class="material-label mdl-badge" data-badge="2">MemberHive</span>
+
             <mh-search-box #searchInput
                            class="search-box"
                            fxFlex style="text-align: right"></mh-search-box>
@@ -33,7 +36,6 @@
                     md-icon-button
                     [mdMenuTriggerFor]="interactions"
                     mdTooltip="Interactions"
-                    class="my-interactions"
                     [class.has-interactions]="myOutstanding?.length">
                 <md-icon *ngIf="!myOutstanding?.length">forum</md-icon>
                 <b *ngIf="myOutstanding?.length">{{myOutstanding.length}}</b>

@@ -66,13 +66,11 @@ md-nav-list {
     top: -1em;
     right: -1em;
   }
-  .my-interactions {
+  .has-interactions {
+    background-color: mat-color($mh-app-warn, 400);
     width: 30px;
     height: 30px;
     line-height: 0 !important;
-  }
-  .has-interactions {
-    background-color: mat-color($mh-app-warn, 400);
   }
 }
 .sidenav-container {
