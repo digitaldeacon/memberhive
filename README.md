@@ -1,7 +1,9 @@
 # Memberhive v2
 <img src="http://memberhive.com/images/mh-logo.png" alt="Logo Memberhive" width="300px" />
 
-[![travis](https://travis-ci.org/digitaldeacon/memberhive2.svg?branch=master)](https://travis-ci.org/digitaldeacon/memberhive2)
+[![travis](https://travis-ci.org/digitaldeacon/memberhive2.svg?branch=master)](https://travis-ci.org/digitaldeacon/memberhive2) 
+[![Dependency Status][david-badge]][david-badge-url]
+[![devDependency Status][david-dev-badge]][david-dev-badge-url]
 
 ## Note
 MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
@@ -13,6 +15,16 @@ Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeac
 Memberhive is a **church relationship management system** (CRMS). Our focus is facilitating pastoral relationships within small and mid-sized churches.
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
+
+## High-Level Items for April
+_In order of importance_
+- [ ] Layout fixes desktop (#56)
+- [ ] Layout fixes mobile (#56)
+- [ ] Interactions (#19)
+- [ ] Dashboard: Interactions (#60)
+- [ ] Deployment (Ansible) (#42)
+- [ ] Upgrade to Angular4 (when dependencies are ready)(#63)
+- [ ] Tags (depends on Material2 chips/ autocomplete)(#42)
 
 ## Contribute
 If you care to contribute you should bring some of the following skills to the table:
@@ -125,3 +137,8 @@ Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command 
 
 + Undo all migrations : `php api/yii migrate/down all --interactive=0`
 + Then redo all migrations again: `php api/yii migrate`
+
+[david-badge]: https://david-dm.org/digitaldeacon/memberhive2.svg
+[david-badge-url]: https://david-dm.org/digitaldeacon/memberhive2
+[david-dev-badge]: https://david-dm.org/digitaldeacon/memberhive2/dev-status.svg
+[david-dev-badge-url]: https://david-dm.org/digitaldeacon/memberhive2?type=dev
