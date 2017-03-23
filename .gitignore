@@ -1,13 +1,12 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
-/dist
-/tmp
-/src
-/e2e
+web/dist
+web/tmp
+web/e2e
 
 # dependencies
-/node_modules
+web/node_modules
 api/vendor
 api/shares.sec
 
@@ -31,16 +30,16 @@ api/shares.sec
 /connect.lock
 /coverage/*
 /libpeerconnection.log
-npm-debug.log
+*.log
 testem.log
-/typings
+web/typings
 /files/*
-/web/assets/images/avatar/person/*
+/web/assets/src/images/avatar/person/*
 deploy/
 
 # e2e
-/e2e/*.js
-/e2e/*.map
+web/e2e/*.js
+web/e2e/*.map
 
 #System Files
 .DS_Store
@@ -50,6 +49,7 @@ Thumbs.db
 *.metadata.json
 *.map.js
 *.js  # or /src/**/*.js
+*.xlf
 
 #deploy
 /deploy/ansible/*
