@@ -47,7 +47,7 @@ export class AvatarEditDialogComponent implements OnInit {
     fileChangeListener($event: any): void {
         let image: any = new Image();
         let myReader: FileReader = new FileReader();
-        this.file = $event;
+        this.file = $event.target.files[0]; // $event;
         let that: AvatarEditDialogComponent = this;
 
         myReader.onloadend = function(loadEvent: any): void {

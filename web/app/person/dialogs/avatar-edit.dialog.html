@@ -1,7 +1,7 @@
 <h2 md-dialog-title i18n>Manage my profile picture</h2>
 <md-dialog-content>
     <div>
-        <div class="mat-input-wrapper">
+        <div class="mat-input-wrapper file-upload">
             <!--<td-file-upload defaultColor="accent"
                             activeColor="warn"
                             cancelColor="primary"
@@ -12,6 +12,7 @@
                     <md-icon>attach_file</md-icon><span i18n>Choose a file...</span>
                 </template>
             </td-file-upload>-->
+            <input id="avatar-input" type="file" (change)="fileChangeListener($event)">
         </div>
 
         <img-cropper #cropper [image]="imageData" [settings]="cropperSettings"></img-cropper>
