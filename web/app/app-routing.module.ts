@@ -19,6 +19,10 @@ export const routes: Routes = [
                 loadChildren: './person/person.module#PersonModule'
             },
             {
+                path: 'note',
+                loadChildren: './note/note.module#NoteModule'
+            },
+            {
                 path: 'dashboard',
                 loadChildren: './dashboard/dashboard.module#DashboardModule'
             }

@@ -69,7 +69,7 @@ export class NoteService {
             .map((r: any) => r);
     }
 
-    // serialiers
+    // serializers
     private deserialize(resp: any): Note {
         return new Note().deserialize(resp.response);
     }

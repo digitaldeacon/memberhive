@@ -1,0 +1,73 @@
+<form class="note-form"
+      [formGroup]="noteForm"
+      novalidate
+      (ngSubmit)="save(noteForm.value, noteForm.valid)">
+
+  <md-card>
+    <md-card-content>
+      <div class="mat-input-wrapper muted" *ngIf="editMode">
+        <b i18n>Created:</b> {{note.createdAt}},
+        <b i18n>Updated:</b> {{note.updatedAt}}
+      </div>
+
+      <div class="mat-input-wrapper">
+        <mh-tinymce [elementId]="'note-editor'"
+                    [inline]="false"
+                    formControlName="text"></mh-tinymce>
+      </div>
+
+      <div class="mat-input-wrapper" fxFlex>
+        <label i18n for="typeSelect">Type:</label>
+        <md-button-toggle-group id="typeSelect" formControlName="type">
+          <md-button-toggle value="{{noteType.id}}"
+                            mdTooltip="{{noteType.type | uppercase}}"
+                            *ngFor="let noteType of noteTypes">
+            <md-icon>{{noteType.iconString}}</md-icon>
+          </md-button-toggle>
+        </md-button-toggle-group>
+      </div>
+
+      <div class="mat-input-wrapper" fxFlex fxLayout="row">
+        <md-select placeholder="Relates to" i18n-placeholder formControlName="owner">
+          <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+            {{person.fullName}}
+          </md-option>
+        </md-select>
+
+        <md-select placeholder="Assign to" i18n-placeholder formControlName="recipients" multiple>
+          <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+            {{person.fullName}}
+          </md-option>
+        </md-select>
+      </div>
+
+      <md-input-container>
+        <input type="date" mdInput placeholder="Complete by" i18n-placeholder formControlName="dueOn">
+      </md-input-container>
+    </md-card-content>
+    <md-card-actions>
+      <button
+              md-raised-button
+              type="submit"
+              color="primary"
+              [disabled]="!noteForm.valid">
+        <span *ngIf="!editMode" i18n>Note it!</span>
+        <span *ngIf="editMode" i18n>Update</span>
+      </button>
+      <button md-raised-button
+              md-button
+              (click)="clearForm()"
+              *ngIf="!editMode"
+              i18n>
+        <md-icon>clear</md-icon> Clear</button>
+      <button md-button
+              md-button
+              *ngIf="returnToRoute"
+              [routerLink]="[returnToRoute]"
+              i18n>
+        <md-icon>arrow_back</md-icon> Cancel</button>
+    </md-card-actions>
+  </md-card>
+
+</form>
+<pre *ngIf="error">{{ error | json }}</pre>

@@ -1,4 +1,5 @@
 import { Component, style, state, trigger, ElementRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
@@ -60,8 +61,9 @@ export class ViewComponent implements OnInit, OnChanges {
                 private _interactionService: InteractionService,
                 private _auth: AuthService,
                 private _noteService: NoteService,
-                public _dialog: MdDialog,
-                private _element: ElementRef) {
+                private _element: ElementRef,
+                private _router: Router,
+                public _dialog: MdDialog) {
     }
 
     ngOnInit(): void {
@@ -115,5 +117,9 @@ export class ViewComponent implements OnInit, OnChanges {
             }
             this.dialogRef = undefined;
         });
+    }
+    createInteraction(): void {
+        this._interactionService.setLastRoute(this._router.url);
+        this._router.navigate(['/note/create']);
     }
 }

@@ -4,6 +4,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { TitleService } from "../../common/title.service";
 import { PersonService } from "../person.service";
+import { InteractionService } from "../../common/interaction.service";
 import { Person } from "../person";
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -31,6 +32,7 @@ export class PersonViewComponent implements OnInit {
                 private _route: ActivatedRoute,
                 private _personService: PersonService,
                 private _noteService: NoteService,
+                private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
     }
 
@@ -109,5 +111,10 @@ export class PersonViewComponent implements OnInit {
             }
             this.dialogRef = undefined;
         });
+    }
+    createInteraction(): void {
+        this._interactionService.init(this.person);
+        this._interactionService.setLastRoute(this._router.url);
+        this._router.navigate(['/note/create']);
     }
 }
