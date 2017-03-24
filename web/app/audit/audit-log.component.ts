@@ -12,7 +12,7 @@ import { Person } from "../person/person";
 })
 export class AuditLogComponent implements OnInit, OnChanges {
 
-    private logs: Array<ActionLog>;
+    logs: Array<ActionLog>;
     @Input() person: Person;
 
     constructor(private route: ActivatedRoute,

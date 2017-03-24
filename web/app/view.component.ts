@@ -1,4 +1,5 @@
-import { Component, style, state, trigger, ElementRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, ElementRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { trigger, state, style } from '@angular/animations';
 import { Router } from '@angular/router';
 
 import { TitleService } from './common/title.service';
@@ -56,14 +57,14 @@ export class ViewComponent implements OnInit, OnChanges {
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
 
-    constructor(private _titleService: TitleService,
-                private _shoutService: ShoutService,
+    constructor(private _shoutService: ShoutService,
                 private _interactionService: InteractionService,
                 private _auth: AuthService,
                 private _noteService: NoteService,
                 private _element: ElementRef,
                 private _router: Router,
-                public _dialog: MdDialog) {
+                private _dialog: MdDialog,
+                public titleService: TitleService) {
     }
 
     ngOnInit(): void {
@@ -101,7 +102,7 @@ export class ViewComponent implements OnInit, OnChanges {
     }
 
     isActiveItem(title: any): boolean {
-        return this._titleService.getModule() === title;
+        return this.titleService.getModule() === title;
     }
 
     openDlgInteractions(): void {
