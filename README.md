@@ -26,7 +26,6 @@ _In order of importance_
 - [ ] Interactions (#19)
 - [ ] Display fixes Safari (input elements) (#56)
 - [ ] Deployment (Ansible) (#42)
-- [ ] Upgrade to Angular4 (when dependencies are ready)(#63)
 - [ ] Tags (depends on Material2 chips/ autocomplete)(#42)
 
 ## Contribute
