@@ -1,11 +1,13 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # compiled output
+dist
 web/dist
 web/tmp
 web/e2e
 
 # dependencies
+node_modules
 web/node_modules
 api/vendor
 api/shares.sec
