@@ -20,9 +20,10 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 _In order of importance_
 - [x] Layout fixes desktop (#56)
 - [x] Layout fixes mobile (#56)
-- [ ] Display fixes Safari (input elements) (#56)
-- [ ] Interactions (#19)
+- [ ] Structure rework for Ionic2 and shared code (#64)
 - [ ] Dashboard: Interactions (#60)
+- [ ] Interactions (#19)
+- [ ] Display fixes Safari (input elements) (#56)
 - [ ] Deployment (Ansible) (#42)
 - [ ] Upgrade to Angular4 (when dependencies are ready)(#63)
 - [ ] Tags (depends on Material2 chips/ autocomplete)(#42)
