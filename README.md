@@ -20,6 +20,7 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 _In order of importance_
 - [x] Layout fixes desktop (#56)
 - [x] Layout fixes mobile (#56)
+- [x] Upgrade to Angular4 (#63)
 - [ ] Structure rework for Ionic2 and shared code (#64)
 - [ ] Dashboard: Interactions (#60)
 - [ ] Interactions (#19)
@@ -38,11 +39,11 @@ If you care to contribute you should bring some of the following skills to the t
 See also *Dependencies* below.
 
 ## Dependencies
-- Angular (v2.4.8, with angular/cli and AOT compilation)
+- Angular (v4.0.0, with angular/cli and AOT compilation)
 - Yii2
-- Typescript2
+- Typescript2 (2.2.1)
 - MariaDB/MySQL
-- PHP7
+- PHP7 (7.0)
 - Material2 (using angular/flex-layout)
 
 ## Caveat
@@ -79,25 +80,39 @@ I.e. you may fork but not resell.
 # Install
 
 ## Prerequisites
+### Node/NPM
+You will need to have node installed, in order to get NPM as package manager. [Check this out](https://docs.npmjs.com/getting-started/installing-node) for instructions on how to install node.
+
+Also refer to the heading below (Package Managing) for additional infos.
+
+### PHP
 You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
 
 On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
 
+### DB
 Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any system, and we are not using system specific features (such as JSON fields), you are welcome to use another system (at your own risk).
+
+### Package Managing
+You have two choices for a manager: ***npm*** or ***yarn***. 
+
+In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
 
 ## Installation
 If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
 
 Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
+This repo has been checked against Node v.7.7.1 (npm v.4.4.1).
+
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
 nvm install 6.9
 nvm use 6.9
 nvm alias default 6.9
-npm i -g angular-cli@latest typescript@2.0.10 tslint
+npm i -g angular-cli@latest typescript@2.2.1 tslint
 git clone git@github.com:digitaldeacon/memberhive2.git
 cd memberhive2
-npm install
+npm install (or yarn)
 cd api 
 composer install
 ```
@@ -114,24 +129,32 @@ You can load some sample demo data by running the following command: `php api/yi
 
 This will load 50 random profiles into the app. You can play with this data during development.
 
-# Update
+# Update/ Upgrade
+In case you are updating from a version that was dependent on Angular2.4 you need to make sure that you follow the [instructions](https://github.com/angular/angular-cli/wiki/stories-1.0-update) from the angular/angular-cli project closely. This requires that you:
++ first uninstall the cli globally
++ clean your npm cache
++ add the latest version of angular-cli back in (globally)
++ make sure that you have your global TypeScript up to 2.2.1 (in case you have one globally installed)
++ remove your old node_modules folder
++ in case you used yarn before, make sure you do not have a .yarnclean file
++ reinstall (via ***npm*** or ***yarn***)
+
 ## NPM
-If you have Memberhive2 installed and want to update the system you have two scripts as part of the package.json:
 + ```npm run clean-update``` (reinstall NPM and Composer packages)
 + ```npm run clean-install``` (reinstall NPM and Composer packages + new Angular-CLI)
 
 ## YARN (what we use now)
-Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command for updating is: `yarn upgrade`.
+Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command for updating is: `yarn upgrade` (which will automatically remove your node_modules/ folder).
 
 # Developing
 
 ## Serve App
-`npm start` or `yarn run start`
+`npm start` or `yarn start`
 
 ## Linting your code
-**Everything**: `yarn run lint`
+**Everything**: `yarn lint`
 
-**Typescript**: `yarn run tslint` or `npm run tslint`
+**Typescript**: `yarn tslint` or `npm run tslint`
 
 **PHP**: `yarn run phplint` or `npm run phplint`
 
