@@ -11,16 +11,17 @@ import { Person } from "../person/person";
 
 @Injectable()
 export class InteractionService {
-    interactions: Observable<Note[]>;
-    myInteractions: Observable<Note[]>;
     private _interactions: BehaviorSubject<Note[]>;
     private _myInteractions: BehaviorSubject<Note[]>;
     private _dataStore: {
         interactions: Note[],
         myInteractions: Note[]
-    }
+    };
     private _lastRoute: string;
     private _me: Person;
+
+    interactions: Observable<Note[]>;
+    myInteractions: Observable<Note[]>;
 
     constructor(private _noteService: NoteService,
                 private _auth: AuthService,
@@ -40,17 +41,19 @@ export class InteractionService {
         this._noteService.getMyInteractions()
             .subscribe((notes: Array<Note>) => {
                 this._dataStore.myInteractions = notes;
-                this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions)
+                this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
             },
-            error => console.log('Could not load your interactions: ' + error));
+            (error: any) => {
+            // console.log('Could not load your interactions: ' + error)
+        });
     }
 
     loadAll(): void {
-
+        // load all
     }
 
     load(id: number | string): void {
-
+        // load single
     }
 
     create(interaction: Note): void {
@@ -59,29 +62,29 @@ export class InteractionService {
                 (newInteraction: Note) => {
                    this._dataStore.interactions.push(newInteraction);
                    this._interactions.next(Object.assign({}, this._dataStore).interactions);
-                   if (newInteraction.recipients.find((n: any) => n == this._me.uid)) {
+                   if (newInteraction.recipients.find((uid: any) => uid === this._me.uid)) {
                        this._dataStore.myInteractions.push(newInteraction);
                        this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
                    }
-                    this._shout.success('Note created');
+                   this._shout.success('Note created');
                 },
                 (error: any) => {
-                    console.log('Error: ' + error);
+                    // console.log('Error: ' + error);
                 }
             );
     }
 
     update(interaction: Note): void {
-
+        // update
     }
 
     remove(id: number | string): void {
         this._noteService.endInteraction(id)
             .subscribe((r: any) => {
-                this._dataStore.interactions.forEach((t, i) => {
+                this._dataStore.interactions.forEach((t: any, i: number) => {
                     if (t.id === id) { this._dataStore.interactions.splice(i, 1); }
                 });
-                this._dataStore.myInteractions.forEach((t, i) => {
+                this._dataStore.myInteractions.forEach((t: any, i: number) => {
                     if (t.id === id) { this._dataStore.myInteractions.splice(i, 1); }
                 });
             });
@@ -90,8 +93,7 @@ export class InteractionService {
     complete(id: number | string, checked: boolean): void {
         this._noteService.completeInteraction(id, checked)
             .subscribe((data: any) => {
-            console.log(data);
-                this._dataStore.myInteractions.forEach((t, i) => {
+                this._dataStore.myInteractions.forEach((t: any, i: number) => {
                     if (t.id === data.id) { this._dataStore.myInteractions[i] = data; }
                 });
                 this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
@@ -101,6 +103,7 @@ export class InteractionService {
     getLastRoute(): string {
         return this._lastRoute;
     }
+
     setLastRoute(route: string): void {
         this._lastRoute = route;
     }

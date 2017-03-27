@@ -5,14 +5,14 @@ import { Observable } from 'rxjs/Observable';
 
 import { TitleService } from './common/title.service';
 import { AuthService } from './common/auth/auth.service';
-import { ShoutService } from "./common/shout.service";
+import { ShoutService } from './common/shout.service';
 import { InteractionService } from './common/interaction.service';
 
 import { Person } from './person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { Note } from "./note/note";
-import { NoteService } from "./note/note.service";
+import { Note } from './note/note';
+import { NoteService } from './note/note.service';
 import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
 
 @Component({
@@ -56,21 +56,21 @@ export class ViewComponent implements OnInit {
     alwaysVisible: boolean = false;
     drawerVisible: boolean = false;
 
-    constructor(private _titleService: TitleService,
-                private _shoutService: ShoutService,
+    constructor(private _shoutService: ShoutService,
                 private _interactionService: InteractionService,
                 private _auth: AuthService,
                 private _noteService: NoteService,
                 private _element: ElementRef,
                 private _router: Router,
-                public _dialog: MdDialog) {
+                public _dialog: MdDialog,
+                public titleService: TitleService) {
     }
 
     ngOnInit(): void {
         this.currentUser = this._auth.getCurrentUser();
         this.myInteractions = this._interactionService.myInteractions;
-        this.myOutstanding = this.myInteractions.map((n: Note[]) =>
-            n.filter((n: Note) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
+        this.myOutstanding = this.myInteractions.map((data: Note[]) =>
+            data.filter((n: Note) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
         );
         this._interactionService.loadMy();
     }
@@ -80,7 +80,7 @@ export class ViewComponent implements OnInit {
     }
 
     toggleFullscreen(): void {
-        let elem: any = this._element.nativeElement.querySelector('.demo-content');
+        const elem: any = this._element.nativeElement.querySelector('.demo-content');
         if (elem.requestFullscreen) {
             elem.requestFullscreen();
         } else if (elem.webkitRequestFullScreen) {
@@ -97,11 +97,11 @@ export class ViewComponent implements OnInit {
     }
 
     isActiveItem(title: any): boolean {
-        return this._titleService.getModule() === title;
+        return this.titleService.getModule() === title;
     }
 
     openDlgInteractions(): void {
-        let config: MdDialogConfig = new MdDialogConfig();
+        const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
         };
 

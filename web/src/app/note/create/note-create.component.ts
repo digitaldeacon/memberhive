@@ -101,8 +101,8 @@ export class NoteCreateComponent implements OnInit {
   }
 
   private initDefaults(): void {
-    //this._refPerson = this._interactionService.getPersonNoted();
-    //this.refNote = this._interactionService.getNote();
+    // this._refPerson = this._interactionService.getPersonNoted();
+    // this.refNote = this._interactionService.getNote();
     this.returnToRoute = this._interactionService.getLastRoute();
 
     if (this.noteForm && this._author) {

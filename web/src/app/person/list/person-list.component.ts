@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TitleService } from '../../common/title.service';
-import { PersonService } from "../person.service";
-import { Person } from "../person";
+import { PersonService } from '../person.service';
+import { Person } from '../person';
 
 @Component({
     moduleId: 'mh-person',

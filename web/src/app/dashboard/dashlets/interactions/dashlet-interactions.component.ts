@@ -26,8 +26,8 @@ export class DashletInteractionsComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.myInteractions = this._interactionService.myInteractions;
-        this.myOutstanding = this.myInteractions.map((n: Note[]) =>
-            n.filter((n: Note) => n.dueOn && !n.actions.doneOn)
+        this.myOutstanding = this.myInteractions.map((data: Note[]) =>
+            data.filter((note: Note) => note.dueOn && !note.actions.doneOn)
         );
         this._interactionService.loadMy();
     }

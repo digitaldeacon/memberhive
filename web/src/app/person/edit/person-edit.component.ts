@@ -4,11 +4,11 @@ import { DatePipe } from '@angular/common';
 
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
-import { ENTER } from "@angular/material";
+import { ENTER } from '@angular/material';
 
-import { TitleService } from "../../common/title.service";
-import { ShoutService } from "../../common/shout.service";
-import { PersonService } from "../person.service";
+import { TitleService } from '../../common/title.service';
+import { ShoutService } from '../../common/shout.service';
+import { PersonService } from '../person.service';
 import { AuthService } from '../../common/auth/auth.service';
 import { Person, PersonAddress } from '../person';
 
@@ -22,6 +22,7 @@ import * as _ from 'lodash';
 
 export class PersonEditComponent implements OnInit {
 
+    // TODO: move this out with new state services
     private _data: any = new BehaviorSubject<Person[]>([]);
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
@@ -39,6 +40,7 @@ export class PersonEditComponent implements OnInit {
     separatorKeys: Array<any> = [ENTER, 186]; // for the chip list, separators
     persons: Array<Person>;
 
+    // TODO: move this out with new state services
     @Output() personChange: EventEmitter<Person> = new EventEmitter();
 
     constructor(private shout: ShoutService,
@@ -65,7 +67,7 @@ export class PersonEditComponent implements OnInit {
         this._data
             .subscribe((x: Person) => {
                 if (this.person) {
-                    let address: PersonAddress = new PersonAddress(this.person['address']);
+                    const address: PersonAddress = new PersonAddress(this.person['address']);
 
                     this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
                     this._pwRandCheckbox = this.fb.control(this.randomPassword);
@@ -114,7 +116,7 @@ export class PersonEditComponent implements OnInit {
     }
 
     save(model: Person, isValid: boolean): void {
-        let oldAttributes: Person = this.person;
+        const oldAttributes: Person = this.person;
         this.submitted = true;
         model.uid = this.person.uid;
         model.id = this.person.id;
@@ -129,7 +131,7 @@ export class PersonEditComponent implements OnInit {
                             this.auth.setCurrentUser(person); // i.e. update my own card
                         }
                         this.toggleRandomPassword();
-                        this.shout.success('Successfully updated "' + person.fullName + '"');
+                        this.shout.success('Successfully updated ' + person.fullName);
                         return true;
                     },
                     (error: any) => {
@@ -148,11 +150,11 @@ export class PersonEditComponent implements OnInit {
     }
 
     calcGeocode(address: any): boolean {
-        let adr: string;
-        let column: any = {
+        const column: any = {
             name: '',
             value: ''
         };
+        let adr: string;
 
         adr = address.home.street ? address.home.street : '';
         adr += address.home.zip ? ', ' + address.home.zip : '';

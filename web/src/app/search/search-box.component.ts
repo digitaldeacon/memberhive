@@ -2,8 +2,8 @@ import { Component, ViewChild, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { MdInputDirective } from '@angular/material';
-import { SearchService } from "./search.service";
-import { Router } from "@angular/router";
+import { SearchService } from './search.service';
+import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';

@@ -1,9 +1,11 @@
 <?php
 namespace app\models;
+
 use Yii;
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
+
 /**
  * This is the model class for table "user".
  *

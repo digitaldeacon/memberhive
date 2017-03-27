@@ -1,17 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
+import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { TitleService } from "../../common/title.service";
-import { PersonService } from "../person.service";
-import { InteractionService } from "../../common/interaction.service";
-import { Person } from "../person";
+import { TitleService } from '../../common/title.service';
+import { PersonService } from '../person.service';
+import { InteractionService } from '../../common/interaction.service';
+import { Person } from '../person';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
-import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
+import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 
-import { Note } from "../../note/note";
-import { NoteService } from "../../note/note.service";
+import { Note } from '../../note/note';
+import { NoteService } from '../../note/note.service';
 import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog';
 
 @Component({
@@ -82,7 +82,7 @@ export class PersonViewComponent implements OnInit {
         });
     }
     openDlgAvatar(): void {
-        let config: MdDialogConfig = new MdDialogConfig();
+        const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
             context: 'person',
             id: this.person.uid,
@@ -99,7 +99,7 @@ export class PersonViewComponent implements OnInit {
         });
     }
     openDlgInteractions(): void {
-        let config: MdDialogConfig = new MdDialogConfig();
+        const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
             id: this.person.uid
         };
@@ -113,7 +113,7 @@ export class PersonViewComponent implements OnInit {
         });
     }
     createInteraction(): void {
-        //this._interactionService.init(this.person);
+        // this._interactionService.init(this.person);
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/note/create']);
     }

@@ -1,8 +1,8 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
-import { PersonService } from "../person.service";
-import { Person } from "../person";
+import { PersonService } from '../person.service';
+import { Person } from '../person';
 
 @Component({
     selector: 'mh-dialog-avatar-edit',
@@ -45,10 +45,10 @@ export class AvatarEditDialogComponent implements OnInit {
     }
 
     fileChangeListener($event: any): void {
-        let image: any = new Image();
-        let myReader: FileReader = new FileReader();
+        const image: any = new Image();
+        const myReader: FileReader = new FileReader();
         this.file = $event.target.files[0]; // $event;
-        let that: AvatarEditDialogComponent = this;
+        const that: AvatarEditDialogComponent = this;
 
         myReader.onloadend = function(loadEvent: any): void {
             image.src = loadEvent.target.result;
@@ -58,7 +58,7 @@ export class AvatarEditDialogComponent implements OnInit {
     }
 
     save(): void {
-        let image: Object = {
+        const image: Object = {
             base: JSON.stringify(this.imageData.image),
             id: this.dialogData.id
             // type: this.file.type
