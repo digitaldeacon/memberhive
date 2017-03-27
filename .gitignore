@@ -1,57 +1,23 @@
-# See http://help.github.com/ignore-files/ for more about ignoring files.
+node_modules/
+dist/
+tmp/
 
-# compiled output
-dist
-web/dist
-web/tmp
-web/e2e
-
-# dependencies
-node_modules
-web/node_modules
-api/vendor
-api/shares.sec
-
-# IDEs and editors
-/.idea
-.project
-.classpath
-.c9/
-*.launch
-.settings/
-
-# IDE - VSCode
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
-
-# misc
-/.sass-cache
-/connect.lock
-/coverage/*
-/libpeerconnection.log
 *.log
-testem.log
-web/typings
-/files/*
-/web/assets/src/images/avatar/person/*
-deploy/
+*.tgz
 
-# e2e
-web/e2e/*.js
-web/e2e/*.map
+# core
+core/typings/
 
-#System Files
+# web
+web/typings/
+web/e2e/*.d.ts
+
+# mobile
+mobile/www/build/
+mobile/platforms/
+mobile/plugins/
+mobile/typings/
+*.swp
+
 .DS_Store
 Thumbs.db
-
-#compile files
-*.metadata.json
-*.map.js
-*.js  # or /src/**/*.js
-*.xlf
-
-#deploy
-/deploy/ansible/*

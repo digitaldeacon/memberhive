@@ -36,15 +36,15 @@
                     md-icon-button
                     [mdMenuTriggerFor]="interactions"
                     mdTooltip="Interactions"
-                    [class.has-interactions]="myOutstanding?.length">
-                <md-icon *ngIf="!myOutstanding?.length">forum</md-icon>
-                <b *ngIf="myOutstanding?.length">{{myOutstanding.length}}</b>
+                    [class.has-interactions]="(myOutstanding | async)?.length">
+                <md-icon *ngIf="!(myOutstanding | async)?.length">forum</md-icon>
+                <b *ngIf="(myOutstanding | async)?.length">{{myOutstanding.length}}</b>
             </button>
 
             <md-menu #interactions="mdMenu">
-                <div *ngIf="!myOutstanding?.length">No interactions</div>
-                <md-nav-list *ngIf="myOutstanding?.length">
-                    <md-list-item *ngFor="let note of myOutstanding">
+                <div *ngIf="!(myOutstanding | async)?.length">No interactions</div>
+                <md-nav-list *ngIf="(myOutstanding | async)?.length">
+                    <md-list-item *ngFor="let note of myOutstanding | async">
                         <span md-list-avatar class="date-rounded">{{note.dueOn | date: 'MMM d'}}</span>
                         <span md-line>{{note.text | slice:0:20}}...</span>
                         <span md-line>{{note.author.name}}</span>

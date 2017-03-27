@@ -113,7 +113,7 @@ export class PersonViewComponent implements OnInit {
         });
     }
     createInteraction(): void {
-        this._interactionService.init(this.person);
+        //this._interactionService.init(this.person);
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/note/create']);
     }

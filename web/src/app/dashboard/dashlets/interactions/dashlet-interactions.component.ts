@@ -1,7 +1,9 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
 
 import { NoteService } from '../../../note/note.service';
+import { InteractionService } from '../../../common/interaction.service';
 
 import { Note } from '../../../note/note';
 
@@ -10,18 +12,24 @@ import { Note } from '../../../note/note';
     templateUrl: './dashlet-interactions.component.html',
     styleUrls: ['./dashlet-interactions.component.scss']
 })
-export class DashletInteractionsComponent implements OnChanges {
+export class DashletInteractionsComponent implements OnInit, OnChanges {
     private now: Date = new Date();
     private rangeDate: Date;
 
-    myOutstanding: Array<Note>;
+    myInteractions: Observable<Note[]>;
+    myOutstanding: Observable<Note[]>;
 
     constructor(private _dialog: MdDialog,
-                private _noteService: NoteService) {
-        this._noteService.getMyInteractions()
-            .subscribe((notes: Note[]) => {
-                this.myOutstanding = notes.filter((n: Note) => n.dueOn && !n.actions.doneOn);
-        });
+                private _noteService: NoteService,
+                private _interactionService: InteractionService) {
+    }
+
+    ngOnInit(): void {
+        this.myInteractions = this._interactionService.myInteractions;
+        this.myOutstanding = this.myInteractions.map((n: Note[]) =>
+            n.filter((n: Note) => n.dueOn && !n.actions.doneOn)
+        );
+        this._interactionService.loadMy();
     }
 
     ngOnChanges(changes: SimpleChanges): void {
@@ -38,18 +46,11 @@ export class DashletInteractionsComponent implements OnChanges {
         // open settings dialog
     }
 
-    complete(note: Note, checked: boolean): void {
-        this._noteService.completeInteraction(note, checked)
-            .subscribe((r: any) => {
-                // notify the service about this change
-            });
+    complete(id: number | string, checked: boolean): void {
+        this._interactionService.complete(id, checked);
     }
 
     delete(note: Note): void {
-        this._noteService.endInteraction(note)
-            .subscribe((r: any) => {
-                this.myOutstanding.splice(this.myOutstanding.indexOf(note));
-                // notify the service about this change
-            });
+        this._interactionService.remove(note.id);
     }
 }

@@ -92,26 +92,17 @@ export class NoteCreateComponent implements OnInit {
   save(model: Note, isValid: boolean): void {
     if (isValid) {
       model.authorId = this._author.uid;
-      this._noteService.createNotePerson(model)
-          .subscribe(
-              (note: Note) => {
-                let route: string = this.returnToRoute;
-                this.noteForm.reset();
-                this._shout.success('Note created');
-                if (route !== '') {
-                  this._router.navigate([route]);
-                }
-              },
-              (error: any) => {
-                this.error = error;
-              }
-          );
+      this._interactionService.create(model);
+      this.noteForm.reset();
+      if (this.returnToRoute !== '') {
+        this._router.navigate([this.returnToRoute]);
+      }
     }
   }
 
   private initDefaults(): void {
-    this._refPerson = this._interactionService.getPersonNoted();
-    this.refNote = this._interactionService.getNote();
+    //this._refPerson = this._interactionService.getPersonNoted();
+    //this.refNote = this._interactionService.getNote();
     this.returnToRoute = this._interactionService.getLastRoute();
 
     if (this.noteForm && this._author) {

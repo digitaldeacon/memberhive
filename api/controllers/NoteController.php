@@ -89,7 +89,7 @@ class NoteController extends MHController
                 if (!$pnote->save()) {
                     return ['response' => json_encode($pnote->errors)];
                 }
-                return ['response' => true];
+                return ['response' => $pnote->note->toResponseArray()];
             } else {
                 throw new BadRequestHttpException('This is not yours to delete!');
             }
