@@ -5,6 +5,10 @@ tmp/
 *.log
 *.tgz
 
+# api
+api/config/mail_local.php
+api/config/secrets.php
+
 # core
 core/typings/
 
