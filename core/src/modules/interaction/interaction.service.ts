@@ -1,107 +1,69 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
+import { HttpService } from "../../services/http.service";
 import { Observable } from "rxjs";
-
-import { Interaction } from './interaction';
-import { InteractionRestService } from './interaction-rest.service';
+import 'rxjs/add/operator/publishReplay';
+import { Interaction } from "./interaction";
 import { AuthService } from '../../services/auth/auth.service';
-import { ShoutService } from "../../services/shout.service";
-
-import { Person } from "../person/person";
 
 @Injectable()
 export class InteractionService {
-    interactions: Observable<Interaction[]>;
-    myInteractions: Observable<Interaction[]>;
-    private _interactions: BehaviorSubject<Interaction[]>;
-    private _myInteractions: BehaviorSubject<Interaction[]>;
-    private _dataStore: {
-        interactions: Interaction[],
-        myInteractions: Interaction[]
+    private _me: string;
+    private _interactions: Observable<Interaction[]>;
+
+    constructor(private http: HttpService,
+                private auth: AuthService) {
+        this._me = this.auth.getCurrentUser().uid;
     }
-    private _lastRoute: string;
-    private _me: Person;
-
-    constructor(private _interactionService: InteractionRestService,
-                private _auth: AuthService,
-                private _shout: ShoutService) {
-        this._dataStore = {
-            interactions: [],
-            myInteractions: []
-        };
-        this._interactions = <BehaviorSubject<Interaction[]>>new BehaviorSubject([]);
-        this._myInteractions = <BehaviorSubject<Interaction[]>>new BehaviorSubject([]);
-        this.interactions = this._interactions.asObservable();
-        this.myInteractions = this._myInteractions.asObservable();
-        this._me = this._auth.getCurrentUser();
+    public getInteractionsAll(): Observable<Interaction[]> {
+        return this.http.get('note/list-all')
+            .map(this.deserializeList);
     }
-
-    loadMy(): void {
-        this._interactionService.getMyInteractions()
-            .subscribe((notes: Array<Interaction>) => {
-                    this._dataStore.myInteractions = notes;
-                    this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions)
-                },
-                error => console.log('Could not load your interactions: ' + error));
+    public getInteractions(id: string, noMarkup: boolean = true): Observable<Interaction[]> {
+        if (!this._interactions) {
+            this._interactions = this.http.get('note/list?id=' + id
+                + '&noMarkup=' + noMarkup + '&u=' + this._me)
+                .map(this.deserializeList)
+                .publishReplay()
+                .refCount();
+        }
+        return this._interactions;
     }
-
-    loadAll(): void {
-
+    public getInteraction(id: string, noMarkup: boolean = false): Observable<Interaction> {
+        return this.http.get('note/get?id=' + id
+            + '&noMarkup=' + noMarkup + '&u=' + this._me)
+            .map(this.deserialize);
     }
-
-    load(id: number | string): void {
-
+    public createInteractionPerson(note: Interaction): Observable<Interaction> {
+        return this.http.post('note/create-person', note)
+            .map(this.deserialize);
+    }
+    public createInteractionGroup(note: Interaction): Observable<Interaction> {
+        return this.http.post('note/create-group', note)
+            .map(this.deserialize);
+    }
+    public deleteInteraction(note: Interaction): Observable<string> {
+        return this.http.post('note/delete', {id: note.id, author: this._me})
+            .map((r: any) => r);
     }
 
-    create(interaction: Interaction): void {
-        this._interactionService.createNotePerson(interaction)
-            .subscribe(
-                (newInteraction: Interaction) => {
-                    this._dataStore.interactions.push(newInteraction);
-                    this._interactions.next(Object.assign({}, this._dataStore).interactions);
-                    if (newInteraction.recipients.find((n: any) => n == this._me.uid)) {
-                        this._dataStore.myInteractions.push(newInteraction);
-                        this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
-                    }
-                    this._shout.success('Note created');
-                },
-                (error: any) => {
-                    console.log('Error: ' + error);
-                }
-            );
+    public getMyInteractions(noMarkup: boolean = true): Observable<Interaction[]> {
+        return this.http.get('note/mine?id=' + this._me + '&noMarkup=' + noMarkup)
+            .map(this.deserializeList);
+    }
+    public completeInteraction(id: number | string, complete: boolean): Observable<Interaction> {
+        return this.http.post('note/complete', {id: id, author: this._me, complete: complete})
+            .map(this.deserialize);
+    }
+    public endInteraction(id: number | string): Observable<Interaction> {
+        return this.http.post('note/end', {id: id, author: this._me})
+            .map((r: any) => r);
     }
 
-    update(interaction: Interaction): void {
-
+    // serializers
+    private deserialize(resp: any): Interaction {
+        return new Interaction().deserialize(resp.response);
     }
-
-    remove(id: number | string): void {
-        this._interactionService.endInteraction(id)
-            .subscribe((r: any) => {
-                this._dataStore.interactions.forEach((t, i) => {
-                    if (t.id === id) { this._dataStore.interactions.splice(i, 1); }
-                });
-                this._dataStore.myInteractions.forEach((t, i) => {
-                    if (t.id === id) { this._dataStore.myInteractions.splice(i, 1); }
-                });
-            });
-    }
-
-    complete(id: number | string, checked: boolean): void {
-        this._interactionService.completeInteraction(id, checked)
-            .subscribe((data: any) => {
-                console.log(data);
-                this._dataStore.myInteractions.forEach((t, i) => {
-                    if (t.id === data.id) { this._dataStore.myInteractions[i] = data; }
-                });
-                this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
-            });
-    }
-
-    getLastRoute(): string {
-        return this._lastRoute;
-    }
-    setLastRoute(route: string): void {
-        this._lastRoute = route;
+    private deserializeList(resp: any): Array<Interaction> {
+        return resp.response.map((r: any) => new Interaction().deserialize(r));
     }
 }

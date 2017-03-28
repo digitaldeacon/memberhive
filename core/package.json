@@ -1,5 +1,5 @@
 {
-  "name": "MemberHive",
+  "name": "mh-core",
   "version": "2.0.0",
   "license": "AGPL-3.0",
   "angular-cli": {},
@@ -10,18 +10,10 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --aot --prod",
-    "extract-i18n": "cd web && ng xi18n",
-    "clean-install": "npm uninstall -g angular-cli @angular/cli && npm cache clean && npm install -g @angular/cli@latest && rm -rf node_modules dist && npm install --save-dev @angular/cli@latest && npm install && cd api && rm -rf vendor/ && composer install && cd ../",
-    "clean-update": "rm -rf node_modules dist && npm install && cd api && rm -rf vendor/ && composer install",
+    "ngc": "ngc",
+    "build": "rm -rf aot dist && yarn ngc",
     "tslint": "tslint \"**/*.ts\" -c web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "phplint": "cd api && ./vendor/bin/phpcs --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/ ./controllers/ ./models/ ./commands/ ./migrations/ ./config/",
-    "test": "ng test",
-    "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor",
-    "lint": "yarn run tslint && yarn run phplint"
+    "lint": "yarn tslint && yarn phplint"
   },
   "engines": {
     "node": ">= 5.4.1 < 7",
@@ -31,26 +23,15 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "@angular/cli": "^1.0.0",
+    "@angular/common": "^4.0.0",
+    "@angular/compiler": "^4.0.0",
     "@angular/compiler-cli": "^4.0.0",
-    "@angular/platform-server": "^4.0.0",
-    "@types/hammerjs": "^2.0.34",
-    "@types/jasmine": "2.5.38",
-    "@types/lodash": "ts2.2",
+    "@angular/core": "^4.0.0",
+    "@angular/platform-browser": "^4.0.0",
     "@types/node": "^7.0.5",
-    "codelyzer": "~2.0.0",
-    "jasmine-core": "~2.5.2",
-    "jasmine-spec-reporter": "~3.2.0",
-    "karma": "~1.4.1",
-    "karma-chrome-launcher": "~2.0.0",
-    "karma-cli": "^1.0.1",
-    "karma-coverage-istanbul-reporter": "^0.2.0",
-    "karma-jasmine": "~1.1.0",
-    "karma-jasmine-html-reporter": "^0.2.2",
-    "protractor": "~5.1.0",
-    "ts-node": "~2.0.0",
+    "rxjs": "^5.1.0",
     "tslint": "~4.4.2",
     "typescript": "~2.2.1",
-    "yarn-run-all": "^3.1.1"
+    "zone.js": "^0.8.4"
   }
 }

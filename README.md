@@ -6,9 +6,11 @@
 [![devDependency Status][david-dev-badge]][david-dev-badge-url]
 
 ## Note
-MH2 is very much in Alpha status. **Help us develop this software!** Drop us an email (tomatosh at gmail com) and become a contributor. We'll supply you with the needed information (focus, standards, etc.).
+MH2 is very much in Alpha status. Many dependencies, like Material2 (material design for angular2) are still under 
+active development. Things may change/ break rather quickly because of it. So be patient :)
 
-Also note that Material2 (material design for angular2) is also still under active development. Things may change/ break rather quickly because of it. So be patient :)
+We stay in setp with the dependencies of _angular/material2_ and _angular/angular-cli_.
+
 ## Introduction
 Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular2 (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
 
@@ -18,15 +20,22 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 
 ## High-Level Items for April
 _In order of importance_
+- [ ] Structure rework for Ionic2 and shared code (#64)
+- [ ] State management (#65)
 - [x] Layout fixes desktop (#56)
 - [x] Layout fixes mobile (#56)
 - [x] Upgrade to Angular4 (#63)
-- [ ] Structure rework for Ionic2 and shared code (#64)
 - [ ] Dashboard: Interactions (#60)
 - [ ] Interactions (#19)
 - [ ] Display fixes Safari (input elements) (#56)
-- [ ] Deployment (Ansible) (#42)
-- [ ] Tags (depends on Material2 chips/ autocomplete)(#42)
+
+## Development Philosophy
+We want to keep this project simple (even though it will be large) and maintainable. For that reason
+we want to adher to the following rules:
++ KISS (you know what that means)
++ **Try to avoid** add new dependencies, unless absolutely needed
++ **Do not use** any large libraries to accomplish something that you could accomplish with what is already included
++ **Lint** your code
 
 ## Contribute
 If you care to contribute you should bring some of the following skills to the table:
@@ -34,16 +43,121 @@ If you care to contribute you should bring some of the following skills to the t
 + Experience in RDBMS design
 + Ideally also experience with Yii2 (or similar frameworks)
 + Have some sense for SCSS and styling with Material Design
++ Have a desire to work with Ionic2 and the idea of a hybrid app (web + mobile + common code)
 
 See also *Dependencies* below.
 
 ## Dependencies
 - Angular (v4.0.0, with angular/cli and AOT compilation)
+- Ionic (v2)
 - Yii2
 - Typescript2 (2.2.1)
 - MariaDB/MySQL
 - PHP7 (7.0)
 - Material2 (using angular/flex-layout)
+
+# Install
+
+## Prerequisites
+### Node/NPM
+You will need to have node installed, in order to get NPM as package manager. [Check this out](https://docs.npmjs.com/getting-started/installing-node) for instructions on how to install node.
+
+Also refer to the heading below (Package Managing) for additional infos.
+
+We prefer to use **YARN** now (installe dvia npm - funny, i know), but you are not required to use it.
+
+### PHP
+You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
+
+On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
+
+### DB
+Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any system, and we are not using system specific features (such as JSON fields), you are welcome to use another system (at your own risk).
+
+### Package Managing
+You have two choices for a manager: ***npm*** or ***yarn***. 
+
+In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
+
+## Installation
+If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
+
+Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
+This repo has been checked against Node v.7.7.1 (npm v.4.4.1).
+
+```
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
+nvm install 6.9
+nvm use 6.9
+nvm alias default 6.9
+npm i -g angular-cli@latest typescript@2.2.1 tslint
+git clone git@github.com:digitaldeacon/memberhive2.git
+cd memberhive2
+cd api 
+composer install
+```
+Using YARN
+```
+yarn install:all
+```
+Using NPM
+```
+npm npm.install:all
+```
+
+Now you should have the client and the Yii backend in place. Next you need to create a database:
+
+Under 'api/config/examples' you will find `db_local.example.php`. Copy this file to the parent folder (config) and edit 
+this according to your needs (renaming it to `db_local.php` of course).
+
+After you have a DB you need to run: `php api/yii migrate`. This will create all necessary tables and set a default user
+with the following credentials: `root/ bibel`.
+
+You will also need an **Email Service**, either local or online. For that you need to copy the file `mail_local.example.php`
+to its parent directory and adjust it as needed (renaming it to `mail_local.php` of course).
+
+# DEMO Data
+You can load some sample demo data by running the following command: `php api/yii demo/create-people`.
+
+This will load 50 random profiles into the app. You can play with this data during development.
+
+# Update/ Upgrade
+In case you are updating from a version that was dependent on Angular2.4 you need to make sure that you follow the [instructions](https://github.com/angular/angular-cli/wiki/stories-1.0-update) from the angular/angular-cli project closely. This requires that you:
++ first uninstall the cli globally
++ clean your npm cache
++ add the latest version of angular-cli back in (globally)
++ make sure that you have your global TypeScript up to 2.2.1 (in case you have one globally installed)
++ remove your old (or any!) __node_modules__ folder
++ in case you used yarn before, make sure you **do not** have a .yarnclean file
++ reinstall (via ***npm*** or ***yarn*** - see above)
+
+## YARN (what we use now)
++ `yarn upgrade:all` (which will automatically remove your node_modules/ folder).
++ `yarn install:all` (which will automatically remove your node_modules/ folder).
+...or any of the other subcommands (see package.json in root directory).
+
+## NPM
++ ```npm run npm.update:all``` (reinstall NPM and Composer packages)
++ ```npm run npm.install:all``` (reinstall NPM and Composer packages + new Angular-CLI)
+...or any of the other subcommands (see package.json in root directory).
+
+# Developing
+
+## Serve App
++ `yarn start:web` or `yarn start:mobile` or `yarn start:all`
++ `npm npm.start:web` or `npm npm.start:mobile` or `npm npm.start:all`
+
+## Linting your code
+**Everything (TS and PHP)**: `yarn lint:all` (or one of :web, :core, :mobile or :all])
+
+**Typescript**: `yarn tslint:all` or `npm run npm.tslint:all` (or one of :web, :core, :mobile or :all])
+
+**PHP**: `yarn phplint` or `npm run phplint`
+
+## Changes to DB
+
++ Undo all migrations : `php api/yii migrate/down all --interactive=0`
++ Then redo all migrations again: `php api/yii migrate`
 
 ## Caveat
 We started with MemberHive in 2015 because it was hard to find a church management system that was multi-lingual, had its focus on relationships, was affordable, had a modern UI and was technologically not outdated.
@@ -74,93 +188,6 @@ We will be slowing down the development progress, for the moment. Unless we can 
 ## License
 All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive2/blob/master/LICENSE).
 I.e. you may fork but not resell.
-
-
-# Install
-
-## Prerequisites
-### Node/NPM
-You will need to have node installed, in order to get NPM as package manager. [Check this out](https://docs.npmjs.com/getting-started/installing-node) for instructions on how to install node.
-
-Also refer to the heading below (Package Managing) for additional infos.
-
-### PHP
-You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
-
-On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
-
-### DB
-Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any system, and we are not using system specific features (such as JSON fields), you are welcome to use another system (at your own risk).
-
-### Package Managing
-You have two choices for a manager: ***npm*** or ***yarn***. 
-
-In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
-
-## Installation
-If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
-
-Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
-This repo has been checked against Node v.7.7.1 (npm v.4.4.1).
-
-```
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.0/install.sh | bash
-nvm install 6.9
-nvm use 6.9
-nvm alias default 6.9
-npm i -g angular-cli@latest typescript@2.2.1 tslint
-git clone git@github.com:digitaldeacon/memberhive2.git
-cd memberhive2
-npm install (or yarn)
-cd api 
-composer install
-```
-Now you should have the client and the Yii backend in place. Next you need to create a database:
-
-Under 'api/config/examples' you will find `db_local.example.php`. Copy this file to the parent folder (config) and edit 
-this according to your needs.
-
-After you have a DB you need to run: `php api/yii migrate`. This will create all necessary tables and set a default user
-with the following credentials: `root/ bibel`.
-
-# DEMO Data
-You can load some sample demo data by running the following command: `php api/yii demo/create-people`.
-
-This will load 50 random profiles into the app. You can play with this data during development.
-
-# Update/ Upgrade
-In case you are updating from a version that was dependent on Angular2.4 you need to make sure that you follow the [instructions](https://github.com/angular/angular-cli/wiki/stories-1.0-update) from the angular/angular-cli project closely. This requires that you:
-+ first uninstall the cli globally
-+ clean your npm cache
-+ add the latest version of angular-cli back in (globally)
-+ make sure that you have your global TypeScript up to 2.2.1 (in case you have one globally installed)
-+ remove your old node_modules folder
-+ in case you used yarn before, make sure you do not have a .yarnclean file
-+ reinstall (via ***npm*** or ***yarn***)
-
-## NPM
-+ ```npm run clean-update``` (reinstall NPM and Composer packages)
-+ ```npm run clean-install``` (reinstall NPM and Composer packages + new Angular-CLI)
-
-## YARN (what we use now)
-Alternatively you can use `yarn` (yarnpkg.com) to run your scripts. The command for updating is: `yarn upgrade` (which will automatically remove your node_modules/ folder).
-
-# Developing
-
-## Serve App
-`npm start` or `yarn start`
-
-## Linting your code
-**Everything**: `yarn lint`
-
-**Typescript**: `yarn tslint` or `npm run tslint`
-
-**PHP**: `yarn run phplint` or `npm run phplint`
-
-## Changes to DB
-
-+ Undo all migrations : `php api/yii migrate/down all --interactive=0`
-+ Then redo all migrations again: `php api/yii migrate`
 
 [david-badge]: https://david-dm.org/digitaldeacon/memberhive2.svg
 [david-badge-url]: https://david-dm.org/digitaldeacon/memberhive2

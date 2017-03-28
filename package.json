@@ -1,0 +1,36 @@
+{
+  "name": "memberhive2",
+  "version": "2.0.0",
+  "license": "AGPL-3.0",
+  "angular-cli": {},
+  "repository": {
+    "url": "https://github.com/digitaldeacon/memberhive2"
+  },
+  "scripts": {
+    "install:core": "cd core && yarn && yarn build && yarn pack",
+    "install:web": "cd web && yarn && yarn link ../core/mh-core-2.0.0.tgz",
+    "install:mobile": "cd mobile && yarn && yarn link ../core/mh-core-2.0.0.tgz",
+    "install:all": "yarn install:core && yarn install:web && yarn install:mobile",
+    "update:core": "cd core && yarn upgrade && yarn build && yarn link ../core/mh-core-2.0.0.tgz",
+    "update:web": "cd web && yarn upgrade && yarn link ../core/mh-core-2.0.0.tgz",
+    "update:mobile": "cd mobile && yarn upgrade && yarn link ../core/mh-core-2.0.0.tgz",
+    "update:all": "yarn update:core && yarn update:web && yarn update:mobile",
+    "build:web": "cd web && yarn build",
+    "start:web": "cd web && yarn start",
+    "npm.install:core": "cd core && npm install && npm run build && npm pack",
+    "npm.install:web": "cd web && npm install && npm install ../core/mh-core-2.0.0.tgz",
+    "npm.install:mobile": "cd mobile && npm install && npm install ../core/mh-core-2.0.0.tgz",
+    "npm.install:all": "npm npm.install:core && npm npm.install:web && npm npm.install:mobile",
+    "npm.update:core": "cd core && npm update && npm run build && npm pack",
+    "npm.update:web": "cd web && npm update && npm install ../core/mh-core-2.0.0.tgz",
+    "npm.update:mobile": "cd mobile && npm update && npm install ../core/mh-core-2.0.0.tgz",
+    "npm.update:all": "npm npm.update:core && npm npm.update:web && npm npm.update:mobile",
+    "npm.build:web": "cd web && npm run build",
+    "npm.serve:web": "cd web && npm run serve"
+  },
+  "engines": {
+    "node": ">= 5.4.1 < 7.8.0",
+    "npm": ">=3.10.7 <5.0.0",
+    "yarn": ">=0.19.1 <0.22.0"
+  }
+}
