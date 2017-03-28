@@ -25,10 +25,10 @@ before_install:
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
 install:
-  - yarn install:all
   - cd api && composer install --prefer-dist
 before_script:
   - export NODE_ENV="travis"
+  - yarn install:all
 script:
   - yarn build:web
   - yarn lint:all
