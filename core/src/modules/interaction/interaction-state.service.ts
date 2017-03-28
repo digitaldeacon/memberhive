@@ -5,7 +5,7 @@ import { Observable } from "rxjs";
 import { Interaction } from './interaction';
 import { InteractionService } from './interaction.service';
 import { AuthService } from '../../services/auth/auth.service';
-import { ShoutService } from "../../services/shout.service";
+// import { ShoutService } from "../../services/shout.service";
 
 import { Person } from "../person/person";
 
@@ -23,8 +23,7 @@ export class InteractionStateService {
     private _me: Person;
 
     constructor(private _interactionService: InteractionService,
-                private _auth: AuthService,
-                private _shout: ShoutService) {
+                private _auth: AuthService) {
         this._dataStore = {
             interactions: [],
             myInteractions: []
@@ -54,7 +53,7 @@ export class InteractionStateService {
     }
 
     create(interaction: Interaction): void {
-        this._interactionService.createNotePerson(interaction)
+        this._interactionService.createInteractionPerson(interaction)
             .subscribe(
                 (newInteraction: Interaction) => {
                     this._dataStore.interactions.push(newInteraction);
@@ -63,7 +62,8 @@ export class InteractionStateService {
                         this._dataStore.myInteractions.push(newInteraction);
                         this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
                     }
-                    this._shout.success('Note created');
+                    // TODO: how to set snackbar/toast without dependency on Material2 or Ionic?
+                    // this._shout.success('Note created');
                 },
                 (error: any) => {
                     console.log('Error: ' + error);

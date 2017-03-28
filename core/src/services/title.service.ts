@@ -1,15 +1,14 @@
-/* config.service.ts */
+import { Injectable } from '@angular/core';
+import { Title }  from '@angular/platform-browser';
 
-import {Injectable} from '@angular/core';
-import {Title}  from '@angular/platform-browser';
 @Injectable()
 export class TitleService {
     public module: string = "";
     public title: string = "";
     public subTitle: string = "";
     constructor(private browserTitle: Title) {
-
     }
+
     public getModule(): string {
         return this.module;
     }

@@ -11,7 +11,7 @@
     "install:web": "cd web && yarn && yarn link ../core/mh-core-2.0.0.tgz",
     "install:mobile": "cd mobile && yarn && yarn link ../core/mh-core-2.0.0.tgz",
     "install:all": "yarn install:core && yarn install:web && yarn install:mobile",
-    "update:core": "cd core && yarn upgrade && yarn build && yarn link ../core/mh-core-2.0.0.tgz",
+    "update:core": "cd core && yarn upgrade && yarn build && yarn pack",
     "update:web": "cd web && yarn upgrade && yarn link ../core/mh-core-2.0.0.tgz",
     "update:mobile": "cd mobile && yarn upgrade && yarn link ../core/mh-core-2.0.0.tgz",
     "update:all": "yarn update:core && yarn update:web && yarn update:mobile",
