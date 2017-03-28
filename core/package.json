@@ -12,8 +12,10 @@
   "scripts": {
     "ngc": "ngc",
     "build": "rm -rf aot dist && yarn ngc",
-    "tslint": "tslint \"**/*.ts\" -c web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "lint": "yarn tslint && yarn phplint"
+    "tslint": "tslint \"**/*.ts\" -c ../web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
+    "lint": "yarn tslint",
+    "npm.build": "rm -rf aot dist && npm ngc",
+    "npm.lint": "npm run tslint"
   },
   "engines": {
     "node": ">= 5.4.1 < 7",
