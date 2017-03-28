@@ -25,14 +25,13 @@ before_install:
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
 install:
-  - npm install --optional
+  - yarn install:all
   - cd api && composer install --prefer-dist
 before_script:
   - export NODE_ENV="travis"
 script:
-  - ng build
-  - ng build --aot --prod
-  - npm run tslint
-  - npm run phplint
+  - yarn build:web
+  - yarn lint:all
 after_success:
-  - ls dist/
+  - ls web/dist/
+  - ls core/dist/
