@@ -11,16 +11,15 @@
   "typings": "./dist/index.d.ts",
   "scripts": {
     "ngc": "ngc",
-    "build": "rm -rf aot dist && yarn ngc",
+    "build": "rm -rf aot dist && npm run ngc",
+    "publishPackage": "npm run build && npm publish",
     "tslint": "tslint \"**/*.ts\" -c ../web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "lint": "yarn tslint",
-    "npm.build": "rm -rf aot dist && npm ngc",
-    "npm.lint": "npm run tslint"
+    "lint": "yarn tslint"
   },
   "engines": {
-    "node": ">= 5.4.1 < 7",
-    "npm": ">=3.10.7 <4.0.0",
-    "yarn": ">=0.19.1 <0.21.3"
+    "node": ">= 5.4.1",
+    "npm": ">= 3.10.7",
+    "yarn": ">= 0.21.0"
   },
   "private": true,
   "dependencies": {},

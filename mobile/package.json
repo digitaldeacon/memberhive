@@ -7,23 +7,15 @@
     "url": "https://github.com/digitaldeacon/memberhive2"
   },
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
-    "build": "ng build --aot --prod",
-    "extract-i18n": "cd web && ng xi18n",
-    "clean-install": "npm uninstall -g angular-cli @angular/cli && npm cache clean && npm install -g @angular/cli@latest && rm -rf node_modules dist && npm install --save-dev @angular/cli@latest && npm install && cd ../api && rm -rf vendor/ && composer install",
-    "clean-update": "rm -rf node_modules dist && npm install && cd ../api && rm -rf vendor/ && composer install",
-    "tslint": "tslint \"**/*.ts\" -c web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "phplint": "cd api && ./vendor/bin/phpcs --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/ ./controllers/ ./models/ ./commands/ ./migrations/ ./config/",
-    "test": "ng test",
-    "pree2e": "webdriver-manager update --standalone false --gecko false",
-    "e2e": "protractor",
-    "lint": "yarn run tslint && yarn run phplint"
+    "clean": "ionic-app-scripts clean",
+    "build": "ionic-app-scripts build",
+    "ionic:build": "ionic-app-scripts build",
+    "ionic:serve": "ionic-app-scripts serve"
   },
   "engines": {
-    "node": ">= 5.4.1 < 7",
-    "npm": ">=3.10.7 <4.0.0",
-    "yarn": ">=0.19.1 <0.21.3"
+    "node": ">= 5.4.1",
+    "npm": ">= 3.10.7",
+    "yarn": ">= 0.21.0"
   },
   "private": true,
   "dependencies": {
@@ -41,6 +33,7 @@
     "ionic-angular": "^2.3.0",
     "ionic-native": "^2.9.0",
     "ionicons": "^3.0.0",
+    "mh-core": "../core/mh-core-2.0.0.tgz",
     "rxjs": "^5.1.0",
     "sw-toolbox": "^3.6.0",
     "zone.js": "^0.8.4"
