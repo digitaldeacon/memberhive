@@ -13,16 +13,16 @@
     "target": "es5",
     "moduleResolution": "node",
     "outDir": "dist",
-    "genDir": "web/locale",
+    "genDir": "src/locale",
     "sourceMap": true,
     "typeRoots": [
-      "node_modules/@types"
+      "../node_modules/@types"
     ],
     "types": [
       "hammerjs",
       "jasmine"
     ],
-    "baseUrl": "./web",
+    "baseUrl": "./src",
     "allowUnreachableCode": false,
     "allowUnusedLabels": false,
     "noImplicitAny": true,

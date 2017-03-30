@@ -7,16 +7,21 @@
     "url": "https://github.com/digitaldeacon/memberhive2"
   },
   "scripts": {
-    "install:core": "cd core && rm -rf node_modules/ && yarn && yarn build && npm pack",
-    "install:web": "cd web && rm -rf node_modules/ && yarn && yarn add ../core/mh-core-2.0.0.tgz",
-    "install:mobile": "cd mobile && rm -rf node_modules/ && yarn && yarn add ../core/mh-core-2.0.0.tgz",
+    "install:api": "cd api && composer install",
+    "install:core": "cd core && rm -rf node_modules/ yarn.lock && yarn && yarn build",
+    "install:web": "cd web && rm -rf node_modules/ yarn.lock && yarn && yarn install:dep",
+    "install:mobile": "cd mobile && rm -rf node_modules/ && yarn && yarn install:dep",
     "install": "yarn install:all",
     "install:all": "yarn install:core && yarn install:web && yarn install:mobile",
+    "install:dep:all": "yarn build:core && cd web && yarn install:dep",
+    "update:api": "cd api && composer update",
     "update:core": "cd core && yarn upgrade && yarn build && npm pack",
-    "update:web": "cd web && yarn upgrade && yarn add ../core/mh-core-2.0.0.tgz",
-    "update:mobile": "cd mobile && yarn upgrade && yarn add ../core/mh-core-2.0.0.tgz",
+    "update:web": "cd web && yarn upgrade && yarn install:dep",
+    "update:mobile": "cd mobile && yarn upgrade && install:dep",
     "update:all": "yarn update:core && yarn update:web && yarn update:mobile && cd api/ && composer update",
     "build:web": "cd web && yarn build",
-    "start:web": "cd web && yarn start"
+    "start:web": "cd web && yarn start",
+    "build:core": "cd core && yarn build && npm pack",
+    "outdated": "cd web && yarn outdated && cd ../core && yarn outdated && cd ../mobile && yarn outdated"
   }
 }

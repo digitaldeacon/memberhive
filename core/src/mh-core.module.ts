@@ -17,4 +17,4 @@ import { BrowserModule } from '@angular/platform-browser';
         CUSTOM_ELEMENTS_SCHEMA
     ]
 })
-export class CoreModule {}
+export class MHCoreModule {}

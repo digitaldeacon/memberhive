@@ -9,13 +9,15 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
 import { CommonModule } from './common/common.module';
-import { SearchModule } from "./search/search.module";
-import { NoteModule } from "./note/note.module";
+import { SearchModule } from './search/search.module';
+import { NoteModule } from './note/note.module';
 
 import { LoginComponent } from './login.component';
 import { ViewComponent } from './view.component';
 
-import { PersonService } from "./person/person.service";
+import { PersonService } from './person/person.service';
+
+import { MHCoreModule } from 'mh-core';
 
 @NgModule({
     declarations: [
@@ -33,6 +35,7 @@ import { PersonService } from "./person/person.service";
         BrowserAnimationsModule,
 
         AppRoutingModule,
+        MHCoreModule.forRoot(),
 
         CommonModule,
         SearchModule,

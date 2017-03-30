@@ -101,9 +101,7 @@ Using YARN
 yarn install:all
 ```
 Using NPM
-```
-npm npm.install:all
-```
+... if you care to use npm, you may add the scripts yourself. Maybe we'll add it later again.
 
 Now you should have the client and the Yii backend in place. Next you need to create a database:
 
