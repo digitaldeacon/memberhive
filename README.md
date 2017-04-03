@@ -44,6 +44,7 @@ If you care to contribute you should bring some of the following skills to the t
 + Ideally also experience with Yii2 (or similar frameworks)
 + Have some sense for SCSS and styling with Material Design
 + Have a desire to work with Ionic2 and the idea of a hybrid app (web + mobile + common code)
++ Understand (or want to learn) Redux-like state managements (using NgRX)
 
 See also *Dependencies* below.
 
@@ -55,6 +56,7 @@ See also *Dependencies* below.
 - MariaDB/MySQL
 - PHP7 (7.0)
 - Material2 (using angular/flex-layout)
+- NgRX (Redux-like state management)
 
 # Install
 
@@ -64,7 +66,7 @@ You will need to have node installed, in order to get NPM as package manager. [C
 
 Also refer to the heading below (Package Managing) for additional infos.
 
-We prefer to use **YARN** now (installe dvia npm - funny, i know), but you are not required to use it.
+We use **YARN** now (install via npm - funny, i know), but you are not absolutely required to use it.
 
 ### PHP
 You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
@@ -72,15 +74,19 @@ You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is 
 On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
 
 ### DB
-Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any system, and we are not using system specific features (such as JSON fields), you are welcome to use another system (at your own risk).
+Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any 
+system, and we are not using system specific features (such as JSON fields), you are welcome to use another system 
+(at your own risk).
 
 ### Package Managing
 You have two choices for a manager: ***npm*** or ***yarn***. 
 
-In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
+In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). 
+Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
 
 ## Installation
-If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
+If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github 
+repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
 
 Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
 This repo has been checked against Node v.7.7.1 (npm v.4.4.1).
@@ -140,6 +146,21 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 ...or any of the other subcommands (see package.json in root directory).
 
 # Developing
+## Developing with NgRX (Redux pattern)
+Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
+
+Development has become a litte different. All the state altering logic has moved
+ to the core module now (./core). The core will be symlinked to the web and the mobile apps.
+ That means:
+ + when you make changes to the core it will affect the mobile and the web application
+ + whatever is on the core can be accessed by mobile and web
+ + all state is now stored as a single observable (one source of truth)
+ + every action (like updating, fetching, etc) needs to be defined with actions and reducers
+ + no state should be mutated directly (e.g. people.push()), but must be done via the reducer methods
+ 
+We are not done with moving everything. This will completed by the end of the month.
+We understand that this move makes the application more complex. The hope is that 
+it will pay off as we grow the functionality and the complexity of state.
 
 ## Serve App
 + `yarn start:web` or `yarn start:mobile` or `yarn start:all`

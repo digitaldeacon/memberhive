@@ -10,10 +10,9 @@
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
   "scripts": {
-    "clean": "rm -rf ./aot/* && rm -rf ./dist/* && npm run clean:postbuild",
+    "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
     "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
-    "build": "npm run clean && ngc -p tsconfig.json && npm run clean:postbuild",
-    "publishPackage": "npm run build && npm publish"
+    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild"
   },
   "engines": {
     "node": ">= 5.4.1",
