@@ -1,17 +1,18 @@
 import { Action } from '@ngrx/store';
-import { PersonActions, PersonActionTypes } from './person.actions';
+import { PersonActions, personActionTypes } from './person.actions';
 import { initialPersonState, PersonState } from './person.state';
 
-export function personReducer(state = initialPersonState, action: PersonActions): PersonState {
+export function personReducer(state: PersonState = initialPersonState,
+action: PersonActions): PersonState {
     switch (action.type) {
 
-        case PersonActionTypes.GET:
+        case personActionTypes.GET:
             return state;
 
-        case PersonActionTypes.LIST:
+        case personActionTypes.LIST:
             return state;
 
-        case PersonActionTypes.CREATE:
+        case personActionTypes.CREATE:
             return initialPersonState;
 
         default: {

@@ -8,11 +8,11 @@ import * as layout from 'mh-core';
 import * as interaction from 'mh-core';
 
 export interface AppState {
-    layout: layout.LayoutState,
-    interaction: interaction.InteractionState
+    layout: layout.LayoutState;
+    interaction: interaction.InteractionState;
 }
 
-const reducers = {
+const reducers: any = {
     layout: layout.layoutReducer,
     inetraction: interaction.interactionReducer
 };
@@ -20,7 +20,7 @@ const reducers = {
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
 const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
 
-export function reducer(state: any, action: any) {
+export function reducer(state: any, action: any): AppState {
     if (environment.production) {
         return productionReducer(state, action);
     } else {
@@ -31,5 +31,5 @@ export function reducer(state: any, action: any) {
 /**
  * Layout Reducers
  */
-export const getLayoutState = (state: AppState) => state.layout;
-export const getShowDrawer = createSelector(getLayoutState, layout.getShowDrawer);
+export const getLayoutState: any = (state: AppState) => state.layout;
+export const getShowDrawer: any = createSelector(getLayoutState, layout.getShowDrawer);

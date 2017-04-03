@@ -1,9 +1,7 @@
 import 'rxjs/add/operator/publishReplay';
 import { multicast } from 'rxjs/operator/multicast';
-import { Scheduler } from 'rxjs/Scheduler';
 import { ReplaySubject } from 'rxjs/ReplaySubject';
 import { Observable } from 'rxjs/Observable';
-import { compose } from '@ngrx/core/compose';
 
 /**
  * This function coerces a string into a string literal type.
@@ -14,7 +12,6 @@ import { compose } from '@ngrx/core/compose';
  * is a good place to ensure all of our action labels
  * are unique.
  */
-
 const typeCache: { [label: string]: boolean } = {};
 export function type<T>(label: T | ''): T {
     if (typeCache[<string>label]) {
@@ -42,32 +39,30 @@ export interface SelectorFn<T, V> {
 }
 
 export interface Selector<T, V> extends SelectorFn<T, V> {
-    readonly cachedResult?: null | Observable<V>;
+    readonly cachedResult?: undefined | Observable<V>;
     reset(): void;
     override(source$: Observable<V>): void;
 }
 
 export function share<T, V>(selectFn: SelectorFn<T, V>): Selector<T, V> {
-    let cachedResult: null | Observable<V>;
+    let cachedResult: undefined | Observable<V>;
 
-
-    const override = function (source$: Observable<V>) {
+    const override: any = function (source$: Observable<V>): void {
         cachedResult = source$;
     };
 
-    const reset = function () {
-        cachedResult = null;
+    const reset: any = function (): void {
+        cachedResult = undefined;
     };
 
-    const multicastFactory = function () {
+    const multicastFactory: any = function (): ReplaySubject {
         return new ReplaySubject<V>(1);
     };
 
-    const selector: any = function (input$: Observable<T>) {
+    const selector: any = function (input$: Observable<T>): Observable<V> {
         if (Boolean(cachedResult)) {
             return cachedResult;
         }
-
         return cachedResult = multicast.call(selectFn(input$), multicastFactory).refCount();
     };
 
@@ -76,7 +71,7 @@ export function share<T, V>(selectFn: SelectorFn<T, V>): Selector<T, V> {
     Object.defineProperty(selector, 'cachedResult', {
         configurable: true,
         enumerable: true,
-        get() {
+        get(): undefined | Observable<V> {
             return cachedResult;
         }
     });

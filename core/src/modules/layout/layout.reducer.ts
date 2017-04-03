@@ -1,6 +1,5 @@
 import * as layout from './layout.actions';
 
-
 export interface LayoutState {
     showDrawer: boolean;
 }
@@ -9,14 +8,15 @@ const initialState: LayoutState = {
     showDrawer: true
 };
 
-export function layoutReducer(state = initialState, action: layout.LayoutActions): LayoutState {
+export function layoutReducer(state: LayoutState = initialState,
+action: layout.LayoutActions): LayoutState {
     switch (action.type) {
-        case layout.LayoutActionTypes.CLOSE_DRAWER:
+        case layout.layoutActionTypes.CLOSE_DRAWER:
             return {
                 showDrawer: false
             };
 
-        case layout.LayoutActionTypes.OPEN_DRAWER:
+        case layout.layoutActionTypes.OPEN_DRAWER:
             return {
                 showDrawer: true
             };
@@ -26,4 +26,4 @@ export function layoutReducer(state = initialState, action: layout.LayoutActions
     }
 }
 
-export const getShowDrawer = (state: LayoutState) => state.showDrawer;
+export const getShowDrawer: any = (state: LayoutState) => state.showDrawer;

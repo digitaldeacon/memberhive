@@ -12,7 +12,8 @@
   "scripts": {
     "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
     "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
-    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild"
+    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild",
+    "lint": "tslint \"**/*.ts\" -c tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\""
   },
   "engines": {
     "node": ">= 5.4.1",
@@ -31,11 +32,12 @@
     "@ngrx/core": "1.2.0",
     "@ngrx/effects": "2.0.0",
     "@ngrx/store": "2.2.1",
-    "@types/node": "^7.0.5",
+    "@types/node": "^7.0.12",
+    "codelyzer": "^2.1.1",
     "ng2-webstorage": "^1.5.0",
-    "rxjs": "^5.1.0",
-    "tslint": "~4.4.2",
-    "typescript": "~2.2.1",
-    "zone.js": "^0.8.4"
+    "rxjs": "^5.2.0",
+    "tslint": "^4.0.0",
+    "typescript": "~2.2.2",
+    "zone.js": "^0.8.5"
   }
 }

@@ -1,6 +1,6 @@
 import { Action } from '@ngrx/store';
 
-export const PersonActionTypes = {
+export const personActionTypes: any = {
     GET: '[Person] Get',
     UPDATE: '[Person] Update',
     LIST: '[People] List',
@@ -9,28 +9,27 @@ export const PersonActionTypes = {
 };
 
 export class GetAction implements Action {
-    type = PersonActionTypes.GET;
+    type: any = personActionTypes.GET;
     constructor(public payload: string) { }
 }
 
 export class UpdateAction implements Action {
-    type = PersonActionTypes.UPDATE;
+    type: any = personActionTypes.UPDATE;
     constructor(public payload: string) { }
 }
 
 export class ViewAction implements Action {
-    type = PersonActionTypes.VIEW;
+    type: any = personActionTypes.VIEW;
     constructor(public payload: string) { }
 }
 
 export class CreateAction implements Action {
-    type = PersonActionTypes.CREATE;
+    type: any = personActionTypes.CREATE;
     constructor(public payload: string) { }
 }
 
-
 export class ListAction implements Action {
-    type = PersonActionTypes.LIST;
+    type: any = personActionTypes.LIST;
     constructor(public payload: string) { }
 }
 

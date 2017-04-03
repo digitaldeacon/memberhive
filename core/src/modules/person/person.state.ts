@@ -43,7 +43,7 @@ export let initialPersonState: PersonState = {
         postal: {}
     },
     socialContact: {}
-}
+};
 
 export interface PersonAddress {
     home: any;

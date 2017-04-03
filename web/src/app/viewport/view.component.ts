@@ -68,8 +68,7 @@ export class ViewComponent implements OnInit {
                 private _router: Router,
                 public _dialog: MdDialog,
                 private store: Store<app.AppState>,
-                public titleService: TitleService)
-    {
+                public titleService: TitleService) {
         this.drawerVisible$ = this.store.select(app.getShowDrawer);
     }
 
