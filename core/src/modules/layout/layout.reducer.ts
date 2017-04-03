@@ -1,24 +1,24 @@
 import * as layout from './layout.actions';
 
 
-export interface State {
-    showSidenav: boolean;
+export interface LayoutState {
+    showDrawer: boolean;
 }
 
-const initialState: State = {
-    showSidenav: true
+const initialState: LayoutState = {
+    showDrawer: true
 };
 
-export function reducer(state = initialState, action: layout.Actions): State {
+export function layoutReducer(state = initialState, action: layout.LayoutActions): LayoutState {
     switch (action.type) {
-        case layout.ActionTypes.CLOSE_SIDENAV:
+        case layout.LayoutActionTypes.CLOSE_DRAWER:
             return {
-                showSidenav: false
+                showDrawer: false
             };
 
-        case layout.ActionTypes.OPEN_SIDENAV:
+        case layout.LayoutActionTypes.OPEN_DRAWER:
             return {
-                showSidenav: true
+                showDrawer: true
             };
 
         default:
@@ -26,4 +26,4 @@ export function reducer(state = initialState, action: layout.Actions): State {
     }
 }
 
-export const getShowSidenav = (state: State) => state.showSidenav;
+export const getShowDrawer = (state: LayoutState) => state.showDrawer;

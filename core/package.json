@@ -9,23 +9,17 @@
   },
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
-  "module": "./dist/index.js",
-  "files": [
-    "dist/"
-  ],
   "scripts": {
-    "ngc": "ngc",
-    "build": "rm -rf aot dist && yarn ngc && yarn unlink mh-core && yarn link",
-    "publishPackage": "npm run build && npm publish",
-    "tslint": "tslint \"**/*.ts\" -c ../web/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "lint": "yarn tslint"
+    "clean": "rm -rf ./aot/* && rm -rf ./dist/* && npm run clean:postbuild",
+    "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
+    "build": "npm run clean && ngc -p tsconfig.json && npm run clean:postbuild",
+    "publishPackage": "npm run build && npm publish"
   },
   "engines": {
     "node": ">= 5.4.1",
     "npm": ">= 3.10.7",
     "yarn": ">= 0.21.0"
   },
-  "private": true,
   "dependencies": {},
   "devDependencies": {
     "@angular/common": "^4.0.0",
@@ -35,7 +29,9 @@
     "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/router": "^4.0.0",
-    "@ngrx/platform": "https://github.com/ngrx/platform.git",
+    "@ngrx/core": "1.2.0",
+    "@ngrx/effects": "2.0.0",
+    "@ngrx/store": "2.2.1",
     "@types/node": "^7.0.5",
     "ng2-webstorage": "^1.5.0",
     "rxjs": "^5.1.0",

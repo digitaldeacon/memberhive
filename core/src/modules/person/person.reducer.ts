@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/platform/modules/store';
+import { Action } from '@ngrx/store';
 import { PersonActions, PersonActionTypes } from './person.actions';
 import { initialPersonState, PersonState } from './person.state';
 

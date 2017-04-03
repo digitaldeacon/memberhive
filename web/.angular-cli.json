@@ -17,7 +17,7 @@
       "polyfills": "polyfills.ts",
       "test": "test.ts",
       "tsconfig": "tsconfig.app.json",
-      "prefix": "app",
+      "prefix": "mh",
       "styles": [
         "../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss",
         "../node_modules/material-design-icons/iconfont/material-icons.css",

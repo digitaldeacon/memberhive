@@ -1,36 +1,13 @@
 {
-  "compileOnSave": false,
+  "extends": "../tsconfig.json",
   "compilerOptions": {
-    "declaration": false,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "mapRoot": "./",
-    "lib": [
-      "es2016",
-      "dom"
-    ],
+    "outDir": "../out-tsc/mh-app",
     "module": "es2015",
-    "target": "es5",
-    "moduleResolution": "node",
-    "outDir": "dist",
-    "genDir": "src/locale",
-    "sourceMap": true,
-    "typeRoots": [
-      "../node_modules/@types"
-    ],
-    "types": [
-      "hammerjs",
-      "jasmine"
-    ],
-    "baseUrl": "./src",
-    "allowUnreachableCode": false,
-    "allowUnusedLabels": false,
-    "noImplicitAny": true,
-    "noImplicitReturns": true,
-    "noImplicitUseStrict": false,
-    "noFallthroughCasesInSwitch": true
+    "baseUrl": "",
+    "types": []
   },
   "exclude": [
-    "test.ts"
+    "test.ts",
+    "**/*.spec.ts"
   ]
 }

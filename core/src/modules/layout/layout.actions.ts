@@ -1,19 +1,19 @@
-import { Action } from '@ngrx/platform/modules/store';
+import { Action } from '@ngrx/store';
 import { type } from '../../util';
 
-export const ActionTypes = {
-    OPEN_SIDENAV:   type('[Layout] Open Sidenav'),
-    CLOSE_SIDENAV:  type('[Layout] Close Sidenav')
+export const LayoutActionTypes = {
+    OPEN_DRAWER:   type('[Layout] Open Drawer'),
+    CLOSE_DRAWER:  type('[Layout] Close Drawer')
 };
 
-export class OpenSidenavAction implements Action {
-    type = ActionTypes.OPEN_SIDENAV;
+export class OpenDrawerAction implements Action {
+    type = LayoutActionTypes.OPEN_DRAWER;
 }
 
-export class CloseSidenavAction implements Action {
-    type = ActionTypes.CLOSE_SIDENAV;
+export class CloseDrawerAction implements Action {
+    type = LayoutActionTypes.CLOSE_DRAWER;
 }
 
-export type Actions
-    = OpenSidenavAction
-    | CloseSidenavAction;
+export type LayoutActions
+    = OpenDrawerAction
+    | CloseDrawerAction;

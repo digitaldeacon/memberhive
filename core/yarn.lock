@@ -40,9 +40,17 @@
   dependencies:
     tsickle "^0.21.0"
 
-"@ngrx/platform@https://github.com/ngrx/platform.git":
-  version "3.0.0-alpha.0"
-  resolved "https://github.com/ngrx/platform.git#e098d3e1962cf22df2255faef5220779c55e66aa"
+"@ngrx/core@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+
+"@ngrx/effects@2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.0.tgz#db4c3e1b69030229cb6b908477115b3479e4c4e0"
+
+"@ngrx/store@2.2.1":
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.1.tgz#316ec1e43aa5a0166e5e6e1aa2c34a4049386510"
 
 "@types/node@^7.0.5":
   version "7.0.12"

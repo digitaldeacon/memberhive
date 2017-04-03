@@ -1,19 +1,23 @@
-import { Component, ElementRef, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { style, state, trigger } from '@angular/animations';
+import { Component, ElementRef, OnInit } from '@angular/core';
+import { animate, style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { TitleService } from './common/title.service';
-import { AuthService } from './common/auth/auth.service';
-import { ShoutService } from './common/shout.service';
-import { InteractionService } from './common/interaction.service';
+import { TitleService } from '../common/title.service';
+import { AuthService } from '../common/auth/auth.service';
+import { ShoutService } from '../common/shout.service';
+import { InteractionService } from '../common/interaction.service';
 
-import { Person } from './person/person';
+import { Person } from '../person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { Note } from './note/note';
-import { NoteService } from './note/note.service';
-import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
+import { Note } from '../note/note';
+import { NoteService } from '../note/note.service';
+import { NoteCreateDialogComponent } from '../note/dialogs/note-create.dialog';
+
+import { Store } from '@ngrx/store';
+import * as app from '../app.store';
+import * as layout from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -21,10 +25,10 @@ import { NoteCreateDialogComponent } from './note/dialogs/note-create.dialog';
     styleUrls: ['./view.component.scss'],
     animations: [
         trigger('drawer', [
-            state('false', style({
+            state('true', style({
                 width: '200px'
             })),
-            state('true',  style({
+            state('false',  style({
                 width: '75px',
                 flex: '1 1 75px;',
                 'min-width': '75px',
@@ -53,8 +57,8 @@ export class ViewComponent implements OnInit {
     myInteractions: Observable<Note[]>;
     myOutstanding: Observable<Note[]>;
 
-    alwaysVisible: boolean = false;
-    drawerVisible: boolean = false;
+    drawerVisible$: Observable<boolean>;
+    open: string = 'true';
 
     constructor(private _shoutService: ShoutService,
                 private _interactionService: InteractionService,
@@ -63,11 +67,15 @@ export class ViewComponent implements OnInit {
                 private _element: ElementRef,
                 private _router: Router,
                 public _dialog: MdDialog,
-                public titleService: TitleService) {
+                private store: Store<app.AppState>,
+                public titleService: TitleService)
+    {
+        this.drawerVisible$ = this.store.select(app.getShowDrawer);
     }
 
     ngOnInit(): void {
         this.currentUser = this._auth.getCurrentUser();
+        // TODO: use the core module to fetch the state
         this.myInteractions = this._interactionService.myInteractions;
         this.myOutstanding = this.myInteractions.map((data: Note[]) =>
             data.filter((n: Note) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
@@ -75,25 +83,13 @@ export class ViewComponent implements OnInit {
         this._interactionService.loadMy();
     }
 
-    toggleAlwaysVisible(): void {
-        this.alwaysVisible = !this.alwaysVisible;
+    openDrawer(): void {
+        this.open = 'true';
+        this.store.dispatch(new layout.OpenDrawerAction());
     }
-
-    toggleFullscreen(): void {
-        const elem: any = this._element.nativeElement.querySelector('.demo-content');
-        if (elem.requestFullscreen) {
-            elem.requestFullscreen();
-        } else if (elem.webkitRequestFullScreen) {
-            elem.webkitRequestFullScreen();
-        } else if (elem.mozRequestFullScreen) {
-            elem.mozRequestFullScreen();
-        } else if (elem.msRequestFullScreen) {
-            elem.msRequestFullScreen();
-        }
-    }
-
-    toggleDrawer(): void {
-        this.drawerVisible = this.drawerVisible ? false : true;
+    closeDrawer(): void {
+        this.open = 'false';
+        this.store.dispatch(new layout.CloseDrawerAction());
     }
 
     isActiveItem(title: any): boolean {

@@ -12,12 +12,15 @@ import { CommonModule } from './common/common.module';
 import { SearchModule } from './search/search.module';
 import { NoteModule } from './note/note.module';
 
-import { LoginComponent } from './login.component';
-import { ViewComponent } from './view.component';
+import { LoginComponent } from './login/login.component';
+import { ViewComponent } from './viewport/view.component';
 
 import { PersonService } from './person/person.service';
 
+import { StoreModule } from '@ngrx/store';
 import { MHCoreModule } from 'mh-core';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { reducer } from './app.store';
 
 @NgModule({
     declarations: [
@@ -35,7 +38,9 @@ import { MHCoreModule } from 'mh-core';
         BrowserAnimationsModule,
 
         AppRoutingModule,
-        MHCoreModule.forRoot(),
+        MHCoreModule,
+        StoreModule.provideStore(reducer),
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
         CommonModule,
         SearchModule,

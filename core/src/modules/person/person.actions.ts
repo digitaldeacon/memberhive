@@ -1,4 +1,4 @@
-import { Action } from '@ngrx/platform/modules/store';
+import { Action } from '@ngrx/store';
 
 export const PersonActionTypes = {
     GET: '[Person] Get',

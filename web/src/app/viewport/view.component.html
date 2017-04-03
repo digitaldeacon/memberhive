@@ -74,7 +74,7 @@
              fxFlex="200px"
              fxHide.xs
              fxHide.sm
-             [@drawer]="drawerVisible">
+             [@drawer]="open">
             <md-nav-list menu-items>
                 <a md-list-item>
                     <img md-list-avatar src="{{currentUser.avatar}}" alt="{{currentUser.fullName}}" />
@@ -89,10 +89,12 @@
                     <h4 md-line>{{item.title}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
-                <a md-list-item (click)="toggleDrawer()">
-                    <md-icon md-list-icon *ngIf="!drawerVisible">first_page</md-icon>
-                    <md-icon md-list-icon *ngIf="drawerVisible">last_page</md-icon>
-                    <h4 md-line *ngIf="!drawerVisible">collapse</h4>
+                <a md-list-item (click)="closeDrawer()" *ngIf="(drawerVisible$ | async)">
+                    <md-icon md-list-icon>first_page</md-icon>
+                    <h4 md-line>collapse</h4>
+                </a>
+                <a md-list-item (click)="openDrawer()" *ngIf="!(drawerVisible$ | async)">
+                    <md-icon md-list-icon>last_page</md-icon>
                 </a>
             </md-nav-list>
         </div>

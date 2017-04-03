@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
-import {LoginService} from './common/auth/login.service';
+import {LoginService} from '../common/auth/login.service';
 import {LocalStorage} from 'ng2-webstorage';
 
 @Component({
