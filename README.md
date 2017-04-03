@@ -173,6 +173,13 @@ it will pay off as we grow the functionality and the complexity of state.
 
 **PHP**: `yarn phplint` or `npm run phplint`
 
+## Changes to Core 
+Whenever you change something in the core folder you are required to rebuild the package.
+In a Yarn environment you would either be in /core and `yarn build`, or
+be in the root and `yarn build:core`.
+
+If you don't do that you're changed code will not show up in the web or mobile app.
+
 ## Changes to DB
 
 + Undo all migrations : `php api/yii migrate/down all --interactive=0`

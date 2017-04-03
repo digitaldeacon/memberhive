@@ -21,7 +21,7 @@
     "update:all": "yarn update:core && yarn update:web && yarn update:mobile && cd api/ && composer update",
     "build:web": "cd web && yarn build",
     "start:web": "cd web && yarn start",
-    "build:core": "cd core && yarn build && npm pack",
+    "build:core": "cd core && yarn build",
     "outdated:all": "cd web && yarn outdated && cd ../core && yarn outdated && cd ../mobile && yarn outdated"
   }
 }
