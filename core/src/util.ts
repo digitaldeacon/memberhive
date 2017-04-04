@@ -55,7 +55,7 @@ export function share<T, V>(selectFn: SelectorFn<T, V>): Selector<T, V> {
         cachedResult = undefined;
     };
 
-    const multicastFactory: any = function (): ReplaySubject {
+    const multicastFactory: any = function (): ReplaySubject<V> {
         return new ReplaySubject<V>(1);
     };
 

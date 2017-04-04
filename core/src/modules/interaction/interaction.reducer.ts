@@ -11,11 +11,11 @@ action: interaction.InteractionActions): InteractionState {
 
         case interaction.interactionActionTypes.ADD_INTERACTION: {
             return [ ...state, ...action.payload ];
-        }; break;
+        };
 
         case interaction.interactionActionTypes.LOAD_INTERACTION: {
             return action.payload;
-        }; break;
+        };
 
         default:
             return state;

@@ -10,7 +10,6 @@ export const personActionTypes: any = {
 
 export class GetAction implements Action {
     type: any = personActionTypes.GET;
-    constructor(public payload: string) { }
 }
 
 export class UpdateAction implements Action {

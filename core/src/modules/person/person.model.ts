@@ -1,4 +1,4 @@
-export interface PersonState {
+export interface Person {
     id: number;
     uid: string;
     firstName: string;
@@ -20,32 +20,32 @@ export interface PersonState {
     socialContact: any;
 }
 
-export let initialPersonState: PersonState = {
-    id: 0,
-    uid: '',
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    fullName: '',
-    email: '',
-    maritalStatus: '',
-    gender: '',
-    birthday: undefined,
-    age: 0,
-    avatar: '',
-    username: '',
-    phoneHome: '',
-    phoneWork: '',
-    phoneMobile: '',
-    user: {},
-    address: {
-        home: {},
-        postal: {}
-    },
-    socialContact: {}
-};
-
 export interface PersonAddress {
     home: any;
     postal: any;
 }
+
+ export const emptyPerson: Person = {
+     id: 0,
+     uid: '',
+     firstName: '',
+     lastName: '',
+     middleName: '',
+     fullName: '',
+     email: '',
+     maritalStatus: '',
+     gender: '',
+     birthday: undefined,
+     age: 0,
+     avatar: '',
+     username: '',
+     phoneHome: '',
+     phoneWork: '',
+     phoneMobile: '',
+     user: {},
+     address: {
+     home: {},
+     postal: {}
+     },
+     socialContact: {}
+ };

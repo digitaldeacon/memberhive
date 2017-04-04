@@ -12,7 +12,7 @@ import { PersonService } from '../person.service';
 import { AuthService } from '../../common/auth/auth.service';
 import { Person, PersonAddress } from '../person';
 
-import * as _ from 'lodash';
+// import * as _ from 'lodash';
 
 @Component({
     selector: 'mh-person-edit',
@@ -140,10 +140,10 @@ export class PersonEditComponent implements OnInit {
                     },
                     () => {
                         // recalc lat/long when address has changed
-                        if (model.address &&
+                        /* if (model.address &&
                             !_.isEqual(oldAttributes.address, model.address)) {
-                            this.calcGeocode(model.address);
-                        }
+                                this.calcGeocode(model.address);
+                        }*/
                     }
                 );
         }

@@ -20,6 +20,7 @@
         </md-menu>
     </md-card>
     <md-card>
+        {{people$ | async}}
         <md-nav-list>
             <a md-list-item *ngFor="let person of people" [routerLink]="['/person/view', person.uid]">
                 <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
