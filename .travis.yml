@@ -33,7 +33,6 @@ before_install:
   - npm set progress=false
 before_script:
   - export NODE_ENV="travis"
-  - cd api && composer install --prefer-dist
   - yarn install:all
 script:
   - yarn build:web
