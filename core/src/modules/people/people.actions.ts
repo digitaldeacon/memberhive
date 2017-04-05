@@ -7,7 +7,7 @@ export const peopleActionTypes: any = {
     LIST_FAIL: '[People] List Fail',
     UPDATE: '[People] Update',
     VIEW: '[People] View',
-    CREATE: '[People] Create',
+    CREATE: '[People] Create'
 };
 
 export class ListAction implements Action {
@@ -24,7 +24,6 @@ export class ListFailAction implements Action {
     type: any = peopleActionTypes.LIST_FAIL;
     constructor(public payload: any) { }
 }
-
 
 export type PeopleActions =
     ListAction

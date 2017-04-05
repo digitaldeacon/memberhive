@@ -149,10 +149,13 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 ## Developing with NgRX (Redux pattern)
 Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
 
+Install the [devTools for Chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd).
+
 Development has become a litte different. All the state altering logic has moved
  to the core module now (./core). The core will be symlinked to the web and the mobile apps.
  That means:
- + when you make changes to the core it will affect the mobile and the web application
+ + when you make changes you will need to **build the core first** (see "Changes to Core") 
+ before you get updated data
  + whatever is on the core can be accessed by mobile and web
  + all state is now stored as a single observable (one source of truth)
  + every action (like updating, fetching, etc) needs to be defined with actions and reducers

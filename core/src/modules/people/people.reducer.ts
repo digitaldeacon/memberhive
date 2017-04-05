@@ -5,7 +5,7 @@ import { Person, emptyPerson } from '../person/person.model';
 export interface PeopleState {
     loaded: boolean;
     loading: boolean;
-    people: Person[]
+    people: Person[];
 };
 
 const initialPersonState: PeopleState = {
@@ -36,6 +36,6 @@ export function peopleReducer(state: PeopleState = initialPersonState,
         }
     }
 }
-export const getLoaded = (state: PeopleState) => state.loaded;
-export const getLoading = (state: PeopleState) => state.loading;
-export const getPeople = (state: PeopleState) => state.people;
+export const getLoaded: any = (state: PeopleState) => state.loaded;
+export const getLoading: any = (state: PeopleState) => state.loading;
+export const getPeople: any = (state: PeopleState) => state.people;

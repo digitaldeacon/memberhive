@@ -96,7 +96,7 @@
     "no-reference": true,
     "no-require-imports": true,
     "no-shadowed-variable": true,
-    "no-switch-case-fall-through": true,
+    "no-switch-case-fall-through": false,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-use-before-declare": true,
