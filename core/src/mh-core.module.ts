@@ -2,6 +2,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpService } from './services/http.service';
 import { AuthService } from './services/auth/auth.service';
+import { TitleService } from './services/title.service'
 
 @NgModule({
     declarations: [
@@ -9,7 +10,8 @@ import { AuthService } from './services/auth/auth.service';
     ],
     providers: [
         HttpService,
-        AuthService
+        AuthService,
+        TitleService
     ],
     exports: [
 

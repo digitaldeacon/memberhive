@@ -177,7 +177,9 @@ it will pay off as we grow the functionality and the complexity of state.
 **PHP**: `yarn phplint` or `npm run phplint`
 
 ## Changes to Core 
-Whenever you change something in the core folder you are required to rebuild the package.
+Whenever you change something in the core folder you are required to rebuild the package **AND** also 
+restart the web `yarn start:web` or `yarn start` (when in the web folder).
+
 In a Yarn environment you would either be in /core and `yarn build`, or
 be in the root and `yarn build:core`.
 
