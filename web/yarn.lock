@@ -104,7 +104,7 @@
 
 "@angular/material@https://github.com/angular/material2-builds.git":
   version "2.0.0-beta.2"
-  resolved "https://github.com/angular/material2-builds.git#06ce5b413dffed1eacd5f3574fc7b9ec7ba36bde"
+  resolved "https://github.com/angular/material2-builds.git#3f3660c2f08b89ea1c16b8dedf54e20e11a0a88a"
 
 "@angular/platform-browser-dynamic@^4.0.0":
   version "4.0.1"
@@ -2671,8 +2671,8 @@ js-tokens@^3.0.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
 
 js-yaml@^3.7.0:
-  version "3.8.2"
-  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.2.tgz#02d3e2c0f6beab20248d412c352203827d786721"
+  version "3.8.3"
+  resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.8.3.tgz#33a05ec481c850c8875929166fe1beb61c728766"
   dependencies:
     argparse "^1.0.7"
     esprima "^3.1.1"
@@ -4899,8 +4899,8 @@ tslint@^4.0.0:
     update-notifier "^2.0.0"
 
 tsutils@^1.1.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-1.4.0.tgz#84f8a83df9967d35bf1ff3aa48c7339593d64e19"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-1.5.0.tgz#36b571537827988b497244486a77792c8fc3563c"
 
 tty-browserify@0.0.0:
   version "0.0.0"
