@@ -18,8 +18,10 @@ import { ViewComponent } from './viewport/view.component';
 import { PersonService } from './person/person.service';
 
 import { StoreModule } from '@ngrx/store';
-import { MHCoreModule } from 'mh-core';
+import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+
+import { MHCoreModule, PeopleEffects } from 'mh-core';
 import { reducer } from './app.store';
 
 @NgModule({
@@ -39,7 +41,11 @@ import { reducer } from './app.store';
 
         AppRoutingModule,
         MHCoreModule,
+
         StoreModule.provideStore(reducer),
+
+        EffectsModule.run(PeopleEffects),
+
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
         CommonModule,

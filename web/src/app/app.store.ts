@@ -6,18 +6,18 @@ import { environment } from '../environments/environment';
 
 import * as layout from 'mh-core';
 import * as interaction from 'mh-core';
-import * as person from 'mh-core';
+import * as people from 'mh-core';
 
 export interface AppState {
     layout: layout.LayoutState;
     interaction: interaction.InteractionState;
-    people: person.PersonState;
+    people: people.PeopleState;
 }
 
 const reducers: any = {
     layout: layout.layoutReducer,
     interaction: interaction.interactionReducer,
-    people: person.personReducer
+    people: people.peopleReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -37,6 +37,7 @@ export function reducer(state: any, action: any): AppState {
 export const getLayoutState: any = (state: AppState) => state.layout;
 export const getShowDrawer: any = createSelector(getLayoutState, layout.getShowDrawer);
 /**
- * Person Reducers
+ * People Reducers
  */
 export const getPeopleState: any = (state: AppState) => state.people;
+export const getPeople: any = createSelector(getPeopleState, people.getPeople);

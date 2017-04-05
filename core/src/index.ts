@@ -1,6 +1,7 @@
 export * from './mh-core.module';
 export * from './modules/layout';
 export * from './modules/interaction';
+export * from './modules/people';
 export * from './modules/person';
 
 export * from './services/http.service';

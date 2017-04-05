@@ -95,7 +95,7 @@ class PersonController extends MHController
         foreach ($people as $person) {
             $ret[] = $person->toResponseArray();
         }
-        return ['response' => $ret];
+        return $ret;
     }
 
     public function actionSearch()
