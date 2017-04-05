@@ -5,16 +5,16 @@ cache: yarn
 branches:
   only:
     - master
+env:
+  - NODE_JS_VERSION=6.9.5
+addons:
+  mariadb: '10.0'
   apt:
     sources:
       - sourceline: 'deb https://dl.yarnpkg.com/debian/ stable main'
         key_url: 'https://dl.yarnpkg.com/debian/pubkey.gpg'
     packages:
       - yarn
-env:
-  - NODE_JS_VERSION=6.9.5
-addons:
-  mariadb: '10.0'
 cache:
   directories:
     - "$HOME/.nvm"
