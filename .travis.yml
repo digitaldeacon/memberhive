@@ -24,10 +24,9 @@ before_install:
   - npm i -g @angular/cli typescript@2.2.1 tslint
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
-install:
-  - cd api && composer install --prefer-dist
 before_script:
   - export NODE_ENV="travis"
+  - cd api && composer install --prefer-dist
   - yarn install:all
 script:
   - yarn build:web

@@ -185,6 +185,11 @@ be in the root and `yarn build:core`.
 
 If you don't do that you're changed code will not show up in the web or mobile app.
 
+**WORKAROUND**
+You copy the core folder into the web: `cp core/src web/src/app/core`. But you will need to change the
+import paths manually. After you're done with your section just copy the core files back to the 
+core folder in root.
+
 ## Changes to DB
 
 + Undo all migrations : `php api/yii migrate/down all --interactive=0`
