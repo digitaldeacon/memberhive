@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
 
-import { NavController } from 'ionic-angular';
+import { AppState } from '../../app/app.state';
+import * as counterActions from 'ngrx-demo-core';
 
 @Component({
   selector: 'page-home',
@@ -8,8 +11,22 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+  counter$: Observable<number>;
 
+  constructor(private store: Store<AppState>) {
+    this.counter$ = this.store.select(s => s.counter.total);
+  }
+
+  decrement() {
+    this.store.dispatch(new counterActions.DecrementAction());
+  }
+
+  increment() {
+    this.store.dispatch(new counterActions.IncrementAction());
+  }
+
+  reset() {
+    this.store.dispatch(new counterActions.ResetAction());
   }
 
 }

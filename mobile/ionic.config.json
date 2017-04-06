@@ -1,6 +1,5 @@
 {
-  "name": "mh-mobile",
+  "name": "ngrx-demo-mobile",
   "app_id": "",
-  "v2": true,
-  "typescript": true
+  "projectTypeId": "ionic-angular"
 }

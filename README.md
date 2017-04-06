@@ -180,10 +180,13 @@ it will pay off as we grow the functionality and the complexity of state.
 Whenever you change something in the core folder you are required to rebuild the package **AND** also 
 restart the web `yarn start:web` or `yarn start` (when in the web folder).
 
+**UNLESS** you use `node_modules/typescript/bin/tsc -w`, which will compile and watch. That only works
+for the web so far. Ionic does not seem to reload (yet).
+
 In a Yarn environment you would either be in /core and `yarn build`, or
 be in the root and `yarn build:core`.
 
-If you don't do that you're changed code will not show up in the web or mobile app.
+If you don't do that your changed code will not show up in the web or mobile app.
 
 **WORKAROUND**
 You copy the core folder into the web: `cp core/src web/src/app/core`. But you will need to change the
