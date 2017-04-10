@@ -17,7 +17,7 @@
     "update:api": "cd api && composer update",
     "update:core": "cd core && yarn upgrade && yarn build",
     "update:web": "cd web && yarn upgrade && yarn install:dep",
-    "update:mobile": "cd mobile && yarn upgrade && install:dep",
+    "update:mobile": "cd mobile && yarn upgrade && yarn install:dep",
     "update:all": "yarn update:core && yarn update:web && yarn update:mobile && cd api/ && composer update",
     "build:web": "cd web && yarn build",
     "start:web": "cd web && yarn start",

@@ -50,7 +50,7 @@ class ActionLogController extends MHController
      */
     protected function findModel($id)
     {
-        $note = Note::findOne($id);
+        $note = ActionLog::findOne($id);
         if ($note === null) {
             throw new NotFoundHttpException('The requested note does not exist.');
         }

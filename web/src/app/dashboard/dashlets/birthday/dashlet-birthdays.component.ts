@@ -38,7 +38,7 @@ export class DashletBirthdaysComponent implements OnChanges {
         if (this.people) {
             this.rangeDate.setDate(new Date(this.now).getDate() + this.range);
             this.peopleBdRange = this.people.filter((p: Person) => {
-                const bday: Date = p.birthday;
+                const bday: Date = new Date(p.birthday);
                 if (!p.birthday) {
                     return false;
                 }
@@ -52,7 +52,7 @@ export class DashletBirthdaysComponent implements OnChanges {
             });
             // Filter for today's birthdays
             this.peopleBdToday = this.people.filter((p: Person) => {
-                const bday: Date = p.birthday;
+                const bday: Date = new Date(p.birthday);
                 if (!p.birthday) {
                     return false;
                 }

@@ -4,7 +4,7 @@
      fxFlexLayout="space-around center"
      fxLayoutGap="10px">
     <mh-dashlet-birthdays
-            [people]="persons"
+            [people]="people$ | async"
             fxFlex.gt-sm="50"></mh-dashlet-birthdays>
     <mh-dashlet-interactions
             fxFlex.gt-sm="50"></mh-dashlet-interactions>

@@ -44,13 +44,19 @@ export class ViewComponent implements OnInit {
     routes: Object[] = [
         {
             title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
-        }, {
+        },
+        {
             title: 'Persons', route: '/person', icon: 'people'
-        }, {
+        },
+        {
             title: 'Events', route: '', icon: 'today'
-        }, {
+        },
+        {
             title: 'Groups', route: '', icon: 'people_outline'
-        }
+        },
+        {
+            title: 'Settings', route: '/settings', icon: 'build'
+        },
     ];
 
     currentUser: Person;
@@ -61,15 +67,13 @@ export class ViewComponent implements OnInit {
     open: string = 'true';
 
     constructor(private _shoutService: ShoutService,
-                private _interactionService: InteractionService,
+                private _interactionService: InteractionService, // TODO: remove with store
                 private _auth: AuthService,
-                private _noteService: NoteService,
-                private _element: ElementRef,
                 private _router: Router,
-                public _dialog: MdDialog,
-                private store: Store<app.AppState>,
+                private _store: Store<app.AppState>,
+                private _dialog: MdDialog,
                 public titleService: TitleService) {
-        this.drawerVisible$ = this.store.select(app.getShowDrawer);
+        this.drawerVisible$ = this._store.select(app.getShowDrawer);
     }
 
     ngOnInit(): void {
@@ -84,11 +88,11 @@ export class ViewComponent implements OnInit {
 
     openDrawer(): void {
         this.open = 'true';
-        this.store.dispatch(new layout.OpenDrawerAction());
+        this._store.dispatch(new layout.OpenDrawerAction());
     }
     closeDrawer(): void {
         this.open = 'false';
-        this.store.dispatch(new layout.CloseDrawerAction());
+        this._store.dispatch(new layout.CloseDrawerAction());
     }
 
     isActiveItem(title: any): boolean {

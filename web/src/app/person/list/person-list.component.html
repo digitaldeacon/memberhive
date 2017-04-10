@@ -25,10 +25,10 @@
                 <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                 <div class="mat-list-text" fxLayout="row">
                     <h2 fxFlex="25">{{person.fullName}}</h2>
-                    <div fxFlex fxFlexFill md-line fxLayout="row" fxLayoutAlign="space-between">
-                        <span >{{person.birthday | date: 'mediumDate'}}</span>
-                        <span >{{person.email}}</span>
-                        <md-chip-list fxHide.xs>
+                    <div fxFlex md-line fxLayout="row" class="list-detail">
+                        <span *ngIf="display('birthday')">{{person.birthday | date: 'mediumDate'}}</span>
+                        <span *ngIf="display('email')">{{person.email}}</span>
+                        <md-chip-list fxHide.xs *ngIf="display('status')">
                             <md-chip>Mitglied</md-chip>
                             <md-chip>Begrüßungsdienst</md-chip>
                         </md-chip-list>

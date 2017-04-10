@@ -3,6 +3,7 @@ export * from './modules/layout';
 export * from './modules/interaction';
 export * from './modules/people';
 export * from './modules/person';
+export * from './modules/settings';
 
 export * from './services/http.service';
 export * from './services/title.service';
