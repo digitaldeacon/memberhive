@@ -20,7 +20,7 @@ export class SettingsEffects {
      * the effect immediately on startup.
      */
     @Effect()
-    getPeople$: Observable<Action> = this.actions$
+    get$: Observable<Action> = this.actions$
         .ofType(collection.settingActionTypes.LIST)
         .startWith(new collection.ListSettingAction())
         .switchMap(() =>

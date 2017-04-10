@@ -3,8 +3,6 @@ import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { TitleService } from '../common/title.service';
-import { AuthService } from '../common/auth/auth.service';
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
 
@@ -12,12 +10,12 @@ import { Person } from '../person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Note } from '../note/note';
-import { NoteService } from '../note/note.service';
 import { NoteCreateDialogComponent } from '../note/dialogs/note-create.dialog';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
-import * as layout from 'mh-core';
+import * as settings from 'mh-core';
+import { TitleService, AuthService } from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -72,7 +70,7 @@ export class ViewComponent implements OnInit {
                 private _router: Router,
                 private _store: Store<app.AppState>,
                 private _dialog: MdDialog,
-                public titleService: TitleService) {
+                private _titleService: TitleService) {
         this.drawerVisible$ = this._store.select(app.getShowDrawer);
     }
 
@@ -88,15 +86,19 @@ export class ViewComponent implements OnInit {
 
     openDrawer(): void {
         this.open = 'true';
-        this._store.dispatch(new layout.OpenDrawerAction());
+        this._store.dispatch(new settings.OpenDrawerAction());
     }
     closeDrawer(): void {
         this.open = 'false';
-        this._store.dispatch(new layout.CloseDrawerAction());
+        this._store.dispatch(new settings.CloseDrawerAction());
     }
 
     isActiveItem(title: any): boolean {
-        return this.titleService.getModule() === title;
+        return this._titleService.getModule() === title;
+    }
+
+    getTitle(): string {
+        return this._titleService.getTitle();
     }
 
     openDlgInteractions(): void {

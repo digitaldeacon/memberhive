@@ -4,20 +4,17 @@ import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
 
-import * as layout from 'mh-core';
 import * as interaction from 'mh-core';
 import * as people from 'mh-core';
 import * as settings from 'mh-core';
 
 export interface AppState {
-    layout: layout.LayoutState;
     interaction: interaction.InteractionState;
     people: people.PeopleState;
     settings: settings.SettingsState;
 }
 
 const reducers: any = {
-    layout: layout.layoutReducer,
     interaction: interaction.interactionReducer,
     people: people.peopleReducer,
     settings: settings.settingsReducer
@@ -35,11 +32,6 @@ export function reducer(state: any, action: any): AppState {
 }
 
 /**
- * Layout Reducers
- */
-export const getLayoutState: any = (state: AppState) => state.layout;
-export const getShowDrawer: any = createSelector(getLayoutState, layout.getShowDrawer);
-/**
  * People Reducers
  */
 export const getPeopleState: any = (state: AppState) => state.people;
@@ -51,3 +43,7 @@ export const getSettingsState: any = (state: AppState) => state.settings;
 export const getLayoutSettings: any = createSelector(getSettingsState, settings.getLayoutSettings);
 export const getPeopleSettings: any = createSelector(getSettingsState, settings.getPeopleSettings);
 export const getProfileSettings: any = createSelector(getSettingsState, settings.getProfileSettings);
+/**
+ * Layout Settings Reducers
+ */
+export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);

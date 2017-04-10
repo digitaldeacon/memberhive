@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { TitleService } from '../common/title.service';
-import { AuthService } from '../common/auth/auth.service';
+import { TitleService, AuthService } from 'mh-core';
 import { Person } from '../person/person';
 
 import * as app from '../app.store';
@@ -21,8 +20,7 @@ export class DashboardComponent {
     constructor(titleService: TitleService,
                 private _auth: AuthService,
                 private _store: Store<app.AppState>) {
-        const currentDate: Date = new Date();
-        titleService.setTitle(currentDate.toDateString());
+        titleService.setTitle(new Date().toDateString());
         this.currentUser = this._auth.getCurrentUser(); // TODO: read from store
         this.people$ = this._store.select(app.getPeople);
     }

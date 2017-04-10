@@ -12,7 +12,7 @@
   "scripts": {
     "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
     "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
-    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild",
+    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild && yarn lint",
     "lint": "tslint \"**/*.ts\" -c tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\""
   },
   "engines": {
