@@ -54,7 +54,7 @@ export class ViewComponent implements OnInit {
         },
         {
             title: 'Settings', route: '/settings', icon: 'build'
-        },
+        }
     ];
 
     currentUser: Person;

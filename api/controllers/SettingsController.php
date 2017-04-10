@@ -34,11 +34,10 @@ class SettingsController extends MHController
      */
     protected function findModel($id)
     {
-        $note = Settings::findOne($id);
-        if ($note === null) {
+        $settings = Settings::findOne($id);
+        if ($settings === null) {
             throw new NotFoundHttpException('The requested setting does not exist.');
         }
-        return $note;
+        return $settings;
     }
-
 }

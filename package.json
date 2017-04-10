@@ -22,6 +22,11 @@
     "build:web": "cd web && yarn build",
     "start:web": "cd web && yarn start",
     "build:core": "cd core && yarn build",
-    "outdated:all": "cd web && yarn outdated && cd ../core && yarn outdated && cd ../mobile && yarn outdated"
+    "outdated:all": "cd web && yarn outdated && cd ../core && yarn outdated && cd ../mobile && yarn outdated",
+    "lint:core": "cd core && yarn lint",
+    "lint:web": "cd web && yarn lint && cd ../",
+    "lint:core": "cd core && yarn lint && cd ../",
+    "lint:mobile": "cd mobile && yarn lint && cd ../",
+    "lint": "yarn lint:web && yarn lint:mobile"
   }
 }
