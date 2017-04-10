@@ -59,7 +59,7 @@
     "@angular/cli": "^1.0.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
-    "@ngrx/store-devtools": "3.2.2",
+    "@ngrx/store-devtools": "^3.2.2",
     "@types/hammerjs": "^2.0.34",
     "@types/jasmine": "2.5.38",
     "@types/node": "^7.0.12",

@@ -139,9 +139,9 @@
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.2.tgz#8255e29cc0276f108784c90481e3b96e6713154b"
 
-"@ngrx/store-devtools@3.2.2":
-  version "3.2.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-3.2.2.tgz#4409c18b8ae656a2cdfb097155855d5d5d81ab80"
+"@ngrx/store-devtools@^3.2.2":
+  version "3.2.4"
+  resolved "https://registry.yarnpkg.com/@ngrx/store-devtools/-/store-devtools-3.2.4.tgz#2ce4d13bf34848a9e51ec87e3b125ed67b51e550"
 
 "@ngrx/store@^2.2.1":
   version "2.2.1"

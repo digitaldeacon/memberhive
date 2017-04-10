@@ -9,7 +9,7 @@ import { Person } from "../../person/person";
 import { Note, NoteType } from "../note";
 import { NoteService } from "../note.service";
 
-import { AuthService } from '../../common/auth/auth.service';
+import { AuthService } from 'mh-core';
 
 @Component({
     selector: 'mh-note-create-dialog',

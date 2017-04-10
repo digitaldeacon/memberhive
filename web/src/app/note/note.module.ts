@@ -1,6 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { MaterialModule } from '@angular/material';
+import {
+    MdCardModule,
+    MdDialogModule,
+    MdButtonModule,
+    MdButtonToggleModule,
+    MdIconModule,
+    MdMenuModule,
+    MdSelectModule,
+    MdTooltipModule,
+    MdInputModule
+} from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
@@ -26,7 +36,17 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
     ],
     imports: [
         CommonModule,
-        MaterialModule,
+
+        MdCardModule,
+        MdDialogModule,
+        MdButtonModule,
+        MdIconModule,
+        MdMenuModule,
+        MdSelectModule,
+        MdButtonToggleModule,
+        MdTooltipModule,
+        MdInputModule,
+
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,

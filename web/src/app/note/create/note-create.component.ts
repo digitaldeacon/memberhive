@@ -1,16 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { MdButtonToggleChange } from '@angular/material';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
-import { PersonService } from "../../person/person.service";
-import { Person } from "../../person/person";
+import { PersonService } from '../../person/person.service';
+import { Person } from '../../person/person';
 
-import { Note, NoteType } from "../note";
-import { NoteService } from "../note.service";
-import { InteractionService } from "../../common/interaction.service";
+import { Note, NoteType } from '../note';
+import { NoteService } from '../note.service';
+import { InteractionService } from '../../common/interaction.service';
 
-import { AuthService } from '../../common/auth/auth.service';
+import { AuthService } from 'mh-core';
 import { ShoutService } from '../../common/shout.service';
 
 @Component({

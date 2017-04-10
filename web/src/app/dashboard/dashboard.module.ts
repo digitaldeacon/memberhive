@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MaterialModule } from '@angular/material';
+import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 
@@ -24,7 +24,9 @@ import { PersonService } from '../person/person.service';
     ],
     imports: [
         CommonModule,
-        MaterialModule,
+
+        AppMaterialModule,
+
         DashboardRoutingModule,
         FlexLayoutModule,
         MomentModule

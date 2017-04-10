@@ -1,13 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Params } from "@angular/router";
+import { ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { Note } from "../note";
-import { NoteService } from "../note.service";
+import { Note } from '../note';
+import { NoteService } from '../note.service';
 import { NoteCreateDialogComponent } from '../dialogs/note-create.dialog';
 
-import { ShoutService } from "../../common/shout.service";
-import { AuthService } from '../../common/auth/auth.service';
+import { ShoutService } from '../../common/shout.service';
+import { AuthService } from 'mh-core';
 
 import { Person } from '../../person/person';
 

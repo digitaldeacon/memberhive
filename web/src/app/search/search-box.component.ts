@@ -48,7 +48,6 @@ export class SearchBoxComponent implements OnInit {
     searchClicked(): void {
         if (!this._searchVisible) {
             this.itemCtrl.reset();
-            // searchBar.focus(); //TODO: set focus on click
         }
         this.toggleVisibility();
     }
