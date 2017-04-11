@@ -1,11 +1,11 @@
 # Memberhive v2
 
-[![Join the chat at https://gitter.im/memberhive2/Lobby](https://badges.gitter.im/memberhive2/Lobby.svg)](https://gitter.im/memberhive2/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 <img src="http://memberhive.com/images/mh-logo.png" alt="Logo Memberhive" width="300px" />
 
 [![travis](https://travis-ci.org/digitaldeacon/memberhive2.svg?branch=master)](https://travis-ci.org/digitaldeacon/memberhive2) 
 [![Dependency Status][david-badge]][david-badge-url]
 [![devDependency Status][david-dev-badge]][david-dev-badge-url]
+[![Join the chat at https://gitter.im/memberhive2/Lobby](https://badges.gitter.im/memberhive2/Lobby.svg)](https://gitter.im/memberhive2/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Note
 MH2 is very much in Alpha status. Many dependencies, like Material2 (material design for angular2) are still under 
