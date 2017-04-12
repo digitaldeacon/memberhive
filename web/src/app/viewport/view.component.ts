@@ -62,6 +62,7 @@ export class ViewComponent implements OnInit {
     myOutstanding: Observable<Note[]>;
 
     drawerVisible$: Observable<boolean>;
+    loading$: Observable<boolean>;
     open: string = 'true';
 
     constructor(private _shoutService: ShoutService,
@@ -72,6 +73,7 @@ export class ViewComponent implements OnInit {
                 private _dialog: MdDialog,
                 private _titleService: TitleService) {
         this.drawerVisible$ = this._store.select(app.getShowDrawer);
+        this.loading$ = this._store.select(app.getLoading);
     }
 
     ngOnInit(): void {

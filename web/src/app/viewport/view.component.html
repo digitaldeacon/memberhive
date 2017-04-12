@@ -67,6 +67,8 @@
             </md-menu>
 
         </md-toolbar>
+        <md-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></md-progress-bar>
+        {{loading$ | async}}
     </header>
 
     <main fxLayout="row">

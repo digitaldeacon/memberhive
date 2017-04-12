@@ -31,6 +31,7 @@ export function reducer(state: any, action: any): AppState {
     }
 }
 
+export const getLoading: any = (state: AppState) => state.people.loading;
 /**
  * People Reducers
  */
