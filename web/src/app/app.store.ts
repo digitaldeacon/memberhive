@@ -5,18 +5,18 @@ import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
 
 import * as interaction from 'mh-core';
-import * as people from 'mh-core';
+import * as person from 'mh-core';
 import * as settings from 'mh-core';
 
 export interface AppState {
     interaction: interaction.InteractionState;
-    people: people.PeopleState;
+    person: person.PersonState;
     settings: settings.SettingsState;
 }
 
 const reducers: any = {
     interaction: interaction.interactionReducer,
-    people: people.peopleReducer,
+    people: person.personReducer,
     settings: settings.settingsReducer
 };
 
@@ -31,12 +31,11 @@ export function reducer(state: any, action: any): AppState {
     }
 }
 
-export const getLoading: any = (state: AppState) => state.people.loading;
 /**
  * People Reducers
  */
-export const getPeopleState: any = (state: AppState) => state.people;
-export const getPeople: any = createSelector(getPeopleState, people.getPeople);
+export const getPersonState: any = (state: AppState) => state.person;
+export const getPeople: any = createSelector(getPersonState, person.getPeople);
 /**
  * Settings Reducers
  */
@@ -48,3 +47,5 @@ export const getProfileSettings: any = createSelector(getSettingsState, settings
  * Layout Settings Reducers
  */
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
+
+export const getLoading: any = (state: AppState) => createSelector(getPersonState, person.getLoaded);

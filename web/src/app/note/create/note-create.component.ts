@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { PersonService } from '../../person/person.service';
-import { Person } from '../../person/person';
+import { Person } from 'mh-core';
 
 import { Note, NoteType } from '../note';
 import { NoteService } from '../note.service';

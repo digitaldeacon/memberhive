@@ -1,6 +1,5 @@
 export * from './mh-core.module';
 export * from './modules/interaction';
-export * from './modules/people';
 export * from './modules/person';
 export * from './modules/settings';
 

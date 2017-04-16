@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
-// import { MaterialModule } from '@angular/material';
+
 import { AppMaterialModule } from './app-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
@@ -22,7 +22,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { MHCoreModule, PeopleEffects } from 'mh-core';
+import { MHCoreModule, PersonEffects } from 'mh-core';
 import { reducer } from './app.store';
 
 @NgModule({
@@ -44,7 +44,7 @@ import { reducer } from './app.store';
         MHCoreModule,
 
         StoreModule.provideStore(reducer),
-        EffectsModule.run(PeopleEffects),
+        EffectsModule.run(PersonEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
         CommonModule,

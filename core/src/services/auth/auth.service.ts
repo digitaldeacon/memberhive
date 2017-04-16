@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LocalStorage } from 'ng2-webstorage';
-import { Person } from '../../modules/person/person';
+import { Person } from '../../modules/person/person.model';
 
 @Injectable()
 export class AuthService {

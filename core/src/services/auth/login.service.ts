@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { AuthService } from "./auth.service";
+import { AuthService } from './auth.service';
 import { Router, ActivatedRoute } from '@angular/router';
-import { HttpService } from "../http.service";
-import { Observable } from "rxjs";
+import { HttpService } from '../http.service';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class LoginService {
@@ -31,7 +31,7 @@ export class LoginService {
             return Observable.of(false);
         }
         return this.http.get('site/test-login').map((e: any) => {
-            return e !== "";
+            return e !== '';
         });
     }
 

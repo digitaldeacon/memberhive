@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
     Http,
     Headers,
@@ -6,9 +6,9 @@ import {
     Request,
     BaseRequestOptions,
     RequestMethod
-} from "@angular/http";
-import { Observable } from "rxjs";
-import { AuthService } from "./auth/auth.service";
+} from '@angular/http';
+import { Observable } from 'rxjs';
+import { AuthService } from './auth/auth.service';
 
 @Injectable()
 export class HttpService {

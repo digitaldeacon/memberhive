@@ -9,12 +9,12 @@ import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
-import * as collection from './people.actions';
-import { Person } from '../person/person.model';
+import * as collection from './person.actions';
+import { Person } from './person.model';
 import { HttpService } from "../../services/http.service";
 
 @Injectable()
-export class PeopleEffects {
+export class PersonEffects {
 
     /**
      * This effect makes use of the `startWith` operator to trigger
@@ -22,7 +22,7 @@ export class PeopleEffects {
      */
     @Effect()
     getPeople$: Observable<Action> = this.actions$
-        .ofType(collection.peopleActionTypes.LIST)
+        .ofType(collection.personActionTypes.LIST)
         .startWith(new collection.ListAction(toPayload))
         .switchMap(() =>
             this.http.get('person/list')
