@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
 
-import { Person } from '../person/person';
+// import { Person } from '../person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Note } from '../note/note';
@@ -15,7 +15,7 @@ import { NoteCreateDialogComponent } from '../note/dialogs/note-create.dialog';
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import * as settings from 'mh-core';
-import { TitleService, AuthService } from 'mh-core';
+import { TitleService, AuthService, Person } from 'mh-core';
 
 @Component({
     selector: 'mh-view',

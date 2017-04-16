@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import { TitleService, AuthService } from 'mh-core';
-import { Person } from '../person/person';
+import { Person } from 'mh-core';
 
 import * as app from '../app.store';
 

@@ -16,7 +16,7 @@ export interface AppState {
 
 const reducers: any = {
     interaction: interaction.interactionReducer,
-    people: person.personReducer,
+    person: person.personReducer,
     settings: settings.settingsReducer
 };
 

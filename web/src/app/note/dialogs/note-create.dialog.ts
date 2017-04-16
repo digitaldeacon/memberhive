@@ -3,11 +3,11 @@ import { MdDialogRef, MD_DIALOG_DATA, MdButtonToggleChange } from '@angular/mate
 
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
-import { PersonService } from "../../person/person.service";
-import { Person } from "../../person/person";
+import { PersonService } from '../../person/person.service';
+import { Person } from 'mh-core';
 
-import { Note, NoteType } from "../note";
-import { NoteService } from "../note.service";
+import { Note, NoteType } from '../note';
+import { NoteService } from '../note.service';
 
 import { AuthService } from 'mh-core';
 
