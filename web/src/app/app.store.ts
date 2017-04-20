@@ -48,4 +48,4 @@ export const getProfileSettings: any = createSelector(getSettingsState, settings
  */
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
 
-export const getLoading: any = (state: AppState) => createSelector(getPersonState, person.getLoaded);
+export const getLoading: any = createSelector(getPersonState, person.getLoading);
