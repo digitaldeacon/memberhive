@@ -1,3 +1,10 @@
-<p>
-  settings works!
-</p>
+<h4 i18n>Person Settings</h4>
+<md-card>
+  <md-card-title>Person List</md-card-title>
+  <md-card-content fxLayout="row" class='wrapper'>
+      <div class='container' [dragula]='"first-bag"' [dragulaModel]='personAttrSelected' fxFlex="50"></div>
+      <div class='container' [dragula]='"first-bag"' [dragulaModel]='personAttr' fxFlex="50">
+        <div *ngFor="let element of personAttr">{{element}}</div>
+      </div>
+  </md-card-content>
+</md-card>

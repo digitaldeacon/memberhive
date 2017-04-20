@@ -25,27 +25,27 @@ export interface PersonAddress {
     postal: any;
 }
 
- export const emptyPerson: Person = {
-     id: 0,
-     uid: '',
-     firstName: '',
-     lastName: '',
-     middleName: '',
-     fullName: '',
-     email: '',
-     maritalStatus: '',
-     gender: '',
-     birthday: undefined,
-     age: 0,
-     avatar: '',
-     username: '',
-     phoneHome: '',
-     phoneWork: '',
-     phoneMobile: '',
-     user: {},
-     address: {
-     home: {},
-     postal: {}
-     },
-     socialContact: {}
- };
+export const emptyPerson: Person = {
+    id: 0,
+    uid: '',
+    firstName: '',
+    lastName: '',
+    middleName: '',
+    fullName: '',
+    email: '',
+    maritalStatus: '',
+    gender: '',
+    birthday: undefined,
+    age: 0,
+    avatar: '',
+    username: '',
+    phoneHome: '',
+    phoneWork: '',
+    phoneMobile: '',
+    user: {},
+    address: {
+    home: {},
+    postal: {}
+    },
+    socialContact: {}
+};
