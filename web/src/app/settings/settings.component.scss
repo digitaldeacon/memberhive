@@ -1,13 +1,15 @@
-.container .div {
-  cursor: move;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
-}
-
-.container div, .gu-mirror {
-  margin: 10px;
-  padding: 10px;
-  background-color: rgba(0, 0, 0, 0.2);
-  transition: opacity 0.4s ease-in-out;
+.container {
+  border: 1px dashed rgba(0, 0, 0, 0.2);
+  .div {
+    cursor: move;
+    cursor: grab;
+    cursor: -moz-grab;
+    cursor: -webkit-grab;
+  }
+  div, .gu-mirror {
+    margin: 10px;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.2);
+    transition: opacity 0.4s ease-in-out;
+  }
 }

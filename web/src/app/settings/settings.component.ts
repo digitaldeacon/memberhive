@@ -8,7 +8,8 @@ import { DragulaService } from 'ng2-dragula/ng2-dragula';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
-    personAttr: Array<string> = [
+
+    personAttrSet: Array<string> = [
         'fullName',
         'firstName',
         'middleName',
@@ -22,9 +23,12 @@ export class SettingsComponent implements OnInit {
         'phoneWork',
         'phoneMobile'
     ];
-    personAttrSelected: Array<string>;
+    personAttr: Array<string>;
+    personAttrSelected: Array<string> = [
+        'email'
+    ];
 
-  constructor(titleService: TitleService,
+    constructor(titleService: TitleService,
               dragulaService: DragulaService) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
@@ -33,19 +37,23 @@ export class SettingsComponent implements OnInit {
       dragulaService.removeModel.subscribe((value: any[]) => {
           this.onRemoveModel(value.slice(1));
       });
-  }
+    }
 
-      ngOnInit(): void {
-        // this.personElements = Object.keys(this.person).map((key)=>{ return key});
-      }
+    ngOnInit(): void {
+        this.personAttr = this.personAttrSet.filter((item) => {
+            return this.personAttrSelected.indexOf(item)!==0;
+        });
+    }
 
     private onDropModel(args: any): void {
         let [el, target, source] = args;
         // do something else
+        // console.log(args, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
         // do something else
+        // console.log(args, this.personAttrSelected);
     }
 }
