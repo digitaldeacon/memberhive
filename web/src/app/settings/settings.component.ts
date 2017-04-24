@@ -48,12 +48,12 @@ export class SettingsComponent implements OnInit {
     private onDropModel(args: any): void {
         let [el, target, source] = args;
         // do something else
-        // console.log(args, this.personAttrSelected);
+        console.log(el, target, source, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
         // do something else
-        // console.log(args, this.personAttrSelected);
+        console.log(el, source, this.personAttrSelected);
     }
 }
