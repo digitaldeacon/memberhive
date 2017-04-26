@@ -1,18 +1,25 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { TitleService } from '../../common/title.service';
-import { PersonService } from '../person.service';
 import { InteractionService } from '../../common/interaction.service';
-import { Person } from '../person';
+
+import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { Store } from '@ngrx/store';
+
+import * as app from '../../app.store';
+import {
+    Person,
+    TitleService,
+    PersonViewAction } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 
-import { Note } from '../../note/note';
-import { NoteService } from '../../note/note.service';
-import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog';
+import { Interaction } from '../../interaction/interaction';
+// import { InteractionService } from '../../interaction/interaction.service';
+import { InteractionCreateDialogComponent } from '../../interaction/dialogs/interaction-create.dialog';
 
 @Component({
     moduleId: 'mh-person',
@@ -20,58 +27,69 @@ import { NoteCreateDialogComponent } from '../../note/dialogs/note-create.dialog
     templateUrl: './person-view.component.html',
     styleUrls: ['./person-view.component.scss']
 })
-export class PersonViewComponent implements OnInit {
-    notes: Array<Note>;
+export class PersonViewComponent implements OnInit, OnDestroy {
+    interactions: Array<Interaction>;
     people: Array<Person>;
+    people$: Observable<Person[]>;
+    person$: Observable<Person>;
     person: Person;
     dialogRef: MdDialogRef<any>;
     hasMorePeople: boolean = false;
 
-    constructor(private _titleService: TitleService,
+    actionsSubscription: Subscription;
+
+    constructor(private _store: Store<app.AppState>,
+                private _titleService: TitleService,
                 private _router: Router,
                 private _route: ActivatedRoute,
-                private _personService: PersonService,
-                private _noteService: NoteService,
                 private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
+
+        this._store.select(app.getPeople)
+            .subscribe((people: Person[]) => {
+                    this.people = people;
+                    this.person = this.people
+                        .filter((person: Person) => person.uid === this._route.snapshot.params['id'])[0];
+                }
+            );
+        /*this.actionsSubscription = this._route.params
+            .map((params: Params) => new PersonViewAction(params['id']))
+            .subscribe(this._store);
+        this.person$ = this._store.select(app.getSelectedPerson);*/
     }
 
     ngOnInit(): void {
-        this._route.params
+
+        /*this._route.params
             .switchMap((params: Params) => this._personService.getPerson(params['id']))
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle('Person: ' + person.fullName);
-                this._noteService.getNotes(person.uid)
-                    .subscribe((notes: Array<Note>) => this.notes = notes);
-        });
+                this._interactionService.getInteractions(person.uid)
+                    .subscribe((interactions: Array<Interaction>) => this.interactions = interactions);
+        });*/
+    }
+
+    ngOnDestroy(): void {
+        // this.actionsSubscription.unsubscribe();
     }
 
     prevPerson(): void {
-        this._personService.getPersons() // TODO: get them from the cache
-            .subscribe(
-                (people: Array<Person>) => {
-                    this.people = people;
-                    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-                    idx--;
-                    this.hasMorePeople = (idx > 0);
-                    if (this.people[idx]) {
-                        this._router.navigate(['/person/view', this.people[idx].uid]);
-                    }
-                });
+        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
+        idx--;
+        this.hasMorePeople = (idx > 0);
+        if (this.people[idx]) {
+            this._router.navigate(['/person/view', this.people[idx].uid]);
+        }
     }
     nextPerson(): void {
         this.hasMorePeople = true;
-        this._personService.getPersons() // TODO: get them from the cache
-            .subscribe(
-                (people: Array<Person>) => {
-                    this.people = people;
-                    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-                    idx++;
-                    if (this.people[idx]) {
-                        this._router.navigate(['/person/view', this.people[idx].uid]);
-                    }
-                });
+        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
+        idx++;
+        if (this.people[idx]) {
+            this._router.navigate(['/person/view', this.people[idx].uid]);
+        }
+
     }
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
@@ -91,7 +109,7 @@ export class PersonViewComponent implements OnInit {
 
         this.dialogRef = this._dialog.open(AvatarEditDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result === typeof Person) {
+            if (result) {
                 this.person = result;
             }
             // update and refesh the person being edited
@@ -104,17 +122,17 @@ export class PersonViewComponent implements OnInit {
             id: this.person.uid
         };
 
-        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Note) {
-                this.notes.unshift(result);
+            if (result instanceof Interaction) {
+                this.interactions.unshift(result);
             }
             this.dialogRef = undefined;
         });
     }
     createInteraction(): void {
         // this._interactionService.init(this.person);
-        this._interactionService.setLastRoute(this._router.url);
-        this._router.navigate(['/note/create']);
+        // this._interactionService.setLastRoute(this._router.url);
+        // this._router.navigate(['/interaction/create']);
     }
 }

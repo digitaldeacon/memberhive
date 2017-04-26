@@ -1,17 +1,17 @@
-<form class="note-form"
-      [formGroup]="noteForm"
+<form class="interaction-form"
+      [formGroup]="interactionForm"
       novalidate
-      (ngSubmit)="save(noteForm.value, noteForm.valid)">
+      (ngSubmit)="save(interactionForm.value, interactionForm.valid)">
 
   <md-card>
     <md-card-content>
       <div class="mat-input-wrapper muted" *ngIf="editMode">
-        <b i18n>Created:</b> {{note.createdAt}},
-        <b i18n>Updated:</b> {{note.updatedAt}}
+        <b i18n>Created:</b> {{interaction.createdAt}},
+        <b i18n>Updated:</b> {{interaction.updatedAt}}
       </div>
 
       <div class="mat-input-wrapper">
-        <mh-tinymce [elementId]="'note-editor'"
+        <mh-tinymce [elementId]="'interaction-editor'"
                     [inline]="false"
                     formControlName="text"></mh-tinymce>
       </div>
@@ -19,10 +19,10 @@
       <div class="mat-input-wrapper" fxFlex>
         <label i18n for="typeSelect">Type:</label>
         <md-button-toggle-group id="typeSelect" formControlName="type">
-          <md-button-toggle value="{{noteType.id}}"
-                            mdTooltip="{{noteType.type | uppercase}}"
-                            *ngFor="let noteType of noteTypes">
-            <md-icon>{{noteType.iconString}}</md-icon>
+          <md-button-toggle value="{{interactionType.id}}"
+                            mdTooltip="{{interactionType.type | uppercase}}"
+                            *ngFor="let interactionType of interactionTypes">
+            <md-icon>{{interactionType.iconString}}</md-icon>
           </md-button-toggle>
         </md-button-toggle-group>
       </div>
@@ -50,8 +50,8 @@
               md-raised-button
               type="submit"
               color="primary"
-              [disabled]="!noteForm.valid">
-        <span *ngIf="!editMode" i18n>Note it!</span>
+              [disabled]="!interactionForm.valid">
+        <span *ngIf="!editMode" i18n>Notify</span>
         <span *ngIf="editMode" i18n>Update</span>
       </button>
       <button md-raised-button

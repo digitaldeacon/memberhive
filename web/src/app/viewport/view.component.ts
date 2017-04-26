@@ -9,8 +9,8 @@ import { InteractionService } from '../common/interaction.service';
 // import { Person } from '../person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { Note } from '../note/note';
-import { NoteCreateDialogComponent } from '../note/dialogs/note-create.dialog';
+import { Interaction } from '../interaction/interaction';
+import { InteractionCreateDialogComponent } from '../interaction/dialogs/interaction-create.dialog';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
@@ -58,8 +58,8 @@ export class ViewComponent implements OnInit {
     ];
 
     currentUser: Person;
-    myInteractions: Observable<Note[]>;
-    myOutstanding: Observable<Note[]>;
+    myInteractions: Observable<Interaction[]>;
+    myOutstanding: Observable<Interaction[]>;
 
     drawerVisible$: Observable<boolean>;
     loading$: Observable<boolean>;
@@ -80,8 +80,8 @@ export class ViewComponent implements OnInit {
         this.currentUser = this._auth.getCurrentUser();
         // TODO: use the core module to fetch the state
         this.myInteractions = this._interactionService.myInteractions;
-        this.myOutstanding = this.myInteractions.map((data: Note[]) =>
-            data.filter((n: Note) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
+        this.myOutstanding = this.myInteractions.map((data: Interaction[]) =>
+            data.filter((n: Interaction) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
         );
         this._interactionService.loadMy();
     }
@@ -108,9 +108,9 @@ export class ViewComponent implements OnInit {
         config.data = {
         };
 
-        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Note) {
+            if (result instanceof Interaction) {
                 this._interactionService.create(result);
                 this._shoutService.success('Interaction created!');
             }
@@ -119,6 +119,6 @@ export class ViewComponent implements OnInit {
     }
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);
-        this._router.navigate(['/note/create']);
+        this._router.navigate(['/interaction/create']);
     }
 }

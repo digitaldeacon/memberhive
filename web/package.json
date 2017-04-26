@@ -43,6 +43,7 @@
     "angular2-moment": "^1.2.0",
     "core-js": "^2.4.1",
     "hammerjs": "^2.0.8",
+    "intl": "^1.2.5",
     "material-design-icons": "^3.0.1",
     "ng2-dragula": "^1.3.1",
     "ng2-img-cropper": "*",
@@ -54,6 +55,7 @@
     "roboto-fontface": "^0.7.0",
     "rxjs": "^5.2.0",
     "tinymce": "^4.5.5",
+    "web-animations-js": "^2.2.5",
     "zone.js": "0.8.5"
   },
   "devDependencies": {

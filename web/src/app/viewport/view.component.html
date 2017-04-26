@@ -44,10 +44,10 @@
             <md-menu #interactions="mdMenu">
                 <div *ngIf="!(myOutstanding | async)?.length">No interactions</div>
                 <md-nav-list *ngIf="(myOutstanding | async)?.length">
-                    <md-list-item *ngFor="let note of myOutstanding | async">
-                        <span md-list-avatar class="date-rounded">{{note.dueOn | date: 'MMM d'}}</span>
-                        <span md-line>{{note.text | slice:0:20}}...</span>
-                        <span md-line>{{note.author.name}}</span>
+                    <md-list-item *ngFor="let interaction of myOutstanding | async">
+                        <span md-list-avatar class="date-rounded">{{interaction.dueOn | date: 'MMM d'}}</span>
+                        <span md-line>{{interaction.text | slice:0:20}}...</span>
+                        <span md-line>{{interaction.author.name}}</span>
                     </md-list-item>
                 </md-nav-list>
                 <md-divider></md-divider>

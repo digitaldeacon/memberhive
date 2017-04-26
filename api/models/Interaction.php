@@ -2,10 +2,11 @@
 
 namespace app\models;
 
-use Yii;
+use \aracoool\uuid\Uuid;
+use \aracoool\uuid\UuidBehavior;
 
 /**
- * This is the model class for table "note".
+ * This is the model class for table "interaction".
  *
  * @property int $id
  * @property string $title
@@ -16,14 +17,14 @@ use Yii;
  * @property string $createdAt
  * @property string $updatedAt
  */
-class Note extends \yii\db\ActiveRecord
+class Interaction extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'note';
+        return 'interaction';
     }
 
     public function behaviors()
@@ -31,7 +32,10 @@ class Note extends \yii\db\ActiveRecord
         return [
             \yii\behaviors\TimestampBehavior::className(),
             [
-                'class' => \aracoool\uuid\UuidBehavior::class,
+                'class' => UuidBehavior::class,
+                'version' => Uuid::V5,
+                'namespace' => Uuid::NAMESPACE_URL,
+                'nameAttribute' => 'uid',
                 'defaultAttribute' => 'uid'
             ]
         ];
@@ -87,12 +91,12 @@ class Note extends \yii\db\ActiveRecord
     public function getRecipients()
     {
         return $this->hasMany(Person::className(), ['id' => 'person_id'])
-            ->viaTable('person_note', ['note_id' => 'id']);
+            ->viaTable('person_interaction', ['interaction_id' => 'id']);
     }
 
-    public function getPersonNote()
+    public function getPersonInteraction()
     {
-        return $this->hasOne(PersonNote::className(), ['note_id' => 'id']);
+        return $this->hasOne(PersonInteraction::className(), ['interaction_id' => 'id']);
     }
 
     public function toResponseArray($noMarkup = true)
@@ -107,12 +111,12 @@ class Note extends \yii\db\ActiveRecord
             'uid' => $this->uid,
             'text' => $noMarkup ? strip_tags($this->text) : $this->text,
             'actions' => [
-                'doneOn' => isset($this->personNote) ? $this->personNote->doneOn : null,
-                'completedOn' => isset($this->personNote) ? $this->personNote->completedOn : null,
-                'completedBy' => isset($this->personNote) ? $this->personNote->completedBy : '',
-                'response' => isset($this->personNote) ? $this->personNote->response : '',
-                'delegatedBy' => isset($this->personNote) ? $this->personNote->delegatedBy : '',
-                'delegatedOn' => isset($this->personNote) ? $this->personNote->delegatedOn : null
+                'doneOn' => isset($this->personInteraction) ? $this->personInteraction->doneOn : null,
+                'completedOn' => isset($this->personInteraction) ? $this->personInteraction->completedOn : null,
+                'completedBy' => isset($this->personInteraction) ? $this->personInteraction->completedBy : '',
+                'response' => isset($this->personInteraction) ? $this->personInteraction->response : '',
+                'delegatedBy' => isset($this->personInteraction) ? $this->personInteraction->delegatedBy : '',
+                'delegatedOn' => isset($this->personInteraction) ? $this->personInteraction->delegatedOn : null
             ],
             'author' => [
                 'id' => $this->authorId,

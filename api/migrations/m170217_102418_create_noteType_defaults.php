@@ -2,6 +2,9 @@
 
 use yii\db\Migration;
 
+/**
+ * TODO: move this to the settings table
+ */
 class m170217_102418_create_noteType_defaults extends Migration
 {
     public function up()

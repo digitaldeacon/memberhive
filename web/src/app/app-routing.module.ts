@@ -19,8 +19,8 @@ export const routes: Routes = [
                 loadChildren: './person/person.module#PersonModule'
             },
             {
-                path: 'note',
-                loadChildren: './note/note.module#NoteModule'
+                path: 'interaction',
+                loadChildren: './interaction/interaction.module#InteractionModule'
             },
             {
                 path: 'dashboard',

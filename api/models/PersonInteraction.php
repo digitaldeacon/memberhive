@@ -2,10 +2,8 @@
 
 namespace app\models;
 
-use Yii;
-
 /**
- * This is the model class for table "person_note".
+ * This is the model class for table "person_interaction".
  *
  * @property int $person_id
  * @property int $note_id
@@ -16,17 +14,17 @@ use Yii;
  * @property int $delegatedBy
  * @property string $delegatedOn
  *
- * @property Note $note
+ * @property Interaction $interaction
  * @property Person $person
  */
-class PersonNote extends \yii\db\ActiveRecord
+class PersonInteraction extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'person_note';
+        return 'person_interaction';
     }
 
     /**
@@ -39,8 +37,12 @@ class PersonNote extends \yii\db\ActiveRecord
             [['person_id', 'note_id', 'completedBy', 'delegatedBy'], 'integer'],
             [['doneOn', 'completedOn', 'delegatedOn'], 'safe'],
             [['response'], 'string', 'max' => 255],
-            [['note_id'], 'exist', 'skipOnError' => true, 'targetClass' => Note::className(), 'targetAttribute' => ['note_id' => 'id']],
-            [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['person_id' => 'id']],
+            [['note_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Interaction::className(),
+                'targetAttribute' => ['interaction_id' => 'id']],
+            [['person_id'], 'exist', 'skipOnError' => true,
+                'targetClass' => Person::className(),
+                'targetAttribute' => ['person_id' => 'id']],
         ];
     }
 
@@ -51,7 +53,7 @@ class PersonNote extends \yii\db\ActiveRecord
     {
         return [
             'person_id' => 'Person ID',
-            'note_id' => 'Note ID',
+            'interaction_id' => 'Interaction ID',
             'doneOn' => 'Done On',
             'completedBy' => 'Completed By',
             'completedOn' => 'Completed On',
@@ -64,9 +66,9 @@ class PersonNote extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNote()
+    public function getInteraction()
     {
-        return $this->hasOne(Note::className(), ['id' => 'note_id']);
+        return $this->hasOne(Interaction::className(), ['id' => 'interaction_id']);
     }
 
     /**
@@ -81,7 +83,7 @@ class PersonNote extends \yii\db\ActiveRecord
     {
         parent::afterSave($insert, $changedAttributes);
         ActionLog::log(
-            Note::tableName(),
+            Interaction::tableName(),
             $this->person->uid,
             $insert,
             $changedAttributes

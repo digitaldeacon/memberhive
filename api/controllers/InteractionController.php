@@ -1,15 +1,15 @@
 <?php
 namespace app\controllers;
 
-use app\models\Note;
+use app\models\Interaction;
 use app\models\NoteType;
 use app\models\Person;
-use app\models\PersonNote;
+use app\models\PersonInteraction;
 use yii\web\BadRequestHttpException;
 
-class NoteController extends MHController
+class InteractionController extends MHController
 {
-    public $noteType = 'person';
+    public $interactionType = 'person';
 
     public function behaviors()
     {
@@ -63,10 +63,10 @@ class NoteController extends MHController
     {
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
-            $note = $this->findModel($post['id']);
-            if ($note->authorId == $post['author']) {
-                if (!$note->delete()) {
-                    return ['response' => json_encode($note->errors)];
+            $interaction = $this->findModel($post['id']);
+            if ($interaction->authorId == $post['author']) {
+                if (!$interaction->delete()) {
+                    return ['response' => json_encode($interaction->errors)];
                 }
                 return ['response' => true];
             } else {
@@ -83,13 +83,13 @@ class NoteController extends MHController
     {
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
-            $pnote = PersonNote::findOne(['note_id'=>$post['id']]);
-            if ($pnote->note->authorId == $post['author']) {
-                $pnote->completedOn = boolval($post['complete']) ? date('Y-m-d H:i:s') : null;
-                if (!$pnote->save()) {
-                    return ['response' => json_encode($pnote->errors)];
+            $pinteraction = PersonInteraction::findOne(['interaction_id'=>$post['id']]);
+            if ($pinteraction->interaction->authorId == $post['author']) {
+                $pinteraction->completedOn = boolval($post['complete']) ? date('Y-m-d H:i:s') : null;
+                if (!$pinteraction->save()) {
+                    return ['response' => json_encode($pinteraction->errors)];
                 }
-                return ['response' => $pnote->note->toResponseArray()];
+                return ['response' => $pinteraction->interaction->toResponseArray()];
             } else {
                 throw new BadRequestHttpException('This is not yours to delete!');
             }
@@ -104,11 +104,11 @@ class NoteController extends MHController
     {
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
-            $pnote = PersonNote::findOne(['note_id'=>$post['id']]);
-            if ($pnote->note->authorId == $post['author']) {
-                $pnote->doneOn = date('Y-m-d H:i:s');
-                if (!$pnote->save()) {
-                    return ['response' => json_encode($pnote->errors)];
+            $pinteraction = PersonInteraction::findOne(['interaction_id'=>$post['id']]);
+            if ($pinteraction->interaction->authorId == $post['author']) {
+                $pinteraction->doneOn = date('Y-m-d H:i:s');
+                if (!$pinteraction->save()) {
+                    return ['response' => json_encode($pinteraction->errors)];
                 }
                 return ['response' => true];
             } else {
@@ -119,59 +119,59 @@ class NoteController extends MHController
     }
 
     /**
-     * url: /api/note/create-person or create-group note POST
+     * url: /api/interaction/create-person or create-group interaction POST
      */
     private function actionCreate()
     {
         $post = \Yii::$app->request->post();
-        $note = new Note();
+        $interaction = new Interaction();
         $insert = true;
 
         if (!empty($post)) {
             // throw new BadRequestHttpException(json_encode($post));
             if (isset($post['uid'])) {
-                $note = $this->findModelByUID($post['uid']);
-                $insert = empty($note);
+                $interaction = $this->findModelByUID($post['uid']);
+                $insert = empty($interaction);
             }
 
-            $transaction = Note::getDb()->beginTransaction();
+            $transaction = Interaction::getDb()->beginTransaction();
             try {
-                $note->text = $post['text'];
-                $note->typeId = intval($post['type']);
-                $note->ownerId = $post['owner'];
-                $note->authorId = $post['authorId'];
-                $note->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
-                $note->isPrivate = isset($post['isPrivate']) ? intval($post['isPrivate']) : 0;
-                if ($note->save()) {
-                    if ($this->noteType == 'person') {
-                        if (!$insert && $note->id) {
-                            PersonNote::deleteAll(['note_id'=>$note->id]);
+                $interaction->text = $post['text'];
+                $interaction->typeId = intval($post['type']);
+                $interaction->ownerId = $post['owner'];
+                $interaction->authorId = $post['authorId'];
+                $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
+                $interaction->isPrivate = isset($post['isPrivate']) ? intval($post['isPrivate']) : 0;
+                if ($interaction->save()) {
+                    if ($this->interactionType == 'person') {
+                        if (!$insert && $interaction->id) {
+                            PersonInteraction::deleteAll(['interaction_id'=>$interaction->id]);
                         }
                         foreach ($post['recipients'] as $recipient) {
-                            $junction = new PersonNote();
-                            $junction->note_id = $note->id;
+                            $junction = new PersonInteraction();
+                            $junction->interaction_id = $interaction->id;
                             $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
                             if (!$junction->save()) {
                                 $transaction->rollBack();
                                 throw new BadRequestHttpException(json_encode($junction->errors));
                             }
                         }
-                    } elseif ($this->noteType == 'group') {
-                        // new GroupNote();
+                    } elseif ($this->interactionType == 'group') {
+                        // new GroupInteraction();
                     }
                     $transaction->commit();
-                    return ['response' => $note->toResponseArray()];
+                    return ['response' => $interaction->toResponseArray()];
                 } else {
-                    throw new BadRequestHttpException(json_encode($note->errors));
+                    throw new BadRequestHttpException(json_encode($interaction->errors));
                 }
             } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException(json_encode($note));
+                throw new BadRequestHttpException(json_encode($interaction));
             } catch (\Throwable $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException(json_encode($note->errors));
+                throw new BadRequestHttpException(json_encode($interaction->errors));
             }
-            return ['response' => $note->toResponseArray()];
+            return ['response' => $interaction->toResponseArray()];
         } else {
             throw new BadRequestHttpException('No valid data was received');
         }
@@ -179,13 +179,13 @@ class NoteController extends MHController
 
     public function actionCreatePerson()
     {
-        $this->noteType = 'person';
+        $this->interactionType = 'person';
         return $this->actionCreate();
     }
 
     public function actionCreateGroup()
     {
-        $this->noteType = 'group';
+        $this->interactionType = 'group';
         return $this->actionCreate();
     }
 
@@ -202,13 +202,13 @@ class NoteController extends MHController
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
-        $notes = Note::find()
+        $interactions = Interaction::find()
             ->where(['ownerId' => $id])
             ->with('recipients', 'author')
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();
-        foreach ($notes as $note) {
-            $ret[] = $note->toResponseArray($noMarkup);
+        foreach ($interactions as $interaction) {
+            $ret[] = $interaction->toResponseArray($noMarkup);
         }
         return ['response' => $ret];
     }
@@ -217,19 +217,19 @@ class NoteController extends MHController
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
-        $notes = Note::find()
+        $interactions = Interaction::find()
             ->with([
                 'recipients' => function ($query) use ($id) {
                     $query->andWhere(['id' => $id]);
                 },
                 'author',
-                'personNote',
+                'personInteraction',
                 'type'
             ])
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();
-        foreach ($notes as $note) {
-            $ret[] = $note->toResponseArray($noMarkup);
+        foreach ($interactions as $interaction) {
+            $ret[] = $interaction->toResponseArray($noMarkup);
         }
         return ['response' => $ret];
     }
@@ -238,35 +238,35 @@ class NoteController extends MHController
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : false;
-        $note = Note::findOne(['uid'=>$id]);
-        $ret[] = $note->toResponseArray($noMarkup);
+        $interaction = Interaction::findOne(['uid'=>$id]);
+        $ret[] = $interaction->toResponseArray($noMarkup);
 
         return ['response' => $ret];
     }
 
     /**
      * @param $id
-     * @return Note
+     * @return Interaction
      */
     protected function findModel($id)
     {
-        $note = Note::findOne($id);
-        if ($note === null) {
-            throw new NotFoundHttpException('The requested note does not exist.');
+        $interaction = Interaction::findOne($id);
+        if ($interaction === null) {
+            throw new NotFoundHttpException('The requested interaction does not exist.');
         }
-        return $note;
+        return $interaction;
     }
 
     /**
      * @param $id
-     * @return Note
+     * @return Interaction
      */
     protected function findModelByUID($uid)
     {
-        $note = Note::findOne(['uid'=>$uid]);
-        if ($note === null) {
-            throw new NotFoundHttpException('The requested note does not exist.');
+        $interaction = Interaction::findOne(['uid'=>$uid]);
+        if ($interaction === null) {
+            throw new NotFoundHttpException('The requested interaction does not exist.');
         }
-        return $note;
+        return $interaction;
     }
 }

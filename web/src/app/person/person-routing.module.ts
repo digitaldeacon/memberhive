@@ -1,9 +1,9 @@
-import {NgModule} from '@angular/core';
-import {Routes, RouterModule} from '@angular/router';
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
 
-import {PersonComponent} from './person.component';
-import {PersonListComponent} from './list/person-list.component';
-import {PersonViewComponent} from './view/person-view.component';
+import { PersonComponent } from './person.component';
+import { PersonListComponent } from './list/person-list.component';
+import { PersonViewComponent } from './view/person-view.component';
 
 const routes: Routes = [
     {

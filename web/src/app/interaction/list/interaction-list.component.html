@@ -1,0 +1,28 @@
+<!--<button md-fab (click)="openDialog()" style="position: fixed; z-index: 99999;right: 5px;"><md-icon>add</md-icon></button>-->
+<div class="interactions">
+    <md-card *ngFor="let interaction of interactions">
+        <md-card-header fxLayout="row">
+            <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
+                <md-icon md-card-avatar>{{interaction.icon}}</md-icon>
+                <md-card-subtitle>
+                    {{interaction.updatedAt | date: 'medium'}}
+                    - <span i18n>by</span>
+                    <a *ngIf="!iOwn(interaction.author.id)">{{interaction.author.name}}</a>
+                    <span *ngIf="iOwn(interaction.author.id)" i18n>me</span>
+                </md-card-subtitle>
+            </div>
+            <button md-icon-button [mdMenuTriggerFor]="interactionmenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #interactionmenu="mdMenu">
+                <button md-menu-item (click)="openDlgInteractions(interaction)">
+                    <md-icon>edit</md-icon>
+                    <span i18n>Edit</span>
+                </button>
+                <button md-menu-item (click)="deleteInteraction(interaction)">
+                    <md-icon>delete</md-icon>
+                    <span i18n>Delete</span>
+                </button>
+            </md-menu>
+        </md-card-header>
+        <md-card-content>{{interaction.text}}</md-card-content>
+    </md-card>
+</div>

@@ -46,7 +46,7 @@ class DemoController extends Controller
 
         foreach ($notes as $note) {
             // $ret[] = $note->toResponseArray();
-            $p = \app\models\PersonNote::findOne(['note_id'=>$note->id]);
+            $p = \app\models\PersonInteraction::findOne(['note_id'=>$note->id]);
             var_dump($p->person->uid);
         }
 

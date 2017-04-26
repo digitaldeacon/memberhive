@@ -1,5 +1,5 @@
 
-export class Note {
+export class Interaction {
     id: number;
     uid: string;
     type: string;
@@ -27,7 +27,7 @@ export class Note {
     recipientType: string;
     dueOn: string;
 
-    public deserialize(input: any): Note {
+    public deserialize(input: any): Interaction {
         this.id = input.id;
         this.uid = input.uid;
         this.type = input.type;
@@ -47,12 +47,12 @@ export class Note {
     }
 }
 
-export class NoteType {
+export class InteractionType {
     id: number;
     type: string;
     iconString: string;
 
-    public deserialize(input: any): NoteType {
+    public deserialize(input: any): InteractionType {
         this.id = input.id;
         this.type = input.type;
         this.iconString = input.iconString;

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
 import { Observable } from "rxjs";
 
-import { Note } from '../note/note';
-import { NoteService } from '../note/note.service';
+import { Interaction } from '../interaction/interaction';
+import * as intsrv from '../interaction/interaction.service';
 import { AuthService } from '../common/auth/auth.service';
 import { ShoutService } from "../common/shout.service";
 
@@ -11,36 +11,36 @@ import { Person } from "../person/person";
 
 @Injectable()
 export class InteractionService {
-    private _interactions: BehaviorSubject<Note[]>;
-    private _myInteractions: BehaviorSubject<Note[]>;
+    private _interactions: BehaviorSubject<Interaction[]>;
+    private _myInteractions: BehaviorSubject<Interaction[]>;
     private _dataStore: {
-        interactions: Note[],
-        myInteractions: Note[]
+        interactions: Interaction[],
+        myInteractions: Interaction[]
     };
     private _lastRoute: string;
     private _me: Person;
 
-    interactions: Observable<Note[]>;
-    myInteractions: Observable<Note[]>;
+    interactions: Observable<Interaction[]>;
+    myInteractions: Observable<Interaction[]>;
 
-    constructor(private _noteService: NoteService,
+    constructor(private _interactionService: intsrv.InteractionService,
                 private _auth: AuthService,
                 private _shout: ShoutService) {
         this._dataStore = {
             interactions: [],
             myInteractions: []
         };
-        this._interactions = <BehaviorSubject<Note[]>>new BehaviorSubject([]);
-        this._myInteractions = <BehaviorSubject<Note[]>>new BehaviorSubject([]);
+        this._interactions = <BehaviorSubject<Interaction[]>>new BehaviorSubject([]);
+        this._myInteractions = <BehaviorSubject<Interaction[]>>new BehaviorSubject([]);
         this.interactions = this._interactions.asObservable();
         this.myInteractions = this._myInteractions.asObservable();
         this._me = this._auth.getCurrentUser();
     }
 
     loadMy(): void {
-        this._noteService.getMyInteractions()
-            .subscribe((notes: Array<Note>) => {
-                this._dataStore.myInteractions = notes;
+        this._interactionService.getMyInteractions()
+            .subscribe((interactions: Array<Interaction>) => {
+                this._dataStore.myInteractions = interactions;
                 this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
             },
             (error: any) => {
@@ -56,17 +56,17 @@ export class InteractionService {
         // load single
     }
 
-    create(interaction: Note): void {
-        this._noteService.createNotePerson(interaction)
+    create(interaction: Interaction): void {
+        this._interactionService.createInteractionPerson(interaction)
             .subscribe(
-                (newInteraction: Note) => {
+                (newInteraction: Interaction) => {
                    this._dataStore.interactions.push(newInteraction);
                    this._interactions.next(Object.assign({}, this._dataStore).interactions);
                    if (newInteraction.recipients.find((uid: any) => uid === this._me.uid)) {
                        this._dataStore.myInteractions.push(newInteraction);
                        this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
                    }
-                   this._shout.success('Note created');
+                   this._shout.success('Interaction created');
                 },
                 (error: any) => {
                     // console.log('Error: ' + error);
@@ -74,12 +74,12 @@ export class InteractionService {
             );
     }
 
-    update(interaction: Note): void {
+    update(interaction: Interaction): void {
         // update
     }
 
     remove(id: number | string): void {
-        this._noteService.endInteraction(id)
+        this._interactionService.endInteraction(id)
             .subscribe((r: any) => {
                 this._dataStore.interactions.forEach((t: any, i: number) => {
                     if (t.id === id) { this._dataStore.interactions.splice(i, 1); }
@@ -91,7 +91,7 @@ export class InteractionService {
     }
 
     complete(id: number | string, checked: boolean): void {
-        this._noteService.completeInteraction(id, checked)
+        this._interactionService.completeInteraction(id, checked)
             .subscribe((data: any) => {
                 this._dataStore.myInteractions.forEach((t: any, i: number) => {
                     if (t.id === data.id) { this._dataStore.myInteractions[i] = data; }

@@ -6,23 +6,23 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { PersonService } from '../../person/person.service';
 import { Person } from 'mh-core';
 
-import { Note, NoteType } from '../note';
-import { NoteService } from '../note.service';
+import { Interaction, InteractionType } from '../interaction';
+import { InteractionService } from '../interaction.service';
 
 import { AuthService } from 'mh-core';
 
 @Component({
-    selector: 'mh-note-create-dialog',
-    templateUrl: './note-create.dialog.html',
-    styleUrls: ['./note-create.dialog.scss', '../note-common.styles.scss']
+    selector: 'mh-interaction-create-dialog',
+    templateUrl: './interaction-create.dialog.html',
+    styleUrls: ['./interaction-create.dialog.scss', '../interaction-common.styles.scss']
 })
-export class NoteCreateDialogComponent implements OnInit {
+export class InteractionCreateDialogComponent implements OnInit {
     private _author: Person;
     private _refPerson: Person;
 
-    noteForm: FormGroup;
-    noteTypes: Array<NoteType>;
-    note: Note;
+    interactionForm: FormGroup;
+    interactionTypes: Array<InteractionType>;
+    interaction: Interaction;
 
     allowedContacts: Array<Person>;
 
@@ -33,20 +33,20 @@ export class NoteCreateDialogComponent implements OnInit {
 
     constructor(private _fb: FormBuilder,
                 private _personService: PersonService,
-                private _noteService: NoteService,
+                private _interactionService: InteractionService,
                 private _auth: AuthService,
-                private _dialogRef: MdDialogRef<NoteCreateDialogComponent>,
+                private _dialogRef: MdDialogRef<InteractionCreateDialogComponent>,
                 @Inject(MD_DIALOG_DATA) public dialogData: any) {
-        this._noteService.getNoteTypes() // TODO: move this into the options table
-            .subscribe((types: Array<NoteType>) => {
-                this.noteTypes = types;
+        this._interactionService.getInteractionTypes() // TODO: move this into the options table
+            .subscribe((types: Array<InteractionType>) => {
+                this.interactionTypes = types;
             });
         this._author = this._auth.getCurrentUser();
     }
 
     ngOnInit(): void {
         this.getAllowedContacts();
-        this.noteForm = this._fb.group({
+        this.interactionForm = this._fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
             owner: [undefined, [<any>Validators.required]],
@@ -64,8 +64,8 @@ export class NoteCreateDialogComponent implements OnInit {
     }
 
     toggleTypes(): void {
-        if (this.showTypeSelector && !this.noteForm.dirty) {
-            this.noteForm.reset();
+        if (this.showTypeSelector && !this.interactionForm.dirty) {
+            this.interactionForm.reset();
             this.showTypeSelector = false;
             this.initDefaults();
         } else {
@@ -80,28 +80,28 @@ export class NoteCreateDialogComponent implements OnInit {
     }
 
     keyupHandlerFunction(event: any): void {
-        // console.log('note-list', event);
+        // console.log('interaction-list', event);
     }
 
     clearForm(): void {
-        this.noteForm.reset();
+        this.interactionForm.reset();
         this.showTypeSelector = false;
         this.initDefaults();
     }
 
-    save(model: Note, isValid: boolean): void {
+    save(model: Interaction, isValid: boolean): void {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
             model.authorId = this._author.uid;
-            if (this.dialogData.note) {
-                model.uid = this.dialogData.note.uid;
+            if (this.dialogData.interaction) {
+                model.uid = this.dialogData.interaction.uid;
             }
-            this._noteService.createNotePerson(model)
+            this._interactionService.createInteractionPerson(model)
                 .subscribe(
-                    (note: Note) => {
-                        this.noteForm.reset();
-                        this._dialogRef.close(note);
+                    (interaction: Interaction) => {
+                        this.interactionForm.reset();
+                        this._dialogRef.close(interaction);
                         return true;
                     },
                     (error: any) => {
@@ -113,26 +113,26 @@ export class NoteCreateDialogComponent implements OnInit {
     }
 
     private initDefaults(): void {
-        if (this.noteForm && this._author && !this.dialogData.note) {
-            this.noteForm.get('recipients').setValue([this._author.uid]);
+        if (this.interactionForm && this._author && !this.dialogData.interaction) {
+            this.interactionForm.get('recipients').setValue([this._author.uid]);
         }
         // person related interaction
-        if (this.dialogData.id && !this.dialogData.note) {
-            this.noteForm.get('owner').setValue(this.dialogData.id);
+        if (this.dialogData.id && !this.dialogData.interaction) {
+            this.interactionForm.get('owner').setValue(this.dialogData.id);
         }
-        if (this.dialogData.note) {
-            this.note = this.dialogData.note;
-            this.noteForm.get('owner').setValue(this.note.ownerId);
-            this.noteForm.get('text').setValue(this.note.text);
-            this.noteForm.get('type').setValue(this.note.typeId);
-            this.noteForm.get('recipients').setValue(this.note.recipients);
+        if (this.dialogData.interaction) {
+            this.interaction = this.dialogData.interaction;
+            this.interactionForm.get('owner').setValue(this.interaction.ownerId);
+            this.interactionForm.get('text').setValue(this.interaction.text);
+            this.interactionForm.get('type').setValue(this.interaction.typeId);
+            this.interactionForm.get('recipients').setValue(this.interaction.recipients);
             this.editMode = true;
         }
         // birthday interactions
         if (this.dialogData.person) {
             this._refPerson = this.dialogData.person;
-            this.noteForm.get('owner').setValue(this._refPerson.uid);
-            this.noteForm.get('dueOn').setValue(this._refPerson.birthday);
+            this.interactionForm.get('owner').setValue(this._refPerson.uid);
+            this.interactionForm.get('dueOn').setValue(this._refPerson.birthday);
         }
     }
 }

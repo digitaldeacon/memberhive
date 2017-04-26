@@ -4,8 +4,10 @@ import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { NoteModule } from '../note/note.module';
+import { InteractionModule } from '../interaction/interaction.module';
 import { AuditModule } from '../audit/audit.module';
+
+import { KeysPipe } from '../common/keys.pipe';
 
 import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
@@ -16,12 +18,12 @@ import { PersonRelationsDialogComponent } from './dialogs/person-relations.dialo
 import { AvatarEditDialogComponent } from './dialogs/avatar-edit.dialog';
 
 import { PersonRoutingModule } from './person-routing.module';
-import { PersonService } from './person.service';
 
-import { ShoutService } from '../common/shout.service';
 import { ImageCropperModule } from 'ng2-img-cropper';
 
-import { TitleService } from '../common/title.service';
+import { TitleService } from 'mh-core';
+import { PersonService } from './person.service';
+import { ShoutService } from '../common/shout.service';
 
 @NgModule({
     declarations: [
@@ -30,7 +32,8 @@ import { TitleService } from '../common/title.service';
         PersonViewComponent,
         PersonEditComponent,
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent
+        AvatarEditDialogComponent,
+        KeysPipe
     ],
     imports: [
         CommonModule,
@@ -39,14 +42,15 @@ import { TitleService } from '../common/title.service';
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
-        NoteModule,
+        InteractionModule,
         AuditModule,
         ImageCropperModule
     ],
     providers: [
         PersonService,
         ShoutService,
-        DatePipe
+        DatePipe,
+        KeysPipe
     ],
     entryComponents: [
         PersonRelationsDialogComponent,

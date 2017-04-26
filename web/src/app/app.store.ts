@@ -36,6 +36,7 @@ export function reducer(state: any, action: any): AppState {
  */
 export const getPersonState: any = (state: AppState) => state.person;
 export const getPeople: any = createSelector(getPersonState, person.getPeople);
+export const getSelectedPerson = createSelector(getPersonState, person.getPerson);
 /**
  * Settings Reducers
  */

@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use \aracoool\uuid\Uuid;
+use \aracoool\uuid\UuidBehavior;
+
 /**
  * Class Person
  * @package app\models
@@ -29,7 +32,10 @@ class Person extends \yii\db\ActiveRecord
         return [
             \yii\behaviors\TimestampBehavior::className(),
             [
-                'class' => \aracoool\uuid\UuidBehavior::class,
+                'class' => UuidBehavior::class,
+                'version' => Uuid::V5,
+                'namespace' => Uuid::NAMESPACE_URL,
+                'nameAttribute' => 'uid',
                 'defaultAttribute' => 'uid'
             ]
         ];
@@ -109,15 +115,15 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonNotes()
     {
-        return $this->hasMany(PersonNote::className(), ['person_id' => 'id']);
+        return $this->hasMany(PersonInteraction::className(), ['person_id' => 'id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getNotes()
+    public function getMyInteractions()
     {
-        return $this->hasMany(Note::className(), ['uid' => 'ownerId']);
+        return $this->hasMany(Interaction::className(), ['uid' => 'ownerId']);
     }
 
     /**
@@ -125,8 +131,8 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getInteractions()
     {
-        return $this->hasMany(Note::className(), ['id' => 'note_id'])
-            ->viaTable('person_note', ['person_id' => 'id']);
+        return $this->hasMany(Interaction::className(), ['id' => 'interaction_id'])
+            ->viaTable('person_interaction', ['person_id' => 'id']);
     }
 
     public function getImport()

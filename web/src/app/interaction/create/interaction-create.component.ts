@@ -5,26 +5,26 @@ import { Router } from '@angular/router';
 import { PersonService } from '../../person/person.service';
 import { Person } from 'mh-core';
 
-import { Note, NoteType } from '../note';
-import { NoteService } from '../note.service';
+import { Interaction, InteractionType } from '../interaction';
+import * as intsrv from '../interaction.service';
 import { InteractionService } from '../../common/interaction.service';
 
 import { AuthService } from 'mh-core';
 import { ShoutService } from '../../common/shout.service';
 
 @Component({
-  selector: 'mh-note-create',
-  templateUrl: './note-create.component.html',
-  styleUrls: ['./note-create.component.scss', '../note-common.styles.scss']
+  selector: 'mh-interaction-create',
+  templateUrl: './interaction-create.component.html',
+  styleUrls: ['./interaction-create.component.scss', '../interaction-common.styles.scss']
 })
-export class NoteCreateComponent implements OnInit {
+export class InteractionCreateComponent implements OnInit {
 
   private _author: Person;
   private _refPerson: Person;
 
-  noteForm: FormGroup;
-  noteTypes: Array<NoteType>;
-  refNote: Note;
+  interactionForm: FormGroup;
+  interactionTypes: Array<InteractionType>;
+  refInteraction: Interaction;
 
   returnToRoute: string;
 
@@ -37,21 +37,21 @@ export class NoteCreateComponent implements OnInit {
 
   constructor(private _fb: FormBuilder,
               private _personService: PersonService,
-              private _noteService: NoteService,
+              private _intService: intsrv.InteractionService,
               private _auth: AuthService,
               private _shout: ShoutService,
               private _interactionService: InteractionService,
               private _router: Router) {
-    this._noteService.getNoteTypes() // TODO: move this into the options table
-        .subscribe((types: Array<NoteType>) => {
-          this.noteTypes = types;
+    this._intService.getInteractionTypes() // TODO: move this into the options table
+        .subscribe((types: Array<InteractionType>) => {
+          this.interactionTypes = types;
         });
     this._author = this._auth.getCurrentUser();
   }
 
   ngOnInit(): void {
     this.getAllowedContacts();
-    this.noteForm = this._fb.group({
+    this.interactionForm = this._fb.group({
       text: [undefined, [<any>Validators.required]],
       type: [undefined, [<any>Validators.required]],
       owner: [undefined, [<any>Validators.required]],
@@ -69,8 +69,8 @@ export class NoteCreateComponent implements OnInit {
   }
 
   toggleTypes(): void {
-    if (this.showTypeSelector && !this.noteForm.dirty) {
-      this.noteForm.reset();
+    if (this.showTypeSelector && !this.interactionForm.dirty) {
+      this.interactionForm.reset();
       this.showTypeSelector = false;
       this.initDefaults();
     } else {
@@ -79,20 +79,20 @@ export class NoteCreateComponent implements OnInit {
   }
 
   keyupHandlerFunction(event: any): void {
-    // console.log('note-list', event);
+    // console.log('interaction-list', event);
   }
 
   clearForm(): void {
-    this.noteForm.reset();
+    this.interactionForm.reset();
     this.showTypeSelector = false;
     this.initDefaults();
   }
 
-  save(model: Note, isValid: boolean): void {
+  save(model: Interaction, isValid: boolean): void {
     if (isValid) {
       model.authorId = this._author.uid;
       this._interactionService.create(model);
-      this.noteForm.reset();
+      this.interactionForm.reset();
       if (this.returnToRoute !== '') {
         this._router.navigate([this.returnToRoute]);
       }
@@ -100,31 +100,31 @@ export class NoteCreateComponent implements OnInit {
   }
 
   private initDefaults(): void {
-    // this._refPerson = this._interactionService.getPersonNoted();
-    // this.refNote = this._interactionService.getNote();
+    // this._refPerson = this._interactionService.getPersonInteractiond();
+    // this.refInteraction = this._interactionService.getInteraction();
     this.returnToRoute = this._interactionService.getLastRoute();
 
-    if (this.noteForm && this._author) {
-      this.noteForm.get('recipients').setValue([this._author.uid]);
+    if (this.interactionForm && this._author) {
+      this.interactionForm.get('recipients').setValue([this._author.uid]);
     }
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
-      this.noteForm.get('owner').setValue(this._refPerson.uid);
+      this.interactionForm.get('owner').setValue(this._refPerson.uid);
     }
     /*
-    if (this.dialogData.note) {
-      this.note = this.dialogData.note;
-      this.noteForm.get('owner').setValue(this.note.ownerId);
-      this.noteForm.get('text').setValue(this.note.text);
-      this.noteForm.get('type').setValue(this.note.typeId);
-      this.noteForm.get('recipients').setValue(this.note.recipients);
+    if (this.dialogData.interaction) {
+      this.interaction = this.dialogData.interaction;
+      this.interactionForm.get('owner').setValue(this.interaction.ownerId);
+      this.interactionForm.get('text').setValue(this.interaction.text);
+      this.interactionForm.get('type').setValue(this.interaction.typeId);
+      this.interactionForm.get('recipients').setValue(this.interaction.recipients);
       this.editMode = true;
     }
     // birthday interactions
     if (this.dialogData.person) {
       this._refPerson = this.dialogData.person;
-      this.noteForm.get('owner').setValue(this._refPerson.uid);
-      this.noteForm.get('dueOn').setValue(this._refPerson.birthday);
+      this.interactionForm.get('owner').setValue(this._refPerson.uid);
+      this.interactionForm.get('dueOn').setValue(this._refPerson.birthday);
     }*/
   }
 

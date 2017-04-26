@@ -3,16 +3,16 @@
 use yii\db\Migration;
 
 /**
- * Handles the creation of table `note`.
+ * Handles the creation of table `interaction`.
  */
-class m170208_221546_create_note_table extends Migration
+class m170208_221546_create_interaction_table extends Migration
 {
     /**
      * @inheritdoc
      */
     public function up()
     {
-        $this->createTable('note', [
+        $this->createTable('interaction', [
             'id' => $this->primaryKey(),
             'uid' => $this->string(36),
             'text' => $this->text(),
@@ -26,20 +26,20 @@ class m170208_221546_create_note_table extends Migration
         ]);
 
         $this->createIndex(
-            'idx-note-ownerId',
-            'note',
+            'idx-interaction-ownerId',
+            'interaction',
             'ownerId'
         );
 
         $this->createIndex(
-            'idx-note-AuthorId',
-            'note',
+            'idx-interaction-authorId',
+            'interaction',
             'authorId'
         );
 
         $this->createIndex(
-            'idx-note-typeId',
-            'note',
+            'idx-interaction-typeId',
+            'interaction',
             'typeId'
         );
     }
@@ -49,6 +49,6 @@ class m170208_221546_create_note_table extends Migration
      */
     public function down()
     {
-        $this->dropTable('note');
+        $this->dropTable('interaction');
     }
 }

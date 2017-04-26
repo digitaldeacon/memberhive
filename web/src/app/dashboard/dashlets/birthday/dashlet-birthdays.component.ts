@@ -4,7 +4,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Person } from '../../../person/person';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
-import { NoteCreateDialogComponent } from '../../../note/dialogs/note-create.dialog';
+import { InteractionCreateDialogComponent } from '../../../interaction/dialogs/interaction-create.dialog';
 
 @Component({
     selector: 'mh-dashlet-birthdays',
@@ -90,7 +90,7 @@ export class DashletBirthdaysComponent implements OnChanges {
             person: person
         };
 
-        this.dialogRef = this._dialog.open(NoteCreateDialogComponent, config);
+        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result instanceof Person) {
                 // do something

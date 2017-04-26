@@ -11,17 +11,17 @@
         <div>
             <md-card-subtitle i18n>To Complete <md-divider></md-divider></md-card-subtitle>
             <md-list>
-                <md-list-item *ngFor="let note of myOutstanding | async">
+                <md-list-item *ngFor="let interaction of myOutstanding | async">
                     <md-checkbox
                             #todo
                             fxFlex
                             [class.completed]="todo.checked"
-                            [checked]="note.actions.completedOn"
-                            (change)="complete(note.id, todo.checked)">
-                        {{note.text | slice:0:50}}
+                            [checked]="interaction.actions.completedOn"
+                            (change)="complete(interaction.id, todo.checked)">
+                        {{interaction.text | slice:0:50}}
                     </md-checkbox>
                     <span fxFlex="10" *ngIf="todo.checked">
-                        <a md-icon-button (click)="delete(note)" mdTooltip="Delete">
+                        <a md-icon-button (click)="delete(interaction)" mdTooltip="Delete">
                             <md-icon>close</md-icon>
                         </a>
                     </span>

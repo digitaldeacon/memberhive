@@ -2,10 +2,11 @@ import { Action } from '@ngrx/store';
 import { Person } from './person.model';
 
 export const personActionTypes: any = {
-    LIST: '[Person] List',
-    LIST_SUCCESS: '[Person] List Success',
-    LIST_FAIL: '[Person] List Fail',
+    LIST: '[People] List',
+    LIST_SUCCESS: '[People] List Success',
+    LIST_FAIL: '[People] List Fail',
     UPDATE: '[Person] Update',
+    LOAD_VIEW: '[Person] Load View',
     VIEW: '[Person] View',
     CREATE: '[Person] Create'
 };
@@ -25,7 +26,19 @@ export class ListFailAction implements Action {
     constructor(public payload: any) { }
 }
 
+export class PersonViewAction implements Action {
+    type: any = personActionTypes.VIEW;
+    constructor(public payload: string) { }
+}
+
+export class PersonLoadViewAction implements Action {
+    type: any = personActionTypes.LOAD_VIEW;
+    constructor(public payload: Person) { }
+}
+
 export type PersonActions =
     ListAction
     | ListSuccessAction
-    | ListFailAction;
+    | ListFailAction
+    | PersonViewAction
+    | PersonLoadViewAction;

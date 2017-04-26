@@ -14,25 +14,25 @@ import {
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
-import { NoteRoutingModule } from './note-routing.module';
+import { InteractionRoutingModule } from './interaction-routing.module';
 
-import { NoteComponent } from './note.component';
-import { NoteCreateComponent } from './create/note-create.component';
-import { NoteListComponent } from './list/note-list.component';
-import { NoteCreateDialogComponent } from './dialogs/note-create.dialog';
+import { InteractionComponent } from './interaction.component';
+import { InteractionCreateComponent } from './create/interaction-create.component';
+import { InteractionListComponent } from './list/interaction-list.component';
+import { InteractionCreateDialogComponent } from './dialogs/interaction-create.dialog';
 
-import { NoteService } from "./note.service";
+import { InteractionService } from "./interaction.service";
 import { TitleService } from "../common/title.service";
 
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
 
 @NgModule({
     declarations: [
-        NoteListComponent,
+        InteractionListComponent,
         TinyMCEComponent,
-        NoteCreateDialogComponent,
-        NoteCreateComponent,
-        NoteComponent
+        InteractionCreateDialogComponent,
+        InteractionCreateComponent,
+        InteractionComponent
     ],
     imports: [
         CommonModule,
@@ -50,21 +50,21 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
         FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
-        NoteRoutingModule
+        InteractionRoutingModule
     ],
     providers: [
-        NoteService
+        InteractionService
     ],
     exports: [
-        NoteListComponent,
+        InteractionListComponent,
         TinyMCEComponent,
-        NoteCreateDialogComponent
+        InteractionCreateDialogComponent
     ],
     entryComponents: [
-        NoteCreateDialogComponent
+        InteractionCreateDialogComponent
     ]
 })
-export class NoteModule {
+export class InteractionModule {
     constructor(titleService: TitleService) {
         titleService.changeModule('Interactions');
     }

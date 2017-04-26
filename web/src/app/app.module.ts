@@ -11,7 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
 import { CommonModule } from './common/common.module';
 import { SearchModule } from './search/search.module';
-import { NoteModule } from './note/note.module';
+import { InteractionModule } from './interaction/interaction.module';
 
 import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './viewport/view.component';
@@ -49,7 +49,7 @@ import { reducer } from './app.store';
 
         CommonModule,
         SearchModule,
-        NoteModule
+        InteractionModule
     ],
     providers: [
         PersonService
