@@ -18,7 +18,6 @@ import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 
 import { Interaction } from '../../interaction/interaction';
-// import { InteractionService } from '../../interaction/interaction.service';
 import { InteractionCreateDialogComponent } from '../../interaction/dialogs/interaction-create.dialog';
 
 @Component({
@@ -30,13 +29,9 @@ import { InteractionCreateDialogComponent } from '../../interaction/dialogs/inte
 export class PersonViewComponent implements OnInit, OnDestroy {
     interactions: Array<Interaction>;
     people: Array<Person>;
-    people$: Observable<Person[]>;
-    person$: Observable<Person>;
-    person: Person;
+    person?: Person;
     dialogRef: MdDialogRef<any>;
     hasMorePeople: boolean = false;
-
-    actionsSubscription: Subscription;
 
     constructor(private _store: Store<app.AppState>,
                 private _titleService: TitleService,
@@ -44,30 +39,26 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _route: ActivatedRoute,
                 private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
-
         this._store.select(app.getPeople)
             .subscribe((people: Person[]) => {
                     this.people = people;
-                    this.person = this.people
-                        .filter((person: Person) => person.uid === this._route.snapshot.params['id'])[0];
+                    this.getCurrentPerson();
                 }
             );
-        /*this.actionsSubscription = this._route.params
-            .map((params: Params) => new PersonViewAction(params['id']))
-            .subscribe(this._store);
-        this.person$ = this._store.select(app.getSelectedPerson);*/
+    }
+
+    getCurrentPerson(): void {
+        this.person = this.people
+            .filter((person: Person) => person.uid === this._route.snapshot.params['id'])[0];
     }
 
     ngOnInit(): void {
-
-        /*this._route.params
-            .switchMap((params: Params) => this._personService.getPerson(params['id']))
-            .subscribe((person: Person) => {
-                this.person = person;
-                this._titleService.setTitle('Person: ' + person.fullName);
-                this._interactionService.getInteractions(person.uid)
-                    .subscribe((interactions: Array<Interaction>) => this.interactions = interactions);
-        });*/
+        this._route.params
+            .switchMap((params: Params) => {
+                this.getCurrentPerson();
+                console.log(params['id']);
+                return this.people.filter((p: Person) => p.uid === (params['id']))
+            });
     }
 
     ngOnDestroy(): void {
