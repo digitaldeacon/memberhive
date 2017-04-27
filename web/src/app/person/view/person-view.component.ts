@@ -4,7 +4,6 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { InteractionService } from '../../common/interaction.service';
 
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
 import { Store } from '@ngrx/store';
 
@@ -28,6 +27,7 @@ import { InteractionCreateDialogComponent } from '../../interaction/dialogs/inte
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     interactions: Array<Interaction>;
+    idSub: Subscription;
     people: Array<Person>;
     person?: Person;
     dialogRef: MdDialogRef<any>;
@@ -42,23 +42,33 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.select(app.getPeople)
             .subscribe((people: Person[]) => {
                     this.people = people;
-                    this.getCurrentPerson();
+                    // this.person = this.getCurrentPerson(this._route.snapshot.params['id']);
                 }
             );
     }
 
-    getCurrentPerson(): void {
-        this.person = this.people
-            .filter((person: Person) => person.uid === this._route.snapshot.params['id'])[0];
+    getCurrentPerson(personId: string): Person {
+        return this.people
+            .filter((person: Person) => person.uid === personId)[0];
     }
 
     ngOnInit(): void {
         this._route.params
-            .switchMap((params: Params) => {
-                this.getCurrentPerson();
-                console.log(params['id']);
-                return this.people.filter((p: Person) => p.uid === (params['id']))
+            .map((params: Params) => this.getCurrentPerson(params['id']))
+            .subscribe((person: Person) => {
+                this.person = person;
             });
+       /* this.idSub = this._route.params.
+            .select<string>('id')
+            .subscribe(id => {
+                if (id) {
+                    this.store.dispatch(this.heroActions.getHero(id));
+                    this.navigated = true;
+                } else {
+                    this.store.dispatch(this.heroActions.resetBlankHero());
+                    this.navigated = false;
+                }
+            });*/
     }
 
     ngOnDestroy(): void {
