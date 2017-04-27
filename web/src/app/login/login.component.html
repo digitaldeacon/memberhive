@@ -7,20 +7,18 @@
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
 
-            <h3>Sign In</h3>
+            <h3 i18n>Sign In</h3>
 
             <md-input-container class="flex-item">
-                <input mdInput placeholder="Username"  [(ngModel)]="username">
+                <input mdInput placeholder="Username" i18n-placeholder  [(ngModel)]="username">
             </md-input-container>
 
             <md-input-container class="flex-item">
-                <input mdInput type="password" placeholder="Password"  [(ngModel)]="password">
+                <input mdInput type="password" placeholder="Password" i18n-placeholder  [(ngModel)]="password">
             </md-input-container>
 
             <div class="flex-item">
-                <button md-raised-button color="primary"  (click)="login()">
-                    Login
-                </button>
+                <button md-raised-button color="primary" i18n  (click)="login()">Login</button>
             </div>
 
         </div>
