@@ -1,6 +1,6 @@
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <button md-button (click)="prevPerson()" [disabled]="!hasMorePeople"><md-icon>chevron_left</md-icon><span>Prev</span></button>
+        <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon><span>Prev</span></a>
         <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
         <a md-button (click)="nextPerson()"><span i18n>Next</span><md-icon>chevron_right</md-icon></a>
     </div>
@@ -45,7 +45,7 @@
                     <mh-interaction-list [(interactions)]="interactions"></mh-interaction-list>
                 </md-tab>
                 <md-tab label="Edit">
-                   <mh-person-edit [person]="person"></mh-person-edit>
+                   <mh-person-edit [(person)]="person"></mh-person-edit>
                 </md-tab>
                 <md-tab label="Family" i18n-label>
 

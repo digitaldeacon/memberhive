@@ -1,11 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Store } from '@ngrx/store';
 
 import { InteractionService } from '../../common/interaction.service';
-
-import { Subscription } from 'rxjs/Subscription';
-import { Store } from '@ngrx/store';
 
 import * as app from '../../app.store';
 import {
@@ -27,11 +25,9 @@ import { InteractionCreateDialogComponent } from '../../interaction/dialogs/inte
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     interactions: Array<Interaction>;
-    idSub: Subscription;
     people: Array<Person>;
     person?: Person;
     dialogRef: MdDialogRef<any>;
-    hasMorePeople: boolean = false;
 
     constructor(private _store: Store<app.AppState>,
                 private _titleService: TitleService,
@@ -40,11 +36,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
         this._store.select(app.getPeople)
-            .subscribe((people: Person[]) => {
-                    this.people = people;
-                    // this.person = this.getCurrentPerson(this._route.snapshot.params['id']);
-                }
-            );
+            .subscribe((people: Person[]) => this.people = people);
     }
 
     getCurrentPerson(personId: string): Person {
@@ -57,6 +49,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .map((params: Params) => this.getCurrentPerson(params['id']))
             .subscribe((person: Person) => {
                 this.person = person;
+                this._titleService.setTitle(this.person.fullName);
             });
        /* this.idSub = this._route.params.
             .select<string>('id')
@@ -77,21 +70,20 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     prevPerson(): void {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-        idx--;
-        this.hasMorePeople = (idx > 0);
+        idx = (idx > 0) ? idx - 1 : this.people.length - 1;
         if (this.people[idx]) {
             this._router.navigate(['/person/view', this.people[idx].uid]);
         }
     }
-    nextPerson(): void {
-        this.hasMorePeople = true;
-        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-        idx++;
-        if (this.people[idx]) {
-            this._router.navigate(['/person/view', this.people[idx].uid]);
-        }
 
+    nextPerson(): void {
+        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
+        idx = (idx < this.people.length - 1) ? idx + 1  : 0;
+        if (this.people[idx]) {
+            this._router.navigate(['/person/view', this.people[idx].uid]);
+        }
     }
+
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
 
@@ -100,6 +92,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     openDlgAvatar(): void {
         const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
@@ -117,6 +110,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     openDlgInteractions(): void {
         const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
@@ -131,6 +125,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     createInteraction(): void {
         // this._interactionService.init(this.person);
         // this._interactionService.setLastRoute(this._router.url);
