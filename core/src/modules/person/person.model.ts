@@ -20,9 +20,26 @@ export interface Person {
     socialContact: any;
 }
 
-export interface PersonAddress {
-    home: any;
-    postal: any;
+export class PersonAddress {
+    home: any = {
+        street: '',
+        zip: '',
+        city: '',
+        geocode: {}
+    };
+    postal: any = {
+        street: '',
+        zip: '',
+        city: '',
+        geocode: {}
+    };
+
+    constructor(input: any) {
+        if (input) {
+            this.home = input.home ? input.home : this.home;
+            this.postal = input.postal ? input.postal : this.postal;
+        }
+    }
 }
 
 export const emptyPerson: Person = {

@@ -33,9 +33,7 @@ class Interaction extends \yii\db\ActiveRecord
             \yii\behaviors\TimestampBehavior::className(),
             [
                 'class' => UuidBehavior::class,
-                'version' => Uuid::V5,
-                'namespace' => Uuid::NAMESPACE_URL,
-                'nameAttribute' => 'uid',
+                'version' => Uuid::V4,
                 'defaultAttribute' => 'uid'
             ]
         ];

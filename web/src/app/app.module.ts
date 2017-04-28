@@ -25,6 +25,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { MHCoreModule, PersonEffects } from 'mh-core';
 import { reducer } from './app.store';
 
+import 'hammerjs';
+
 @NgModule({
     declarations: [
         AppComponent,
