@@ -40,20 +40,20 @@ export class SettingsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.personAttr = this.personAttrSet.filter((item) => {
-            return this.personAttrSelected.indexOf(item)!==0;
+        this.personAttr = this.personAttrSet.filter((item: string) => {
+            return this.personAttrSelected.indexOf(item) !== 0;
         });
     }
 
     private onDropModel(args: any): void {
         let [el, target, source] = args;
         // do something else
-        console.log(el, target, source, this.personAttrSelected);
+        // console.log(el, target, source, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
         // do something else
-        console.log(el, source, this.personAttrSelected);
+        // console.log(el, source, this.personAttrSelected);
     }
 }

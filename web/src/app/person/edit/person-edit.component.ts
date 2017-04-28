@@ -20,6 +20,8 @@ export class PersonEditComponent implements OnInit {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
 
+    @Input() person: Person;
+    @Output() edit: EventEmitter<Person> = new EventEmitter<Person>();
     form: FormGroup;
     submitted: boolean;
     mStatus: any[] = [ // TODO: move this to the system settings in the options table
@@ -37,9 +39,6 @@ export class PersonEditComponent implements OnInit {
                 private auth: AuthService,
                 private datePipe: DatePipe) {
     }
-
-    @Input() person: Person;
-    @Output() edit: EventEmitter<Person> = new EventEmitter<Person>();
 
     updateParent(): void {
         this.edit.emit(this.person);

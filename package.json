@@ -26,6 +26,6 @@
     "lint:web": "cd web && yarn lint && cd ../",
     "lint:core": "cd core && yarn lint && cd ../",
     "lint:mobile": "cd mobile && yarn lint && cd ../",
-    "lint": "yarn lint:web && yarn lint:mobile"
+    "lint": "yarn lint:core && yarn lint:web"
   }
 }
