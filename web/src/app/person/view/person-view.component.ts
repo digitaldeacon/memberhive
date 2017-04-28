@@ -1,12 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Store } from '@ngrx/store';
 
 import { InteractionService } from '../../common/interaction.service';
-
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import { Store } from '@ngrx/store';
 
 import * as app from '../../app.store';
 import {
@@ -31,7 +28,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     person?: Person;
     dialogRef: MdDialogRef<any>;
-    hasMorePeople: boolean = false;
 
     constructor(private _store: Store<app.AppState>,
                 private _titleService: TitleService,
@@ -40,25 +36,32 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
         this._store.select(app.getPeople)
-            .subscribe((people: Person[]) => {
-                    this.people = people;
-                    this.getCurrentPertson();
-                }
-            );
+            .subscribe((people: Person[]) => this.people = people);
     }
 
-    getCurrentPertson(): void {
-        this.person = this.people
-            .filter((person: Person) => person.uid === this._route.snapshot.params['id'])[0];
+    getCurrentPerson(personId: string): Person {
+        return this.people
+            .filter((person: Person) => person.uid === personId)[0];
     }
 
     ngOnInit(): void {
         this._route.params
-            .switchMap((params: Params) => {
-                this.getCurrentPertson();
-                console.log(params['id']);
-                return this.people.filter((p: Person) => p.uid === (params['id']))
+            .map((params: Params) => this.getCurrentPerson(params['id']))
+            .subscribe((person: Person) => {
+                this.person = person;
+                this._titleService.setTitle(this.person.fullName);
             });
+       /* this.idSub = this._route.params.
+            .select<string>('id')
+            .subscribe(id => {
+                if (id) {
+                    this.store.dispatch(this.heroActions.getHero(id));
+                    this.navigated = true;
+                } else {
+                    this.store.dispatch(this.heroActions.resetBlankHero());
+                    this.navigated = false;
+                }
+            });*/
     }
 
     ngOnDestroy(): void {
@@ -67,21 +70,20 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     prevPerson(): void {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-        idx--;
-        this.hasMorePeople = (idx > 0);
+        idx = (idx > 0) ? idx - 1 : this.people.length - 1;
         if (this.people[idx]) {
             this._router.navigate(['/person/view', this.people[idx].uid]);
         }
     }
-    nextPerson(): void {
-        this.hasMorePeople = true;
-        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-        idx++;
-        if (this.people[idx]) {
-            this._router.navigate(['/person/view', this.people[idx].uid]);
-        }
 
+    nextPerson(): void {
+        let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
+        idx = (idx < this.people.length - 1) ? idx + 1  : 0;
+        if (this.people[idx]) {
+            this._router.navigate(['/person/view', this.people[idx].uid]);
+        }
     }
+
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
 
@@ -90,6 +92,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     openDlgAvatar(): void {
         const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
@@ -107,6 +110,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     openDlgInteractions(): void {
         const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
@@ -121,6 +125,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.dialogRef = undefined;
         });
     }
+
     createInteraction(): void {
         // this._interactionService.init(this.person);
         // this._interactionService.setLastRoute(this._router.url);

@@ -5,7 +5,6 @@ import { DatePipe } from '@angular/common';
 import { ShoutService } from '../../common/shout.service';
 import {
     AuthService,
-    TitleService,
     Person,
     PersonAddress
 } from 'mh-core';
@@ -35,12 +34,11 @@ export class PersonEditComponent implements OnInit {
 
     constructor(private shout: ShoutService,
                 private fb: FormBuilder,
-                private titleService: TitleService,
                 private auth: AuthService,
                 private datePipe: DatePipe) {
     }
 
-    @Input() person?: Person;
+    @Input() person: Person;
     @Output() edit: EventEmitter<Person> = new EventEmitter<Person>();
 
     updateParent(): void {
