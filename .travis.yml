@@ -36,7 +36,7 @@ before_script:
   - yarn install:all
 script:
   - yarn build:web
-  - yarn lint:all
+  - yarn lint
 after_success:
   - ls web/dist/
   - ls core/dist/
