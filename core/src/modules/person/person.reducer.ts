@@ -23,6 +23,7 @@ export function personReducer(state: PersonState = initialPersonState,
     switch (action.type) {
 
         case personActionTypes.LIST:
+        case personActionTypes.UPDATE:
             return Object.assign({}, state, {
                 loading: true
             });
@@ -69,6 +70,19 @@ export function personReducer(state: PersonState = initialPersonState,
                     [person.id]: person
                 }),
                 personId: state.personId
+            };
+        }
+
+        case personActionTypes.UPDATE_SUCCESS: {
+            const person: Person = action.payload;
+            return {
+                loaded: true,
+                loading: false,
+                ids: state.ids,
+                people: state.people.map((p: Person) => {
+                    return p.uid === person.uid ? Object.assign({}, p, person) : p;
+                }),
+                personId: person.uid
             };
         }
 

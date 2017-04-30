@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Store } from '@ngrx/store';
@@ -8,6 +8,7 @@ import * as app from '../../app.store';
 import {
     Person,
     TitleService,
+    personActionTypes,
     PersonViewAction} from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -72,11 +73,15 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         }
     }
 
+    savePerson(person: Person) {
+        person.uid = this.person.uid;
+        this._store.dispatch({type: personActionTypes.UPDATE, payload: person});
+    }
+
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
 
         this.dialogRef.afterClosed().subscribe((result: string) => {
-            // this.lastCloseResult = result;
             this.dialogRef = undefined;
         });
     }
@@ -94,7 +99,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             if (result) {
                 this.person = result;
             }
-            // update and refesh the person being edited
             this.dialogRef = undefined;
         });
     }

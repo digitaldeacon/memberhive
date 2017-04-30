@@ -6,6 +6,7 @@ export const personActionTypes: any = {
     LIST_SUCCESS: '[People] List Success',
     LIST_FAIL: '[People] List Fail',
     UPDATE: '[Person] Update',
+    UPDATE_SUCCESS: '[Person] Update Success',
     LOAD_VIEW: '[Person] Load View',
     VIEW: '[Person] View',
     CREATE: '[Person] Create'
@@ -36,9 +37,21 @@ export class PersonLoadViewAction implements Action {
     constructor(public payload: Person) { }
 }
 
+export class PersonUpdateAction implements Action {
+    type: any = personActionTypes.UPDATE;
+    constructor(public payload: any) { }
+}
+
+export class PersonUpdateSuccessAction implements Action {
+    type: any = personActionTypes.UPDATE_SUCCESS;
+    constructor(public payload: Person) { }
+}
+
 export type PersonActions =
     ListAction
     | ListSuccessAction
     | ListFailAction
     | PersonViewAction
-    | PersonLoadViewAction;
+    | PersonLoadViewAction
+    | PersonUpdateAction
+    | PersonUpdateSuccessAction;

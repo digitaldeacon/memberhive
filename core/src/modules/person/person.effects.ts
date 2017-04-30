@@ -9,7 +9,7 @@ import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
-import * as collection from './person.actions';
+import * as actions from './person.actions';
 import { Person } from './person.model';
 import { HttpService } from "../../services/http.service";
 
@@ -22,11 +22,18 @@ export class PersonEffects {
      */
     @Effect()
     getPeople$: Observable<Action> = this.actions$
-        .ofType(collection.personActionTypes.LIST)
-        .startWith(new collection.ListAction(toPayload))
+        .ofType(actions.personActionTypes.LIST)
+        .startWith(new actions.ListAction(toPayload))
         .switchMap(() =>
             this.http.get('person/list')
-            .map((r: Person[]) => new collection.ListSuccessAction(r))
+            .map((r: Person[]) => new actions.ListSuccessAction(r))
+        );
+    @Effect()
+    updatePerson$: Observable<Action> = this.actions$
+        .ofType(actions.personActionTypes.UPDATE)
+        .map((action: actions.PersonUpdateAction) => action.payload)
+        .switchMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
+                .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
         );
 
     constructor(private actions$: Actions,

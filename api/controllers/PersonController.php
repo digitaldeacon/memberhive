@@ -169,7 +169,7 @@ class PersonController extends MHController
                     $this->sendCredentials($person, trim($post['user']['password']));
                 }
             }
-            return ['response' => $person->toResponseArray()];
+            return $person->toResponseArray();
         } else {
             throw new BadRequestHttpException(json_encode($person->errors));
         }

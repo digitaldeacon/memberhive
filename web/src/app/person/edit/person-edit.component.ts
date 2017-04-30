@@ -28,7 +28,8 @@ export class PersonEditComponent {
             this.initForm(person);
         }
     };
-    @Output() edit: EventEmitter<Person> = new EventEmitter<Person>();
+
+    @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
 
     submitted: boolean;
     options: any = {};
@@ -48,10 +49,6 @@ export class PersonEditComponent {
                 {value: 'divorce-active', viewValue: 'Divorced'}
             ]
         };
-    }
-
-    updateParent(): void {
-        this.edit.emit(this.person);
     }
 
     initForm(person: Person): void {
@@ -99,21 +96,13 @@ export class PersonEditComponent {
     }
 
     save(model: Person, isValid: boolean): void {
-        const oldAttributes: Person = this.person;
         this.submitted = true;
-        model.uid = this.person.uid;
-        model.id = this.person.id;
-        /*if (isValid) {
-            this.person = model;
+        if (isValid) {
             this.form.patchValue(model);
-            this.updateParent();
-            if (model.uid === this.auth.getCurrentUser().uid) {
-                this.auth.setCurrentUser(model); // i.e. update my own card
-            }
-            this.toggleRandomPassword();
-            this.shout.success('Successfully updated ' + model.fullName);
-        }*/
-        // this._store.dispatch({type: 'SAVE_PERSON', payload: model});
+            // this.toggleRandomPassword();
+            this.savePerson.emit(model);
+            // this.shout.success('Successfully updated ' + model.fullName);
+        }
     }
 
     calcGeocode(address: any): boolean {

@@ -1,7 +1,6 @@
 <form class="person-edit"
       [formGroup]="form"
       novalidate
-      (ngSubmit)="save(form.value, form.valid)"
       fxLayout.gt-sm="row"
       fxLayout.xs="column">
     <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
@@ -154,6 +153,6 @@
         </fieldset>
     </div>
     <div>
-        <button md-button type="submit" [disabled]="!form.valid" i18n>Submit</button>
+        <button md-button [disabled]="!form.valid" i18n (click)="save(form.value, form.valid)">Submit</button>
     </div>
 </form>
