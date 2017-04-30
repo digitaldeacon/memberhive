@@ -44,7 +44,7 @@ export class ViewComponent implements OnInit {
             title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
         },
         {
-            title: 'Persons', route: '/person', icon: 'people'
+            title: 'People', route: '/person', icon: 'people'
         },
         {
             title: 'Events', route: '', icon: 'today'

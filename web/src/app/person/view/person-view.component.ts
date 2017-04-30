@@ -2,14 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Store } from '@ngrx/store';
-
-import { InteractionService } from '../../common/interaction.service';
+import { Subscription } from 'rxjs/Subscription';
 
 import * as app from '../../app.store';
 import {
     Person,
     TitleService,
-    PersonViewAction } from 'mh-core';
+    PersonViewAction} from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
@@ -27,15 +26,15 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     interactions: Array<Interaction>;
     people: Array<Person>;
     person?: Person;
+    subscription: Subscription;
     dialogRef: MdDialogRef<any>;
 
     constructor(private _store: Store<app.AppState>,
                 private _titleService: TitleService,
                 private _router: Router,
                 private _route: ActivatedRoute,
-                private _interactionService: InteractionService,
                 private _dialog: MdDialog) {
-        this._store.select(app.getPeople)
+        this.subscription = this._store.select(app.getPeople)
             .subscribe((people: Person[]) => this.people = people);
     }
 
@@ -51,21 +50,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
             });
-       /* this.idSub = this._route.params.
-            .select<string>('id')
-            .subscribe(id => {
-                if (id) {
-                    this.store.dispatch(this.heroActions.getHero(id));
-                    this.navigated = true;
-                } else {
-                    this.store.dispatch(this.heroActions.resetBlankHero());
-                    this.navigated = false;
-                }
-            });*/
     }
 
     ngOnDestroy(): void {
-        // this.actionsSubscription.unsubscribe();
+        this.subscription.unsubscribe();
     }
 
     prevPerson(): void {

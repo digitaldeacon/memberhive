@@ -1,5 +1,4 @@
 <form class="person-edit"
-      *ngIf="person"
       [formGroup]="form"
       novalidate
       (ngSubmit)="save(form.value, form.valid)"
@@ -44,7 +43,7 @@
         </div>
         <div class="mat-input-wrapper">
             <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
-                <md-option *ngFor="let status of mStatus" [value]="status.value">
+                <md-option *ngFor="let status of options.marital" [value]="status.value">
                     {{status.viewValue}}
                 </md-option>
             </md-select>
@@ -101,9 +100,6 @@
             <div formGroupName="home">
                 <div fxLayout="row" fxLayoutAlign="space-between center">
                     <h4 i18n>Home</h4>
-                    <a *ngIf="person.address?.home.geocode" href="">
-                        <md-icon>map</md-icon>
-                    </a>
                 </div>
                 <md-input-container>
                     <input mdInput

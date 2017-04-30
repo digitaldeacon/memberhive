@@ -84,7 +84,7 @@ export const getPeople: any = (state: PersonState) => state.people;
 export const getIds: any = (state: PersonState) => state.ids;
 export const getSelectedId: any = (state: PersonState) => state.personId;
 export const getPerson: any = createSelector(getPeople, getSelectedId, (people: any, selectedId: string) => {
-    return people.filter((person: Person) => person.uid === selectedId);
+    return people.filter((person: Person) => person.uid === selectedId)[0];
 });
 
 export const getAll: any = createSelector(getPeople, getIds, (people: any, ids: string[]) => {

@@ -1,4 +1,4 @@
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -15,22 +15,23 @@ import {
     styleUrls: ['person-edit.component.scss']
 })
 
-export class PersonEditComponent implements OnInit {
+export class PersonEditComponent {
 
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
 
-    @Input() person: Person;
+    public form: FormGroup;
+    @Input()
+    set person(person: Person) {
+        if (person) {
+            // this.form.patchValue(person);
+            this.initForm(person);
+        }
+    };
     @Output() edit: EventEmitter<Person> = new EventEmitter<Person>();
-    form: FormGroup;
+
     submitted: boolean;
-    mStatus: any[] = [ // TODO: move this to the system settings in the options table
-        {value: 'single', viewValue: 'Single'},
-        {value: 'married', viewValue: 'Married'},
-        {value: 'widdow', viewValue: 'Widdow'},
-        {value: 'divorce-living', viewValue: 'Living in Divorce'},
-        {value: 'divorce-active', viewValue: 'Divorced'}
-    ];
+    options: any = {};
     randomPassword: boolean = true;
     persons: Array<Person>;
 
@@ -38,56 +39,63 @@ export class PersonEditComponent implements OnInit {
                 private fb: FormBuilder,
                 private auth: AuthService,
                 private datePipe: DatePipe) {
+        this.options = { // TODO: pull this from the settings table/store
+            marital: [
+                {value: 'single', viewValue: 'Single'},
+                {value: 'married', viewValue: 'Married'},
+                {value: 'widdow', viewValue: 'Widdow'},
+                {value: 'divorce-living', viewValue: 'Living in Divorce'},
+                {value: 'divorce-active', viewValue: 'Divorced'}
+            ]
+        };
     }
 
     updateParent(): void {
         this.edit.emit(this.person);
     }
 
-    ngOnInit(): void {
-        if (this.person) {
-            const address: PersonAddress = new PersonAddress(this.person['address']);
+    initForm(person: Person): void {
+        const address: PersonAddress = new PersonAddress(person['address']);
 
-            this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
-            this._pwRandCheckbox = this.fb.control(this.randomPassword);
+        this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
+        this._pwRandCheckbox = this.fb.control(this.randomPassword);
 
-            this.form = this.fb.group({
-                firstName: [this.person['firstName'],
-                            [<any>Validators.required, <any>Validators.minLength(5)]],
-                middleName: [this.person['middleName']],
-                lastName: [this.person['lastName'],
-                            [<any>Validators.required, <any>Validators.minLength(5)]],
-                email: [this.person['email'],
-                    [<any>Validators.required, <any>Validators.minLength(5)]],
-                gender: [this.person['gender']],
-                maritalStatus: [this.person['maritalStatus']],
-                birthday: [this.datePipe.transform(this.person['birthday'], 'yyyy-MM-dd'),
-                    [<any>Validators.required]],
-                phoneHome: [this.person['phoneHome']],
-                phoneWork: [this.person['phoneWork']],
-                phoneMobile: [this.person['phoneMobile']],
-                user: this.fb.group({
-                    username: [this.person['user']['username']],
-                    password: this._pwFormControl,
-                    noCredentials: [undefined],
-                    setPassword: [undefined]
+        this.form = this.fb.group({
+            firstName: [person['firstName'],
+                [<any>Validators.required, <any>Validators.minLength(5)]],
+            middleName: [person['middleName']],
+            lastName: [person['lastName'],
+                [<any>Validators.required, <any>Validators.minLength(5)]],
+            email: [person['email'],
+                [<any>Validators.required, <any>Validators.minLength(5)]],
+            gender: [person['gender']],
+            maritalStatus: [person['maritalStatus']],
+            birthday: [this.datePipe.transform(person['birthday'], 'yyyy-MM-dd'),
+                [<any>Validators.required]],
+            phoneHome: [person['phoneHome']],
+            phoneWork: [person['phoneWork']],
+            phoneMobile: [person['phoneMobile']],
+            user: this.fb.group({
+                username: [person['user']['username']],
+                password: this._pwFormControl,
+                noCredentials: [undefined],
+                setPassword: [undefined]
+            }),
+            address: this.fb.group({
+                home: this.fb.group({
+                    street: [address.home.street],
+                    zip: [address.home.zip],
+                    city: [address.home.city],
+                    geocode: [address.home.geocode]
                 }),
-                address: this.fb.group({
-                    home: this.fb.group({
-                        street: [address.home.street],
-                        zip: [address.home.zip],
-                        city: [address.home.city],
-                        geocode: [address.home.geocode]
-                    }),
-                    postal: this.fb.group({
-                        street: [address.postal.street],
-                        zip: [address.postal.zip],
-                        city: [address.postal.city],
-                        geocode: [address.postal.geocode]
-                    })
+                postal: this.fb.group({
+                    street: [address.postal.street],
+                    zip: [address.postal.zip],
+                    city: [address.postal.city],
+                    geocode: [address.postal.geocode]
                 })
-            });
-        }
+            })
+        });
     }
 
     save(model: Person, isValid: boolean): void {
@@ -95,7 +103,7 @@ export class PersonEditComponent implements OnInit {
         this.submitted = true;
         model.uid = this.person.uid;
         model.id = this.person.id;
-        if (isValid) {
+        /*if (isValid) {
             this.person = model;
             this.form.patchValue(model);
             this.updateParent();
@@ -104,7 +112,8 @@ export class PersonEditComponent implements OnInit {
             }
             this.toggleRandomPassword();
             this.shout.success('Successfully updated ' + model.fullName);
-        }
+        }*/
+        // this._store.dispatch({type: 'SAVE_PERSON', payload: model});
     }
 
     calcGeocode(address: any): boolean {
