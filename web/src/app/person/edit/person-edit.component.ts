@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -20,7 +20,6 @@ export class PersonEditComponent {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
 
-    public form: FormGroup;
     @Input()
     set person(person: Person) {
         if (person) {
@@ -31,6 +30,7 @@ export class PersonEditComponent {
 
     @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
 
+    form: FormGroup;
     submitted: boolean;
     options: any = {};
     randomPassword: boolean = true;

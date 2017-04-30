@@ -1,5 +1,6 @@
 <form class="person-edit"
       [formGroup]="form"
+      (ngSubmit)="save(form.value, form.valid)"
       novalidate
       fxLayout.gt-sm="row"
       fxLayout.xs="column">
@@ -73,9 +74,9 @@
                 <md-input-container>
                     <input mdInput formControlName="username" placeholder="Username" i18n-placeholder>
                 </md-input-container>
-                <small [hidden]="form.controls.user.controls.username.valid || (form.controls.user.controls.username.pristine && !submitted)">
+                <!--<small [hidden]="form.get(user.username).valid || (form.get(user.username).pristine && !submitted)" i18n>
                     Username is required (minimum 5 characters).
-                </small>
+                </small>-->
             </div>
             <div>
                 <md-input-container>
@@ -85,9 +86,9 @@
                            placeholder="Password"
                            i18n-placeholder>
                 </md-input-container>
-                <small [hidden]="form.controls.user.controls.username.valid || (form.controls.user.controls.username.pristine && !submitted)">
+                <!--<small [hidden]="form.get(user.username).valid || (form.get(user.username).pristine && !submitted)" i18n>
                     Password is required (minimum 8 characters).
-                </small>
+                </small>-->
             </div>
             <div fxLayoutAlign="space-between">
                 <md-checkbox formControlName="setPassword" (change)="toggleRandomPassword()" i18n>Set new Password</md-checkbox>
@@ -153,6 +154,6 @@
         </fieldset>
     </div>
     <div>
-        <button md-button [disabled]="!form.valid" i18n (click)="save(form.value, form.valid)">Submit</button>
+        <button md-button type="submit" [disabled]="!form.valid" i18n>Submit</button>
     </div>
 </form>
