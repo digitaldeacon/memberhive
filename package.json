@@ -8,8 +8,8 @@
   },
   "scripts": {
     "install:api": "cd api && composer install && cd ../",
-    "install:core": "cd core && rm -rf node_modules/ yarn.lock && yarn && yarn build && yarn install:dep && cd ../",
-    "install:web": "cd web && rm -rf node_modules/ yarn.lock && yarn && yarn install:dep && cd ../",
+    "install:core": "cd core && rm -rf node_modules/ && yarn && yarn build && yarn install:dep && cd ../",
+    "install:web": "cd web && rm -rf node_modules/ && yarn && yarn install:dep && cd ../",
     "install:mobile": "cd mobile && rm -rf node_modules/ && yarn && yarn install:dep && cd ../",
     "install": "yarn install:all",
     "install:all": "yarn install:core && yarn install:web && yarn install:mobile && yarn install:api",
