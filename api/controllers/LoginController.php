@@ -31,15 +31,15 @@ class LoginController extends MHController
     }
     public function actionLogin()
     {
-        $post = \Yii::$app->request->post();
-        if (empty($post)) {
+        $request = \Yii::$app->request;
+        if (empty($request->post()) || empty($request->post('username')) || empty($request->post('password'))) {
             return [];
         }
-        $model = User::findOne(['username' => $post['username']]);
+        $model = User::findOne(['username' => $request->post('username')]);
         if (empty($model)) {
             throw new \yii\web\NotFoundHttpException('User not found');
         }
-        if ($model->validatePassword($post['password'])) {
+        if ($model->validatePassword($request->post('password'))) {
             $model->save(false);
             return ['user' => $model->toResponseArray()];
         } else {
