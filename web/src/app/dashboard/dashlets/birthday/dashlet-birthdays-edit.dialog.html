@@ -15,9 +15,9 @@
     <button
             md-raised-button
             color="primary"
-            md-dialog-close i18n>Close</button>
+            (click)="save(input.value)" i18n>Save</button>
     <button
             md-button
             color="secondary"
-            (click)="save(input.value)" i18n>Save</button>
+            md-dialog-close i18n>Close</button>
 </md-dialog-actions>
