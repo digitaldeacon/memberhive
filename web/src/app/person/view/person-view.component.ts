@@ -28,6 +28,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     interactions: Array<Interaction>;
     people: Array<Person>;
     person?: Person;
+    person$: Observable<Person>;
     subscription: Subscription;
     dialogRef: MdDialogRef<any>;
 
@@ -38,13 +39,14 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _dialog: MdDialog) {
         this.subscription = this._store.select(app.getPeople)
             .subscribe((people: Person[]) => this.people = people);
+        this.person$ = this._store.select(app.getSelectedPerson);
     }
 
     ngOnInit(): void {
         this._route.params
             .map((params: Params) =>
                 this._store.dispatch({type: personActionTypes.VIEW, payload: params['id']}))
-            .switchMap((p: any) => this._store.select(app.getSelectedPerson))
+            .switchMap((p: any) => this.person$)
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
