@@ -10,11 +10,11 @@
             <h3 i18n>Sign In</h3>
 
             <md-input-container class="flex-item">
-                <input mdInput placeholder="Username" i18n-placeholder  [(ngModel)]="username">
+                <input mdInput placeholder="Username" i18n-placeholder  [(ngModel)]="username" (keyup)="onKey($event)">
             </md-input-container>
 
             <md-input-container class="flex-item">
-                <input mdInput type="password" placeholder="Password" i18n-placeholder  [(ngModel)]="password">
+                <input mdInput type="password" placeholder="Password" i18n-placeholder  [(ngModel)]="password" (keyup)="onKey($event)">
             </md-input-container>
 
             <div class="flex-item">
