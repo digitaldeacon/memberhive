@@ -22,8 +22,9 @@ export class LoginComponent implements OnInit {
     }
 
     onKey(event: KeyboardEvent): void {
-        if (event.key == "Enter")
+        if (event.key === "Enter") {
             this.login();
+        }
     }
 
     login(): void {
