@@ -59,10 +59,10 @@ export class PersonEditComponent {
 
         this.form = this.fb.group({
             firstName: [person['firstName'],
-                [<any>Validators.required, <any>Validators.minLength(5)]],
+                [<any>Validators.required, <any>Validators.minLength(2)]],
             middleName: [person['middleName']],
             lastName: [person['lastName'],
-                [<any>Validators.required, <any>Validators.minLength(5)]],
+                [<any>Validators.required, <any>Validators.minLength(2)]],
             email: [person['email'],
                 [<any>Validators.required, <any>Validators.minLength(5)]],
             gender: [person['gender']],
