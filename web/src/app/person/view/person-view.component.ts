@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
+import { Observable } from 'rxjs/Observable';
 
 import * as app from '../../app.store';
 import {
@@ -39,14 +40,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((people: Person[]) => this.people = people);
     }
 
-    getCurrentPerson(personId: string): Person {
-        return this.people
-            .filter((person: Person) => person.uid === personId)[0];
-    }
-
     ngOnInit(): void {
         this._route.params
-            .map((params: Params) => this.getCurrentPerson(params['id']))
+            .map((params: Params) =>
+                this._store.dispatch({type: personActionTypes.VIEW, payload: params['id']}))
+            .switchMap((p: any) => this._store.select(app.getSelectedPerson))
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
