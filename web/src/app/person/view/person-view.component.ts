@@ -71,7 +71,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         }
     }
 
-    savePerson(person: Person) {
+    savePerson(person: Person): void {
         person.uid = this.person.uid;
         this._store.dispatch({type: personActionTypes.UPDATE, payload: person});
     }
