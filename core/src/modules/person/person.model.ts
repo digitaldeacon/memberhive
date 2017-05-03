@@ -3,11 +3,6 @@ export interface User {
     personId: string;
 }
 
-const emptyUser: User = {
-    token: '',
-    personId: ''
-}
-
 export interface Person {
     id: number;
     uid: string;
@@ -51,6 +46,11 @@ export class PersonAddress {
         }
     }
 }
+
+const emptyUser: User = {
+    token: '',
+    personId: ''
+};
 
 export const emptyPerson: Person = {
     id: 0,

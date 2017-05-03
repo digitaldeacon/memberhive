@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Credentials } from './auth.model';
+import { User } from '../person/person.model';
 
 export const authActionTypes: any = {
     LOGIN: '[Auth] Login',
@@ -14,7 +15,7 @@ export class LoginAction implements Action {
 
 export class LoginSuccessAction implements Action {
     type: any = authActionTypes.LOGIN_SUCCESS;
-    constructor(public payload: any) { }
+    constructor(public payload: User) { }
 }
 
 export class LoginFailureAction implements Action {
