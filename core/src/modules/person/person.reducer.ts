@@ -101,6 +101,6 @@ export const getPerson: any = createSelector(getPeople, getSelectedId, (people: 
     return people.filter((person: Person) => person.uid === selectedId)[0];
 });
 
-export const getAll: any = createSelector(getPeople, getIds, (people: any, ids: string[]) => {
+export const getAllPeople: any = createSelector(getPeople, getIds, (people: any, ids: string[]) => {
     return ids.map((id: string) => people.filter((person: Person) => person.uid === id));
 });

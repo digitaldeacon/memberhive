@@ -7,7 +7,13 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class LoginService {
 
-    public redirectUrl: string;
+    private reurl: string;
+    public set redirectUrl(url: string) {
+        this.reurl = url;
+    }
+    public get redirectUrl(): string {
+        return this.reurl;
+    }
 
     constructor(private http: HttpService,
                 private auth: AuthService,
@@ -16,6 +22,9 @@ export class LoginService {
         this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
     }
 
+    /**
+     * @deprecated will be removed when the store is complete
+     */
     public login(username: string, password: string): void {
         this.http.unauthenticatedPost(
             'login/login',
@@ -35,11 +44,17 @@ export class LoginService {
         });
     }
 
+    /**
+     * @deprecated will be removed when the store is complete
+     */
     public logout(): void {
         localStorage.removeItem('currentUser');
         localStorage.removeItem('token');
     }
 
+    /**
+     * @deprecated will be removed when the store is complete
+     */
     private store(response: any): void {
         this.auth.setToken(response.user.token);
         if (response.user.person) {

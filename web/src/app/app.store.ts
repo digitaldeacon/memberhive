@@ -7,17 +7,20 @@ import { environment } from '../environments/environment';
 import * as interaction from 'mh-core';
 import * as person from 'mh-core';
 import * as settings from 'mh-core';
+import * as auth from 'mh-core';
 
 export interface AppState {
     interaction: interaction.InteractionState;
     person: person.PersonState;
     settings: settings.SettingsState;
+    auth: auth.AuthState;
 }
 
 const reducers: any = {
     interaction: interaction.interactionReducer,
     person: person.personReducer,
-    settings: settings.settingsReducer
+    settings: settings.settingsReducer,
+    auth: auth.authReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -49,3 +52,10 @@ export const getShowDrawer: any = createSelector(getSettingsState, settings.getS
  * Loading  Reducers
  */
 export const getLoading: any = createSelector(getPersonState, person.getLoading);
+/**
+ * Auth Reducers
+ */
+export const getAuthState: any = (state: AppState) => state.auth;
+export const getAuth: any = createSelector(getAuthState, auth.getAllAuth);
+export const getUserToken: any = createSelector(getAuthState, auth.getToken);
+export const getUser: any = createSelector(getAuthState, auth.getPersonId);

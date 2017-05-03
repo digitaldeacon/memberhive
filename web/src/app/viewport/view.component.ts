@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -6,7 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
 
-// import { Person } from '../person/person';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Interaction } from '../interaction/interaction';

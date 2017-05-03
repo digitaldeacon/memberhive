@@ -54,7 +54,7 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'token' => $this->accessToken,
-            'person' => isset($this->person) ? $this->person->toResponseArray() : null
+            'personId' => isset($this->person) ? $this->person->uid : ''
         ];
     }
 

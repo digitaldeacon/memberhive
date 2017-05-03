@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { AuthActions, authActionTypes } from './auth.actions';
+import { getPeople } from '../person/person.reducer';
 import { Person } from '../person/person.model';
 
 export interface AuthState {
@@ -8,6 +9,7 @@ export interface AuthState {
     loading: boolean;
     loaded: boolean;
     error: string;
+    status: number;
 };
 
 const initialAuthState: AuthState = {
@@ -15,7 +17,8 @@ const initialAuthState: AuthState = {
     personId: '',
     loading: false,
     loaded: false,
-    error: ''
+    error: '',
+    status: 200
 };
 
 export function authReducer(state: AuthState = initialAuthState,
@@ -28,24 +31,27 @@ export function authReducer(state: AuthState = initialAuthState,
             });
 
         case authActionTypes.LOGIN_SUCCESS: {
-            const person: Person = action.payload;
+            const user: any = action.payload;
 
             return {
-                token: person.user.token,
+                token: user.token,
+                personId: user.personId,
                 loaded: true,
                 loading: false,
-                personId: person.uid,
-                error: ''
+                error: '',
+                status: 200
             };
         }
 
         case authActionTypes.LOGIN_FAILURE: {
+            const res: any = action.payload;
             return {
                 token: '',
                 loaded: false,
                 loading: false,
                 personId: '',
-                error: action.payload
+                error: res.statusText,
+                status: res.status
             };
         }
 
@@ -54,3 +60,11 @@ export function authReducer(state: AuthState = initialAuthState,
         }
     }
 }
+
+export const getToken: any = (state: AuthState) => state.token;
+export const getLoadingAuth: any = (state: AuthState) => state.loading;
+export const getPersonId: any = (state: AuthState) => state.personId;
+export const getErrorText: any = (state: AuthState) => state.error;
+export const getStatus: any = (state: AuthState) => state.status;
+
+export const getAllAuth: any = createSelector(getToken, getPersonId, getStatus, getErrorText);

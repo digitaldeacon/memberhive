@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Credentials } from './auth.model';
+import { Response } from '@angular/http';
 import { User } from '../person/person.model';
 
 export const authActionTypes: any = {
@@ -20,7 +21,7 @@ export class LoginSuccessAction implements Action {
 
 export class LoginFailureAction implements Action {
     type: any = authActionTypes.LOGIN_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export type AuthActions =

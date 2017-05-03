@@ -43,7 +43,7 @@ class LoginController extends MHController
             $model->save(false);
             return ['user' => $model->toResponseArray()];
         } else {
-            throw new \yii\web\ForbiddenHttpException();
+            throw new \yii\web\ForbiddenHttpException('Wrong login details');
         }
     }
 
