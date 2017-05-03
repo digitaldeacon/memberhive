@@ -44,9 +44,9 @@ export class PersonEditComponent {
             marital: [
                 {value: 'single', viewValue: 'Single'},
                 {value: 'married', viewValue: 'Married'},
-                {value: 'widdow', viewValue: 'Widdow'},
-                {value: 'divorce-living', viewValue: 'Living in Divorce'},
-                {value: 'divorce-active', viewValue: 'Divorced'}
+                {value: 'widow', viewValue: 'Widow'},
+                {value: 'separated', viewValue: 'Separated'},
+                {value: 'divorced', viewValue: 'Divorced'}
             ]
         };
     }

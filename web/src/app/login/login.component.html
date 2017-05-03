@@ -18,7 +18,7 @@
             </md-input-container>
 
             <div class="flex-item">
-                <button md-raised-button color="primary" i18n  (click)="login()">Login</button>
+                <button md-raised-button color="primary" i18n [disabled]="!username || !password" (click)="login()">Login</button>
             </div>
 
         </div>

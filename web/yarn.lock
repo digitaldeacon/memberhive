@@ -168,6 +168,10 @@
   version "2.5.38"
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
 
+"@types/jquery@*":
+  version "2.0.42"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.42.tgz#57cdb1a0f610ddad488adf620e40f8d07ff3ecdf"
+
 "@types/node@^6.0.46":
   version "6.0.70"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.70.tgz#f6e04b859205ee3611849921f09819701dbfa5e8"
@@ -183,6 +187,12 @@
 "@types/selenium-webdriver@^2.53.35", "@types/selenium-webdriver@~2.53.39":
   version "2.53.42"
   resolved "https://registry.yarnpkg.com/@types/selenium-webdriver/-/selenium-webdriver-2.53.42.tgz#74cb77fb6052edaff2a8984ddafd88d419f25cac"
+
+"@types/tinymce@^4.5.4":
+  version "4.5.4"
+  resolved "https://registry.yarnpkg.com/@types/tinymce/-/tinymce-4.5.4.tgz#1d0032cb325eb2da38922b402dfa5184e68460cd"
+  dependencies:
+    "@types/jquery" "*"
 
 abbrev@1:
   version "1.1.0"
