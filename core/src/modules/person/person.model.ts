@@ -1,3 +1,13 @@
+export interface User {
+    token: string;
+    personId: string;
+}
+
+const emptyUser: User = {
+    token: '',
+    personId: ''
+}
+
 export interface Person {
     id: number;
     uid: string;
@@ -15,7 +25,7 @@ export interface Person {
     phoneHome: string;
     phoneWork: string;
     phoneMobile: string;
-    user: any;
+    user: User;
     address: any;
     socialContact: any;
 }
@@ -59,10 +69,7 @@ export const emptyPerson: Person = {
     phoneHome: '',
     phoneWork: '',
     phoneMobile: '',
-    user: {},
-    address: {
-        home: {},
-        postal: {}
-    },
+    user: emptyUser,
+    address: PersonAddress,
     socialContact: {}
 };
