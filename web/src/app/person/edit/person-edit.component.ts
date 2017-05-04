@@ -42,9 +42,11 @@ export class PersonEditComponent {
                 private datePipe: DatePipe) {
         this.options = { // TODO: pull this from the settings table/store
             marital: [
+                {value: '', viewValue: ''},
                 {value: 'single', viewValue: 'Single'},
+                {value: 'engaged', viewValue: 'Engaged'},
                 {value: 'married', viewValue: 'Married'},
-                {value: 'widow', viewValue: 'Widow'},
+                {value: 'widowed', viewValue: 'Widowed'},
                 {value: 'separated', viewValue: 'Separated'},
                 {value: 'divorced', viewValue: 'Divorced'}
             ]
