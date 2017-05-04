@@ -10,7 +10,7 @@
             <md-input-container fxFlex>
                 <input mdInput fxFlex type="text" formControlName="firstName" placeholder="Firstname" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.firstName.valid || (form.controls.firstName.pristine && !submitted)">
+            <small [hidden]="form.controls.firstName.valid || (form.controls.firstName.pristine && !submitted)" i18n>
                 Name is required (minimum 5 characters).
             </small>
         </div>
@@ -23,7 +23,7 @@
             <md-input-container>
                 <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Surname" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.lastName.valid || (form.controls.lastName.pristine && !submitted)">
+            <small [hidden]="form.controls.lastName.valid || (form.controls.lastName.pristine && !submitted)" i18n>
                 Lastname is required (minimum 5 characters).
             </small>
         </div>
@@ -37,7 +37,7 @@
             <md-input-container>
                 <input mdInput fxFlex type="email" formControlName="email" placeholder="Email" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.email.valid || (form.controls.email.pristine && !submitted)">
+            <small [hidden]="form.controls.email.valid || (form.controls.email.pristine && !submitted)" i18n>
                 Email is required (minimum 5 characters).
             </small>
         </div>
