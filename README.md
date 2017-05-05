@@ -20,16 +20,13 @@ Memberhive is a **church relationship management system** (CRMS). Our focus is f
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
-## High-Level Items for April
+## High-Level Items for May
 _In order of importance_
-- [ ] Structure rework for Ionic2 and shared code (#64)
-- [ ] State management (#65)
-- [x] Layout fixes desktop (#56)
-- [x] Layout fixes mobile (#56)
-- [x] Upgrade to Angular4 (#63)
-- [ ] Dashboard: Interactions (#60)
-- [ ] Interactions (#19)
-- [ ] Display fixes Safari (input elements) (#56)
+- [ ] State management (#65, #70, #82, #79, #94)
+- [ ] Dashboard: Interactions (#19, #60)
+- [ ] Person create (#95)
+- [ ] Settings (#31, #67)
+- [ ] Adressing bugs and shoring up person related components (edit, list)
 
 ## Development Philosophy
 We want to keep this project simple (even though it will be large) and maintainable. For that reason
