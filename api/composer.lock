@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5d1b589b890f2e12f20d2f4a396c5d77",
-    "content-hash": "d6c2fbb8e9de1a3acd4e90d6711afb2a",
+    "hash": "88dfb7ce8adcf1c16e9bb7945c560104",
+    "content-hash": "8f0ef8685e8726176d10041d3e2a62e1",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -645,36 +645,63 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "dev-master",
+            "version": "2.9.x-dev",
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "b95ff2c3b122a3ee4b57d149a57d2afce65522c3"
+                "reference": "b940fb7dca8c2a37f0514161b495363e5b36d879"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b95ff2c3b122a3ee4b57d149a57d2afce65522c3",
-                "reference": "b95ff2c3b122a3ee4b57d149a57d2afce65522c3",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b940fb7dca8c2a37f0514161b495363e5b36d879",
+                "reference": "b940fb7dca8c2a37f0514161b495363e5b36d879",
                 "shasum": ""
             },
             "require": {
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
                 "ext-xmlwriter": "*",
-                "php": ">=5.4.0"
+                "php": ">=5.1.2"
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.0"
             },
             "bin": [
-                "bin/phpcs",
-                "bin/phpcbf"
+                "scripts/phpcs",
+                "scripts/phpcbf"
             ],
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.x-dev"
+                    "dev-master": "2.x-dev"
                 }
+            },
+            "autoload": {
+                "classmap": [
+                    "CodeSniffer.php",
+                    "CodeSniffer/CLI.php",
+                    "CodeSniffer/Exception.php",
+                    "CodeSniffer/File.php",
+                    "CodeSniffer/Fixer.php",
+                    "CodeSniffer/Report.php",
+                    "CodeSniffer/Reporting.php",
+                    "CodeSniffer/Sniff.php",
+                    "CodeSniffer/Tokens.php",
+                    "CodeSniffer/Reports/",
+                    "CodeSniffer/Tokenizers/",
+                    "CodeSniffer/DocGenerators/",
+                    "CodeSniffer/Standards/AbstractPatternSniff.php",
+                    "CodeSniffer/Standards/AbstractScopeSniff.php",
+                    "CodeSniffer/Standards/AbstractVariableSniff.php",
+                    "CodeSniffer/Standards/IncorrectPatternException.php",
+                    "CodeSniffer/Standards/Generic/Sniffs/",
+                    "CodeSniffer/Standards/MySource/Sniffs/",
+                    "CodeSniffer/Standards/PEAR/Sniffs/",
+                    "CodeSniffer/Standards/PSR1/Sniffs/",
+                    "CodeSniffer/Standards/PSR2/Sniffs/",
+                    "CodeSniffer/Standards/Squiz/Sniffs/",
+                    "CodeSniffer/Standards/Zend/Sniffs/"
+                ]
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
@@ -692,7 +719,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-05-04 00:33:04"
+            "time": "2017-05-03 23:41:08"
         },
         {
             "name": "yiisoft/yii2",
@@ -700,12 +727,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "db0912c00f4af11376b4d8ac9defdb1f979c4bdc"
+                "reference": "836d1b958f5c139b09a22c854ef9c58a4a619d8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/db0912c00f4af11376b4d8ac9defdb1f979c4bdc",
-                "reference": "db0912c00f4af11376b4d8ac9defdb1f979c4bdc",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/836d1b958f5c139b09a22c854ef9c58a4a619d8f",
+                "reference": "836d1b958f5c139b09a22c854ef9c58a4a619d8f",
                 "shasum": ""
             },
             "require": {
@@ -792,7 +819,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-05-03 20:37:46"
+            "time": "2017-05-05 14:06:46"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2778,7 +2805,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "squizlabs/php_codesniffer": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {

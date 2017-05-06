@@ -36,12 +36,12 @@
     "ngrx-store-logger": "^0.1.7",
     "rxjs": "^5.3.0",
     "sw-toolbox": "^3.6.0",
-    "zone.js": "^0.8.5"
+    "zone.js": "^0.8.10"
   },
   "devDependencies": {
     "@ionic/app-scripts": "^1.2.5",
     "@ionic/cli-build-ionic-angular": "^0.0.4",
     "@ionic/cli-plugin-cordova": "^0.0.10",
-    "typescript": "^2.2.2"
+    "typescript": "~2.3.1"
   }
 }

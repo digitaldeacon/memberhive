@@ -17,7 +17,7 @@
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*",
         "aracoool/yii2-uuid": "*",
-        "squizlabs/php_codesniffer": "*"
+        "squizlabs/php_codesniffer": "2.9.x-dev"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
