@@ -78,8 +78,8 @@
              [@drawer]="open">
             <md-nav-list menu-items>
                 <a md-list-item>
-                    <img md-list-avatar src="{{currentUser.avatar}}" alt="{{currentUser.fullName}}" />
-                    <h4 md-line>{{currentUser.firstName}}</h4>
+                    <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
+                    <h4 md-line>{{currentUser?.firstName}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
                 <a *ngFor="let item of routes"

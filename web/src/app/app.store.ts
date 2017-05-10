@@ -1,5 +1,6 @@
 import { createSelector } from 'reselect';
 import { ActionReducer, combineReducers } from '@ngrx/store';
+import { routerReducer, RouterState } from "@ngrx/router-store";
 import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
@@ -14,13 +15,15 @@ export interface AppState {
     person: person.PersonState;
     settings: settings.SettingsState;
     auth: auth.AuthState;
+    router: RouterState;
 }
 
 const reducers: any = {
     interaction: interaction.interactionReducer,
     person: person.personReducer,
     settings: settings.settingsReducer,
-    auth: auth.authReducer
+    auth: auth.authReducer,
+    router: routerReducer
 };
 
 const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
@@ -56,6 +59,12 @@ export const getLoading: any = createSelector(getPersonState, person.getLoading)
  * Auth Reducers
  */
 export const getAuthState: any = (state: AppState) => state.auth;
-export const getAuth: any = createSelector(getAuthState, auth.getAllAuth);
-export const getUserToken: any = createSelector(getAuthState, auth.getToken);
-export const getUser: any = createSelector(getAuthState, auth.getPersonId);
+export const isAuthenticated: any = createSelector(getAuthState, auth.isAuthenticated);
+export const isAuthLoading: any = createSelector(getAuthState, auth.isAuthenticationLoading);
+export const getAuthError: any = createSelector(getAuthState, auth.getAuthenticationError);
+export const isAuthLoaded: any = createSelector(getAuthState, auth.isAuthenticatedLoaded);
+export const getAuthPersonId: any = createSelector(getAuthState, auth.getPersonId);
+export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
+    (people: person.Person[], personId: string) => {
+    return people.filter((person: person.Person) => person.uid === personId)[0];
+});

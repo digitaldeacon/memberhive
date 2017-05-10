@@ -12,8 +12,7 @@ import { DashletBirthdaysComponent } from './dashlets/birthday/dashlet-birthdays
 
 import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-interactions.component';
 
-import { TitleService } from '../common/title.service';
-import { PersonService } from '../person/person.service';
+import { TitleService } from 'mh-core';
 
 @NgModule({
     declarations: [
@@ -24,15 +23,12 @@ import { PersonService } from '../person/person.service';
     ],
     imports: [
         CommonModule,
-
         AppMaterialModule,
-
         DashboardRoutingModule,
         FlexLayoutModule,
         MomentModule
     ],
     providers: [
-        PersonService
     ],
     entryComponents: [
         DashletEditDialogComponent

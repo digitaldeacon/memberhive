@@ -17,6 +17,8 @@ export class DashletBirthdaysComponent implements OnChanges {
     private rangeDate: Date;
 
     @Input() people: Array<Person>;
+    @Input() user: Person;
+
     peopleBdRange: Array<Person>;
     peopleBdToday: Array<Person>;
 

@@ -23,7 +23,7 @@ export class PersonEffects {
     @Effect()
     getPeople$: Observable<Action> = this.actions$
         .ofType(actions.personActionTypes.LIST)
-        .startWith(new actions.ListAction(toPayload))
+        .map((action: actions.ListAction) => action.payload)
         .switchMap(() =>
             this.http.get('person/list')
             .map((r: Person[]) => new actions.ListSuccessAction(r))

@@ -1,23 +1,20 @@
-import { createSelector } from 'reselect';
 import { AuthActions, authActionTypes } from './auth.actions';
-import { getPeople } from '../person/person.reducer';
-import { Person } from '../person/person.model';
 
 export interface AuthState {
-    token: string;
+    authenticated: boolean;
+    token?: string;
     personId: string;
     loading: boolean;
     loaded: boolean;
-    error: string;
+    error?: Promise<string>;
     status: number;
 };
 
 const initialAuthState: AuthState = {
-    token: '',
+    authenticated: false,
     personId: '',
     loading: false,
     loaded: false,
-    error: '',
     status: 200
 };
 
@@ -25,35 +22,54 @@ export function authReducer(state: AuthState = initialAuthState,
                               action: AuthActions): AuthState {
     switch (action.type) {
 
-        case authActionTypes.LOGIN:
+        case authActionTypes.AUTHENTICATE:
             return Object.assign({}, state, {
                 loading: true
             });
 
-        case authActionTypes.LOGIN_SUCCESS: {
+        case authActionTypes.AUTHENTICATE_SUCCESS: {
             const user: any = action.payload;
 
             return {
-                token: user.token,
-                personId: user.personId,
+                authenticated: (user && user.token !== undefined),
+                token: user ? user.token : '',
+                personId: user ? user.personId : '',
                 loaded: true,
                 loading: false,
-                error: '',
                 status: 200
             };
         }
 
-        case authActionTypes.LOGIN_FAILURE: {
-            const res: any = action.payload;
+        case authActionTypes.AUTHENTICATE_FAILURE: {
+            const res: Response = action.payload;
+            const msg: any = res.json();
             return {
-                token: '',
+                authenticated: false,
                 loaded: false,
                 loading: false,
                 personId: '',
-                error: res.statusText,
+                error: msg.message,
                 status: res.status
             };
         }
+
+        case authActionTypes.SIGN_OUT_FAILURE:
+            return Object.assign({}, state, {
+                authenticated: true,
+                loaded: true,
+                loading: false,
+                error: action.payload,
+                personId: state.personId
+            });
+
+        case authActionTypes.SIGN_OUT_SUCCESS:
+            return Object.assign({}, state, {
+                authenticated: false,
+                loaded: true,
+                loading: false,
+                error: undefined,
+                personId: ''
+            });
 
         default: {
             return state;
@@ -61,10 +77,10 @@ export function authReducer(state: AuthState = initialAuthState,
     }
 }
 
+export const isAuthenticated: any = (state: AuthState) => state.authenticated;
+export const isAuthenticatedLoaded: any = (state: AuthState) => state.loaded;
+export const isAuthenticationLoading: any = (state: AuthState) => state.loading;
 export const getToken: any = (state: AuthState) => state.token;
-export const getLoadingAuth: any = (state: AuthState) => state.loading;
 export const getPersonId: any = (state: AuthState) => state.personId;
-export const getErrorText: any = (state: AuthState) => state.error;
+export const getAuthenticationError: any = (state: AuthState) => state.error;
 export const getStatus: any = (state: AuthState) => state.status;
-
-export const getAllAuth: any = createSelector(getToken, getPersonId, getStatus, getErrorText);

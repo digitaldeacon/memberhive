@@ -19,6 +19,7 @@ import { ViewComponent } from './viewport/view.component';
 import { PersonService } from './person/person.service';
 
 import { StoreModule } from '@ngrx/store';
+import { RouterStoreModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
@@ -45,6 +46,7 @@ import 'hammerjs';
         AppRoutingModule,
         MHCoreModule,
 
+        RouterStoreModule.connectRouter(),
         StoreModule.provideStore(reducer),
         EffectsModule.run(PersonEffects),
         EffectsModule.run(AuthEffects),

@@ -1,9 +1,11 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
-import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+
+import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 
 import * as app from '../../app.store';
 import {
@@ -61,7 +63,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
         idx = (idx > 0) ? idx - 1 : this.people.length - 1;
         if (this.people[idx]) {
-            this._router.navigate(['/person/view', this.people[idx].uid]);
+            this.gotoPerson(this.people[idx].uid);
         }
     }
 
@@ -69,8 +71,13 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
         idx = (idx < this.people.length - 1) ? idx + 1  : 0;
         if (this.people[idx]) {
-            this._router.navigate(['/person/view', this.people[idx].uid]);
+            this.gotoPerson(this.people[idx].uid);
         }
+    }
+
+    gotoPerson(uid: string): void {
+        this._router.navigate(['/person/view', uid]);
+        // this._store.dispatch(go(['/person/view', uid]));
     }
 
     savePerson(person: Person): void {

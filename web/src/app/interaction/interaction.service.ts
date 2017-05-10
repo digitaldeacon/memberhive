@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from "../common/http.service";
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 import 'rxjs/add/operator/publishReplay';
-import { Interaction, InteractionType } from "./interaction";
-import { AuthService } from '../common/auth/auth.service';
+import { Interaction, InteractionType } from './interaction';
+import { AuthService, HttpService } from 'mh-core';
 
 @Injectable()
 export class InteractionService {

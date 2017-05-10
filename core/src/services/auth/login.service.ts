@@ -25,14 +25,14 @@ export class LoginService {
     /**
      * @deprecated will be removed when the store is complete
      */
-    public login(username: string, password: string): void {
-        this.http.unauthenticatedPost(
+    public login(username: string, password: string): Observable<any> {
+        return this.http.unauthenticatedPost(
             'login/login',
             {username: username, password: password}
-        )
-            .subscribe(
+        );
+            /* .subscribe(
                 (response: any) => this.store(response)
-            );
+            ); */
     }
 
     public isLoggedIn(): Observable<boolean> {

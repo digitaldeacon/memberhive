@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject }    from 'rxjs/BehaviorSubject';
-import { Observable } from "rxjs";
+import { Observable } from 'rxjs';
 
 import { Interaction } from '../interaction/interaction';
 import * as intsrv from '../interaction/interaction.service';
-import { AuthService } from '../common/auth/auth.service';
-import { ShoutService } from "../common/shout.service";
+import { ShoutService } from '../common/shout.service';
 
-import { Person } from "../person/person";
+import { AuthService, Person } from 'mh-core';
+
+import { go } from '@ngrx/router-store';
+import * as app from '../app.store';
+import * as auth from 'mh-core';
 
 @Injectable()
 export class InteractionService {

@@ -22,7 +22,6 @@ import { PersonRoutingModule } from './person-routing.module';
 import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { TitleService } from 'mh-core';
-import { PersonService } from './person.service';
 import { ShoutService } from '../common/shout.service';
 
 @NgModule({
@@ -47,7 +46,7 @@ import { ShoutService } from '../common/shout.service';
         ImageCropperModule
     ],
     providers: [
-        PersonService,
+        TitleService,
         ShoutService,
         DatePipe,
         KeysPipe

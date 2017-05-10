@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
@@ -14,7 +15,7 @@ import { InteractionCreateDialogComponent } from '../interaction/dialogs/interac
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import * as settings from 'mh-core';
-import { TitleService, AuthService, Person } from 'mh-core';
+import { TitleService, Person } from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -35,8 +36,9 @@ import { TitleService, AuthService, Person } from 'mh-core';
     ],
     providers: [InteractionService]
 })
-export class ViewComponent implements OnInit {
-    private dialogRef: MdDialogRef<any>;
+export class ViewComponent implements OnInit, OnDestroy {
+    private _dialogRef: MdDialogRef<any>;
+    private _usrSubscr: Subscription;
 
     routes: Object[] = [
         {
@@ -62,27 +64,33 @@ export class ViewComponent implements OnInit {
 
     drawerVisible$: Observable<boolean>;
     loading$: Observable<boolean>;
+
     open: string = 'true';
 
     constructor(private _shoutService: ShoutService,
                 private _interactionService: InteractionService, // TODO: remove with store
-                private _auth: AuthService,
                 private _router: Router,
                 private _store: Store<app.AppState>,
                 private _dialog: MdDialog,
                 private _titleService: TitleService) {
         this.drawerVisible$ = this._store.select(app.getShowDrawer);
         this.loading$ = this._store.select(app.getLoading);
+        this._usrSubscr = this._store.select(app.getAuthPerson)
+            .subscribe((p: Person) => {
+                this.currentUser = p;
+            });
     }
 
     ngOnInit(): void {
-        this.currentUser = this._auth.getCurrentUser();
-        // TODO: use the core module to fetch the state
         this.myInteractions = this._interactionService.myInteractions;
         this.myOutstanding = this.myInteractions.map((data: Interaction[]) =>
             data.filter((n: Interaction) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
         );
         this._interactionService.loadMy();
+    }
+
+    ngOnDestroy(): void {
+        this._usrSubscr.unsubscribe();
     }
 
     openDrawer(): void {
@@ -107,13 +115,13 @@ export class ViewComponent implements OnInit {
         config.data = {
         };
 
-        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: any) => {
+        this._dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
+        this._dialogRef.afterClosed().subscribe((result: any) => {
             if (result instanceof Interaction) {
                 this._interactionService.create(result);
                 this._shoutService.success('Interaction created!');
             }
-            this.dialogRef = undefined;
+            this._dialogRef = undefined;
         });
     }
     createInteraction(): void {

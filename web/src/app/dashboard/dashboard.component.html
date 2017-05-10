@@ -5,6 +5,7 @@
      fxLayoutGap="10px">
     <mh-dashlet-birthdays
             [people]="people$ | async"
+            [user]="currentUser$ | async"
             fxFlex.gt-sm="50"></mh-dashlet-birthdays>
     <mh-dashlet-interactions
             fxFlex.gt-sm="50"></mh-dashlet-interactions>

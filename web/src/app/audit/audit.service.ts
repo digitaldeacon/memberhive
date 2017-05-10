@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from '../common/http.service';
+import { HttpService } from 'mh-core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/publishReplay';
 import { ActionLog } from './audit';

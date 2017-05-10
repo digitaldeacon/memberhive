@@ -21,8 +21,8 @@ import { InteractionCreateComponent } from './create/interaction-create.componen
 import { InteractionListComponent } from './list/interaction-list.component';
 import { InteractionCreateDialogComponent } from './dialogs/interaction-create.dialog';
 
-import { InteractionService } from "./interaction.service";
-import { TitleService } from "../common/title.service";
+import { InteractionService } from './interaction.service';
+import { TitleService } from 'mh-core';
 
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
 

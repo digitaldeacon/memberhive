@@ -30,6 +30,7 @@
       "@ngrx/core": ["../node_modules/@ngrx/core"],
       "@ngrx/effects": ["../node_modules/@ngrx/effects"],
       "@ngrx/store": ["../node_modules/@ngrx/store"],
+      "@ngrx/router-store": ["../node_modules/@ngrx/router-store"],
       "@types/node": ["../node_modules/@types/node"],
       "ng2-webstorage": ["../node_modules/ng2-webstorage"],
       "rxjs": ["../node_modules/rxjs"],

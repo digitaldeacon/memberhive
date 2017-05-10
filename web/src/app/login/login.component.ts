@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs/Subscription';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
-import { LoginService } from 'mh-core';
-import { LocalStorage } from 'ng2-webstorage';
+import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
-import * as auth from 'mh-core';
+import {
+    Credentials,
+    AuthenticateAction,
+    ListAction} from 'mh-core';
 
 @Component({
     selector: 'mh-login',
@@ -14,41 +17,60 @@ import * as auth from 'mh-core';
     styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+    private alive: boolean = true;
 
-    @LocalStorage() username: string;
-    password: string;
-    returnUrl: string;
-    isLogged: boolean;
-    subscr: Subscription;
+    loading$: Observable<boolean>;
+    error$: Observable<string>;
+    form: FormGroup;
 
-    constructor(private loginService: LoginService,
+    constructor(private _fb: FormBuilder,
                 private _store: Store<app.AppState>) {
-        /* this.subscr = this._store.select(app.getUser)
-            .subscribe((data: any) => {
-                console.log(data);
-            }); */
+
+        this._store.select(app.isAuthenticated)
+            .takeWhile(() => this.alive)
+            .filter((authenticated: boolean) => authenticated)
+            .subscribe(value => {
+                this.home();
+                this._store.dispatch(new ListAction({}));
+            });
     }
 
     ngOnInit(): void {
-        this.loginService.logout();
+        this.form = this._fb.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+
+        this.error$ = this._store.select(app.getAuthError);
+        this.loading$ = this._store.select(app.isAuthLoading);
     }
 
     onKey(event: KeyboardEvent): void {
-        if (event.key === "Enter") {
-            this.login();
+        if (event.key === 'Enter') {
+            this.submit();
         }
     }
 
-    login(): void {
-        this._store.dispatch(new auth.LoginAction ({
-            username: this.username,
-            password: this.password
-        }));
-        // TODO: mimic this behaviour after dispatch (check, redirect or present error)
-        this.loginService.login(this.username, this.password);
+    submit(): void {
+        const username: string = this.form.get('username').value;
+        const password: string = this.form.get('password').value;
+
+        username.trim();
+        password.trim();
+
+        const payload: Credentials = {
+            username: username,
+            password: password
+        };
+
+        this._store.dispatch(new AuthenticateAction(payload));
     }
 
-    ngOnDestroy(): void {
-        // this.subscr.unsubscribe();
+    ngOnDestroy() {
+        this.alive = false;
+    }
+
+    home() {
+        this._store.dispatch(go('/dashboard'));
     }
 }
