@@ -603,12 +603,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp/promise.git",
-                "reference": "62785ae604c8d69725d693eb370e1d67e94c4053"
+                "reference": "ec953894782a0366a5533677c68972eea848d848"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp/promise/zipball/62785ae604c8d69725d693eb370e1d67e94c4053",
-                "reference": "62785ae604c8d69725d693eb370e1d67e94c4053",
+                "url": "https://api.github.com/repos/reactphp/promise/zipball/ec953894782a0366a5533677c68972eea848d848",
+                "reference": "ec953894782a0366a5533677c68972eea848d848",
                 "shasum": ""
             },
             "require": {
@@ -641,7 +641,7 @@
                 "promise",
                 "promises"
             ],
-            "time": "2017-03-25 12:08:31"
+            "time": "2017-05-08 18:49:20"
         },
         {
             "name": "squizlabs/php_codesniffer",
@@ -649,12 +649,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
-                "reference": "b940fb7dca8c2a37f0514161b495363e5b36d879"
+                "reference": "ee4bc198833988b32bba5cec0ddb5ef2c32598d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/b940fb7dca8c2a37f0514161b495363e5b36d879",
-                "reference": "b940fb7dca8c2a37f0514161b495363e5b36d879",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/ee4bc198833988b32bba5cec0ddb5ef2c32598d8",
+                "reference": "ee4bc198833988b32bba5cec0ddb5ef2c32598d8",
                 "shasum": ""
             },
             "require": {
@@ -719,7 +719,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2017-05-03 23:41:08"
+            "time": "2017-05-09 00:20:33"
         },
         {
             "name": "yiisoft/yii2",
@@ -727,12 +727,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "836d1b958f5c139b09a22c854ef9c58a4a619d8f"
+                "reference": "d73214f743751647ad0f5cbca0ad342592771a69"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/836d1b958f5c139b09a22c854ef9c58a4a619d8f",
-                "reference": "836d1b958f5c139b09a22c854ef9c58a4a619d8f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d73214f743751647ad0f5cbca0ad342592771a69",
+                "reference": "d73214f743751647ad0f5cbca0ad342592771a69",
                 "shasum": ""
             },
             "require": {
@@ -819,7 +819,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-05-05 14:06:46"
+            "time": "2017-05-10 09:31:05"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2755,12 +2755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "0616a02e6cd3c242d36d8c0eccaf98dcb0280146"
+                "reference": "aa64bca43479e47af3d6f0022add0f335239e4fc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/0616a02e6cd3c242d36d8c0eccaf98dcb0280146",
-                "reference": "0616a02e6cd3c242d36d8c0eccaf98dcb0280146",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/aa64bca43479e47af3d6f0022add0f335239e4fc",
+                "reference": "aa64bca43479e47af3d6f0022add0f335239e4fc",
                 "shasum": ""
             },
             "require": {
@@ -2800,7 +2800,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-04-30 18:55:46"
+            "time": "2017-05-10 07:09:36"
         }
     ],
     "aliases": [],

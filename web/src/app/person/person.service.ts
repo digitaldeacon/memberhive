@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'mh-core';
-import { Observable } from 'rxjs'
+import { Observable } from 'rxjs';
 import { Person } from './person';
 import { Response } from '@angular/http';
 
+/*
+* @deprecated: will be removed soon
+ */
 @Injectable()
 export class PersonService {
     constructor(private http: HttpService) {}

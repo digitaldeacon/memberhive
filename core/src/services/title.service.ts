@@ -23,8 +23,8 @@ export class TitleService {
 
     public changeModule(module: string): void {
         this.module = module;
-        this.title = "";
-        this.subTitle = "";
+        this.title = '';
+        this.subTitle = '';
     }
 
     public setTitle(title: string, subTitle: string = ""): void {

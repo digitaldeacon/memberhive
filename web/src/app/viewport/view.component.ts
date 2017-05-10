@@ -45,7 +45,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
         },
         {
-            title: 'People', route: '/person', icon: 'people'
+            title: 'Person', route: '/person', icon: 'people'
         },
         {
             title: 'Events', route: '', icon: 'today'
@@ -103,6 +103,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     isActiveItem(title: any): boolean {
+        console.log(this._titleService.getModule(), title);
         return this._titleService.getModule() === title;
     }
 

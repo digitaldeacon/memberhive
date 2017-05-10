@@ -8,7 +8,7 @@ export interface PersonState {
     ids: string[];
     people: Person[];
     personId: string;
-};
+}
 
 const initialPersonState: PersonState = {
     loaded: false,

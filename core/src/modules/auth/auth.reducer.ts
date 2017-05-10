@@ -8,7 +8,7 @@ export interface AuthState {
     loaded: boolean;
     error?: Promise<string>;
     status: number;
-};
+}
 
 const initialAuthState: AuthState = {
     authenticated: false,

@@ -58,6 +58,6 @@ import { ShoutService } from '../common/shout.service';
 })
 export class PersonModule {
     constructor(titleService: TitleService) {
-        titleService.changeModule('Persons');
+        titleService.changeModule('Person');
     }
 }

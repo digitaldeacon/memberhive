@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this._store.select(app.isAuthenticated)
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
-            .subscribe(value => {
+            .subscribe((value: any) => {
                 this.home();
                 this._store.dispatch(new ListAction({}));
             });
@@ -66,11 +66,11 @@ export class LoginComponent implements OnInit, OnDestroy {
         this._store.dispatch(new AuthenticateAction(payload));
     }
 
-    ngOnDestroy() {
+    ngOnDestroy(): void {
         this.alive = false;
     }
 
-    home() {
+    home(): void {
         this._store.dispatch(go('/dashboard'));
     }
 }
