@@ -4266,8 +4266,8 @@ sass-graph@^2.1.1:
     yargs "^6.6.0"
 
 sass-loader@^6.0.3:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-6.0.4.tgz#e1f20f534e8514445b9362deb566a4c40440d98d"
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/sass-loader/-/sass-loader-6.0.5.tgz#a847910f36442aa56c5985879d54eb519e24a328"
   dependencies:
     async "^2.1.5"
     clone-deep "^0.2.4"
@@ -4809,8 +4809,8 @@ timers-browserify@^2.0.2:
     setimmediate "^1.0.4"
 
 tinymce@^4.5.5:
-  version "4.6.0"
-  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.6.0.tgz#35ceef19d34e88b29daf1a0c9fc075d5214f9a02"
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/tinymce/-/tinymce-4.6.1.tgz#1ce13834c0b5d1810581ed9c7c6de1f921d534cc"
 
 tmp@0.0.24:
   version "0.0.24"
