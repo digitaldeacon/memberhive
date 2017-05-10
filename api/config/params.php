@@ -1,6 +1,6 @@
 <?php
 if (file_exists(__DIR__ . '/secrets.php')) {
-    $secrets = require(__DIR__ . '/secrets.php');
+    $secrets = include __DIR__ . '/secrets.php';
 } else {
     $secrets = [];
 }

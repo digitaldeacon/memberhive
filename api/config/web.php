@@ -1,5 +1,5 @@
 <?php
-$params = require(__DIR__ . '/params.php');
+$params = include __DIR__ . '/params.php';
 
 $config = [
     'id' => 'memberhive',
@@ -26,7 +26,7 @@ $config = [
             'identityClass' => 'app\models\User',
             'enableAutoLogin' => false, // Don't forget to set Auto login to false
         ],
-        'mailer' => require(__DIR__ . '/mail_local.php'),
+        'mailer' => include __DIR__ . '/mail_local.php',
         'log' => [
             'traceLevel' => 3,
             'targets' => [
@@ -37,14 +37,14 @@ $config = [
 
             ],
         ],
-        'db' => require(__DIR__ . '/db_local.php'),
+        'db' => include __DIR__ . '/db_local.php',
     ],
     'params' => $params,
 ];
 
 
 if (YII_DEBUG === true) {
-    $debug = require(__DIR__ . '/debug.php');
+    $debug = include __DIR__ . '/debug.php';
     $config = \yii\helpers\ArrayHelper::merge($config, $debug);
     $config['components']['log']['targets'][] = [
         'class' => 'yii\log\FileTarget',

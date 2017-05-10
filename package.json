@@ -26,6 +26,8 @@
     "lint:web": "cd web && yarn lint && cd ../",
     "lint:core": "cd core && yarn lint && cd ../",
     "lint:mobile": "cd mobile && yarn lint && cd ../",
-    "lint": "yarn lint:core && yarn lint:web"
+    "lint": "yarn lint:core && yarn lint:web",
+    "lint:api": "./vendor/bin/phpcs ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
+    "lint:api:overview": "./vendor/bin/phpcbf ./controllers ./models ./helpers ./config ./mail ./migrations ./commands"
   }
 }

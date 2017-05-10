@@ -22,28 +22,40 @@ namespace app\helpers;
  * $html = $c->put('http://example.com/', array('file'=>'/var/www/test.txt');
  * </code>
  *
- * @author     Dongsheng Cai <dongsheng@moodle.com> - https://github.com/dongsheng/cURL
- * @license    http://www.gnu.org/copyleft/gpl.html GNU Public License
+ * @author  Dongsheng Cai <dongsheng@moodle.com> - https://github.com/dongsheng/cURL
+ * @license http://www.gnu.org/copyleft/gpl.html GNU Public License
  */
 class Curl
 {
-    /** @var bool */
+    /**
+ * @var bool 
+*/
     public $cache = false;
     public $proxy = false;
-    /** @var array */
+    /**
+ * @var array 
+*/
     public $response = [];
     public $header = [];
-    /** @var string */
+    /**
+ * @var string 
+*/
     public $info;
     public $error;
 
-    /** @var array */
+    /**
+ * @var array 
+*/
     private $_options;
-    /** @var string */
+    /**
+ * @var string 
+*/
     private $_proxy_host = '';
     private $_proxy_auth = '';
     private $_proxy_type = '';
-    /** @var bool */
+    /**
+ * @var bool 
+*/
     private $_debug = false;
     private $_cookie = false;
     private $_count = 0;
@@ -218,9 +230,11 @@ class Curl
         $this->cleanopt();
         // set cookie
         if (!empty($this->cookie) || !empty($options['cookie'])) {
-            $this->setopt(['cookiejar' => $this->cookie,
+            $this->setopt(
+                ['cookiejar' => $this->cookie,
                             'cookiefile' => $this->cookie,
-                             ]);
+                ]
+            );
         }
 
         // set proxy
@@ -232,11 +246,13 @@ class Curl
         curl_setopt($curl, CURLOPT_HEADERFUNCTION, [&$this, 'formatHeader']);
         // set headers
         if (empty($this->header)) {
-            $this->setHeader([
+            $this->setHeader(
+                [
                 'User-Agent: MoodleBot/1.0',
                 'Accept-Charset: ISO-8859-1,utf-8;q=0.7,*;q=0.7',
                 'Connection: keep-alive',
-                ]);
+                ]
+            );
         }
         curl_setopt($curl, CURLOPT_HTTPHEADER, $this->header);
 
@@ -574,12 +590,14 @@ class Curl
  * $ret = $c->get('http://www.google.com');
  * </code>
  *
- * @copyright  1999 onwards Martin Dougiamas  {@link http://moodle.com}
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright 1999 onwards Martin Dougiamas  {@link http://moodle.com}
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 class CurlCache
 {
-    /** @var string */
+    /**
+ * @var string 
+*/
     public $dir = '';
     /**
      * @param string @module which module is using CurlCache

@@ -12,7 +12,8 @@ class m161220_183635_create_user_table extends Migration
      */
     public function up()
     {
-        $this->createTable('user', [
+        $this->createTable(
+            'user', [
             'id' => $this->primaryKey(),
             'username' => $this->string()->unique(),
             'authKey' => $this->string(),
@@ -21,7 +22,8 @@ class m161220_183635_create_user_table extends Migration
             'passwordResetToken' => $this->string(),
             'passwordResetExpireDate' => $this->dateTime(),
             'personId' => $this->integer()
-        ]);
+            ]
+        );
 
         $this->createIndex('idx-user-personId', 'user', 'personId');
         $this->addForeignKey('fk-user-personId', 'user', 'personId', 'person', 'id', 'CASCADE');

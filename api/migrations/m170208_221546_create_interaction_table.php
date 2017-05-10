@@ -12,7 +12,8 @@ class m170208_221546_create_interaction_table extends Migration
      */
     public function up()
     {
-        $this->createTable('interaction', [
+        $this->createTable(
+            'interaction', [
             'id' => $this->primaryKey(),
             'uid' => $this->string(36),
             'text' => $this->text(),
@@ -23,7 +24,8 @@ class m170208_221546_create_interaction_table extends Migration
             'isPrivate' => $this->boolean(),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
-        ]);
+            ]
+        );
 
         $this->createIndex(
             'idx-interaction-ownerId',

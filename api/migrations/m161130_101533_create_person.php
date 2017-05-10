@@ -6,7 +6,8 @@ class m161130_101533_create_person extends Migration
 {
     public function up()
     {
-        $this->createTable('person', [
+        $this->createTable(
+            'person', [
             'id' => $this->primaryKey(),
             'uid' => $this->string(36)->notNull(),
 
@@ -43,7 +44,8 @@ class m161130_101533_create_person extends Migration
 
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
-        ]);
+            ]
+        );
     }
 
     public function down()

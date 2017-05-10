@@ -7,6 +7,7 @@ use \aracoool\uuid\UuidBehavior;
 
 /**
  * Class Person
+ *
  * @package app\models
  *
  * @property string $firstName

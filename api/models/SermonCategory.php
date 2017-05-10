@@ -4,8 +4,8 @@ namespace app\models;
 
 /**
  * Class SermonCategory
- * @package app\models
  *
+ * @package app\models
  */
 class SermonCategory extends \yii\db\ActiveRecord
 {

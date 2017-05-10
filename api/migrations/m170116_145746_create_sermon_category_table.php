@@ -12,11 +12,13 @@ class m170116_145746_create_sermon_category_table extends Migration
      */
     public function up()
     {
-        $this->createTable('sermon_category', [
+        $this->createTable(
+            'sermon_category', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
             'code' => $this->string()
-        ]);
+            ]
+        );
     }
 
     /**

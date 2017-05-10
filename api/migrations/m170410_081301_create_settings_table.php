@@ -12,12 +12,14 @@ class m170410_081301_create_settings_table extends Migration
      */
     public function up()
     {
-        $this->createTable('settings', [
+        $this->createTable(
+            'settings', [
             'id' => $this->primaryKey(),
             'key' => $this->string(),
             'value' => $this->text(),
             'personId' => $this->integer()
-        ]);
+            ]
+        );
 
         $this->addForeignKey(
             'fk-settings-personId',

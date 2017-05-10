@@ -218,14 +218,16 @@ class InteractionController extends MHController
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
         $interactions = Interaction::find()
-            ->with([
+            ->with(
+                [
                 'recipients' => function ($query) use ($id) {
                     $query->andWhere(['id' => $id]);
                 },
                 'author',
                 'personInteraction',
                 'type'
-            ])
+                ]
+            )
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();
         foreach ($interactions as $interaction) {

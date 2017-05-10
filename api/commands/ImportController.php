@@ -43,9 +43,11 @@ class ImportController extends Controller
         return 0;*/
 
         foreach ($results->people->person as $item) {
-            $person = Person::findOne([
+            $person = Person::findOne(
+                [
                 'firstName'=>$item->firstname,
-                'lastName'=>$item->lastname]);
+                'lastName'=>$item->lastname]
+            );
 
             if (empty($person)) {
                 $person = Person::findOne(['email'=>$item->email]);
@@ -78,14 +80,16 @@ class ImportController extends Controller
             $person->phoneMobile = $item->mobile;
 
             // addreses
-            $person->address = json_encode([
+            $person->address = json_encode(
+                [
                 'home' => [
                     'street' => $item->home_address,
                     'zip' => $item->home_postcode,
                     'city' => $item->home_city,
                     'geocode' => []
                     ]
-            ]);
+                ]
+            );
 
             if (!$person->save()) {
                 var_dump($person->getErrors());

@@ -21,7 +21,6 @@ use yii\web\IdentityInterface;
  * @property string $passwordResetToken
  * @property string $passwordResetExpireDate
  * @property string $accessToken
- *
  */
 class User extends ActiveRecord implements IdentityInterface
 {

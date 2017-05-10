@@ -12,7 +12,8 @@ class m170209_132715_create_import_table extends Migration
      */
     public function up()
     {
-        $this->createTable('import', [
+        $this->createTable(
+            'import', [
             'id' => $this->primaryKey(),
             'type' => $this->string(),
             'refTable' => $this->string(),
@@ -20,7 +21,8 @@ class m170209_132715_create_import_table extends Migration
             'remoteId' => $this->string(36), //can store UUIDs
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
-        ]);
+            ]
+        );
     }
 
     /**

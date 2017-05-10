@@ -16,13 +16,12 @@
         "yiisoft/yii2-coding-standards": "*",
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*",
-        "aracoool/yii2-uuid": "*",
-        "squizlabs/php_codesniffer": "2.9.x-dev"
+        "aracoool/yii2-uuid": "*"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",
         "yiisoft/yii2-gii": "*",
-        "squizlabs/php_codesniffer": "2.*",
+        "squizlabs/php_codesniffer": "3.*",
         "yiisoft/yii2-apidoc": "~2.1.0",
         "pahanini/yii2-rest-doc": "*"
     },

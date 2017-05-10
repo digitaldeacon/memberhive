@@ -24,7 +24,7 @@ namespace app\helpers;
  * ```
  *
  * @author Qiang Xue <qiang.xue@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class MhAuth extends \yii\filters\auth\AuthMethod
 {

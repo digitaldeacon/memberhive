@@ -4,6 +4,7 @@ namespace app\models;
 
 /**
  * Class Sermon
+ *
  * @package app\models
  *
  * @property string $title

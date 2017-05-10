@@ -12,7 +12,7 @@ use yii\rbac\DbManager;
  * Initializes RBAC tables
  *
  * @author Alexander Kochetov <creocoder@gmail.com>
- * @since 2.0
+ * @since  2.0
  */
 class m140506_102106_rbac_init extends \yii\db\Migration
 {
@@ -51,15 +51,18 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             $tableOptions = 'CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE=InnoDB';
         }
 
-        $this->createTable($authManager->ruleTable, [
+        $this->createTable(
+            $authManager->ruleTable, [
             'name' => $this->string(64)->notNull(),
             'data' => $this->text(),
             'created_at' => $this->integer(),
             'updated_at' => $this->integer(),
             'PRIMARY KEY (name)',
-        ], $tableOptions);
+            ], $tableOptions
+        );
 
-        $this->createTable($authManager->itemTable, [
+        $this->createTable(
+            $authManager->itemTable, [
             'name' => $this->string(64)->notNull(),
             'type' => $this->integer()->notNull(),
             'description' => $this->text(),
@@ -70,10 +73,12 @@ class m140506_102106_rbac_init extends \yii\db\Migration
             'PRIMARY KEY (name)',
             'FOREIGN KEY (rule_name) REFERENCES ' . $authManager->ruleTable . ' (name)' .
                 ($this->isMSSQL() ? '' : ' ON DELETE SET NULL ON UPDATE CASCADE'),
-        ], $tableOptions);
+            ], $tableOptions
+        );
         $this->createIndex('idx-auth_item-type', $authManager->itemTable, 'type');
 
-        $this->createTable($authManager->itemChildTable, [
+        $this->createTable(
+            $authManager->itemChildTable, [
             'parent' => $this->string(64)->notNull(),
             'child' => $this->string(64)->notNull(),
             'PRIMARY KEY (parent, child)',
@@ -81,18 +86,22 @@ class m140506_102106_rbac_init extends \yii\db\Migration
                 ($this->isMSSQL() ? '' : ' ON DELETE CASCADE ON UPDATE CASCADE'),
             'FOREIGN KEY (child) REFERENCES ' . $authManager->itemTable . ' (name)' .
                 ($this->isMSSQL() ? '' : ' ON DELETE CASCADE ON UPDATE CASCADE'),
-        ], $tableOptions);
+            ], $tableOptions
+        );
 
-        $this->createTable($authManager->assignmentTable, [
+        $this->createTable(
+            $authManager->assignmentTable, [
             'item_name' => $this->string(64)->notNull(),
             'user_id' => $this->string(64)->notNull(),
             'created_at' => $this->integer(),
             'PRIMARY KEY (item_name, user_id)',
             'FOREIGN KEY (item_name) REFERENCES ' . $authManager->itemTable . ' (name) ON DELETE CASCADE ON UPDATE CASCADE',
-        ], $tableOptions);
+            ], $tableOptions
+        );
 
         if ($this->isMSSQL()) {
-            $this->execute("CREATE TRIGGER dbo.trigger_auth_item_child
+            $this->execute(
+                "CREATE TRIGGER dbo.trigger_auth_item_child
             ON dbo.{$authManager->itemTable}
             INSTEAD OF DELETE, UPDATE
             AS
@@ -125,7 +134,8 @@ class m140506_102106_rbac_init extends \yii\db\Migration
                         DELETE FROM dbo.{$authManager->itemChildTable} WHERE parent IN (SELECT name FROM deleted) OR child IN (SELECT name FROM deleted);
                         DELETE FROM dbo.{$authManager->itemTable} WHERE name IN (SELECT name FROM deleted);
                     END
-            END;");
+            END;"
+            );
         }
     }
 

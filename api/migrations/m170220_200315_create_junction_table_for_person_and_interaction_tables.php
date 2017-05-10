@@ -16,7 +16,8 @@ class m170220_200315_create_junction_table_for_person_and_interaction_tables ext
      */
     public function up()
     {
-        $this->createTable('person_interaction', [
+        $this->createTable(
+            'person_interaction', [
             'person_id' => $this->integer(),
             'interaction_id' => $this->integer(),
             'doneOn' => $this->dateTime(),
@@ -26,7 +27,8 @@ class m170220_200315_create_junction_table_for_person_and_interaction_tables ext
             'delegatedBy' => $this->integer(),
             'delegatedOn' => $this->dateTime(),
             'PRIMARY KEY(person_id, interaction_id)',
-        ]);
+            ]
+        );
 
         // creates index for column `person_id`
         $this->createIndex(

@@ -12,7 +12,8 @@ class m170226_235104_create_actionlog_table extends Migration
      */
     public function up()
     {
-        $this->createTable('actionlog', [
+        $this->createTable(
+            'actionlog', [
             'id' => $this->primaryKey(),
             'context' => $this->string(),
             'refId' => $this->string(36),
@@ -21,7 +22,8 @@ class m170226_235104_create_actionlog_table extends Migration
             'refUser' => $this->string(),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
-        ]);
+            ]
+        );
     }
 
     /**
