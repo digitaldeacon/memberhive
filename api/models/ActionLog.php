@@ -72,8 +72,8 @@ class ActionLog extends \yii\db\ActiveRecord
             'refUser' => $this->refUser,
             'type' => $this->type,
             'diff' => $this->diff,
-            'createdAt' => date('Y-M-d H:i', $this->created_at),
-            'updatedAt' => date('Y-M-d H:i', $this->updated_at),
+            'createdAt' => date('c', $this->created_at),
+            'updatedAt' => date('c', $this->updated_at),
         ];
     }
 
