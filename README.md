@@ -26,12 +26,11 @@ _In order of importance_
 - [ ] Dashboard: Interactions (#19, #60)
 - [ ] Person create (#95)
 - [ ] Settings (#31, #67)
-- [ ] Adressing bugs and shoring up person related components (edit, list)
+- [ ] Addressing bugs and shoring up person related components (edit, list, create)
 
 ## Development Philosophy
 We want to keep this project simple (even though it will be large) and maintainable. For that reason
 we want to adher to the following rules:
-+ KISS (you know what that means)
 + **Try to avoid** add new dependencies, unless absolutely needed
 + **Do not use** any large libraries to accomplish something that you could accomplish with what is already included
 + **Lint** your code
@@ -139,11 +138,6 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 + `yarn install:all` (which will automatically remove your node_modules/ folder).
 ...or any of the other subcommands (see package.json in root directory).
 
-## NPM
-+ ```npm run npm.update:all``` (reinstall NPM and Composer packages)
-+ ```npm run npm.install:all``` (reinstall NPM and Composer packages + new Angular-CLI)
-...or any of the other subcommands (see package.json in root directory).
-
 # Developing
 ## Developing with NgRX (Redux pattern)
 Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
@@ -166,10 +160,9 @@ it will pay off as we grow the functionality and the complexity of state.
 
 ## Serve App
 + `yarn start:web` or `yarn start:mobile` or `yarn start:all`
-+ `npm npm.start:web` or `npm npm.start:mobile` or `npm npm.start:all`
 
 ## Linting your code
-**Everything (TS and PHP)**: `yarn lint:all` (or one of :web, :core, :mobile or :all])
+**Everything (TS and PHP)**: `yarn lint` (or one of :web, :core, :mobile or :all])
 
 **Typescript**: `yarn tslint:all` or `npm run npm.tslint:all` (or one of :web, :core, :mobile or :all])
 
@@ -186,11 +179,6 @@ In a Yarn environment you would either be in /core and `yarn build`, or
 be in the root and `yarn build:core`.
 
 If you don't do that your changed code will not show up in the web or mobile app.
-
-**WORKAROUND**
-You copy the core folder into the web: `cp core/src web/src/app/core`. But you will need to change the
-import paths manually. After you're done with your section just copy the core files back to the 
-core folder in root.
 
 ## Changes to DB
 
