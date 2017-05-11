@@ -19,7 +19,7 @@ import { ShoutService } from '../../common/shout.service';
 })
 export class InteractionCreateComponent implements OnInit {
 
-  private _author: Person;
+  private _authorId: string;
   private _refPerson: Person;
 
   interactionForm: FormGroup;
@@ -46,7 +46,7 @@ export class InteractionCreateComponent implements OnInit {
         .subscribe((types: Array<InteractionType>) => {
           this.interactionTypes = types;
         });
-    this._author = this._auth.getCurrentUser();
+    this._authorId = this._auth.getPersonId();
   }
 
   ngOnInit(): void {
@@ -90,7 +90,7 @@ export class InteractionCreateComponent implements OnInit {
 
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
-      model.authorId = this._author.uid;
+      model.authorId = this._authorId;
       this._interactionService.create(model);
       this.interactionForm.reset();
       if (this.returnToRoute !== '') {
@@ -104,8 +104,8 @@ export class InteractionCreateComponent implements OnInit {
     // this.refInteraction = this._interactionService.getInteraction();
     this.returnToRoute = this._interactionService.getLastRoute();
 
-    if (this.interactionForm && this._author) {
-      this.interactionForm.get('recipients').setValue([this._author.uid]);
+    if (this.interactionForm && this._authorId) {
+      this.interactionForm.get('recipients').setValue([this._authorId]);
     }
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {

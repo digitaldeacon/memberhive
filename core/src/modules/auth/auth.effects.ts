@@ -5,13 +5,13 @@ import 'rxjs/add/operator/catch';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
 import * as actions from './auth.actions';
 import { Credentials, LoginResponse } from './auth.model';
 import { HttpService } from '../../services/http.service';
+import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthEffects {
@@ -31,7 +31,11 @@ export class AuthEffects {
                     password: credentials.password
                 }
             )
-            .map((r: LoginResponse) => new actions.AuthenticationSuccessAction(r.user))
+            .map((r: LoginResponse) => {
+                this._authSrv.setToken(r.user.token);
+                this._authSrv.setPersonId(r.user.personId);
+                return new actions.AuthenticationSuccessAction(r.user);
+            })
             .catch((response: Response) => {
                 return Observable.of(new actions.AuthenticationFailureAction(response));
             })
@@ -48,5 +52,6 @@ export class AuthEffects {
         });*/
 
     constructor(private _actions$: Actions,
-                private _http: HttpService) { }
+                private _http: HttpService,
+                private _authSrv: AuthService) { }
 }

@@ -21,7 +21,7 @@ export class InteractionService {
         myInteractions: Interaction[]
     };
     private _lastRoute: string;
-    private _me: Person;
+    private _me: string;
 
     interactions: Observable<Interaction[]>;
     myInteractions: Observable<Interaction[]>;
@@ -37,7 +37,7 @@ export class InteractionService {
         this._myInteractions = <BehaviorSubject<Interaction[]>>new BehaviorSubject([]);
         this.interactions = this._interactions.asObservable();
         this.myInteractions = this._myInteractions.asObservable();
-        this._me = this._auth.getCurrentUser();
+        this._me = this._auth.getPersonId();
     }
 
     loadMy(): void {
@@ -65,7 +65,7 @@ export class InteractionService {
                 (newInteraction: Interaction) => {
                    this._dataStore.interactions.push(newInteraction);
                    this._interactions.next(Object.assign({}, this._dataStore).interactions);
-                   if (newInteraction.recipients.find((uid: any) => uid === this._me.uid)) {
+                   if (newInteraction.recipients.find((uid: any) => uid === this._me)) {
                        this._dataStore.myInteractions.push(newInteraction);
                        this._myInteractions.next(Object.assign({}, this._dataStore).myInteractions);
                    }

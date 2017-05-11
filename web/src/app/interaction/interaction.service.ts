@@ -12,7 +12,7 @@ export class InteractionService {
 
     constructor(private http: HttpService,
                 private auth: AuthService) {
-        this._me = this.auth.getCurrentUser().uid;
+        this._me = this.auth.getPersonId();
     }
     public getInteractionsAll(): Observable<Interaction[]> {
         return this.http.get('interaction/list-all')

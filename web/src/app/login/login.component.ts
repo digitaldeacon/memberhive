@@ -9,7 +9,8 @@ import * as app from '../app.store';
 import {
     Credentials,
     AuthenticateAction,
-    ListAction} from 'mh-core';
+    ListAction,
+    AuthService } from 'mh-core';
 
 @Component({
     selector: 'mh-login',
@@ -24,12 +25,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     form: FormGroup;
 
     constructor(private _fb: FormBuilder,
+                private _authService: AuthService,
                 private _store: Store<app.AppState>) {
 
         this._store.select(app.isAuthenticated)
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
-            .subscribe((value: any) => {
+            .subscribe((value: boolean) => {
                 this.home();
                 this._store.dispatch(new ListAction({}));
             });

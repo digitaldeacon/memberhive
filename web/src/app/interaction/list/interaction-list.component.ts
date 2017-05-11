@@ -17,7 +17,7 @@ import { Person } from 'mh-core';
     styleUrls: ['interaction-list.component.scss', '../interaction-common.styles.scss']
 })
 export class InteractionListComponent implements OnInit {
-    private author: Person;
+    private authorId: string;
     dialogRef: MdDialogRef<InteractionCreateDialogComponent>;
     @Input() interactions: Array<Interaction>;
 
@@ -29,7 +29,7 @@ export class InteractionListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.author = this.auth.getCurrentUser();
+        this.authorId = this.auth.getPersonId();
         if (!this.interactions) {
             this.route.params
                 .switchMap((params: Params) => this.interactionService.getInteractions(params['id']))
@@ -40,7 +40,7 @@ export class InteractionListComponent implements OnInit {
     }
 
     iOwn(uid: string): boolean {
-        return uid === this.author.uid;
+        return uid === this.authorId;
     }
 
     deleteInteraction(interaction: Interaction): void {
@@ -57,7 +57,6 @@ export class InteractionListComponent implements OnInit {
                 },
                 (error: any) => {
                     this.shout.error('Error in interaction delete!');
-                    // console.log(error);
                     return false;
                 }
             );

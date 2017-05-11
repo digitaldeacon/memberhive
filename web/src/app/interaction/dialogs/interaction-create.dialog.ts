@@ -17,7 +17,7 @@ import { AuthService } from 'mh-core';
     styleUrls: ['./interaction-create.dialog.scss', '../interaction-common.styles.scss']
 })
 export class InteractionCreateDialogComponent implements OnInit {
-    private _author: Person;
+    private _authorId: string;
     private _refPerson: Person;
 
     interactionForm: FormGroup;
@@ -41,7 +41,7 @@ export class InteractionCreateDialogComponent implements OnInit {
             .subscribe((types: Array<InteractionType>) => {
                 this.interactionTypes = types;
             });
-        this._author = this._auth.getCurrentUser();
+        this._authorId = this._auth.getPersonId();
     }
 
     ngOnInit(): void {
@@ -93,7 +93,7 @@ export class InteractionCreateDialogComponent implements OnInit {
         this.submitted = true;
         this.showTypeSelector = false;
         if (isValid) {
-            model.authorId = this._author.uid;
+            model.authorId = this._authorId;
             if (this.dialogData.interaction) {
                 model.uid = this.dialogData.interaction.uid;
             }
@@ -113,8 +113,8 @@ export class InteractionCreateDialogComponent implements OnInit {
     }
 
     private initDefaults(): void {
-        if (this.interactionForm && this._author && !this.dialogData.interaction) {
-            this.interactionForm.get('recipients').setValue([this._author.uid]);
+        if (this.interactionForm && this._authorId && !this.dialogData.interaction) {
+            this.interactionForm.get('recipients').setValue([this._authorId]);
         }
         // person related interaction
         if (this.dialogData.id && !this.dialogData.interaction) {

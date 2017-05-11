@@ -1,10 +1,9 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpService } from './services/http.service';
-import { AuthService } from './services/auth/auth.service';
-// import { AuthGuard } from './modules/auth/auth.guard';
+import { AuthService } from './modules/auth/auth.service';
 import { TitleService } from './services/title.service';
-import { LoginService } from './services/auth/login.service';
+import { LoginService } from './services/login.service';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
 @NgModule({
