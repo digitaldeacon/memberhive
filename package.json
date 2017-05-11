@@ -26,8 +26,8 @@
     "lint:web": "cd web && yarn lint && cd ../",
     "lint:core": "cd core && yarn lint && cd ../",
     "lint:mobile": "cd mobile && yarn lint && cd ../",
-    "lint": "yarn lint:core && yarn lint:web",
-    "lint:api": "./vendor/bin/phpcs ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
-    "lint:api:overview": "./vendor/bin/phpcbf ./controllers ./models ./helpers ./config ./mail ./migrations ./commands"
+    "lint": "yarn lint:core && yarn lint:web && yarn lint:api",
+    "lint:api": "cd api && ./vendor/bin/phpcs --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
+    "lint:api:overview": "cd api && ./vendor/bin/phpcbf --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands"
   }
 }

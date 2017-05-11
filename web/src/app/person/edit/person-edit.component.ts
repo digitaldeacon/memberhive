@@ -26,7 +26,7 @@ export class PersonEditComponent {
             // this.form.patchValue(person);
             this.initForm(person);
         }
-    };
+    }
 
     @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
 

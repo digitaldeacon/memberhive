@@ -44,7 +44,7 @@ export class TinyMCEComponent
 
     editor: any;
 
-    get value(): any { return this._value; };
+    get value(): any { return this._value; }
 
     set value(v: any) {
         this._value = v;
