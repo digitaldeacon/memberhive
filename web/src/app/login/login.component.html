@@ -9,7 +9,11 @@
 
             <md-card-title i18n>Sign In</md-card-title>
             <md-card-content>
-                <div *ngIf="error$ | async" class="error">{{error$ | async | json}}</div>
+                <mh-notifybox
+                        *ngIf="error$ | async"
+                        [message]="error$ | async"
+                        [type]="error">
+                </mh-notifybox>
 
                 <form *ngIf="!(loading$ | async)"
                       (ngSubmit)="submit()"

@@ -23,7 +23,10 @@ import { RouterStoreModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-import { MHCoreModule, PersonEffects, AuthEffects } from 'mh-core';
+import {
+    MHCoreModule,
+    PersonEffects,
+    AuthEffects } from 'mh-core';
 import { reducer } from './app.store';
 
 import 'hammerjs';

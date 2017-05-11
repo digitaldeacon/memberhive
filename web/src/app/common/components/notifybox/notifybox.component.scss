@@ -1,0 +1,17 @@
+@import "../../../../theme.scss";
+
+md-card {
+  padding: 10px;
+  margin: 10px 0 10px 0;
+  md-card-title {
+    color: #fff;
+  }
+  md-icon {
+    font-size: 2.2em;
+    margin-right: 8px;
+    color: #0e2231;
+  }
+}
+.mat-card.error {
+  background-color: mat-color($mh-app-warn, 300);
+}
