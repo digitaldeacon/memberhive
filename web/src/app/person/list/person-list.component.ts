@@ -24,7 +24,6 @@ export class PersonListComponent {
         this.options = {
             display: ['birthday', 'email']
         };
-        console.log(this._titleService);
     }
 
     display(key: string): boolean {

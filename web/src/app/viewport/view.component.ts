@@ -109,7 +109,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     getTitle(): string {
-        console.log(this._titleService);
+        // console.log(this._titleService);
         return this._titleService.getTitle();
     }
 

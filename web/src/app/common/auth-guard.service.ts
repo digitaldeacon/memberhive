@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
-    CanActivate, Router,
+    CanActivate,
     ActivatedRouteSnapshot,
     RouterStateSnapshot
 } from '@angular/router';
@@ -13,23 +13,28 @@ import {
     isAuthenticated,
     AppState
 } from '../app.store';
+import { ReAuthenticateAction, AuthService } from 'mh-core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-    constructor(private router: Router,
-                private store: Store<AppState>) {}
+    constructor(private _store: Store<AppState>,
+                private _authSrv: AuthService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         let url: string = state.url;
-        const isAuthentic$: any = this.store.select(isAuthenticated);
+        const isAuthentic$: any = this._store.select(isAuthenticated);
+
+        console.log();
+
         isAuthentic$.subscribe((authenticated: any) => {
-            if (!authenticated && !localStorage.getItem('mh.token')) {
-                this.store.dispatch(go('/login'));
+            if (!authenticated) {
+                if (this._authSrv.getToken()) {
+                    this._store.dispatch(new ReAuthenticateAction(this._authSrv.getToken()));
+                }
+                this._store.dispatch(go('/login'));
             }
         });
-        // re-authenticate with the current token and load previous state again
-        return localStorage.getItem('mh.token')
-            ? Observable.of(true)
-            : isAuthentic$;
+
+        return isAuthentic$;
     }
 }

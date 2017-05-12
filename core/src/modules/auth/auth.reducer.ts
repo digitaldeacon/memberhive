@@ -1,4 +1,6 @@
 import { AuthActions, authActionTypes } from './auth.actions';
+import { AuthService } from './auth.service';
+import { LocalStorageService } from 'ng2-webstorage';
 
 export interface AuthState {
     authenticated: boolean;
@@ -69,6 +71,22 @@ export function authReducer(state: AuthState = initialAuthState,
                 loading: false,
                 error: undefined,
                 personId: ''
+            });
+
+        case authActionTypes.REAUTHENTICATE:
+            return Object.assign({}, state, {
+                loading: true,
+                token: action.payload
+            });
+
+        case authActionTypes.REAUTHENTICATION_SUCCESS:
+            return Object.assign({}, state, {
+                authenticated: true,
+                token: action.payload.token,
+                personId: action.payload.personId,
+                loaded: true,
+                loading: false,
+                status: 200
             });
 
         default: {

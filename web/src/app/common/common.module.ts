@@ -15,7 +15,6 @@ import { InteractionService } from './interaction.service';
 
 import { KeysPipe } from './keys.pipe';
 
-import { Ng2Webstorage } from 'ng2-webstorage';
 import { AuthGuard } from './auth-guard.service';
 import { NotifyboxComponent } from './components/notifybox/notifybox.component';
 
@@ -24,7 +23,6 @@ import { NotifyboxComponent } from './components/notifybox/notifybox.component';
         NotifyboxComponent
     ], // directives, components, and pipes owned by this NgModule
     imports: [
-        Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'}),
         CompatibilityModule,
         MdButtonModule,
         MdCardModule,

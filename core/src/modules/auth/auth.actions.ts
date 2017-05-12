@@ -10,6 +10,8 @@ export const authActionTypes: any = {
     AUTHENTICATED: '[User] Authenticated',
     AUTHENTICATED_FAILURE: '[User] Authenticated failure',
     AUTHENTICATED_SUCCESS: '[User] Authenticated success',
+    REAUTHENTICATE: '[User] Re-Authenticate',
+    REAUTHENTICATION_SUCCESS: '[User] Re-Authentication Success',
     SIGN_OUT: '[User] Sign off',
     SIGN_OUT_FAILURE: '[User] Sign off failure',
     SIGN_OUT_SUCCESS: '[User] Sign off success'
@@ -28,6 +30,16 @@ export class AuthenticationSuccessAction implements Action {
 export class AuthenticationFailureAction implements Action {
     type: any = authActionTypes.AUTHENTICATE_FAILURE;
     constructor(public payload?: Response) { }
+}
+
+export class ReAuthenticateAction implements Action {
+    type: any = authActionTypes.REAUTHENTICATE;
+    constructor(public payload: string) { }
+}
+
+export class ReAuthenticationSuccessAction implements Action {
+    type: any = authActionTypes.REAUTHENTICATION_SUCCESS;
+    constructor(public payload: any) { }
 }
 
 /*
@@ -68,4 +80,6 @@ export type AuthActions =
     | AuthenticationFailureAction
     | SignOutAction
     | SignOutFailureAction
-    | SignOutSuccessAction;
+    | SignOutSuccessAction
+    | ReAuthenticateAction
+    | ReAuthenticationSuccessAction;

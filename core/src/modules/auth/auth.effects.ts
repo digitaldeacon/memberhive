@@ -35,7 +35,7 @@ export class AuthEffects {
                 }
             )
             .map((r: LoginResponse) => {
-                this._db.insert('auth', [r.user.token, r.user.personId]);
+                // this._db.insert('auth', [r.user.token, r.user.personId]);
                 this._authSrv.setToken(r.user.token);
                 this._authSrv.setPersonId(r.user.personId);
                 return new actions.AuthenticationSuccessAction(r.user);
@@ -43,6 +43,23 @@ export class AuthEffects {
             .catch((response: Response) => {
                 return Observable.of(new actions.AuthenticationFailureAction(response));
             })
+        );
+
+    @Effect()
+    public $reauth: Observable<Action> = this._actions$
+        .ofType(actions.authActionTypes.REAUTHENTICATE)
+        .map(toPayload)
+        .switchMap((token: string) =>
+            this._http.get('site/test-login')
+                .map((r: any) => {
+                    return new actions.ReAuthenticationSuccessAction({
+                        token: this._authSrv.getToken(),
+                        personId: this._authSrv.getPersonId()
+                    });
+                })
+                .catch((response: Response) => {
+                    return Observable.of(new actions.AuthenticationFailureAction(response));
+                })
         );
 
     /*/@Effect()

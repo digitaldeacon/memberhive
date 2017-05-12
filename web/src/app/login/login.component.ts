@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
 
-        localStorage.clear();
+        this._authService.clearStore();
 
         this.initForm();
 
