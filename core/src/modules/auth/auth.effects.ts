@@ -2,9 +2,11 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
+import { defer } from 'rxjs/observable/defer';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
+import { Database } from '@ngrx/db';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
@@ -16,10 +18,11 @@ import { AuthService } from './auth.service';
 @Injectable()
 export class AuthEffects {
 
-    /**
-     * This effect makes use of the `startWith` operator to trigger
-     * the effect immediately on startup.
-     */
+    @Effect({ dispatch: false })
+    openDB$: Observable<any> = defer(() => {
+        return this._db.open('mh_app');
+    });
+
     @Effect()
     public login$: Observable<Action> = this._actions$
         .ofType(actions.authActionTypes.AUTHENTICATE)
@@ -32,6 +35,7 @@ export class AuthEffects {
                 }
             )
             .map((r: LoginResponse) => {
+                this._db.insert('auth', [r.user.token, r.user.personId]);
                 this._authSrv.setToken(r.user.token);
                 this._authSrv.setPersonId(r.user.personId);
                 return new actions.AuthenticationSuccessAction(r.user);
@@ -53,5 +57,6 @@ export class AuthEffects {
 
     constructor(private _actions$: Actions,
                 private _http: HttpService,
+                private _db: Database,
                 private _authSrv: AuthService) { }
 }

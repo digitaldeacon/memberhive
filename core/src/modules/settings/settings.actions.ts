@@ -9,7 +9,7 @@ export const settingActionTypes: any = {
     CLOSE_DRAWER:   type('[Settings:Layout] Close Drawer'),
     SET_TITLE:          type('[Settings:Title] Set title'),
     SET_MODULE:         type('[Settings:Title] Set module'),
-    GET_MODULE_TITLE:   type('[Settings:Title] Get module and title'),
+    GET_MODULE_TITLE:   type('[Settings:Title] Get module and title')
 };
 
 export class ListSettingAction implements Action {

@@ -44,6 +44,10 @@
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
 
+"@ngrx/db@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@ngrx/db/-/db-2.0.2.tgz#db3ddd2f60d605fc5e426be8845a00fa32e5873a"
+
 "@ngrx/effects@^2.0.0":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.3.tgz#e54ce340806dd91a81826796f13e2446aeeafb77"
