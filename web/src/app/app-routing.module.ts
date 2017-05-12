@@ -13,7 +13,8 @@ export const routes: Routes = [
             {
                 path: '',
                 redirectTo: 'dashboard',
-                pathMatch: 'full'},
+                pathMatch: 'full'
+            },
             {
                 path: 'person',
                 loadChildren: './person/person.module#PersonModule'
@@ -29,7 +30,8 @@ export const routes: Routes = [
             {
                 path: 'settings',
                 loadChildren: './settings/settings.module#SettingsModule'
-            }
+            },
+            // { path: '**', loadChildren: './dashboard/dashboard.module#DashboardModule' },
         ]
     },
     {

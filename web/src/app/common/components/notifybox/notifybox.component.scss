@@ -3,13 +3,18 @@
 md-card {
   padding: 10px;
   margin: 10px 0 10px 0;
+  color: #fff;
   md-card-title {
+    color: #fff;
+    font-size: 16px;
+  }
+  md-card-subtitle {
     color: #fff;
   }
   md-icon {
     font-size: 2.2em;
     margin-right: 8px;
-    color: #0e2231;
+    color: #fff;
   }
 }
 .mat-card.error {

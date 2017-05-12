@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
@@ -34,6 +34,7 @@ import { TitleService, Person } from 'mh-core';
             }))
         ])
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
@@ -108,6 +109,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     getTitle(): string {
+        console.log(this._titleService);
         return this._titleService.getTitle();
     }
 

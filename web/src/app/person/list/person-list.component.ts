@@ -9,7 +9,8 @@ import { Person, TitleService } from 'mh-core';
     moduleId: 'mh-person',
     selector: 'mh-person-list',
     templateUrl: './person-list.component.html',
-    styleUrls: ['./person-list.component.scss']
+    styleUrls: ['./person-list.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 
 export class PersonListComponent {
@@ -23,6 +24,7 @@ export class PersonListComponent {
         this.options = {
             display: ['birthday', 'email']
         };
+        console.log(this._titleService);
     }
 
     display(key: string): boolean {
