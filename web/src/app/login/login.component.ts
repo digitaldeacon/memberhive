@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     loading$: Observable<boolean>;
     error$: Observable<string>;
     form: FormGroup;
+    closeError: boolean = false;
 
     constructor(private _fb: FormBuilder,
                 private _authService: AuthService,
@@ -38,10 +39,10 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.form = this._fb.group({
-            username: ['', Validators.required],
-            password: ['', Validators.required]
-        });
+
+        localStorage.clear();
+
+        this.initForm();
 
         this.error$ = this._store.select(app.getAuthError);
         this.loading$ = this._store.select(app.isAuthLoading);
@@ -53,9 +54,19 @@ export class LoginComponent implements OnInit, OnDestroy {
         }
     }
 
+    initForm(): void {
+        this.closeError = true;
+        this.form = this._fb.group({
+            username: ['', Validators.required],
+            password: ['', Validators.required]
+        });
+    }
+
     submit(): void {
         const username: string = this.form.get('username').value;
         const password: string = this.form.get('password').value;
+
+        this.closeError = false;
 
         username.trim();
         password.trim();

@@ -10,7 +10,7 @@
             <md-card-title i18n>Sign In</md-card-title>
             <md-card-content>
                 <mh-notifybox
-                        *ngIf="error$ | async"
+                        *ngIf="(error$ | async) && !closeError"
                         [message]="error$ | async"
                         [type]="error">
                 </mh-notifybox>
@@ -32,7 +32,8 @@
                                spellcheck="off"
                                formControlName="username"
                                [class.invalid]="form.controls.username?.errors && form.controls.username?.dirty"
-                               (keyup)="onKey($event)">
+                               (keyup)="onKey($event)"
+                               (focus)="initForm()">
                     </md-input-container>
 
                     <md-input-container fxFlex="100">

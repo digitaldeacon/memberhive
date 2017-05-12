@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "d73214f743751647ad0f5cbca0ad342592771a69"
+                "reference": "796954f6898b1c69863a11b8ef35135131c61ea9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/d73214f743751647ad0f5cbca0ad342592771a69",
-                "reference": "d73214f743751647ad0f5cbca0ad342592771a69",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/796954f6898b1c69863a11b8ef35135131c61ea9",
+                "reference": "796954f6898b1c69863a11b8ef35135131c61ea9",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-05-10 09:31:05"
+            "time": "2017-05-12 15:06:27"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -826,17 +826,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-coding-standards.git",
-                "reference": "c79ce1523f1f45903e2e5b35811c361ecf259a47"
+                "reference": "1047aaefcce4cfb83e4987110a573d19706bc50d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-coding-standards/zipball/c79ce1523f1f45903e2e5b35811c361ecf259a47",
-                "reference": "c79ce1523f1f45903e2e5b35811c361ecf259a47",
+                "url": "https://api.github.com/repos/yiisoft/yii2-coding-standards/zipball/1047aaefcce4cfb83e4987110a573d19706bc50d",
+                "reference": "1047aaefcce4cfb83e4987110a573d19706bc50d",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.4.0",
-                "squizlabs/php_codesniffer": ">=2.3.1"
+                "squizlabs/php_codesniffer": ">=2.3.1 <3.0"
             },
             "type": "phpcodesniffer-standard",
             "notification-url": "https://packagist.org/downloads/",
@@ -886,7 +886,7 @@
                 "framework",
                 "yii"
             ],
-            "time": "2017-05-11 10:22:28"
+            "time": "2017-05-12 10:30:45"
         },
         {
             "name": "yiisoft/yii2-composer",
