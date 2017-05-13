@@ -1,8 +1,10 @@
 <div class="login-container" fxLayout="row" fxLayoutAlign="center center">
-
     <div class="flex-item" fxFlexFill>
         <md-card class="login-content" >
-
+            <md-progress-bar
+                    mode="indeterminate"
+                    color="accent"
+                    *ngIf="loading$ | async"></md-progress-bar>
             <div class="flex-item logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
@@ -15,7 +17,7 @@
                         [type]="error">
                 </mh-notifybox>
 
-                <form *ngIf="!(loading$ | async)"
+                <form
                       (ngSubmit)="submit()"
                       [formGroup]="form"
                       novalidate
@@ -55,9 +57,6 @@
                     </div>
 
                 </form>
-                <div fxLayout="row" fxLayoutAlign="center">
-                    <md-spinner *ngIf="loading$ | async"></md-spinner>
-                </div>
             </md-card-content>
         </md-card>
     </div>

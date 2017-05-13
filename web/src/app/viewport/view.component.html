@@ -60,7 +60,7 @@
                     <md-icon>account_circle</md-icon>
                     <span i18n>My Profile</span>
                 </button>
-                <button md-menu-item [routerLink]="['/login']">
+                <button md-menu-item (click)="logout()">
                     <md-icon>exit_to_app</md-icon>
                     <span i18n>Logout</span>
                 </button>

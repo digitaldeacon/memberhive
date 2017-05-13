@@ -39,9 +39,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-
-        this._authService.clearStore();
-
         this.initForm();
 
         this.error$ = this._store.select(app.getAuthError);

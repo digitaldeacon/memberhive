@@ -13,9 +13,13 @@ import { Interaction } from '../interaction/interaction';
 import { InteractionCreateDialogComponent } from '../interaction/dialogs/interaction-create.dialog';
 
 import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
 import * as settings from 'mh-core';
-import { TitleService, Person } from 'mh-core';
+import {
+    TitleService,
+    Person,
+    AuthService } from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -69,6 +73,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     open: string = 'true';
 
     constructor(private _shoutService: ShoutService,
+                private _authSrv: AuthService,
                 private _interactionService: InteractionService, // TODO: remove with store
                 private _router: Router,
                 private _store: Store<app.AppState>,
@@ -92,6 +97,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._usrSubscr.unsubscribe();
+    }
+
+    logout(): void {
+        this._authSrv.clearStore();
+        this._store.dispatch(go('/login'));
     }
 
     openDrawer(): void {
