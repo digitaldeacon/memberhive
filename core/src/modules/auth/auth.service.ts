@@ -7,6 +7,7 @@ import {
 export class AuthService {
     @LocalStorage() private token: string;
     @LocalStorage() private uid: string;
+    @LocalStorage() private createdAt: Date;
 
     constructor(private _storage: LocalStorageService) {}
 
@@ -25,6 +26,14 @@ export class AuthService {
 
     public getPersonId(): string {
         return this.uid;
+    }
+
+    public setCreatedAt(dateTime: Date): void {
+        this.createdAt = dateTime;
+    }
+
+    public getCreatedAt(): Date {
+        return this.createdAt;
     }
 
     public clearStore(): void {

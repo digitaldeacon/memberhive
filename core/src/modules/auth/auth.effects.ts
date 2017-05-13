@@ -38,6 +38,7 @@ export class AuthEffects {
                 // this._db.insert('auth', [r.user.token, r.user.personId]);
                 this._authSrv.setToken(r.user.token);
                 this._authSrv.setPersonId(r.user.personId);
+                this._authSrv.setCreatedAt(new Date());
                 return new actions.AuthenticationSuccessAction(r.user);
             })
             .catch((response: Response) => {
