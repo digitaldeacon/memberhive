@@ -7,7 +7,8 @@ import {
     MdCardModule,
     MdIconModule,
     StyleModule,
-    MdCoreModule
+    MdCoreModule,
+    MdDatepickerModule
 } from '@angular/material';
 
 import { ShoutService } from './shout.service';
@@ -28,7 +29,8 @@ import { NotifyboxComponent } from './components/notifybox/notifybox.component';
         MdCardModule,
         MdIconModule,
         StyleModule,
-        MdCoreModule
+        MdCoreModule,
+        MdDatepickerModule
     ],
     providers: [
         Title,
@@ -43,7 +45,8 @@ import { NotifyboxComponent } from './components/notifybox/notifybox.component';
         MdCardModule,
         MdIconModule,
         StyleModule,
-        MdCoreModule
+        MdCoreModule,
+        MdDatepickerModule
     ]
 })
 

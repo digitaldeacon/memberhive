@@ -9,7 +9,8 @@ import {
     MdMenuModule,
     MdSelectModule,
     MdTooltipModule,
-    MdInputModule
+    MdInputModule,
+    MdDatepickerModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
@@ -46,6 +47,7 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
         MdButtonToggleModule,
         MdTooltipModule,
         MdInputModule,
+        MdDatepickerModule,
 
         FlexLayoutModule,
         FormsModule,

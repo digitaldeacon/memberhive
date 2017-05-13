@@ -28,7 +28,8 @@ import {
     PortalModule,
     PlatformModule,
     StyleModule,
-    A11yModule
+    A11yModule,
+    MdNativeDateModule
 } from '@angular/material';
 
 /**
@@ -64,7 +65,8 @@ import {
         PortalModule,
         PlatformModule,
         StyleModule,
-        A11yModule
+        A11yModule,
+        MdNativeDateModule
     ],
     exports: [
         CompatibilityModule,
@@ -95,7 +97,8 @@ import {
         PortalModule,
         PlatformModule,
         StyleModule,
-        A11yModule
+        A11yModule,
+        MdNativeDateModule
     ]
 })
 export class AppMaterialModule { }

@@ -21,7 +21,7 @@
         <md-button-toggle-group id="typeSelect" formControlName="type">
           <md-button-toggle value="{{interactionType.id}}"
                             mdTooltip="{{interactionType.type | uppercase}}"
-                            *ngFor="let interactionType of interactionTypes">
+                            *ngFor="let interactionType of options.interaction.types">
             <md-icon>{{interactionType.iconString}}</md-icon>
           </md-button-toggle>
         </md-button-toggle-group>
@@ -29,21 +29,27 @@
 
       <div class="mat-input-wrapper" fxFlex fxLayout="row">
         <md-select placeholder="Relates to" i18n-placeholder formControlName="owner">
-          <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+          <md-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
           </md-option>
         </md-select>
 
         <md-select placeholder="Assign to" i18n-placeholder formControlName="recipients" multiple>
-          <md-option *ngFor="let person of allowedContacts" [value]="person.uid">
+          <md-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
           </md-option>
         </md-select>
       </div>
 
       <md-input-container>
-        <input type="date" mdInput placeholder="Complete by" i18n-placeholder formControlName="dueOn">
+        <input [mdDatepicker]="minDatePicker"
+               mdInput
+               placeholder="Complete by"
+               i18n-placeholder
+               formControlName="dueOn">
+        <button mdSuffix [mdDatepickerToggle]="minDatePicker"></button>
       </md-input-container>
+      +<md-datepicker #minDatePicker></md-datepicker>
     </md-card-content>
     <md-card-actions>
       <button

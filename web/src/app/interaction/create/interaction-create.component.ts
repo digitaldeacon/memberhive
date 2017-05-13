@@ -1,21 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
-import { PersonService } from '../../person/person.service';
-import { Person } from 'mh-core';
-
-import { Interaction, InteractionType } from '../interaction';
-import * as intsrv from '../interaction.service';
+import { Interaction } from '../interaction';
 import { InteractionService } from '../../common/interaction.service';
 
 import { AuthService } from 'mh-core';
+import * as app from '../../app.store';
+import { Person, TitleService } from 'mh-core';
+
 import { ShoutService } from '../../common/shout.service';
 
 @Component({
   selector: 'mh-interaction-create',
   templateUrl: './interaction-create.component.html',
-  styleUrls: ['./interaction-create.component.scss', '../interaction-common.styles.scss']
+  styleUrls: ['./interaction-create.component.scss', '../interaction-common.styles.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InteractionCreateComponent implements OnInit {
 
@@ -23,34 +25,39 @@ export class InteractionCreateComponent implements OnInit {
   private _refPerson: Person;
 
   interactionForm: FormGroup;
-  interactionTypes: Array<InteractionType>;
   refInteraction: Interaction;
 
   returnToRoute: string;
-
-  allowedContacts: Array<Person>;
-
   showTypeSelector: boolean = false;
   submitted: boolean = false;
   editMode: boolean = false;
   error: string;
 
+  people$: Observable<Person[]>;
+  options: any = {};
+
   constructor(private _fb: FormBuilder,
-              private _personService: PersonService,
-              private _intService: intsrv.InteractionService,
               private _auth: AuthService,
               private _shout: ShoutService,
               private _interactionService: InteractionService,
+              private _store: Store<app.AppState>,
               private _router: Router) {
-    this._intService.getInteractionTypes() // TODO: move this into the options table
-        .subscribe((types: Array<InteractionType>) => {
-          this.interactionTypes = types;
-        });
+    this.people$ = this._store.select(app.getPeople);
+    this.options = {
+      interaction: {
+        types: [
+          {type: 'interaction', iconString: 'swap_vertical_circle'},
+          {type: 'note', iconString: 'comment'},
+          {type: 'meeting', iconString: 'forum'},
+          {type: 'email', iconString: 'email'},
+          {type: 'phone', iconString: 'contact_phone'}
+        ]
+      }
+    };
     this._authorId = this._auth.getPersonId();
   }
 
   ngOnInit(): void {
-    this.getAllowedContacts();
     this.interactionForm = this._fb.group({
       text: [undefined, [<any>Validators.required]],
       type: [undefined, [<any>Validators.required]],
@@ -60,12 +67,6 @@ export class InteractionCreateComponent implements OnInit {
       private: [undefined]
     });
     this.initDefaults();
-  }
-
-  getAllowedContacts(): void {
-    // TODO: get only those users that I can select
-    this._personService.getPersons()
-        .subscribe((people: Array<Person>) => this.allowedContacts = people);
   }
 
   toggleTypes(): void {

@@ -10,7 +10,7 @@ import { Person, TitleService } from 'mh-core';
     selector: 'mh-person-list',
     templateUrl: './person-list.component.html',
     styleUrls: ['./person-list.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PersonListComponent {
