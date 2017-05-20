@@ -2,18 +2,17 @@
 <md-card>
   <md-card-title i18n>Person List</md-card-title>
   <md-card-content fxLayout="row" fxLayoutGap="10px">
-      <fieldset class='container'
-                [dragula]='"person-list-bag"'
-                [dragulaModel]='personAttrSelected'
-                fxFlex="50">
+      <fieldset fxFlex="50">
           <legend i18n>Selected</legend>
-          <div *ngFor="let element of personAttrSelected" class="div" [innerHtml]='element'></div>
+          <div class='container' [dragula]='"person-list-bag"' [dragulaModel]='personAttrSelected'>
+              <div *ngFor="let element of personAttrSelected" class="div" [innerHtml]='element'></div>
+          </div>
       </fieldset>
-      <fieldset class='container'
-                [dragula]='"person-list-bag"'
-                [dragulaModel]='personAttr'
-                fxFlex="50">
+      <fieldset fxFlex="50">
           <legend i18n>Available</legend>
-          <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+          <div class="container" [dragula]='"person-list-bag"' [dragulaModel]='personAttr'>
+              <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+          </div>
       </fieldset>
   </md-card-content>
+</md-card>

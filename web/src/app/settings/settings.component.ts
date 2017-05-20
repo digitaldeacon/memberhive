@@ -32,9 +32,11 @@ export class SettingsComponent implements OnInit {
               dragulaService: DragulaService) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
+          // console.log('dropModel', value);
           this.onDropModel(value.slice(1));
       });
       dragulaService.removeModel.subscribe((value: any[]) => {
+          // console.log('removeModel', value);
           this.onRemoveModel(value.slice(1));
       });
     }
@@ -47,12 +49,19 @@ export class SettingsComponent implements OnInit {
 
     private onDropModel(args: any): void {
         let [el, target, source] = args;
+        console.log('onDropModel:');
+        console.log(el);
+        console.log(target);
+        console.log(source);
         // do something else
         // console.log(el, target, source, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
+        console.log('onDropModel:');
+        console.log(el);
+        console.log(source);
         // do something else
         // console.log(el, source, this.personAttrSelected);
     }

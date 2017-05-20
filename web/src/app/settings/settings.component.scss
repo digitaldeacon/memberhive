@@ -1,5 +1,8 @@
-.container {
+fieldset {
   border: 1px dashed rgba(0, 0, 0, 0.2);
+}
+.container {
+  height: 100%;
   .div {
     cursor: move;
     cursor: grab;
