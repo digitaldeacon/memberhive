@@ -22,7 +22,7 @@ export class SettingsEffects {
      */
     @Effect()
     get$: Observable<Action> = this.actions$
-        .ofType(collection.settingActionTypes.LIST)
+        .ofType(collection.LIST_SETTINGS)
         .startWith(new collection.ListSettingAction())
         .switchMap(() =>
             this.http.get('settings/list')

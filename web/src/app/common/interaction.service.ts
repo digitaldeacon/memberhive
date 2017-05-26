@@ -8,7 +8,6 @@ import { ShoutService } from '../common/shout.service';
 
 import { AuthService, Person } from 'mh-core';
 
-import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
 import * as auth from 'mh-core';
 

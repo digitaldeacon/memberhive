@@ -5,8 +5,6 @@ import { AuthService } from './modules/auth/auth.service';
 import { TitleService } from './services/title.service';
 import { LoginService } from './services/login.service';
 import { Ng2Webstorage } from 'ng2-webstorage';
-import { DBModule } from '@ngrx/db';
-import { schema } from './db.schema';
 
 @NgModule({
     declarations: [
@@ -23,8 +21,7 @@ import { schema } from './db.schema';
     ],
     imports: [
         BrowserModule,
-        Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'}),
-        DBModule.provideDB(schema)
+        Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { TitleService, Person } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+
+import { TitleService, Person } from 'mh-core';
+import { Observable } from 'rxjs/Observable';
+import { Store } from '@ngrx/store';
+
+import * as app from '../app.store';
 
 @Component({
   selector: 'mh-settings',
@@ -28,17 +33,19 @@ export class SettingsComponent implements OnInit {
         'email'
     ];
 
-    constructor(titleService: TitleService,
-              dragulaService: DragulaService) {
+    peopleSettings$: Observable<any>;
+
+    constructor(private _store: Store<app.AppState>,
+                titleService: TitleService,
+                dragulaService: DragulaService) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
-          // console.log('dropModel', value);
           this.onDropModel(value.slice(1));
       });
       dragulaService.removeModel.subscribe((value: any[]) => {
-          // console.log('removeModel', value);
           this.onRemoveModel(value.slice(1));
       });
+      this.peopleSettings$ = this._store.select(app.getPeopleSettings);
     }
 
     ngOnInit(): void {

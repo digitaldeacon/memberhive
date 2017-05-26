@@ -1,17 +1,15 @@
-import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Person } from '../../../person/person';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
-
-import { InteractionCreateDialogComponent } from '../../../interaction/dialogs/interaction-create.dialog';
 
 @Component({
     selector: 'mh-dashlet-birthdays',
     templateUrl: './dashlet-birthdays.component.html',
     styleUrls: ['./dashlet-birthdays.component.scss']
 })
-export class DashletBirthdaysComponent implements OnChanges {
+export class DashletBirthdaysComponent implements OnInit {
 
     private now: Date = new Date();
     private rangeDate: Date;
@@ -30,10 +28,8 @@ export class DashletBirthdaysComponent implements OnChanges {
         this.rangeDate.setDate(this.rangeDate.getDate() + this.range);
     }
 
-    ngOnChanges(changes: SimpleChanges): void {
-        if (changes['people']) {
-            this.filter();
-        }
+    ngOnInit(): void {
+        this.filter();
     }
 
     filter(): void {
@@ -76,26 +72,11 @@ export class DashletBirthdaysComponent implements OnChanges {
             range: this.range
         };
         this.dialogRef = this._dialog.open(DashletEditDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: string) => {
+        this.dialogRef.afterClosed().subscribe((result: number) => {
             const range: number = +result;
             if (range && range !== this.range) {
                 this.range = range;
                 this.filter();
-            }
-            this.dialogRef = undefined;
-        });
-    }
-
-    interactionsDlg(person: Person): void {
-        const config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-            person: person
-        };
-
-        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Person) {
-                // do something
             }
             this.dialogRef = undefined;
         });

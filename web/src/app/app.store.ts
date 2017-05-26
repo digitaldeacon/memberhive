@@ -1,9 +1,7 @@
-import { createSelector } from 'reselect';
-import { ActionReducer, combineReducers } from '@ngrx/store';
-import { routerReducer, RouterState } from "@ngrx/router-store";
-import { storeFreeze } from 'ngrx-store-freeze';
-import { compose } from '@ngrx/core/compose';
-import { environment } from '../environments/environment';
+import {
+    ActionReducerMap,
+    createSelector } from '@ngrx/store';
+import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 import * as interaction from 'mh-core';
 import * as person from 'mh-core';
@@ -15,27 +13,16 @@ export interface AppState {
     person: person.PersonState;
     settings: settings.SettingsState;
     auth: auth.AuthState;
-    router: RouterState;
+    router: RouterReducerState;
 }
 
-const reducers: any = {
+export const reducers: ActionReducerMap<AppState> = {
     interaction: interaction.interactionReducer,
     person: person.personReducer,
     settings: settings.settingsReducer,
     auth: auth.authReducer,
     router: routerReducer
 };
-
-const developmentReducer: ActionReducer<AppState> = compose(storeFreeze, combineReducers)(reducers);
-const productionReducer: ActionReducer<AppState> = combineReducers(reducers);
-
-export function reducer(state: any, action: any): AppState {
-    if (environment.production) {
-        return productionReducer(state, action);
-    } else {
-        return developmentReducer(state, action);
-    }
-}
 
 /**
  * People Reducers

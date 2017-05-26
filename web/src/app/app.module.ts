@@ -18,16 +18,26 @@ import { ViewComponent } from './viewport/view.component';
 
 import { PersonService } from './person/person.service';
 
-import { StoreModule } from '@ngrx/store';
-import { RouterStoreModule } from '@ngrx/router-store';
+import { StoreModule, combineReducers, compose } from '@ngrx/store';
+import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
+function debug(state, action) {
+    console.log('state', state);
+    console.log('action', action);
+
+    return state;
+}
+
+// const debugReducerFactory: any = compose(debug, combineReducers);
 
 import {
     MHCoreModule,
     PersonEffects,
     AuthEffects } from 'mh-core';
-import { reducer } from './app.store';
+import { reducers } from './app.store';
 
 import 'hammerjs';
 
@@ -39,21 +49,23 @@ import 'hammerjs';
     ],
     imports: [
         BrowserModule,
+        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
-        AppMaterialModule,
         FlexLayoutModule,
-        BrowserAnimationsModule,
 
+        AppMaterialModule,
         AppRoutingModule,
         MHCoreModule,
 
-        RouterStoreModule.connectRouter(),
-        StoreModule.provideStore(reducer),
+        StoreModule.forRoot(reducers),
+        StoreRouterConnectingModule,
+        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
+
+        EffectsModule.forRoot(),
         EffectsModule.run(PersonEffects),
         EffectsModule.run(AuthEffects),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
         CommonModule,
         SearchModule,

@@ -10,10 +10,8 @@ import { InteractionService } from '../common/interaction.service';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Interaction } from '../interaction/interaction';
-import { InteractionCreateDialogComponent } from '../interaction/dialogs/interaction-create.dialog';
 
 import { Store } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
 import * as settings from 'mh-core';
 import {
@@ -38,7 +36,6 @@ import {
             }))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
@@ -101,7 +98,8 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this._authSrv.clearStore();
-        this._store.dispatch(go('/login'));
+        // this._store.dispatch(go('/login'));
+        this._router.navigate(['/login']);
     }
 
     openDrawer(): void {
@@ -121,21 +119,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     getTitle(): string {
         // console.log(this._titleService);
         return this._titleService.getTitle();
-    }
-
-    openDlgInteractions(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-        };
-
-        this._dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this._dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Interaction) {
-                this._interactionService.create(result);
-                this._shoutService.success('Interaction created!');
-            }
-            this._dialogRef = undefined;
-        });
     }
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);

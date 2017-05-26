@@ -7,7 +7,6 @@ import { defer } from 'rxjs/observable/defer';
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
-import { Database } from '@ngrx/db';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
@@ -18,11 +17,6 @@ import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthEffects {
-
-    @Effect({ dispatch: false })
-    openDB$: Observable<any> = defer(() => {
-        return this._db.open('mh_app');
-    });
 
     @Effect()
     public login$: Observable<Action> = this._actions$
@@ -76,6 +70,5 @@ export class AuthEffects {
 
     constructor(private _actions$: Actions,
                 private _http: HttpService,
-                private _db: Database,
                 private _authSrv: AuthService) { }
 }

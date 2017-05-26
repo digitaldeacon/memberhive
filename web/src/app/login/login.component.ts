@@ -1,10 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
 import {
     Credentials,
@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     closeError: boolean = false;
 
     constructor(private _fb: FormBuilder,
-                private _authService: AuthService,
+                private _router: Router,
                 private _store: Store<app.AppState>) {
 
         this._store.select(app.isAuthenticated)
@@ -81,6 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     home(): void {
-        this._store.dispatch(go('/dashboard'));
+        // this._store.dispatch(go('/dashboard'));
+        this._router.navigate(['/dashboard']);
     }
 }

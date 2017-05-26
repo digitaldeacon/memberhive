@@ -13,6 +13,7 @@
     "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
     "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
     "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild && yarn lint",
+    "build:raw": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild",
     "lint": "tslint \"**/*.ts\" -c tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
     "install:dep": "yarn link"
   },
@@ -30,18 +31,16 @@
     "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
     "@angular/router": "^4.0.0",
-    "@ngrx/core": "^1.2.0",
-    "@ngrx/db": "^2.0.2",
-    "@ngrx/effects": "^2.0.0",
-    "@ngrx/router-store": "^1.2.6",
-    "@ngrx/store": "^2.2.1",
+    "@ngrx/effects": "github:ngrx/effects-builds",
+    "@ngrx/router-store": "github:ngrx/router-store-builds",
+    "@ngrx/store": "github:ngrx/store-builds",
     "@types/node": "^7.0.12",
     "codelyzer": "^3.0.1",
     "ng2-webstorage": "^1.5.0",
     "reselect": "^3.0.0",
-    "rxjs": "^5.2.0",
+    "rxjs": "^5.4.0",
     "tslint": "^5.2.0",
-    "typescript": "~2.3.1",
+    "typescript": "^2.3.3",
     "zone.js": "^0.8.10"
   }
 }
