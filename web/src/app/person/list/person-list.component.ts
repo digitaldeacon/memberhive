@@ -14,7 +14,7 @@ import { Person, TitleService } from 'mh-core';
 })
 
 export class PersonListComponent implements OnDestroy {
-    private alive: boolean = true
+    private alive: boolean = true;
 
     people$: Observable<Person[]>;
     options: any = {};
@@ -26,7 +26,7 @@ export class PersonListComponent implements OnDestroy {
         this._store.select(app.getPeopleListSettings)
             .takeWhile(() => this.alive)
             .subscribe((data: any) => {
-                this.options = data; //.map((el: string) => el);
+                this.options = data;
         });
     }
 

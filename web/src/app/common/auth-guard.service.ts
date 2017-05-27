@@ -24,8 +24,6 @@ export class AuthGuard implements CanActivate {
         let url: string = state.url;
         const isAuthentic$: any = this._store.select(isAuthenticated);
 
-        console.log();
-
         isAuthentic$.subscribe((authenticated: any) => {
             if (!authenticated) {
                 if (this._authSrv.getToken()) {

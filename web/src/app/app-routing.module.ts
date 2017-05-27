@@ -30,7 +30,7 @@ export const routes: Routes = [
             {
                 path: 'settings',
                 loadChildren: './settings/settings.module#SettingsModule'
-            },
+            }
             // { path: '**', loadChildren: './dashboard/dashboard.module#DashboardModule' },
         ]
     },
