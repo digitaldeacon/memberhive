@@ -1,48 +1,76 @@
 import { Action } from '@ngrx/store';
-import { type } from '../../util';
+import { SettingsPayload } from './settings.model';
 
-export const settingActionTypes: any = {
-    LIST:           type('[Settings] List'),
-    LIST_SUCCESS:   type('[Settings] List Success'),
-    UPDATE:         type('[Settings] Update'),
-    OPEN_DRAWER:    type('[Settings:Layout] Open Drawer'),
-    CLOSE_DRAWER:   type('[Settings:Layout] Close Drawer'),
-    SET_TITLE:          type('[Settings:Title] Set title'),
-    SET_MODULE:         type('[Settings:Title] Set module'),
-    GET_MODULE_TITLE:   type('[Settings:Title] Get module and title')
-};
+export const LIST_SETTINGS: string = '[Settings] List';
+export const LIST_SETTINGS_SUCCESS: string = '[Settings] List Success';
+export const LIST_SETTINGS_FAILURE: string = '[Settings] List Failure';
+export const UPDATE_SETTINGS: string = '[Settings] Update';
+export const UPDATE_SETTINGS_SUCCESS: string = '[Settings] Update Success';
+export const UPDATE_SETTINGS_FAILURE: string = '[Settings] Update Failure';
+export const OPEN_DRAWER: string = '[Settings:Layout] Open Drawer';
+export const CLOSE_DRAWER: string = '[Settings:Layout] Close Drawer';
+export const SET_TITLE: string = '[Settings:Title] Set title';
+export const SET_MODULE: string = '[Settings:Title] Set module';
+export const GET_MODULE_TITLE: string = '[Settings:Title] Get module and title';
 
 export class ListSettingAction implements Action {
-    type: any = settingActionTypes.LIST;
+    readonly type: string = LIST_SETTINGS;
+    constructor(public payload?: number) { }
 }
 
 export class ListSettingSuccessAction implements Action {
-    type: any = settingActionTypes.LIST_SUCCESS;
+    readonly type: string = LIST_SETTINGS_SUCCESS;
     constructor(public payload: any[]) { }
 }
 
+export class ListSettingFailureAction implements Action {
+    readonly type: string = LIST_SETTINGS_FAILURE;
+    constructor(public payload: any) { }
+}
+
+export class UpdateSettingAction implements Action {
+    readonly type: string = UPDATE_SETTINGS;
+    constructor(public payload: SettingsPayload) { }
+}
+
+export class UpdateSettingSuccessAction implements Action {
+    readonly type: string = UPDATE_SETTINGS_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class UpdateSettingFailureAction implements Action {
+    readonly type: string = UPDATE_SETTINGS_FAILURE;
+    constructor(public payload: SettingsPayload) { }
+}
+
 export class OpenDrawerAction implements Action {
-    type: any = settingActionTypes.OPEN_DRAWER;
+    readonly type: string = OPEN_DRAWER;
+    constructor(public payload?: number) { }
 }
 
 export class CloseDrawerAction implements Action {
-    type: any = settingActionTypes.CLOSE_DRAWER;
+    readonly type: string = CLOSE_DRAWER;
+    constructor(public payload?: number) { }
 }
 
 export class SetTitleAction implements Action {
-    type: any = settingActionTypes.SET_TITLE;
+    readonly type: string = SET_TITLE;
 }
 
 export class SetModuleAction implements Action {
-    type: any = settingActionTypes.SET_MODULE;
+    readonly type: string = SET_MODULE;
 }
 
 export class GetModuleTitleAction implements Action {
-    type: any = settingActionTypes.GET_MODULE_TITLE;
+    readonly type: string = GET_MODULE_TITLE;
 }
 
 export type SettingActions
     = ListSettingAction
     | ListSettingSuccessAction
+    | ListSettingFailureAction
     | OpenDrawerAction
-    | CloseDrawerAction;
+    | CloseDrawerAction
+    | UpdateSettingAction
+    | UpdateSettingSuccessAction
+    | UpdateSettingFailureAction;

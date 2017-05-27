@@ -1,14 +1,21 @@
-import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
-import { TitleService, Person } from 'mh-core';
+import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import {
+    TitleService,
+    Person,
+    SettingsPayload,
+    UpdateSettingAction } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import * as app from '../app.store';
+import { Store } from '@ngrx/store';
 
 @Component({
   selector: 'mh-settings',
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit {
-
+export class SettingsComponent implements OnInit, OnDestroy {
+    private alive: boolean = true
     personAttrSet: Array<string> = [
         'fullName',
         'firstName',
@@ -24,21 +31,26 @@ export class SettingsComponent implements OnInit {
         'phoneMobile'
     ];
     personAttr: Array<string>;
-    personAttrSelected: Array<string> = [
-        'email'
-    ];
+    personAttrSelected: Array<string>;
+    peopleSettings$: Observable<any>;
 
     constructor(titleService: TitleService,
                 dragulaService: DragulaService,
+                private _store: Store<app.AppState>,
                 private _ref: ChangeDetectorRef) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
-          this.onDropModel(value.slice(1));
-          this._ref.detectChanges();
+          this._store.dispatch(new UpdateSettingAction(this.payload(value[0])));
+          //this._ref.detectChanges();
       });
       dragulaService.removeModel.subscribe((value: any[]) => {
-          this.onRemoveModel(value.slice(1));
-          this._ref.detectChanges();
+          //this._store.dispatch(new UpdateSettingAction(this.payload(value[0])));
+          //this._ref.detectChanges();
+      });
+      this._store.select(app.getPeopleSettings)
+          .takeWhile(() => this.alive)
+          .subscribe((data: any) => {
+          this.personAttrSelected = data.list.map((el: string) => el);
       });
     }
 
@@ -48,22 +60,21 @@ export class SettingsComponent implements OnInit {
         });
     }
 
-    private onDropModel(args: any): void {
-        let [el, target, source] = args;
-        /*console.log('onDropModel:');
-        console.log(el);
-        console.log(target);
-        console.log(source);*/
-        // do something else
-        // console.log(el, target, source, this.personAttrSelected);
+    ngOnDestroy(): void {
+        this.alive = false;
     }
 
-    private onRemoveModel(args: any): void {
-        let [el, source] = args;
-        /*console.log('onDropModel:');
-        console.log(el);
-        console.log(source);*/
-        // do something else
-        // console.log(el, source, this.personAttrSelected);
+    private payload(key: string): SettingsPayload {
+        let data: any;
+
+        if (key === 'PEOPLE_LIST') {
+            data = this.personAttrSelected
+                .map((el: string) => el); //turning this into a mutable array
+        }
+
+        return {
+            key: key,
+            data: data
+        }
     }
 }

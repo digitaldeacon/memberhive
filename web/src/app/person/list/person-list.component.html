@@ -27,7 +27,7 @@
             <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
                 <span md-line *ngIf="display('birthday')">{{person.birthday | date: 'mediumDate'}}</span>
                 <span md-line *ngIf="display('email')">{{person.email}}</span>
-                <span md-line *ngIf="display('email')">{{person.email}}</span>
+                <span md-line *ngIf="display('age')">{{person.age}}</span>
                 <md-chip-list md-line fxHide.xs *ngIf="display('status')">
                     <md-chip>Mitglied</md-chip>
                     <md-chip>Begrüßungsdienst</md-chip>
