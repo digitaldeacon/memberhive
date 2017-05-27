@@ -1,3 +1,26 @@
 .list-detail * {
   margin-right: 10px;
 }
+.mat-card-avatar {
+  height: 60px;
+  width: 60px;
+}
+.mat-card-header .mat-card-title {
+  font-size: 16px;
+  font-weight: 500;
+}
+.nav-list {
+  /*margin-bottom: 1px;*/
+  padding-bottom: 10px;
+  padding-top: 12px;
+  a {
+    text-decoration: none;
+  }
+  a:visited, a:active, a:link {
+    color: inherit;
+  }
+}
+.nav-list:hover {
+    color: inherit;
+    background-color: #f1f1f1 !important;
+}

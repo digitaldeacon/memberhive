@@ -5,7 +5,6 @@ import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-import { go } from '@ngrx/router-store';
 
 import * as app from '../../app.store';
 import {
@@ -18,7 +17,6 @@ import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 
 import { Interaction } from '../../interaction/interaction';
-import { InteractionCreateDialogComponent } from '../../interaction/dialogs/interaction-create.dialog';
 
 @Component({
     moduleId: 'mh-person',
@@ -105,21 +103,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this.dialogRef.afterClosed().subscribe((result: any) => {
             if (result) {
                 this.person = result;
-            }
-            this.dialogRef = undefined;
-        });
-    }
-
-    openDlgInteractions(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-            id: this.person.uid
-        };
-
-        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Interaction) {
-                this.interactions.unshift(result);
             }
             this.dialogRef = undefined;
         });

@@ -10,7 +10,6 @@ import { InteractionService } from '../common/interaction.service';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Interaction } from '../interaction/interaction';
-import { InteractionCreateDialogComponent } from '../interaction/dialogs/interaction-create.dialog';
 
 import { Store } from '@ngrx/store';
 import { go } from '@ngrx/router-store';
@@ -123,20 +122,6 @@ export class ViewComponent implements OnInit, OnDestroy {
         return this._titleService.getTitle();
     }
 
-    openDlgInteractions(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-        };
-
-        this._dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this._dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Interaction) {
-                this._interactionService.create(result);
-                this._shoutService.success('Interaction created!');
-            }
-            this._dialogRef = undefined;
-        });
-    }
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);

@@ -17,7 +17,7 @@ class m170208_221546_create_interaction_table extends Migration
             'id' => $this->primaryKey(),
             'uid' => $this->string(36),
             'text' => $this->text(),
-            'typeId' => $this->integer(),
+            'type' => $this->string(),
             'ownerId' => $this->string(36),
             'authorId' => $this->string(36),
             'dueOn' => $this->dateTime(),
@@ -37,12 +37,6 @@ class m170208_221546_create_interaction_table extends Migration
             'idx-interaction-authorId',
             'interaction',
             'authorId'
-        );
-
-        $this->createIndex(
-            'idx-interaction-typeId',
-            'interaction',
-            'typeId'
         );
     }
 

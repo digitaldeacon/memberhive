@@ -71,11 +71,6 @@ class Interaction extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getType()
-    {
-        return $this->hasOne(NoteType::className(), ['id' => 'typeId']);
-    }
-
     public function getOwner()
     {
         return $this->hasOne(Person::className(), ['uid' => 'ownerId']);

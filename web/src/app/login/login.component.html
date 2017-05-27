@@ -1,10 +1,11 @@
 <div class="login-container" fxLayout="row" fxLayoutAlign="center center">
-    <div class="flex-item" fxFlexFill>
-        <md-card class="login-content" >
-            <md-progress-bar
-                    mode="indeterminate"
-                    color="accent"
-                    *ngIf="loading$ | async"></md-progress-bar>
+    <div class="flex-item login-content">
+        <md-progress-bar
+                mode="indeterminate"
+                color="accent"
+                *ngIf="loading$ | async"></md-progress-bar>
+        <i class="loading-holder" *ngIf="!(loading$ | async)"></i>
+        <md-card>
             <div class="flex-item logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>

@@ -6,6 +6,10 @@
   background-size: cover;
   height: 100%;
 
+  .loading-holder {
+    height: 5px;
+  }
+
   .logo {
     padding: 10px;
     text-align: center;
@@ -18,7 +22,6 @@
     @media screen and (max-width: 800px) {
       width: 70%;
     }
-    padding: 30px;
     margin: 20px auto;
 
     background-color: rgba(255,255,255,0.9) !important;

@@ -4,8 +4,6 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Person } from '../../../person/person';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
-import { InteractionCreateDialogComponent } from '../../../interaction/dialogs/interaction-create.dialog';
-
 @Component({
     selector: 'mh-dashlet-birthdays',
     templateUrl: './dashlet-birthdays.component.html',
@@ -81,21 +79,6 @@ export class DashletBirthdaysComponent implements OnChanges {
             if (range && range !== this.range) {
                 this.range = range;
                 this.filter();
-            }
-            this.dialogRef = undefined;
-        });
-    }
-
-    interactionsDlg(person: Person): void {
-        const config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-            person: person
-        };
-
-        this.dialogRef = this._dialog.open(InteractionCreateDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Person) {
-                // do something
             }
             this.dialogRef = undefined;
         });

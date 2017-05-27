@@ -7,6 +7,10 @@
     "url": "https://github.com/digitaldeacon/memberhive2"
   },
   "scripts": {
+    "reinstall:all": "yarn reinstall:core && yarn reinstall:web && yarn reinstall:mobile",
+    "reinstall:core": "cd core && rm -rf node_modules/ yarn.lock && yarn && yarn install:dep && cd ../",
+    "reinstall:mobile": "cd mobile && rm -rf node_modules/ yarn.lock && yarn && yarn install:dep && cd ../",
+    "reinstall:web": "cd web && rm -rf node_modules/ yarn.lock && yarn && yarn install:dep && cd ../",
     "install:api": "cd api && composer install && cd ../",
     "install:core": "cd core && rm -rf node_modules/ && yarn && yarn build && yarn install:dep && cd ../",
     "install:web": "cd web && rm -rf node_modules/ && yarn && yarn install:dep && cd ../",
