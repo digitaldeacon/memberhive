@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { TitleService, Person } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
@@ -29,15 +29,16 @@ export class SettingsComponent implements OnInit {
     ];
 
     constructor(titleService: TitleService,
-              dragulaService: DragulaService) {
+                dragulaService: DragulaService,
+                private _ref: ChangeDetectorRef) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
-          // console.log('dropModel', value);
           this.onDropModel(value.slice(1));
+          this._ref.detectChanges();
       });
       dragulaService.removeModel.subscribe((value: any[]) => {
-          // console.log('removeModel', value);
           this.onRemoveModel(value.slice(1));
+          this._ref.detectChanges();
       });
     }
 
@@ -49,19 +50,19 @@ export class SettingsComponent implements OnInit {
 
     private onDropModel(args: any): void {
         let [el, target, source] = args;
-        console.log('onDropModel:');
+        /*console.log('onDropModel:');
         console.log(el);
         console.log(target);
-        console.log(source);
+        console.log(source);*/
         // do something else
         // console.log(el, target, source, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
-        console.log('onDropModel:');
+        /*console.log('onDropModel:');
         console.log(el);
-        console.log(source);
+        console.log(source);*/
         // do something else
         // console.log(el, source, this.personAttrSelected);
     }
