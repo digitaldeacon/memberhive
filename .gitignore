@@ -1,6 +1,7 @@
 node_modules/
 dist/
 tmp/
+trash/
 
 *.log
 *.tgz
