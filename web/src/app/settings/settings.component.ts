@@ -47,20 +47,25 @@ export class SettingsComponent implements OnInit, OnDestroy {
           // this._ref.detectChanges();
       });
       this._store.select(app.getPeopleSettings)
-          .takeWhile(() => this.alive)
+          .take(1)
           .subscribe((data: any) => {
-          this.personAttrSelected = data.list.map((el: string) => el);
-      });
+            this.personAttrSelected = data.list.map((el: string) => el);
+            this.filter();
+          });
     }
 
     ngOnInit(): void {
-        this.personAttr = this.personAttrSet.filter((item: string) => {
-            return this.personAttrSelected.indexOf(item) !== 0;
-        });
+        this.filter();
     }
 
     ngOnDestroy(): void {
         this.alive = false;
+    }
+
+    filter(): void {
+        this.personAttr = this.personAttrSet.filter((item: string) => {
+            return this.personAttrSelected.indexOf(item) !== 0;
+        });
     }
 
     private payload(key: string): SettingsPayload {
