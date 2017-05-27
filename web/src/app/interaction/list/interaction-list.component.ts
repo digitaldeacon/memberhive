@@ -4,7 +4,6 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
 import { Interaction } from '../interaction';
 import { InteractionService } from '../interaction.service';
-import { InteractionCreateDialogComponent } from '../dialogs/interaction-create.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { AuthService } from 'mh-core';
@@ -18,7 +17,6 @@ import { Person } from 'mh-core';
 })
 export class InteractionListComponent implements OnInit {
     private authorId: string;
-    dialogRef: MdDialogRef<InteractionCreateDialogComponent>;
     @Input() interactions: Array<Interaction>;
 
     constructor(private route: ActivatedRoute,
@@ -60,21 +58,5 @@ export class InteractionListComponent implements OnInit {
                     return false;
                 }
             );
-    }
-    openDlgInteractions(interaction: Interaction): void {
-        let oldInteraction: Interaction = interaction;
-        let config: MdDialogConfig = new MdDialogConfig();
-        config.data = {
-            interaction: interaction
-        };
-
-        this.dialogRef = this.dialog.open(InteractionCreateDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: any) => {
-            if (result instanceof Interaction) {
-                this.interactions.splice(this.interactions.indexOf(oldInteraction));
-                this.interactions.unshift(result);
-            }
-            this.dialogRef = undefined;
-        });
     }
 }

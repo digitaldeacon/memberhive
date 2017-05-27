@@ -1,11 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
-
+import { Component, ChangeDetectorRef, OnInit } from '@angular/core';
 import { TitleService, Person } from 'mh-core';
-import { Observable } from 'rxjs/Observable';
-import { Store } from '@ngrx/store';
-
-import * as app from '../app.store';
+import { DragulaService } from 'ng2-dragula/ng2-dragula';
 
 @Component({
   selector: 'mh-settings',
@@ -33,19 +28,18 @@ export class SettingsComponent implements OnInit {
         'email'
     ];
 
-    peopleSettings$: Observable<any>;
-
-    constructor(private _store: Store<app.AppState>,
-                titleService: TitleService,
-                dragulaService: DragulaService) {
+    constructor(titleService: TitleService,
+                dragulaService: DragulaService,
+                private _ref: ChangeDetectorRef) {
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
           this.onDropModel(value.slice(1));
+          this._ref.detectChanges();
       });
       dragulaService.removeModel.subscribe((value: any[]) => {
           this.onRemoveModel(value.slice(1));
+          this._ref.detectChanges();
       });
-      this.peopleSettings$ = this._store.select(app.getPeopleSettings);
     }
 
     ngOnInit(): void {
@@ -56,19 +50,19 @@ export class SettingsComponent implements OnInit {
 
     private onDropModel(args: any): void {
         let [el, target, source] = args;
-        console.log('onDropModel:');
+        /*console.log('onDropModel:');
         console.log(el);
         console.log(target);
-        console.log(source);
+        console.log(source);*/
         // do something else
         // console.log(el, target, source, this.personAttrSelected);
     }
 
     private onRemoveModel(args: any): void {
         let [el, source] = args;
-        console.log('onDropModel:');
+        /*console.log('onDropModel:');
         console.log(el);
-        console.log(source);
+        console.log(source);*/
         // do something else
         // console.log(el, source, this.personAttrSelected);
     }

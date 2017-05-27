@@ -20,7 +20,6 @@ import { InteractionRoutingModule } from './interaction-routing.module';
 import { InteractionComponent } from './interaction.component';
 import { InteractionCreateComponent } from './create/interaction-create.component';
 import { InteractionListComponent } from './list/interaction-list.component';
-import { InteractionCreateDialogComponent } from './dialogs/interaction-create.dialog';
 
 import { InteractionService } from './interaction.service';
 import { TitleService } from 'mh-core';
@@ -31,7 +30,6 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
     declarations: [
         InteractionListComponent,
         TinyMCEComponent,
-        InteractionCreateDialogComponent,
         InteractionCreateComponent,
         InteractionComponent
     ],
@@ -59,11 +57,9 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
     ],
     exports: [
         InteractionListComponent,
-        TinyMCEComponent,
-        InteractionCreateDialogComponent
+        TinyMCEComponent
     ],
     entryComponents: [
-        InteractionCreateDialogComponent
     ]
 })
 export class InteractionModule {

@@ -12,6 +12,7 @@ import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Interaction } from '../interaction/interaction';
 
 import { Store } from '@ngrx/store';
+import { go } from '@ngrx/router-store';
 import * as app from '../app.store';
 import * as settings from 'mh-core';
 import {
@@ -36,6 +37,7 @@ import {
             }))
         ])
     ],
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
@@ -98,8 +100,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this._authSrv.clearStore();
-        // this._store.dispatch(go('/login'));
-        this._router.navigate(['/login']);
+        this._store.dispatch(go('/login'));
     }
 
     openDrawer(): void {
@@ -120,6 +121,7 @@ export class ViewComponent implements OnInit, OnDestroy {
         // console.log(this._titleService);
         return this._titleService.getTitle();
     }
+
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);

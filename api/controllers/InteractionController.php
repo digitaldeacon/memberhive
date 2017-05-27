@@ -2,7 +2,6 @@
 namespace app\controllers;
 
 use app\models\Interaction;
-use app\models\NoteType;
 use app\models\Person;
 use app\models\PersonInteraction;
 use yii\web\BadRequestHttpException;
@@ -187,15 +186,6 @@ class InteractionController extends MHController
     {
         $this->interactionType = 'group';
         return $this->actionCreate();
-    }
-
-    public function actionListTypes()
-    {
-        $ret = [];
-        foreach (NoteType::find()->each() as $type) {
-            $ret[] = $type->toResponseArray();
-        }
-        return ['response' => $ret];
     }
 
     public function actionList($id)

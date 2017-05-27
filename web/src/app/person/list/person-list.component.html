@@ -19,8 +19,9 @@
             </button>
         </md-menu>
     </md-card>
-    <md-card *ngFor="let person of people$ | async">
-        <md-card-header [routerLink]="['/person/view', person.uid]">
+    <md-card *ngFor="let person of people$ | async" class="nav-list">
+        <a md-list-item [routerLink]="['/person/view', person.uid]">
+        <md-card-header>
             <img md-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
             <md-card-title>{{person.fullName}}</md-card-title>
             <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
@@ -33,5 +34,21 @@
                 </md-chip-list>
             </md-card-subtitle>
         </md-card-header>
+        </a>
     </md-card>
+    <!--<md-nav-list>
+        <a md-list-item *ngFor="let person of people$ | async" [routerLink]="['/person/view', person.uid]">
+            <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+            <div class="mat-list-text" fxLayout="row">
+                <h2 fxFlex="25">{{person.fullName}}</h2>
+                <div fxFlex md-line fxLayout="row" class="list-detail">
+                    <span *ngIf="display('birthday')">{{person.birthday | date: 'mediumDate'}}</span>
+                    <span *ngIf="display('email')">{{person.email}}</span>
+                    <md-chip-list fxHide.xs *ngIf="display('status')">
+                    </md-chip-list>
+                </div>
+            </div>
+        </a>
+        <md-divider md-inset> </md-divider>
+    </md-nav-list>-->
 </div>

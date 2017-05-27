@@ -1,7 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 
-import { Person } from '../../../person/person';
+import { Person } from 'mh-core';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
 @Component({
@@ -9,47 +9,45 @@ import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
     templateUrl: './dashlet-birthdays.component.html',
     styleUrls: ['./dashlet-birthdays.component.scss']
 })
-export class DashletBirthdaysComponent implements OnInit {
-
+export class DashletBirthdaysComponent {
     private now: Date = new Date();
-    private rangeDate: Date;
 
-    @Input() people: Array<Person>;
+    @Input()
+    set people(p: Person[]) {
+        this.peopleStore = p;
+        this.filter(p);
+    }
     @Input() user: Person;
 
+    peopleStore: Array<Person>;
     peopleBdRange: Array<Person>;
     peopleBdToday: Array<Person>;
 
     range: number = 7;
     dialogRef: MdDialogRef<any>;
 
-    constructor(private _dialog: MdDialog) {
-        this.rangeDate = new Date(this.now);
-        this.rangeDate.setDate(this.rangeDate.getDate() + this.range);
-    }
+    constructor(private _dialog: MdDialog,
+                private _ref: ChangeDetectorRef) { }
 
-    ngOnInit(): void {
-        this.filter();
-    }
-
-    filter(): void {
-        if (this.people) {
-            this.rangeDate.setDate(new Date(this.now).getDate() + this.range);
-            this.peopleBdRange = this.people.filter((p: Person) => {
+    filter(people: Person[]): void {
+        if (people) {
+            let rangeDate: Date = new Date(this.now);
+            rangeDate.setDate(new Date(this.now).getDate() + this.range);
+            this.peopleBdRange = people.filter((p: Person) => {
                 const bday: Date = new Date(p.birthday);
                 if (!p.birthday) {
                     return false;
                 }
                 bday.setFullYear(this.now.getFullYear());
-                return bday > this.now && bday < this.rangeDate;
+                return bday > this.now && bday < rangeDate;
             });
             this.peopleBdRange.sort((p1: Person, p2: Person) => {
-                const left: number = Number(p1.birthday);
-                const right: number = Number(p2.birthday);
+                const left: number = new Date(p1.birthday).getDate();
+                const right: number = new Date(p2.birthday).getDate();
                 return left - right;
             });
             // Filter for today's birthdays
-            this.peopleBdToday = this.people.filter((p: Person) => {
+            this.peopleBdToday = people.filter((p: Person) => {
                 const bday: Date = new Date(p.birthday);
                 if (!p.birthday) {
                     return false;
@@ -59,8 +57,8 @@ export class DashletBirthdaysComponent implements OnInit {
             });
             // Sort it, closest date on top
             this.peopleBdToday.sort((p1: Person, p2: Person) => {
-                const left: number = Number(p1.birthday);
-                const right: number = Number(p2.birthday);
+                const left: number = new Date(p1.birthday).getDate();
+                const right: number = new Date(p2.birthday).getDate();
                 return left - right;
             });
         }
@@ -72,11 +70,12 @@ export class DashletBirthdaysComponent implements OnInit {
             range: this.range
         };
         this.dialogRef = this._dialog.open(DashletEditDialogComponent, config);
-        this.dialogRef.afterClosed().subscribe((result: number) => {
+        this.dialogRef.afterClosed().subscribe((result: string) => {
             const range: number = +result;
             if (range && range !== this.range) {
                 this.range = range;
-                this.filter();
+                this.filter(this.peopleStore);
+                this._ref.detectChanges();
             }
             this.dialogRef = undefined;
         });

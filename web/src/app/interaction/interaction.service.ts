@@ -45,16 +45,6 @@ export class InteractionService {
         return this.http.post('interaction/delete', {id: interaction.id, author: this._me})
             .map((r: any) => r);
     }
-    public getInteractionTypes(): Observable<InteractionType[]> {
-        if (!this._interactionTypes) {
-            this._interactionTypes = this.http.get('interaction/list-types')
-                .map(this.deserializeTypeList)
-                .publishReplay()
-                .refCount();
-        }
-        return this._interactionTypes;
-    }
-
     public getMyInteractions(noMarkup: boolean = true): Observable<Interaction[]> {
         return this.http.get('interaction/mine?id=' + this._me + '&noMarkup=' + noMarkup)
             .map(this.deserializeList);

@@ -22,9 +22,9 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.1",
     "@angular/platform-server": "^4.0.1",
-    "@ionic-native/core": "^3.4.4",
-    "@ionic-native/splash-screen": "^3.4.4",
-    "@ionic-native/status-bar": "^3.4.4",
+    "@ionic-native/core": "^3.10.3",
+    "@ionic-native/splash-screen": "^3.10.3",
+    "@ionic-native/status-bar": "^3.10.3",
     "@ionic/storage": "^2.0.1",
     "@ngrx/core": "^1.2.0",
     "@ngrx/effects": "^2.0.2",
@@ -41,7 +41,7 @@
   "devDependencies": {
     "@ionic/app-scripts": "^1.2.5",
     "@ionic/cli-build-ionic-angular": "^0.0.4",
-    "@ionic/cli-plugin-cordova": "^1.0.0",
-    "typescript": "~2.3.1"
+    "@ionic/cli-plugin-cordova": "^1.2.1",
+    "typescript": "^2.3.3"
   }
 }
