@@ -1,8 +1,6 @@
 import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import {
     TitleService,
-    Person,
     SettingsPayload,
     UpdateSettingAction } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';

@@ -20,7 +20,7 @@ const initialState: SettingsState = {
         showDrawer: true
     },
     people: {
-        list: ['fullName', 'email']
+        list: ['email']
     },
     profile: {}
 };
