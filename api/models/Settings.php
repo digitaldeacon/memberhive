@@ -50,6 +50,15 @@ class Settings extends \yii\db\ActiveRecord
         ];
     }
 
+    public function toResponseArray()
+    {
+        return [
+            'key' => $this->key,
+            'value' => $this->value,
+            'personId' => $this->personId
+        ];
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */

@@ -25,14 +25,15 @@
             <img md-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
             <md-card-title>{{person.fullName}}</md-card-title>
             <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
-                <span md-line *ngFor="let opt of options">{{person[opt]}}</span>
-                <!--<span md-line *ngIf="display('birthday')">{{person.birthday | date: 'mediumDate'}}</span>
-                <span md-line *ngIf="display('email')">{{person.email}}</span>
-                <span md-line *ngIf="display('age')">{{person.age}}</span>
-                <md-chip-list md-line fxHide.xs *ngIf="display('status')">
-                    <md-chip>Mitglied</md-chip>
-                    <md-chip>Begrüßungsdienst</md-chip>
-                </md-chip-list>-->
+                <ng-container *ngFor="let opt of options">
+                    <span md-line *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
+                    <span md-line *ngIf="opt === 'email'">{{person.email}}</span>
+                    <span md-line *ngIf="opt === 'age'">{{person.age}}</span>
+                    <span md-line *ngIf="opt === 'gender'">
+                        <b *ngIf="person.gender === 'f'" i18n>female</b>
+                        <b *ngIf="person.gender === 'm'" i18n>male</b>
+                    </span>
+                </ng-container>
             </md-card-subtitle>
         </md-card-header>
         </a>

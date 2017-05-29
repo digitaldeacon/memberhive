@@ -26,6 +26,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import {
     MHCoreModule,
     PersonEffects,
+    SettingsEffects,
     AuthEffects } from 'mh-core';
 import { reducer } from './app.store';
 
@@ -53,6 +54,7 @@ import 'hammerjs';
         StoreModule.provideStore(reducer),
         EffectsModule.run(PersonEffects),
         EffectsModule.run(AuthEffects),
+        EffectsModule.run(SettingsEffects),
         StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
         CommonModule,

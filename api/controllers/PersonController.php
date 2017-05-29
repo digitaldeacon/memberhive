@@ -29,8 +29,8 @@ class PersonController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'update' 
-            || $action->id == 'update-column' 
+        if ($action->id == 'update'
+            || $action->id == 'update-column'
             || $action->id == 'avatar-upload'
         ) {
             $this->enableCsrfValidation = false;
@@ -165,7 +165,7 @@ class PersonController extends MHController
             }
             if (isset($user)) {
                 $person->user = $user;
-                if (!isset($post['user']['noCredentials']) 
+                if (!isset($post['user']['noCredentials'])
                     || empty($post['user']['noCredentials'])
                 ) {
                     $this->sendCredentials($person, trim($post['user']['password']));
