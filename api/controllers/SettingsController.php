@@ -38,6 +38,10 @@ class SettingsController extends MHController
     public function actionList()
     {
         $ret = [];
+        $settings = Settings::find()->all();
+        foreach ($settings as $setting) {
+            $ret[] = $setting->toResponseArray();
+        }
         return $ret;
     }
 
