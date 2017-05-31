@@ -20,12 +20,12 @@ Memberhive is a **church relationship management system** (CRMS). Our focus is f
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
-## High-Level Items for May
+## High-Level Items for June
 _In order of importance_
 - [ ] State management (#65, #70, #82, #79, #94)
 - [ ] Dashboard: Interactions (#19, #60)
 - [ ] Person create (#95)
-- [ ] Settings (#31, #67)
+- [x] Settings (#31, #67)
 - [ ] Addressing bugs and shoring up person related components (edit, list, create)
 
 ## Development Philosophy
