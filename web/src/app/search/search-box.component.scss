@@ -4,12 +4,20 @@
 .mh-search-box {
   width: 100%;
   md-input-container {
-    width: 80%;
+    width: 95%;
     /deep/ {
-      .md-input-placeholder.md-focused {
+      .md-input-placeholder {
         visibility: hidden;
       }
     }
+    md-icon {
+      padding-right: 10px;
+    }
+  }
+  /deep/ .mat-input-table {
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: 2px;
+    padding: 6px;
   }
 }
 .item {

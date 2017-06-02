@@ -15,11 +15,12 @@ import * as app from '../app.store';
 export class DashboardComponent {
     people$: Observable<Person[]>;
     currentUser$: Observable<Person>;
-    persons: Array<Person>;
+    now: string = new Date().toDateString();
 
     constructor(titleService: TitleService,
                 private _store: Store<app.AppState>) {
-        titleService.setTitle(new Date().toDateString());
+        titleService.changeModule('Dashboard');
+        titleService.setTitle('Dasboard');
         this.currentUser$ = this._store.select(app.getAuthPerson);
         this.people$ = this._store.select(app.getPeople);
     }

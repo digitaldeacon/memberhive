@@ -23,11 +23,9 @@ export class SearchBoxComponent implements OnInit {
     private _searchVisible: boolean = false;
     private backIcon: string = 'arrow_back';
     private searchTermStream: Subject<string> = new Subject<string>();
-    @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
     itemCtrl: FormControl;
-
-    public items: Observable<string[]>;
+    items: Observable<string[]>;
 
     constructor(private searchService: SearchService,
                 private router: Router) {

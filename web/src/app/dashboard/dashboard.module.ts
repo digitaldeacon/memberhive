@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { MHCommonModule } from '../common/common.module';
 import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
@@ -23,6 +24,7 @@ import { TitleService } from 'mh-core';
     ],
     imports: [
         CommonModule,
+        MHCommonModule,
         AppMaterialModule,
         DashboardRoutingModule,
         FlexLayoutModule,
@@ -36,6 +38,5 @@ import { TitleService } from 'mh-core';
 })
 export class DashboardModule {
     constructor(titleService: TitleService) {
-        titleService.changeModule('Dashboard');
     }
 }

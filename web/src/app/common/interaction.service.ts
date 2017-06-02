@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 
 import { Interaction } from '../interaction/interaction';
 import * as intsrv from '../interaction/interaction.service';
-import { ShoutService } from '../common/shout.service';
+import { ShoutService } from './/shout.service';
 
 import { AuthService, Person } from 'mh-core';
 
