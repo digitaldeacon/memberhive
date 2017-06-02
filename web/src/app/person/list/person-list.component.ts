@@ -20,8 +20,9 @@ export class PersonListComponent implements OnDestroy {
     options: any = {};
 
     constructor(private _store: Store<app.AppState>,
-                private _titleService: TitleService) {
-        this._titleService.setTitle('People List');
+                titleService: TitleService) {
+        titleService.changeModule('Person');
+        titleService.setTitle('People List');
         this.people$ = this._store.select(app.getPeople);
         this._store.select(app.getPeopleListSettings)
             .takeWhile(() => this.alive)

@@ -1,4 +1,5 @@
-import { Component, ChangeDetectorRef, OnInit, OnDestroy } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 import {
     TitleService,
     SettingsPayload,
@@ -12,7 +13,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './settings.component.html',
   styleUrls: ['./settings.component.scss']
 })
-export class SettingsComponent implements OnInit, OnDestroy {
+export class SettingsComponent implements AfterViewInit, OnDestroy {
     private alive: boolean = true;
     personAttrSet: Array<string> = [
         // 'fullName',
@@ -35,24 +36,22 @@ export class SettingsComponent implements OnInit, OnDestroy {
                 dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
                 private _ref: ChangeDetectorRef) {
+
       titleService.setTitle('All Settings');
       dragulaService.dropModel.subscribe((value: any[]) => {
           this._store.dispatch(new UpdateSettingAction(this.payload(value[0])));
           // this._ref.detectChanges();
       });
-      dragulaService.removeModel.subscribe((value: any[]) => {
-          // this._store.dispatch(new UpdateSettingAction(this.payload(value[0])));
-          // this._ref.detectChanges();
-      });
-      this._store.select(app.getPeopleSettings)
+
+      this._store.select(app.getSettingsState)
           .take(1)
           .subscribe((data: any) => {
-            this.personAttrSelected = data.list.map((el: string) => el);
-            this.filter();
+              this.personAttrSelected = data.people.list.map((el: string) => el);
+              this.filter();
           });
     }
 
-    ngOnInit(): void {
+    ngAfterViewInit(): void {
         this.filter();
     }
 
@@ -62,7 +61,7 @@ export class SettingsComponent implements OnInit, OnDestroy {
 
     filter(): void {
         this.personAttr = this.personAttrSet.filter((item: string) => {
-            return this.personAttrSelected.indexOf(item) !== 0;
+            return this.personAttrSelected.indexOf(item) < 0;
         });
     }
 

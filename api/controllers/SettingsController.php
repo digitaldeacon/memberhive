@@ -40,8 +40,10 @@ class SettingsController extends MHController
         $ret = [];
         $settings = Settings::find()->all();
         foreach ($settings as $setting) {
-            $ret[] = $setting->toResponseArray();
+            $ret[$setting->key] = $setting->toResponseArray();
         }
+        /*throw new BadRequestHttpException(json_encode($ret));
+        return [];*/
         return $ret;
     }
 

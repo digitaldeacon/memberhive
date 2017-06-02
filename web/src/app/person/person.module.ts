@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { MHCommonModule } from '../common/common.module';
 import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,6 +37,7 @@ import { ShoutService } from '../common/shout.service';
     ],
     imports: [
         CommonModule,
+        MHCommonModule,
         AppMaterialModule,
         PersonRoutingModule,
         FlexLayoutModule,

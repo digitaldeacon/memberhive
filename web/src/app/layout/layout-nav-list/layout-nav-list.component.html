@@ -1,0 +1,47 @@
+<div layout="column" layout-fill>
+  <div flex layout="column" class="content md-content">
+    <md-sidenav-container fullscreen class="td-layout-nav-list" layout="row" flex>
+      <md-sidenav #sidenav
+                  align="start"
+                  [mode]="mode"
+                  [opened]="opened"
+                  [disableClose]="disableClose"
+                  [style.max-width]="sidenavWidth"
+                  layout="column" 
+                  layout-fill
+                  class="md-whiteframe-z1">
+        <md-toolbar [color]="color" class="md-whiteframe-z1">
+          <button md-icon-button class="td-menu-button" *ngIf="isMainSidenavAvailable" (click)="openMainSidenav()">
+            <md-icon class="md-24">menu</md-icon>
+          </button>
+          <span *ngIf="icon || logo || toolbarTitle"
+                [class.cursor-pointer]="routerEnabled"
+                (click)="handleNavigationClick()"
+                layout="row"
+                layout-align="start center">
+            <md-icon *ngIf="icon">{{icon}}</md-icon>
+            <md-icon *ngIf="logo && !icon" class="md-icon-logo" [svgIcon]="logo"></md-icon>
+            <span *ngIf="toolbarTitle">{{toolbarTitle}}</span>
+          </span>
+          <ng-content select="[td-sidenav-toolbar-content]"></ng-content>
+        </md-toolbar>
+        <div flex class="list md-content" cdkScrollable>
+          <ng-content select="[td-sidenav-content]"></ng-content>
+        </div>
+      </md-sidenav>
+      <div layout="column" layout-fill class="md-content">
+        <md-toolbar [color]="color" class="md-whiteframe-z1">
+          <button md-icon-button class="td-menu-button" *ngIf="!sidenav.opened" (click)="open()">
+            <md-icon class="md-24">arrow_back</md-icon>
+          </button>
+          <ng-content select="[td-toolbar-content]"></ng-content>
+        </md-toolbar>
+        <div class="md-content" flex cdkScrollable>
+          <ng-content></ng-content>
+        </div>
+        <ng-content select="td-layout-footer-inner"></ng-content>
+      </div>
+    </md-sidenav-container>
+  </div>
+  <ng-content select="td-layout-footer"></ng-content>
+</div>

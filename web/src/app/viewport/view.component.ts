@@ -27,7 +27,7 @@ import {
     animations: [
         trigger('drawer', [
             state('true', style({
-                width: '200px'
+                width: '256px'
             })),
             state('false',  style({
                 width: '75px',
@@ -51,12 +51,12 @@ export class ViewComponent implements OnInit, OnDestroy {
         {
             title: 'Person', route: '/person', icon: 'people'
         },
-        {
+        /* {
             title: 'Events', route: '', icon: 'today'
         },
         {
             title: 'Groups', route: '', icon: 'people_outline'
-        },
+        },*/
         {
             title: 'Settings', route: '/settings', icon: 'build'
         }
@@ -111,9 +111,12 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.open = 'false';
         this._store.dispatch(new settings.CloseDrawerAction());
     }
+    drawerWidth(): string {
+        return this.open === 'false' ? '75px' : '220px';
+    }
 
     isActiveItem(title: any): boolean {
-        // console.log(this._titleService.getModule(), title);
+        console.log(this._titleService.getModule(), title);
         return this._titleService.getModule() === title;
     }
 

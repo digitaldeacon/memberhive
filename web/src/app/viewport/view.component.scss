@@ -1,19 +1,13 @@
 @import "../../theme.scss";
 
 html, body, mh-app, md-sidenav-container {
-  margin: 0;
-  width: 100%;
-  height: 100%;
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   main {
     min-height: 100%;
-    .main-content {
-      padding: 1em;
-      box-sizing: border-box;
-    }
+    background-color: #e0e0e0;
     .mat-sidenav {
       min-width: 30vw;
       .mat-button {
@@ -32,11 +26,6 @@ html, body, mh-app, md-sidenav-container {
     }
   }
 }
-.main-content {
-  width: 100%;
-  height: 100%;
-  box-sizing: border-box;
-}
 md-nav-list {
   .menu-toggle {
     width: 100%;
@@ -44,47 +33,31 @@ md-nav-list {
     margin-top: 5px;
   }
 }
-
-.top-toolbar {
-  .md-icon-logo {
-    padding: 0 15px 0 15px;
+.material-icons.mdl-badge[data-badge]::after,
+.material-label.mdl-badge[data-badge]::after {
+  font-size: .3em;
+  width: 2em;
+  height: 2em;
+}
+.material-icons.mdl-badge[data-badge]::after {
+  top: -1em;
+  right: -1em;
+}
+.has-interactions {
+  background-color: mat-color($mh-app-warn, 400);
+  width: 30px;
+  height: 30px;
+  line-height: 0 !important;
+}
+.drawer {
+  background: rgb(56, 53, 53);
+  md-nav-list, .mat-list-item, .mat-icon {
+    color: #ffffff;
   }
-  md-toolbar-row {
-    height: 64px;
-  }
-  .search-box {
-    flex: 1 1 auto;
-    margin-right: 25px;
-  }
-  .material-icons.mdl-badge[data-badge]::after,
-  .material-label.mdl-badge[data-badge]::after {
-    font-size: .3em;
-    width: 2em;
-    height: 2em;
-  }
-  .material-icons.mdl-badge[data-badge]::after {
-    top: -1em;
-    right: -1em;
-  }
-  .has-interactions {
-    background-color: mat-color($mh-app-warn, 400);
-    width: 30px;
-    height: 30px;
-    line-height: 0 !important;
+  .mat-divider {
+    border-top-color: #666;
   }
 }
-.sidenav-container {
-  .drawer {
-    background: rgb(56, 53, 53);
-    md-nav-list, .mat-list-item {
-      color: #ffffff;
-    }
-    .mat-divider {
-      border-top-color: #666;
-    }
-  }
-}
-
 .active-list-item {
   border-color: mat-color($mh-app-warn, A400);
   border-width: 0 3px 0 0;

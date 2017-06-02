@@ -22,8 +22,9 @@ export class SettingsEffects {
         .ofType(actions.LIST_SETTINGS)
         .map((action: actions.ListSettingAction) => action.payload)
         .switchMap(() =>
-            this.http.get('settings/list')
+            this.http.get('settings/list') // TODO: add personId to fetch user settings too
                 .map((r: any[]) => new actions.ListSettingSuccessAction(r))
+            // TODO: catch errors
         );
 
     @Effect()
@@ -33,6 +34,7 @@ export class SettingsEffects {
         .switchMap((payload: SettingsPayload) =>
             this.http.post('settings/update-or-create', payload)
             .map((r: any) => new actions.UpdateSettingSuccessAction(r))
+            // TODO: catch errors
         );
 
     constructor(private actions$: Actions,

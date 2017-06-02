@@ -5,7 +5,7 @@ html, body {
   width: 100%;
   min-height: 100%;
   height: 100%;
-  background-color: #f5f5f5;
+  background-color: #e0e0e0 !important;
   font-family: $mat-font-family;
   color: #202020;
 }
@@ -13,14 +13,12 @@ mh-app {
   height: 100%;
   width: 100%;
 }
-
 .shout-success {
   background: mat-color($mh-app-green, 500) !important;
 }
 .shout-warn {
   background: mat-color($mh-app-warn, A400) !important;
 }
-
 .date-rounded {
   font-weight: 600;
   font-size: 14px;
@@ -35,7 +33,6 @@ mh-app {
   text-align: center;
   padding: 2px;
 }
-
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {
   max-width: none !important;
@@ -44,6 +41,32 @@ mh-app {
   .mat-card-header {
     .mat-card-header-text {
       width: 100% !important;
+    }
+  }
+}
+.main-content {
+  padding: 0.8em;
+  box-sizing: border-box;
+}
+.mat-icon.md-icon-logo {
+  width: 38px;
+}
+.td-layout-manage-list {
+  .mat-sidenav {
+    background: rgb(56, 53, 53);
+    .list {
+      .mat-nav-list {
+        background: rgb(56, 53, 53);
+        .mat-list-item, .mat-icon {
+          color: #ffffff;
+          h4 {
+            font-size: 16px;
+          }
+        }
+      }
+    }
+    .mat-divider {
+      border-top-color: #666;
     }
   }
 }

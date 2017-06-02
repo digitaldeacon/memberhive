@@ -21,6 +21,8 @@
       "styles": [
         "../node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss",
         "../node_modules/material-design-icons/iconfont/material-icons.css",
+        "../node_modules/dragula/dist/dragula.css",
+        "../node_modules/@covalent/core/common/platform.scss",
         "styles.scss",
         "theme.scss"
       ],

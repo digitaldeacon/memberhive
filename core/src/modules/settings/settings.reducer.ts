@@ -34,6 +34,25 @@ export function settingsReducer(state: SettingsState = initialState,
             });
         }
 
+        case actions.LIST_SETTINGS_SUCCESS: {
+            const settings: any = action.payload;
+            let people: any = state.people;
+
+            if (settings.PEOPLE_LIST) {
+                people = Object.assign({}, state.people, {
+                    list: JSON.parse(settings.PEOPLE_LIST.value)
+                });
+            }
+
+            return {
+                loaded: true,
+                loading: false,
+                layout: settings.layout ? settings.layout : state.layout,
+                people: people ? people : state.people,
+                profile: settings.profile ? settings.profile : state.profile
+            };
+        }
+
         case actions.UPDATE_SETTINGS: {
             let peopleList: Array<string> = state.people.list;
             let settingPayload: SettingsPayload = action.payload;

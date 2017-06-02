@@ -1,43 +1,25 @@
-<div class="flex-container" fxLayout='column'>
-    <md-card class="flex-item" fxLayout="row">
-        <md-input-container fxFlex fxFlexFill>
-            <input mdInput
-                   placeholder="Filter..."
-                   i18n-placeholder
-                   type="search">
-        </md-input-container>
-        <button md-icon-button [mdMenuTriggerFor]="saveMenu"><md-icon>more_vert</md-icon></button>
-        <md-menu #saveMenu="mdMenu">
-            <button md-menu-item>
-                <span i18n>Save Filter</span>
-            </button>
-            <button md-menu-item>
-                <span i18n>Export Filter</span>
-            </button>
-            <button md-menu-item>
-                <span i18n>Import</span>
-            </button>
-        </md-menu>
-    </md-card>
-    <md-card *ngFor="let person of people$ | async" class="nav-list">
-        <a md-list-item [routerLink]="['/person/view', person.uid]">
-        <md-card-header>
-            <img md-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
-            <md-card-title>{{person.fullName}}</md-card-title>
-            <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
-                <ng-container *ngFor="let opt of options">
-                    <span md-line *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
-                    <span md-line *ngIf="opt === 'email'">{{person.email}}</span>
-                    <span md-line *ngIf="opt === 'age'">{{person.age}}</span>
-                    <span md-line *ngIf="opt === 'gender'">
-                        <b *ngIf="person.gender === 'f'" i18n>female</b>
-                        <b *ngIf="person.gender === 'm'" i18n>male</b>
-                    </span>
-                </ng-container>
-            </md-card-subtitle>
-        </md-card-header>
-        </a>
-    </md-card>
+<div class="main-content">
+    <mh-filter></mh-filter>
+    <div fxLayout='column'>
+        <md-card *ngFor="let person of people$ | async" class="nav-list">
+            <a md-list-item [routerLink]="['/person/view', person.uid]">
+                <md-card-header>
+                    <img md-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+                    <md-card-title>{{person.fullName}}</md-card-title>
+                    <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
+                        <ng-container *ngFor="let opt of options">
+                            <span md-line *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
+                            <span md-line *ngIf="opt === 'email'">{{person.email}}</span>
+                            <span md-line *ngIf="opt === 'age'">{{person.age}}</span>
+                            <span md-line *ngIf="opt === 'gender'">
+                                <b *ngIf="person.gender === 'f'" i18n>female</b>
+                                <b *ngIf="person.gender === 'm'" i18n>male</b>
+                            </span>
+                        </ng-container>
+                    </md-card-subtitle>
+                </md-card-header>
+            </a>
+        </md-card>
     <!--<md-nav-list>
         <a md-list-item *ngFor="let person of people$ | async" [routerLink]="['/person/view', person.uid]">
             <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
@@ -53,4 +35,5 @@
         </a>
         <md-divider md-inset> </md-divider>
     </md-nav-list>-->
+    </div>
 </div>

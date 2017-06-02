@@ -2,3 +2,6 @@
 # yarn lockfile v1
 
 
+"@covalent/core@^1.0.0-beta.4":
+  version "1.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@covalent/core/-/core-1.0.0-beta.4.tgz#1a7fea660d095663c9cea0b47ad58725130504c2"

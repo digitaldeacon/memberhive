@@ -1,4 +1,5 @@
 @import '~@angular/material/theming';
+// @import '~@covalent/core/theming/all-theme';
 @import './palette';
 // Plus imports for other components in your app.
 
@@ -23,3 +24,4 @@ $mh-app-theme: mat-light-theme($mh-app-primary, $mh-app-accent, $mh-app-warn);
 // Alternatively, you can import and @include the theme mixins for each component
 // that you are using.
 @include angular-material-theme($mh-app-theme);
+// @include covalent-theme($mh-app-theme);

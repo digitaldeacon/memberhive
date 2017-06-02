@@ -1,0 +1,20 @@
+<md-card fxLayout="row" class="filter-card">
+  <md-input-container fxFlex fxFlexFill>
+    <input mdInput
+           placeholder="Filter..."
+           i18n-placeholder
+           type="search">
+  </md-input-container>
+  <button md-icon-button [mdMenuTriggerFor]="saveMenu"><md-icon>more_vert</md-icon></button>
+  <md-menu #saveMenu="mdMenu">
+    <button md-menu-item>
+      <span i18n>Save Filter</span>
+    </button>
+    <button md-menu-item>
+      <span i18n>Export Filter</span>
+    </button>
+    <button md-menu-item>
+      <span i18n>Import</span>
+    </button>
+  </md-menu>
+</md-card>
