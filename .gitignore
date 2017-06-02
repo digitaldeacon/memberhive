@@ -33,3 +33,6 @@ mobile/typings/
 .DS_Store
 Thumbs.db
 .afdesign
+mobile/resources/android/
+mobile/resources/ios/
+web/src/assets/icons/memberhive.afdesign
