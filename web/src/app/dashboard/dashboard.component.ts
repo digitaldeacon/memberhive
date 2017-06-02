@@ -18,24 +18,30 @@ export class DashboardComponent {
     people$: Observable<Person[]>;
     currentUser$: Observable<Person>;
     now: string = new Date().toDateString();
+    dashletsRight: Array<string>;
+    dashletsLeft: Array<string>;
 
     constructor(titleService: TitleService,
-                dragulaService: DragulaService,
+                private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>) {
         titleService.changeModule('Dashboard');
         titleService.setTitle('Dasboard');
-        dragulaService.setOptions('dashlet', {
+        this._dragulaService.setOptions('dashlet', {
             moves: function (el: any, container: any, handle: any): boolean {
                 return handle.className.indexOf('handle') > -1;
             }
         });
-        dragulaService.drag.subscribe((value: any) => {
+        this._dragulaService.drag.subscribe((value: any) => {
             this.showDropzone = true;
         });
-        dragulaService.dragend.subscribe((value: any) => {
+        this._dragulaService.dragend.subscribe((value: any) => {
             this.showDropzone = false;
         });
         this.currentUser$ = this._store.select(app.getAuthPerson);
         this.people$ = this._store.select(app.getPeople);
+    }
+
+    ngOnDestroy(): void {
+        this._dragulaService.destroy('dashlet');
     }
 }

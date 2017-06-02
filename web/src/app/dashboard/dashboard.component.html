@@ -4,6 +4,7 @@
      fxFlexLayout="space-around center"
      fxLayoutGap="10px">
     <div [dragula]='"dashlet"'
+         [dragulaModel]='dashletsLeft'
          [class.dropable]="showDropzone"
          fxFlex.gt-sm="50">
         <mh-dashlet-birthdays
@@ -11,6 +12,7 @@
                 [user]="currentUser$ | async"></mh-dashlet-birthdays>
     </div>
     <div [dragula]='"dashlet"'
+         [dragulaModel]='dashletsRight'
          [class.dropable]="showDropzone"
          fxFlex.gt-sm="50">
         <mh-dashlet-interactions></mh-dashlet-interactions>
