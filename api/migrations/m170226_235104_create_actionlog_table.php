@@ -13,7 +13,8 @@ class m170226_235104_create_actionlog_table extends Migration
     public function up()
     {
         $this->createTable(
-            'actionlog', [
+            'actionlog',
+            [
             'id' => $this->primaryKey(),
             'context' => $this->string(),
             'refId' => $this->string(36),

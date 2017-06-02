@@ -10,30 +10,30 @@ import {
   MdListModule,
   ScrollDispatchModule } from '@angular/material';
 
-import { TdLayoutComponent } from './layout.component';
-import { TdLayoutNavComponent } from './layout-nav/layout-nav.component';
-import { TdLayoutNavListComponent } from './layout-nav-list/layout-nav-list.component';
-import { TdLayoutManageListComponent } from './layout-manage-list/layout-manage-list.component';
-import { TdLayoutFooterComponent } from './layout-footer/layout-footer.component';
+import { MhLayoutComponent } from './layout.component';
+import { MhLayoutNavComponent } from './layout-nav/layout-nav.component';
+import { MhLayoutNavListComponent } from './layout-nav-list/layout-nav-list.component';
+import { MhLayoutManageListComponent } from './layout-manage-list/layout-manage-list.component';
+import { MhLayoutFooterComponent } from './layout-footer/layout-footer.component';
 
 import {
-  TdNavigationDrawerComponent,
-  TdNavigationDrawerMenuDirective } from './navigation-drawer/navigation-drawer.component';
+  MhNavigationDrawerComponent,
+  MhNavigationDrawerMenuDirective } from './navigation-drawer/navigation-drawer.component';
 
 const TD_LAYOUTS: Type<any>[] = [
-  TdLayoutComponent,
-  TdLayoutNavComponent,
-  TdLayoutNavListComponent,
-  TdLayoutManageListComponent,
-  TdLayoutFooterComponent,
+  MhLayoutComponent,
+  MhLayoutNavComponent,
+  MhLayoutNavListComponent,
+  MhLayoutManageListComponent,
+  MhLayoutFooterComponent,
 
-  TdNavigationDrawerComponent,
-  TdNavigationDrawerMenuDirective,
+  MhNavigationDrawerComponent,
+  MhNavigationDrawerMenuDirective
 ];
 
-export { TdLayoutComponent, TdLayoutNavComponent, TdLayoutNavListComponent,
-          TdLayoutManageListComponent, TdLayoutFooterComponent,
-  TdNavigationDrawerComponent, TdNavigationDrawerMenuDirective };
+export { MhLayoutComponent, MhLayoutNavComponent, MhLayoutNavListComponent,
+          MhLayoutManageListComponent, MhLayoutFooterComponent,
+  MhNavigationDrawerComponent, MhNavigationDrawerMenuDirective };
 
 @NgModule({
   imports: [
@@ -45,14 +45,14 @@ export { TdLayoutComponent, TdLayoutNavComponent, TdLayoutNavListComponent,
     MdButtonModule,
     MdIconModule,
     MdCardModule,
-    MdListModule,
+    MdListModule
   ],
   declarations: [
-    TD_LAYOUTS,
+    TD_LAYOUTS
   ],
   exports: [
-    TD_LAYOUTS,
-  ],
+    TD_LAYOUTS
+  ]
 })
 export class MHLayoutModule {
 

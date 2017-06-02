@@ -3,14 +3,14 @@ import { Router } from '@angular/router';
 
 import { MdSidenav, MdSidenavToggleResult } from '@angular/material';
 
-import { TdLayoutComponent } from '../layout.component';
+import { MhLayoutComponent } from '../layout.component';
 
 @Component({
-  selector: 'td-layout-nav-list',
+  selector: 'mh-layout-nav-list',
   styleUrls: ['./layout-nav-list.component.scss' ],
-  templateUrl: './layout-nav-list.component.html',
+  templateUrl: './layout-nav-list.component.html'
 })
-export class TdLayoutNavListComponent {
+export class MhLayoutNavListComponent {
 
   @ViewChild(MdSidenav) _sideNav: MdSidenav;
 
@@ -83,7 +83,7 @@ export class TdLayoutNavListComponent {
   @Input('navigationRoute') navigationRoute: string;
 
   /**
-   * Checks if there is a [TdLayoutComponent] as parent.
+   * Checks if there is a [MhLayoutComponent] as parent.
    */
   get isMainSidenavAvailable(): boolean {
     return !!this._layout;
@@ -104,7 +104,7 @@ export class TdLayoutNavListComponent {
     return !!this._router && !!this.navigationRoute;
   }
 
-  constructor(@Optional() @Inject(forwardRef(() => TdLayoutComponent)) private _layout: TdLayoutComponent,
+  constructor(@Optional() @Inject(forwardRef(() => MhLayoutComponent)) private _layout: MhLayoutComponent,
               @Optional() private _router: Router) {}
 
   handleNavigationClick(): void {
@@ -114,28 +114,28 @@ export class TdLayoutNavListComponent {
   }
 
   /**
-   * Proxy toggle method to access sidenav from outside (from td-layout template).
+   * Proxy toggle method to access sidenav from outside (from mh-layout template).
    */
   public toggle(): Promise<MdSidenavToggleResult> {
     return this._sideNav.toggle(!this._sideNav.opened);
   }
 
   /**
-   * Proxy open method to access sidenav from outside (from td-layout template).
+   * Proxy open method to access sidenav from outside (from mh-layout template).
    */
   public open(): Promise<MdSidenavToggleResult> {
     return this._sideNav.open();
   }
 
   /**
-   * Proxy close method to access sidenav from outside (from td-layout template).
+   * Proxy close method to access sidenav from outside (from mh-layout template).
    */
   public close(): Promise<MdSidenavToggleResult> {
     return this._sideNav.close();
   }
 
   /**
-   * If main sidenav is available, it will open the sidenav of the parent [TdLayoutComponent].
+   * If main sidenav is available, it will open the sidenav of the parent [MhLayoutComponent].
    */
   openMainSidenav(): void {
     this._layout.toggle();

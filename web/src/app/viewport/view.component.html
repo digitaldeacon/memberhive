@@ -107,8 +107,8 @@
 </md-sidenav-container>-->
 
 
-<td-layout #layout>
-    <td-navigation-drawer
+<mh-layout #layout>
+    <mh-navigation-drawer
             sidenavTitle="MemberHive"
             logo="assets:memberhive"
             name="{{currentUser?.fullName}}"
@@ -120,16 +120,15 @@
                    (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
             </ng-template>
         </md-nav-list>
-        <md-nav-list td-navigation-drawer-menu>
+        <md-nav-list mhNavigationDrawerMenu>
             <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>Sign out</a>
         </md-nav-list>
-    </td-navigation-drawer>
-    <td-layout-nav logo="assets:memberhive">
-        <div td-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
+    </mh-navigation-drawer>
+    <mh-layout-nav logo="assets:memberhive">
+        <div mh-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
             <span fxFlex="15" fxHide.xs fxHide.sm></span>
             <mh-search-box fxFlex></mh-search-box>
-            <button
-                    md-icon-button
+            <button md-icon-button
                     [mdMenuTriggerFor]="interactions"
                     mdTooltip="Interactions"
                     [class.has-interactions]="(myOutstanding | async)?.length">
@@ -162,8 +161,8 @@
                 </button>
             </md-menu>
         </div>
-        <td-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
-            <md-toolbar td-sidenav-content fxLayoutAlign="center center" class="drawer">
+        <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
+            <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
                 <md-nav-list>
                     <a md-list-item>
                         <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
@@ -172,7 +171,7 @@
                 </md-nav-list>
                 <md-divider color="white"></md-divider>
             </md-toolbar>
-            <md-nav-list td-sidenav-content>
+            <md-nav-list mh-sidenav-content>
                 <a *ngFor="let item of routes"
                    md-list-item
                    [routerLink]="[item.route]"
@@ -189,13 +188,13 @@
                     <md-icon md-list-icon>last_page</md-icon>
                 </a>
             </md-nav-list>
-            <div td-toolbar-content layout="row" layout-align="start center" flex>
+            <div mh-toolbar-content layout="row" layout-align="start center" flex>
                 <span>{{getTitle()}}</span>
                 <span flex></span>
             </div>
             <div class="main-content">
                 <router-outlet></router-outlet>
             </div>
-        </td-layout-manage-list>
-    </td-layout-nav>
-</td-layout>
+        </mh-layout-manage-list>
+    </mh-layout-nav>
+</mh-layout>

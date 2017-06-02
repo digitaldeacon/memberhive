@@ -13,11 +13,13 @@ import {
     MdMenuModule
 } from '@angular/material';
 
-import { MHLayoutModule } from '../layout/layout.module'
+import { MHLayoutModule } from '../layout/layout.module';
 
 import {
     CovalentLoadingModule
 } from '@covalent/core';
+import { MhFadeDirective } from './animations/fade/fade.directive';
+import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
 import { ShoutService } from './shout.service';
 import { InteractionService } from './interaction.service';
@@ -38,7 +40,9 @@ const COVALENT_MODULES: any[] = [
 @NgModule({
     declarations: [
         NotifyboxComponent,
-        FilterComponent
+        FilterComponent,
+        MhFadeDirective,
+        MhToggleDirective
     ], // directives, components, and pipes owned by this NgModule
     imports: [
         MATERIAL_MODULES,

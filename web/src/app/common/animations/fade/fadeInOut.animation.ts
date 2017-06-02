@@ -1,26 +1,26 @@
 import { trigger, state, style, transition, animate, AnimationTriggerMetadata } from '@angular/animations';
 
 /**
- * Function TdFadeInOutAnimation
+ * Function MhFadeInOutAnimation
  *
  * params:
  * * duration: Duration of animation in miliseconds. Defaults to 150 ms.
  *
  * Returns an [AnimationTriggerMetadata] object with states for a fading animation.
  *
- * usage: [@tdFadeInOut]="true|false"
+ * usage: [@MhFadeInOut]="true|false"
  */
-export function TdFadeInOutAnimation(duration: number = 150): AnimationTriggerMetadata {
-  return trigger('tdFadeInOut', [
+export function MhFadeInOutAnimation(duration: number = 150): AnimationTriggerMetadata {
+  return trigger('mhFadeInOut', [
     state('0', style({
       opacity: '0',
-      display: 'none',
+      display: 'none'
     })),
     state('1',  style({
       opacity: '*',
-      display: '*',
+      display: '*'
     })),
     transition('0 => 1', animate(duration + 'ms ease-in')),
-    transition('1 => 0', animate(duration + 'ms ease-out')),
+    transition('1 => 0', animate(duration + 'ms ease-out'))
   ]);
 }

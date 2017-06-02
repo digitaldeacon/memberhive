@@ -3,11 +3,11 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MdSidenav, MdSidenavToggleResult } from '@angular/material';
 
 @Component({
-  selector: 'td-layout',
+  selector: 'mh-layout',
   styleUrls: ['./layout.component.scss' ],
-  templateUrl: './layout.component.html',
+  templateUrl: './layout.component.html'
 })
-export class TdLayoutComponent {
+export class MhLayoutComponent {
 
   @ViewChild(MdSidenav) sidenav: MdSidenav;
 
@@ -53,21 +53,21 @@ export class TdLayoutComponent {
   }
 
   /**
-   * Proxy toggle method to access sidenav from outside (from td-layout template).
+   * Proxy toggle method to access sidenav from outside (from mh-layout template).
    */
   public toggle(): Promise<MdSidenavToggleResult> {
     return this.sidenav.toggle(!this.sidenav.opened);
   }
 
   /**
-   * Proxy open method to access sidenav from outside (from td-layout template).
+   * Proxy open method to access sidenav from outside (from mh-layout template).
    */
   public open(): Promise<MdSidenavToggleResult> {
     return this.sidenav.open();
   }
 
   /**
-   * Proxy close method to access sidenav from outside (from td-layout template).
+   * Proxy close method to access sidenav from outside (from mh-layout template).
    */
   public close(): Promise<MdSidenavToggleResult> {
     return this.sidenav.close();

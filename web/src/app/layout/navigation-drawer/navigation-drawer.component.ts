@@ -6,24 +6,24 @@ import { Subscription } from 'rxjs/Subscription';
 
 import { MdSidenavToggleResult } from '@angular/material';
 
-import { TdLayoutComponent } from '../layout.component';
+import { MhLayoutComponent } from '../layout.component';
 
-import { TdCollapseAnimation } from '../../common/animations/collapse/collapse.animation';
+import { MhCollapseAnimation } from '../../common/animations/collapse/collapse.animation';
 
 @Directive({
-  selector: '[td-navigation-drawer-menu]',
+  selector: '[mhNavigationDrawerMenu]'
 })
-export class TdNavigationDrawerMenuDirective {
+export class MhNavigationDrawerMenuDirective {
 
 }
 
 @Component({
-  selector: 'td-navigation-drawer',
+  selector: 'mh-navigation-drawer',
   styleUrls: ['./navigation-drawer.component.scss' ],
   templateUrl: './navigation-drawer.component.html',
-  animations: [ TdCollapseAnimation() ],
+  animations: [ MhCollapseAnimation() ]
 })
-export class TdNavigationDrawerComponent implements OnInit, OnDestroy {
+export class MhNavigationDrawerComponent implements OnInit, OnDestroy {
 
   private _closeSubscription: Subscription;
   private _menuToggled: boolean = false;
@@ -33,10 +33,10 @@ export class TdNavigationDrawerComponent implements OnInit, OnDestroy {
     return this._menuToggled;
   }
 
-  @ContentChildren(TdNavigationDrawerMenuDirective) _drawerMenu: QueryList<TdNavigationDrawerMenuDirective>;
+  @ContentChildren(MhNavigationDrawerMenuDirective) _drawerMenu: QueryList<MhNavigationDrawerMenuDirective>;
 
   /**
-   * Checks if there is a [TdNavigationDrawerMenuDirective] as content.
+   * Checks if there is a [MhNavigationDrawerMenuDirective] as content.
    */
   get isMenuAvailable(): boolean {
     return this._drawerMenu.length > 0;
@@ -127,7 +127,7 @@ export class TdNavigationDrawerComponent implements OnInit, OnDestroy {
     return !!this._router && !!this.navigationRoute;
   }
 
-  constructor(@Inject(forwardRef(() => TdLayoutComponent)) private _layout: TdLayoutComponent,
+  constructor(@Inject(forwardRef(() => MhLayoutComponent)) private _layout: MhLayoutComponent,
               @Optional() private _router: Router,
               private _sanitize: DomSanitizer) {}
 
@@ -158,21 +158,21 @@ export class TdNavigationDrawerComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Proxy toggle method to access sidenav from outside (from td-layout template).
+   * Proxy toggle method to access sidenav from outside (from mh-layout template).
    */
   public toggle(): Promise<MdSidenavToggleResult> {
     return this._layout.toggle();
   }
 
   /**
-   * Proxy open method to access sidenav from outside (from td-layout template).
+   * Proxy open method to access sidenav from outside (from mh-layout template).
    */
   public open(): Promise<MdSidenavToggleResult> {
     return this._layout.open();
   }
 
   /**
-   * Proxy close method to access sidenav from outside (from td-layout template).
+   * Proxy close method to access sidenav from outside (from mh-layout template).
    */
   public close(): Promise<MdSidenavToggleResult> {
     return this._layout.close();

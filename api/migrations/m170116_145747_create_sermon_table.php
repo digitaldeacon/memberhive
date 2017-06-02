@@ -13,7 +13,8 @@ class m170116_145747_create_sermon_table extends Migration
     public function up()
     {
         $this->createTable(
-            'sermon', [
+            'sermon',
+            [
             'id' => $this->primaryKey(),
             'title' => $this->string(),
             'language' => $this->string(),

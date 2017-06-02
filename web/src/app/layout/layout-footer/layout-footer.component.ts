@@ -2,10 +2,10 @@ import { Component } from '@angular/core';
 
 @Component({
   /* tslint:disable-next-line */
-  selector: 'td-layout-footer,td-layout-footer-inner',
+  selector: 'mh-layout-footer,mh-layout-footer-inner',
   styleUrls: ['./layout-footer.component.scss' ],
-  templateUrl: './layout-footer.component.html',
+  templateUrl: './layout-footer.component.html'
 })
-export class TdLayoutFooterComponent {
+export class MhLayoutFooterComponent {
 
 }

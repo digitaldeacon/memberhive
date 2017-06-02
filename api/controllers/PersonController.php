@@ -209,7 +209,8 @@ class PersonController extends MHController
     {
         \Yii::$app->mailer
             ->compose(
-                'newpw', [
+                'newpw',
+                [
                     'name' => $person->firstName,
                     'username' => $person->user->username,
                     'password' => $pw

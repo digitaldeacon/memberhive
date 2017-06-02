@@ -1,7 +1,7 @@
 <div layout="column" layout-fill>
   <md-toolbar [color]="color">
     <button md-icon-button
-            class="td-menu-button"
+            class="mh-menu-button"
             *ngIf="isMainSidenavAvailable"
             (click)="openMainSidenav()">
       <md-icon class="md-24">menu</md-icon>
@@ -16,10 +16,10 @@
       <md-icon *ngIf="logo && !icon" class="md-icon-logo" [svgIcon]="logo"></md-icon>
       <span *ngIf="toolbarTitle">{{toolbarTitle}}</span>
     </span>
-    <ng-content select="[td-toolbar-content]"></ng-content>
+    <ng-content select="[mh-toolbar-content]"></ng-content>
   </md-toolbar>
   <div flex layout="column" class="content md-content" cdkScrollable>
     <ng-content></ng-content>
   </div>
-  <ng-content select="td-layout-footer"></ng-content>
+  <ng-content select="mh-layout-footer"></ng-content>
 </div>

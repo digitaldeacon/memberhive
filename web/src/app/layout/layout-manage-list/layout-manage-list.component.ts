@@ -3,11 +3,11 @@ import { Component, Input, ViewChild } from '@angular/core';
 import { MdSidenav, MdSidenavToggleResult } from '@angular/material';
 
 @Component({
-  selector: 'td-layout-manage-list',
+  selector: 'mh-layout-manage-list',
   styleUrls: ['./layout-manage-list.component.scss' ],
-  templateUrl: './layout-manage-list.component.html',
+  templateUrl: './layout-manage-list.component.html'
 })
-export class TdLayoutManageListComponent {
+export class MhLayoutManageListComponent {
 
   @ViewChild(MdSidenav) _sideNav: MdSidenav;
 
@@ -53,21 +53,21 @@ export class TdLayoutManageListComponent {
   }
 
   /**
-   * Proxy toggle method to access sidenav from outside (from td-layout template).
+   * Proxy toggle method to access sidenav from outside (from mh-layout template).
    */
   public toggle(): Promise<MdSidenavToggleResult> {
     return this._sideNav.toggle(!this._sideNav.opened);
   }
 
   /**
-   * Proxy open method to access sidenav from outside (from td-layout template).
+   * Proxy open method to access sidenav from outside (from mh-layout template).
    */
   public open(): Promise<MdSidenavToggleResult> {
     return this._sideNav.open();
   }
 
   /**
-   * Proxy close method to access sidenav from outside (from td-layout template).
+   * Proxy close method to access sidenav from outside (from mh-layout template).
    */
   public close(): Promise<MdSidenavToggleResult> {
     return this._sideNav.close();

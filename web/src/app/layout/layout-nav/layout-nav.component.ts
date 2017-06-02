@@ -1,13 +1,13 @@
 import { Component, Input, forwardRef, Optional, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { TdLayoutComponent } from '../layout.component';
+import { MhLayoutComponent } from '../layout.component';
 
 @Component({
-  selector: 'td-layout-nav',
+  selector: 'mh-layout-nav',
   styleUrls: ['./layout-nav.component.scss' ],
-  templateUrl: './layout-nav.component.html',
+  templateUrl: './layout-nav.component.html'
 })
-export class TdLayoutNavComponent {
+export class MhLayoutNavComponent {
 
   /**
    * toolbarTitle?: string
@@ -47,7 +47,7 @@ export class TdLayoutNavComponent {
   @Input('navigationRoute') navigationRoute: string;
 
   /**
-   * Checks if there is a [TdLayoutComponent] as parent.
+   * Checks if there is a [MhLayoutComponent] as parent.
    */
   get isMainSidenavAvailable(): boolean {
     return !!this._layout;
@@ -60,7 +60,7 @@ export class TdLayoutNavComponent {
     return !!this._router && !!this.navigationRoute;
   }
 
-  constructor(@Optional() @Inject(forwardRef(() => TdLayoutComponent)) private _layout: TdLayoutComponent,
+  constructor(@Optional() @Inject(forwardRef(() => MhLayoutComponent)) private _layout: MhLayoutComponent,
               @Optional() private _router: Router) {}
 
   handleNavigationClick(): void {
@@ -70,7 +70,7 @@ export class TdLayoutNavComponent {
   }
 
   /**
-   * If main sidenav is available, it will open the sidenav of the parent [TdLayoutComponent].
+   * If main sidenav is available, it will open the sidenav of the parent [MhLayoutComponent].
    */
   openMainSidenav(): void {
     this._layout.toggle();

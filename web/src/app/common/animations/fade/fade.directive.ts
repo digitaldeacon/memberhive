@@ -1,14 +1,25 @@
 import {
-  Directive, ElementRef, Input, Output, EventEmitter, HostBinding, Renderer2, OnInit, ChangeDetectorRef, AnimationPlayer,
+  Directive,
+  ElementRef,
+  Input,
+  Output,
+  EventEmitter,
+  HostBinding,
+  Renderer2,
+  ChangeDetectorRef,
+  AnimationPlayer
 } from '@angular/core';
-import { ɵAnimation as Animation, AnimationDriver,
-         ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵDomAnimationEngine as DomAnimationEngine } from '@angular/animations/browser';
+import { ɵAnimation as Animation,
+         AnimationDriver,
+         ɵAnimationStyleNormalizer as AnimationStyleNormalizer,
+         ɵDomAnimationEngine as DomAnimationEngine
+} from '@angular/animations/browser';
 import { animate } from '@angular/animations';
 
 @Directive({
-  selector: '[tdFade]',
+  selector: '[mhFade]'
 })
-export class TdFadeDirective {
+export class MhFadeDirective {
 
   private _state: boolean;
   private _defaultOpacity: string;
@@ -24,10 +35,10 @@ export class TdFadeDirective {
   @Input() duration: number = 150;
 
   /**
-   * tdFade: boolean
+   * MhFade: boolean
    * Fades element, FadesOut if its 'true', FadesIn if its 'false'.
    */
-  @Input('tdFade')
+  @Input('mhFade')
   set state(state: boolean) {
     this._state = state;
     if (this._animationPlayer) {
@@ -85,7 +96,7 @@ export class TdFadeDirective {
     this._defaultOpacity = !this._element.nativeElement.style.opacity ? 1 : this._element.nativeElement.style.opacity;
     this._animationPlayer = this._engine.animateTimeline(
         this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-out')],
+        new Animation([animate(this.duration + 'ms ease-out')]
       ).buildTimelines([{opacity: this._defaultOpacity}], [{opacity: 0}]));
     this._changeDetectorRef.markForCheck();
     this._animationPlayer.play();
@@ -104,7 +115,7 @@ export class TdFadeDirective {
     this._changeDetectorRef.markForCheck();
     this._animationPlayer = this._engine.animateTimeline(
         this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-in')],
+        new Animation([animate(this.duration + 'ms ease-in')]
       ).buildTimelines([{opacity: 0}], [{opacity: this._defaultOpacity}]));
     this._animationPlayer.play();
     this._animationPlayer.onDone(() => {

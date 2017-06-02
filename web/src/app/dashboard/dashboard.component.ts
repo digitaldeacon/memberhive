@@ -25,14 +25,14 @@ export class DashboardComponent {
         titleService.changeModule('Dashboard');
         titleService.setTitle('Dasboard');
         dragulaService.setOptions('dashlet', {
-            moves: function (el, container, handle, sibling) {
+            moves: function (el: any, container: any, handle: any): boolean {
                 return handle.className.indexOf('handle') > -1;
             }
         });
-        dragulaService.drag.subscribe((value) => {
+        dragulaService.drag.subscribe((value: any) => {
             this.showDropzone = true;
         });
-        dragulaService.dragend.subscribe((value) => {
+        dragulaService.dragend.subscribe((value: any) => {
             this.showDropzone = false;
         });
         this.currentUser$ = this._store.select(app.getAuthPerson);

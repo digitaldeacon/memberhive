@@ -13,7 +13,7 @@
   min-height: 100%;
   height: 100%;
   overflow: hidden;
-  md-sidenav-container.td-layout-manage-list {
+  md-sidenav-container.mh-layout-manage-list {
     & > md-sidenav {
       &.mat-sidenav-opened,
       &.mat-sidenav-opening,
@@ -28,7 +28,7 @@
   }
 }
 :host /deep/ {
-  md-sidenav-container.td-layout-manage-list {
+  md-sidenav-container.mh-layout-manage-list {
     & > .mat-sidenav-content {
       flex-grow: 1;
       background-color: #e0e0e0 !important;

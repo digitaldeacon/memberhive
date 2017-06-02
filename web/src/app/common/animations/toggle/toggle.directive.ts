@@ -1,12 +1,17 @@
-import { Directive, ElementRef, Input, HostBinding, Renderer2, AnimationPlayer, OnInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Directive, ElementRef, Input, HostBinding,
+  Renderer2, AnimationPlayer, ChangeDetectorRef
+} from '@angular/core';
 import { ɵAnimation as Animation, AnimationDriver,
-         ɵAnimationStyleNormalizer as AnimationStyleNormalizer, ɵDomAnimationEngine as DomAnimationEngine } from '@angular/animations/browser';
+         ɵAnimationStyleNormalizer as AnimationStyleNormalizer,
+         ɵDomAnimationEngine as DomAnimationEngine
+} from '@angular/animations/browser';
 import { animate } from '@angular/animations';
 
 @Directive({
-  selector: '[tdToggle]',
+  selector: '[mhToggle]'
 })
-export class TdToggleDirective {
+export class MhToggleDirective {
 
   private _state: boolean;
   private _defaultOverflow: string;
@@ -22,10 +27,10 @@ export class TdToggleDirective {
   @Input() duration: number = 150;
 
   /**
-   * tdToggle: boolean
+   * MhToggle: boolean
    * Toggles element, hides if its 'true', shows if its 'false'.
    */
-  @Input('tdToggle')
+  @Input('mhToggle')
   set state(state: boolean) {
     this._state = state;
     if (this._animationPlayer) {
@@ -72,7 +77,7 @@ export class TdToggleDirective {
     this._defaultOverflow = this._element.nativeElement.style.overflow;
     this._animationPlayer = this._engine.animateTimeline(
         this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-out')],
+        new Animation([animate(this.duration + 'ms ease-out')]
       ).buildTimelines([{height: this._element.nativeElement.scrollHeight + 'px'}], [{height: 0}]));
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
     this._changeDetectorRef.markForCheck();
@@ -94,7 +99,7 @@ export class TdToggleDirective {
     this._changeDetectorRef.markForCheck();
     this._animationPlayer = this._engine.animateTimeline(
         this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-in')],
+        new Animation([animate(this.duration + 'ms ease-in')]
       ).buildTimelines([{height: 0}], [{height: this._element.nativeElement.scrollHeight + 'px'}]));
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
     this._animationPlayer.play();

@@ -38,7 +38,4 @@ import { TitleService } from 'mh-core';
         DashletEditDialogComponent
     ]
 })
-export class DashboardModule {
-    constructor(titleService: TitleService) {
-    }
-}
+export class DashboardModule {}

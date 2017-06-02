@@ -33,7 +33,7 @@ class SearchController extends MHController
 
         foreach (Person::find()->where($query)->each() as $person) {
             /**
- * $person Person 
+ * $person Person
 */
             $ret[] = [
                 'id' => $person->id,

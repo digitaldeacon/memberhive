@@ -1,4 +1,4 @@
-<md-toolbar [color]="color" [style.background-image]="backgroundImage" [class.td-toolbar-background]="!!isBackgroundAvailable">
+<md-toolbar [color]="color" [style.background-image]="backgroundImage" [class.mh-toolbar-background]="!!isBackgroundAvailable">
   <div layout="column" flex>
     <span *ngIf="icon || logo || sidenavTitle"
           [class.cursor-pointer]="routerEnabled"
@@ -23,5 +23,5 @@
   <ng-content></ng-content>
 </div>
 <div [@tdCollapse]="!menuToggled">
-  <ng-content select="[td-navigation-drawer-menu]"></ng-content>
+  <ng-content select="[mh-navigation-drawer-menu]"></ng-content>
 </div>
