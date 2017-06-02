@@ -3,12 +3,16 @@
      fxLayout.gt-sm="row"
      fxFlexLayout="space-around center"
      fxLayoutGap="10px">
-    <div [dragula]='"dashlet"' fxFlex.gt-sm="50">
+    <div [dragula]='"dashlet"'
+         [class.dropable]="showDropzone"
+         fxFlex.gt-sm="50">
         <mh-dashlet-birthdays
                 [people]="people$ | async"
                 [user]="currentUser$ | async"></mh-dashlet-birthdays>
     </div>
-    <div [dragula]='"dashlet"' fxFlex.gt-sm="50">
+    <div [dragula]='"dashlet"'
+         [class.dropable]="showDropzone"
+         fxFlex.gt-sm="50">
         <mh-dashlet-interactions></mh-dashlet-interactions>
     </div>
  </div>

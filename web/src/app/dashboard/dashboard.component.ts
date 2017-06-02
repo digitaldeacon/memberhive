@@ -9,11 +9,12 @@ import { Person } from 'mh-core';
 import * as app from '../app.store';
 
 @Component({
-    moduleId: 'mh-dashboard',
     selector: 'mh-dashboard',
+    styleUrls: ['./dashboard.component.scss'],
     templateUrl: './dashboard.component.html'
 })
 export class DashboardComponent {
+    showDropzone: boolean = false;
     people$: Observable<Person[]>;
     currentUser$: Observable<Person>;
     now: string = new Date().toDateString();
@@ -24,9 +25,15 @@ export class DashboardComponent {
         titleService.changeModule('Dashboard');
         titleService.setTitle('Dasboard');
         dragulaService.setOptions('dashlet', {
-            moves: function (el, container, handle) {
+            moves: function (el, container, handle, sibling) {
                 return handle.className.indexOf('handle') > -1;
             }
+        });
+        dragulaService.drag.subscribe((value) => {
+            this.showDropzone = true;
+        });
+        dragulaService.dragend.subscribe((value) => {
+            this.showDropzone = false;
         });
         this.currentUser$ = this._store.select(app.getAuthPerson);
         this.people$ = this._store.select(app.getPeople);
