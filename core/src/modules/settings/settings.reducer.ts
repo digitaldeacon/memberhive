@@ -10,7 +10,8 @@ export interface SettingsState {
     people: {
         list?: Array<string>
     };
-    profile: any;
+    profile?: any;
+    dashboard?: any;
 }
 
 const initialState: SettingsState = {
@@ -22,7 +23,8 @@ const initialState: SettingsState = {
     people: {
         list: ['email']
     },
-    profile: {}
+    profile: {},
+    dashboard: {}
 };
 
 export function settingsReducer(state: SettingsState = initialState,
