@@ -116,7 +116,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     isActiveItem(title: any): boolean {
-        console.log(this._titleService.getModule(), title);
+        // console.log(this._titleService.getModule(), title);
         return this._titleService.getModule() === title;
     }
 

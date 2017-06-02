@@ -4,6 +4,7 @@ import { MHCommonModule } from '../common/common.module';
 import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
+import { DragulaModule } from 'ng2-dragula';
 
 import { DashboardComponent } from './dashboard.component';
 import { DashboardRoutingModule } from './dashboard-routing.module';
@@ -28,7 +29,8 @@ import { TitleService } from 'mh-core';
         AppMaterialModule,
         DashboardRoutingModule,
         FlexLayoutModule,
-        MomentModule
+        MomentModule,
+        DragulaModule
     ],
     providers: [
     ],
