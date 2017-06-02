@@ -13,7 +13,7 @@ import * as app from '../app.store';
     styleUrls: ['./dashboard.component.scss'],
     templateUrl: './dashboard.component.html'
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnDestroy {
     showDropzone: boolean = false;
     people$: Observable<Person[]>;
     currentUser$: Observable<Person>;
