@@ -103,8 +103,8 @@
   resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.1.3.tgz#eb9d1c302a0172815f9a573310d9be0bdeb845ae"
 
 "@angular/material@https://github.com/angular/material2-builds.git":
-  version "2.0.0-beta.6-52b6692"
-  resolved "https://github.com/angular/material2-builds.git#f6dc6ce9be904432c0754b78603adde3c4b44351"
+  version "2.0.0-beta.6-cebb516"
+  resolved "https://github.com/angular/material2-builds.git#a7bad8f09b676ae051a0a5f1f026fa1ad89ebcff"
   dependencies:
     tslib "^1.7.1"
 
@@ -183,16 +183,16 @@
   resolved "https://registry.yarnpkg.com/@types/jasmine/-/jasmine-2.5.38.tgz#a4379124c4921d4e21de54ec74669c9e9b356717"
 
 "@types/jquery@*":
-  version "2.0.45"
-  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.45.tgz#cb99133aac1d997a820d6cf7258c91291c0a2adf"
+  version "2.0.46"
+  resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-2.0.46.tgz#c245426299b43c4bb75f44b813090bd5918d00f2"
 
 "@types/node@^6.0.46":
-  version "6.0.74"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.74.tgz#b0cd70c87c7ba950f569dd42035b10656295e259"
+  version "6.0.77"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.77.tgz#3e4d569a427f17085e1ee4ecd3c31befb56af7b5"
 
 "@types/node@^7.0.12":
-  version "7.0.23"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.23.tgz#ededfd92e61046c32fcad56ea7e1101733fad4a4"
+  version "7.0.27"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.27.tgz#ba5e1a87aca2b4f5817289615ffe56472927687e"
 
 "@types/q@^0.0.32":
   version "0.0.32"
@@ -319,8 +319,8 @@ append-transform@^0.4.0:
     default-require-extensions "^1.0.0"
 
 aproba@^1.0.3:
-  version "1.1.1"
-  resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.1.tgz#95d3600f07710aa0e9298c726ad5ecf2eacbabab"
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/aproba/-/aproba-1.1.2.tgz#45c6629094de4e96f693ef7eab74ae079c240fc1"
 
 are-we-there-yet@~1.1.2:
   version "1.1.4"
@@ -789,8 +789,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000676"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000676.tgz#82ea578237637c8ff34a28acaade373b624c4ea8"
+  version "1.0.30000677"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000677.tgz#13f421d40ae1434702103c494d2c4d716e2a8fcb"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3137,9 +3137,9 @@ ng2-dragula@^1.3.1:
   dependencies:
     dragula "^3.7.2"
 
-"ng2-img-cropper@https://github.com/digitaldeacon/angular2-img-cropper":
-  version "0.8.6"
-  resolved "https://github.com/digitaldeacon/angular2-img-cropper#c516fa232988684254e5b3f8d20913c33d16947e"
+ng2-img-cropper@^0.8.8:
+  version "0.8.8"
+  resolved "https://registry.yarnpkg.com/ng2-img-cropper/-/ng2-img-cropper-0.8.8.tgz#a8ce89c9d5c53e496da16b66b964c9774f332abc"
 
 ng2-webstorage@^1.5.0:
   version "1.8.0"
@@ -4261,8 +4261,8 @@ rxjs@^5.0.1, rxjs@^5.2.0:
     symbol-observable "^1.0.1"
 
 safe-buffer@^5.0.1:
-  version "5.0.1"
-  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
 
 sass-graph@^2.1.1:
   version "2.2.4"
@@ -4962,8 +4962,8 @@ uglify-js@3.0.x:
     source-map "~0.5.1"
 
 uglify-js@^2.6, uglify-js@^2.8.5:
-  version "2.8.27"
-  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.27.tgz#47787f912b0f242e5b984343be8e35e95f694c9c"
+  version "2.8.28"
+  resolved "https://registry.yarnpkg.com/uglify-js/-/uglify-js-2.8.28.tgz#e335032df9bb20dcb918f164589d5af47f38834a"
   dependencies:
     source-map "~0.5.1"
     yargs "~3.10.0"
