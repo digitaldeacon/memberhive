@@ -8,7 +8,7 @@ export interface AuthState {
     personId: string;
     loading: boolean;
     loaded: boolean;
-    error?: Promise<string>;
+    error?: string; // Promise<string>;
     status: number;
 }
 
@@ -44,13 +44,13 @@ export function authReducer(state: AuthState = initialAuthState,
 
         case authActionTypes.AUTHENTICATE_FAILURE: {
             const res: Response = action.payload;
-            const msg: any = res.json();
+            // const msg: any = res.json();
             return {
                 authenticated: false,
                 loaded: false,
                 loading: false,
                 personId: '',
-                error: msg.message,
+                error: res.statusText,
                 status: res.status
             };
         }
