@@ -4,10 +4,14 @@
 .mh-search-box {
   width: 100%;
   md-input-container {
+    height: 80px !important;
     width: 95%;
     /deep/ {
       .md-input-placeholder {
         visibility: hidden;
+      }
+      .md-input-underline {
+        border: none;
       }
     }
     md-icon {

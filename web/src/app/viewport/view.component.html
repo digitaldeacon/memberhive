@@ -116,7 +116,7 @@
         <md-nav-list>
             <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
                 <a md-list-item
-                   [routerLink]="[item.route]"
+                   (click)="route(item.route)"
                    (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
             </ng-template>
         </md-nav-list>
@@ -124,7 +124,7 @@
             <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>Sign out</a>
         </md-nav-list>
     </mh-navigation-drawer>
-    <mh-layout-nav logo="assets:memberhive">
+    <mh-layout-nav logo="assets:memberhive" toolbarTitle="Eckstein Gemeinde">
         <div mh-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
             <span fxFlex="15" fxHide.xs fxHide.sm></span>
             <mh-search-box fxFlex></mh-search-box>
@@ -174,7 +174,7 @@
             <md-nav-list mh-sidenav-content>
                 <a *ngFor="let item of routes"
                    md-list-item
-                   [routerLink]="[item.route]"
+                   (click)="route(item.route)"
                    [ngClass]="{'active-list-item': isActiveItem(item.title) }">
                     <md-icon md-list-icon>{{item.icon}}</md-icon>
                     <h4 md-line>{{item.title}}</h4>

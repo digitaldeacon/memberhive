@@ -1,6 +1,6 @@
 import { createSelector } from 'reselect';
 import { ActionReducer, combineReducers } from '@ngrx/store';
-import { routerReducer, RouterState } from "@ngrx/router-store";
+import { routerReducer, RouterState } from '@ngrx/router-store';
 import { storeFreeze } from 'ngrx-store-freeze';
 import { compose } from '@ngrx/core/compose';
 import { environment } from '../environments/environment';
@@ -69,3 +69,12 @@ export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
     (people: person.Person[], personId: string) => {
     return people.filter((person: person.Person) => person.uid === personId)[0];
 });
+/**
+ * Router Reducers
+ */
+export const getRouterState = (state: AppState) => state.router;
+export const getRouterPath = createSelector(getRouterState, (state: RouterState) => {
+    if (state) {
+        state.path;
+    }
+})

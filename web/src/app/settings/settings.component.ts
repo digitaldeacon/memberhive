@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     TitleService,
     SettingsPayload,
@@ -31,10 +31,13 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
+    sysSettings: any;
+    settingsForm: FormGroup;
 
     constructor(titleService: TitleService,
                 dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
+                private _fb: FormBuilder,
                 private _ref: ChangeDetectorRef) {
 
       titleService.setTitle('All Settings');
@@ -49,6 +52,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
               this.personAttrSelected = data.people.list.map((el: string) => el);
               this.filter();
           });
+        this.createForm();
     }
 
     ngAfterViewInit(): void {
@@ -58,6 +62,13 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ngOnDestroy(): void {
         this.alive = false;
     }
+
+    createForm() {
+        this.settingsForm = this._fb.group({
+            sysChurchName: 'Gemeinde'
+        });
+    }
+
 
     filter(): void {
         this.personAttr = this.personAttrSet.filter((item: string) => {

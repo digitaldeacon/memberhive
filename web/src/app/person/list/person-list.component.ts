@@ -14,18 +14,17 @@ import { Person, TitleService } from 'mh-core';
 })
 
 export class PersonListComponent implements OnDestroy {
-    private alive: boolean = true;
+    private _alive: boolean = true;
 
     people$: Observable<Person[]>;
     options: any = {};
 
     constructor(private _store: Store<app.AppState>,
                 titleService: TitleService) {
-        titleService.changeModule('Person');
         titleService.setTitle('People List');
         this.people$ = this._store.select(app.getPeople);
         this._store.select(app.getPeopleListSettings)
-            .takeWhile(() => this.alive)
+            .takeWhile(() => this._alive)
             .subscribe((data: any) => {
                 this.options = data;
         });
@@ -36,6 +35,6 @@ export class PersonListComponent implements OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.alive = false;
+        this._alive = false;
     }
 }

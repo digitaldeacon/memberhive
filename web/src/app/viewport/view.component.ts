@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
@@ -42,7 +41,7 @@ import {
 })
 export class ViewComponent implements OnInit, OnDestroy {
     private _dialogRef: MdDialogRef<any>;
-    private _usrSubscr: Subscription;
+    private _alive: boolean = true;
 
     routes: Object[] = [
         {
@@ -80,7 +79,8 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private _titleService: TitleService) {
         this.drawerVisible$ = this._store.select(app.getShowDrawer);
         this.loading$ = this._store.select(app.getLoading);
-        this._usrSubscr = this._store.select(app.getAuthPerson)
+        this._store.select(app.getAuthPerson)
+            .takeWhile(() => this._alive)
             .subscribe((p: Person) => {
                 this.currentUser = p;
             });
@@ -95,7 +95,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this._usrSubscr.unsubscribe();
+        this._alive = false;
     }
 
     logout(): void {
@@ -124,7 +124,9 @@ export class ViewComponent implements OnInit, OnDestroy {
         // console.log(this._titleService);
         return this._titleService.getTitle();
     }
-
+    route(r: string): void {
+        this._store.dispatch(go([r]));
+    }
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);

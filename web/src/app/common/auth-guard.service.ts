@@ -21,7 +21,6 @@ export class AuthGuard implements CanActivate {
                 private _authSrv: AuthService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        let url: string = state.url;
         const isAuthentic$: any = this._store.select(isAuthenticated);
 
         isAuthentic$.subscribe((authenticated: any) => {
