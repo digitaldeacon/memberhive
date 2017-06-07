@@ -1,4 +1,5 @@
 @import "theme";
+@import "layout";
 
 html, body {
   margin: 0;
@@ -68,5 +69,70 @@ mh-app {
     .mat-divider {
       border-top-color: #666;
     }
+  }
+}
+
+/* Layout related styles */
+md-toolbar {
+  [md-button] {
+    &:first-of-type:not(:last-child) {
+
+      margin-left: -6px;
+      [dir='rtl'] & {
+        margin-right: -6px;
+        margin-left: 0;
+      }
+    }
+    &:last-of-type:not(:first-child) {
+      margin-right: -6px;
+      [dir='rtl'] & {
+        margin-left: -6px;
+        margin-right: 0;
+      }
+    }
+  }
+  .md-icon-logo {
+    margin-right: 10px;
+    [dir='rtl'] & {
+      margin-left: 10px;
+      margin-right: 0;
+    }
+  }
+  [md-icon-button] {
+    margin: 0 6px;
+  }
+}
+
+// Overall app layout height
+md-sidenav-container {
+  & > md-content,
+  & > [md-content],
+  & > .md-content {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+md-content,
+[md-content],
+.md-content {
+
+  display: block;
+  position: relative;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &[md-scroll-y] {
+    overflow-y: auto;
+    overflow-x: hidden;
+  }
+  &[md-scroll-x] {
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+  // For iOS allow disabling of momentum scrolling
+  // @see issue #2640.
+  &.autoScroll {
+    -webkit-overflow-scrolling: auto;
   }
 }
