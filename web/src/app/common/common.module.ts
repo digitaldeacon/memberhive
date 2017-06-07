@@ -14,10 +14,6 @@ import {
 } from '@angular/material';
 
 import { MHLayoutModule } from '../layout/layout.module';
-
-import {
-    CovalentLoadingModule
-} from '@covalent/core';
 import { MhFadeDirective } from './animations/fade/fade.directive';
 import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
@@ -33,10 +29,6 @@ const MATERIAL_MODULES: any[] = [
     MdDatepickerModule, StyleModule, MdCoreModule, MdInputModule, MdMenuModule
 ];
 
-const COVALENT_MODULES: any[] = [
-    CovalentLoadingModule
-];
-
 @NgModule({
     declarations: [
         NotifyboxComponent,
@@ -46,7 +38,6 @@ const COVALENT_MODULES: any[] = [
     ], // directives, components, and pipes owned by this NgModule
     imports: [
         MATERIAL_MODULES,
-        COVALENT_MODULES,
         MHLayoutModule,
         FlexLayoutModule
     ],
@@ -60,7 +51,6 @@ const COVALENT_MODULES: any[] = [
         NotifyboxComponent,
         FilterComponent,
         MATERIAL_MODULES,
-        COVALENT_MODULES,
         MHLayoutModule,
         FlexLayoutModule
     ]
