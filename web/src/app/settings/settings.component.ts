@@ -52,7 +52,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
               this.personAttrSelected = data.people.list.map((el: string) => el);
               this.filter();
           });
-        this.createForm();
+      this.createForm();
     }
 
     ngAfterViewInit(): void {
@@ -63,12 +63,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.alive = false;
     }
 
-    createForm() {
+    createForm(): void {
         this.settingsForm = this._fb.group({
             sysChurchName: 'Gemeinde'
         });
     }
-
 
     filter(): void {
         this.personAttr = this.personAttrSet.filter((item: string) => {
