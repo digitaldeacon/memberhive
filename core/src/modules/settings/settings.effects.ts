@@ -12,6 +12,7 @@ import { Observable } from 'rxjs/Observable';
 
 import * as actions from './settings.actions';
 import { SettingsPayload } from './settings.model';
+import { SettingsState } from './settings.reducer';
 import { HttpService } from '../../services/http.service';
 
 @Injectable()
@@ -31,7 +32,7 @@ export class SettingsEffects {
     updateSetting$: Observable<Action> = this.actions$
         .ofType(actions.UPDATE_SETTINGS)
         .map((action: actions.UpdateSettingAction) => action.payload)
-        .switchMap((payload: SettingsPayload) =>
+        .switchMap((payload: any) =>
             this.http.post('settings/update-or-create', payload)
             .map((r: any) => new actions.UpdateSettingSuccessAction(r))
             // TODO: catch errors

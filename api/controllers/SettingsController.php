@@ -40,7 +40,7 @@ class SettingsController extends MHController
         $ret = [];
         $settings = Settings::find()->all();
         foreach ($settings as $setting) {
-            $ret[$setting->key] = $setting->toResponseArray();
+            $ret[$setting->key] = json_decode($setting->value);// $setting->toResponseArray();
         }
         /*throw new BadRequestHttpException(json_encode($ret));
         return [];*/
@@ -50,29 +50,35 @@ class SettingsController extends MHController
     public function actionUpdateOrCreate()
     {
         $post = \Yii::$app->request->post();
+        $ret = [];
+        foreach ($post as $key => $value) {
+            // $r .= $key.'v: '.json_encode($value);
+            $setting = Settings::findOne(['key'=>$key]);
+            if ($setting) {
+                $setting->value = json_encode($value);
+                if (!$setting->save()) {
+                    throw new BadRequestHttpException(json_encode($setting->errors));
+                }
+            } else {
+                $setting = new Settings();
+                $setting->key = $key;
+                $setting->value = json_encode($value);
+                if (!$setting->save()) {
+                    throw new BadRequestHttpException(json_encode($setting->errors));
+                }
+            }
+            $ret[$key] = $setting->toResponseArray();
+        }
+
+        /*throw new BadRequestHttpException($r);
+        return[];
         $key = isset($post['key']) ? $post['key'] : null;
 
         if (!$key) {
             return [];
-        }
+        }*/
 
-        $setting = Settings::findOne(['key'=>$key]);
-
-        if ($setting) {
-            $setting->value = json_encode($post['data']);
-            if (!$setting->save()) {
-                throw new BadRequestHttpException(json_encode($setting->errors));
-            }
-        } else {
-            $setting = new Settings();
-            $setting->key = $post['key'];
-            $setting->value = json_encode($post['data']);
-            if (!$setting->save()) {
-                throw new BadRequestHttpException(json_encode($setting->errors));
-            }
-        }
-
-        return $setting->toResponseArray();
+        return $ret;
     }
 
     /**

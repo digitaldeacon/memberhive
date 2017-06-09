@@ -10,16 +10,16 @@
 </md-toolbar>-->
 <div class="main-content" fxFlex fxLayoutGap="10px">
     <form [formGroup]="settingsForm" novalidate>
-        <md-card>
+        <md-card formGroupName="system">
             <md-card-title i18n>System Settings</md-card-title>
-            <md-card-content>
+            <md-card-content fxLayout="row" >
                 <md-input-container fxFlex>
                     <input mdInput
                            fxFlex
                            type="text"
                            placeholder="Name of Church"
                            i18n-placeholder
-                           formControlName="sysChurchName">
+                           formControlName="churchName">
                 </md-input-container>
             </md-card-content>
         </md-card>

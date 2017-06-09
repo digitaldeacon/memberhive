@@ -17,7 +17,8 @@ import * as settings from 'mh-core';
 import {
     TitleService,
     Person,
-    AuthService } from 'mh-core';
+    AuthService,
+    SysSettings} from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -64,6 +65,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     currentUser: Person;
     myInteractions: Observable<Interaction[]>;
     myOutstanding: Observable<Interaction[]>;
+    churchName: string;
 
     drawerVisible$: Observable<boolean>;
     loading$: Observable<boolean>;
@@ -83,6 +85,11 @@ export class ViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((p: Person) => {
                 this.currentUser = p;
+            });
+        this._store.select(app.getSysSettings)
+            .takeWhile(() => this._alive)
+            .subscribe((data: SysSettings) => {
+                this.churchName = data.churchName;
             });
     }
 

@@ -237,6 +237,10 @@ ansi-escapes@^1.1.0:
   version "1.4.0"
   resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-1.4.0.tgz#d3a8a83b319aa67793662b13e761c7911422306e"
 
+ansi-escapes@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ansi-escapes/-/ansi-escapes-2.0.0.tgz#5bae52be424878dd9783e8910e3fc2922e83c81b"
+
 ansi-regex@^2.0.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-2.1.1.tgz#c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
@@ -1485,7 +1489,7 @@ external-editor@^1.1.0:
     spawn-sync "^1.0.15"
     tmp "^0.0.29"
 
-external-editor@^2.0.1:
+external-editor@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/external-editor/-/external-editor-2.0.4.tgz#1ed9199da9cbfe2ef2f7a31b2fde8b0d12368972"
   dependencies:
@@ -1727,8 +1731,8 @@ glob@~5.0.0:
     path-is-absolute "^1.0.0"
 
 globals@^9.0.0:
-  version "9.17.0"
-  resolved "https://registry.yarnpkg.com/globals/-/globals-9.17.0.tgz#0c0ca696d9b9bb694d2e5470bd37777caad50286"
+  version "9.18.0"
+  resolved "https://registry.yarnpkg.com/globals/-/globals-9.18.0.tgz#aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
 
 globule@^1.0.0:
   version "1.1.0"
@@ -1911,19 +1915,20 @@ inquirer@^1.2.2:
     through "^2.3.6"
 
 inquirer@^3.0.6:
-  version "3.0.6"
-  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.0.6.tgz#e04aaa9d05b7a3cb9b0f407d04375f0447190347"
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/inquirer/-/inquirer-3.1.0.tgz#e05400d48b94937c2d3caa7038663ba9189aab01"
   dependencies:
-    ansi-escapes "^1.1.0"
+    ansi-escapes "^2.0.0"
     chalk "^1.0.0"
     cli-cursor "^2.1.0"
     cli-width "^2.0.0"
-    external-editor "^2.0.1"
+    external-editor "^2.0.4"
     figures "^2.0.0"
     lodash "^4.3.0"
     mute-stream "0.0.7"
     run-async "^2.2.0"
-    rx "^4.1.0"
+    rx-lite "^4.0.8"
+    rx-lite-aggregates "^4.0.8"
     string-width "^2.0.0"
     strip-ansi "^3.0.0"
     through "^2.3.6"
@@ -2081,12 +2086,6 @@ isobject@^2.0.0:
 isstream@~0.1.2:
   version "0.1.2"
   resolved "https://registry.yarnpkg.com/isstream/-/isstream-0.1.2.tgz#47e63f7af55afa6f92e1500e690eb8b8529c099a"
-
-jodid25519@^1.0.0:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/jodid25519/-/jodid25519-1.0.2.tgz#06d4912255093419477d425633606e0e90782967"
-  dependencies:
-    jsbn "~0.1.0"
 
 js-base64@^2.1.8, js-base64@^2.1.9:
   version "2.1.9"
@@ -3042,10 +3041,10 @@ randomatic@^1.1.3:
     kind-of "^3.0.2"
 
 randombytes@^2.0.0, randombytes@^2.0.1:
-  version "2.0.4"
-  resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.4.tgz#9551df208422c8f80eb58e2326dd0b840ff22efd"
+  version "2.0.5"
+  resolved "https://registry.yarnpkg.com/randombytes/-/randombytes-2.0.5.tgz#dc009a246b8d09a177b4b7a0ae77bc570f4b1b79"
   dependencies:
-    safe-buffer "^5.0.1"
+    safe-buffer "^5.1.0"
 
 range-parser@~1.2.0:
   version "1.2.0"
@@ -3144,8 +3143,8 @@ regex-cache@^0.4.2:
     is-primitive "^2.0.0"
 
 remove-trailing-separator@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.0.1.tgz#615ebb96af559552d4bf4057c8436d486ab63cc4"
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/remove-trailing-separator/-/remove-trailing-separator-1.0.2.tgz#69b062d978727ad14dc6b56ba4ab772fd8d70511"
 
 repeat-element@^1.1.2:
   version "1.1.2"
@@ -3314,6 +3313,16 @@ run-async@^2.2.0:
   dependencies:
     is-promise "^2.1.0"
 
+rx-lite-aggregates@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/rx-lite-aggregates/-/rx-lite-aggregates-4.0.8.tgz#753b87a89a11c95467c4ac1626c4efc4e05c67be"
+  dependencies:
+    rx-lite "*"
+
+rx-lite@*, rx-lite@^4.0.8:
+  version "4.0.8"
+  resolved "https://registry.yarnpkg.com/rx-lite/-/rx-lite-4.0.8.tgz#0b1e11af8bc44836f04a6407e92da42467b79444"
+
 rx@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/rx/-/rx-4.1.0.tgz#a5f13ff79ef3b740fe30aa803fb09f98805d4782"
@@ -3327,6 +3336,10 @@ rxjs@^5.3.0:
 safe-buffer@^5.0.1, safe-buffer@~5.0.1:
   version "5.0.1"
   resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.0.1.tgz#d263ca54696cd8a306b5ca6551e92de57918fbe7"
+
+safe-buffer@^5.1.0:
+  version "5.1.0"
+  resolved "https://registry.yarnpkg.com/safe-buffer/-/safe-buffer-5.1.0.tgz#fe4c8460397f9eaaaa58e73be46273408a45e223"
 
 safe-json-parse@~1.0.1:
   version "1.0.1"
@@ -3493,8 +3506,8 @@ sprintf-js@^1.0.3:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.1.1.tgz#36be78320afe5801f6cea3ee78b6e5aab940ea0c"
 
 sshpk@^1.7.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.13.0.tgz#ff2a3e4fd04497555fed97b39a0fd82fafb3a33c"
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/sshpk/-/sshpk-1.13.1.tgz#512df6da6287144316dc4c18fe1cf1d940739be3"
   dependencies:
     asn1 "~0.2.3"
     assert-plus "^1.0.0"
@@ -3503,7 +3516,6 @@ sshpk@^1.7.0:
   optionalDependencies:
     bcrypt-pbkdf "^1.0.0"
     ecc-jsbn "~0.1.1"
-    jodid25519 "^1.0.0"
     jsbn "~0.1.0"
     tweetnacl "~0.14.0"
 
@@ -4130,5 +4142,5 @@ zip-stream@^1.1.0:
     readable-stream "^2.0.0"
 
 zone.js@^0.8.10:
-  version "0.8.11"
-  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.11.tgz#742befb17fbc49a571712b8c7d87e58ca26fd886"
+  version "0.8.12"
+  resolved "https://registry.yarnpkg.com/zone.js/-/zone.js-0.8.12.tgz#86ff5053c98aec291a0bf4bbac501d694a05cfbb"

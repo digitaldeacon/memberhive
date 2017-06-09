@@ -48,10 +48,11 @@ export const getSelectedPerson: any = createSelector(getPersonState, person.getP
  */
 export const getSettingsState: any = (state: AppState) => state.settings;
 export const getLayoutSettings: any = createSelector(getSettingsState, settings.getLayoutSettings);
+export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
 export const getPeopleSettings: any = createSelector(getSettingsState, settings.getPeopleSettings);
 export const getPeopleListSettings: any = createSelector(getSettingsState, settings.getPeopleListSettings);
 export const getProfileSettings: any = createSelector(getSettingsState, settings.getProfileSettings);
-export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
+export const getSysSettings: any = createSelector(getSettingsState, settings.getSysSettings);
 /**
  * Loading  Reducers
  */

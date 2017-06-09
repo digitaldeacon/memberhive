@@ -2,11 +2,13 @@ import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular
 import { FormBuilder, FormGroup } from '@angular/forms';
 import {
     TitleService,
-    SettingsPayload,
+    SysSettings,
     UpdateSettingAction } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as app from '../app.store';
 import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
 
 @Component({
   selector: 'mh-settings',
@@ -31,7 +33,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
-    sysSettings: any;
+    sysSettings: SysSettings;
     settingsForm: FormGroup;
 
     constructor(titleService: TitleService,
@@ -40,19 +42,26 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 private _fb: FormBuilder,
                 private _ref: ChangeDetectorRef) {
 
-      titleService.setTitle('All Settings');
-      dragulaService.dropModel.subscribe((value: any[]) => {
-          this._store.dispatch(new UpdateSettingAction(this.payload(value[0])));
+        titleService.setTitle('All Settings');
+        this.createForm();
+        dragulaService.dropModel.subscribe((value: any[]) => {
+          const payload: any = {
+              people: {
+                  list: this.personAttrSelected
+              }
+          };
+          this._store.dispatch(new UpdateSettingAction(payload));
           // this._ref.detectChanges();
-      });
+        });
 
-      this._store.select(app.getSettingsState)
+        this._store.select(app.getSettingsState)
           .take(1)
           .subscribe((data: any) => {
               this.personAttrSelected = data.people.list.map((el: string) => el);
               this.filter();
-          });
-      this.createForm();
+              this.sysSettings = data.system;
+              this.settingsForm.get('system').patchValue(this.sysSettings);
+        });
     }
 
     ngAfterViewInit(): void {
@@ -65,7 +74,15 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     createForm(): void {
         this.settingsForm = this._fb.group({
-            sysChurchName: 'Gemeinde'
+            system: this._fb.group({
+                churchName: ''
+            })
+        });
+        this.settingsForm.valueChanges
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .subscribe((data: any) => {
+                this._store.dispatch(new UpdateSettingAction(data));
         });
     }
 
@@ -73,19 +90,5 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.personAttr = this.personAttrSet.filter((item: string) => {
             return this.personAttrSelected.indexOf(item) < 0;
         });
-    }
-
-    private payload(key: string): SettingsPayload {
-        let data: any;
-
-        if (key === 'PEOPLE_LIST') {
-            data = this.personAttrSelected
-                .map((el: string) => el); // turning this into a mutable array
-        }
-
-        return {
-            key: key,
-            data: data
-        };
     }
 }

@@ -34,6 +34,7 @@ mh-app {
   text-align: center;
   padding: 2px;
 }
+
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {
   max-width: none !important;
@@ -45,6 +46,11 @@ mh-app {
     }
   }
 }
+/** input fields of type search display wrong in Safari (see https://github.com/angular/material2/issues/5008) **/
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
 .main-content {
   padding: 0.8em;
   box-sizing: border-box;
