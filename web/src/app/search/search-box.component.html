@@ -1,10 +1,12 @@
 <div class="mh-search-box" fxFlex>
-    <md-input-container floatPlaceholder="never">
+    <md-input-container floatPlaceholder="never" [class.active]="searchInFocus">
         <md-icon mdPrefix>search</md-icon>
         <input mdInput
                type="search"
                [mdAutocomplete]="auto"
                [formControl]="itemCtrl"
+               (focus)="searchInFocus = true"
+               (blur)="searchInFocus = false"
                (keyup)="search(term.value)"
                (clear)="toggleVisibility()" #term>
     </md-input-container>

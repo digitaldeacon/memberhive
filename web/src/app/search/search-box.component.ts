@@ -22,6 +22,7 @@ export class SearchBoxComponent implements OnInit {
 
     itemCtrl: FormControl;
     items: Observable<string[]>;
+    searchInFocus: boolean = false;
 
     constructor(private searchService: SearchService,
                 private router: Router) {

@@ -3,16 +3,18 @@
 }
 .mh-search-box {
   width: 100%;
+  md-input-container.active {
+    background: #fff;
+    color: #000;
+  }
   md-input-container {
     width: 95%;
+    background: rgba(0, 0, 0, 0.22);
+    border-radius: 2px;
+    padding-right: 8px;
     /deep/ {
       .mat-input-wrapper {
         padding: 0 !important;
-      }
-      .mat-input-flex {
-        background: rgba(0, 0, 0, 0.22);
-        border-radius: 2px;
-        padding-right: 8px;
       }
       .mat-input-infix {
         border-top-width: 0 !important;
