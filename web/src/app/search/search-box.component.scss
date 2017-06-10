@@ -12,10 +12,13 @@
       .mat-input-flex {
         background: rgba(0, 0, 0, 0.22);
         border-radius: 2px;
-        padding: 6px;
+        padding-right: 8px;
       }
       .mat-input-infix {
         border-top-width: 0 !important;
+      }
+      .mat-input-prefix {
+        padding-left: 8px;
       }
       .mat-input-placeholder-wrapper {
         top: -.75375em !important;
