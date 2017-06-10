@@ -1,23 +1,16 @@
-import {
-  Directive, ElementRef, Input, HostBinding,
-  Renderer2, AnimationPlayer, ChangeDetectorRef
-} from '@angular/core';
-import { ɵAnimation as Animation, AnimationDriver,
-         ɵAnimationStyleNormalizer as AnimationStyleNormalizer,
-         ɵDomAnimationEngine as DomAnimationEngine
-} from '@angular/animations/browser';
-import { animate } from '@angular/animations';
+import { Directive, ElementRef, Input, HostBinding, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { animate, AnimationBuilder, AnimationPlayer, AUTO_STYLE, style, animation } from '@angular/animations';
 
 @Directive({
-  selector: '[mhToggle]'
+  selector: '[mhToggle]',
 })
 export class MhToggleDirective {
 
   private _state: boolean;
   private _defaultOverflow: string;
   private _defaultDisplay: string;
-  private _engine: DomAnimationEngine;
-  private _animationPlayer: AnimationPlayer;
+  private _animationShowPlayer: AnimationPlayer;
+  private _animationHidePlayer: AnimationPlayer;
 
   /**
    * duration?: number
@@ -27,19 +20,23 @@ export class MhToggleDirective {
   @Input() duration: number = 150;
 
   /**
-   * MhToggle: boolean
+   * mhToggle: boolean
    * Toggles element, hides if its 'true', shows if its 'false'.
    */
   @Input('mhToggle')
   set state(state: boolean) {
     this._state = state;
-    if (this._animationPlayer) {
-      this._animationPlayer.destroy();
-      this._animationPlayer = undefined;
-    }
     if (state) {
+      if (this._animationShowPlayer) {
+        this._animationShowPlayer.destroy();
+        this._animationShowPlayer = undefined;
+      }
       this.hide();
     } else {
+      if (this._animationHidePlayer) {
+        this._animationHidePlayer.destroy();
+        this._animationHidePlayer = undefined;
+      }
       this.show();
     }
   }
@@ -63,9 +60,9 @@ export class MhToggleDirective {
   constructor(private _renderer: Renderer2,
               private _element: ElementRef,
               private _changeDetectorRef: ChangeDetectorRef,
-              animationDriver: AnimationDriver,
-              animationStyleNormalizer: AnimationStyleNormalizer) {
-    this._engine = new DomAnimationEngine(animationDriver, animationStyleNormalizer);
+              private _animationBuilder: AnimationBuilder) {
+    this._defaultDisplay = this._element.nativeElement.style.display;
+    this._defaultOverflow = this._element.nativeElement.style.overflow;
   }
 
   /**
@@ -73,21 +70,19 @@ export class MhToggleDirective {
    * starts animation and adds "display:'none'" style at the end.
    */
   hide(): void {
-    this._defaultDisplay = this._element.nativeElement.style.display;
-    this._defaultOverflow = this._element.nativeElement.style.overflow;
-    this._animationPlayer = this._engine.animateTimeline(
-        this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-out')]
-      ).buildTimelines([{height: this._element.nativeElement.scrollHeight + 'px'}], [{height: 0}]));
+    this._animationHidePlayer = this._animationBuilder.build(animation([
+      style({
+        height: AUTO_STYLE,
+        display: AUTO_STYLE,
+      }),
+      animate(this.duration + 'ms ease-in', style({height: '0'})),
+    ])).create(this._element.nativeElement);
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
     this._changeDetectorRef.markForCheck();
-    this._animationPlayer.play();
-    this._animationPlayer.onDone(() => {
-      this._animationPlayer.destroy();
-      this._renderer.setStyle(this._element.nativeElement, 'overflow', this._defaultOverflow);
-      this._renderer.setStyle(this._element.nativeElement, 'display', 'none');
-      this._changeDetectorRef.markForCheck();
+    this._animationHidePlayer.onDone(() => {
+      this._onHideDone();
     });
+    this._animationHidePlayer.play();
   }
 
   /**
@@ -97,16 +92,36 @@ export class MhToggleDirective {
   show(): void {
     this._renderer.setStyle(this._element.nativeElement, 'display', this._defaultDisplay);
     this._changeDetectorRef.markForCheck();
-    this._animationPlayer = this._engine.animateTimeline(
-        this._element.nativeElement,
-        new Animation([animate(this.duration + 'ms ease-in')]
-      ).buildTimelines([{height: 0}], [{height: this._element.nativeElement.scrollHeight + 'px'}]));
+    this._animationShowPlayer = this._animationBuilder.build(animation([
+      style({
+        height: '0',
+        display: 'none',
+      }),
+      animate(this.duration + 'ms ease-out', style({height: AUTO_STYLE})),
+    ])).create(this._element.nativeElement);
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
-    this._animationPlayer.play();
-    this._animationPlayer.onDone(() => {
-      this._animationPlayer.destroy();
+    this._animationShowPlayer.onDone(() => {
+      this._onShowDone();
+    });
+    this._animationShowPlayer.play();
+  }
+
+  private _onHideDone(): void {
+    if (this._animationHidePlayer) {
+      this._animationHidePlayer.destroy();
+      this._animationHidePlayer = undefined;
+      this._renderer.setStyle(this._element.nativeElement, 'overflow', this._defaultOverflow);
+      this._renderer.setStyle(this._element.nativeElement, 'display', 'none');
+      this._changeDetectorRef.markForCheck();
+    }
+  }
+
+  private _onShowDone(): void {
+    if (this._animationShowPlayer) {
+      this._animationShowPlayer.destroy();
+      this._animationShowPlayer = undefined;
       this._renderer.setStyle(this._element.nativeElement, 'overflow', this._defaultOverflow);
       this._changeDetectorRef.markForCheck();
-    });
+    }
   }
 }

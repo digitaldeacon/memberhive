@@ -24,7 +24,7 @@
   "engines": {
     "node": ">= 5.4.1",
     "npm": ">= 3.10.7",
-    "yarn": ">= 0.21.0"
+    "yarn": ">= 0.24.0"
   },
   "private": true,
   "dependencies": {
@@ -63,7 +63,7 @@
     "zone.js": "^0.8.10"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.0",
+    "@angular/cli": "1.1.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@ngrx/store-devtools": "^3.2.2",

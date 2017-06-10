@@ -133,16 +133,16 @@
         },
         {
             "name": "bower-asset/jquery.inputmask",
-            "version": "3.3.6",
+            "version": "3.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "e42852f4afa01a80815394a5b2f9ce504c1a8d0b"
+                "reference": "9835731cb78cac749734d94a1cb5bd70da4d3b10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/e42852f4afa01a80815394a5b2f9ce504c1a8d0b",
-                "reference": "e42852f4afa01a80815394a5b2f9ce504c1a8d0b",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/9835731cb78cac749734d94a1cb5bd70da4d3b10",
+                "reference": "9835731cb78cac749734d94a1cb5bd70da4d3b10",
                 "shasum": ""
             },
             "require": {
@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "3d1b7a38dc41aa782f60471e793920699a52ad0f"
+                "reference": "113196b589406676dfea470d4fa2d31f3e8adce3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3d1b7a38dc41aa782f60471e793920699a52ad0f",
-                "reference": "3d1b7a38dc41aa782f60471e793920699a52ad0f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/113196b589406676dfea470d4fa2d31f3e8adce3",
+                "reference": "113196b589406676dfea470d4fa2d31f3e8adce3",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-06-07 21:19:47"
+            "time": "2017-06-09 08:36:03"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
