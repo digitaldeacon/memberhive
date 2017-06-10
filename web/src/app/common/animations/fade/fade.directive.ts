@@ -1,8 +1,11 @@
-import { Directive, ElementRef, Input, Output, EventEmitter, HostBinding, Renderer2, ChangeDetectorRef } from '@angular/core';
-import { animate, AnimationBuilder, AnimationPlayer, AUTO_STYLE, style, animation } from '@angular/animations';
+import {
+  Directive, ElementRef, Input, Output, EventEmitter,
+  HostBinding, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { animate, AnimationBuilder,
+  AnimationPlayer, AUTO_STYLE, style, animation } from '@angular/animations';
 
 @Directive({
-  selector: '[mhFade]',
+  selector: '[mhFade]'
 })
 export class MhFadeDirective {
 
@@ -82,9 +85,9 @@ export class MhFadeDirective {
     this._animationFadeInPlayer = this._animationBuilder.build(animation([
       style({
         opacity: AUTO_STYLE,
-        display: AUTO_STYLE,
+        display: AUTO_STYLE
       }),
-      animate(this.duration + 'ms ease-out', style({opacity: '0'})),
+      animate(this.duration + 'ms ease-out', style({opacity: '0'}))
     ])).create(this._element.nativeElement);
     this._animationFadeInPlayer.onDone(() => {
       this._onFadeInDone();
@@ -101,9 +104,9 @@ export class MhFadeDirective {
     this._animationFadeOutPlayer = this._animationBuilder.build(animation([
       style({
         opacity: '0',
-        display: 'none',
+        display: 'none'
       }),
-      animate(this.duration + 'ms ease-in', style({opacity: AUTO_STYLE})),
+      animate(this.duration + 'ms ease-in', style({opacity: AUTO_STYLE}))
     ])).create(this._element.nativeElement);
     this._animationFadeOutPlayer.onDone(() => {
       this._onFadeOutDone();

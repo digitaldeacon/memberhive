@@ -1,8 +1,10 @@
-import { Directive, ElementRef, Input, HostBinding, Renderer2, ChangeDetectorRef } from '@angular/core';
-import { animate, AnimationBuilder, AnimationPlayer, AUTO_STYLE, style, animation } from '@angular/animations';
+import { Directive, ElementRef, Input,
+  HostBinding, Renderer2, ChangeDetectorRef } from '@angular/core';
+import { animate, AnimationBuilder,
+  AnimationPlayer, AUTO_STYLE, style, animation } from '@angular/animations';
 
 @Directive({
-  selector: '[mhToggle]',
+  selector: '[mhToggle]'
 })
 export class MhToggleDirective {
 
@@ -73,9 +75,9 @@ export class MhToggleDirective {
     this._animationHidePlayer = this._animationBuilder.build(animation([
       style({
         height: AUTO_STYLE,
-        display: AUTO_STYLE,
+        display: AUTO_STYLE
       }),
-      animate(this.duration + 'ms ease-in', style({height: '0'})),
+      animate(this.duration + 'ms ease-in', style({height: '0'}))
     ])).create(this._element.nativeElement);
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
     this._changeDetectorRef.markForCheck();
@@ -95,9 +97,9 @@ export class MhToggleDirective {
     this._animationShowPlayer = this._animationBuilder.build(animation([
       style({
         height: '0',
-        display: 'none',
+        display: 'none'
       }),
-      animate(this.duration + 'ms ease-out', style({height: AUTO_STYLE})),
+      animate(this.duration + 'ms ease-out', style({height: AUTO_STYLE}))
     ])).create(this._element.nativeElement);
     this._renderer.setStyle(this._element.nativeElement, 'overflow', 'hidden');
     this._animationShowPlayer.onDone(() => {
