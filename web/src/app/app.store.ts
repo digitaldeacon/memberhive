@@ -40,7 +40,7 @@ export const getPeopleListSettings: any = createSelector(getSettingsState, setti
 export const getProfileSettings: any = createSelector(getSettingsState, settings.getProfileSettings);
 export const getSysSettings: any = createSelector(getSettingsState, settings.getSysSettings);
 
-export const getShowDrawer: any = createSelector(getLayoutSettings, settings.getShowDrawer);
+export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
 /**
  * Loading  Reducers
  */

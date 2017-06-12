@@ -49,9 +49,8 @@ export function settingsReducer(state: SettingsState = initialState,
         }
 
         case actions.TOGGLE_DRAWER: {
-            console.log(action.payload);
-            return Object.assign({}, state.layout, {
-                showDrawer: action.payload
+            return Object.assign({}, state, {
+                layout: {showDrawer: action.payload}
             });
         }
 
@@ -67,4 +66,3 @@ export const getPeopleListSettings: any = (state: SettingsState) => state.people
 export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
-//export const getShowDrawer = createSelector(getLayoutSettings, (state: SettingsState) => state.layout.showDrawer);
