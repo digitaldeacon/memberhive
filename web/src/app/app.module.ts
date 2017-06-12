@@ -32,15 +32,15 @@ import { reducers } from './app.store';
 
 import 'hammerjs';
 
-function debug(reducer) {
-    return function(state, action) {
-        console.log('state', state);
-        console.log('action', action);
+/*function debug(reducer): any {
+    return function(state, action): any {
+        // console.log('state', state);
+        // console.log('action', action);
         return reducer(state, action);
-    }
+    };
 }
 
-export const debugReducerFactory: any = compose(debug, combineReducers);
+export const debugReducerFactory: any = compose(debug, combineReducers);*/
 
 @NgModule({
     declarations: [

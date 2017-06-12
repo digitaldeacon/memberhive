@@ -29,7 +29,6 @@ export class AuthGuard implements CanActivate {
                 if (this._authSrv.getToken()) {
                     this._store.dispatch(new ReAuthenticateAction(this._authSrv.getToken()));
                 }
-                //this._store.dispatch(go('/login'));
                 this._router.navigate(['/login']);
             }
         });
