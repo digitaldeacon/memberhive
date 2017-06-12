@@ -8,8 +8,7 @@ export const LIST_SETTINGS_FAILURE = '[Settings] List Failure';
 export const UPDATE_SETTINGS = '[Settings] Update';
 export const UPDATE_SETTINGS_SUCCESS = '[Settings] Update Success';
 export const UPDATE_SETTINGS_FAILURE = '[Settings] Update Failure';
-export const OPEN_DRAWER = '[Settings:Layout] Open Drawer';
-export const CLOSE_DRAWER = '[Settings:Layout] Close Drawer';
+export const TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer';
 export const SET_TITLE = '[Settings:Title] Set title';
 export const SET_MODULE = '[Settings:Title] Set module';
 export const GET_MODULE_TITLE = '[Settings:Title] Get module and title';
@@ -42,12 +41,9 @@ export class UpdateSettingFailureAction implements Action {
     readonly type = UPDATE_SETTINGS_FAILURE;
 }
 
-export class OpenDrawerAction implements Action {
-    readonly type = OPEN_DRAWER;
-}
-
-export class CloseDrawerAction implements Action {
-    readonly type = CLOSE_DRAWER;
+export class ToggleDrawerAction implements Action {
+    readonly type = TOGGLE_DRAWER;
+    constructor(public payload: boolean) { }
 }
 
 export class SetTitleAction implements Action {
@@ -66,8 +62,7 @@ export type SettingActions
     = ListSettingAction
     | ListSettingSuccessAction
     | ListSettingFailureAction
-    | OpenDrawerAction
-    | CloseDrawerAction
+    | ToggleDrawerAction
     | UpdateSettingAction
     | UpdateSettingSuccessAction
     | UpdateSettingFailureAction;

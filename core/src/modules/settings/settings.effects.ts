@@ -22,8 +22,8 @@ export class SettingsEffects {
     @Effect()
     get$: Observable<Action> = this.actions$
         .ofType(actions.LIST_SETTINGS)
-        // .map((action: actions.ListSettingAction) => action.payload)
-        .mergeMap(() =>
+        .do(() => actions.ListSettingAction)
+        .switchMap(() =>
             this.http.get('settings/list') // TODO: add personId to fetch user settings too
                 .map((r: any[]) => new actions.ListSettingSuccessAction(r))
                 // .catch(() => of(actions.LIST_SETTINGS_FAILURE))

@@ -1,5 +1,5 @@
 import * as actions from './settings.actions';
-import { SettingsPayload } from './settings.model';
+import { createSelector } from '@ngrx/store';
 
 export interface SettingsState {
     loaded?: boolean;
@@ -48,15 +48,10 @@ export function settingsReducer(state: SettingsState = initialState,
             return Object.assign({}, state, payload);
         }
 
-        case actions.CLOSE_DRAWER: {
+        case actions.TOGGLE_DRAWER: {
+            console.log(action.payload);
             return Object.assign({}, state.layout, {
-                showDrawer: false
-            });
-        }
-
-        case actions.OPEN_DRAWER: {
-            return Object.assign({}, state.layout, {
-                showDrawer: true
+                showDrawer: action.payload
             });
         }
 
@@ -72,3 +67,4 @@ export const getPeopleListSettings: any = (state: SettingsState) => state.people
 export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
+//export const getShowDrawer = createSelector(getLayoutSettings, (state: SettingsState) => state.layout.showDrawer);

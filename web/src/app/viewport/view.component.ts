@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
 
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogRef } from '@angular/material';
 
 import { Interaction } from '../interaction/interaction';
 
@@ -70,6 +70,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     loading$: Observable<boolean>;
 
     open: string = 'true';
+    drawerVisible: boolean;
 
     constructor(private _shoutService: ShoutService,
                 private _authSrv: AuthService,
@@ -88,7 +89,9 @@ export class ViewComponent implements OnInit, OnDestroy {
         this._store.select(app.getSysSettings)
             .takeWhile(() => this._alive)
             .subscribe((data: SysSettings) => {
-                this.churchName = data.churchName;
+                if (data) {
+                    this.churchName = data.churchName;
+                }
             });
     }
 
@@ -111,11 +114,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     openDrawer(): void {
         this.open = 'true';
-        this._store.dispatch(new settings.OpenDrawerAction());
+        this._store.dispatch(new settings.ToggleDrawerAction(true));
     }
     closeDrawer(): void {
         this.open = 'false';
-        this._store.dispatch(new settings.CloseDrawerAction());
+        this._store.dispatch(new settings.ToggleDrawerAction(false));
     }
     drawerWidth(): string {
         return this.open === 'false' ? '75px' : '220px';
