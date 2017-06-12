@@ -17,6 +17,7 @@ import {
     Person,
     AuthService,
     SysSettings,
+    SignOutAction,
     UpdateSettingAction} from 'mh-core';
 
 @Component({
@@ -112,7 +113,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     logout(): void {
         this._authSrv.clearStore();
-        this._router.navigate(['/login']);
+        this._store.dispatch(new SignOutAction());
     }
 
     openDrawer(): void {

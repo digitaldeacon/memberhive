@@ -33,15 +33,14 @@ export class LoginComponent implements OnInit, OnDestroy {
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
-                this.home();
                 this._store.dispatch(new ListAction({}));
                 this._store.dispatch(new ListSettingAction());
+                this.home();
             });
     }
 
     ngOnInit(): void {
         this.initForm();
-
         this.error$ = this._store.select(app.getAuthError);
         this.loading$ = this._store.select(app.isAuthLoading);
     }
@@ -82,7 +81,6 @@ export class LoginComponent implements OnInit, OnDestroy {
     }
 
     home(): void {
-        // this._store.dispatch(go('/dashboard'));
         this._router.navigate(['/dashboard']);
     }
 }

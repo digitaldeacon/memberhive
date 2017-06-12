@@ -22,7 +22,8 @@ export function authReducer(state: AuthState = initialAuthState,
                               action: actions.AuthActions): AuthState {
     switch (action.type) {
 
-        case actions.AUTHENTICATE:
+        case actions.AUTHENTICATE,
+            actions.SIGN_OUT:
             return Object.assign({}, state, {
                 loading: true
             });
@@ -41,7 +42,7 @@ export function authReducer(state: AuthState = initialAuthState,
         }
 
         case actions.AUTHENTICATE_FAILURE: {
-            const res: Response = action.payload;
+            const res = action.payload;
             const resPromise: any = (res.status !== 504) ? res.json() : undefined;
             const error: string = resPromise ? resPromise.message : res.statusText;
 

@@ -58,15 +58,10 @@ export class AuthEffects {
                 })
         );
 
-    /*/@Effect()
+    @Effect()
     public signOut: Observable<Action> = this._actions$
-        .ofType(actions.authActionTypes.SIGN_OUT)
-        .map(toPayload)
-        .switchMap(payload => {
-            return this.userService.signout()
-                .map(value => new SignOutSuccessAction())
-                .catch(error => Observable.of(new SignOutErrorAction({ error: error })));
-        });*/
+        .ofType(actions.SIGN_OUT)
+        .map(value => new actions.SignOutSuccessAction());
 
     constructor(private _actions$: Actions,
                 private _http: HttpService,
