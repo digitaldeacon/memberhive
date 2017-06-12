@@ -34,9 +34,10 @@ export class SettingsEffects {
     updateSetting$: Observable<Action> = this.actions$
         .ofType(actions.UPDATE_SETTINGS)
         .map((action: actions.UpdateSettingAction) => action.payload)
+        // .do(() => actions.UpdateSettingAction)
         .switchMap((payload: any) =>
             this.http.post('settings/update-or-create', payload)
-            .map((r: any) => new actions.UpdateSettingSuccessAction(r))
+            .map((r: any) => new actions.UpdateSettingSuccessAction(payload))
             // TODO: catch errors
         );
 

@@ -12,12 +12,12 @@ import { Interaction } from '../interaction/interaction';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
-import * as settings from 'mh-core';
 import {
     TitleService,
     Person,
     AuthService,
-    SysSettings} from 'mh-core';
+    SysSettings,
+    UpdateSettingAction} from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -79,8 +79,11 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private _store: Store<app.AppState>,
                 private _dialog: MdDialog,
                 private _titleService: TitleService) {
-        this.drawerVisible$ = this._store.select(app.getShowDrawer);
         this.loading$ = this._store.select(app.getLoading);
+        this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
+            .subscribe((visible: boolean) => {
+                this.drawerVisible = visible;
+            });
         this._store.select(app.getAuthPerson)
             .takeWhile(() => this._alive)
             .subscribe((p: Person) => {
@@ -113,24 +116,22 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     openDrawer(): void {
-        this.open = 'true';
-        this._store.dispatch(new settings.ToggleDrawerAction(true));
+        const payload: any = {layout: {showDrawer: true}};
+        this._store.dispatch(new UpdateSettingAction(payload));
     }
     closeDrawer(): void {
-        this.open = 'false';
-        this._store.dispatch(new settings.ToggleDrawerAction(false));
+        const payload: any = {layout: {showDrawer: false}};
+        this._store.dispatch(new UpdateSettingAction(payload));
     }
     drawerWidth(): string {
-        return this.open === 'false' ? '75px' : '220px';
+        return this.drawerVisible ? '220px' : '75px';
     }
 
     isActiveItem(title: any): boolean {
-        // console.log(this._titleService.getModule(), title);
         return this._titleService.getModule() === title;
     }
 
     getTitle(): string {
-        // console.log(this._titleService);
         return this._titleService.getTitle();
     }
     route(r: string): void {

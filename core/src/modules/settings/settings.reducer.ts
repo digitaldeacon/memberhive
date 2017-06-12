@@ -32,7 +32,8 @@ const initialState: SettingsState = {
 export function settingsReducer(state: SettingsState = initialState,
                                 action: actions.SettingActions): SettingsState {
     switch (action.type) {
-        case actions.LIST_SETTINGS: {
+        case actions.LIST_SETTINGS,
+            actions.UPDATE_SETTINGS: {
             return Object.assign({}, state, {
                 loading: true
             });
@@ -43,7 +44,7 @@ export function settingsReducer(state: SettingsState = initialState,
             return Object.assign({}, state, settings);
         }
 
-        case actions.UPDATE_SETTINGS: {
+        case actions.UPDATE_SETTINGS_SUCCESS: {
             const payload: SettingsState = action.payload;
             return Object.assign({}, state, payload);
         }

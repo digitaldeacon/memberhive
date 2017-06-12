@@ -10,8 +10,7 @@ import {
     Credentials,
     AuthenticateAction,
     ListAction,
-    ListSettingAction,
-    AuthService } from 'mh-core';
+    ListSettingAction} from 'mh-core';
 
 @Component({
     selector: 'mh-login',

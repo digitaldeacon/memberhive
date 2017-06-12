@@ -29,7 +29,7 @@ export class ListSettingFailureAction implements Action {
 
 export class UpdateSettingAction implements Action {
     readonly type = UPDATE_SETTINGS;
-    constructor(public payload: SettingsPayload) { }
+    constructor(public payload: any) { }
 }
 
 export class UpdateSettingSuccessAction implements Action {

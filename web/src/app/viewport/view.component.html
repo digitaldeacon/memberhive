@@ -166,7 +166,7 @@
                 <md-nav-list>
                     <a md-list-item>
                         <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
-                        <h4 md-line *ngIf="open==='true'">{{currentUser?.firstName}}</h4>
+                        <h4 md-line *ngIf="drawerVisible">{{currentUser?.firstName}}</h4>
                     </a>
                 </md-nav-list>
                 <md-divider color="white"></md-divider>
@@ -180,11 +180,11 @@
                     <h4 md-line>{{item.title}}</h4>
                 </a>
                 <md-divider color="white"></md-divider>
-                <a md-list-item (click)="closeDrawer()" *ngIf="(drawerVisible$ | async)">
+                <a md-list-item (click)="closeDrawer()" *ngIf="drawerVisible">
                     <md-icon md-list-icon>first_page</md-icon>
                     <h4 md-line i18n>collapse</h4>
                 </a>
-                <a md-list-item (click)="openDrawer()" *ngIf="!(drawerVisible$ | async)">
+                <a md-list-item (click)="openDrawer()" *ngIf="!drawerVisible">
                     <md-icon md-list-icon>last_page</md-icon>
                 </a>
             </md-nav-list>
