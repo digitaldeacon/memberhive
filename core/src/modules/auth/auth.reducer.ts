@@ -22,8 +22,7 @@ export function authReducer(state: AuthState = initialAuthState,
                               action: actions.AuthActions): AuthState {
     switch (action.type) {
 
-        case actions.AUTHENTICATE,
-            actions.SIGN_OUT:
+        case actions.AUTHENTICATE:
             return Object.assign({}, state, {
                 loading: true
             });
