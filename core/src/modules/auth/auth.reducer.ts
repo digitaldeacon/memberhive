@@ -1,4 +1,4 @@
-import { AuthActions, authActionTypes } from './auth.actions';
+import * as actions from './auth.actions';
 
 export interface AuthState {
     authenticated: boolean;
@@ -19,15 +19,15 @@ const initialAuthState: AuthState = {
 };
 
 export function authReducer(state: AuthState = initialAuthState,
-                              action: AuthActions): AuthState {
+                              action: actions.AuthActions): AuthState {
     switch (action.type) {
 
-        case authActionTypes.AUTHENTICATE:
+        case actions.AUTHENTICATE:
             return Object.assign({}, state, {
                 loading: true
             });
 
-        case authActionTypes.AUTHENTICATE_SUCCESS: {
+        case actions.AUTHENTICATE_SUCCESS: {
             const user: any = action.payload;
 
             return {
@@ -40,7 +40,7 @@ export function authReducer(state: AuthState = initialAuthState,
             };
         }
 
-        case authActionTypes.AUTHENTICATE_FAILURE: {
+        case actions.AUTHENTICATE_FAILURE: {
             const res: Response = action.payload;
             const resPromise: any = (res.status !== 504) ? res.json() : undefined;
             const error: string = resPromise ? resPromise.message : res.statusText;
@@ -55,7 +55,7 @@ export function authReducer(state: AuthState = initialAuthState,
             };
         }
 
-        case authActionTypes.SIGN_OUT_FAILURE:
+        case actions.SIGN_OUT_FAILURE:
             return Object.assign({}, state, {
                 authenticated: true,
                 loaded: true,
@@ -64,7 +64,7 @@ export function authReducer(state: AuthState = initialAuthState,
                 personId: state.personId
             });
 
-        case authActionTypes.SIGN_OUT_SUCCESS:
+        case actions.SIGN_OUT_SUCCESS:
             return Object.assign({}, state, {
                 authenticated: false,
                 loaded: true,
@@ -73,13 +73,13 @@ export function authReducer(state: AuthState = initialAuthState,
                 personId: ''
             });
 
-        case authActionTypes.REAUTHENTICATE:
+        case actions.REAUTHENTICATE:
             return Object.assign({}, state, {
                 loading: true,
                 token: action.payload
             });
 
-        case authActionTypes.REAUTHENTICATION_SUCCESS:
+        case actions.REAUTHENTICATION_SUCCESS:
             return Object.assign({}, state, {
                 authenticated: true,
                 token: action.payload.token,

@@ -61,6 +61,6 @@ export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
  * Router Reducers
  */
 export const getRouterState: any = (state: AppState) => state.router;
-export const getRouterPath: any = createSelector(getRouterState, (state: RouterState) => {
-    return state.path;
+export const getRouterPath: any = createSelector(getRouterState, (reducerState: RouterReducerState) => {
+    return reducerState.state.url;
 });

@@ -1,5 +1,5 @@
 import { createSelector } from 'reselect';
-import { PersonActions, personActionTypes } from './person.actions';
+import * as actions from './person.actions';
 import { Person } from './person.model';
 
 export interface PersonState {
@@ -19,25 +19,17 @@ const initialPersonState: PersonState = {
 };
 
 export function personReducer(state: PersonState = initialPersonState,
-    action: PersonActions): PersonState {
+    action: actions.PersonActions): PersonState {
     switch (action.type) {
 
-        case personActionTypes.LIST:
-        case personActionTypes.UPDATE:
+        case actions.LIST_PEOPLE:
+        case actions.UPDATE_PERSON:
             return Object.assign({}, state, {
                 loading: true
             });
 
-        case personActionTypes.LIST_SUCCESS: {
+        case actions.LIST_PEOPLE_SUCCESS: {
             const people: Person[] = action.payload;
-            /*const newPeople: Person[] = people.filter((person: Person) => !state.people[person.uid]);
-            const newPersonIds: string[] = newPeople.map((person: Person) => person.uid);
-            const newPersonEntities: any = newPeople.reduce((entities: { [id: string]: Person }, person: Person) => {
-                return Object.assign(entities, {
-                    [person.uid]: person
-                });
-            }, {});*/
-
             return {
                 loaded: true,
                 loading: false,
@@ -47,17 +39,14 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
-        case personActionTypes.VIEW: {
-            return {
-                loaded: true,
-                loading: false,
-                ids: state.ids,
-                people: state.people,
+        case actions.VIEW_PERSON: {
+            return Object.assign({}, state, {
+                loading: true,
                 personId: action.payload
-            };
+            });
         }
 
-        case personActionTypes.LOAD_VIEW: {
+        case actions.LOAD_PERSON_VIEW: {
             const person: Person = action.payload;
             if (state.ids.indexOf(person.uid) > -1) {
                 return state;
@@ -73,7 +62,7 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
-        case personActionTypes.UPDATE_SUCCESS: {
+        case actions.UPDATE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             return {
                 loaded: true,

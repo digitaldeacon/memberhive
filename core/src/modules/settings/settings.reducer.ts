@@ -1,6 +1,5 @@
 import * as actions from './settings.actions';
 import { SettingsPayload } from './settings.model';
-import * as actions from './settings.actions';
 
 export interface SettingsState {
     loaded?: boolean;

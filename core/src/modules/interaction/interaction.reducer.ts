@@ -1,20 +1,28 @@
-import { Interaction } from './interaction';
-import * as interaction from './interaction.actions';
+import { Interaction } from './interaction.model';
+import * as actions from './interaction.actions';
 
-export type InteractionState = Interaction[];
+export interface InteractionState {
+    loaded?: boolean;
+    loading?: boolean;
+    interactions: Interaction[];
+    myInteractions: Interaction[];
+}
 
-const initialState: InteractionState = [];
+const initialState: InteractionState = {
+    interactions: [],
+    myInteractions: []
+};
 
 export function interactionReducer(state: InteractionState = initialState,
-action: interaction.InteractionActions): InteractionState {
+action: actions.InteractionActions): InteractionState {
     switch (action.type) {
 
-        case interaction.interactionActionTypes.ADD_INTERACTION: {
-            return [ ...state, ...action.payload ];
+        case actions.ADD_INTERACTION: {
+            return state;
         }
 
-        case interaction.interactionActionTypes.LOAD_INTERACTION: {
-            return action.payload;
+        case actions.LIST_INTERACTIONS: {
+            return state;
         }
 
         default:

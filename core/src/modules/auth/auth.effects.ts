@@ -20,7 +20,7 @@ export class AuthEffects {
 
     @Effect()
     public login$: Observable<Action> = this._actions$
-        .ofType(actions.authActionTypes.AUTHENTICATE)
+        .ofType(actions.AUTHENTICATE)
         .map(toPayload)
         .switchMap((credentials: Credentials) =>
             this._http.unauthenticatedPost('login/login',
@@ -43,7 +43,7 @@ export class AuthEffects {
 
     @Effect()
     public $reauth: Observable<Action> = this._actions$
-        .ofType(actions.authActionTypes.REAUTHENTICATE)
+        .ofType(actions.REAUTHENTICATE)
         .map(toPayload)
         .switchMap((token: string) =>
             this._http.get('site/test-login')

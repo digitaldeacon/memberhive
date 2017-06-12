@@ -9,6 +9,7 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
 import * as actions from './settings.actions';
 import { SettingsPayload } from './settings.model';
@@ -21,12 +22,11 @@ export class SettingsEffects {
     @Effect()
     get$: Observable<Action> = this.actions$
         .ofType(actions.LIST_SETTINGS)
-        .map((action: actions.ListSettingAction) => action.payload)
-        .ofType(collection.LIST_SETTINGS)
-        .startWith(new collection.ListSettingAction())
-        .switchMap(() =>
+        // .map((action: actions.ListSettingAction) => action.payload)
+        .mergeMap(() =>
             this.http.get('settings/list') // TODO: add personId to fetch user settings too
                 .map((r: any[]) => new actions.ListSettingSuccessAction(r))
+                // .catch(() => of(actions.LIST_SETTINGS_FAILURE))
             // TODO: catch errors
         );
 

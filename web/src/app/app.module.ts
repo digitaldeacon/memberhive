@@ -23,15 +23,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
-function debug(state, action) {
-    console.log('state', state);
-    console.log('action', action);
-
-    return state;
-}
-
-// const debugReducerFactory: any = compose(debug, combineReducers);
-
 import {
     MHCoreModule,
     PersonEffects,
@@ -40,6 +31,15 @@ import {
 import { reducers } from './app.store';
 
 import 'hammerjs';
+
+function debug(state, action) {
+    console.log('state', state);
+    console.log('action', action);
+
+    return state;
+}
+
+// const debugReducerFactory: any = compose(debug, combineReducers);
 
 @NgModule({
     declarations: [
@@ -54,7 +54,6 @@ import 'hammerjs';
         HttpModule,
         AppMaterialModule,
         BrowserAnimationsModule,
-        FlexLayoutModule,
 
         AppMaterialModule,
         AppRoutingModule,
@@ -62,13 +61,13 @@ import 'hammerjs';
 
         StoreModule.forRoot(reducers),
         StoreRouterConnectingModule,
-        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
 
-        EffectsModule.forRoot(),
-        EffectsModule.run(PersonEffects),
-        EffectsModule.run(AuthEffects),
-        EffectsModule.run(SettingsEffects),
-        StoreDevtoolsModule.instrumentOnlyWithExtension(),
+        EffectsModule.forRoot([
+            PersonEffects,
+            AuthEffects,
+            SettingsEffects
+        ]),
+        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
 
         MHCommonModule,
         SearchModule,

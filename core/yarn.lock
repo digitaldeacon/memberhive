@@ -52,25 +52,17 @@
   dependencies:
     tsickle "^0.21.0"
 
-"@ngrx/core@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/@ngrx/core/-/core-1.2.0.tgz#882b46abafa2e0e6d887cb71a1b2c2fa3e6d0dc6"
+"@ngrx/effects@github:ngrx/effects-builds":
+  version "4.0.0-alpha.0"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/2487f6c2d7077c8e40ad854d57bf1ebb7737c347"
 
-"@ngrx/db@^2.0.2":
-  version "2.0.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/db/-/db-2.0.2.tgz#db3ddd2f60d605fc5e426be8845a00fa32e5873a"
+"@ngrx/router-store@github:ngrx/router-store-builds":
+  version "4.0.0-alpha.0"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/085f07ad31ec9117e336da437030e431b3c8ed01"
 
-"@ngrx/effects@^2.0.0":
-  version "2.0.3"
-  resolved "https://registry.yarnpkg.com/@ngrx/effects/-/effects-2.0.3.tgz#e54ce340806dd91a81826796f13e2446aeeafb77"
-
-"@ngrx/router-store@^1.2.6":
-  version "1.2.6"
-  resolved "https://registry.yarnpkg.com/@ngrx/router-store/-/router-store-1.2.6.tgz#a2eb0ca515e9b367781f1030250dd64bb73c086b"
-
-"@ngrx/store@^2.2.1":
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-2.2.2.tgz#a00305a6452032a3385886a11ce529dce2dae65b"
+"@ngrx/store@github:ngrx/store-builds":
+  version "4.0.0-alpha.0"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/69367776359fcada4d22293b79ae98812180a4f4"
 
 "@types/node@^7.0.12":
   version "7.0.29"
@@ -294,7 +286,7 @@ resolve@^1.3.2:
   dependencies:
     path-parse "^1.0.5"
 
-rxjs@^5.2.0:
+rxjs@^5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/rxjs/-/rxjs-5.4.0.tgz#a7db14ab157f9d7aac6a56e655e7a3860d39bf26"
   dependencies:
@@ -374,7 +366,7 @@ tsutils@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.4.0.tgz#ad4ce6dba0e5a3edbddf8626b7ca040782189fea"
 
-typescript@^2.3.4:
+typescript@^2.3.3:
   version "2.3.4"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 

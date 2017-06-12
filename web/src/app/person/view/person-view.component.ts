@@ -10,8 +10,8 @@ import * as app from '../../app.store';
 import {
     Person,
     TitleService,
-    personActionTypes,
-    PersonViewAction} from 'mh-core';
+    UPDATE_PERSON,
+    VIEW_PERSON} from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
@@ -45,7 +45,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._route.params
             .map((params: Params) =>
-                this._store.dispatch({type: personActionTypes.VIEW, payload: params['id']}))
+                this._store.dispatch({type: VIEW_PERSON, payload: params['id']}))
             .switchMap((p: any) => this.person$)
             .subscribe((person: Person) => {
                 this.person = person;
@@ -80,7 +80,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     savePerson(person: Person): void {
         person.uid = this.person.uid;
-        this._store.dispatch({type: personActionTypes.UPDATE, payload: person});
+        this._store.dispatch({type: UPDATE_PERSON, payload: person});
     }
 
     openDlgRelationships(): void {
