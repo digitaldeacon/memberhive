@@ -10,23 +10,34 @@ import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 
-import * as collection from './settings.actions';
-import { HttpService } from "../../services/http.service";
+import * as actions from './settings.actions';
+import { SettingsPayload } from './settings.model';
+import { SettingsState } from './settings.reducer';
+import { HttpService } from '../../services/http.service';
 
 @Injectable()
 export class SettingsEffects {
 
-    /**
-     * This effect makes use of the `startWith` operator to trigger
-     * the effect immediately on startup.
-     */
     @Effect()
     get$: Observable<Action> = this.actions$
+        .ofType(actions.LIST_SETTINGS)
+        .map((action: actions.ListSettingAction) => action.payload)
         .ofType(collection.LIST_SETTINGS)
         .startWith(new collection.ListSettingAction())
         .switchMap(() =>
-            this.http.get('settings/list')
-                .map((r: any[]) => new collection.ListSettingSuccessAction(r))
+            this.http.get('settings/list') // TODO: add personId to fetch user settings too
+                .map((r: any[]) => new actions.ListSettingSuccessAction(r))
+            // TODO: catch errors
+        );
+
+    @Effect()
+    updateSetting$: Observable<Action> = this.actions$
+        .ofType(actions.UPDATE_SETTINGS)
+        .map((action: actions.UpdateSettingAction) => action.payload)
+        .switchMap((payload: any) =>
+            this.http.post('settings/update-or-create', payload)
+            .map((r: any) => new actions.UpdateSettingSuccessAction(r))
+            // TODO: catch errors
         );
 
     constructor(private actions$: Actions,

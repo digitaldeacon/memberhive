@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
+import { Type, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
+import { MHCommonModule } from '../common/common.module';
 import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,25 +25,38 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { TitleService } from 'mh-core';
 import { ShoutService } from '../common/shout.service';
 
+const NG_MODULES: Type<any>[] = [
+    CommonModule,
+    FlexLayoutModule,
+    FormsModule,
+    ReactiveFormsModule
+];
+
+const MH_MODULES: Type<any>[] = [
+    MHCommonModule,
+    PersonRoutingModule,
+    InteractionModule,
+    AuditModule,
+    AppMaterialModule
+];
+
+const MH_COMPONENTS: Type<any>[] = [
+    PersonComponent,
+    PersonListComponent,
+    PersonViewComponent,
+    PersonEditComponent,
+    PersonRelationsDialogComponent,
+    AvatarEditDialogComponent
+];
+
 @NgModule({
     declarations: [
-        PersonComponent,
-        PersonListComponent,
-        PersonViewComponent,
-        PersonEditComponent,
-        PersonRelationsDialogComponent,
-        AvatarEditDialogComponent,
-        KeysPipe
+        KeysPipe,
+        MH_COMPONENTS
     ],
     imports: [
-        CommonModule,
-        AppMaterialModule,
-        PersonRoutingModule,
-        FlexLayoutModule,
-        FormsModule,
-        ReactiveFormsModule,
-        InteractionModule,
-        AuditModule,
+        NG_MODULES,
+        MH_MODULES,
         ImageCropperModule
     ],
     providers: [

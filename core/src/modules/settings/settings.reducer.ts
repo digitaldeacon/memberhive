@@ -1,15 +1,19 @@
 import * as actions from './settings.actions';
+import { SettingsPayload } from './settings.model';
+import * as actions from './settings.actions';
 
 export interface SettingsState {
-    loaded: boolean;
-    loading: boolean;
-    layout: {
+    loaded?: boolean;
+    loading?: boolean;
+    layout?: {
         showDrawer?: boolean
     };
-    people: {
-        list?: Array<string>
+    people?: {
+        list?: any
     };
-    profile: any;
+    profile?: any;
+    system?: any;
+    dashboard?: any;
 }
 
 const initialState: SettingsState = {
@@ -19,61 +23,42 @@ const initialState: SettingsState = {
         showDrawer: true
     },
     people: {
-        list: ['fullName', 'email']
+        list: ['email']
     },
-    profile: {}
+    profile: {},
+    system: {},
+    dashboard: {}
 };
 
 export function settingsReducer(state: SettingsState = initialState,
                                 action: actions.SettingActions): SettingsState {
     switch (action.type) {
-        case actions.LIST_SETTINGS:
-        case actions.UPDATE_SETTINGS: {
+        case actions.LIST_SETTINGS: {
             return Object.assign({}, state, {
                 loading: true
             });
         }
 
-        case actions.UPDATE_SETTINGS_SUCCESS: {
-            const peopleList: any = state.people.list;
+        case actions.LIST_SETTINGS_SUCCESS: {
+            const settings: SettingsState = action.payload;
+            return Object.assign({}, state, settings);
+        }
 
-            if (action.payload) {
-                // something
-            }
-
-            return {
-                loaded: true,
-                loading: false,
-                layout: state.layout,
-                people: {
-                    list: peopleList
-                },
-                profile: state.profile
-            };
+        case actions.UPDATE_SETTINGS: {
+            const payload: SettingsState = action.payload;
+            return Object.assign({}, state, payload);
         }
 
         case actions.CLOSE_DRAWER: {
-            return {
-                loaded: false,
-                loading: false,
-                layout: {
-                    showDrawer: false
-                },
-                people: state.people,
-                profile: state.profile
-            };
+            return Object.assign({}, state.layout, {
+                showDrawer: false
+            });
         }
 
         case actions.OPEN_DRAWER: {
-            return {
-                loaded: false,
-                loading: false,
-                layout: {
-                    showDrawer: true
-                },
-                people: state.people,
-                profile: state.profile
-            };
+            return Object.assign({}, state.layout, {
+                showDrawer: true
+            });
         }
 
         default:
@@ -83,6 +68,8 @@ export function settingsReducer(state: SettingsState = initialState,
 
 export const getLayoutSettings: any = (state: SettingsState) => state.layout;
 export const getPeopleSettings: any = (state: SettingsState) => state.people;
+export const getSysSettings: any = (state: SettingsState) => state.system;
+export const getPeopleListSettings: any = (state: SettingsState) => state.people.list;
 export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;

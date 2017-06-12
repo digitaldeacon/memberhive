@@ -5,11 +5,10 @@ import { BrowserModule }  from '@angular/platform-browser';
 import { AppMaterialModule } from './app-material.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
-import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
-import { CommonModule } from './common/common.module';
+import { MHCommonModule } from './common/common.module';
 import { SearchModule } from './search/search.module';
 import { InteractionModule } from './interaction/interaction.module';
 
@@ -36,6 +35,7 @@ function debug(state, action) {
 import {
     MHCoreModule,
     PersonEffects,
+    SettingsEffects,
     AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
@@ -49,10 +49,11 @@ import 'hammerjs';
     ],
     imports: [
         BrowserModule,
-        BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        AppMaterialModule,
+        BrowserAnimationsModule,
         FlexLayoutModule,
 
         AppMaterialModule,
@@ -66,8 +67,10 @@ import 'hammerjs';
         EffectsModule.forRoot(),
         EffectsModule.run(PersonEffects),
         EffectsModule.run(AuthEffects),
+        EffectsModule.run(SettingsEffects),
+        StoreDevtoolsModule.instrumentOnlyWithExtension(),
 
-        CommonModule,
+        MHCommonModule,
         SearchModule,
         InteractionModule
     ],

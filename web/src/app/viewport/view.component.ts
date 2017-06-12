@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
@@ -18,7 +17,8 @@ import * as settings from 'mh-core';
 import {
     TitleService,
     Person,
-    AuthService } from 'mh-core';
+    AuthService,
+    SysSettings} from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -27,7 +27,7 @@ import {
     animations: [
         trigger('drawer', [
             state('true', style({
-                width: '200px'
+                width: '256px'
             })),
             state('false',  style({
                 width: '75px',
@@ -37,12 +37,12 @@ import {
             }))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
     private _dialogRef: MdDialogRef<any>;
-    private _usrSubscr: Subscription;
+    private _alive: boolean = true;
 
     routes: Object[] = [
         {
@@ -51,12 +51,12 @@ export class ViewComponent implements OnInit, OnDestroy {
         {
             title: 'Person', route: '/person', icon: 'people'
         },
-        {
+        /* {
             title: 'Events', route: '', icon: 'today'
         },
         {
             title: 'Groups', route: '', icon: 'people_outline'
-        },
+        },*/
         {
             title: 'Settings', route: '/settings', icon: 'build'
         }
@@ -65,6 +65,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     currentUser: Person;
     myInteractions: Observable<Interaction[]>;
     myOutstanding: Observable<Interaction[]>;
+    churchName: string;
 
     drawerVisible$: Observable<boolean>;
     loading$: Observable<boolean>;
@@ -80,9 +81,15 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private _titleService: TitleService) {
         this.drawerVisible$ = this._store.select(app.getShowDrawer);
         this.loading$ = this._store.select(app.getLoading);
-        this._usrSubscr = this._store.select(app.getAuthPerson)
+        this._store.select(app.getAuthPerson)
+            .takeWhile(() => this._alive)
             .subscribe((p: Person) => {
                 this.currentUser = p;
+            });
+        this._store.select(app.getSysSettings)
+            .takeWhile(() => this._alive)
+            .subscribe((data: SysSettings) => {
+                this.churchName = data.churchName;
             });
     }
 
@@ -95,7 +102,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this._usrSubscr.unsubscribe();
+        this._alive = false;
     }
 
     logout(): void {
@@ -111,6 +118,9 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.open = 'false';
         this._store.dispatch(new settings.CloseDrawerAction());
     }
+    drawerWidth(): string {
+        return this.open === 'false' ? '75px' : '220px';
+    }
 
     isActiveItem(title: any): boolean {
         // console.log(this._titleService.getModule(), title);
@@ -121,7 +131,9 @@ export class ViewComponent implements OnInit, OnDestroy {
         // console.log(this._titleService);
         return this._titleService.getTitle();
     }
-
+    route(r: string): void {
+        this._store.dispatch(go([r]));
+    }
     createInteraction(): void {
         this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);

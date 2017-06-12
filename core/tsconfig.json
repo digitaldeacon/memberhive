@@ -5,11 +5,13 @@
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "module": "es2015",
-    "target": "es5",
-    "sourceMap": true,
+    "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./dist",
+    "sourceMap": true,
+    "target": "es5",
+    "noImplicitAny": true,
+    "suppressImplicitAnyIndexErrors": true,
     "typeRoots": [
       "node_modules/@types"
     ],

@@ -18,12 +18,13 @@
     "e2e": "protractor",
     "lint": "yarn tslint",
     "install:dep": "yarn link mh-core",
-    "inspect:vendor": "rm -rf dist/ && ng build --prod --sm && source-map-explorer dist/vendor*.js"
+    "inspect:vendor": "rm -rf dist/ && ng build --prod --sm && source-map-explorer dist/vendor*.js",
+    "postinstall": "npm rebuild node-sass"
   },
   "engines": {
     "node": ">= 5.4.1",
     "npm": ">= 3.10.7",
-    "yarn": ">= 0.21.0"
+    "yarn": ">= 0.24.0"
   },
   "private": true,
   "dependencies": {
@@ -59,7 +60,7 @@
     "zone.js": "^0.8.10"
   },
   "devDependencies": {
-    "@angular/cli": "^1.0.0",
+    "@angular/cli": "1.1.0",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@ngrx/store-devtools": "github:ngrx/store-devtools-builds",
@@ -76,6 +77,7 @@
     "karma-coverage-istanbul-reporter": "^1.2.1",
     "karma-jasmine": "^1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
+    "node-sass": "^4.5.3",
     "protractor": "~5.1.0",
     "ts-node": "^3.0.0",
     "tslint": "^5.2.0",

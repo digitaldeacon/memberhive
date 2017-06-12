@@ -35,9 +35,11 @@ export const getSelectedPerson: any = createSelector(getPersonState, person.getP
  */
 export const getSettingsState: any = (state: AppState) => state.settings;
 export const getLayoutSettings: any = createSelector(getSettingsState, settings.getLayoutSettings);
-export const getPeopleSettings: any = createSelector(getSettingsState, settings.getPeopleSettings);
-export const getProfileSettings: any = createSelector(getSettingsState, settings.getProfileSettings);
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
+export const getPeopleSettings: any = createSelector(getSettingsState, settings.getPeopleSettings);
+export const getPeopleListSettings: any = createSelector(getSettingsState, settings.getPeopleListSettings);
+export const getProfileSettings: any = createSelector(getSettingsState, settings.getProfileSettings);
+export const getSysSettings: any = createSelector(getSettingsState, settings.getSysSettings);
 /**
  * Loading  Reducers
  */
@@ -54,4 +56,11 @@ export const getAuthPersonId: any = createSelector(getAuthState, auth.getPersonI
 export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
     (people: person.Person[], personId: string) => {
     return people.filter((person: person.Person) => person.uid === personId)[0];
+});
+/**
+ * Router Reducers
+ */
+export const getRouterState: any = (state: AppState) => state.router;
+export const getRouterPath: any = createSelector(getRouterState, (state: RouterState) => {
+    return state.path;
 });

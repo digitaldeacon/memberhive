@@ -13,7 +13,8 @@ class m170208_221546_create_interaction_table extends Migration
     public function up()
     {
         $this->createTable(
-            'interaction', [
+            'interaction',
+            [
             'id' => $this->primaryKey(),
             'uid' => $this->string(36),
             'text' => $this->text(),

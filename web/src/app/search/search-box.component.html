@@ -1,13 +1,12 @@
-<div class="mh-search-box">
-    <button md-icon-button type="button" class="mh-search-icon" flex="none" (click)="searchClicked()">
-        <md-icon *ngIf="searchVisible">{{backIcon}}</md-icon>
-        <md-icon *ngIf="!searchVisible">search</md-icon>
-    </button>
-    <md-input-container *ngIf="searchVisible" floatPlaceholder="never">
+<div class="mh-search-box" fxFlex>
+    <md-input-container floatPlaceholder="never" [class.active]="searchInFocus">
+        <md-icon mdPrefix>search</md-icon>
         <input mdInput
                type="search"
                [mdAutocomplete]="auto"
                [formControl]="itemCtrl"
+               (focus)="searchInFocus = true"
+               (blur)="searchInFocus = false"
                (keyup)="search(term.value)"
                (clear)="toggleVisibility()" #term>
     </md-input-container>

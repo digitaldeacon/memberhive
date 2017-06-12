@@ -1,5 +1,7 @@
 import { Action } from '@ngrx/store';
 import { SettingsPayload } from './settings.model';
+import { SettingsPayload } from './settings.model';
+import { SettingsState } from './settings.reducer';
 
 export const LIST_SETTINGS: string = '[Settings] List';
 export const LIST_SETTINGS_SUCCESS: string = '[Settings] List Success';
@@ -43,6 +45,26 @@ export class UpdateSettingFailureAction implements Action {
     constructor(public payload: SettingsPayload) { }
 }
 
+export class ListSettingFailureAction implements Action {
+    readonly type: string = LIST_SETTINGS_FAILURE;
+    constructor(public payload: any) { }
+}
+
+export class UpdateSettingAction implements Action {
+    readonly type: string = UPDATE_SETTINGS;
+    constructor(public payload: SettingsPayload) { }
+}
+
+export class UpdateSettingSuccessAction implements Action {
+    readonly type: string = UPDATE_SETTINGS_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class UpdateSettingFailureAction implements Action {
+    readonly type: string = UPDATE_SETTINGS_FAILURE;
+    constructor(public payload?: any) { }
+}
+
 export class OpenDrawerAction implements Action {
     readonly type: string = OPEN_DRAWER;
     constructor(public payload?: number) { }
@@ -58,7 +80,7 @@ export class SetTitleAction implements Action {
 }
 
 export class SetModuleAction implements Action {
-    readonly type: string = SET_MODULE;
+    type: any = settingActionTypes.SET_MODULE;
 }
 
 export class GetModuleTitleAction implements Action {

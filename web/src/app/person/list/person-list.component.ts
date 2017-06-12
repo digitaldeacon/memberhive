@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -13,20 +13,28 @@ import { Person, TitleService } from 'mh-core';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class PersonListComponent {
+export class PersonListComponent implements OnDestroy {
+    private _alive: boolean = true;
+
     people$: Observable<Person[]>;
     options: any = {};
 
     constructor(private _store: Store<app.AppState>,
-                private _titleService: TitleService) {
-        this._titleService.setTitle('People List');
+                titleService: TitleService) {
+        titleService.setTitle('People List');
         this.people$ = this._store.select(app.getPeople);
-        this.options = {
-            display: ['birthday', 'email']
-        };
+        this._store.select(app.getPeopleListSettings)
+            .takeWhile(() => this._alive)
+            .subscribe((data: any) => {
+                this.options = data;
+        });
     }
 
     display(key: string): boolean {
-        return this.options.display.indexOf(key) >= 0;
+        return this.options.indexOf(key) >= 0;
+    }
+
+    ngOnDestroy(): void {
+        this._alive = false;
     }
 }

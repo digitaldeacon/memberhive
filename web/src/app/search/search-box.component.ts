@@ -1,13 +1,10 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-
-import { MdInputDirective } from '@angular/material';
 import { SearchService } from './search.service';
 import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
@@ -21,13 +18,11 @@ import 'rxjs/add/operator/switchMap';
 export class SearchBoxComponent implements OnInit {
 
     private _searchVisible: boolean = false;
-    private backIcon: string = 'arrow_back';
     private searchTermStream: Subject<string> = new Subject<string>();
-    @ViewChild(MdInputDirective) private _searchInput: MdInputDirective;
 
     itemCtrl: FormControl;
-
-    public items: Observable<string[]>;
+    items: Observable<string[]>;
+    searchInFocus: boolean = false;
 
     constructor(private searchService: SearchService,
                 private router: Router) {

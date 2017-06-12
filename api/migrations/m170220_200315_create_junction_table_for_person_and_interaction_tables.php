@@ -17,7 +17,8 @@ class m170220_200315_create_junction_table_for_person_and_interaction_tables ext
     public function up()
     {
         $this->createTable(
-            'person_interaction', [
+            'person_interaction',
+            [
             'person_id' => $this->integer(),
             'interaction_id' => $this->integer(),
             'doneOn' => $this->dateTime(),

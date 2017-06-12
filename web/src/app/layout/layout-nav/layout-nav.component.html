@@ -1,0 +1,25 @@
+<div layout="column" layout-fill>
+  <md-toolbar [color]="color">
+    <button md-icon-button
+            class="mh-menu-button"
+            *ngIf="isMainSidenavAvailable"
+            (click)="openMainSidenav()">
+      <md-icon class="md-24">menu</md-icon>
+    </button>
+    <span *ngIf="icon || logo || toolbarTitle"
+          [class.cursor-pointer]="routerEnabled"
+          (click)="handleNavigationClick()"
+          layout="row"
+          layout-align="start center"
+          fxHide.xs fxHide.sm>
+      <md-icon *ngIf="icon">{{icon}}</md-icon>
+      <md-icon *ngIf="logo && !icon" class="md-icon-logo" [svgIcon]="logo"></md-icon>
+      <span *ngIf="toolbarTitle">{{toolbarTitle}}</span>
+    </span>
+    <ng-content select="[mh-toolbar-content]"></ng-content>
+  </md-toolbar>
+  <div flex layout="column" class="content md-content" cdkScrollable>
+    <ng-content></ng-content>
+  </div>
+  <ng-content select="mh-layout-footer"></ng-content>
+</div>

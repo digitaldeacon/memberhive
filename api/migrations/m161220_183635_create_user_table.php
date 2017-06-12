@@ -13,7 +13,8 @@ class m161220_183635_create_user_table extends Migration
     public function up()
     {
         $this->createTable(
-            'user', [
+            'user',
+            [
             'id' => $this->primaryKey(),
             'username' => $this->string()->unique(),
             'authKey' => $this->string(),

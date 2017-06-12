@@ -1,3 +1,4 @@
+<!-- TODO: use this layout once we can fix sidenav and toolbar (remove covalent layout again)
 <md-sidenav-container class="sidenav-container" fullscreen>
 
     <md-sidenav #sidenav>
@@ -28,9 +29,7 @@
             <md-icon class="md-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></md-icon>
             <span fxHide.xs class="material-label mdl-badge" data-badge="2">MemberHive</span>
 
-            <mh-search-box #searchInput
-                           class="search-box"
-                           fxFlex style="text-align: right"></mh-search-box>
+            <mh-search-box #searchInput class="search-box" fxFlex></mh-search-box>
 
             <button
                     md-icon-button
@@ -72,7 +71,7 @@
 
     <main fxLayout="row">
         <div class="drawer"
-             fxFlex="200px"
+             fxFlex="256px"
              fxHide.xs
              fxHide.sm
              [@drawer]="open">
@@ -92,20 +91,110 @@
                 <md-divider color="white"></md-divider>
                 <a md-list-item (click)="closeDrawer()" *ngIf="(drawerVisible$ | async)">
                     <md-icon md-list-icon>first_page</md-icon>
-                    <h4 md-line>collapse</h4>
+                    <h4 md-line i18n>collapse</h4>
                 </a>
                 <a md-list-item (click)="openDrawer()" *ngIf="!(drawerVisible$ | async)">
                     <md-icon md-list-icon>last_page</md-icon>
                 </a>
             </md-nav-list>
         </div>
-        <div fxFlex fxLayout="column" fxFill>
-            <md-toolbar>
-                <h4>{{getTitle()}}</h4>
-            </md-toolbar>
-            <div class="main-content" fxFlex>
-                <router-outlet></router-outlet>
-            </div>
+        <div fxFlex fxLayout="column" class="app-content" fxFill>
+            <router-outlet></router-outlet>
         </div>
     </main>
-</md-sidenav-container>
+
+    <footer></footer>
+</md-sidenav-container>-->
+
+
+<mh-layout #layout>
+    <mh-navigation-drawer
+            sidenavTitle="MemberHive"
+            logo="assets:memberhive"
+            name="{{currentUser?.fullName}}"
+            email="{{currentUser?.email}}">
+        <md-nav-list>
+            <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
+                <a md-list-item
+                   (click)="route(item.route)"
+                   (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
+            </ng-template>
+        </md-nav-list>
+        <md-nav-list mhNavigationDrawerMenu>
+            <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>Sign out</a>
+        </md-nav-list>
+    </mh-navigation-drawer>
+    <mh-layout-nav logo="assets:memberhive" toolbarTitle="{{churchName}}">
+        <div mh-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
+            <span fxFlex="15" fxHide.xs fxHide.sm></span>
+            <mh-search-box fxFlex></mh-search-box>
+            <button md-icon-button
+                    [mdMenuTriggerFor]="interactions"
+                    mdTooltip="Interactions"
+                    [class.has-interactions]="(myOutstanding | async)?.length">
+                <md-icon *ngIf="!(myOutstanding | async)?.length">forum</md-icon>
+                <b *ngIf="(myOutstanding | async)?.length">{{myOutstanding.length}}</b>
+            </button>
+
+            <md-menu #interactions="mdMenu">
+                <div *ngIf="!(myOutstanding | async)?.length">No interactions</div>
+                <md-nav-list *ngIf="(myOutstanding | async)?.length">
+                    <md-list-item *ngFor="let interaction of myOutstanding | async">
+                        <span md-list-avatar class="date-rounded">{{interaction.dueOn | date: 'MMM d'}}</span>
+                        <span md-line>{{interaction.text | slice:0:20}}...</span>
+                        <span md-line>{{interaction.author.name}}</span>
+                    </md-list-item>
+                </md-nav-list>
+                <md-divider></md-divider>
+                <a md-menu-item (click)="createInteraction()" i18n>Create interaction</a>
+            </md-menu>
+
+            <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
+            <md-menu #menu="mdMenu">
+                <button md-menu-item>
+                    <md-icon>account_circle</md-icon>
+                    <span i18n>My Profile</span>
+                </button>
+                <button md-menu-item (click)="logout()">
+                    <md-icon>exit_to_app</md-icon>
+                    <span i18n>Sign out</span>
+                </button>
+            </md-menu>
+        </div>
+        <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
+            <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
+                <md-nav-list>
+                    <a md-list-item>
+                        <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
+                        <h4 md-line *ngIf="open==='true'">{{currentUser?.firstName}}</h4>
+                    </a>
+                </md-nav-list>
+                <md-divider color="white"></md-divider>
+            </md-toolbar>
+            <md-nav-list mh-sidenav-content>
+                <a *ngFor="let item of routes"
+                   md-list-item
+                   (click)="route(item.route)"
+                   [ngClass]="{'active-list-item': isActiveItem(item.title) }">
+                    <md-icon md-list-icon>{{item.icon}}</md-icon>
+                    <h4 md-line>{{item.title}}</h4>
+                </a>
+                <md-divider color="white"></md-divider>
+                <a md-list-item (click)="closeDrawer()" *ngIf="(drawerVisible$ | async)">
+                    <md-icon md-list-icon>first_page</md-icon>
+                    <h4 md-line i18n>collapse</h4>
+                </a>
+                <a md-list-item (click)="openDrawer()" *ngIf="!(drawerVisible$ | async)">
+                    <md-icon md-list-icon>last_page</md-icon>
+                </a>
+            </md-nav-list>
+            <div mh-toolbar-content layout="row" layout-align="start center" flex>
+                <span>{{getTitle()}}</span>
+                <span flex></span>
+            </div>
+            <div class="main-content">
+                <router-outlet></router-outlet>
+            </div>
+        </mh-layout-manage-list>
+    </mh-layout-nav>
+</mh-layout>

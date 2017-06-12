@@ -1,6 +1,4 @@
 import { AuthActions, authActionTypes } from './auth.actions';
-import { AuthService } from './auth.service';
-import { LocalStorageService } from 'ng2-webstorage';
 
 export interface AuthState {
     authenticated: boolean;
@@ -8,7 +6,7 @@ export interface AuthState {
     personId: string;
     loading: boolean;
     loaded: boolean;
-    error?: Promise<string>;
+    error?: string;
     status: number;
 }
 
@@ -44,13 +42,15 @@ export function authReducer(state: AuthState = initialAuthState,
 
         case authActionTypes.AUTHENTICATE_FAILURE: {
             const res: Response = action.payload;
-            const msg: any = res.json();
+            const resPromise: any = (res.status !== 504) ? res.json() : undefined;
+            const error: string = resPromise ? resPromise.message : res.statusText;
+
             return {
                 authenticated: false,
                 loaded: false,
                 loading: false,
                 personId: '',
-                error: msg.message,
+                error: error,
                 status: res.status
             };
         }

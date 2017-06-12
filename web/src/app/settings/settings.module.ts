@@ -1,7 +1,8 @@
-import { NgModule } from '@angular/core';
+import { Type, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { AppMaterialModule } from '../app-material.module';
 import { SettingsComponent } from './settings.component';
@@ -9,13 +10,19 @@ import { SettingsRoutingModule } from './settings-routing.module';
 
 import { TitleService } from 'mh-core';
 
+const NG_MODULES: Type<any>[] = [
+  CommonModule,
+  FlexLayoutModule,
+  FormsModule,
+  ReactiveFormsModule
+];
+
 @NgModule({
   imports: [
-    CommonModule,
+    NG_MODULES,
     SettingsRoutingModule,
     AppMaterialModule,
-    DragulaModule,
-    FlexLayoutModule
+    DragulaModule
   ],
   declarations: [
       SettingsComponent

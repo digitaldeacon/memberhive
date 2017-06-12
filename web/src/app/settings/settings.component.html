@@ -1,19 +1,45 @@
-<h4 i18n>Person Settings</h4>
-<md-card>
-    <md-card-title i18n>Person List</md-card-title>
-    <md-card-content fxLayout="row" fxLayoutGap="10px">
-        <fieldset fxFlex="50">
-            <legend i18n>Selected</legend>
-            <div class='container' [dragula]='"person-list-bag"' [dragulaModel]='personAttrSelected'>
-                <div *ngFor="let element of personAttrSelected" class="div" [innerHtml]='element'></div>
-            </div>
-        </fieldset>
-        <fieldset fxFlex="50">
-            <legend i18n>Available</legend>
-            <div class="container" [dragula]='"person-list-bag"' [dragulaModel]='personAttr'>
-                <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
-            </div>
-        </fieldset>
-    </md-card-content>
-</md-card>
-<p>{{peopleSettings$ | async}}</p>
+<!--<md-toolbar>
+    <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+        <span i18n>Settings</span>
+        <span fxFlex></span>
+        <button md-icon-button><md-icon class="md-24">view_module</md-icon></button>
+        <button md-icon-button><md-icon class="md-24">sort</md-icon></button>
+        <button md-icon-button><md-icon class="md-24">settings</md-icon></button>
+        <button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>
+    </div>
+</md-toolbar>-->
+<div class="main-content" fxFlex fxLayoutGap="10px">
+    <form [formGroup]="settingsForm" novalidate>
+        <md-card formGroupName="system">
+            <md-card-title i18n>System Settings</md-card-title>
+            <md-card-content fxLayout="row" >
+                <md-input-container fxFlex>
+                    <input mdInput
+                           fxFlex
+                           type="text"
+                           placeholder="Name of Church"
+                           i18n-placeholder
+                           formControlName="churchName">
+                </md-input-container>
+            </md-card-content>
+        </md-card>
+
+        <md-card>
+            <md-card-title i18n>Person List</md-card-title>
+            <md-card-content fxLayout="row" fxLayoutGap="10px">
+                <fieldset fxFlex="50">
+                    <legend i18n>Selected</legend>
+                    <div class='container' [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttrSelected'>
+                        <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]='element'></div>
+                    </div>
+                </fieldset>
+                <fieldset fxFlex="50">
+                    <legend i18n>Available</legend>
+                    <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
+                        <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+                    </div>
+                </fieldset>
+            </md-card-content>
+        </md-card>
+    </form>
+</div>

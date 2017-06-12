@@ -13,7 +13,8 @@ class m170209_132715_create_import_table extends Migration
     public function up()
     {
         $this->createTable(
-            'import', [
+            'import',
+            [
             'id' => $this->primaryKey(),
             'type' => $this->string(),
             'refTable' => $this->string(),
