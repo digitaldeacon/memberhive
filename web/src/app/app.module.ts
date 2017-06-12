@@ -34,8 +34,8 @@ import 'hammerjs';
 
 /*function debug(reducer): any {
     return function(state, action): any {
-        // console.log('state', state);
-        // console.log('action', action);
+        console.log('state', state);
+        console.log('action', action);
         return reducer(state, action);
     };
 }
@@ -60,6 +60,7 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         AppRoutingModule,
         MHCoreModule,
 
+        // StoreModule.forRoot(reducers, { reducerFactory: debugReducerFactory }),
         StoreModule.forRoot(reducers),
         StoreRouterConnectingModule,
 
