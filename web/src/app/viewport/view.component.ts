@@ -88,8 +88,11 @@ export class ViewComponent implements OnInit, OnDestroy {
             });
         this._store.select(app.getSysSettings)
             .takeWhile(() => this._alive)
-            .subscribe((data: SysSettings) => {
-                this.churchName = data.churchName;
+            .subscribe((data: any) => {
+                if (data) {
+                    console.log(data);
+                    this.churchName = data.churchName;
+                }
             });
     }
 

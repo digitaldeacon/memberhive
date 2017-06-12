@@ -49,14 +49,14 @@ export function settingsReducer(state: SettingsState = initialState,
         }
 
         case actions.CLOSE_DRAWER: {
-            return Object.assign({}, state.layout, {
-                showDrawer: false
+            return Object.assign({}, state, {
+                layout: {showDrawer: false}
             });
         }
 
         case actions.OPEN_DRAWER: {
-            return Object.assign({}, state.layout, {
-                showDrawer: true
+            return Object.assign({}, state, {
+                layout: {showDrawer: true}
             });
         }
 
