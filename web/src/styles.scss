@@ -82,7 +82,6 @@ input[type="search"] {
 md-toolbar {
   [md-button] {
     &:first-of-type:not(:last-child) {
-
       margin-left: -6px;
       [dir='rtl'] & {
         margin-right: -6px;
@@ -118,16 +117,13 @@ md-sidenav-container {
     overflow: hidden;
   }
 }
-
 md-content,
 [md-content],
 .md-content {
-
   display: block;
   position: relative;
   overflow: auto;
   -webkit-overflow-scrolling: touch;
-
   &[md-scroll-y] {
     overflow-y: auto;
     overflow-x: hidden;
@@ -137,7 +133,6 @@ md-content,
     overflow-y: hidden;
   }
   // For iOS allow disabling of momentum scrolling
-  // @see issue #2640.
   &.autoScroll {
     -webkit-overflow-scrolling: auto;
   }

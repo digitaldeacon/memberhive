@@ -9,7 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json",
-    "start:ssl": "ng serve --proxy-config proxy.conf.json --ssl 1 --ssl-key /Applications/MAMP/ssl/localhost.key --ssl-cert /Applications/MAMP/ssl/localhost.cert",
+    "start:ssl": "ng serve --proxy-config proxy.conf.json --ssl 1 --ssl-key \"/Applications/MAMP/ssl/localhost.key\" --ssl-cert \"/Applications/MAMP/ssl/localhost.cert\"",
     "build": "rm -rf dist/ && ng build --prod",
     "extract-i18n": "cd src && ng xi18n",
     "tslint": "tslint \"**/*.ts\" -c src/tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
