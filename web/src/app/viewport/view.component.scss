@@ -63,3 +63,7 @@ md-nav-list {
   border-width: 0 3px 0 0;
   border-style: solid;
 }
+.mat-progress-bar {
+  z-index: 10;
+  height: 3px;
+}

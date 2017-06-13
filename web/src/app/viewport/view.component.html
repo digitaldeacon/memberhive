@@ -106,7 +106,6 @@
     <footer></footer>
 </md-sidenav-container>-->
 
-
 <mh-layout #layout>
     <mh-navigation-drawer
             sidenavTitle="MemberHive"
@@ -161,6 +160,7 @@
                 </button>
             </md-menu>
         </div>
+        <md-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></md-progress-bar>
         <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
             <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
                 <md-nav-list>

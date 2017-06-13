@@ -4,6 +4,10 @@
   margin: 0;
   padding: 24px;
 }
+.mat-progress-bar {
+  z-index: 10;
+  height: 3px;
+}
 .login-container {
   background-color: #D8D8D6;
   background: url(/assets/images/login/bg/2.jpg) no-repeat center center fixed;
