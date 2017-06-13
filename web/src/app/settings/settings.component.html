@@ -8,8 +8,8 @@
         <button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>
     </div>
 </md-toolbar>-->
-<div class="main-content" fxFlex fxLayoutGap="10px">
-    <form [formGroup]="settingsForm" novalidate>
+<div class="main-content">
+    <form [formGroup]="settingsForm" novalidate fxFlex fxLayout="column" fxLayoutGap="10px">
         <md-card formGroupName="system">
             <md-card-title i18n>System Settings</md-card-title>
             <md-card-content fxLayout="row" >
