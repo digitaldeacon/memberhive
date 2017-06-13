@@ -3,52 +3,52 @@
 
 
 "@angular/common@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.2.1.tgz#cb334e3b71f4d3e9f34b7ad942c548d3f936dfc8"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/common/-/common-4.2.2.tgz#7c07c46897d5854271240790130077dc83a0a775"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/compiler-cli@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.2.1.tgz#961d9a89ad3c9a8c42172a9c38114d34f90e507d"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/compiler-cli/-/compiler-cli-4.2.2.tgz#bc5fa52e34000b678a3c8189ffe2da5fc0017501"
   dependencies:
-    "@angular/tsc-wrapped" "4.2.1"
+    "@angular/tsc-wrapped" "4.2.2"
     minimist "^1.2.0"
     reflect-metadata "^0.1.2"
 
 "@angular/compiler@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-4.2.1.tgz#8d77b458e04b887947d85adccd7546e4a987d4b0"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/compiler/-/compiler-4.2.2.tgz#10c168f8a156397f07ae6ef83a0911e01ed264f8"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/core@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.2.1.tgz#0865304b3df43046919b646f02fdeda85a0c4685"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/core/-/core-4.2.2.tgz#af5587dda275935868709d8c186e2dc2a1d70a00"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/http@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.2.1.tgz#d9e6e348c8753d318c761d7f4b4d9f05fec40ef9"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/http/-/http-4.2.2.tgz#e9f977f7b0ecec4d58ecdfc56d5706d8295848b2"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/platform-browser@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.2.1.tgz#1f01d4d31fa390211826266cf6e3a3f629860f1d"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/platform-browser/-/platform-browser-4.2.2.tgz#e7e1ea32d1069ff960429076f3f0882965b620f3"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/router@^4.0.0":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.2.1.tgz#b64a0d87e5cd022f3d3c52ec8b7bab90b2e3f198"
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/router/-/router-4.2.2.tgz#2f2d202c92dbe3828d5a3d2fd2c3737c0cb6a587"
   dependencies:
     tslib "^1.7.1"
 
-"@angular/tsc-wrapped@4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.2.1.tgz#a28a369b434c3819d55d1ca27d2353057a79c979"
+"@angular/tsc-wrapped@4.2.2":
+  version "4.2.2"
+  resolved "https://registry.yarnpkg.com/@angular/tsc-wrapped/-/tsc-wrapped-4.2.2.tgz#094da1514849a0847f9cb5184e0ceb16fc194457"
   dependencies:
     tsickle "^0.21.0"
 
@@ -65,8 +65,8 @@
   resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/69367776359fcada4d22293b79ae98812180a4f4"
 
 "@types/node@^7.0.12":
-  version "7.0.29"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.29.tgz#ccfcec5b7135c7caf6c4ffb8c7f33102340d99df"
+  version "7.0.31"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-7.0.31.tgz#80ea4d175599b2a00149c29a10a4eb2dff592e86"
 
 ansi-regex@^2.0.0:
   version "2.1.1"
@@ -363,8 +363,8 @@ tsutils@^2.3.0:
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.4.0.tgz#ad4ce6dba0e5a3edbddf8626b7ca040782189fea"
 
 typescript@^2.3.3:
-  version "2.3.4"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.0.tgz#aef5a8d404beba36ad339abf079ddddfffba86dd"
 
 wrappy@1:
   version "1.0.2"

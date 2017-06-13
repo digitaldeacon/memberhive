@@ -7,8 +7,8 @@
     "type": "git",
     "url": "git+https://github.com/digitaldeacon/memberhive2.git"
   },
-  "main": "./dist/src/index.js",
-  "typings": "./dist/src/index.d.ts",
+  "main": "./dist/index.js",
+  "typings": "./dist/index.d.ts",
   "scripts": {
     "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
     "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",

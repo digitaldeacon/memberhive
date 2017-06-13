@@ -69,6 +69,7 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
             AuthEffects,
             SettingsEffects
         ]),
+
         // !environment.prod ? StoreDevtoolsModule.instrument() : [],
 
         MHCommonModule,
