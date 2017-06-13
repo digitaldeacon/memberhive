@@ -1,45 +1,70 @@
-<!--<md-toolbar>
-    <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
-        <span i18n>Settings</span>
-        <span fxFlex></span>
-        <button md-icon-button><md-icon class="md-24">view_module</md-icon></button>
-        <button md-icon-button><md-icon class="md-24">sort</md-icon></button>
-        <button md-icon-button><md-icon class="md-24">settings</md-icon></button>
-        <button md-icon-button><md-icon class="md-24">more_vert</md-icon></button>
-    </div>
-</md-toolbar>-->
 <div class="main-content">
-    <form [formGroup]="settingsForm" novalidate fxFlex fxLayout="column" fxLayoutGap="10px">
-        <md-card formGroupName="system">
-            <md-card-title i18n>System Settings</md-card-title>
-            <md-card-content fxLayout="row" >
-                <md-input-container fxFlex>
-                    <input mdInput
-                           fxFlex
-                           type="text"
-                           placeholder="Name of Church"
-                           i18n-placeholder
-                           formControlName="churchName">
-                </md-input-container>
-            </md-card-content>
-        </md-card>
+    <form [formGroup]="settingsForm" novalidate fxFlex>
+        <md-accordion>
+            <md-expansion-panel #sysPanel [hideToggle]="hideToggle" formGroupName="system">
+                <md-expansion-panel-header i18n>System</md-expansion-panel-header>
 
-        <md-card>
-            <md-card-title i18n>Person List</md-card-title>
-            <md-card-content fxLayout="row" fxLayoutGap="10px">
-                <fieldset fxFlex="50">
-                    <legend i18n>Selected</legend>
-                    <div class='container' [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttrSelected'>
-                        <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]='element'></div>
-                    </div>
+                <fieldset fxLayout="row">
+                    <legend i18n>Toolbar</legend>
+                    <md-input-container fxFlex>
+                        <input mdInput
+                               fxFlex
+                               type="text"
+                               placeholder="Name of Church"
+                               i18n-placeholder
+                               formControlName="churchName">
+                    </md-input-container>
                 </fieldset>
-                <fieldset fxFlex="50">
-                    <legend i18n>Available</legend>
-                    <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
-                        <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+
+            </md-expansion-panel>
+            <md-expansion-panel #personPanel [hideToggle]="hideToggle">
+                <md-expansion-panel-header>Person</md-expansion-panel-header>
+
+                    <div>
+                        <h4 i18n>Person List</h4>
+                        <div fxLayout="row" fxLayoutGap="10px">
+                            <fieldset fxFlex="50">
+                                <legend i18n>Selected</legend>
+                                <div class='container' [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttrSelected'>
+                                    <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]='element'></div>
+                                </div>
+                            </fieldset>
+                            <fieldset fxFlex="50">
+                                <legend i18n>Available</legend>
+                                <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
+                                    <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+                                </div>
+                            </fieldset>
+                        </div>
                     </div>
-                </fieldset>
-            </md-card-content>
-        </md-card>
+                    <div>
+                        <h4 i18n>Marital Status</h4>
+                        <md-input-container fxFlex>
+                            <input mdInput
+                                   fxFlex
+                                   type="text"
+                                   placeholder="Add Status"
+                                   value="{{status}}"
+                                   i18n-placeholder>
+                        </md-input-container>
+                        <button md-icon-button><md-icon>add_circle_outline</md-icon></button>
+                        <fieldset>
+                            <legend i18n>Available</legend>
+                            <div *ngFor="let status of personMaritalStatusSet">
+                                <md-input-container fxFlex>
+                                    <input mdInput
+                                           fxFlex
+                                           type="text"
+                                           placeholder="Status"
+                                           value="{{status}}"
+                                           i18n-placeholder>
+                                </md-input-container>
+                                <button md-icon-button><md-icon>delete</md-icon></button>
+                            </div>
+                        </fieldset>
+                    </div>
+
+            </md-expansion-panel>
+        </md-accordion>
     </form>
 </div>

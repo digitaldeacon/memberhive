@@ -10,7 +10,8 @@ import {
     MdCoreModule,
     MdDatepickerModule,
     MdInputModule,
-    MdMenuModule
+    MdMenuModule,
+    MdExpansionModule
 } from '@angular/material';
 
 import { MHLayoutModule } from '../layout/layout.module';
@@ -26,7 +27,8 @@ import { FilterComponent } from './components/filter/filter.component';
 
 const MATERIAL_MODULES: any[] = [
     CompatibilityModule, MdButtonModule, MdCardModule, MdIconModule,
-    MdDatepickerModule, StyleModule, MdCoreModule, MdInputModule, MdMenuModule
+    MdDatepickerModule, StyleModule, MdCoreModule, MdInputModule, MdMenuModule,
+    MdExpansionModule
 ];
 
 @NgModule({

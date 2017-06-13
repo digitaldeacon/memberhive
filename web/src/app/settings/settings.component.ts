@@ -17,12 +17,11 @@ import 'rxjs/add/operator/distinctUntilChanged';
 })
 export class SettingsComponent implements AfterViewInit, OnDestroy {
     private alive: boolean = true;
+    hideToggle: boolean = false;
     personAttrSet: Array<string> = [
-        // 'fullName',
         'firstName',
         'middleName',
         'lastName',
-        // 'avatar',
         'email',
         'birthday',
         'gender',
@@ -33,6 +32,16 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
+
+    personMaritalStatusSet: Array<string> = [
+        'single',
+        'engaged',
+        'married',
+        'widowed',
+        'seperated',
+        'divorced'
+    ];
+
     sysSettings: SysSettings;
     settingsForm: FormGroup;
 

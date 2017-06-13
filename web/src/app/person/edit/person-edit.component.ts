@@ -23,7 +23,6 @@ export class PersonEditComponent {
     @Input()
     set person(person: Person) {
         if (person) {
-            // this.form.patchValue(person);
             this.initForm(person);
         }
     }
