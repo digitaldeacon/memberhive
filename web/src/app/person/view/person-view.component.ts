@@ -25,6 +25,7 @@ import { Interaction } from '../../interaction/interaction';
     styleUrls: ['./person-view.component.scss']
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
+    private _alive: boolean = true;
     interactions: Array<Interaction>;
     people: Array<Person>;
     person?: Person;
@@ -37,7 +38,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _dialog: MdDialog) {
-        this.subscription = this._store.select(app.getPeople)
+        this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
     }
@@ -54,7 +55,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.subscription.unsubscribe();
+        this._alive = false;
     }
 
     prevPerson(): void {

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
 import { InteractionService } from '../common/interaction.service';
 
-import { MdDialog, MdDialogRef } from '@angular/material';
+import { MdDialog } from '@angular/material';
 
 import { Interaction } from '../interaction/interaction';
 
@@ -41,7 +41,6 @@ import {
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
-    private _dialogRef: MdDialogRef<any>;
     private _alive: boolean = true;
 
     routes: Object[] = [
@@ -67,10 +66,8 @@ export class ViewComponent implements OnInit, OnDestroy {
     myOutstanding: Observable<Interaction[]>;
     churchName: string;
 
-    drawerVisible$: Observable<boolean>;
     loading$: Observable<boolean>;
 
-    open: string = 'true';
     drawerVisible: boolean;
 
     constructor(private _shoutService: ShoutService,
@@ -78,20 +75,17 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private _interactionService: InteractionService, // TODO: remove with store
                 private _router: Router,
                 private _store: Store<app.AppState>,
-                private _dialog: MdDialog,
                 private _titleService: TitleService) {
         this.loading$ = this._store.select(app.getLoading);
         this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
                 this.drawerVisible = visible;
             });
-        this._store.select(app.getAuthPerson)
-            .takeWhile(() => this._alive)
+        this._store.select(app.getAuthPerson).takeWhile(() => this._alive)
             .subscribe((p: Person) => {
                 this.currentUser = p;
             });
-        this._store.select(app.getSysSettings)
-            .takeWhile(() => this._alive)
+        this._store.select(app.getSysSettings).takeWhile(() => this._alive)
             .subscribe((data: SysSettings) => {
                 if (data) {
                     this.churchName = data.churchName;

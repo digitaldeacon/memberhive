@@ -41,7 +41,6 @@ export function personReducer(state: PersonState = initialPersonState,
 
         case actions.VIEW_PERSON: {
             return Object.assign({}, state, {
-                loading: true,
                 personId: action.payload
             });
         }
