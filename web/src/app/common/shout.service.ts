@@ -11,10 +11,12 @@ export class ShoutService {
 
     constructor(public snackBar: MdSnackBar) {}
 
-    out(message: string, type: string): void {
+    out(message: string, type?: string): void {
         let config: MdSnackBarConfig = new MdSnackBarConfig();
         config.duration = this.autoHide;
-        config.extraClasses = ['shout-' + type];
+        if (type) {
+            config.extraClasses = ['shout-' + type];
+        }
         this.snackBar.open(message, this.actionButtonLabel, config);
     }
     error(message: string): void {

@@ -43,8 +43,8 @@
         </div>
         <div class="mat-input-wrapper">
             <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
-                <md-option *ngFor="let status of options.marital" [value]="status.value">
-                    {{status.viewValue}}
+                <md-option *ngFor="let mstatus of settings?.maritalStatus" [value]="mstatus.status">
+                    {{mstatus.status}}
                 </md-option>
             </md-select>
         </div>

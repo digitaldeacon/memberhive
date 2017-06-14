@@ -1,5 +1,6 @@
-import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import { ShoutService } from '../common/shout.service';
 import {
     TitleService,
     SysSettings,
@@ -52,6 +53,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     constructor(titleService: TitleService,
                 dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
+                private _shout: ShoutService,
                 private _fb: FormBuilder) {
 
         titleService.setTitle('All Settings');
@@ -67,7 +69,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this._store.select(app.getSettingsState)
             .take(1)
             .subscribe((data: any) => {
-                console.log('settings', data);
+                // console.log('settings', data);
                 this.personAttrSelected = data.people.list ? data.people.list : [];
                 this.filter();
                 this.sysSettings = data.system;
@@ -101,7 +103,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 this._store.dispatch(new UpdateSettingAction(data));
         });
         this.settingsForm.get('system').patchValue(this.sysSettings);
-        // this.settingsForm.get('person').patchValue(this.personSettings);
+        this.settingsForm.get('people').patchValue(this.personSettings);
     }
 
     buildFormArray(): FormArray {
@@ -134,7 +136,12 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         el.value = '';
     }
     removeMaritalStatus(index: number): void {
-        this.maritalStatus.removeAt(index);
+        console.log(this.maritalStatus.length);
+        if (this.maritalStatus.length > 3) {
+            this.maritalStatus.removeAt(index);
+        } else {
+            this._shout.error('We need to have a min. of 3 status');
+        }
     }
 
     filter(): void {

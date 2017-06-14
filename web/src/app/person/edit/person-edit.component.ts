@@ -50,7 +50,6 @@ export class PersonEditComponent {
                 {value: 'divorced', viewValue: 'Divorced'}
             ]
         };
-        console.log(this.settings);
     }
 
     initForm(person: Person): void {

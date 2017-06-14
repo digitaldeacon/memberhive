@@ -42,7 +42,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
         this.settings$ = this._store.select(app.getPeopleSettings);
-        this.settings$.subscribe(data => console.log(data));
+        // this.settings$.subscribe(data => console.log('settings: ',data));
     }
 
     ngOnInit(): void {
