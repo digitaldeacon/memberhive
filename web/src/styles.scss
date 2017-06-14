@@ -46,6 +46,15 @@ mh-app {
     }
   }
 }
+.mat-fab.mat-fab-bottom-right {
+  top: auto;
+  right: 20px;
+  bottom: 20px;
+  left: auto;
+  position: fixed;
+  z-index: 100;
+}
+
 /** input fields of type search display wrong in Safari (see https://github.com/angular/material2/issues/5008) **/
 input[type="search"] {
   -webkit-appearance: none;

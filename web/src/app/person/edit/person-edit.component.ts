@@ -39,17 +39,7 @@ export class PersonEditComponent {
     constructor(private _shout: ShoutService,
                 private _fb: FormBuilder,
                 private _datePipe: DatePipe) {
-        this.options = { // TODO: pull this from the settings table/store
-            marital: [
-                {value: '', viewValue: ''},
-                {value: 'single', viewValue: 'Single'},
-                {value: 'engaged', viewValue: 'Engaged'},
-                {value: 'married', viewValue: 'Married'},
-                {value: 'widowed', viewValue: 'Widowed'},
-                {value: 'separated', viewValue: 'Separated'},
-                {value: 'divorced', viewValue: 'Divorced'}
-            ]
-        };
+
     }
 
     initForm(person: Person): void {

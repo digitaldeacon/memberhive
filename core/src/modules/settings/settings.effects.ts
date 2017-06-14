@@ -21,21 +21,20 @@ export class SettingsEffects {
     get$: Observable<Action> = this.actions$
         .ofType(actions.LIST_SETTINGS)
         .do(() => actions.ListSettingAction)
-        .switchMap(() =>
+        .mergeMap(() =>
             this.http.get('settings/list') // TODO: add personId to fetch user settings too
                 .map((r: any[]) => new actions.ListSettingSuccessAction(r))
-                // .catch(() => of(actions.LIST_SETTINGS_FAILURE))
-            // TODO: catch errors
+                // .catch(() => of(actions.LIST_SETTINGS_FAILURE()))
         );
 
     @Effect()
     updateSetting$: Observable<Action> = this.actions$
         .ofType(actions.UPDATE_SETTINGS)
         .map((action: actions.UpdateSettingAction) => action.payload)
-        .switchMap((payload: any) =>
+        .mergeMap((payload: any) =>
             this.http.post('settings/update-or-create', payload)
             .map((r: any) => new actions.UpdateSettingSuccessAction(payload))
-            // TODO: catch errors
+            // .catch(() => of(actions.UPDATE_SETTINGS_FAILURE))
         );
 
     constructor(private actions$: Actions,

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig, MdTabChangeEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
@@ -42,7 +42,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
         this.settings$ = this._store.select(app.getPeopleSettings);
-        // this.settings$.subscribe(data => console.log('settings: ',data));
     }
 
     ngOnInit(): void {
