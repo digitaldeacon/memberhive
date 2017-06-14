@@ -4,7 +4,6 @@ import { DragulaModule } from 'ng2-dragula';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { AppMaterialModule } from '../app-material.module';
 import { MHCommonModule } from '../common/common.module';
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
@@ -22,7 +21,6 @@ const NG_MODULES: Type<any>[] = [
   imports: [
     NG_MODULES,
     SettingsRoutingModule,
-    //AppMaterialModule,
     MHCommonModule,
     DragulaModule
   ],
