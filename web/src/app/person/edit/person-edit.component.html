@@ -1,5 +1,5 @@
 <form class="person-edit"
-      #editForm
+      #editForm="ngForm"
       [formGroup]="form"
       (ngSubmit)="save(form.value, form.valid)"
       novalidate
@@ -154,7 +154,4 @@
             </div>
         </fieldset>
     </div>
-    <button md-fab type="submit" class="mat-fab-bottom-right">
-    <md-icon class="md-24">send</md-icon>
-</button>
 </form>
