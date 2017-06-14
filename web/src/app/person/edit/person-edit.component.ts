@@ -4,9 +4,9 @@ import { DatePipe } from '@angular/common';
 
 import { ShoutService } from '../../common/shout.service';
 import {
-    AuthService,
     Person,
-    PersonAddress
+    PersonAddress,
+    PersonSettings
 } from 'mh-core';
 
 @Component({
@@ -20,6 +20,7 @@ export class PersonEditComponent {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
 
+    @Input() settings: any;
     @Input()
     set person(person: Person) {
         if (person) {
@@ -35,10 +36,9 @@ export class PersonEditComponent {
     randomPassword: boolean = true;
     persons: Array<Person>;
 
-    constructor(private shout: ShoutService,
-                private fb: FormBuilder,
-                private auth: AuthService,
-                private datePipe: DatePipe) {
+    constructor(private _shout: ShoutService,
+                private _fb: FormBuilder,
+                private _datePipe: DatePipe) {
         this.options = { // TODO: pull this from the settings table/store
             marital: [
                 {value: '', viewValue: ''},
@@ -50,15 +50,16 @@ export class PersonEditComponent {
                 {value: 'divorced', viewValue: 'Divorced'}
             ]
         };
+        console.log(this.settings);
     }
 
     initForm(person: Person): void {
         const address: PersonAddress = new PersonAddress(person['address']);
 
-        this._pwFormControl = this.fb.control({value: undefined, disabled: this.randomPassword});
-        this._pwRandCheckbox = this.fb.control(this.randomPassword);
+        this._pwFormControl = this._fb.control({value: undefined, disabled: this.randomPassword});
+        this._pwRandCheckbox = this._fb.control(this.randomPassword);
 
-        this.form = this.fb.group({
+        this.form = this._fb.group({
             firstName: [person['firstName'],
                 [<any>Validators.required, <any>Validators.minLength(2)]],
             middleName: [person['middleName']],
@@ -68,25 +69,25 @@ export class PersonEditComponent {
                 [<any>Validators.required, <any>Validators.minLength(5)]],
             gender: [person['gender']],
             maritalStatus: [person['maritalStatus']],
-            birthday: [this.datePipe.transform(person['birthday'], 'yyyy-MM-dd'),
+            birthday: [this._datePipe.transform(person['birthday'], 'yyyy-MM-dd'),
                 [<any>Validators.required]],
             phoneHome: [person['phoneHome']],
             phoneWork: [person['phoneWork']],
             phoneMobile: [person['phoneMobile']],
-            user: this.fb.group({
+            user: this._fb.group({
                 username: [person['user']['username']],
                 password: this._pwFormControl,
                 noCredentials: [undefined],
                 setPassword: [undefined]
             }),
-            address: this.fb.group({
-                home: this.fb.group({
+            address: this._fb.group({
+                home: this._fb.group({
                     street: [address.home.street],
                     zip: [address.home.zip],
                     city: [address.home.city],
                     geocode: [address.home.geocode]
                 }),
-                postal: this.fb.group({
+                postal: this._fb.group({
                     street: [address.postal.street],
                     zip: [address.postal.zip],
                     city: [address.postal.city],
@@ -102,7 +103,7 @@ export class PersonEditComponent {
             this.form.patchValue(model);
             // this.toggleRandomPassword();
             this.savePerson.emit(model);
-            // this.shout.success('Successfully updated ' + model.fullName);
+            // this._shout.success('Successfully updated ' + model.fullName);
         }
     }
 
@@ -122,7 +123,7 @@ export class PersonEditComponent {
                 address.home.geocode = data.results[0].geometry.location;
             },
             (error: any) => {
-                this.shout.error('Error while saving geocode data!');
+                this._shout.error('Error while saving geocode data!');
                 return false;
             },
             () => {
@@ -136,7 +137,7 @@ export class PersonEditComponent {
                             this.updateParent();
                         },
                             (error: any) => {
-                                this.shout.error('Error while updating address with geocodes!');
+                                this._shout.error('Error while updating address with geocodes!');
                                 return false;
                         }
                     );

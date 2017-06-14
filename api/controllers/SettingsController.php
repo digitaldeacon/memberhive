@@ -40,7 +40,7 @@ class SettingsController extends MHController
         $ret = [];
         $settings = Settings::find()->all();
         foreach ($settings as $setting) {
-            $ret[$setting->key] = json_decode($setting->value);// $setting->toResponseArray();
+            $ret[$setting->section][$setting->key] = json_decode($setting->value);
         }
         /*throw new BadRequestHttpException(json_encode($ret));
         return [];*/
@@ -51,25 +51,29 @@ class SettingsController extends MHController
     {
         $post = \Yii::$app->request->post();
         $ret = [];
-        foreach ($post as $key => $value) {
-            // $r .= $key.'v: '.json_encode($value);
-            $setting = Settings::findOne(['key'=>$key]);
+        // $r = '';
+        foreach ($post as $section => $value) {
+            // $r .= 'key: '.$key.' v: '.json_encode(array_keys($value)[0]);
+            $key = isset(array_keys($value)[0]) ? array_keys($value)[0] : '';
+            $setting = Settings::findOne(['section'=>$section,'key'=>$key]);
+            $v = array_values($value)[0];
             if ($setting) {
-                $setting->value = json_encode($value);
+                $setting->value = json_encode($v);
                 if (!$setting->save()) {
                     throw new BadRequestHttpException(json_encode($setting->errors));
                 }
             } else {
                 $setting = new Settings();
+                $setting->section = $section;
                 $setting->key = $key;
-                $setting->value = json_encode($value);
+                $setting->value = json_encode($v);
                 if (!$setting->save()) {
                     throw new BadRequestHttpException(json_encode($setting->errors));
                 }
             }
-            $ret[$key] = $setting->toResponseArray();
+            $ret[$section][$key] = $setting->toResponseArray();
         }
-
+        // throw new BadRequestHttpException(json_encode($r));
         /*throw new BadRequestHttpException($r);
         return[];
         $key = isset($post['key']) ? $post['key'] : null;

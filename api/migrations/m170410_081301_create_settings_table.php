@@ -16,6 +16,7 @@ class m170410_081301_create_settings_table extends Migration
             'settings',
             [
                 'id' => $this->primaryKey(),
+                'section' => $this->string(),
                 'key' => $this->string(),
                 'value' => $this->text(),
                 'personId' => $this->integer()

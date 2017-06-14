@@ -1,4 +1,4 @@
-import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {
     TitleService,
@@ -39,7 +39,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         'engaged',
         'married',
         'widowed',
-        'seperated',
+        'separated',
         'divorced'
     ];
     maritalStatus: FormArray = undefined;
@@ -52,10 +52,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     constructor(titleService: TitleService,
                 dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
-                private _fb: FormBuilder,
-                private _ref: ChangeDetectorRef) {
+                private _fb: FormBuilder) {
+
         titleService.setTitle('All Settings');
-        dragulaService.dropModel.subscribe((value: any[]) => {
+        dragulaService.dropModel.subscribe(() => {
           const payload: any = {
               people: {
                   list: this.personAttrSelected
@@ -67,11 +67,12 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this._store.select(app.getSettingsState)
             .take(1)
             .subscribe((data: any) => {
-              this.personAttrSelected = data.people.list.map((el: string) => el);
-              this.filter();
-              this.sysSettings = data.system;
-              this.personSettings = data.person;
-              this.createForm();
+                console.log('settings', data);
+                this.personAttrSelected = data.people.list ? data.people.list : [];
+                this.filter();
+                this.sysSettings = data.system;
+                this.personSettings = data.people;
+                this.createForm();
         });
     }
 
@@ -88,7 +89,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             system: this._fb.group({
                 churchName: ''
             }),
-            person: this._fb.group({
+            people: this._fb.group({
                 maritalStatus: this.buildFormArray()
             })
         });
@@ -96,6 +97,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .debounceTime(300)
             .distinctUntilChanged()
             .subscribe((data: any) => {
+                data.people.list = this.personAttrSelected;
                 this._store.dispatch(new UpdateSettingAction(data));
         });
         this.settingsForm.get('system').patchValue(this.sysSettings);
@@ -106,7 +108,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         let fga: Array<FormGroup> = [];
         if (!this.personSettings
             || !this.personSettings.maritalStatus
-            || !this.personSettings.maritalStatus.length) {
+            || this.personSettings.maritalStatus.length < 3) {
             for (let status of this.personMaritalStatusSet) {
                 fga.push(this.buildFormGroup(status));
             }
@@ -137,7 +139,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     filter(): void {
         this.personAttr = this.personAttrSet.filter((item: string) => {
-            return this.personAttrSelected.indexOf(item) < 0;
+            return this.personAttrSelected ? this.personAttrSelected.indexOf(item) < 0 : false;
         });
     }
 }

@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
@@ -9,6 +8,7 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
     Person,
+    PersonSettings,
     TitleService,
     UPDATE_PERSON,
     VIEW_PERSON} from 'mh-core';
@@ -30,7 +30,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     person?: Person;
     person$: Observable<Person>;
-    subscription: Subscription;
+    settings$: Observable<any>;
     dialogRef: MdDialogRef<any>;
 
     constructor(private _store: Store<app.AppState>,
@@ -41,6 +41,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
+        this.settings$ = this._store.select(app.getPeopleSettings);
+        this.settings$.subscribe(data => console.log(data));
     }
 
     ngOnInit(): void {
