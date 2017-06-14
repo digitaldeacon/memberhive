@@ -136,7 +136,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         el.value = '';
     }
     removeMaritalStatus(index: number): void {
-        console.log(this.maritalStatus.length);
         if (this.maritalStatus.length > 3) {
             this.maritalStatus.removeAt(index);
         } else {
