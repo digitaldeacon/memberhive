@@ -1,11 +1,10 @@
 <div class="main-content">
     <form [formGroup]="settingsForm" novalidate fxFlex>
-        <md-accordion>
-            <md-expansion-panel #sysPanel [hideToggle]="hideToggle" formGroupName="system">
-                <md-expansion-panel-header i18n>System</md-expansion-panel-header>
-
-                <fieldset fxLayout="row">
-                    <legend i18n>Toolbar</legend>
+        <h4 i18n>System</h4>
+        <md-accordion formGroupName="system">
+            <md-expansion-panel #sysPanel [hideToggle]="hideToggle">
+                <md-expansion-panel-header i18n>Toolbar</md-expansion-panel-header>
+                <div fxLayout="row">
                     <md-input-container fxFlex>
                         <input mdInput
                                fxFlex
@@ -14,56 +13,60 @@
                                i18n-placeholder
                                formControlName="churchName">
                     </md-input-container>
-                </fieldset>
-
+                </div>
             </md-expansion-panel>
-            <md-expansion-panel #personPanel [hideToggle]="hideToggle">
-                <md-expansion-panel-header>Person</md-expansion-panel-header>
-
-                    <div>
-                        <h4 i18n>Person List</h4>
-                        <div fxLayout="row" fxLayoutGap="10px">
-                            <fieldset fxFlex="50">
-                                <legend i18n>Selected</legend>
-                                <div class='container' [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttrSelected'>
-                                    <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]='element'></div>
-                                </div>
-                            </fieldset>
-                            <fieldset fxFlex="50">
-                                <legend i18n>Available</legend>
-                                <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
-                                    <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
-                                </div>
-                            </fieldset>
+        </md-accordion>
+        <h4 i18n>Person</h4>
+        <md-accordion formGroupName="person">
+            <md-expansion-panel #personPanelList [hideToggle]="hideToggle">
+                <md-expansion-panel-header i18n>List People</md-expansion-panel-header>
+                <div fxLayout="row" fxLayoutGap="10px">
+                    <fieldset fxFlex="50">
+                        <legend i18n>Selected</legend>
+                        <div class='container' [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttrSelected'>
+                            <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]='element'></div>
                         </div>
-                    </div>
-                    <div>
-                        <h4 i18n>Marital Status</h4>
+                    </fieldset>
+                    <fieldset fxFlex="50">
+                        <legend i18n>Available</legend>
+                        <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
+                            <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
+                        </div>
+                    </fieldset>
+                </div>
+            </md-expansion-panel>
+            <md-expansion-panel
+                    #personPanelList
+                    [hideToggle]="hideToggle">
+                <md-expansion-panel-header i18n>Marital Status</md-expansion-panel-header>
+                <md-input-container fxFlex>
+                    <input mdInput
+                           fxFlex
+                           type="text"
+                           placeholder="Add Status"
+                           i18n-placeholder
+                           #newMaritalStatus>
+                </md-input-container>
+                <button md-icon-button (click)="addMaritalStatus(newMaritalStatus)">
+                    <md-icon>add_circle_outline</md-icon>
+                </button>
+                <fieldset formArrayName="maritalStatus">
+                    <legend i18n>Available</legend>
+                    <div *ngFor="let status of maritalStatus?.controls; let i=index"
+                         [formGroupName]="i">
                         <md-input-container fxFlex>
                             <input mdInput
                                    fxFlex
                                    type="text"
-                                   placeholder="Add Status"
-                                   value="{{status}}"
-                                   i18n-placeholder>
+                                   placeholder="Status"
+                                   i18n-placeholder
+                                   formControlName="status">
                         </md-input-container>
-                        <button md-icon-button><md-icon>add_circle_outline</md-icon></button>
-                        <fieldset>
-                            <legend i18n>Available</legend>
-                            <div *ngFor="let status of personMaritalStatusSet">
-                                <md-input-container fxFlex>
-                                    <input mdInput
-                                           fxFlex
-                                           type="text"
-                                           placeholder="Status"
-                                           value="{{status}}"
-                                           i18n-placeholder>
-                                </md-input-container>
-                                <button md-icon-button><md-icon>delete</md-icon></button>
-                            </div>
-                        </fieldset>
+                        <button md-icon-button (click)="removeMaritalStatus(i)">
+                            <md-icon>delete</md-icon>
+                        </button>
                     </div>
-
+                </fieldset>
             </md-expansion-panel>
         </md-accordion>
     </form>

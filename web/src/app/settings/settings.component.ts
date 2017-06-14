@@ -1,8 +1,9 @@
-import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, ChangeDetectorRef, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import {
     TitleService,
     SysSettings,
+    PersonSettings,
     UpdateSettingAction } from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as app from '../app.store';
@@ -16,7 +17,7 @@ import 'rxjs/add/operator/distinctUntilChanged';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements AfterViewInit, OnDestroy {
-    private alive: boolean = true;
+    private _alive: boolean = true;
     hideToggle: boolean = false;
     personAttrSet: Array<string> = [
         'firstName',
@@ -41,8 +42,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         'seperated',
         'divorced'
     ];
+    maritalStatus: FormArray = undefined;
+    maritalStatusSelected: Array<string>;
 
     sysSettings: SysSettings;
+    personSettings: PersonSettings;
     settingsForm: FormGroup;
 
     constructor(titleService: TitleService,
@@ -50,9 +54,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 private _store: Store<app.AppState>,
                 private _fb: FormBuilder,
                 private _ref: ChangeDetectorRef) {
-
         titleService.setTitle('All Settings');
-        this.createForm();
         dragulaService.dropModel.subscribe((value: any[]) => {
           const payload: any = {
               people: {
@@ -60,16 +62,16 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
               }
           };
           this._store.dispatch(new UpdateSettingAction(payload));
-          // this._ref.detectChanges();
         });
 
         this._store.select(app.getSettingsState)
-          .take(1)
-          .subscribe((data: any) => {
+            .take(1)
+            .subscribe((data: any) => {
               this.personAttrSelected = data.people.list.map((el: string) => el);
               this.filter();
               this.sysSettings = data.system;
-              this.settingsForm.get('system').patchValue(this.sysSettings);
+              this.personSettings = data.person;
+              this.createForm();
         });
     }
 
@@ -78,13 +80,16 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.alive = false;
+        this._alive = false;
     }
 
     createForm(): void {
         this.settingsForm = this._fb.group({
             system: this._fb.group({
                 churchName: ''
+            }),
+            person: this._fb.group({
+                maritalStatus: this.buildFormArray()
             })
         });
         this.settingsForm.valueChanges
@@ -93,6 +98,41 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .subscribe((data: any) => {
                 this._store.dispatch(new UpdateSettingAction(data));
         });
+        this.settingsForm.get('system').patchValue(this.sysSettings);
+        // this.settingsForm.get('person').patchValue(this.personSettings);
+    }
+
+    buildFormArray(): FormArray {
+        let fga: Array<FormGroup> = [];
+        if (!this.personSettings
+            || !this.personSettings.maritalStatus
+            || !this.personSettings.maritalStatus.length) {
+            for (let status of this.personMaritalStatusSet) {
+                fga.push(this.buildFormGroup(status));
+            }
+        } else {
+            for (let status of this.personSettings.maritalStatus) {
+                fga.push(this.buildFormGroup(status.status));
+            }
+        }
+        this.maritalStatus = this._fb.array(fga);
+        return this.maritalStatus;
+    }
+
+    buildFormGroup(status?: string): FormGroup {
+        return this._fb.group({
+            status: status
+        });
+    }
+
+    addMaritalStatus(el: HTMLInputElement): void {
+        if (el.value !== '') {
+            this.maritalStatus.push(this.buildFormGroup(el.value));
+        }
+        el.value = '';
+    }
+    removeMaritalStatus(index: number): void {
+        this.maritalStatus.removeAt(index);
     }
 
     filter(): void {

@@ -5,6 +5,9 @@ export interface SettingsPayload {
 
 export interface SysSettings {
     churchName: string;
-    section: string;
-    payload: any;
+}
+
+export interface PersonSettings {
+    list: Array<string>;
+    maritalStatus: Array<any>;
 }
