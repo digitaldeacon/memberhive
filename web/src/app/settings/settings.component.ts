@@ -22,6 +22,7 @@ import { FormArrayWrapper } from '../common/form-array.wrapper';
 export class SettingsComponent implements AfterViewInit, OnDestroy {
     private _alive: boolean = true;
     hideToggle: boolean = false;
+    // TODO: possibly remove this as we have a default in the reducer state
     personAttrSet: Array<string> = [
         'firstName',
         'middleName',
@@ -106,15 +107,16 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 maritalStatus: this.buildFormArray()
             })
         });
+        this.settingsForm.get('system').patchValue(this.sysSettings);
+        this.settingsForm.get('people').patchValue(this.personSettings);
         this.settingsForm.valueChanges
             .debounceTime(300)
             .distinctUntilChanged()
             .subscribe((data: any) => {
                 data.people.list = this.personAttrSelected;
                 this._store.dispatch(new UpdateSettingAction(data));
-        });
-        this.settingsForm.get('system').patchValue(this.sysSettings);
-        this.settingsForm.get('people').patchValue(this.personSettings);
+                this._shout.success('Settings saved!');
+            });
     }
 
     buildFormArray(): FormArray {
