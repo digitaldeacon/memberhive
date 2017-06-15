@@ -1,5 +1,8 @@
+<!--<button md-fab class="mat-fab-bottom-right" (click)="personEditForm.ngSubmit.emit()">
+    <md-icon class="md-24">send</md-icon>
+</button>-->
 <form class="person-edit"
-      #editForm="ngForm"
+      #personEditForm="ngForm"
       [formGroup]="form"
       (ngSubmit)="save(form.value, form.valid)"
       novalidate
@@ -11,7 +14,7 @@
             <md-input-container fxFlex>
                 <input mdInput fxFlex type="text" formControlName="firstName" placeholder="First Name" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.firstName.valid || (form.controls.firstName.pristine && !submitted)" i18n>
+            <small [hidden]="form.get('firstName').valid || (form.get('firstName').pristine && !submitted)" i18n>
                 First name is required (minimum 5 characters).
             </small>
         </div>
@@ -24,7 +27,7 @@
             <md-input-container>
                 <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Last Name" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.lastName.valid || (form.controls.lastName.pristine && !submitted)" i18n>
+            <small [hidden]="form.get('lastName').valid || (form.get('lastName').pristine && !submitted)" i18n>
                 Last name is required (minimum 5 characters).
             </small>
         </div>
@@ -38,7 +41,7 @@
             <md-input-container>
                 <input mdInput fxFlex type="email" formControlName="email" placeholder="Email" i18n-placeholder>
             </md-input-container>
-            <small [hidden]="form.controls.email.valid || (form.controls.email.pristine && !submitted)" i18n>
+            <small [hidden]="form.get('email').valid || (form.get('email').pristine && !submitted)" i18n>
                 Email is required (minimum 5 characters).
             </small>
         </div>
@@ -75,9 +78,9 @@
                 <md-input-container>
                     <input mdInput formControlName="username" placeholder="Username" i18n-placeholder>
                 </md-input-container>
-                <!--<small [hidden]="form.get(user.username).valid || (form.get(user.username).pristine && !submitted)" i18n>
+                <small [hidden]="form.get('user.username').valid || (form.get('user.username').pristine && !submitted)" i18n>
                     Username is required (minimum 5 characters).
-                </small>-->
+                </small>
             </div>
             <div>
                 <md-input-container>
@@ -92,7 +95,7 @@
                 </small>-->
             </div>
             <div fxLayoutAlign="space-between">
-                <md-checkbox formControlName="setPassword" (change)="toggleRandomPassword()" i18n>Set new Password</md-checkbox>
+                <md-checkbox formControlName="setPassword" (change)="toggleRandomPassword($event)" i18n>Set new Password</md-checkbox>
                 <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
             </div>
         </fieldset>

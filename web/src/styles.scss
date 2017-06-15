@@ -17,7 +17,7 @@ mh-app {
 .shout-success {
   background: mat-color($mh-app-green, 500) !important;
 }
-.shout-warn {
+.shout-failure {
   background: mat-color($mh-app-warn, A400) !important;
 }
 .date-rounded {

@@ -7,3 +7,5 @@ export * from './modules/auth';
 export * from './services/http.service';
 export * from './services/title.service';
 export * from './services/login.service';
+
+export * from './common';

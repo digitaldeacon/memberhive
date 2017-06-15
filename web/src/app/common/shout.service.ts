@@ -1,5 +1,9 @@
 import { Component, Injectable } from '@angular/core';
-import { MdSnackBar, MdSnackBarConfig } from '@angular/material';
+import {
+    MdSnackBar,
+    MdSnackBarConfig,
+    MdSnackBarRef,
+    SimpleSnackBar } from '@angular/material';
 
 @Injectable()
 export class ShoutService {
@@ -9,20 +13,20 @@ export class ShoutService {
     autoHide: number = 6000;
     addExtraClass: boolean = false;
 
-    constructor(public snackBar: MdSnackBar) {}
+    constructor(private _snackBar: MdSnackBar) {}
 
-    out(message: string, type?: string): void {
+    out(message: string, type?: string): MdSnackBarRef<SimpleSnackBar> {
         let config: MdSnackBarConfig = new MdSnackBarConfig();
         config.duration = this.autoHide;
         if (type) {
             config.extraClasses = ['shout-' + type];
         }
-        this.snackBar.open(message, this.actionButtonLabel, config);
+        return this._snackBar.open(message, this.actionButtonLabel, config);
     }
-    error(message: string): void {
-        this.out(message, 'warn');
+    error(message: string): MdSnackBarRef<SimpleSnackBar> {
+        return this.out(message, 'failure');
     }
-    success(message: string): void {
-        this.out(message, 'success');
+    success(message: string): MdSnackBarRef<SimpleSnackBar> {
+        return this.out(message, 'success');
     }
 }

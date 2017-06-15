@@ -9,6 +9,7 @@ export const UPDATE_PERSON_SUCCESS = '[Person] Update Success';
 export const LOAD_PERSON_VIEW = '[Person] Load View';
 export const VIEW_PERSON = '[Person] View';
 export const CREATE_PERSON = '[Person] Create';
+export const CLEAR_PERSON_MESSAGE = '[Person] Clear Message';
 
 export class ListAction implements Action {
     readonly type = LIST_PEOPLE;
@@ -45,6 +46,10 @@ export class PersonUpdateSuccessAction implements Action {
     constructor(public payload: Person) { }
 }
 
+export class PersonClearMessageAction implements Action {
+    readonly type = CLEAR_PERSON_MESSAGE;
+}
+
 export type PersonActions =
     ListAction
     | ListSuccessAction
@@ -52,4 +57,5 @@ export type PersonActions =
     | PersonViewAction
     | PersonLoadViewAction
     | PersonUpdateAction
-    | PersonUpdateSuccessAction;
+    | PersonUpdateSuccessAction
+    | PersonClearMessageAction;

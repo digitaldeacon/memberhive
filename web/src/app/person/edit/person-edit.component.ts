@@ -2,11 +2,9 @@ import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
-import { ShoutService } from '../../common/shout.service';
 import {
     Person,
-    PersonAddress,
-    PersonSettings
+    PersonAddress
 } from 'mh-core';
 
 @Component({
@@ -36,8 +34,7 @@ export class PersonEditComponent {
     randomPassword: boolean = true;
     persons: Array<Person>;
 
-    constructor(private _shout: ShoutService,
-                private _fb: FormBuilder,
+    constructor(private _fb: FormBuilder,
                 private _datePipe: DatePipe) {
 
     }
@@ -84,16 +81,34 @@ export class PersonEditComponent {
                 })
             })
         });
+        this.listenFormChanges();
     }
 
-    save(model: Person, isValid: boolean): void {
+    listenFormChanges(): void {
+        this.form.valueChanges
+            .debounceTime(300)
+            .distinctUntilChanged()
+            .subscribe((data: Person) => {
+                const userCtrl: any = (<any>this.form).get('user').controls;
+                if (userCtrl.setPassword.value && !data.user.username) {
+                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(5)])
+                    userCtrl.username.updateValueAndValidity();
+                } else {
+                    userCtrl.username.setValidators(undefined)
+                    userCtrl.username.updateValueAndValidity();
+                }
+
+                if (this.form.valid) {
+                    this.save(data);
+                }
+            });
+    }
+
+    save(model: Person): void {
         this.submitted = true;
-        if (isValid) {
-            this.form.patchValue(model);
-            // this.toggleRandomPassword();
-            this.savePerson.emit(model);
-            // this._shout.success('Successfully updated ' + model.fullName);
-        }
+        this.form.patchValue(model);
+        this.toggleRandomPassword();
+        this.savePerson.emit(model);
     }
 
     calcGeocode(address: any): boolean {
@@ -135,7 +150,7 @@ export class PersonEditComponent {
         return false;
     }
 
-    toggleRandomPassword(): void {
+    toggleRandomPassword(event?: any): void {
         this.randomPassword = this.randomPassword ? false : true;
         if (this.randomPassword) {
             this._pwFormControl.disable();

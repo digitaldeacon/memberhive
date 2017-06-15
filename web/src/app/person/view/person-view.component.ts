@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MdDialog, MdDialogRef, MdDialogConfig, MdTabChangeEvent } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
@@ -8,15 +8,17 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
     Person,
-    PersonSettings,
-    TitleService,
-    UPDATE_PERSON,
-    VIEW_PERSON} from 'mh-core';
+    PersonViewAction,
+    PersonUpdateAction,
+    PersonClearMessageAction,
+    Message,
+    TitleService } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 
 import { Interaction } from '../../interaction/interaction';
+import { ShoutService } from '../../common/shout.service';
 
 @Component({
     moduleId: 'mh-person',
@@ -37,24 +39,34 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _titleService: TitleService,
                 private _router: Router,
                 private _route: ActivatedRoute,
+                private _shout: ShoutService,
                 private _dialog: MdDialog) {
-        this._store.select(app.getPeople).takeWhile(() => this._alive)
+        this._store.select(app.getPeople)
+            .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
         this.settings$ = this._store.select(app.getPeopleSettings);
+        this._store.select(app.getMessage)
+            .subscribe((message: Message) => {
+                if (message) {
+                    this._shout.out(message.text, message.type)
+                    .afterDismissed()
+                     .take(1)
+                     .subscribe(() => this._store.dispatch(new PersonClearMessageAction()));
+                }
+        });
     }
 
     ngOnInit(): void {
         this._route.params
             .map((params: Params) =>
-                this._store.dispatch({type: VIEW_PERSON, payload: params['id']}))
+                this._store.dispatch(new PersonViewAction(params['id'])))
             .switchMap((p: any) => this.person$)
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
             });
     }
-
     ngOnDestroy(): void {
         this._alive = false;
     }
@@ -66,7 +78,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.gotoPerson(this.people[idx].uid);
         }
     }
-
     nextPerson(): void {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
         idx = (idx < this.people.length - 1) ? idx + 1  : 0;
@@ -77,12 +88,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     gotoPerson(uid: string): void {
         this._router.navigate(['/person/view', uid]);
-        // this._store.dispatch(go(['/person/view', uid]));
     }
 
     savePerson(person: Person): void {
         person.uid = this.person.uid;
-        this._store.dispatch({type: UPDATE_PERSON, payload: person});
+        this._store.dispatch(new PersonUpdateAction(person));
     }
 
     openDlgRelationships(): void {

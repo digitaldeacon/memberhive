@@ -46,6 +46,10 @@ export const getShowDrawer: any = createSelector(getSettingsState, settings.getS
  */
 export const getLoading: any = createSelector(getPersonState, person.getLoading);
 /**
+ * Message  Reducers
+ */
+export const getMessage: any = createSelector(getPersonState, person.getMessage);
+/**
  * Auth Reducers
  */
 export const getAuthState: any = (state: AppState) => state.auth;

@@ -1,6 +1,8 @@
 export interface User {
     token: string;
     personId: string;
+    username: string;
+    password?: string;
 }
 
 export interface Person {
@@ -16,7 +18,6 @@ export interface Person {
     birthday: Date;
     age: number;
     avatar: string;
-    username: string;
     phoneHome: string;
     phoneWork: string;
     phoneMobile: string;
@@ -49,7 +50,8 @@ export class PersonAddress {
 
 const emptyUser: User = {
     token: '',
-    personId: ''
+    personId: '',
+    username: ''
 };
 
 export const emptyPerson: Person = {
@@ -65,7 +67,6 @@ export const emptyPerson: Person = {
     birthday: undefined,
     age: 0,
     avatar: '',
-    username: '',
     phoneHome: '',
     phoneWork: '',
     phoneMobile: '',
