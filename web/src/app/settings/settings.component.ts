@@ -53,18 +53,18 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     settingsForm: FormGroup;
 
     constructor(titleService: TitleService,
-                dragulaService: DragulaService,
+                private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
                 private _shout: ShoutService,
                 private _fb: FormBuilder) {
 
         titleService.setTitle('All Settings');
-        dragulaService.setOptions('PEOPLE_MARITAL', {
+        this._dragulaService.setOptions('PEOPLE_MARITAL', {
             moves: function (el: any, container: any, handle: any): boolean {
                 return handle.className.indexOf('handle') > -1;
             }
         });
-        dragulaService.dropModel.subscribe(() => {
+        this._dragulaService.dropModel.subscribe(() => {
             // console.log('ms:',this.maritalStatus);
             // console.log('msw:',this.maritalStatusW.controls);
             const payload: any = {
@@ -93,6 +93,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._alive = false;
+        this._dragulaService.destroy('PEOPLE_MARITAL');
+        this._dragulaService.destroy('PEOPLE_LIST');
     }
 
     createForm(): void {
