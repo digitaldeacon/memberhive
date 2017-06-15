@@ -1803,12 +1803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3395d759df4603b2a93e05f201c09eeb3f899eb9"
+                "reference": "db3166889854d881265f7d3caa20fa82132305fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3395d759df4603b2a93e05f201c09eeb3f899eb9",
-                "reference": "3395d759df4603b2a93e05f201c09eeb3f899eb9",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/db3166889854d881265f7d3caa20fa82132305fa",
+                "reference": "db3166889854d881265f7d3caa20fa82132305fa",
                 "shasum": ""
             },
             "require": {
@@ -1877,7 +1877,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-06-04 05:23:38"
+            "time": "2017-06-14 16:53:16"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2538,12 +2538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "c58111d731049b9085e97deaa09797b7c13ec0d5"
+                "reference": "08c644988dba9d608d18bb8ad8dd633f276137f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/c58111d731049b9085e97deaa09797b7c13ec0d5",
-                "reference": "c58111d731049b9085e97deaa09797b7c13ec0d5",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/08c644988dba9d608d18bb8ad8dd633f276137f7",
+                "reference": "08c644988dba9d608d18bb8ad8dd633f276137f7",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-14 07:34:46"
+            "time": "2017-06-14 20:38:21"
         },
         {
             "name": "yiisoft/yii2-apidoc",

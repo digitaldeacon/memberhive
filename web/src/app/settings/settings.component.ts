@@ -12,6 +12,8 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
+import { FormArrayWrapper } from '../common/form-array.wrapper';
+
 @Component({
   selector: 'mh-settings',
   templateUrl: './settings.component.html',
@@ -43,8 +45,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         'separated',
         'divorced'
     ];
-    maritalStatus: FormArray = undefined;
-    maritalStatusSelected: Array<string>;
+    maritalStatus: FormArray;
+    maritalStatusW: any;
 
     sysSettings: SysSettings;
     personSettings: PersonSettings;
@@ -57,13 +59,20 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 private _fb: FormBuilder) {
 
         titleService.setTitle('All Settings');
+        dragulaService.setOptions('PEOPLE_MARITAL', {
+            moves: function (el: any, container: any, handle: any): boolean {
+                return handle.className.indexOf('handle') > -1;
+            }
+        });
         dragulaService.dropModel.subscribe(() => {
-          const payload: any = {
+            // console.log('ms:',this.maritalStatus);
+            // console.log('msw:',this.maritalStatusW.controls);
+            const payload: any = {
               people: {
-                  list: this.personAttrSelected
+                  list: this.personAttrSelected,
               }
-          };
-          this._store.dispatch(new UpdateSettingAction(payload));
+            };
+            this._store.dispatch(new UpdateSettingAction(payload));
         });
 
         this._store.select(app.getSettingsState)
@@ -108,18 +117,19 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     buildFormArray(): FormArray {
         let fga: Array<FormGroup> = [];
-        if (!this.personSettings
+        /*if (!this.personSettings
             || !this.personSettings.maritalStatus
             || this.personSettings.maritalStatus.length < 3) {
             for (let status of this.personMaritalStatusSet) {
                 fga.push(this.buildFormGroup(status));
             }
-        } else {
+        } else {*/
             for (let status of this.personSettings.maritalStatus) {
                 fga.push(this.buildFormGroup(status.status));
             }
-        }
+        //}
         this.maritalStatus = this._fb.array(fga);
+        this.maritalStatusW = new FormArrayWrapper(this.maritalStatus);
         return this.maritalStatus;
     }
 

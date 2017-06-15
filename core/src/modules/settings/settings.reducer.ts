@@ -8,7 +8,8 @@ export interface SettingsState {
         showDrawer?: boolean
     };
     people?: {
-        list?: any
+        list?: Array<string>,
+        maritalStatus?: Array<any>
     };
     profile?: any;
     system?: any;
@@ -22,7 +23,8 @@ const initialState: SettingsState = {
         showDrawer: true
     },
     people: {
-        list: ['email']
+        list: ['email'],
+        maritalStatus: ['single', 'engaged', 'married', 'widowed', 'separated', 'divorced']
     },
     profile: {},
     system: {},
