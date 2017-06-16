@@ -1,9 +1,10 @@
 import * as actions from './settings.actions';
-import { createSelector } from '@ngrx/store';
+import * as common from '../../common/common.model';
 
 export interface SettingsState {
     loaded?: boolean;
     loading?: boolean;
+    message?: common.Message;
     layout?: {
         showDrawer?: boolean
     };
@@ -41,14 +42,28 @@ export function settingsReducer(state: SettingsState = initialState,
             });
         }
 
+        case actions.CLEAR_SETTINGS_MESSAGE:
+            return Object.assign({}, state, {
+                message: undefined
+            });
+
         case actions.LIST_SETTINGS_SUCCESS: {
             const settings: SettingsState = action.payload;
+            settings.loading = false;
+            settings.loaded = true;
             return Object.assign({}, state, settings);
         }
 
         case actions.UPDATE_SETTINGS_SUCCESS: {
-            const payload: SettingsState = action.payload;
-            return Object.assign({}, state, payload);
+            const settings: SettingsState = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully updated settings'
+            };
+            settings.message = message;
+            settings.loading = false;
+            settings.loaded = true;
+            return Object.assign({}, state, settings);
         }
 
         case actions.TOGGLE_DRAWER: {
@@ -61,6 +76,10 @@ export function settingsReducer(state: SettingsState = initialState,
             return state;
     }
 }
+
+export const getLoadedSettings: any = (state: SettingsState) => state.loaded;
+export const getLoadingSettings: any = (state: SettingsState) => state.loading;
+export const getMessageSettings: any = (state: SettingsState) => state.message;
 
 export const getLayoutSettings: any = (state: SettingsState) => state.layout;
 export const getPeopleSettings: any = (state: SettingsState) => state.people;

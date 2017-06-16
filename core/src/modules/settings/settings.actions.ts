@@ -12,6 +12,7 @@ export const TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer';
 export const SET_TITLE = '[Settings:Title] Set title';
 export const SET_MODULE = '[Settings:Title] Set module';
 export const GET_MODULE_TITLE = '[Settings:Title] Get module and title';
+export const CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message';
 
 export class ListSettingAction implements Action {
     readonly type = LIST_SETTINGS;
@@ -58,6 +59,11 @@ export class GetModuleTitleAction implements Action {
     readonly type = GET_MODULE_TITLE;
 }
 
+export class ClearSettingsMessageAction implements Action {
+    readonly type = CLEAR_SETTINGS_MESSAGE;
+}
+
+
 export type SettingActions
     = ListSettingAction
     | ListSettingSuccessAction
@@ -65,4 +71,5 @@ export type SettingActions
     | ToggleDrawerAction
     | UpdateSettingAction
     | UpdateSettingSuccessAction
-    | UpdateSettingFailureAction;
+    | UpdateSettingFailureAction
+    | ClearSettingsMessageAction;

@@ -50,9 +50,9 @@
                 <button md-icon-button (click)="addMaritalStatus(newMaritalStatus)">
                     <md-icon>add_circle_outline</md-icon>
                 </button>
-                <fieldset formArrayName="maritalStatus" [dragula]='"PEOPLE_MARITAL"' [dragulaModel]="maritalStatusW">
+                <fieldset formArrayName="maritalStatus">
                     <legend i18n>Available</legend>
-                    <div *ngFor="let status of maritalStatusW?.fa.controls; let i=index"
+                    <div *ngFor="let status of maritalStatus?.controls; let i=index"
                          [formGroupName]="i">
                         <md-icon class="handle">drag_handle</md-icon>
                         <md-input-container fxFlex>

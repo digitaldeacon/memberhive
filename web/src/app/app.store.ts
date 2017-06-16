@@ -1,6 +1,9 @@
 import {
     ActionReducerMap,
-    createSelector } from '@ngrx/store';
+    createSelector,
+    combineReducers,
+    compose
+} from '@ngrx/store';
 import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 import * as interaction from 'mh-core';
@@ -44,11 +47,22 @@ export const getShowDrawer: any = createSelector(getSettingsState, settings.getS
 /**
  * Loading  Reducers
  */
-export const getLoading: any = createSelector(getPersonState, person.getLoading);
+export const getLoadingP: any = createSelector(getPersonState, person.getLoadingPerson);
+export const getLoadingS: any = createSelector(getSettingsState, settings.getLoadingSettings);
+export const getLoading:any =  createSelector(getLoadingP, getLoadingS,
+    (loadingP: boolean, loadingS: boolean) => {
+        return loadingP || loadingS;
+    });
 /**
  * Message  Reducers
  */
-export const getMessage: any = createSelector(getPersonState, person.getMessage);
+export const getMessageP: any = createSelector(getPersonState, person.getMessagePerson);
+export const getMessageS: any = createSelector(getSettingsState, settings.getMessageSettings);
+export const getMessage:any =  createSelector(getMessageP, getMessageS,
+    (msgP: any, msgS: any) => msgP || msgS);
+// TODO: make this work (below)
+/*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
+        .find(messageSelector => messageSelector(state));*/
 /**
  * Auth Reducers
  */

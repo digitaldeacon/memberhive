@@ -89,11 +89,12 @@ export function personReducer(state: PersonState = initialPersonState,
         }
     }
 }
-export const getLoaded: any = (state: PersonState) => state.loaded;
-export const getLoading: any = (state: PersonState) => state.loading;
-export const getMessage: any = (state: PersonState) => state.message;
-export const getPeople: any = (state: PersonState) => state.people;
 
+export const getLoadedPerson: any = (state: PersonState) => state.loaded;
+export const getLoadingPerson: any = (state: PersonState) => state.loading;
+export const getMessagePerson: any = (state: PersonState) => state.message;
+
+export const getPeople: any = (state: PersonState) => state.people;
 export const getIds: any = (state: PersonState) => state.ids;
 export const getSelectedId: any = (state: PersonState) => state.personId;
 export const getPerson: any = createSelector(getPeople, getSelectedId, (people: any, selectedId: string) => {

@@ -47,6 +47,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this.person$ = this._store.select(app.getSelectedPerson);
         this.settings$ = this._store.select(app.getPeopleSettings);
         this._store.select(app.getMessage)
+            .takeWhile(() => this._alive)
             .subscribe((message: Message) => {
                 if (message) {
                     this._shout.out(message.text, message.type)

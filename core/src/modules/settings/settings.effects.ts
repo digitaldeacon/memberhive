@@ -13,6 +13,7 @@ import { of } from 'rxjs/observable/of';
 
 import * as actions from './settings.actions';
 import { HttpService } from '../../services/http.service';
+import { SettingsState } from './settings.reducer';
 
 @Injectable()
 export class SettingsEffects {
@@ -31,9 +32,9 @@ export class SettingsEffects {
     updateSetting$: Observable<Action> = this.actions$
         .ofType(actions.UPDATE_SETTINGS)
         .map((action: actions.UpdateSettingAction) => action.payload)
-        .mergeMap((payload: any) =>
+        .mergeMap((payload: SettingsState) =>
             this.http.post('settings/update-or-create', payload)
-            .map((r: any) => new actions.UpdateSettingSuccessAction(payload))
+                .map((r: SettingsState) => new actions.UpdateSettingSuccessAction(payload))
             // .catch(() => of(actions.UPDATE_SETTINGS_FAILURE))
         );
 

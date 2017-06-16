@@ -3,9 +3,13 @@ import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
 import {
     TitleService,
+    SettingsState,
     SysSettings,
     PersonSettings,
-    UpdateSettingAction } from 'mh-core';
+    UpdateSettingAction,
+    ClearSettingsMessageAction,
+    Message
+} from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as app from '../app.store';
 import { Store } from '@ngrx/store';
@@ -37,15 +41,15 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
-
-    personMaritalStatusSet: Array<string> = [
+    // TODO: possibly remove this as we have a default in the reducer state
+    /*personMaritalStatusSet: Array<string> = [
         'single',
         'engaged',
         'married',
         'widowed',
         'separated',
         'divorced'
-    ];
+    ];*/
     maritalStatus: FormArray;
     maritalStatusW: any;
 
@@ -60,31 +64,49 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 private _fb: FormBuilder) {
 
         titleService.setTitle('All Settings');
+
+        this._initStore();
+        this._initDragula();
+    }
+
+    private _initStore(): void {
+        this._store.select(app.getMessage)
+            .takeWhile(() => this._alive)
+            .subscribe((message: Message) => {
+                if (message) {
+                    this._shout.out(message.text, message.type)
+                        .afterDismissed()
+                        .take(1)
+                        .subscribe(() => this._store.dispatch(new ClearSettingsMessageAction()));
+                }
+            });
+        this._store.select(app.getSettingsState)
+            .take(1)
+            .subscribe((data: any) => {
+                this.personAttrSelected = data.people.list ? data.people.list : [];
+                this.sysSettings = data.system;
+                this.personSettings = data.people;
+                this.filter();
+                this.createForm();
+            });
+    }
+    private _initDragula(): void {
         this._dragulaService.setOptions('PEOPLE_MARITAL', {
             moves: function (el: any, container: any, handle: any): boolean {
                 return handle.className.indexOf('handle') > -1;
             }
         });
         this._dragulaService.dropModel.subscribe(() => {
-            // console.log('ms:',this.maritalStatus);
-            // console.log('msw:',this.maritalStatusW.controls);
-            const payload: any = {
-              people: {
-                  list: this.personAttrSelected
-              }
+            // TODO: this is a source of bad things to happen, as it will overwrite the entire people state here
+            // either we Object.assign only the changes to keep the rest (needs the current state here)
+            // or we redo the entire logic to update only slices of state
+            // issue: we add a new section but forget it here => overwrite settings
+            const payload: SettingsState = {
+                people: this.personSettings
             };
             this._store.dispatch(new UpdateSettingAction(payload));
-        });
-
-        this._store.select(app.getSettingsState)
-            .take(1)
-            .subscribe((data: any) => {
-                // console.log('settings', data);
-                this.personAttrSelected = data.people.list ? data.people.list : [];
-                this.filter();
-                this.sysSettings = data.system;
-                this.personSettings = data.people;
-                this.createForm();
+            // console.log('from Dragula: ', payload);
+            // console.log('ps: ', this.personSettings);
         });
     }
 
@@ -112,28 +134,19 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.settingsForm.valueChanges
             .debounceTime(300)
             .distinctUntilChanged()
-            .subscribe((data: any) => {
+            .subscribe((data: SettingsState) => {
                 data.people.list = this.personAttrSelected;
                 this._store.dispatch(new UpdateSettingAction(data));
-                this._shout.success('Settings saved!');
             });
     }
 
     buildFormArray(): FormArray {
         let fga: Array<FormGroup> = [];
-        /*if (!this.personSettings
-            || !this.personSettings.maritalStatus
-            || this.personSettings.maritalStatus.length < 3) {
-            for (let status of this.personMaritalStatusSet) {
-                fga.push(this.buildFormGroup(status));
-            }
-        } else {*/
         for (let status of this.personSettings.maritalStatus) {
             fga.push(this.buildFormGroup(status.status));
         }
-        // }
         this.maritalStatus = this._fb.array(fga);
-        this.maritalStatusW = new FormArrayWrapper(this.maritalStatus);
+        // this.maritalStatusW = new FormArrayWrapper(this.maritalStatus);
         return this.maritalStatus;
     }
 
