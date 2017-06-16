@@ -111,7 +111,7 @@
             "check-open-brace",
             "check-whitespace"
         ],
-        "one-variable-per-declaration": true,
+        "one-variable-per-declaration": [true, "ignore-for-loop"],
         "radix": true,
         "semicolon": [
             true,
@@ -132,7 +132,6 @@
             "parameter",
             "arrow-parameter",
             "property-declaration",
-            "variable-declaration",
             "member-variable-declaration"
         ],
         "typedef-whitespace": [

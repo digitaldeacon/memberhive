@@ -70,7 +70,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             // console.log('msw:',this.maritalStatusW.controls);
             const payload: any = {
               people: {
-                  list: this.personAttrSelected,
+                  list: this.personAttrSelected
               }
             };
             this._store.dispatch(new UpdateSettingAction(payload));
@@ -128,10 +128,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 fga.push(this.buildFormGroup(status));
             }
         } else {*/
-            for (let status of this.personSettings.maritalStatus) {
-                fga.push(this.buildFormGroup(status.status));
-            }
-        //}
+        for (let status of this.personSettings.maritalStatus) {
+            fga.push(this.buildFormGroup(status.status));
+        }
+        // }
         this.maritalStatus = this._fb.array(fga);
         this.maritalStatusW = new FormArrayWrapper(this.maritalStatus);
         return this.maritalStatus;

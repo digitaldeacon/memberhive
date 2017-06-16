@@ -91,10 +91,10 @@ export class PersonEditComponent {
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
                 if (userCtrl.setPassword.value && !data.user.username) {
-                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(5)])
+                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(5)]);
                     userCtrl.username.updateValueAndValidity();
                 } else {
-                    userCtrl.username.setValidators(undefined)
+                    userCtrl.username.setValidators(undefined);
                     userCtrl.username.updateValueAndValidity();
                 }
 
