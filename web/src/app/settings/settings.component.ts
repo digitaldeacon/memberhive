@@ -50,6 +50,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         'separated',
         'divorced'
     ];*/
+
     maritalStatus: FormArray;
     maritalStatusW: any;
 
@@ -67,47 +68,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
         this._initStore();
         this._initDragula();
-    }
-
-    private _initStore(): void {
-        this._store.select(app.getMessage)
-            .takeWhile(() => this._alive)
-            .subscribe((message: Message) => {
-                if (message) {
-                    this._shout.out(message.text, message.type)
-                        .afterDismissed()
-                        .take(1)
-                        .subscribe(() => this._store.dispatch(new ClearSettingsMessageAction()));
-                }
-            });
-        this._store.select(app.getSettingsState)
-            .take(1)
-            .subscribe((data: any) => {
-                this.personAttrSelected = data.people.list ? data.people.list : [];
-                this.sysSettings = data.system;
-                this.personSettings = data.people;
-                this.filter();
-                this.createForm();
-            });
-    }
-    private _initDragula(): void {
-        this._dragulaService.setOptions('PEOPLE_MARITAL', {
-            moves: function (el: any, container: any, handle: any): boolean {
-                return handle.className.indexOf('handle') > -1;
-            }
-        });
-        this._dragulaService.dropModel.subscribe(() => {
-            // TODO: this is a source of bad things to happen, as it will overwrite the entire people state here
-            // either we Object.assign only the changes to keep the rest (needs the current state here)
-            // or we redo the entire logic to update only slices of state
-            // issue: we add a new section but forget it here => overwrite settings
-            const payload: SettingsState = {
-                people: this.personSettings
-            };
-            this._store.dispatch(new UpdateSettingAction(payload));
-            // console.log('from Dragula: ', payload);
-            // console.log('ps: ', this.personSettings);
-        });
     }
 
     ngAfterViewInit(): void {
@@ -173,6 +133,47 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     filter(): void {
         this.personAttr = this.personAttrSet.filter((item: string) => {
             return this.personAttrSelected ? this.personAttrSelected.indexOf(item) < 0 : false;
+        });
+    }
+
+    private _initStore(): void {
+        this._store.select(app.getMessage)
+            .takeWhile(() => this._alive)
+            .subscribe((message: Message) => {
+                if (message) {
+                    this._shout.out(message.text, message.type)
+                        .afterDismissed()
+                        .take(1)
+                        .subscribe(() => this._store.dispatch(new ClearSettingsMessageAction()));
+                }
+            });
+        this._store.select(app.getSettingsState)
+            .take(1)
+            .subscribe((data: any) => {
+                this.personAttrSelected = data.people.list ? data.people.list : [];
+                this.sysSettings = data.system;
+                this.personSettings = data.people;
+                this.filter();
+                this.createForm();
+            });
+    }
+    private _initDragula(): void {
+        this._dragulaService.setOptions('PEOPLE_MARITAL', {
+            moves: function (el: any, container: any, handle: any): boolean {
+                return handle.className.indexOf('handle') > -1;
+            }
+        });
+        this._dragulaService.dropModel.subscribe(() => {
+            // TODO: this is a source of bad things to happen, as it will overwrite the entire people state here
+            // either we Object.assign only the changes to keep the rest (needs the current state here)
+            // or we redo the entire logic to update only slices of state
+            // issue: we add a new section but forget it here => overwrite settings
+            const payload: SettingsState = {
+                people: this.personSettings
+            };
+            this._store.dispatch(new UpdateSettingAction(payload));
+            // console.log('from Dragula: ', payload);
+            // console.log('ps: ', this.personSettings);
         });
     }
 }

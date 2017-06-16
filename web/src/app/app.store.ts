@@ -49,16 +49,14 @@ export const getShowDrawer: any = createSelector(getSettingsState, settings.getS
  */
 export const getLoadingP: any = createSelector(getPersonState, person.getLoadingPerson);
 export const getLoadingS: any = createSelector(getSettingsState, settings.getLoadingSettings);
-export const getLoading:any =  createSelector(getLoadingP, getLoadingS,
-    (loadingP: boolean, loadingS: boolean) => {
-        return loadingP || loadingS;
-    });
+export const getLoading: any = createSelector(getLoadingP, getLoadingS,
+    (loadingP: boolean, loadingS: boolean) => loadingP || loadingS);
 /**
  * Message  Reducers
  */
 export const getMessageP: any = createSelector(getPersonState, person.getMessagePerson);
 export const getMessageS: any = createSelector(getSettingsState, settings.getMessageSettings);
-export const getMessage:any =  createSelector(getMessageP, getMessageS,
+export const getMessage: any = createSelector(getMessageP, getMessageS,
     (msgP: any, msgS: any) => msgP || msgS);
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
