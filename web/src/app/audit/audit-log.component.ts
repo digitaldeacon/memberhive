@@ -1,8 +1,8 @@
 import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/core';
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { AuditService } from "./audit.service";
-import { ActionLog } from "./audit";
-import { Person } from "../person/person";
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { AuditService } from './audit.service';
+import { ActionLog } from './audit';
+import { Person } from '../person/person';
 
 @Component({
     moduleId: 'mh-audit',
@@ -22,9 +22,10 @@ export class AuditLogComponent implements OnInit, OnChanges {
 
     ngOnInit(): void {
         this.route.params
-            .switchMap((params: Params) => this.auditService.getLogPerson(params['id']))
-            .subscribe((logs: Array<ActionLog>) => {
-                this.logs = logs;
+            .switchMap((params: Params) => this.auditService
+                .getLogPerson(params['id']))
+                .subscribe((logs: Array<ActionLog>) => {
+                    this.logs = logs;
             });
     }
 

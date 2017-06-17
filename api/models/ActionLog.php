@@ -63,6 +63,11 @@ class ActionLog extends \yii\db\ActiveRecord
         ];
     }
 
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['refUser' => 'id']);
+    }
+
     public function toResponseArray()
     {
         return [
@@ -91,7 +96,9 @@ class ActionLog extends \yii\db\ActiveRecord
         $log = new ActionLog();
         $log->context = $context;
         $log->refId = $refId;
-        $log->refUser = \Yii::$app->user->identity->username;
+        $log->refUser = \Yii::$app->user->identity->person->uid
+        ? \Yii::$app->user->identity->person->fullName
+        : \Yii::$app->user->identity->username;
         $log->type = $insert ? 'insert' : 'update';
         $log->diff = $insert ? null : json_encode($changedAttributes);
         if (!$log->save()) {
