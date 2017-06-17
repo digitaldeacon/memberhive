@@ -7,6 +7,8 @@ import {
     PersonAddress
 } from 'mh-core';
 
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
 @Component({
     selector: 'mh-person-edit',
     templateUrl: 'person-edit.component.html',
@@ -52,7 +54,7 @@ export class PersonEditComponent {
             lastName: [person['lastName'],
                 [<any>Validators.required, <any>Validators.minLength(2)]],
             email: [person['email'],
-                [<any>Validators.required, <any>Validators.minLength(5)]],
+                [<any>Validators.required, <any>Validators.pattern(EMAIL_REGEX)]],
             gender: [person['gender']],
             maritalStatus: [person['maritalStatus']],
             birthday: [this._datePipe.transform(person['birthday'], 'yyyy-MM-dd'),
@@ -86,12 +88,12 @@ export class PersonEditComponent {
 
     listenFormChanges(): void {
         this.form.valueChanges
-            .debounceTime(300)
+            .debounceTime(600)
             .distinctUntilChanged()
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
-                if (userCtrl.setPassword.value && !data.user.username) {
-                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(5)]);
+                if (userCtrl.setPassword.value) {
+                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(4)]);
                     userCtrl.username.updateValueAndValidity();
                 } else {
                     userCtrl.username.setValidators(undefined);
@@ -99,7 +101,7 @@ export class PersonEditComponent {
                 }
 
                 if (this.form.valid) {
-                    this.save(data);
+                   this.save(data);
                 }
             });
     }
