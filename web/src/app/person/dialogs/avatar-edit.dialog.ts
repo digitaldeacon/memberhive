@@ -1,8 +1,7 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
-import { PersonService } from '../person.service';
-import { Person } from '../person';
+import { Person } from 'mh-core';
 
 @Component({
     selector: 'mh-dialog-avatar-edit',
@@ -16,8 +15,7 @@ export class AvatarEditDialogComponent implements OnInit {
     file: File;
     @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-    constructor(private personService: PersonService,
-                public dialogRef: MdDialogRef<AvatarEditDialogComponent>,
+    constructor(public dialogRef: MdDialogRef<AvatarEditDialogComponent>,
                 @Inject(MD_DIALOG_DATA) public dialogData: any) {
 
         this.cropperSettings = new CropperSettings();
@@ -61,10 +59,10 @@ export class AvatarEditDialogComponent implements OnInit {
         const image: Object = {
             base: JSON.stringify(this.imageData.image),
             id: this.dialogData.id
-            // type: this.file.type
         };
         if (this.dialogData.context === 'person') {
-            this.personService.uploadAvatar(image).subscribe(
+            // TODO: upload avatar through store?
+            /*this.personService.uploadAvatar(image).subscribe(
                 (person: Person) => {
                     // send person to parent component and close
                     this.dialogRef.close(person);
@@ -75,7 +73,7 @@ export class AvatarEditDialogComponent implements OnInit {
                     this.dialogRef.close();
                     return false;
                 }
-            );
+            );*/
         }
     }
 }

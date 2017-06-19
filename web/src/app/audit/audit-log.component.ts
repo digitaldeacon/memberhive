@@ -2,7 +2,7 @@ import { Component, Input, OnInit, OnChanges, SimpleChanges } from '@angular/cor
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuditService } from './audit.service';
 import { ActionLog } from './audit';
-import { Person } from '../person/person';
+import { Person } from 'mh-core';
 
 @Component({
     moduleId: 'mh-audit',
