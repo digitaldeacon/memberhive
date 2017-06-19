@@ -1,0 +1,7 @@
+<md-card class="person-card">
+    <md-card-content>
+        <mh-person-form
+                [settings]="settings$ | async"
+                (savePerson)="savePerson($event)"></mh-person-form>
+    </md-card-content>
+</md-card>

@@ -15,8 +15,6 @@ import { InteractionModule } from './interaction/interaction.module';
 import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './viewport/view.component';
 
-import { PersonService } from './person/person.service';
-
 import { StoreModule, combineReducers, compose } from '@ngrx/store';
 import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
@@ -75,9 +73,6 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         MHCommonModule,
         SearchModule,
         InteractionModule
-    ],
-    providers: [
-        PersonService
     ],
     bootstrap: [AppComponent]
 })

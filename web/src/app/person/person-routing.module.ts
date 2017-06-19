@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
 import { PersonViewComponent } from './view/person-view.component';
+import { PersonCreateComponent } from './create/person-create.component';
 
 const routes: Routes = [
     {
@@ -12,6 +13,7 @@ const routes: Routes = [
         children: [
             {path: '', component: PersonListComponent},
             {path: 'list', component: PersonListComponent},
+            {path: 'create', component: PersonCreateComponent},
             {path: 'view/:id', component: PersonViewComponent}
         ]
     }

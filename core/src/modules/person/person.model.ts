@@ -40,7 +40,7 @@ export class PersonAddress {
         geocode: {}
     };
 
-    constructor(input: any) {
+    constructor(input?: any) {
         if (input) {
             this.home = input.home ? input.home : this.home;
             this.postal = input.postal ? input.postal : this.postal;

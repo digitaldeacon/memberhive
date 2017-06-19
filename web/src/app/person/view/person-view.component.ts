@@ -1,17 +1,16 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MdDialog, MdDialogRef, MdDialogConfig, MdTabChangeEvent } from '@angular/material';
+import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
-
 import * as app from '../../app.store';
 import {
     Person,
+    Message,
     PersonViewAction,
     PersonUpdateAction,
     PersonClearMessageAction,
-    Message,
     TitleService } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -24,7 +23,8 @@ import { ShoutService } from '../../common/shout.service';
     moduleId: 'mh-person',
     selector: 'mh-person-view',
     templateUrl: './person-view.component.html',
-    styleUrls: ['./person-view.component.scss']
+    styleUrls: ['./person-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;
@@ -35,12 +35,13 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     settings$: Observable<any>;
     dialogRef: MdDialogRef<any>;
 
-    constructor(private _store: Store<app.AppState>,
-                private _titleService: TitleService,
+    constructor(private _titleService: TitleService,
+                private _store: Store<app.AppState>,
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _shout: ShoutService,
                 private _dialog: MdDialog) {
+
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);

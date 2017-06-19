@@ -1,6 +1,3 @@
-<!--<button md-fab class="mat-fab-bottom-right" (click)="personEditForm.ngSubmit.emit()">
-    <md-icon class="md-24">send</md-icon>
-</button>-->
 <form class="person-edit"
       #personEditForm="ngForm"
       [formGroup]="form"
@@ -67,8 +64,15 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="date" formControlName="birthday" placeholder="Birthday" i18n-placeholder>
+                <input mdInput
+                       fxFlex
+                       formControlName="birthday"
+                       placeholder="Birthday"
+                       i18n-placeholder
+                       [mdDatepicker]="dpBirthday">
+                <button mdSuffix [mdDatepickerToggle]="dpBirthday"></button>
             </md-input-container>
+            <md-datepicker #dpBirthday></md-datepicker>
         </div>
     </fieldset>
     <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
@@ -154,5 +158,6 @@
                 </div>
             </div>
         </fieldset>
+        <button md-raised-button (click)="personEditForm.ngSubmit.emit()" color="primary" i18n>SUBMIT</button>
     </div>
 </form>

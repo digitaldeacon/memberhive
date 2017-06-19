@@ -48,10 +48,10 @@
                     <mh-interaction-list [(interactions)]="interactions"></mh-interaction-list>
                 </md-tab>
                 <md-tab label="Edit">
-                   <mh-person-edit
+                   <mh-person-form
                            [person]="person"
                            [settings]="settings$ | async"
-                           (savePerson)="savePerson($event)"></mh-person-edit>
+                           (savePerson)="savePerson($event)"></mh-person-form>
                 </md-tab>
                 <md-tab label="Family" i18n-label>
 

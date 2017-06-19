@@ -13,7 +13,7 @@ import { KeysPipe } from '../common/keys.pipe';
 import { PersonComponent } from './person.component';
 import { PersonListComponent } from './list/person-list.component';
 import { PersonViewComponent } from './view/person-view.component';
-import { PersonEditComponent } from './edit/person-edit.component';
+import { PersonFormComponent } from './form/person-form.component';
 
 import { PersonRelationsDialogComponent } from './dialogs/person-relations.dialog';
 import { AvatarEditDialogComponent } from './dialogs/avatar-edit.dialog';
@@ -24,6 +24,7 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 
 import { TitleService } from 'mh-core';
 import { ShoutService } from '../common/shout.service';
+import { PersonCreateComponent } from './create/person-create.component';
 
 const NG_MODULES: Type<any>[] = [
     CommonModule,
@@ -44,7 +45,8 @@ const MH_COMPONENTS: Type<any>[] = [
     PersonComponent,
     PersonListComponent,
     PersonViewComponent,
-    PersonEditComponent,
+    PersonFormComponent,
+    PersonCreateComponent,
     PersonRelationsDialogComponent,
     AvatarEditDialogComponent
 ];
