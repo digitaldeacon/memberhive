@@ -191,7 +191,10 @@
             <div mh-toolbar-content layout="row" layout-align="start center" flex>
                 <span>{{getTitle()}}</span>
                 <span flex></span>
-                <button md-icon-button [routerLink]="['/person/create']"><md-icon>person_add</md-icon></button>
+                <button md-icon-button *ngFor="let button of contextButtons$ | async"
+                        [routerLink]="[button.link]">
+                    <md-icon>{{button.icon}}</md-icon>
+                </button>
             </div>
             <div class="main-content">
                 <router-outlet></router-outlet>

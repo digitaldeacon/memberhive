@@ -1,4 +1,5 @@
 import * as actions from './settings.actions';
+import { ContextButton } from './settings.model';
 import * as common from '../../common/common.model';
 
 export interface SettingsState {
@@ -6,7 +7,8 @@ export interface SettingsState {
     loading?: boolean;
     message?: common.Message;
     layout?: {
-        showDrawer?: boolean
+        showDrawer?: boolean,
+        contextButtons?: ContextButton[]
     };
     people?: {
         list?: Array<string>,
@@ -68,7 +70,19 @@ export function settingsReducer(state: SettingsState = initialState,
 
         case actions.TOGGLE_DRAWER: {
             return Object.assign({}, state, {
-                layout: {showDrawer: action.payload}
+                layout: {
+                    showDrawer: action.payload,
+                    contextButtons: state.layout.contextButtons
+                }
+            });
+        }
+
+        case actions.SET_CONTEXT_BUTTONS: {
+            return Object.assign({}, state, {
+                layout: {
+                    showDrawer: state.layout.showDrawer,
+                    contextButtons: action.payload
+                }
             });
         }
 
@@ -88,3 +102,4 @@ export const getPeopleListSettings: any = (state: SettingsState) => state.people
 export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
+export const getContextButtons: any = (state: SettingsState) => state.layout.contextButtons;

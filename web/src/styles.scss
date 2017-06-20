@@ -34,6 +34,10 @@ mh-app {
   text-align: center;
   padding: 2px;
 }
+.mh-input-wrapper {
+  padding-top: 1.1em;
+  padding-bottom: 1.2em;
+}
 
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {

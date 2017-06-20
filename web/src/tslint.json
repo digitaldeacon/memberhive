@@ -83,6 +83,7 @@
         "no-debugger": true,
         "no-default-export": true,
         "no-duplicate-variable": true,
+        "no-unused-variable": [true, {"ignore-pattern": "^_"}],
         "no-empty": true,
         "no-eval": true,
         "no-inferrable-types": [
@@ -167,7 +168,6 @@
             "check-separator",
             "check-type"
         ],
-        // ANGULAR 2 Rules
       "directive-selector": [true, "attribute", "mh", "camelCase"],
       "component-selector": [true, "element", "mh", "kebab-case"],
         "component-class-suffix": true,

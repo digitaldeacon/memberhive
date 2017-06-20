@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { ShoutService } from '../common/shout.service';
+// TODO: remove with interactions in store
 import { InteractionService } from '../common/interaction.service';
 
 import { MdDialog } from '@angular/material';
@@ -18,6 +19,7 @@ import {
     AuthService,
     SysSettings,
     SignOutAction,
+    ContextButton,
     UpdateSettingAction} from 'mh-core';
 
 @Component({
@@ -37,7 +39,7 @@ import {
             }))
         ])
     ],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
@@ -67,16 +69,17 @@ export class ViewComponent implements OnInit, OnDestroy {
     churchName: string;
 
     loading$: Observable<boolean>;
+    contextButtons$: Observable<ContextButton[]>;
 
     drawerVisible: boolean;
 
-    constructor(private _shoutService: ShoutService,
-                private _authSrv: AuthService,
+    constructor(private _authSrv: AuthService,
                 private _interactionService: InteractionService, // TODO: remove with store
                 private _router: Router,
                 private _store: Store<app.AppState>,
                 private _titleService: TitleService) {
         this.loading$ = this._store.select(app.getLoading);
+        this.contextButtons$ = this._store.select(app.getContextButtons);
         this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
                 this.drawerVisible = visible;
@@ -94,11 +97,11 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.myInteractions = this._interactionService.myInteractions;
+        /*this.myInteractions = this._interactionService.myInteractions;
         this.myOutstanding = this.myInteractions.map((data: Interaction[]) =>
             data.filter((n: Interaction) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
         );
-        this._interactionService.loadMy();
+        this._interactionService.loadMy();*/
     }
 
     ngOnDestroy(): void {

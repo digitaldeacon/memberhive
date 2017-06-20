@@ -44,6 +44,7 @@ export const getProfileSettings: any = createSelector(getSettingsState, settings
 export const getSysSettings: any = createSelector(getSettingsState, settings.getSysSettings);
 
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
+export const getContextButtons: any = createSelector(getSettingsState, settings.getContextButtons);
 /**
  * Loading  Reducers
  */
