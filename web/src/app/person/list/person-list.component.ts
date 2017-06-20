@@ -3,7 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import * as app from '../../app.store';
-import { Person, TitleService } from 'mh-core';
+import { Person, TitleService, ContextButton, SetContextButtonsAction } from 'mh-core';
 
 @Component({
     moduleId: 'mh-person',
@@ -28,10 +28,18 @@ export class PersonListComponent implements OnDestroy {
             .subscribe((data: any) => {
                 this.options = data;
         });
+        this.setContextMenu();
     }
 
     display(key: string): boolean {
         return this.options.indexOf(key) >= 0;
+    }
+
+    setContextMenu(): void {
+        let buttons: ContextButton[] = [];
+        buttons.push({icon: 'person_add', link: '/person/create'});
+
+        this._store.dispatch(new SetContextButtonsAction(buttons));
     }
 
     ngOnDestroy(): void {

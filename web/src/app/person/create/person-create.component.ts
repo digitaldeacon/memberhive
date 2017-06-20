@@ -7,7 +7,9 @@ import * as app from '../../app.store';
 import {
   TitleService,
   Person,
-  PersonCreateAction
+  PersonCreateAction,
+  ContextButton,
+  SetContextButtonsAction
 } from 'mh-core';
 
 @Component({
@@ -24,10 +26,18 @@ export class PersonCreateComponent {
               private _router: Router) {
     titleService.setTitle('Create Person');
     this.settings$ = this._store.select(app.getPeopleSettings);
+    this.setContextMenu();
   }
 
   savePerson(person: Person): void {
     this._store.dispatch(new PersonCreateAction(person));
     // this._router.navigate(['/person/view', person.uid]);
+  }
+
+  setContextMenu(): void {
+    let buttons: ContextButton[] = [];
+    buttons.push({icon: 'people', link: '/person'});
+
+    this._store.dispatch(new SetContextButtonsAction(buttons));
   }
 }
