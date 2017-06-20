@@ -11,6 +11,7 @@ import {
     PersonViewAction,
     PersonUpdateAction,
     PersonClearMessageAction,
+    SetContextButtonsAction,
     TitleService } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -24,7 +25,7 @@ import { ShoutService } from '../../common/shout.service';
     selector: 'mh-person-view',
     templateUrl: './person-view.component.html',
     styleUrls: ['./person-view.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;

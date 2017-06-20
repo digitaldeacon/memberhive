@@ -179,9 +179,29 @@ class PersonController extends MHController
 
     public function actionCreate()
     {
+        $post = \Yii::$app->request->post();
         $person = new Person();
-        if ($person->load(\Yii::$app->request->post()) && $person->save()) {
-            return ['response' => $person->toResponseArray()];
+
+        $person->firstName = $post['firstName'];
+        $person->middleName = $post['middleName'];
+        $person->lastName = $post['lastName'];
+        $person->gender = $post['gender'];
+        $person->maritalStatus = $post['maritalStatus'];
+        $person->address = json_encode($post['address']);
+        $person->phoneHome = $post['phoneHome'];
+        $person->phoneWork = $post['phoneWork'];
+        $person->phoneMobile = $post['phoneMobile'];
+        if (empty($person->user) && !empty($post['user']['password'])) {
+            $user = new User();
+            $user->personId = $person->id;
+            $user->username = trim($post['user']['username']);
+            $user->setPassword(trim($post['user']['password']));
+            if (!$user->save()) {
+                throw new BadRequestHttpException(json_encode($user->errors));
+            }
+        }
+        if ($person->save()) {
+            return $person->toResponseArray();
         } else {
             throw new BadRequestHttpException($person->errors);
         }

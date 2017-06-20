@@ -84,6 +84,43 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
+        case actions.UPDATE_PERSON_FAILURE: {
+            const message: common.Message = {
+                type: common.MESSAGE_FAILURE,
+                text: action.payload
+            };
+            return Object.assign({}, state, {
+                message: message
+            });
+        }
+
+        case actions.CREATE_PERSON_SUCCESS: {
+            const person: Person = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully created ' + person.fullName
+            };
+            return Object.assign({}, state, {
+                loading: false,
+                loaded: true,
+                message: message,
+                ids: [...state.ids, person.uid],
+                people: [...state.people, person]
+            });
+        }
+
+        case actions.CREATE_PERSON_FAILURE: {
+            const message: common.Message = {
+                type: common.MESSAGE_FAILURE,
+                text: action.payload
+            };
+            return Object.assign({}, state, {
+                loading: false,
+                loaded: false,
+                message: message
+            });
+        }
+
         default: {
             return state;
         }

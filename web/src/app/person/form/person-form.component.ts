@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
@@ -7,12 +7,15 @@ import {
     PersonAddress
 } from 'mh-core';
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+const EMAIL_REGEX_1 = '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))';
+const EMAIL_REGEX_2 = '@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+const EMAIL_REGEX = new RegExp(EMAIL_REGEX_1 + EMAIL_REGEX_2);
 
 @Component({
     selector: 'mh-person-form',
     templateUrl: './person-form.component.html',
-    styleUrls: ['./person-form.component.scss']
+    styleUrls: ['./person-form.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class PersonFormComponent implements OnInit {
@@ -38,19 +41,17 @@ export class PersonFormComponent implements OnInit {
     persons: Array<Person>;
     address: PersonAddress = new PersonAddress();
 
-    constructor(private _fb: FormBuilder,
-                private _datePipe: DatePipe) {
-
-    }
+    constructor(private _fb: FormBuilder) { }
 
     ngOnInit(): void {
         if (!this.form) {
             this.initForm();
+            this.initValidators();
         }
     }
 
     initPerson(person?: Person): void {
-        if (person){
+        if (person) {
             this.address = new PersonAddress(person['address']);
             this.form.patchValue(person);
             this.listenFormChanges();
@@ -61,6 +62,7 @@ export class PersonFormComponent implements OnInit {
         this.form.get('firstName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('lastName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(EMAIL_REGEX)]);
+        this.form.get('birthday').setValidators([<any>Validators.required]);
     }
 
     initForm(): void {
@@ -74,8 +76,7 @@ export class PersonFormComponent implements OnInit {
             email: [''],
             gender: [undefined],
             maritalStatus: [undefined],
-            birthday: [undefined,
-                [<any>Validators.required]],
+            birthday: [undefined],
             phoneHome: [''],
             phoneWork: [''],
             phoneMobile: [''],
@@ -115,12 +116,11 @@ export class PersonFormComponent implements OnInit {
                     userCtrl.username.setValidators(undefined);
                     userCtrl.username.updateValueAndValidity();
                 }
-
-                this.save(data);
+                this.save(data, this.form.valid);
             });
     }
 
-    save(model: Person): void {
+    save(model: Person, valid: boolean): void {
         if (this.form.valid) {
             this.submitted = true;
             this.form.patchValue(model);

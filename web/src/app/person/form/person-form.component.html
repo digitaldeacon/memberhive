@@ -1,4 +1,4 @@
-<form class="person-edit"
+<form class="person-form"
       #personEditForm="ngForm"
       [formGroup]="form"
       (ngSubmit)="save(form.value, form.valid)"
@@ -9,9 +9,13 @@
         <legend i18n>Personal</legend>
         <div>
             <md-input-container fxFlex>
-                <input mdInput fxFlex type="text" formControlName="firstName" placeholder="First Name" i18n-placeholder>
+                <input mdInput fxFlex
+                       type="text"
+                       formControlName="firstName"
+                       placeholder="First Name" i18n-placeholder
+                       required>
             </md-input-container>
-            <md-error *ngIf="!form.get('firstName').valid" i18n>
+            <md-error *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine" i18n>
                 First name is required (minimum 2 characters).
             </md-error>
         </div>
@@ -22,13 +26,17 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="text" formControlName="lastName" placeholder="Lastname" i18n-placeholder>
+                <input mdInput fxFlex
+                       type="text"
+                       formControlName="lastName"
+                       placeholder="Lastname" i18n-placeholder
+                       required>
             </md-input-container>
-            <md-error *ngIf="!form.get('lastName').valid" i18n>
+            <md-error *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine" i18n>
                 Lastname is required (minimum of 2 characters)
             </md-error>
         </div>
-        <div class="mat-input-wrapper">
+        <div class="mh-input-wrapper">
             <md-radio-group formControlName="gender" fxFlex>
                 <md-radio-button value="f" i18n>Female</md-radio-button>
                 <md-radio-button value="m" i18n>Male</md-radio-button>
@@ -36,13 +44,17 @@
         </div>
         <div>
             <md-input-container>
-                <input mdInput fxFlex type="email" email formControlName="email" placeholder="Email" i18n-placeholder>
+                <input mdInput fxFlex
+                       type="email"
+                       formControlName="email"
+                       placeholder="Email" i18n-placeholder
+                       email required>
             </md-input-container>
             <md-error *ngIf="form.get('email').hasError('pattern')" i18n>
                 Please provide a proper email address
             </md-error>
         </div>
-        <div class="mat-input-wrapper">
+        <div class="mh-input-wrapper">
             <md-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
                 <md-option *ngFor="let mstatus of settings?.maritalStatus" [value]="mstatus.status">
                     {{mstatus.status}}
@@ -59,19 +71,21 @@
         </div>
         <div>
             <md-input-container>
-                <input type="" mdInput fxFlex type="tel" formControlName="phoneWork" placeholder="Phone (Work)" i18n-placeholder>
+                <input type="tel" mdInput fxFlex type="tel" formControlName="phoneWork" placeholder="Phone (Work)" i18n-placeholder>
             </md-input-container>
         </div>
         <div>
             <md-input-container>
-                <input mdInput
-                       fxFlex
+                <input mdInput fxFlex
+                       [mdDatepicker]="dpBirthday"
                        formControlName="birthday"
-                       placeholder="Birthday"
-                       i18n-placeholder
-                       [mdDatepicker]="dpBirthday">
+                       placeholder="Birthday" i18n-placeholder
+                       required>
                 <button mdSuffix [mdDatepickerToggle]="dpBirthday"></button>
             </md-input-container>
+            <md-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine" i18n>
+                Birthday is required.
+            </md-error>
             <md-datepicker #dpBirthday></md-datepicker>
         </div>
     </fieldset>
@@ -158,6 +172,6 @@
                 </div>
             </div>
         </fieldset>
-        <button md-raised-button (click)="personEditForm.ngSubmit.emit()" color="primary" i18n>SUBMIT</button>
+        <button md-raised-button type="submit" color="primary" i18n>SUBMIT</button>
     </div>
 </form>

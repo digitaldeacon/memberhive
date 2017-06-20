@@ -34,4 +34,12 @@ export class PersonEffects {
         .switchMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
                 .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
         );
+
+    @Effect()
+    createPerson$ = this.actions$
+        .ofType(actions.CREATE_PERSON)
+        .map((action: actions.PersonCreateAction) => action.payload)
+        .switchMap((data: Person) => this.http.post('person/create', data)
+            .map((r: Person) => new actions.PersonCreateSuccessAction(r))
+        );
 }
