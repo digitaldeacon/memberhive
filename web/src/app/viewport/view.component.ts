@@ -131,8 +131,8 @@ export class ViewComponent implements OnInit, OnDestroy {
         return this.drawerVisible ? '220px' : '75px';
     }
 
-    isActiveItem(title: any): boolean {
-        return this._titleService.getModule() === title;
+    isActiveItem(module: any): boolean {
+        return this._titleService.getModule() === module;
     }
 
     getTitle(): string {

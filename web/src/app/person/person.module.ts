@@ -62,7 +62,6 @@ const MH_COMPONENTS: Type<any>[] = [
         ImageCropperModule
     ],
     providers: [
-        TitleService,
         ShoutService,
         DatePipe,
         KeysPipe

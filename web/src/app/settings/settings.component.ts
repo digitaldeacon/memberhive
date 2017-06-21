@@ -44,6 +44,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 private _shout: ShoutService,
                 private _fb: FormBuilder) {
 
+        titleService.changeModule('Settings');
         titleService.setTitle('All Settings');
 
         this._initStore();
