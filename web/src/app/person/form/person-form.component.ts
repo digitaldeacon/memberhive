@@ -169,7 +169,7 @@ export class PersonFormComponent implements OnInit {
     }
 
     inCreateMode(): boolean {
-        return this._mode == 'CREATE';
+        return this._mode === 'CREATE';
     }
 
     toggleRandomPassword(event?: any): void {
