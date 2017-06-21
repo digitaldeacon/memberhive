@@ -7,7 +7,7 @@ export interface PersonState {
     loaded: boolean;
     loading: boolean;
     message?: common.Message;
-    ids: string[];
+    lastCreated?: string;
     people: Person[];
     personId: string;
 }
@@ -15,7 +15,6 @@ export interface PersonState {
 const initialPersonState: PersonState = {
     loaded: false,
     loading: false,
-    ids: [],
     people: [],
     personId: ''
 };
@@ -26,6 +25,7 @@ export function personReducer(state: PersonState = initialPersonState,
 
         case actions.LIST_PEOPLE:
         case actions.UPDATE_PERSON:
+        case actions.CREATE_PERSON:
             return Object.assign({}, state, {
                 loading: true
             });
@@ -50,22 +50,6 @@ export function personReducer(state: PersonState = initialPersonState,
             });
         }
 
-        case actions.LOAD_PERSON_VIEW: {
-            const person: Person = action.payload;
-            if (state.ids.indexOf(person.uid) > -1) {
-                return state;
-            }
-            return {
-                loaded: false,
-                loading: true,
-                ids: [ ...state.ids, person.uid ],
-                people: Object.assign({}, state.people, {
-                    [person.id]: person
-                }),
-                personId: state.personId
-            };
-        }
-
         case actions.UPDATE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             const message: common.Message = {
@@ -76,7 +60,6 @@ export function personReducer(state: PersonState = initialPersonState,
                 loaded: true,
                 loading: false,
                 message: message,
-                ids: state.ids,
                 people: state.people.map((p: Person) => {
                     return p.uid === person.uid ? Object.assign({}, p, person) : p;
                 }),
@@ -104,7 +87,7 @@ export function personReducer(state: PersonState = initialPersonState,
                 loading: false,
                 loaded: true,
                 message: message,
-                ids: [...state.ids, person.uid],
+                lastCreated: person.uid,
                 people: [...state.people, person]
             });
         }
@@ -132,12 +115,8 @@ export const getLoadingPerson: any = (state: PersonState) => state.loading;
 export const getMessagePerson: any = (state: PersonState) => state.message;
 
 export const getPeople: any = (state: PersonState) => state.people;
-export const getIds: any = (state: PersonState) => state.ids;
+export const getLastCreatedPersonId: any = (state: PersonState) => state.lastCreated;
 export const getSelectedId: any = (state: PersonState) => state.personId;
 export const getPerson: any = createSelector(getPeople, getSelectedId, (people: any, selectedId: string) => {
     return people.filter((person: Person) => person.uid === selectedId)[0];
-});
-
-export const getAllPeople: any = createSelector(getPeople, getIds, (people: any, ids: string[]) => {
-    return ids.map((id: string) => people.filter((person: Person) => person.uid === id));
 });

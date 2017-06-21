@@ -33,6 +33,7 @@ export const reducers: ActionReducerMap<AppState> = {
 export const getPersonState: any = (state: AppState) => state.person;
 export const getPeople: any = createSelector(getPersonState, person.getPeople);
 export const getSelectedPerson: any = createSelector(getPersonState, person.getPerson);
+export const getLastCreatedPersonId: any = createSelector(getPersonState, person.getLastCreatedPersonId);
 /**
  * Settings Reducers
  */

@@ -7,7 +7,6 @@ export const LIST_PEOPLE_FAIL = '[People] List Fail';
 export const UPDATE_PERSON = '[Person] Update';
 export const UPDATE_PERSON_SUCCESS = '[Person] Update Success';
 export const UPDATE_PERSON_FAILURE = '[Person] Update Failure';
-export const LOAD_PERSON_VIEW = '[Person] Load View';
 export const VIEW_PERSON = '[Person] View';
 export const CREATE_PERSON = '[Person] Create';
 export const CREATE_PERSON_SUCCESS = '[Person] Create Success';
@@ -32,11 +31,6 @@ export class ListFailAction implements Action {
 export class PersonViewAction implements Action {
     readonly type = VIEW_PERSON;
     constructor(public payload: string) { }
-}
-
-export class PersonLoadViewAction implements Action {
-    readonly type = LOAD_PERSON_VIEW;
-    constructor(public payload: Person) { }
 }
 
 export class PersonUpdateAction implements Action {
@@ -78,7 +72,6 @@ export type PersonActions =
     | ListSuccessAction
     | ListFailAction
     | PersonViewAction
-    | PersonLoadViewAction
     | PersonUpdateAction
     | PersonUpdateSuccessAction
     | PersonUpdateFailureAction

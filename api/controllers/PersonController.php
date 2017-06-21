@@ -32,6 +32,7 @@ class PersonController extends MHController
         if ($action->id == 'update'
             || $action->id == 'update-column'
             || $action->id == 'avatar-upload'
+            || $action->id == 'create'
         ) {
             $this->enableCsrfValidation = false;
         }
@@ -203,7 +204,7 @@ class PersonController extends MHController
         if ($person->save()) {
             return $person->toResponseArray();
         } else {
-            throw new BadRequestHttpException($person->errors);
+            throw new BadRequestHttpException(json_encode($person->errors));
         }
     }
 
