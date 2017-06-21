@@ -164,7 +164,7 @@
         <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
             <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
                 <md-nav-list>
-                    <a md-list-item>
+                    <a md-list-item [routerLink]="['/person/view', currentUser?.uid]">
                         <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
                         <h4 md-line *ngIf="drawerVisible">{{currentUser?.firstName}}</h4>
                     </a>
