@@ -28,21 +28,21 @@ export class PersonListComponent implements OnDestroy {
             .subscribe((data: any) => {
                 this.options = data;
         });
-        this.setContextMenu();
+        this._setContextMenu();
     }
 
     display(key: string): boolean {
         return this.options.indexOf(key) >= 0;
     }
 
-    setContextMenu(): void {
-        let buttons: ContextButton[] = [];
-        buttons.push({icon: 'person_add', link: '/person/create'});
-
-        this._store.dispatch(new SetContextButtonsAction(buttons));
-    }
-
     ngOnDestroy(): void {
         this._alive = false;
+    }
+
+    private _setContextMenu(): void {
+        let buttons: ContextButton[] = [];
+        buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
+
+        this._store.dispatch(new SetContextButtonsAction(buttons));
     }
 }

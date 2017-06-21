@@ -1,22 +1,12 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
-import {
-    TitleService,
-    SettingsState,
-    SysSettings,
-    PersonSettings,
-    UpdateSettingAction,
-    ClearSettingsMessageAction,
-    Message
-} from 'mh-core';
+import * as core from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as app from '../app.store';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-
-import { FormArrayWrapper } from '../common/form-array.wrapper';
 
 @Component({
   selector: 'mh-settings',
@@ -41,24 +31,14 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
-    // TODO: possibly remove this as we have a default in the reducer state
-    /*personMaritalStatusSet: Array<string> = [
-        'single',
-        'engaged',
-        'married',
-        'widowed',
-        'separated',
-        'divorced'
-    ];*/
 
     maritalStatus: FormArray;
-    maritalStatusW: any;
 
-    sysSettings: SysSettings;
-    personSettings: PersonSettings;
+    sysSettings: core.SystemSettings;
+    personSettings: core.PersonSettings;
     settingsForm: FormGroup;
 
-    constructor(titleService: TitleService,
+    constructor(titleService: core.TitleService,
                 private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
                 private _shout: ShoutService,
@@ -68,6 +48,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
         this._initStore();
         this._initDragula();
+        this._setContextMenu();
     }
 
     ngAfterViewInit(): void {
@@ -92,11 +73,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.settingsForm.get('system').patchValue(this.sysSettings);
         this.settingsForm.get('people').patchValue(this.personSettings);
         this.settingsForm.valueChanges
-            .debounceTime(300)
+            .debounceTime(600)
             .distinctUntilChanged()
-            .subscribe((data: SettingsState) => {
-                data.people.list = this.personAttrSelected;
-                this._store.dispatch(new UpdateSettingAction(data));
+            .subscribe((data: core.SettingsState) => {
+                // data.people.list = this.personAttrSelected;
+                this._store.dispatch(new core.UpdateSettingAction(data));
             });
     }
 
@@ -139,12 +120,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     private _initStore(): void {
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
-            .subscribe((message: Message) => {
+            .subscribe((message: core.Message) => {
                 if (message) {
-                    this._shout.out(message.text, message.type)
-                        .afterDismissed()
-                        .take(1)
-                        .subscribe(() => this._store.dispatch(new ClearSettingsMessageAction()));
+                    this._shout.out(message.text, message.type);
+                    this._store.dispatch(new core.ClearSettingsMessageAction());
                 }
             });
         this._store.select(app.getSettingsState)
@@ -164,16 +143,17 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             }
         });
         this._dragulaService.dropModel.subscribe(() => {
-            // TODO: this is a source of bad things to happen, as it will overwrite the entire people state here
-            // either we Object.assign only the changes to keep the rest (needs the current state here)
-            // or we redo the entire logic to update only slices of state
-            // issue: we add a new section but forget it here => overwrite settings
-            const payload: SettingsState = {
+            const payload: core.SettingsState = {
                 people: this.personSettings
             };
-            this._store.dispatch(new UpdateSettingAction(payload));
-            // console.log('from Dragula: ', payload);
-            // console.log('ps: ', this.personSettings);
+            this._store.dispatch(new core.UpdateSettingAction(payload));
         });
+    }
+
+    private _setContextMenu(): void {
+        let buttons: core.ContextButton[] = [];
+        // buttons.push({icon: 'person_add', link: '/person/create'});
+
+        this._store.dispatch(new core.SetContextButtonsAction(buttons));
     }
 }

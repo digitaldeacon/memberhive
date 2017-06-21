@@ -4,11 +4,10 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import { ShoutService } from '../common/shout.service';
-// TODO: remove with interactions in store
-import { InteractionService } from '../common/interaction.service';
-
 import { MdDialog } from '@angular/material';
 
+// TODO: remove with interactions in store
+import { InteractionService } from '../common/interaction.service';
 import { Interaction } from '../interaction/interaction';
 
 import { Store } from '@ngrx/store';
@@ -17,10 +16,13 @@ import {
     TitleService,
     Person,
     AuthService,
-    SysSettings,
+    SystemSettings,
+    LayoutSettings,
+    SettingsState,
     SignOutAction,
     ContextButton,
-    UpdateSettingAction} from 'mh-core';
+    UpdateSettingAction
+} from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -89,7 +91,7 @@ export class ViewComponent implements OnInit, OnDestroy {
                 this.currentUser = p;
             });
         this._store.select(app.getSysSettings).takeWhile(() => this._alive)
-            .subscribe((data: SysSettings) => {
+            .subscribe((data: SystemSettings) => {
                 if (data) {
                     this.churchName = data.churchName;
                 }
@@ -114,11 +116,15 @@ export class ViewComponent implements OnInit, OnDestroy {
     }
 
     openDrawer(): void {
-        const payload: any = {layout: {showDrawer: true}};
+        const payload: SettingsState = {
+            layout: {showDrawer: true}
+        };
         this._store.dispatch(new UpdateSettingAction(payload));
     }
     closeDrawer(): void {
-        const payload: any = {layout: {showDrawer: false}};
+        const payload: SettingsState = {
+            layout: {showDrawer: false}
+        };
         this._store.dispatch(new UpdateSettingAction(payload));
     }
     drawerWidth(): string {

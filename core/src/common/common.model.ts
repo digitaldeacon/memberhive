@@ -1,6 +1,6 @@
 export interface Message {
     type: string;
-    text: string;
+    text?: string;
 }
 
 export const MESSAGE_SUCCESS = 'success';

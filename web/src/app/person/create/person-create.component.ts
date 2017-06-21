@@ -26,7 +26,7 @@ export class PersonCreateComponent {
               private _router: Router) {
     titleService.setTitle('Create Person');
     this.settings$ = this._store.select(app.getPeopleSettings);
-    this.setContextMenu();
+    this._setContextMenu();
   }
 
   savePerson(person: Person): void {
@@ -34,9 +34,9 @@ export class PersonCreateComponent {
     // this._router.navigate(['/person/view', person.uid]);
   }
 
-  setContextMenu(): void {
+  private _setContextMenu(): void {
     let buttons: ContextButton[] = [];
-    buttons.push({icon: 'people', link: '/person'});
+    buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
 
     this._store.dispatch(new SetContextButtonsAction(buttons));
   }

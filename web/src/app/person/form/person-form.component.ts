@@ -7,9 +7,7 @@ import {
     PersonAddress
 } from 'mh-core';
 
-const EMAIL_REGEX_1 = '^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))';
-const EMAIL_REGEX_2 = '@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
-const EMAIL_REGEX = new RegExp(EMAIL_REGEX_1 + EMAIL_REGEX_2);
+const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 @Component({
     selector: 'mh-person-form',
@@ -22,14 +20,15 @@ export class PersonFormComponent implements OnInit {
 
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
+    private _mode: string = 'EDIT';
 
     @Input() settings: any;
     @Input()
     set person(person: Person) {
         if (person) {
             this.initForm();
-            this.initPerson(person);
             this.initValidators();
+            this.initPerson(person);
         }
     }
 
@@ -45,6 +44,7 @@ export class PersonFormComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.form) {
+            this._mode = 'CREATE';
             this.initForm();
             this.initValidators();
         }
@@ -166,6 +166,10 @@ export class PersonFormComponent implements OnInit {
             }
         ); */
         return false;
+    }
+
+    inCreateMode(): boolean {
+        return this._mode == 'CREATE';
     }
 
     toggleRandomPassword(event?: any): void {

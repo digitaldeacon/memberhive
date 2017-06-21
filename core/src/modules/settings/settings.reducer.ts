@@ -1,21 +1,15 @@
 import * as actions from './settings.actions';
-import { ContextButton } from './settings.model';
+import * as model from './settings.model';
 import * as common from '../../common/common.model';
 
 export interface SettingsState {
     loaded?: boolean;
     loading?: boolean;
     message?: common.Message;
-    layout?: {
-        showDrawer?: boolean,
-        contextButtons?: ContextButton[]
-    };
-    people?: {
-        list?: Array<string>,
-        maritalStatus?: Array<any>
-    };
+    layout?: model.LayoutSettings;
+    people?: model.PersonSettings;
+    system?: model.SystemSettings;
     profile?: any;
-    system?: any;
     dashboard?: any;
 }
 
@@ -29,8 +23,10 @@ const initialState: SettingsState = {
         list: ['email'],
         maritalStatus: ['single', 'engaged', 'married', 'widowed', 'separated', 'divorced']
     },
+    system: {
+        churchName: 'Your Church'
+    },
     profile: {},
-    system: {},
     dashboard: {}
 };
 
@@ -57,15 +53,43 @@ export function settingsReducer(state: SettingsState = initialState,
         }
 
         case actions.UPDATE_SETTINGS_SUCCESS: {
-            const settings: SettingsState = action.payload;
-            const message: common.Message = {
+            const payload: SettingsState = action.payload;
+            const types = Object.keys(payload);
+            const values = (<any>Object).values(payload);
+
+            let message: common.Message = {
                 type: common.MESSAGE_SUCCESS,
-                text: 'Successfully updated settings'
+                text: 'Successfully updated settings' // TODO: add to i18n
             };
-            settings.message = message;
-            settings.loading = false;
-            settings.loaded = true;
-            return Object.assign({}, state, settings);
+            let system: model.SystemSettings = state.system;
+            let people: model.PersonSettings = state.people;
+            let layout: model.LayoutSettings = state.layout;
+
+            let i = 0;
+            for (let section of types) {
+                if (section === model.SettingType[model.SettingType.people]) {
+                    people = Object.assign({}, state.people, values[i]);
+                }
+                if (section === model.SettingType[model.SettingType.system]) {
+                    system = Object.assign({}, state.system, values[i]);
+                }
+                if (section === model.SettingType[model.SettingType.layout]) {
+                    message = undefined;
+                    layout = Object.assign({}, state.layout, values[i]);
+                }
+                i++;
+            }
+
+            return Object.assign({}, state, {
+                loading: false,
+                loaded: true,
+                message: message,
+                layout: layout,
+                people: people,
+                system: system,
+                profile: state.profile,
+                dashboard: state.dashboard
+            });
         }
 
         case actions.TOGGLE_DRAWER: {

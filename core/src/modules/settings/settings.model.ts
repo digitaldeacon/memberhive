@@ -1,10 +1,17 @@
+export enum SettingType {layout, people, system, dashboard, profile}
+
 export interface SettingsPayload {
-    key: string;
+    type: SettingType;
     data: any;
 }
 
-export interface SysSettings {
+export interface SystemSettings {
     churchName: string;
+}
+
+export interface LayoutSettings {
+    showDrawer: boolean;
+    contextButtons?: ContextButton[];
 }
 
 export interface PersonSettings {
@@ -15,4 +22,5 @@ export interface PersonSettings {
 export interface ContextButton {
     icon: string;
     link: string;
+    title?: string;
 }

@@ -192,7 +192,8 @@
                 <span>{{getTitle()}}</span>
                 <span flex></span>
                 <button md-icon-button *ngFor="let button of contextButtons$ | async"
-                        [routerLink]="[button.link]">
+                        [routerLink]="[button.link]"
+                        mdTooltip="{{button.title}}">
                     <md-icon>{{button.icon}}</md-icon>
                 </button>
             </div>

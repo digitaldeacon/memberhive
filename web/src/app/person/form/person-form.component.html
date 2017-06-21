@@ -172,6 +172,9 @@
                 </div>
             </div>
         </fieldset>
-        <button md-raised-button type="submit" color="primary" i18n>SUBMIT</button>
+        <button md-raised-button
+                *ngIf="inCreateMode()"
+                type="submit"
+                i18n>SUBMIT</button>
     </div>
 </form>
