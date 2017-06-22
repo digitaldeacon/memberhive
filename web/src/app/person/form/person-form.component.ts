@@ -49,7 +49,6 @@ export class PersonFormComponent implements OnInit {
             this.initForm();
             this.initValidators();
         }
-        console.log(this._person);
     }
 
     initPerson(person?: Person): void {
@@ -130,44 +129,6 @@ export class PersonFormComponent implements OnInit {
             this.toggleRandomPassword();
             this.savePerson.emit(model);
         }
-    }
-
-    calcGeocode(address: any): boolean {
-        const column: any = {
-            name: '',
-            value: ''
-        };
-        let adr: string;
-        adr = address.home.street ? address.home.street : '';
-        adr += address.home.zip ? ', ' + address.home.zip : '';
-        adr += address.home.city ? ' ' + address.home.city : '';
-
-        /* this.personService.geocode(adr).subscribe(
-            (data: any) => {
-                address.home.geocode = data.results[0].geometry.location;
-            },
-            (error: any) => {
-                this._shout.error('Error while saving geocode data!');
-                return false;
-            },
-            () => {
-                column.name = 'address';
-                column.value = address;
-                this.personService.updateColumn(column, this.person.uid)
-                    .subscribe(
-                        (person: Person) => {
-                            this.person = person;
-                            this.form.patchValue(person.address);
-                            this.updateParent();
-                        },
-                            (error: any) => {
-                                this._shout.error('Error while updating address with geocodes!');
-                                return false;
-                        }
-                    );
-            }
-        ); */
-        return false;
     }
 
     inCreateMode(): boolean {

@@ -93,7 +93,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .debounceTime(600)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
-                console.log('settings component: ',data);
                 this._store.dispatch(new core.UpdateSettingAction(data));
             });
     }

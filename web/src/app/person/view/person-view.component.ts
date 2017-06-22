@@ -97,20 +97,17 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     savePerson(person: Person): void {
         let origin: Person = this.person;
-        let origin_adr: PersonAddress = origin.address;
         person.uid = this.person.uid;
-        console.log(person.address === origin.address);
         this._store.dispatch(new PersonUpdateAction(person));
-        if ((origin_adr.home.street !== person.address.home.street)
-        || (origin_adr.home.city !== person.address.home.city)
-        || (origin_adr.home.zip !== person.address.home.zip)) {
+        if ((origin.address.home.street !== person.address.home.street)
+        || (origin.address.home.city !== person.address.home.city)
+        || (origin.address.home.zip !== person.address.home.zip)) {
             this._store.dispatch(new PersonCalcGeoAction(person));
         }
     }
 
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
-
         this.dialogRef.afterClosed().subscribe((result: string) => {
             this.dialogRef = undefined;
         });
