@@ -38,6 +38,9 @@
                 <md-icon>loyalty</md-icon> <span fxHide.xs i18n>Relationships</span></button>
             <button md-raised-button (click)="openDlgAvatar()" color="accent">
                 <md-icon>camera</md-icon> <span fxHide.xs i18n>Avatar</span></button>
+            <button md-icon-button *ngIf="hasMap">
+                <md-icon>map</md-icon>
+            </button>
         </md-card-actions>
         <md-card-content>
             <md-tab-group>

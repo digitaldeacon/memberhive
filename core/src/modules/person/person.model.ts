@@ -48,29 +48,7 @@ export class PersonAddress {
     }
 }
 
-const emptyUser: User = {
-    token: '',
-    personId: '',
-    username: ''
-};
-
-export const emptyPerson: Person = {
-    id: 0,
-    uid: '',
-    firstName: '',
-    lastName: '',
-    middleName: '',
-    fullName: '',
-    email: '',
-    maritalStatus: '',
-    gender: '',
-    birthday: undefined,
-    age: 0,
-    avatar: '',
-    phoneHome: '',
-    phoneWork: '',
-    phoneMobile: '',
-    user: emptyUser,
-    address: new PersonAddress(),
-    socialContact: {}
-};
+export interface CalcGeoCodePayload {
+    person: Person;
+    apiKey?: string;
+}

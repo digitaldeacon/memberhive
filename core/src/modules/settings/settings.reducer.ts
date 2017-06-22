@@ -140,3 +140,4 @@ export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
 export const getContextButtons: any = (state: SettingsState) => state.layout.contextButtons;
+export const getSysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;

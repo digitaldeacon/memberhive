@@ -46,6 +46,10 @@ export const getSysSettings: any = createSelector(getSettingsState, settings.get
 
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
 export const getContextButtons: any = createSelector(getSettingsState, settings.getContextButtons);
+export const getSysGoogleKey: any = createSelector(getSettingsState, settings.getSysGoogleKey);
+
+export const getPeopleSysSettings: any = createSelector(getPeopleSettings, getSysSettings,
+    (people: any, system: any) => Object.assign({}, people, system));
 /**
  * Loading  Reducers
  */

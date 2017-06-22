@@ -12,7 +12,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import * as actions from './person.actions';
-import { Person } from './person.model';
+import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { HttpService } from '../../services/http.service';
 
 @Injectable()
@@ -53,23 +53,29 @@ export class PersonEffects {
     calcPersonGeo$ = this.actions$
         .ofType(actions.CALC_PERSON_GEO)
         .map(toPayload)
-        .switchMap((person: Person) => {
-            let adr: string;
-            const apiKey: string = localStorage.getItem('ggl_apiKey');
+        .switchMap((payload: CalcGeoCodePayload) => {
+            let adr: string, key: string, url: string;
+            let address: PersonAddress = payload.person.address;
 
-            if (!person.address.home.street &&
-                !person.address.home.zip &&
-                !person.address.home.city) {
+            if (!address.home.street &&
+                !address.home.zip &&
+                !address.home.city) {
                 return empty();
             }
 
-            adr = person.address.home.street ? person.address.home.street : '';
-            adr += person.address.home.zip ? ', ' + person.address.home.zip : '';
-            adr += person.address.home.city ? ' ' + person.address.home.city : '';
-            return this.http.getRaw('https://maps.googleapis.com/maps/api/geocode/json?address=' + adr + '&key=' + apiKey)
+            key = payload.apiKey;
+            adr = address.home.street ? address.home.street : '';
+            adr += address.home.zip ? ', ' + address.home.zip : '';
+            adr += address.home.city ? ' ' + address.home.city : '';
+
+            url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${adr}`;
+
+            return this.http.getRaw(url)
                 .map((res: any) => {
-                    person.address.home.geocode = res.results[0].geometry.location;
-                    return new actions.PersonCalcGeoSuccessAction(person);
+                    const response: any = JSON.parse(res.text());
+                    const geocodes: any = response.results[0].geometry.location;
+                    payload.person.address.home.geocode = geocodes;
+                    return new actions.PersonUpdateAction(payload.person);
                 })
                 .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));
         });

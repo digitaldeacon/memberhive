@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Person } from './person.model';
+import { Person, CalcGeoCodePayload } from './person.model';
 
 export const LIST_PEOPLE = '[People] List';
 export const LIST_PEOPLE_SUCCESS = '[People] List Success';
@@ -72,11 +72,11 @@ export class PersonClearMessageAction implements Action {
 
 export class PersonCalcGeoAction implements Action {
     readonly type = CALC_PERSON_GEO;
-    constructor(public payload: Person) { }
+    constructor(public payload: CalcGeoCodePayload) { }
 }
 export class PersonCalcGeoSuccessAction implements Action {
     readonly type = CALC_PERSON_GEO_SUCCESS;
-    constructor(public payload: Person) { }
+    constructor(public payload: CalcGeoCodePayload) { }
 }
 export class PersonCalcGeoFailureAction implements Action {
     readonly type = CALC_PERSON_GEO_FAILURE;

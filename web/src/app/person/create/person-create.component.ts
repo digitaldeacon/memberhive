@@ -12,7 +12,8 @@ import {
   ContextButton,
   SetContextButtonsAction,
   PersonClearMessageAction,
-  PersonCalcGeoAction
+  PersonCalcGeoAction,
+  CalcGeoCodePayload
 } from 'mh-core';
 
 import { ShoutService } from '../../common/shout.service';
@@ -26,6 +27,7 @@ import { ShoutService } from '../../common/shout.service';
 export class PersonCreateComponent implements OnDestroy {
   private _alive: boolean = true;
   settings$: Observable<any>;
+  googleApiKey: string;
   people: Person[];
 
   constructor(titleService: TitleService,
@@ -34,6 +36,9 @@ export class PersonCreateComponent implements OnDestroy {
               private _router: Router) {
     titleService.setTitle('Create Person');
     this.settings$ = this._store.select(app.getPeopleSettings);
+    this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
+        .subscribe((key: string) => this.googleApiKey = key);
+
     this._store.select(app.getLastCreatedPersonId).takeWhile(() => this._alive)
         .distinctUntilChanged()
         .subscribe((uid: string) => {
@@ -53,8 +58,13 @@ export class PersonCreateComponent implements OnDestroy {
   }
 
   savePerson(person: Person): void {
+    let gcPayload: CalcGeoCodePayload;
     this._store.dispatch(new PersonCreateAction(person));
-    this._store.dispatch(new PersonCalcGeoAction(person));
+
+    gcPayload.person = person;
+    gcPayload.apiKey = this.googleApiKey;
+    console.log(gcPayload);
+    //this._store.dispatch(new PersonCalcGeoAction(gcPayload));
   }
 
   ngOnDestroy(): void {

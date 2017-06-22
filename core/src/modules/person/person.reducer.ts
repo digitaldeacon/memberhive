@@ -1,6 +1,6 @@
 import { createSelector } from '@ngrx/store';
 import * as actions from './person.actions';
-import { Person } from './person.model';
+import { Person, CalcGeoCodePayload } from './person.model';
 import * as common from '../../common/common.model';
 
 export interface PersonState {
@@ -67,6 +67,7 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
+        case actions.CALC_PERSON_GEO_FAILURE:
         case actions.LIST_PEOPLE_FAILURE:
         case actions.CREATE_PERSON_FAILURE:
         case actions.UPDATE_PERSON_FAILURE: {
@@ -96,33 +97,24 @@ export function personReducer(state: PersonState = initialPersonState,
             });
         }
 
+        /**
+         * @deprecated
+         */
         case actions.CALC_PERSON_GEO_SUCCESS: {
-            const person: Person = action.payload;
+            const payload: CalcGeoCodePayload = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_SUCCESS,
-                text: 'Successfully updated geocodes for ' + person.fullName
+                text: 'Successfully updated geocodes for ' + payload.person.fullName
             };
             return {
-                loaded: true,
                 loading: false,
+                loaded: true,
                 message: message,
                 people: state.people.map((p: Person) => {
-                    return p.uid === person.uid ? Object.assign({}, p, person) : p;
+                    return p.uid === payload.person.uid ? Object.assign({}, p, payload.person) : p;
                 }),
-                personId: person.uid
+                personId: payload.person.uid
             };
-        }
-
-        case actions.CALC_PERSON_GEO_FAILURE: {
-            const message: common.Message = {
-                type: common.MESSAGE_FAILURE,
-                text: action.payload
-            };
-            return Object.assign({}, state, {
-                loading: false,
-                loaded: false,
-                message: message
-            });
         }
 
         default: {

@@ -7,14 +7,15 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
     Person,
-    PersonAddress,
+    SystemSettings,
     Message,
+    CalcGeoCodePayload,
     PersonViewAction,
     PersonUpdateAction,
     PersonClearMessageAction,
-    SetContextButtonsAction,
     PersonCalcGeoAction,
-    TitleService } from 'mh-core';
+    TitleService
+} from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
@@ -36,6 +37,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     person?: Person;
     person$: Observable<Person>;
     settings$: Observable<any>;
+    googleApiKey: string;
+    hasMap: boolean = false;
+
     dialogRef: MdDialogRef<any>;
 
     constructor(private _titleService: TitleService,
@@ -49,7 +53,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
-        this.settings$ = this._store.select(app.getPeopleSettings);
+        this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
+            .subscribe((key: string) => this.googleApiKey = key);
+
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
             .subscribe((message: Message) => {
@@ -70,6 +76,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
+                this.hasMap = Object.keys(person.address.home.geocode).length > 0;
             });
     }
     ngOnDestroy(): void {
@@ -97,12 +104,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     savePerson(person: Person): void {
         let origin: Person = this.person;
+        let gcPayload: CalcGeoCodePayload;
+
         person.uid = this.person.uid;
         this._store.dispatch(new PersonUpdateAction(person));
         if ((origin.address.home.street !== person.address.home.street)
         || (origin.address.home.city !== person.address.home.city)
         || (origin.address.home.zip !== person.address.home.zip)) {
-            this._store.dispatch(new PersonCalcGeoAction(person));
+            gcPayload = {
+                person: person,
+                apiKey: this.googleApiKey
+            };
+            this._store.dispatch(new PersonCalcGeoAction(gcPayload));
         }
     }
 
