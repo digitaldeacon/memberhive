@@ -115,7 +115,7 @@
                 <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
             </div>
         </fieldset>
-        <fieldset formGroupName="address">
+        <fieldset formGroupName="address" *ngIf="!inCreateMode()">
             <legend i18n>Addresses</legend>
             <div formGroupName="home">
                 <div fxLayout="row" fxLayoutAlign="space-between center">

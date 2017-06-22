@@ -59,7 +59,9 @@ export class PersonCreateComponent implements OnDestroy {
 
   savePerson(person: Person): void {
     this._store.dispatch(new PersonCreateAction(person));
-    this._calcGeoCodes(person);
+    // Cannot calculate here as we need the uid for the update action underneath
+    // we hide the right part of the form in create mode (for now)
+    // this._calcGeoCodes(person);
   }
 
   ngOnDestroy(): void {
