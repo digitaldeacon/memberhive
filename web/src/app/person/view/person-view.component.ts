@@ -108,15 +108,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
         person.uid = this.person.uid;
         this._store.dispatch(new PersonUpdateAction(person));
-        if ((origin.address.home.street !== person.address.home.street)
-        || (origin.address.home.city !== person.address.home.city)
-        || (origin.address.home.zip !== person.address.home.zip)) {
-            gcPayload = {
-                person: person,
-                apiKey: this.googleApiKey
-            };
-            this._store.dispatch(new PersonCalcGeoAction(gcPayload));
-        }
+        this._calcGeoCodes(person);
     }
 
     openDlgRelationships(): void {
@@ -147,5 +139,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         // this._interactionService.init(this.person);
         // this._interactionService.setLastRoute(this._router.url);
         // this._router.navigate(['/interaction/create']);
+    }
+
+    private _calcGeoCodes(person: Person): void {
+        let gcPayload: CalcGeoCodePayload;
+        if (person.address.home.street &&
+            person.address.home.zip &&
+            person.address.home.city) {
+            gcPayload = {
+                person: person,
+                apiKey: this.googleApiKey
+            };
+            this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+        }
     }
 }

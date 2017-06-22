@@ -58,17 +58,25 @@ export class PersonCreateComponent implements OnDestroy {
   }
 
   savePerson(person: Person): void {
-    let gcPayload: CalcGeoCodePayload;
     this._store.dispatch(new PersonCreateAction(person));
-
-    gcPayload.person = person;
-    gcPayload.apiKey = this.googleApiKey;
-    console.log(gcPayload);
-    //this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+    this._calcGeoCodes(person);
   }
 
   ngOnDestroy(): void {
     this._alive = false;
+  }
+
+  private _calcGeoCodes(person: Person): void {
+    let gcPayload: CalcGeoCodePayload;
+    if (person.address.home.street &&
+        person.address.home.zip &&
+        person.address.home.city) {
+      gcPayload = {
+        person: person,
+        apiKey: this.googleApiKey
+      };
+      this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+    }
   }
 
   private _setContextMenu(): void {
