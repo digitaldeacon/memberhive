@@ -35,7 +35,7 @@
     "@ngrx/router-store": "github:ngrx/router-store-builds",
     "@ngrx/store": "github:ngrx/store-builds",
     "@types/node": "^7.0.12",
-    "codelyzer": "^3.0.1",
+    "codelyzer": "^3.1.1",
     "ng2-webstorage": "^1.5.0",
     "rxjs": "^5.4.0",
     "tslint": "^5.2.0",

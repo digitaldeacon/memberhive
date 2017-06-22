@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7d0d216781f2121d6b6daf8bcd9bed935b69afe9"
+                "reference": "7e60c7be829d2643e49235baeb7f03297bc0928c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7d0d216781f2121d6b6daf8bcd9bed935b69afe9",
-                "reference": "7d0d216781f2121d6b6daf8bcd9bed935b69afe9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7e60c7be829d2643e49235baeb7f03297bc0928c",
+                "reference": "7e60c7be829d2643e49235baeb7f03297bc0928c",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-06-18 15:41:17"
+            "time": "2017-06-20 23:04:39"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1803,12 +1803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "db3166889854d881265f7d3caa20fa82132305fa"
+                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/db3166889854d881265f7d3caa20fa82132305fa",
-                "reference": "db3166889854d881265f7d3caa20fa82132305fa",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
+                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
                 "shasum": ""
             },
             "require": {
@@ -1877,7 +1877,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-06-14 16:53:16"
+            "time": "2017-06-21 08:11:54"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "1d3a7cb5b85505cfe0a4e50abe9ae9da45c09574"
+                "reference": "292a45e1fa5ee0f7f070e2a5228f6b916187af8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/1d3a7cb5b85505cfe0a4e50abe9ae9da45c09574",
-                "reference": "1d3a7cb5b85505cfe0a4e50abe9ae9da45c09574",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/292a45e1fa5ee0f7f070e2a5228f6b916187af8a",
+                "reference": "292a45e1fa5ee0f7f070e2a5228f6b916187af8a",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2746,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-05-22 12:59:26"
+            "time": "2017-06-21 11:41:00"
         },
         {
             "name": "yiisoft/yii2-gii",
