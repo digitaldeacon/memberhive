@@ -23,7 +23,7 @@ class m161130_101533_create_person extends Migration
             'gender' => $this->string(1),
             'email' => $this->string()->unique(),
 
-            'maritalStatus' => $this->string(10),
+            'maritalStatus' => $this->string(),
 
             'birthday' => $this->date(),
             'baptized' => $this->date(),

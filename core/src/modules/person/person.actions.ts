@@ -3,7 +3,7 @@ import { Person } from './person.model';
 
 export const LIST_PEOPLE = '[People] List';
 export const LIST_PEOPLE_SUCCESS = '[People] List Success';
-export const LIST_PEOPLE_FAIL = '[People] List Fail';
+export const LIST_PEOPLE_FAILURE = '[People] List Failure';
 export const UPDATE_PERSON = '[Person] Update';
 export const UPDATE_PERSON_SUCCESS = '[Person] Update Success';
 export const UPDATE_PERSON_FAILURE = '[Person] Update Failure';
@@ -12,6 +12,9 @@ export const CREATE_PERSON = '[Person] Create';
 export const CREATE_PERSON_SUCCESS = '[Person] Create Success';
 export const CREATE_PERSON_FAILURE = '[Person] Create Failure';
 export const CLEAR_PERSON_MESSAGE = '[Person] Clear Message';
+export const CALC_PERSON_GEO = '[Person] Calc Geo Codes';
+export const CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success';
+export const CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure';
 
 export class ListAction implements Action {
     readonly type = LIST_PEOPLE;
@@ -23,8 +26,8 @@ export class ListSuccessAction implements Action {
     constructor(public payload: Person[]) { }
 }
 
-export class ListFailAction implements Action {
-    readonly type = LIST_PEOPLE_FAIL;
+export class ListFailureAction implements Action {
+    readonly type = LIST_PEOPLE_FAILURE;
     constructor(public payload: any) { }
 }
 
@@ -67,10 +70,23 @@ export class PersonClearMessageAction implements Action {
     readonly type = CLEAR_PERSON_MESSAGE;
 }
 
+export class PersonCalcGeoAction implements Action {
+    readonly type = CALC_PERSON_GEO;
+    constructor(public payload: Person) { }
+}
+export class PersonCalcGeoSuccessAction implements Action {
+    readonly type = CALC_PERSON_GEO_SUCCESS;
+    constructor(public payload: Person) { }
+}
+export class PersonCalcGeoFailureAction implements Action {
+    readonly type = CALC_PERSON_GEO_FAILURE;
+    constructor(public payload: any) { }
+}
+
 export type PersonActions =
     ListAction
     | ListSuccessAction
-    | ListFailAction
+    | ListFailureAction
     | PersonViewAction
     | PersonUpdateAction
     | PersonUpdateSuccessAction
@@ -78,4 +94,7 @@ export type PersonActions =
     | PersonCreateAction
     | PersonCreateSuccessAction
     | PersonCreateFailureAction
-    | PersonClearMessageAction;
+    | PersonClearMessageAction
+    | PersonCalcGeoAction
+    | PersonCalcGeoSuccessAction
+    | PersonCalcGeoFailureAction;

@@ -42,6 +42,7 @@ export class UpdateSettingSuccessAction implements Action {
 
 export class UpdateSettingFailureAction implements Action {
     readonly type = UPDATE_SETTINGS_FAILURE;
+    constructor(public payload: any) { }
 }
 
 export class ToggleDrawerAction implements Action {

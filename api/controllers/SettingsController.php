@@ -51,36 +51,27 @@ class SettingsController extends MHController
     {
         $post = \Yii::$app->request->post();
         $ret = [];
-        // $r = '';
-        foreach ($post as $section => $value) {
-            // $r .= 'key: '.$key.' v: '.json_encode(array_keys($value)[0]);
-            $key = isset(array_keys($value)[0]) ? array_keys($value)[0] : '';
-            $setting = Settings::findOne(['section'=>$section,'key'=>$key]);
-            $v = array_values($value)[0];
-            if ($setting) {
-                $setting->value = json_encode($v);
-                if (!$setting->save()) {
-                    throw new BadRequestHttpException(json_encode($setting->errors));
+        foreach ($post as $section => $data) {
+            $i = 0;
+            foreach ($data as $key => $value) {
+                $setting = Settings::findOne(['section'=>$section,'key'=>$key]);
+                if ($setting) {
+                    $setting->value = json_encode($value);
+                    if (!$setting->save()) {
+                        throw new BadRequestHttpException(json_encode($setting->errors));
+                    }
+                } else {
+                    $setting = new Settings();
+                    $setting->section = $section;
+                    $setting->key = $key;
+                    $setting->value = json_encode($value);
+                    if (!$setting->save()) {
+                        throw new BadRequestHttpException(json_encode($setting->errors));
+                    }
                 }
-            } else {
-                $setting = new Settings();
-                $setting->section = $section;
-                $setting->key = $key;
-                $setting->value = json_encode($v);
-                if (!$setting->save()) {
-                    throw new BadRequestHttpException(json_encode($setting->errors));
-                }
+                $ret[$section][$key] = $setting->toResponseArray();
             }
-            $ret[$section][$key] = $setting->toResponseArray();
         }
-        // throw new BadRequestHttpException(json_encode($r));
-        /*throw new BadRequestHttpException($r);
-        return[];
-        $key = isset($post['key']) ? $post['key'] : null;
-
-        if (!$key) {
-            return [];
-        }*/
 
         return $ret;
     }

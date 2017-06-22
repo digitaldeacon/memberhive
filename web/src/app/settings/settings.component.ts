@@ -8,6 +8,22 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
+/**
+ * The Settings class can easily be extended with options simply by adding to the form:
+ *     this.settingsForm = this._fb.group({
+ *           system: this._fb.group({
+ *               churchName: '',
+ *               googleApiKey: ''
+ *           }),
+ *           people: this._fb.group({
+ *               maritalStatus: this.buildFormArray()
+ *           })
+ *      });
+ * The shape of the data will be the shape of the FormBuilder group, like:
+ * system -> {churchName: '', googleApiKey: ''}, people -> ... etc.
+ * Do not forget to add a corresponding field to the html with the same formControlName as the key
+ */
+
 @Component({
   selector: 'mh-settings',
   templateUrl: './settings.component.html',
@@ -16,7 +32,6 @@ import 'rxjs/add/operator/distinctUntilChanged';
 export class SettingsComponent implements AfterViewInit, OnDestroy {
     private _alive: boolean = true;
     hideToggle: boolean = false;
-    // TODO: possibly remove this as we have a default in the reducer state
     personAttrSet: Array<string> = [
         'firstName',
         'middleName',
@@ -65,7 +80,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     createForm(): void {
         this.settingsForm = this._fb.group({
             system: this._fb.group({
-                churchName: ''
+                churchName: '',
+                googleApiKey: ''
             }),
             people: this._fb.group({
                 maritalStatus: this.buildFormArray()
@@ -77,7 +93,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .debounceTime(600)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
-                // data.people.list = this.personAttrSelected;
+                console.log('settings component: ',data);
                 this._store.dispatch(new core.UpdateSettingAction(data));
             });
     }
@@ -108,7 +124,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         if (this.maritalStatus.length > 3) {
             this.maritalStatus.removeAt(index);
         } else {
-            this._shout.error('We need to have a min. of 3 status');
+            this._shout.error('We need to have a min. of 3 status items');
         }
     }
 
@@ -153,7 +169,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     private _setContextMenu(): void {
         let buttons: core.ContextButton[] = [];
-        // buttons.push({icon: 'person_add', link: '/person/create'});
+        // buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
 
         this._store.dispatch(new core.SetContextButtonsAction(buttons));
     }

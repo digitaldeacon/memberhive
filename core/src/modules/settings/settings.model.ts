@@ -7,6 +7,7 @@ export interface SettingsPayload {
 
 export interface SystemSettings {
     churchName: string;
+    googleApiKey?: string;
 }
 
 export interface LayoutSettings {

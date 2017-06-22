@@ -52,6 +52,19 @@ export function settingsReducer(state: SettingsState = initialState,
             return Object.assign({}, state, settings);
         }
 
+        case actions.UPDATE_SETTINGS_FAILURE:
+        case actions.LIST_SETTINGS_FAILURE: {
+            let message: common.Message = {
+                type: common.MESSAGE_FAILURE,
+                text: 'Setting failure: ' + action.payload // TODO: add to i18n
+            };
+            return Object.assign({}, state, {
+                loading: false,
+                loaded: false,
+                message: message
+            });
+        }
+
         case actions.UPDATE_SETTINGS_SUCCESS: {
             const payload: SettingsState = action.payload;
             const types = Object.keys(payload);

@@ -48,7 +48,7 @@ class Person extends \yii\db\ActiveRecord
         return [
             [['firstName'], 'required'],
             [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig'], 'string', 'max' => 255],
-            [['maritalStatus'], 'string', 'max' => 10],
+            [['maritalStatus'], 'string', 'max' => 50],
             [['birthday', 'baptized', 'anniversary', 'deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
             [['created_at', 'updated_at'], 'integer'],
@@ -77,7 +77,7 @@ class Person extends \yii\db\ActiveRecord
             'lastName' => $this->lastName,
             'middleName' => $this->middleName,
             'email' => $this->email,
-            'address' => $this->address ? $this->address : ['home' => [], 'postal' => []],
+            'address' => $this->address ? json_decode($this->address) : ['home' => [], 'postal' => []],
             'gender' => $this->gender,
             'birthday' => $this->birthday,
             'age' => $this->age,

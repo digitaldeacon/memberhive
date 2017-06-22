@@ -11,7 +11,8 @@ import {
   PersonCreateAction,
   ContextButton,
   SetContextButtonsAction,
-  PersonClearMessageAction
+  PersonClearMessageAction,
+  PersonCalcGeoAction
 } from 'mh-core';
 
 import { ShoutService } from '../../common/shout.service';
@@ -53,6 +54,7 @@ export class PersonCreateComponent implements OnDestroy {
 
   savePerson(person: Person): void {
     this._store.dispatch(new PersonCreateAction(person));
+    this._store.dispatch(new PersonCalcGeoAction(person));
   }
 
   ngOnDestroy(): void {

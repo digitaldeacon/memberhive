@@ -7,11 +7,13 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
     Person,
+    PersonAddress,
     Message,
     PersonViewAction,
     PersonUpdateAction,
     PersonClearMessageAction,
     SetContextButtonsAction,
+    PersonCalcGeoAction,
     TitleService } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -94,8 +96,16 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     savePerson(person: Person): void {
+        let origin: Person = this.person;
+        let origin_adr: PersonAddress = origin.address;
         person.uid = this.person.uid;
+        console.log(person.address === origin.address);
         this._store.dispatch(new PersonUpdateAction(person));
+        if ((origin_adr.home.street !== person.address.home.street)
+        || (origin_adr.home.city !== person.address.home.city)
+        || (origin_adr.home.zip !== person.address.home.zip)) {
+            this._store.dispatch(new PersonCalcGeoAction(person));
+        }
     }
 
     openDlgRelationships(): void {

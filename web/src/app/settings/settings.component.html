@@ -2,7 +2,7 @@
     <form [formGroup]="settingsForm" novalidate fxFlex>
         <h4 i18n>System</h4>
         <md-accordion formGroupName="system">
-            <md-expansion-panel #sysPanel [hideToggle]="hideToggle">
+            <md-expansion-panel #sysToolbar [hideToggle]="hideToggle">
                 <md-expansion-panel-header i18n>Toolbar</md-expansion-panel-header>
                 <div fxLayout="row">
                     <md-input-container fxFlex>
@@ -12,6 +12,19 @@
                                placeholder="Name of Church"
                                i18n-placeholder
                                formControlName="churchName">
+                    </md-input-container>
+                </div>
+            </md-expansion-panel>
+            <md-expansion-panel #sysGeneral [hideToggle]="hideToggle">
+                <md-expansion-panel-header i18n>General</md-expansion-panel-header>
+                <div fxLayout="row">
+                    <md-input-container fxFlex>
+                        <input mdInput
+                               fxFlex
+                               type="text"
+                               placeholder="Google API Key"
+                               i18n-placeholder
+                               formControlName="googleApiKey">
                     </md-input-container>
                 </div>
             </md-expansion-panel>

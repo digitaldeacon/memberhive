@@ -67,12 +67,16 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
+        case actions.LIST_PEOPLE_FAILURE:
+        case actions.CREATE_PERSON_FAILURE:
         case actions.UPDATE_PERSON_FAILURE: {
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
                 text: action.payload
             };
             return Object.assign({}, state, {
+                loading: false,
+                loaded: false,
                 message: message
             });
         }
@@ -92,7 +96,24 @@ export function personReducer(state: PersonState = initialPersonState,
             });
         }
 
-        case actions.CREATE_PERSON_FAILURE: {
+        case actions.CALC_PERSON_GEO_SUCCESS: {
+            const person: Person = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully updated geocodes for ' + person.fullName
+            };
+            return {
+                loaded: true,
+                loading: false,
+                message: message,
+                people: state.people.map((p: Person) => {
+                    return p.uid === person.uid ? Object.assign({}, p, person) : p;
+                }),
+                personId: person.uid
+            };
+        }
+
+        case actions.CALC_PERSON_GEO_FAILURE: {
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
                 text: action.payload

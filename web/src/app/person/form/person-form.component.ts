@@ -21,6 +21,7 @@ export class PersonFormComponent implements OnInit {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
     private _mode: string = 'EDIT';
+    private _person: Person;
 
     @Input() settings: any;
     @Input()
@@ -48,6 +49,7 @@ export class PersonFormComponent implements OnInit {
             this.initForm();
             this.initValidators();
         }
+        console.log(this._person);
     }
 
     initPerson(person?: Person): void {
@@ -55,6 +57,7 @@ export class PersonFormComponent implements OnInit {
             this.address = new PersonAddress(person['address']);
             this.form.patchValue(person);
             this.listenFormChanges();
+            this._person = person;
         }
     }
 
@@ -105,7 +108,7 @@ export class PersonFormComponent implements OnInit {
 
     listenFormChanges(): void {
         this.form.valueChanges
-            .debounceTime(600)
+            .debounceTime(800)
             .distinctUntilChanged()
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
@@ -135,7 +138,6 @@ export class PersonFormComponent implements OnInit {
             value: ''
         };
         let adr: string;
-
         adr = address.home.street ? address.home.street : '';
         adr += address.home.zip ? ', ' + address.home.zip : '';
         adr += address.home.city ? ' ' + address.home.city : '';
@@ -176,7 +178,7 @@ export class PersonFormComponent implements OnInit {
         this.randomPassword = this.randomPassword ? false : true;
         if (this.randomPassword) {
             this._pwFormControl.disable();
-        } else {
+        } else if (this.form.get('user.username').value) {
             this._pwFormControl.enable();
             this._pwFormControl.setValue(this.generateRandomPW());
         }

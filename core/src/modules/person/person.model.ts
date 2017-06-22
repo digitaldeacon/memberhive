@@ -22,7 +22,7 @@ export interface Person {
     phoneWork: string;
     phoneMobile: string;
     user: User;
-    address: any;
+    address: PersonAddress;
     socialContact: any;
 }
 
@@ -71,6 +71,6 @@ export const emptyPerson: Person = {
     phoneWork: '',
     phoneMobile: '',
     user: emptyUser,
-    address: PersonAddress,
+    address: new PersonAddress(),
     socialContact: {}
 };
