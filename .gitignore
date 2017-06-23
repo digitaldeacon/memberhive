@@ -15,6 +15,7 @@ mobile/resources/ios/**
 # api
 api/config/mail_local.php
 api/config/secrets.php
+api/config/db_local.php
 
 # core
 core/typings/
