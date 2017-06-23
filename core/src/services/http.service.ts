@@ -24,7 +24,7 @@ export class HttpService {
         return this.request(url, RequestMethod.Post, body);
     }
 
-    getRaw(url: string): any {
+    getRaw(url: string): Observable<any> {
         return this.http.get(url);
     }
 

@@ -1,3 +1,5 @@
+import { Address } from '../../common/common.model';
+
 export interface User {
     token: string;
     personId: string;
@@ -27,17 +29,15 @@ export interface Person {
 }
 
 export class PersonAddress {
-    home: any = {
+    home: Address = {
         street: '',
         zip: '',
-        city: '',
-        geocode: {}
+        city: ''
     };
-    postal: any = {
+    postal: Address = {
         street: '',
         zip: '',
-        city: '',
-        geocode: {}
+        city: ''
     };
 
     constructor(input?: any) {

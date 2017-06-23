@@ -14,11 +14,14 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { HttpService } from '../../services/http.service';
+import { GeocodeService } from '../../services/geocode.service';
+import { GeoCodes } from '../../common/common.model';
 
 @Injectable()
 export class PersonEffects {
     constructor(private actions$: Actions,
-                private http: HttpService) {
+                private http: HttpService,
+                private _geoCoder: GeocodeService) {
     }
 
     @Effect()
@@ -56,6 +59,7 @@ export class PersonEffects {
         .switchMap((payload: CalcGeoCodePayload) => {
             let adr: string, key: string, url: string;
             let address: PersonAddress = payload.person.address;
+            let response: GeoCodes;
 
             if (!address.home.street &&
                 !address.home.zip &&
@@ -63,12 +67,21 @@ export class PersonEffects {
                 return empty();
             }
 
-            key = payload.apiKey;
+            /*key = payload.apiKey;
             adr = address.home.street ? address.home.street : '';
             adr += address.home.zip ? ', ' + address.home.zip : '';
-            adr += address.home.city ? ' ' + address.home.city : '';
+            adr += address.home.city ? ' ' + address.home.city : '';*/
 
-            url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${adr}`;
+            this._geoCoder.apiKey = payload.apiKey;
+            this._geoCoder.address = address.home;
+            return this._geoCoder.calc()
+                .map((data: GeoCodes) => {
+                    payload.person.address.home.geocode = data;
+                    return new actions.PersonUpdateAction(payload.person);
+                })
+                .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));
+
+            /*url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${adr}`;
 
             return this.http.getRaw(url)
                 .map((res: any) => {
@@ -77,6 +90,6 @@ export class PersonEffects {
                     payload.person.address.home.geocode = geocodes;
                     return new actions.PersonUpdateAction(payload.person);
                 })
-                .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));
+                .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));*/
         });
 }

@@ -1,3 +1,5 @@
+import { Address } from '../../common/common.model';
+
 export enum SettingType {layout, people, system, dashboard, profile}
 
 export interface SettingsPayload {
@@ -7,6 +9,7 @@ export interface SettingsPayload {
 
 export interface SystemSettings {
     churchName: string;
+    churchAddress?: Address;
     googleApiKey?: string;
 }
 

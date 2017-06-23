@@ -4,6 +4,7 @@ import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
 import { TitleService } from './services/title.service';
 import { LoginService } from './services/login.service';
+import { GeocodeService } from './services/geocode.service';
 import { Ng2Webstorage } from 'ng2-webstorage';
 
 @NgModule({
@@ -14,11 +15,10 @@ import { Ng2Webstorage } from 'ng2-webstorage';
         HttpService,
         AuthService,
         TitleService,
-        LoginService
+        LoginService,
+        GeocodeService
     ],
-    exports: [
-
-    ],
+    exports: [],
     imports: [
         BrowserModule,
         Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})

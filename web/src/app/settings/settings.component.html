@@ -3,7 +3,7 @@
         <h4 i18n>System</h4>
         <md-accordion formGroupName="system">
             <md-expansion-panel #sysToolbar [hideToggle]="hideToggle">
-                <md-expansion-panel-header i18n>Toolbar</md-expansion-panel-header>
+                <md-expansion-panel-header i18n>Church Details</md-expansion-panel-header>
                 <div fxLayout="row">
                     <md-input-container fxFlex>
                         <input mdInput
@@ -13,6 +13,49 @@
                                i18n-placeholder
                                formControlName="churchName">
                     </md-input-container>
+                </div>
+                <div formGroupName="churchAddress" fxFlex>
+                    <div fxLayout="row">
+                        <md-input-container fxFlex>
+                            <input mdInput
+                                   type="text"
+                                   formControlName="street"
+                                   placeholder="Street"
+                                   i18n-placeholder>
+                        </md-input-container>
+                    </div>
+                    <div fxLayout="row">
+                        <md-input-container>
+                            <input mdInput
+                                   type="text"
+                                   formControlName="zip"
+                                   placeholder="Postal Code"
+                                   i18n-placeholder>
+                        </md-input-container>
+                        <md-input-container>
+                            <input mdInput
+                                   type="text"
+                                   formControlName="city"
+                                   placeholder="City"
+                                   i18n-placeholder>
+                        </md-input-container>
+                        <div formGroupName="geocode" fxLayout="row">
+                            <md-input-container>
+                                <input mdInput
+                                       type="text"
+                                       formControlName="lat"
+                                       placeholder="Latitude"
+                                       i18n-placeholder>
+                            </md-input-container>
+                            <md-input-container>
+                                <input mdInput
+                                       type="text"
+                                       formControlName="lng"
+                                       placeholder="Longitude"
+                                       i18n-placeholder>
+                            </md-input-container>
+                        </div>
+                    </div>
                 </div>
             </md-expansion-panel>
             <md-expansion-panel #sysGeneral [hideToggle]="hideToggle">

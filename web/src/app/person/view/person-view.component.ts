@@ -19,6 +19,7 @@ import {
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
+import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { Interaction } from '../../interaction/interaction';
 import { ShoutService } from '../../common/shout.service';
@@ -36,8 +37,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     person?: Person;
     person$: Observable<Person>;
-    settings$: Observable<any>;
-    googleApiKey: string;
+    settings: SystemSettings;
     hasMap: boolean = false;
 
     dialogRef: MdDialogRef<any>;
@@ -53,8 +53,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
-        this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
-            .subscribe((key: string) => this.googleApiKey = key);
+        this._store.select(app.getSysSettings).takeWhile(() => this._alive)
+            .subscribe((data: SystemSettings) => {
+                this.settings = data;
+            });
 
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
@@ -76,7 +78,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
-                this.hasMap = Object.keys(person.address.home.geocode).length > 0;
+                this.hasMap = person.address.home.geocode
+                    ? Object.keys(person.address.home.geocode).length > 0
+                : false;
             });
     }
     ngOnDestroy(): void {
@@ -118,6 +122,34 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         });
     }
 
+    openDlgMap(): void {
+        const config: MdDialogConfig = new MdDialogConfig();
+        config.data = {
+            context: 'person',
+            markers: [{
+                latlng: this.person.address.home.geocode,
+                title: this.person.fullName,
+                info: {
+                    title: this.person.fullName,
+                    address: this.person.address.home
+                }
+            }],
+            initMarker: {
+                latlng: this.settings.churchAddress.geocode,
+                title: this.settings.churchName,
+                info: {
+                    title: this.settings.churchName,
+                    address: this.settings.churchAddress
+                }
+            },
+            initMarkerToMap: true
+        };
+        this.dialogRef = this._dialog.open(MapDialogComponent, config);
+        this.dialogRef.afterClosed().subscribe((result: string) => {
+            this.dialogRef = undefined;
+        });
+    }
+
     openDlgAvatar(): void {
         const config: MdDialogConfig = new MdDialogConfig();
         config.data = {
@@ -148,7 +180,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             person.address.home.city) {
             gcPayload = {
                 person: person,
-                apiKey: this.googleApiKey
+                apiKey: this.settings.googleApiKey
             };
             this._store.dispatch(new PersonCalcGeoAction(gcPayload));
         }

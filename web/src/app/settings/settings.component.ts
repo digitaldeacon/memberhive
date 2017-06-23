@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
+import { GLOBALS } from '../../config/globals.config';
 import * as core from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import * as app from '../app.store';
@@ -54,6 +55,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     settingsForm: FormGroup;
 
     constructor(titleService: core.TitleService,
+                private _geoCoder: core.GeocodeService,
                 private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
                 private _shout: ShoutService,
@@ -81,7 +83,16 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.settingsForm = this._fb.group({
             system: this._fb.group({
                 churchName: '',
-                googleApiKey: ''
+                churchAddress: this._fb.group({
+                    street: '',
+                    zip: '',
+                    city: '',
+                    geocode: this._fb.group({
+                        lat: '',
+                        lng: ''
+                    })
+                }),
+                googleApiKey: GLOBALS.googleAPIKey
             }),
             people: this._fb.group({
                 maritalStatus: this.buildFormArray()
@@ -93,6 +104,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .debounceTime(600)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
+                if ((data.system.churchAddress != this.sysSettings.churchAddress))
+                {
+                    this._calcGeoCodes(data.system.churchAddress);
+                }
                 this._store.dispatch(new core.UpdateSettingAction(data));
             });
     }
@@ -103,7 +118,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             fga.push(this.buildFormGroup(status.status));
         }
         this.maritalStatus = this._fb.array(fga);
-        // this.maritalStatusW = new FormArrayWrapper(this.maritalStatus);
         return this.maritalStatus;
     }
 
@@ -165,11 +179,22 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             this._store.dispatch(new core.UpdateSettingAction(payload));
         });
     }
-
     private _setContextMenu(): void {
         let buttons: core.ContextButton[] = [];
         // buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
 
         this._store.dispatch(new core.SetContextButtonsAction(buttons));
+    }
+    private _calcGeoCodes(address: core.Address) {
+        this._geoCoder.apiKey = GLOBALS.googleAPIKey;
+        this._geoCoder.address = address;
+        this._geoCoder.calc()
+            .subscribe((codes: core.GeoCodes) => {
+                this.sysSettings.churchAddress.geocode = codes;
+                const payload: core.SettingsState = {
+                    system: this.sysSettings
+                };
+                this._store.dispatch(new core.UpdateSettingAction(payload));
+            });
     }
 }

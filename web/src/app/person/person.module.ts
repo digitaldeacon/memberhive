@@ -17,6 +17,7 @@ import { PersonFormComponent } from './form/person-form.component';
 
 import { PersonRelationsDialogComponent } from './dialogs/person-relations.dialog';
 import { AvatarEditDialogComponent } from './dialogs/avatar-edit.dialog';
+import { MapDialogComponent } from './dialogs/map/map.dialog';
 
 import { PersonRoutingModule } from './person-routing.module';
 
@@ -48,7 +49,8 @@ const MH_COMPONENTS: Type<any>[] = [
     PersonFormComponent,
     PersonCreateComponent,
     PersonRelationsDialogComponent,
-    AvatarEditDialogComponent
+    AvatarEditDialogComponent,
+    MapDialogComponent
 ];
 
 @NgModule({
@@ -68,7 +70,8 @@ const MH_COMPONENTS: Type<any>[] = [
     ],
     entryComponents: [
         PersonRelationsDialogComponent,
-        AvatarEditDialogComponent
+        AvatarEditDialogComponent,
+        MapDialogComponent
     ]
 })
 export class PersonModule {

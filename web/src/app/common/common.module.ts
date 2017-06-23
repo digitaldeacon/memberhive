@@ -14,6 +14,8 @@ import {
     MdExpansionModule
 } from '@angular/material';
 
+import { GLOBALS } from '../../config/globals.config';
+
 import { MHLayoutModule } from '../layout/layout.module';
 import { MhFadeDirective } from './animations/fade/fade.directive';
 import { MhToggleDirective } from './animations/toggle/toggle.directive';
@@ -24,6 +26,8 @@ import { InteractionService } from './interaction.service';
 import { AuthGuard } from './auth-guard.service';
 import { NotifyboxComponent } from './components/notifybox/notifybox.component';
 import { FilterComponent } from './components/filter/filter.component';
+
+import { AgmCoreModule } from '@agm/core';
 
 const MATERIAL_MODULES: any[] = [
     CompatibilityModule, MdButtonModule, MdCardModule, MdIconModule,
@@ -41,7 +45,10 @@ const MATERIAL_MODULES: any[] = [
     imports: [
         MATERIAL_MODULES,
         MHLayoutModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        AgmCoreModule.forRoot({
+            apiKey: GLOBALS.googleAPIKey
+        })
     ],
     providers: [
         Title,
@@ -54,7 +61,8 @@ const MATERIAL_MODULES: any[] = [
         FilterComponent,
         MATERIAL_MODULES,
         MHLayoutModule,
-        FlexLayoutModule
+        FlexLayoutModule,
+        AgmCoreModule
     ]
 })
 

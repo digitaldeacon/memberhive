@@ -59,7 +59,9 @@ export class PersonFormComponent implements OnInit {
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
-            this.hasMap = Object.keys(person.address.home.geocode).length > 0;
+            this.hasMap = person.address.home.geocode
+                ? Object.keys(person.address.home.geocode).length > 0
+                : false;
         }
     }
 
