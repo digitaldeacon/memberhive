@@ -22,11 +22,13 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 
 ## High-Level Items for June
 _In order of importance_
-- [ ] State management (#65, #70, #82, #79, #94)
+- [ ] State management (#79)
 - [ ] Dashboard: Interactions (#19, #60)
+- [x] Maps: singe person (#23)
+- [ ] Maps: of all people in the db (#22)
 - [x] Person create (#95)
 - [x] Settings (#31, #67)
-- [ ] Addressing bugs and shoring up person related components (edit, list, create)
+- [x] Addressing bugs and shoring up person related components (edit, list, create)
 
 ## Development Philosophy
 We want to keep this project simple (even though it will be large) and maintainable. For that reason
