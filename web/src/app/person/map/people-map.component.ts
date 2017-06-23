@@ -35,21 +35,20 @@ export class PeopleMapComponent implements OnDestroy {
         titleService.setTitle('People Map');
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
-                let marker: GeoMarker;
-                /*this.markers = people.map((p: Person) => {
-                    if (!this.empty(p.address.home.geocode)) {
-                        marker = {
-                            latlng: p.address.home.geocode,
-                            title: p.fullName,
-                            info: {
-                                title: p.fullName,
-                                address: p.address.home
-                            }
-                        };
-                        return marker;
-                    }
-                    return undefined;
-                });*/
+                // TODO: reduce this to one function
+                this.people = people.filter((p: Person) => !this.empty(p.address.home.geocode));
+                for (let person of this.people) {
+                    let marker: GeoMarker;
+                    marker = {
+                        latlng: person.address.home.geocode,
+                        title: person.fullName,
+                        info: {
+                            title: person.fullName,
+                            address: person.address.home
+                        }
+                    };
+                    this.markers.push(marker);
+                }
             });
         this._store.select(app.getSysSettings)
             .takeWhile(() => this._alive)
@@ -73,7 +72,7 @@ export class PeopleMapComponent implements OnDestroy {
     }
 
     empty(v: any): boolean {
-        return v && Object.keys(v).length > 0;
+        return !v || Object.keys(v).length === 0;
     }
 
     ngOnDestroy(): void {
