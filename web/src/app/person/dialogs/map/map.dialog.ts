@@ -7,7 +7,7 @@ import { GeoCodes, GeoMarker } from 'mh-core';
     templateUrl: './map.dialog.html',
     styleUrls: ['./map.dialog.scss']
 })
-export class MapDialogComponent {
+export class MapDialogComponent implements OnInit {
 
     initMarker: GeoMarker;
     markers: GeoMarker[] = [];

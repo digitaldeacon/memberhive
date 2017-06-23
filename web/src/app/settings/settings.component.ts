@@ -104,8 +104,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             .debounceTime(600)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
-                if ((data.system.churchAddress != this.sysSettings.churchAddress))
-                {
+                if ((data.system.churchAddress !== this.sysSettings.churchAddress)) {
                     this._calcGeoCodes(data.system.churchAddress);
                 }
                 this._store.dispatch(new core.UpdateSettingAction(data));
@@ -185,7 +184,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
         this._store.dispatch(new core.SetContextButtonsAction(buttons));
     }
-    private _calcGeoCodes(address: core.Address) {
+    private _calcGeoCodes(address: core.Address): void {
         this._geoCoder.apiKey = GLOBALS.googleAPIKey;
         this._geoCoder.address = address;
         this._geoCoder.calc()
