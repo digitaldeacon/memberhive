@@ -28,7 +28,6 @@ import { ImageCropperModule } from 'ng2-img-cropper';
 import { TitleService } from 'mh-core';
 import { ShoutService } from '../common/shout.service';
 
-
 const NG_MODULES: Type<any>[] = [
     CommonModule,
     FlexLayoutModule,
