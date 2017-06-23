@@ -24,7 +24,7 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 _In order of importance_
 - [ ] State management (#65, #70, #82, #79, #94)
 - [ ] Dashboard: Interactions (#19, #60)
-- [ ] Person create (#95)
+- [x] Person create (#95)
 - [x] Settings (#31, #67)
 - [ ] Addressing bugs and shoring up person related components (edit, list, create)
 
