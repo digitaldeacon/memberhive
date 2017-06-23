@@ -37,7 +37,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     person?: Person;
     person$: Observable<Person>;
-    settings: SystemSettings;
+    settings: any; // combines SystemSettings and
     hasMap: boolean = false;
 
     dialogRef: MdDialogRef<any>;
@@ -53,8 +53,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
         this.person$ = this._store.select(app.getSelectedPerson);
-        this._store.select(app.getSysSettings).takeWhile(() => this._alive)
-            .subscribe((data: SystemSettings) => {
+        this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
+            .subscribe((data: any) => {
                 this.settings = data;
             });
 
