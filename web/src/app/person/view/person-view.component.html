@@ -50,7 +50,7 @@
                 <md-tab label="Edit">
                    <mh-person-form
                            [person]="person"
-                           [settings]="settings$ | async"
+                           [settings]="settings"
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </md-tab>
                 <md-tab label="Family" i18n-label>
