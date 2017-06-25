@@ -80,6 +80,8 @@ class Person extends \yii\db\ActiveRecord
             'address' => $this->address ? json_decode($this->address) : ['home' => [], 'postal' => []],
             'gender' => $this->gender,
             'birthday' => $this->birthday,
+            'baptized' => $this->baptized,
+            'anniversary' => $this->anniversary,
             'age' => $this->age,
             'maritalStatus' => $this->maritalStatus,
             'avatar' => $this->avatar,

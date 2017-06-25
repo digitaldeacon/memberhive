@@ -6,6 +6,9 @@
   md-input-container.active {
     background: #fff;
     color: #000;
+    md-icon {
+      color: inherit;
+    }
   }
   md-input-container {
     width: 95%;
@@ -37,6 +40,7 @@
     }
     md-icon {
       padding-right: 10px;
+      color: #fff;
     }
   }
 }

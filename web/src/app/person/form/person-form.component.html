@@ -76,6 +76,7 @@
         </div>
         <div>
             <md-input-container>
+                <md-icon mdPrefix>cake</md-icon>
                 <input mdInput fxFlex
                        [mdDatepicker]="dpBirthday"
                        formControlName="birthday"
@@ -87,6 +88,28 @@
                 Birthday is required.
             </md-error>
             <md-datepicker #dpBirthday></md-datepicker>
+        </div>
+        <div>
+            <md-input-container>
+                <md-icon mdPrefix>opacity</md-icon>
+                <input mdInput fxFlex
+                       [mdDatepicker]="dpBaptized"
+                       formControlName="baptized"
+                       placeholder="Baptized" i18n-placeholder>
+                <button mdSuffix [mdDatepickerToggle]="dpBaptized"></button>
+            </md-input-container>
+            <md-datepicker #dpBaptized></md-datepicker>
+        </div>
+        <div>
+            <md-input-container>
+                <md-icon mdPrefix>alarm</md-icon>
+                <input mdInput fxFlex
+                       [mdDatepicker]="dpAnniversary"
+                       formControlName="anniversary"
+                       placeholder="Anniversary" i18n-placeholder>
+                <button mdSuffix [mdDatepickerToggle]="dpAnniversary"></button>
+            </md-input-container>
+            <md-datepicker #dpAnniversary></md-datepicker>
         </div>
     </fieldset>
     <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
