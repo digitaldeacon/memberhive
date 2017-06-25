@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "7e60c7be829d2643e49235baeb7f03297bc0928c"
+                "reference": "74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7e60c7be829d2643e49235baeb7f03297bc0928c",
-                "reference": "7e60c7be829d2643e49235baeb7f03297bc0928c",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce",
+                "reference": "74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-06-20 23:04:39"
+            "time": "2017-06-23 23:28:54"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1803,12 +1803,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db"
+                "reference": "c0c61c97be37e1c77ab61ad73448e9208c05aade"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/3b91adfb64264ddec5a2dee9851f354aa66327db",
-                "reference": "3b91adfb64264ddec5a2dee9851f354aa66327db",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/c0c61c97be37e1c77ab61ad73448e9208c05aade",
+                "reference": "c0c61c97be37e1c77ab61ad73448e9208c05aade",
                 "shasum": ""
             },
             "require": {
@@ -1877,7 +1877,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-06-21 08:11:54"
+            "time": "2017-06-23 12:45:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -2538,12 +2538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "08c644988dba9d608d18bb8ad8dd633f276137f7"
+                "reference": "1faeaf2aa8180967d80329213f77c1bcb75fe4fa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/08c644988dba9d608d18bb8ad8dd633f276137f7",
-                "reference": "08c644988dba9d608d18bb8ad8dd633f276137f7",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/1faeaf2aa8180967d80329213f77c1bcb75fe4fa",
+                "reference": "1faeaf2aa8180967d80329213f77c1bcb75fe4fa",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-14 20:38:21"
+            "time": "2017-06-24 09:47:31"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "6ec86de82059b0f68b89a58b75197654f6bf2ceb"
+                "reference": "4b975802172cdbe07890013f037abb36c3f57d60"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/6ec86de82059b0f68b89a58b75197654f6bf2ceb",
-                "reference": "6ec86de82059b0f68b89a58b75197654f6bf2ceb",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/4b975802172cdbe07890013f037abb36c3f57d60",
+                "reference": "4b975802172cdbe07890013f037abb36c3f57d60",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2746,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-06-22 22:36:00"
+            "time": "2017-06-23 23:16:51"
         },
         {
             "name": "yiisoft/yii2-gii",
