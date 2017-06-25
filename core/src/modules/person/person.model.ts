@@ -18,6 +18,8 @@ export interface Person {
     maritalStatus: string;
     gender: string;
     birthday: Date;
+    baptized: Date;
+    anniversary: Date;
     age: number;
     avatar: string;
     phoneHome: string;

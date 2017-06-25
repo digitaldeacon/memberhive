@@ -84,6 +84,8 @@ export class PersonFormComponent implements OnInit {
             gender: [undefined],
             maritalStatus: [undefined],
             birthday: [undefined],
+            baptized: [undefined],
+            anniversary: [undefined],
             phoneHome: [''],
             phoneWork: [''],
             phoneMobile: [''],

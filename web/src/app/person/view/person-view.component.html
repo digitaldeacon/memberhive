@@ -23,6 +23,7 @@
                     <div *ngIf="person?.phoneHome"><md-icon>phone</md-icon><a href="tel:{{person.phoneHome}}">{{person.phoneHome}}</a></div>
                     <div *ngIf="person?.phoneMobile"><md-icon>phonelink_ring</md-icon><a href="tel:{{person.phoneMobile}}">{{person.phoneMobile}}</a></div>
                     <div *ngIf="person?.maritalStatus"><md-icon>favorite</md-icon>{{person?.maritalStatus}}</div>
+                    <div *ngIf="person?.baptized"><md-icon>opacity</md-icon>{{person?.baptized | date: 'longDate'}}</div>
                 </md-card-subtitle>
                 <md-card-subtitle>
                     <md-icon>loyalty</md-icon> <a href="#">Thomas Hochstetter</a> (mentor), <a href="#">Marco Bartholomä</a> (friend)

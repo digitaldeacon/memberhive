@@ -135,6 +135,7 @@ class PersonController extends MHController
     {
         $person = $this->findModelByUID($id);
         $post = \Yii::$app->request->post();
+        // throw new BadRequestHttpException(json_encode(date('Y-m-d', strtotime($post['birthday']))));
         if ($person && $post) {
             $person->firstName = $post['firstName'];
             $person->middleName = $post['middleName'];
@@ -145,6 +146,9 @@ class PersonController extends MHController
             $person->phoneHome = $post['phoneHome'];
             $person->phoneWork = $post['phoneWork'];
             $person->phoneMobile = $post['phoneMobile'];
+            $person->birthday = date('Y-m-d', strtotime($post['birthday']));
+            $person->baptized = date('Y-m-d', strtotime($post['baptized']));
+            $person->anniversary = date('Y-m-d', strtotime($post['anniversary']));
             if (empty($person->user) && !empty($post['user']['password'])) {
                 $user = new User();
                 $user->personId = $person->id;
