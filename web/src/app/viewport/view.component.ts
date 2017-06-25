@@ -41,7 +41,7 @@ import {
             }))
         ])
     ],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    // changeDetection: ChangeDetectionStrategy.OnPush,
     providers: [InteractionService]
 })
 export class ViewComponent implements OnInit, OnDestroy {
