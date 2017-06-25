@@ -42,6 +42,7 @@ export class PeopleMapComponent implements OnDestroy {
                     marker = {
                         latlng: person.address.home.geocode,
                         title: person.fullName,
+                        icon: 'assets/icons/ic_person_pin_' + person.gender + '_36px.png',
                         info: {
                             title: person.fullName,
                             address: person.address.home
@@ -62,10 +63,11 @@ export class PeopleMapComponent implements OnDestroy {
     setInitMarker(): void {
         this.initMarker = {
             latlng: this.settings.churchAddress.geocode,
+            title: this.settings.churchName,
+            // icon: 'assets/icons/blue-dot.png',
+            info: {
                 title: this.settings.churchName,
-                info: {
-                title: this.settings.churchName,
-                    address: this.settings.churchAddress
+                address: this.settings.churchAddress
             }
         };
         this.markers.push(this.initMarker);
