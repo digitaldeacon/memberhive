@@ -120,7 +120,7 @@
             </ng-template>
         </md-nav-list>
         <md-nav-list mhNavigationDrawerMenu>
-            <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>Sign out</a>
+            <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>SIGN OUT</a>
         </md-nav-list>
     </mh-navigation-drawer>
     <mh-layout-nav logo="assets:memberhive" toolbarTitle="{{churchName}}">
@@ -136,7 +136,7 @@
             </button>
 
             <md-menu #interactions="mdMenu">
-                <div *ngIf="!(myOutstanding | async)?.length">No interactions</div>
+                <div *ngIf="!(myOutstanding | async)?.length" class="no-interactions">No interactions</div>
                 <md-nav-list *ngIf="(myOutstanding | async)?.length">
                     <md-list-item *ngFor="let interaction of myOutstanding | async">
                         <span md-list-avatar class="date-rounded">{{interaction.dueOn | date: 'MMM d'}}</span>
@@ -145,7 +145,7 @@
                     </md-list-item>
                 </md-nav-list>
                 <md-divider></md-divider>
-                <a md-menu-item (click)="createInteraction()" i18n>Create interaction</a>
+                <a md-menu-item (click)="createInteraction()" i18n>CREATE INTERACTION</a>
             </md-menu>
 
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>

@@ -14,6 +14,12 @@ mh-app {
   height: 100%;
   width: 100%;
 }
+.mh-submit {
+  background: mat-color($mh-app-green, 500);
+  color: #ffffff;
+  margin: 10px 0;
+  font-weight: 800;
+}
 .shout-success {
   background: mat-color($mh-app-green, 500) !important;
 }
@@ -41,6 +47,10 @@ mh-app {
 md-icon[mdPrefix] {
   padding-right: 10px;
   color: #888;
+}
+
+.m-b-10 {
+  margin-bottom: 10px;
 }
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {

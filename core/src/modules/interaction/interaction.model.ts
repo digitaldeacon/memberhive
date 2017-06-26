@@ -21,3 +21,11 @@ export interface InteractionType {
     type: string;
     iconString: string;
 }
+
+export interface InteractionPayload {
+    id: number;
+    me: string;
+    noMarkup?: boolean;
+    author?: string;
+}
+

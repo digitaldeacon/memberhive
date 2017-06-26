@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
+import { TitleService } from 'mh-core';
 
 @Component({
     moduleId: 'mh-interaction',
@@ -6,4 +7,7 @@ import {Component} from '@angular/core';
     templateUrl: './interaction.component.html'
 })
 export class InteractionComponent {
+    constructor(titleService: TitleService) {
+        titleService.changeModule('Person');
+    }
 }

@@ -51,19 +51,27 @@ export const getSysGoogleKey: any = createSelector(getSettingsState, settings.ge
 export const getPeopleSysSettings: any = createSelector(getPeopleSettings, getSysSettings,
     (people: any, system: any) => Object.assign({}, people, system));
 /**
+ * Interaction Reducers
+ */
+export const getInteractionState: any = (state: AppState) => state.interaction;
+export const getInteractions: any = createSelector(getInteractionState, interaction.getInteractions);
+export const getMyInteractions: any = createSelector(getInteractionState, interaction.getMyInteractions);
+/**
  * Loading  Reducers
  */
 export const getLoadingP: any = createSelector(getPersonState, person.getLoadingPerson);
 export const getLoadingS: any = createSelector(getSettingsState, settings.getLoadingSettings);
-export const getLoading: any = createSelector(getLoadingP, getLoadingS,
-    (loadingP: boolean, loadingS: boolean) => loadingP || loadingS);
+export const getLoadingI: any = createSelector(getInteractions, interaction.getLoadingInteraction);
+export const getLoading: any = createSelector(getLoadingP, getLoadingS, getLoadingI,
+    (lP: boolean, lS: boolean, lI: boolean) => lP || lS ||lI);
 /**
  * Message  Reducers
  */
 export const getMessageP: any = createSelector(getPersonState, person.getMessagePerson);
 export const getMessageS: any = createSelector(getSettingsState, settings.getMessageSettings);
-export const getMessage: any = createSelector(getMessageP, getMessageS,
-    (msgP: any, msgS: any) => msgP || msgS);
+export const getMessageI: any = createSelector(getInteractionState, interaction.getMessageInteraction);
+export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI,
+    (msgP: any, msgS: any, msgI: any) => msgP || msgS || msgI);
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/

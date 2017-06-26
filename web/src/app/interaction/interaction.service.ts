@@ -2,7 +2,11 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/publishReplay';
 import { Interaction, InteractionType } from './interaction';
-import { AuthService, HttpService } from 'mh-core';
+import {
+    AuthService,
+    HttpService,
+    TitleService
+} from 'mh-core';
 
 @Injectable()
 export class InteractionService {
@@ -10,7 +14,8 @@ export class InteractionService {
     private _interactions: Observable<Interaction[]>;
     private _interactionTypes: Observable<InteractionType[]>;
 
-    constructor(private http: HttpService,
+    constructor(titleService: TitleService,
+        private http: HttpService,
                 private auth: AuthService) {
         this._me = this.auth.getPersonId();
     }

@@ -7,21 +7,21 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
     Person,
-    SystemSettings,
+    Interaction,
     Message,
     CalcGeoCodePayload,
+    TitleService,
     PersonViewAction,
     PersonUpdateAction,
     PersonClearMessageAction,
     PersonCalcGeoAction,
-    TitleService
+    ListInteractionsAction
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
 import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
 import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
-import { Interaction } from '../../interaction/interaction';
 import { ShoutService } from '../../common/shout.service';
 
 @Component({
@@ -37,8 +37,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     people: Array<Person>;
     person?: Person;
     person$: Observable<Person>;
-    settings: any; // combines SystemSettings and
+    interactions$: Observable<Interaction[]>;
+    settings: any; // combines SystemSettings and PersonSettings
     hasMap: boolean = false;
+    userUid: string;
 
     dialogRef: MdDialogRef<any>;
 
@@ -52,6 +54,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
+        this._store.select(app.getAuthPersonId)
+            .takeWhile(() => this._alive)
+            .subscribe((uid: string) => this.userUid = uid);
         this.person$ = this._store.select(app.getSelectedPerson);
         this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
             .subscribe((data: any) => {
@@ -72,9 +77,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this._route.params
-            .map((params: Params) =>
-                this._store.dispatch(new PersonViewAction(params['id'])))
-            .switchMap((p: any) => this.person$)
+            .map((params: Params) => {
+                this._store.dispatch(new PersonViewAction(params['id']));
+                this._store.dispatch(new ListInteractionsAction({
+                    id: params['id'],
+                    me: this.userUid,
+                    noMarkup: true
+                }));
+            })
+            .mergeMap((p: any) => {
+                console.log(p);
+                return this.person$;
+            })
             .subscribe((person: Person) => {
                 this.person = person;
                 this._titleService.setTitle(this.person.fullName);
@@ -170,7 +184,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     createInteraction(): void {
         // this._interactionService.init(this.person);
         // this._interactionService.setLastRoute(this._router.url);
-        // this._router.navigate(['/interaction/create']);
+        this._router.navigate(['/interaction/create']);
     }
 
     private _calcGeoCodes(person: Person): void {
