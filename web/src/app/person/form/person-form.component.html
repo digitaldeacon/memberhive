@@ -1,7 +1,8 @@
 <form class="person-form"
       #personEditForm="ngForm"
       [formGroup]="form"
-      (ngSubmit)="save(form.value, form.valid)"
+      (ngSubmit)="save(form.value)"
+      (keyup)="onKey($event)"
       novalidate
       fxLayout.gt-sm="row"
       fxLayout.xs="column">

@@ -67,11 +67,6 @@ export class PersonEffects {
                 return empty();
             }
 
-            /*key = payload.apiKey;
-            adr = address.home.street ? address.home.street : '';
-            adr += address.home.zip ? ', ' + address.home.zip : '';
-            adr += address.home.city ? ' ' + address.home.city : '';*/
-
             this._geoCoder.apiKey = payload.apiKey;
             this._geoCoder.address = address.home;
             return this._geoCoder.calc()
@@ -80,16 +75,5 @@ export class PersonEffects {
                     return new actions.PersonUpdateAction(payload.person);
                 })
                 .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));
-
-            /*url = `https://maps.googleapis.com/maps/api/geocode/json?key=${key}&address=${adr}`;
-
-            return this.http.getRaw(url)
-                .map((res: any) => {
-                    const response: any = JSON.parse(res.text());
-                    const geocodes: any = response.results[0].geometry.location;
-                    payload.person.address.home.geocode = geocodes;
-                    return new actions.PersonUpdateAction(payload.person);
-                })
-                .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));*/
         });
 }

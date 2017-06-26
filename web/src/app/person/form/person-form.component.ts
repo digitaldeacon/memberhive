@@ -114,22 +114,32 @@ export class PersonFormComponent implements OnInit {
 
     listenFormChanges(): void {
         this.form.valueChanges
-            .debounceTime(800)
+            .debounceTime(2000)
             .distinctUntilChanged()
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
-                if (userCtrl.setPassword.value) {
-                    userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(4)]);
-                    userCtrl.username.updateValueAndValidity();
-                } else {
-                    userCtrl.username.setValidators(undefined);
-                    userCtrl.username.updateValueAndValidity();
+                if (!this.submitted) {
+                    if (userCtrl.setPassword.value) {
+                        userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(4)]);
+                        userCtrl.username.updateValueAndValidity();
+                    } else {
+                        userCtrl.username.setValidators(undefined);
+                        userCtrl.username.updateValueAndValidity();
+                    }
+                    this.save(data);
                 }
-                this.save(data, this.form.valid);
+                this.submitted = false;
             });
     }
 
-    save(model: Person, valid: boolean): void {
+    onKey(event: KeyboardEvent): void {
+        if (event.key === 'Enter') {
+            this.submitted = true;
+            this.save(this.form.getRawValue());
+        }
+    }
+
+    save(model: Person): void {
         if (this.form.valid) {
             this.submitted = true;
             this.form.patchValue(model);
