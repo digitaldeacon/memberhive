@@ -1,7 +1,7 @@
 <form class="interaction-form"
-      [formGroup]="interactionForm"
+      [formGroup]="form"
       novalidate
-      (ngSubmit)="save(interactionForm.value, interactionForm.valid)">
+      (ngSubmit)="save(form.value, form.valid)">
 
   <md-card>
     <md-card-content>
@@ -10,21 +10,25 @@
         <b i18n>Updated:</b> {{interaction.updatedAt}}
       </div>
 
-      <div class="mat-input-wrapper">
-        <mh-tinymce [elementId]="'interaction-editor'"
-                    [inline]="false"
-                    formControlName="text"></mh-tinymce>
-      </div>
+      <mh-tinymce [elementId]="'interaction-editor'"
+                  [inline]="false"
+                  formControlName="text"></mh-tinymce>
+      <md-error *ngIf="!form.get('text').valid && !form.get('text').pristine" i18n>
+        A text is required
+      </md-error>
 
-      <div class="mat-input-wrapper" fxFlex>
+      <div class="mat-input-wrapper m-b-10" fxFlex>
         <label i18n for="typeSelect">Type:</label>
         <md-button-toggle-group id="typeSelect" formControlName="type">
-          <md-button-toggle value="{{interactionType.id}}"
+          <md-button-toggle value="{{interactionType.type}}"
                             mdTooltip="{{interactionType.type | uppercase}}"
                             *ngFor="let interactionType of options.interaction.types">
             <md-icon>{{interactionType.iconString}}</md-icon>
           </md-button-toggle>
         </md-button-toggle-group>
+        <md-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
+          You need to supply a type
+        </md-error>
       </div>
 
       <div class="mat-input-wrapper" fxFlex fxLayout="row">
@@ -39,6 +43,12 @@
             {{person.fullName}}
           </md-option>
         </md-select>
+        <md-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
+          Please supply an interaction owner
+        </md-error>
+        <md-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
+          You need to have at least one recipient
+        </md-error>
       </div>
 
       <md-input-container>
@@ -49,29 +59,26 @@
                formControlName="dueOn">
         <button mdSuffix [mdDatepickerToggle]="minDatePicker"></button>
       </md-input-container>
-      +<md-datepicker #minDatePicker></md-datepicker>
+      <md-datepicker #minDatePicker></md-datepicker>
     </md-card-content>
     <md-card-actions>
-      <button
-              md-raised-button
+      <button md-raised-button
               type="submit"
-              color="primary"
-              [disabled]="!interactionForm.valid">
-        <span *ngIf="!editMode" i18n>Notify</span>
-        <span *ngIf="editMode" i18n>Update</span>
+              class="mh-submit"
+              [disabled]="!form.valid">
+        <span *ngIf="!editMode" i18n>NOTIFY</span>
+        <span *ngIf="editMode" i18n>UPDATE</span>
       </button>
       <button md-raised-button
               md-button
               (click)="clearForm()"
               *ngIf="!editMode"
               i18n>
-        <md-icon>clear</md-icon> Clear</button>
+        <md-icon>clear</md-icon> CLEAR</button>
       <button md-button
-              md-button
-              *ngIf="returnToRoute"
-              [routerLink]="[returnToRoute]"
+              (click)="returnRoute()"
               i18n>
-        <md-icon>arrow_back</md-icon> Cancel</button>
+        <md-icon>arrow_back</md-icon> CANCEL</button>
     </md-card-actions>
   </md-card>
 

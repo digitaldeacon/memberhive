@@ -49,6 +49,10 @@ md-nav-list {
   height: 30px;
   line-height: 0 !important;
 }
+.no-interactions {
+  text-align: center;
+  padding: 10px
+}
 .drawer {
   background: rgb(56, 53, 53);
   md-nav-list, .mat-list-item, .mat-icon {

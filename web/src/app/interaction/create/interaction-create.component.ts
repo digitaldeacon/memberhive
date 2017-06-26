@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -7,7 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { Interaction } from '../interaction';
 import { InteractionService } from '../../common/interaction.service';
 
-import { AuthService } from 'mh-core';
+import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
 import { Person, TitleService } from 'mh-core';
 
@@ -19,12 +20,13 @@ import { ShoutService } from '../../common/shout.service';
   styleUrls: ['./interaction-create.component.scss', '../interaction-common.styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InteractionCreateComponent implements OnInit {
+export class InteractionCreateComponent implements OnInit, OnDestroy {
 
+  private _alive: boolean = true;
   private _authorId: string;
   private _refPerson: Person;
 
-  interactionForm: FormGroup;
+  form: FormGroup;
   refInteraction: Interaction;
 
   returnToRoute: string;
@@ -36,13 +38,23 @@ export class InteractionCreateComponent implements OnInit {
   people$: Observable<Person[]>;
   options: any = {};
 
-  constructor(private _fb: FormBuilder,
+  constructor(titleService: TitleService,
+              private _fb: FormBuilder,
               private _auth: AuthService,
               private _shout: ShoutService,
               private _interactionService: InteractionService,
               private _store: Store<app.AppState>,
+              private _location: Location,
               private _router: Router) {
+    titleService.setTitle('Create Interaction');
     this.people$ = this._store.select(app.getPeople);
+    this._store.select(app.getAuthPersonId)
+        .takeWhile(() => this._alive)
+        .subscribe((uid: string) => this._authorId = uid);
+    this._store.select(app.getRouterPath)
+        .takeWhile(() => this._alive)
+        .subscribe((p: any) => console.log(p));
+
     this.options = {
       interaction: {
         types: [
@@ -58,7 +70,7 @@ export class InteractionCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.interactionForm = this._fb.group({
+    this.form = this._fb.group({
       text: [undefined, [<any>Validators.required]],
       type: [undefined, [<any>Validators.required]],
       owner: [undefined, [<any>Validators.required]],
@@ -69,9 +81,13 @@ export class InteractionCreateComponent implements OnInit {
     this.initDefaults();
   }
 
+  ngOnDestroy(): void {
+    this._alive = false;
+  }
+
   toggleTypes(): void {
-    if (this.showTypeSelector && !this.interactionForm.dirty) {
-      this.interactionForm.reset();
+    if (this.showTypeSelector && !this.form.dirty) {
+      this.form.reset();
       this.showTypeSelector = false;
       this.initDefaults();
     } else {
@@ -79,12 +95,12 @@ export class InteractionCreateComponent implements OnInit {
     }
   }
 
-  keyupHandlerFunction(event: any): void {
-    // console.log('interaction-list', event);
+  returnRoute(): void {
+    this._location.back();
   }
 
   clearForm(): void {
-    this.interactionForm.reset();
+    this.form.reset();
     this.showTypeSelector = false;
     this.initDefaults();
   }
@@ -92,41 +108,47 @@ export class InteractionCreateComponent implements OnInit {
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
       model.authorId = this._authorId;
-      this._interactionService.create(model);
-      this.interactionForm.reset();
-      if (this.returnToRoute !== '') {
-        this._router.navigate([this.returnToRoute]);
-      }
+      // this._interactionService.create(model);
+      this.form.reset();
+      this.returnRoute();
     }
   }
 
   private initDefaults(): void {
     // this._refPerson = this._interactionService.getPersonInteractiond();
     // this.refInteraction = this._interactionService.getInteraction();
-    this.returnToRoute = this._interactionService.getLastRoute();
+    // this.returnToRoute = this._interactionService.getLastRoute();
 
-    if (this.interactionForm && this._authorId) {
-      this.interactionForm.get('recipients').setValue([this._authorId]);
+    if (this.form && this._authorId) {
+      this.form.get('recipients').setValue([this._authorId]);
     }
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
-      this.interactionForm.get('owner').setValue(this._refPerson.uid);
+      this.form.get('owner').setValue(this._refPerson.uid);
     }
     /*
     if (this.dialogData.interaction) {
       this.interaction = this.dialogData.interaction;
-      this.interactionForm.get('owner').setValue(this.interaction.ownerId);
-      this.interactionForm.get('text').setValue(this.interaction.text);
-      this.interactionForm.get('type').setValue(this.interaction.typeId);
-      this.interactionForm.get('recipients').setValue(this.interaction.recipients);
+      this.form.get('owner').setValue(this.interaction.ownerId);
+      this.form.get('text').setValue(this.interaction.text);
+      this.form.get('type').setValue(this.interaction.typeId);
+      this.form.get('recipients').setValue(this.interaction.recipients);
       this.editMode = true;
     }
     // birthday interactions
     if (this.dialogData.person) {
       this._refPerson = this.dialogData.person;
-      this.interactionForm.get('owner').setValue(this._refPerson.uid);
-      this.interactionForm.get('dueOn').setValue(this._refPerson.birthday);
+      this.form.get('owner').setValue(this._refPerson.uid);
+      this.form.get('dueOn').setValue(this._refPerson.birthday);
     }*/
+  }
+
+  private _setContextMenu(): void {
+    let buttons: ContextButton[] = [];
+    // buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
+    buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
+
+    this._store.dispatch(new SetContextButtonsAction(buttons));
   }
 
 }

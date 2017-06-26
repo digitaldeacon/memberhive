@@ -25,6 +25,7 @@ import {
     MHCoreModule,
     PersonEffects,
     SettingsEffects,
+    InteractionEffects,
     AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
@@ -37,7 +38,6 @@ import 'hammerjs';
         return reducer(state, action);
     };
 }
-
 export const debugReducerFactory: any = compose(debug, combineReducers);*/
 
 @NgModule({
@@ -65,7 +65,8 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         EffectsModule.forRoot([
             PersonEffects,
             AuthEffects,
-            SettingsEffects
+            SettingsEffects,
+            InteractionEffects
         ]),
 
         // !environment.prod ? StoreDevtoolsModule.instrument() : [],
