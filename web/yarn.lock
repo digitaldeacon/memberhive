@@ -203,6 +203,16 @@
   version "3.2.4"
   resolved "https://registry.yarnpkg.com/@types/jquery/-/jquery-3.2.4.tgz#52d19aecb6237a9407701fc127cf69d204576e04"
 
+"@types/lodash.isequal@^4.5.1":
+  version "4.5.1"
+  resolved "https://registry.yarnpkg.com/@types/lodash.isequal/-/lodash.isequal-4.5.1.tgz#154e051996f64a4a6262db8f4fd51a4b2a347ab4"
+  dependencies:
+    "@types/lodash" "*"
+
+"@types/lodash@*":
+  version "4.14.66"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.66.tgz#3dbb83477becf130611f8fac82a8fdb199805981"
+
 "@types/node@^6.0.46":
   version "6.0.78"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-6.0.78.tgz#5d4a3f579c1524e01ee21bf474e6fba09198f470"
@@ -2924,6 +2934,10 @@ lodash.clonedeep@^4.3.2, lodash.clonedeep@^4.5.0:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/lodash.clonedeep/-/lodash.clonedeep-4.5.0.tgz#e23f3f9c4f8fbdde872529c1071857a086e5ccef"
 
+lodash.isequal@^4.5.0:
+  version "4.5.0"
+  resolved "https://registry.yarnpkg.com/lodash.isequal/-/lodash.isequal-4.5.0.tgz#415c4478f2bcc30120c22ce10ed3226f7d3e18e0"
+
 lodash.memoize@^4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
@@ -3187,9 +3201,9 @@ ng2-img-cropper@^0.8.8:
   version "0.8.8"
   resolved "https://registry.yarnpkg.com/ng2-img-cropper/-/ng2-img-cropper-0.8.8.tgz#a8ce89c9d5c53e496da16b66b964c9774f332abc"
 
-ng2-webstorage@^1.5.0:
+ngx-webstorage@^1.8.0:
   version "1.8.0"
-  resolved "https://registry.yarnpkg.com/ng2-webstorage/-/ng2-webstorage-1.8.0.tgz#02bac5f29cecc2b7a4dfea17d9cebc720edf6b49"
+  resolved "https://registry.yarnpkg.com/ngx-webstorage/-/ngx-webstorage-1.8.0.tgz#cd085b98fbc7a72cc8f2aaa40c6c804b38d456de"
 
 no-case@^2.2.0:
   version "2.3.1"
@@ -5359,16 +5373,9 @@ wrappy@1:
   version "1.0.2"
   resolved "https://registry.yarnpkg.com/wrappy/-/wrappy-1.0.2.tgz#b5243d8f3ec1aa35f1364605bc0d1036e30ab69f"
 
-ws@1.1.2:
+ws@1.1.2, ws@^1.0.1:
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.2.tgz#8a244fa052401e08c9886cf44a85189e1fd4067f"
-  dependencies:
-    options ">=0.0.5"
-    ultron "1.0.x"
-
-ws@^1.0.1:
-  version "1.1.4"
-  resolved "https://registry.yarnpkg.com/ws/-/ws-1.1.4.tgz#57f40d036832e5f5055662a397c4de76ed66bf61"
   dependencies:
     options ">=0.0.5"
     ultron "1.0.x"

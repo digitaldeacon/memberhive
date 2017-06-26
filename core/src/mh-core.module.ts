@@ -5,7 +5,7 @@ import { AuthService } from './modules/auth/auth.service';
 import { TitleService } from './services/title.service';
 import { LoginService } from './services/login.service';
 import { GeocodeService } from './services/geocode.service';
-import { Ng2Webstorage } from 'ng2-webstorage';
+import { Ng2Webstorage } from 'ngx-webstorage';
 
 @NgModule({
     declarations: [
