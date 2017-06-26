@@ -31,7 +31,9 @@
       "@ngrx/store": ["../node_modules/@ngrx/store"],
       "@ngrx/router-store": ["../node_modules/@ngrx/router-store"],
       "@types/node": ["../node_modules/@types/node"],
-      "ng2-webstorage": ["../node_modules/ng2-webstorage"],
+      "@types/lodash.isequal": ["../node_modules/@types/lodash.isequal"],
+      "ngx-webstorage": ["../node_modules/ngx-webstorage"],
+      "lodash.isequal": ["../node_modules/lodash.isequal"],
       "rxjs": ["../node_modules/rxjs"],
       "tslint": ["../node_modules/tslint"],
       "zone.js": ["../node_moduleszone.js"]

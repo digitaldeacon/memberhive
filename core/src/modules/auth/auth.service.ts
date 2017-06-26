@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import {
     LocalStorageService,
-    LocalStorage } from 'ng2-webstorage';
+    LocalStorage
+} from 'ngx-webstorage';
 
 @Injectable()
 export class AuthService {
