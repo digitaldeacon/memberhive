@@ -42,8 +42,6 @@ class SettingsController extends MHController
         foreach ($settings as $setting) {
             $ret[$setting->section][$setting->key] = json_decode($setting->value);
         }
-        /*throw new BadRequestHttpException(json_encode($ret));
-        return [];*/
         return $ret;
     }
 

@@ -8,6 +8,7 @@ import * as app from '../app.store';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import {timeout} from "rxjs/operator/timeout";
 
 /**
  * The Settings class can easily be extended with options simply by adding to the form:
@@ -100,15 +101,23 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         });
         this.settingsForm.get('system').patchValue(this.sysSettings);
         this.settingsForm.get('people').patchValue(this.personSettings);
+
         this.settingsForm.valueChanges
-            .debounceTime(600)
+            .debounceTime(800)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
-                if ((data.system.churchAddress !== this.sysSettings.churchAddress)) {
+                // TODO: write a proper object comparison: https://stamat.wordpress.com/2013/06/22/javascript-object-comparison/
+                if (!this.addressIsEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
                     this._calcGeoCodes(data.system.churchAddress);
                 }
                 this._store.dispatch(new core.UpdateSettingAction(data));
             });
+    }
+
+    addressIsEqual(adr1: core.Address, adr2: core.Address): boolean {
+        return ((adr1.street === adr2.street) &&
+                (adr1.city === adr2.city) &&
+                (adr1.zip === adr2.zip));
     }
 
     buildFormArray(): FormArray {
