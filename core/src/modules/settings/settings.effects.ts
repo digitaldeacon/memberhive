@@ -32,7 +32,7 @@ export class SettingsEffects {
     updateSetting$: Observable<Action> = this.actions$
         .ofType(actions.UPDATE_SETTINGS)
         .map((action: actions.UpdateSettingAction) => action.payload)
-        .mergeMap((payload: SettingsState) => this.http.post('settings/update-or-create', payload)
+        .switchMap((payload: SettingsState) => this.http.post('settings/update-or-create', payload)
                 .map((r: SettingsState) => new actions.UpdateSettingSuccessAction(payload))
                 .catch((r: any) => of(new actions.UpdateSettingFailureAction(r)))
         );
