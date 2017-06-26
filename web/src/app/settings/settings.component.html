@@ -1,5 +1,8 @@
 <div class="main-content">
-    <form [formGroup]="settingsForm" novalidate fxFlex>
+    <form [formGroup]="settingsForm"
+          (keyup)="onKey($event)"
+          novalidate
+          fxFlex>
         <h4 i18n>System</h4>
         <md-accordion formGroupName="system">
             <md-expansion-panel #sysToolbar [hideToggle]="hideToggle">

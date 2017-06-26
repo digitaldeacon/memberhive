@@ -8,7 +8,8 @@ import * as app from '../app.store';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
-import {timeout} from "rxjs/operator/timeout";
+
+const _isEqual = require('lodash.isequal');
 
 /**
  * The Settings class can easily be extended with options simply by adding to the form:
@@ -23,7 +24,8 @@ import {timeout} from "rxjs/operator/timeout";
  *      });
  * The shape of the data will be the shape of the FormBuilder group, like:
  * system -> {churchName: '', googleApiKey: ''}, people -> ... etc.
- * Do not forget to add a corresponding field to the html with the same formControlName as the key
+ * Do not forget to add a corresponding field to the html with the same formControlName as the key.
+ * Also, you will need to add the new field to the Settings model under the core
  */
 
 @Component({
@@ -33,6 +35,7 @@ import {timeout} from "rxjs/operator/timeout";
 })
 export class SettingsComponent implements AfterViewInit, OnDestroy {
     private _alive: boolean = true;
+    submitted: boolean = false;
     hideToggle: boolean = false;
     personAttrSet: Array<string> = [
         'firstName',
@@ -103,21 +106,21 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.settingsForm.get('people').patchValue(this.personSettings);
 
         this.settingsForm.valueChanges
-            .debounceTime(800)
+            .debounceTime(2000)
             .distinctUntilChanged()
             .subscribe((data: core.SettingsState) => {
-                // TODO: write a proper object comparison: https://stamat.wordpress.com/2013/06/22/javascript-object-comparison/
-                if (!this.addressIsEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
-                    this._calcGeoCodes(data.system.churchAddress);
+                if (!this.submitted) {
+                    this.save(data);
                 }
-                this._store.dispatch(new core.UpdateSettingAction(data));
+                this.submitted = false;
             });
     }
 
-    addressIsEqual(adr1: core.Address, adr2: core.Address): boolean {
-        return ((adr1.street === adr2.street) &&
-                (adr1.city === adr2.city) &&
-                (adr1.zip === adr2.zip));
+    save(data: core.SettingsState): void {
+        if (!_isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
+            this._calcGeoCodes(data.system.churchAddress);
+        }
+        this._store.dispatch(new core.UpdateSettingAction(data));
     }
 
     buildFormArray(): FormArray {
@@ -153,6 +156,13 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.personAttr = this.personAttrSet.filter((item: string) => {
             return this.personAttrSelected ? this.personAttrSelected.indexOf(item) < 0 : false;
         });
+    }
+
+    onKey(event: KeyboardEvent): void {
+        if (event.key === 'Enter') {
+            this.submitted = true;
+            this.save(this.settingsForm.getRawValue());
+        }
     }
 
     private _initStore(): void {
