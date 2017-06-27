@@ -12,6 +12,7 @@ import {
     CalcGeoCodePayload,
     PersonViewAction,
     PersonUpdateAction,
+    PersonDeleteAction,
     PersonClearMessageAction,
     PersonCalcGeoAction,
     TitleService
@@ -113,6 +114,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         person.uid = this.person.uid;
         this._store.dispatch(new PersonUpdateAction(person));
         this._calcGeoCodes(person);
+    }
+
+    deletePerson(person: Person): void {
+        this._store.dispatch(new PersonDeleteAction(person));
     }
 
     openDlgRelationships(): void {
