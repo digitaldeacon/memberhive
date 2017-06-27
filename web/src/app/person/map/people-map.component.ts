@@ -12,6 +12,7 @@ import {
     ContextButton,
     SetContextButtonsAction
 } from 'mh-core';
+import { ShoutService } from "../../common/shout.service";
 
 @Component({
     selector: 'mh-people-map',
@@ -31,11 +32,11 @@ export class PeopleMapComponent implements OnDestroy {
     zoom: number = 11;
 
     constructor(private _store: Store<app.AppState>,
+                private _shout: ShoutService,
                 titleService: TitleService) {
         titleService.setTitle('People Map');
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
-                // TODO: reduce this to one function
                 this.people = people.filter((p: Person) => !this.empty(p.address.home.geocode));
                 for (let person of this.people) {
                     let marker: GeoMarker;
@@ -55,14 +56,22 @@ export class PeopleMapComponent implements OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((data: SystemSettings) => {
                 this.settings = data;
-                this.setInitMarker();
+                if (this.validate()) {
+                    this.setInitMarker();
+                } else {
+                    this._shout.error('Church address is missing or incomplete. Got to system settings to fix');
+                }
             });
         this._setContextMenu();
     }
 
+    validate(): boolean {
+        return this.settings.hasOwnProperty('churchAddress');
+    }
+
     setInitMarker(): void {
         this.initMarker = {
-            latlng: this.settings.churchAddress.geocode,
+            latlng: this.settings.churchAddress.hasOwnProperty('geocode') ? this.settings.churchAddress.geocode : undefined,
             title: this.settings.churchName,
             // icon: 'assets/icons/blue-dot.png',
             info: {

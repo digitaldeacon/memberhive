@@ -63,7 +63,7 @@ export const getLoadingP: any = createSelector(getPersonState, person.getLoading
 export const getLoadingS: any = createSelector(getSettingsState, settings.getLoadingSettings);
 export const getLoadingI: any = createSelector(getInteractions, interaction.getLoadingInteraction);
 export const getLoading: any = createSelector(getLoadingP, getLoadingS, getLoadingI,
-    (lP: boolean, lS: boolean, lI: boolean) => lP || lS ||lI);
+    (lP: boolean, lS: boolean, lI: boolean) => lP || lS || lI);
 /**
  * Message  Reducers
  */

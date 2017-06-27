@@ -108,25 +108,28 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         this.settingsForm.valueChanges
             .debounceTime(2000)
             .distinctUntilChanged()
-            .subscribe((data: core.SettingsState) => {
-                if (!this.submitted) {
-                    this.save(data);
+            .subscribe(
+                (data: core.SettingsState) => {
+                    if (!this.submitted) {
+                        this.save(data);
+                    }
+                    this.submitted = false;
                 }
-                this.submitted = false;
-            });
+            );
     }
 
     save(data: core.SettingsState): void {
-        if (!_isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
+        this._store.dispatch(new core.UpdateSettingAction(data));
+        if (this._addressComplete(data.system.churchAddress) &&
+            !_isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
             this._calcGeoCodes(data.system.churchAddress);
         }
-        this._store.dispatch(new core.UpdateSettingAction(data));
     }
 
     buildFormArray(): FormArray {
         let fga: Array<FormGroup> = [];
         for (let status of this.personSettings.maritalStatus) {
-            fga.push(this.buildFormGroup(status.status));
+            fga.push(this.buildFormGroup(status));
         }
         this.maritalStatus = this._fb.array(fga);
         return this.maritalStatus;
@@ -165,6 +168,9 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         }
     }
 
+    private _addressComplete(adr: core.Address): boolean {
+        return adr.city !== '' && adr.street !== '' && adr.zip !== '';
+    }
     private _initStore(): void {
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
@@ -191,28 +197,32 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             }
         });
         this._dragulaService.dropModel.subscribe(() => {
+            this.submitted = true;
+            this.personSettings.list = this.personAttrSelected;
             const payload: core.SettingsState = {
                 people: this.personSettings
             };
             this._store.dispatch(new core.UpdateSettingAction(payload));
         });
     }
-    private _setContextMenu(): void {
-        let buttons: core.ContextButton[] = [];
-        // buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
-
-        this._store.dispatch(new core.SetContextButtonsAction(buttons));
-    }
     private _calcGeoCodes(address: core.Address): void {
         this._geoCoder.apiKey = GLOBALS.googleAPIKey;
         this._geoCoder.address = address;
         this._geoCoder.calc()
             .subscribe((codes: core.GeoCodes) => {
-                this.sysSettings.churchAddress.geocode = codes;
+                address.geocode = codes;
+                this.sysSettings.churchAddress = address;
                 const payload: core.SettingsState = {
                     system: this.sysSettings
                 };
                 this._store.dispatch(new core.UpdateSettingAction(payload));
+                this.settingsForm.get('system').patchValue(this.sysSettings);
             });
+    }
+    private _setContextMenu(): void {
+        let buttons: core.ContextButton[] = [];
+        // buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
+
+        this._store.dispatch(new core.SetContextButtonsAction(buttons));
     }
 }

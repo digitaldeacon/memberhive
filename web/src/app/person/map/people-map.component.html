@@ -6,8 +6,8 @@
              fullscreenControl="true"
              usePanning="true">
         <agm-marker *ngFor="let marker of markers"
-                    [latitude]="marker?.latlng.lat"
-                    [longitude]="marker?.latlng.lng"
+                    [latitude]="marker?.latlng?.lat"
+                    [longitude]="marker?.latlng?.lng"
                     [label]="marker?.label"
                     [title]="marker?.title"
                     [iconUrl]="marker?.icon">
