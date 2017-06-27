@@ -9,6 +9,7 @@ import {
     Person,
     Interaction,
     Message,
+    GeoMarker,
     CalcGeoCodePayload,
     TitleService,
     PersonViewAction,
@@ -138,24 +139,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     openDlgMap(): void {
         const config: MdDialogConfig = new MdDialogConfig();
+        const personMarker: GeoMarker = {
+            latlng: this.person.address.home.geocode,
+            title: this.person.fullName,
+            info: {
+                title: this.person.fullName,
+                address: this.person.address.home
+            }
+        };
         config.data = {
             context: 'person',
-            markers: [{
-                latlng: this.person.address.home.geocode,
-                title: this.person.fullName,
-                info: {
-                    title: this.person.fullName,
-                    address: this.person.address.home
-                }
-            }],
-            initMarker: {
-                latlng: this.settings.churchAddress.geocode,
-                title: this.settings.churchName,
-                info: {
-                    title: this.settings.churchName,
-                    address: this.settings.churchAddress
-                }
-            },
+            markers: [ personMarker ],
+            initMarker: personMarker,
             initMarkerToMap: true
         };
         this.dialogRef = this._dialog.open(MapDialogComponent, config);
