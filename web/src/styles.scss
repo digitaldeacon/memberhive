@@ -14,11 +14,11 @@ mh-app {
   height: 100%;
   width: 100%;
 }
-.mh-submit {
-  background: mat-color($mh-app-green, 500);
-  color: #ffffff;
-  margin: 10px 0;
-  font-weight: 800;
+.mat-raised-button.mh-submit {
+  background: mat-color($mh-app-green, 500) !important;
+  color: #ffffff !important;
+  margin: 10px 0 !important;
+  font-weight: 800 !important;
 }
 .shout-success {
   background: mat-color($mh-app-green, 500) !important;

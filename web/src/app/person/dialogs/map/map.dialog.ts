@@ -11,7 +11,7 @@ export class MapDialogComponent implements OnInit {
 
     initMarker: GeoMarker;
     markers: GeoMarker[] = [];
-    zoom: number = 11;
+    zoom: number = 13;
     initMarkerToMap: boolean = false;
 
     constructor(
