@@ -26,6 +26,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.LIST_PEOPLE:
         case actions.UPDATE_PERSON:
         case actions.CREATE_PERSON:
+        case actions.DELETE_PERSON:
             return Object.assign({}, state, {
                 loading: true
             });
@@ -67,10 +68,24 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
+        case actions.DELETE_PERSON_SUCCESS: {
+            const person: Person = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully deleted ' + person.fullName
+            };
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                message: message
+            });
+        }
+
         case actions.CALC_PERSON_GEO_FAILURE:
         case actions.LIST_PEOPLE_FAILURE:
         case actions.CREATE_PERSON_FAILURE:
-        case actions.UPDATE_PERSON_FAILURE: {
+        case actions.UPDATE_PERSON_FAILURE:
+        case actions.DELETE_PERSON_FAILURE: {
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
                 text: action.payload
