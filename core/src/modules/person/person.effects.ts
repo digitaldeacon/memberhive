@@ -53,6 +53,15 @@ export class PersonEffects {
         );
 
     @Effect()
+    deletePerson$ = this.actions$
+        .ofType(actions.DELETE_PERSON)
+        .map((action: actions.PersonDeleteAction) => action.payload)
+        .switchMap((data: Person) => this.http.post('person/list', data)
+            .map((r: Person[]) => new actions.PersonDeleteSuccessAction(r))
+            .catch((r: any) => of(new actions.PersonDeleteFailureAction(r)))
+        );
+
+    @Effect()
     calcPersonGeo$ = this.actions$
         .ofType(actions.CALC_PERSON_GEO)
         .map(toPayload)

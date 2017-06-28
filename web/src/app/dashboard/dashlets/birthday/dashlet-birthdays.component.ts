@@ -42,9 +42,12 @@ export class DashletBirthdaysComponent {
                 return bday > this.now && bday < rangeDate;
             });
             this.peopleBdRange.sort((p1: Person, p2: Person) => {
-                const left: number = new Date(p1.birthday).getDate();
-                const right: number = new Date(p2.birthday).getDate();
-                return left - right;
+                const left: Date = new Date(p1.birthday);
+                const right: Date = new Date(p2.birthday);
+                // Set year to current to calculate correctly (Issue #130)
+                left.setFullYear(this.now.getFullYear());
+                right.setFullYear(this.now.getFullYear());
+                return left.getTime() - right.getTime();
             });
             // Filter for today's birthdays
             this.peopleBdToday = people.filter((p: Person) => {
