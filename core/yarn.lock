@@ -71,8 +71,8 @@
     "@types/lodash" "*"
 
 "@types/lodash@*":
-  version "4.14.66"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.66.tgz#3dbb83477becf130611f8fac82a8fdb199805981"
+  version "4.14.67"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.67.tgz#4714714434da110306b9862fbd36b30b55eb850a"
 
 "@types/node@^7.0.12":
   version "7.0.32"
@@ -376,9 +376,9 @@ tsutils@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/tsutils/-/tsutils-2.4.0.tgz#ad4ce6dba0e5a3edbddf8626b7ca040782189fea"
 
-typescript@^2.3.3:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.4.0.tgz#aef5a8d404beba36ad339abf079ddddfffba86dd"
+typescript@2.3.4:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.3.4.tgz#3d38321828231e434f287514959c37a82b629f42"
 
 wrappy@1:
   version "1.0.2"
