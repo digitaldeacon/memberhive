@@ -46,8 +46,8 @@ class Interaction extends \yii\db\ActiveRecord
     {
         return [
             [['text','ownerId','typeId','authorId'], 'required'],
-            [['text'], 'string'],
-            [['typeId', 'isPrivate'], 'integer'],
+            [['text','type'], 'string'],
+            [['isPrivate'], 'integer'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
             [['ownerId', 'authorId'], 'string', 'max' => 36],
             ['uid', '\aracoool\uuid\UuidValidator']
@@ -62,7 +62,7 @@ class Interaction extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'text' => 'Text',
-            'typeId' => 'Type ID',
+            'type' => 'Type',
             'ownerId' => 'Owner ID',
             'authorId' => 'Author ID', // who created this
             'isPrivate' => 'Is Private',
@@ -117,9 +117,7 @@ class Interaction extends \yii\db\ActiveRecord
                 'avatar' => isset($this->author->avatar) ? $this->author->avatar : ''
             ],
             'ownerId' => $this->ownerId,
-            //'type' => $this->type->type,
-            'typeId' => $this->typeId,
-            //'icon' => $this->type->iconString,
+            'type' => $this->type,
             'dueOn' => $this->dueOn,
             'isPrivate' => $this->isPrivate,
             'recipients' => $recipients,

@@ -27,9 +27,21 @@ export class InteractionEffects {
         .map((action: actions.ListInteractionsAction) => action.payload)
         .switchMap((data: InteractionPayload) => {
             // console.log('from effects[I]', data);
-            return this.http.get('interaction/list?id=' + data.id
-                + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
-                .map((r: InteractionCollection) => new actions.ListInteractionsSuccessAction(r))
+            return this.http.get('interaction/list?')// + data.id
+                // + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
+                .map((r: Interaction[]) => {
+                    console.log('from effect', r);
+                    return new actions.ListInteractionsSuccessAction(r);
+                })
                 .catch((r: any) => of(new actions.ListInteractionsFailureAction(r)));
         });
+
+    @Effect()
+    addInteraction$ = this.actions$
+        .ofType(actions.ADD_INTERACTION)
+        .map((action: actions.AddInteractionAction) => action.payload)
+        .switchMap((data: Interaction) => this.http.post('interaction/create-person', data)
+            .map((r: Interaction) => new actions.AddInteractionSuccessAction(r))
+            .catch((r: any) => of(new actions.AddInteractionFailureAction(r)))
+        );
 }

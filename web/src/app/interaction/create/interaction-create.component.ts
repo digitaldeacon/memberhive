@@ -10,7 +10,7 @@ import { InteractionService } from '../../common/interaction.service';
 
 import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
-import { Person, TitleService } from 'mh-core';
+import { Person, TitleService, AddInteractionAction } from 'mh-core';
 
 import { ShoutService } from '../../common/shout.service';
 
@@ -51,9 +51,6 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
     this._store.select(app.getAuthPersonId)
         .takeWhile(() => this._alive)
         .subscribe((uid: string) => this._authorId = uid);
-    /*this._store.select(app.getRouterPath)
-        .takeWhile(() => this._alive)
-        .subscribe((p: any) => console.log(p));*/
 
     // TODO: move these settings
     this.options = {
@@ -110,6 +107,7 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
     if (isValid) {
       model.authorId = this._authorId;
       // this._interactionService.create(model);
+      this._store.dispatch(new AddInteractionAction(model))
       this.form.reset();
       this.returnRoute();
     }

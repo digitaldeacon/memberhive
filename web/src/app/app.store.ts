@@ -56,6 +56,7 @@ export const getPeopleSysSettings: any = createSelector(getPeopleSettings, getSy
 export const getInteractionState: any = (state: AppState) => state.interaction;
 export const getInteractions: any = createSelector(getInteractionState, interaction.getInteractions);
 export const getMyInteractions: any = createSelector(getInteractionState, interaction.getMyInteractions);
+export const getInteractionsPerson: any = createSelector(getInteractionState, interaction.getInteractionsPerson);
 /**
  * Loading  Reducers
  */
