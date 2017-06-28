@@ -86,7 +86,7 @@ class ImportController extends Controller
                     'street' => $item->home_address,
                     'zip' => $item->home_postcode,
                     'city' => $item->home_city,
-                    'geocode' => []
+                    'geocode' => $this->getGeoCode($item->home_address, $item->home_postcode, $item->home_city)
                     ]
                 ]
             );
@@ -106,14 +106,21 @@ class ImportController extends Controller
     {
         $address = "$home_address, $home_postcode $home_city";
         $prepAddr = str_replace(' ', '+', $address);
-        $geocode = file_get_contents('https://maps.google.com/maps/api/geocode/json?address=' . $prepAddr . '&sensor=false');
-        $output= json_decode($geocode);
-        $latitude = $output->results[0]->geometry->location->lat;
-        $longitude = $output->results[0]->geometry->location->lng;
-        return [
-            'lat' => $latitude,
-            'long' => $longitude
-        ];
+        $prepAddr = urlencode($prepAddr);
+        $maps = "https://maps.google.com/maps/api/geocode/json?address={$prepAddr}";
+        $maps .= '&sensor=false&key=AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo';
+
+        $geocode = file_get_contents($maps);
+        $output = json_decode($geocode, true);
+        if ($output['status'] == 'OK') {
+            $latitude = $output['results'][0]['geometry']['location']['lat'];
+            $longitude = $output['results'][0]['geometry']['location']['lng'];
+            return [
+                'lat' => $latitude,
+                'lng' => $longitude
+            ];
+        }
+        return [];
     }
 
     private function logImport($type, $remoteId, $object)

@@ -12,7 +12,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import * as actions from './interaction.actions';
-import { Interaction, InteractionPayload } from './interaction.model';
+import { Interaction, InteractionPayload, InteractionCollection } from './interaction.model';
 import { HttpService } from '../../services/http.service';
 
 @Injectable()
@@ -29,7 +29,7 @@ export class InteractionEffects {
             console.log('from effects[I]', data);
             return this.http.get('interaction/list?id=' + data.id
                 + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
-                .map((r: Interaction[]) => new actions.ListInteractionsSuccessAction(r))
+                .map((r: InteractionCollection) => new actions.ListInteractionsSuccessAction(r))
                 .catch((r: any) => of(new actions.ListInteractionsFailureAction(r)));
         });
 }

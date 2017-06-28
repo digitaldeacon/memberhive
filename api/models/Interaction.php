@@ -117,9 +117,9 @@ class Interaction extends \yii\db\ActiveRecord
                 'avatar' => isset($this->author->avatar) ? $this->author->avatar : ''
             ],
             'ownerId' => $this->ownerId,
-            'type' => $this->type->type,
+            //'type' => $this->type->type,
             'typeId' => $this->typeId,
-            'icon' => $this->type->iconString,
+            //'icon' => $this->type->iconString,
             'dueOn' => $this->dueOn,
             'isPrivate' => $this->isPrivate,
             'recipients' => $recipients,

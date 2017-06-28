@@ -29,8 +29,8 @@ import { ShoutService } from '../../common/shout.service';
     moduleId: 'mh-person',
     selector: 'mh-person-view',
     templateUrl: './person-view.component.html',
-    styleUrls: ['./person-view.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./person-view.component.scss']
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;

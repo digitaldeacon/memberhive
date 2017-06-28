@@ -16,6 +16,10 @@ export interface Interaction {
     dueOn: string;
 }
 
+export interface InteractionCollection {
+    [uid: string]: Interaction[];
+}
+
 export interface InteractionType {
     id: number;
     type: string;
