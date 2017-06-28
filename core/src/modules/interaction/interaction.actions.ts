@@ -1,5 +1,9 @@
 import { Action } from '@ngrx/store';
-import { Interaction, InteractionPayload } from './interaction.model';
+import {
+    Interaction,
+    InteractionPayload,
+    InteractionCollection
+} from './interaction.model';
 
 export const ADD_INTERACTION = '[Interaction] Add Interaction';
 export const ADD_INTERACTION_SUCCESS = '[Interaction] Add Interaction Success';
@@ -27,7 +31,7 @@ export class ListInteractionsAction implements Action {
 }
 export class ListInteractionsSuccessAction implements Action {
     readonly type = LIST_INTERACTIONS_SUCCESS;
-    constructor(public payload: Interaction[]) { }
+    constructor(public payload: InteractionCollection) { }
 }
 export class ListInteractionsFailureAction implements Action {
     readonly type = LIST_INTERACTIONS_FAILURE;

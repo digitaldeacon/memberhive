@@ -1,4 +1,4 @@
-import { Interaction } from './interaction.model';
+import { Interaction, InteractionCollection } from './interaction.model';
 import * as actions from './interaction.actions';
 import * as common from '../../common/common.model';
 
@@ -6,12 +6,12 @@ export interface InteractionState {
     loaded?: boolean;
     loading?: boolean;
     message?: common.Message;
-    interactions: Interaction[];
+    interactions: InteractionCollection;
     myInteractions: Interaction[];
 }
 
 const initialState: InteractionState = {
-    interactions: [],
+    interactions: {},
     myInteractions: []
 };
 
@@ -27,7 +27,7 @@ action: actions.InteractionActions): InteractionState {
             });
 
         case actions.LIST_INTERACTIONS_SUCCESS: {
-            const interactions: Interaction[] = action.payload;
+            const interactions: InteractionCollection = action.payload;
             console.log('from reducer[I]', action.payload);
             return Object.assign({}, state, {
                 loaded: true,

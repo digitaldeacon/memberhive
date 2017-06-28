@@ -136,7 +136,7 @@ class InteractionController extends MHController
             $transaction = Interaction::getDb()->beginTransaction();
             try {
                 $interaction->text = $post['text'];
-                $interaction->typeId = intval($post['type']);
+                $interaction->type = $post['type'];
                 $interaction->ownerId = $post['owner'];
                 $interaction->authorId = $post['authorId'];
                 $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
@@ -192,15 +192,25 @@ class InteractionController extends MHController
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
-        $interactions = Interaction::find()
+        /*$interactions = Interaction::find()
             ->where(['ownerId' => $id])
             ->with('recipients', 'author')
             ->orderBy(['updated_at'=>SORT_DESC])
+            ->all();*/
+        $people = Person::find()
+            ->where(['uid' => $id])
+            ->with('interactions')
             ->all();
-        foreach ($interactions as $interaction) {
-            $ret[] = $interaction->toResponseArray($noMarkup);
+        $r = '';
+        foreach ($people as $person) {
+            $r .= '[P]' . $person->fullname;
+            foreach ($person->interactions as $interaction) {
+                $r .= ' [I] ' . $interaction->text;
+                $ret[$person->uid][] = $interaction->toResponseArray($noMarkup);
+            }
         }
-        return ['response' => $ret];
+        // throw new BadRequestHttpException($r);
+        return $ret;
     }
 
     public function actionMine($id)
