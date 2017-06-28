@@ -28,7 +28,7 @@ action: actions.InteractionActions): InteractionState {
 
         case actions.LIST_INTERACTIONS_SUCCESS: {
             const interactions: InteractionCollection = action.payload;
-            console.log('from reducer[I]', action.payload);
+            // console.log('from reducer[I]', action.payload);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,

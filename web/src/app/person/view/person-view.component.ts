@@ -88,7 +88,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 }));
             })
             .mergeMap((p: any) => {
-                console.log(p);
+                // console.log(p);
                 return this.person$;
             })
             .subscribe((person: Person) => {

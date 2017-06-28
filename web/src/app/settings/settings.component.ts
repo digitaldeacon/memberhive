@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 
-const _isEqual = require('lodash.isequal');
+import { isEqual } from 'lodash';
 
 /**
  * The Settings class can easily be extended with options simply by adding to the form:
@@ -121,7 +121,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     save(data: core.SettingsState): void {
         this._store.dispatch(new core.UpdateSettingAction(data));
         if (this._addressComplete(data.system.churchAddress) &&
-            !_isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
+            !isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
             this._calcGeoCodes(data.system.churchAddress);
         }
     }
