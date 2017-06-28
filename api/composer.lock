@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce"
+                "reference": "5877097d5eed41973c07307eb473c53c8687e6b2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce",
-                "reference": "74dce2147c4f1c2cd7bb3b3245271e680d1ae9ce",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/5877097d5eed41973c07307eb473c53c8687e6b2",
+                "reference": "5877097d5eed41973c07307eb473c53c8687e6b2",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-06-23 23:28:54"
+            "time": "2017-06-27 11:46:14"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2657,12 +2657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "b4681f1ed0496db6ed4a690bef0c1748f89de0d9"
+                "reference": "5aa5bb57a8eb7ab61995eb20e2a7a398706d615f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/b4681f1ed0496db6ed4a690bef0c1748f89de0d9",
-                "reference": "b4681f1ed0496db6ed4a690bef0c1748f89de0d9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/5aa5bb57a8eb7ab61995eb20e2a7a398706d615f",
+                "reference": "5aa5bb57a8eb7ab61995eb20e2a7a398706d615f",
                 "shasum": ""
             },
             "require": {
@@ -2699,7 +2699,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2017-06-22 22:37:30"
+            "time": "2017-06-26 19:42:30"
         },
         {
             "name": "yiisoft/yii2-debug",
@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "4b975802172cdbe07890013f037abb36c3f57d60"
+                "reference": "9011b6e533811221fffebca2de822c5c87ad7dd9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/4b975802172cdbe07890013f037abb36c3f57d60",
-                "reference": "4b975802172cdbe07890013f037abb36c3f57d60",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/9011b6e533811221fffebca2de822c5c87ad7dd9",
+                "reference": "9011b6e533811221fffebca2de822c5c87ad7dd9",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2746,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-06-23 23:16:51"
+            "time": "2017-06-26 19:37:57"
         },
         {
             "name": "yiisoft/yii2-gii",
@@ -2754,12 +2754,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-gii.git",
-                "reference": "3a51c662e38c1a7176ebeeec37444ab392746509"
+                "reference": "1196b29d67a38e1f84374e079de3509254cddb30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/3a51c662e38c1a7176ebeeec37444ab392746509",
-                "reference": "3a51c662e38c1a7176ebeeec37444ab392746509",
+                "url": "https://api.github.com/repos/yiisoft/yii2-gii/zipball/1196b29d67a38e1f84374e079de3509254cddb30",
+                "reference": "1196b29d67a38e1f84374e079de3509254cddb30",
                 "shasum": ""
             },
             "require": {
@@ -2799,7 +2799,7 @@
                 "gii",
                 "yii2"
             ],
-            "time": "2017-06-22 22:36:43"
+            "time": "2017-06-26 19:41:48"
         }
     ],
     "aliases": [],
