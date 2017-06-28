@@ -1,3 +1,4 @@
+import { createSelector } from '@ngrx/store';
 import { Interaction, InteractionCollection } from './interaction.model';
 import * as actions from './interaction.actions';
 import * as common from '../../common/common.model';
@@ -6,12 +7,13 @@ export interface InteractionState {
     loaded?: boolean;
     loading?: boolean;
     message?: common.Message;
-    interactions: InteractionCollection;
+    forPersonId?: string;
+    interactions: Interaction[];
     myInteractions: Interaction[];
 }
 
 const initialState: InteractionState = {
-    interactions: {},
+    interactions: [],
     myInteractions: []
 };
 
@@ -27,12 +29,22 @@ action: actions.InteractionActions): InteractionState {
             });
 
         case actions.LIST_INTERACTIONS_SUCCESS: {
-            const interactions: InteractionCollection = action.payload;
+            const interactions: Interaction[] = action.payload;
             // console.log('from reducer[I]', action.payload);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
                 interactions: interactions
+            });
+        }
+
+        case actions.ADD_INTERACTION_SUCCESS: {
+            const interaction: Interaction = action.payload;
+            // console.log('from reducer[I]', action.payload);
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                interactions: [...state.interactions, interaction]
             });
         }
 
@@ -47,6 +59,12 @@ action: actions.InteractionActions): InteractionState {
                 loading: false,
                 loaded: false,
                 message: message
+            });
+        }
+
+        case actions.GET_FOR_PERSON: {
+            return Object.assign({}, state, {
+                forPersonId: action.payload
             });
         }
 
@@ -66,3 +84,9 @@ export const getMessageInteraction: any = (state: InteractionState) => state.mes
 
 export const getInteractions: any = (state: InteractionState) => state.interactions;
 export const getMyInteractions: any = (state: InteractionState) => state.myInteractions;
+
+const getSelectedId: any = (state: InteractionState) => state.forPersonId;
+
+export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedId, (interactions: any, selectedId: string) => {
+    return interactions.filter((interaction: Interaction) => interaction.recipients.indexOf(selectedId) > -1);
+});

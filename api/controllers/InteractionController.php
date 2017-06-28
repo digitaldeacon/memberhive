@@ -127,7 +127,6 @@ class InteractionController extends MHController
         $insert = true;
 
         if (!empty($post)) {
-            // throw new BadRequestHttpException(json_encode($post));
             if (isset($post['uid'])) {
                 $interaction = $this->findModelByUID($post['uid']);
                 $insert = empty($interaction);
@@ -159,18 +158,18 @@ class InteractionController extends MHController
                         // new GroupInteraction();
                     }
                     $transaction->commit();
-                    return ['response' => $interaction->toResponseArray()];
+                    return [$interaction->toResponseArray()];
                 } else {
                     throw new BadRequestHttpException(json_encode($interaction->errors));
                 }
             } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException(json_encode($interaction));
+                throw new BadRequestHttpException(json_encode($e));
             } catch (\Throwable $e) {
                 $transaction->rollBack();
                 throw new BadRequestHttpException(json_encode($interaction->errors));
             }
-            return ['response' => $interaction->toResponseArray()];
+            return [$interaction->toResponseArray()];
         } else {
             throw new BadRequestHttpException('No valid data was received');
         }
@@ -188,7 +187,7 @@ class InteractionController extends MHController
         return $this->actionCreate();
     }
 
-    public function actionList($id)
+    public function actionList($id = 0)
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
@@ -197,17 +196,25 @@ class InteractionController extends MHController
             ->with('recipients', 'author')
             ->orderBy(['updated_at'=>SORT_DESC])
             ->all();*/
-        $people = Person::find()
+        /*$people = Person::find()
             ->where(['uid' => $id])
             ->with('interactions')
-            ->all();
+            ->all();*/
         $r = '';
-        foreach ($people as $person) {
+        /*foreach ($people as $person) {
             $r .= '[P]' . $person->fullname;
             foreach ($person->interactions as $interaction) {
                 $r .= ' [I] ' . $interaction->text;
                 $ret[$person->uid][] = $interaction->toResponseArray($noMarkup);
             }
+        }*/
+        $interactions = Interaction::find()
+            ->with('recipients', 'author')
+            ->orderBy(['updated_at'=>SORT_DESC])
+            ->all();
+        foreach ($interactions as $interaction) {
+            //$r .= '[I]' . json_encode($interaction->recipients);
+            $ret[] = $interaction->toResponseArray($noMarkup);
         }
         // throw new BadRequestHttpException($r);
         return $ret;
@@ -224,8 +231,7 @@ class InteractionController extends MHController
                     $query->andWhere(['id' => $id]);
                 },
                 'author',
-                'personInteraction',
-                'type'
+                'personInteraction'
                 ]
             )
             ->orderBy(['updated_at'=>SORT_DESC])

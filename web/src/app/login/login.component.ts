@@ -10,7 +10,9 @@ import {
     Credentials,
     AuthenticateAction,
     ListAction,
-    ListSettingAction} from 'mh-core';
+    ListSettingAction,
+    ListInteractionsAction
+}from 'mh-core';
 
 @Component({
     selector: 'mh-login',
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             .subscribe((value: boolean) => {
                 this._store.dispatch(new ListAction({}));
                 this._store.dispatch(new ListSettingAction());
+                this._store.dispatch(new ListInteractionsAction({}));
                 this.home();
             });
     }

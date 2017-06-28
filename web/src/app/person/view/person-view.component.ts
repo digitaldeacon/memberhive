@@ -12,6 +12,7 @@ import {
     GeoMarker,
     CalcGeoCodePayload,
     TitleService,
+    GetInteractionsPersonAction,
     PersonViewAction,
     PersonUpdateAction,
     PersonDeleteAction,
@@ -60,6 +61,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((uid: string) => this.userUid = uid);
         this.person$ = this._store.select(app.getSelectedPerson);
+        /*this.person$.takeWhile(() => this._alive)
+            .subscribe((p: Person) => this.person = p);*/
+        this.interactions$ = this._store.select(app.getInteractionsPerson);
+        // this.interactions$.takeWhile(() => this._alive).subscribe(v => console.log('Person interactions', v));
         this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
             .subscribe((data: any) => {
                 this.settings = data;
@@ -81,22 +86,17 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._route.params
             .map((params: Params) => {
                 this._store.dispatch(new PersonViewAction(params['id']));
-                this._store.dispatch(new ListInteractionsAction({
-                    id: params['id'],
-                    me: this.userUid,
-                    noMarkup: true
-                }));
+                this._store.dispatch(new GetInteractionsPersonAction(params['id']));
             })
-            .mergeMap((p: any) => {
-                // console.log(p);
-                return this.person$;
-            })
-            .subscribe((person: Person) => {
-                this.person = person;
-                this._titleService.setTitle(this.person.fullName);
-                this.hasMap = person.address.home.geocode
-                    ? Object.keys(person.address.home.geocode).length > 0
-                : false;
+            .mergeMap(() => this.person$)
+            .subscribe((person: any) => {
+               if (person) {
+                    this.person = person;
+                    this._titleService.setTitle(this.person.fullName);
+                    this.hasMap = person.address.home.geocode
+                        ? Object.keys(person.address.home.geocode).length > 0
+                        : false;
+                }
             });
     }
     ngOnDestroy(): void {

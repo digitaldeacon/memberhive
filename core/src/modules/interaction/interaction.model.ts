@@ -27,7 +27,7 @@ export interface InteractionType {
 }
 
 export interface InteractionPayload {
-    id: number;
+    id: string;
     me: string;
     noMarkup?: boolean;
     author?: string;

@@ -24,14 +24,15 @@ export const COMPLETE_INTERACTION_FAILURE = '[Interaction] Complete Failure';
 export const END_INTERACTION = '[Interaction] End';
 export const END_INTERACTION_SUCCESS = '[Interaction] End Success';
 export const END_INTERACTION_FAILURE = '[Interaction] End Failure';
+export const GET_FOR_PERSON = '[Interaction] Get interactions for person';
 
 export class ListInteractionsAction implements Action {
     readonly type = LIST_INTERACTIONS;
-    constructor(public payload: InteractionPayload) { }
+    constructor(public payload?: any) { }
 }
 export class ListInteractionsSuccessAction implements Action {
     readonly type = LIST_INTERACTIONS_SUCCESS;
-    constructor(public payload: InteractionCollection) { }
+    constructor(public payload: Interaction[]) { }
 }
 export class ListInteractionsFailureAction implements Action {
     readonly type = LIST_INTERACTIONS_FAILURE;
@@ -100,6 +101,10 @@ export class EndInteractionsFailureAction implements Action {
 export class ClearInteractionMessageAction implements Action {
     readonly type = CLEAR_INTERACTION_MESSAGE;
 }
+export class GetInteractionsPersonAction implements Action {
+    readonly type = GET_FOR_PERSON;
+    constructor(public payload: string) { }
+}
 
 export type InteractionActions
     = AddInteractionAction
@@ -120,4 +125,5 @@ export type InteractionActions
     | CompleteInteractionAction
     | CompleteInteractionSuccessAction
     | CompleteInteractionFailureAction
-    | ClearInteractionMessageAction;
+    | ClearInteractionMessageAction
+    | GetInteractionsPersonAction;

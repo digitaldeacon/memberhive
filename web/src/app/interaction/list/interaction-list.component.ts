@@ -19,28 +19,33 @@ export class InteractionListComponent implements OnInit {
     private authorId: string;
     @Input() interactions: Array<Interaction>;
 
-    constructor(private route: ActivatedRoute,
-                private interactionService: InteractionService,
-                private shout: ShoutService,
-                private auth: AuthService,
+    // TODO: move these to settings
+    types: any[] = [
+        {type: 'interaction', iconString: 'swap_vertical_circle'},
+        {type: 'note', iconString: 'comment'},
+        {type: 'meeting', iconString: 'forum'},
+        {type: 'email', iconString: 'email'},
+        {type: 'phone', iconString: 'contact_phone'}
+    ];
+
+    constructor(private auth: AuthService,
                 public dialog: MdDialog) {
     }
 
     ngOnInit(): void {
         this.authorId = this.auth.getPersonId();
-        /*if (!this.interactions) {
-            this.route.params
-                .switchMap((params: Params) => this.interactionService.getInteractions(params['id']))
-                .subscribe((interactions: Array<Interaction>) => {
-                    this.interactions = interactions;
-                });
-        }*/
+    }
+
+    // TODO: possibly remove with settings
+    getType(t: string): string {
+        return this.types.filter((v) => v.type === t)[0].iconString;
     }
 
     iOwn(uid: string): boolean {
         return uid === this.authorId;
     }
 
+    // TODO: emit delete action to parent component
     deleteInteraction(interaction: Interaction): void {
 
         if (!this.iOwn(interaction.authorId)) {
