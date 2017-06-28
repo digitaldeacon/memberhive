@@ -11,6 +11,9 @@ export const VIEW_PERSON = '[Person] View';
 export const CREATE_PERSON = '[Person] Create';
 export const CREATE_PERSON_SUCCESS = '[Person] Create Success';
 export const CREATE_PERSON_FAILURE = '[Person] Create Failure';
+export const DELETE_PERSON = '[Person] Delete';
+export const DELETE_PERSON_SUCCESS = '[Person] Delete Success';
+export const DELETE_PERSON_FAILURE = '[Person] Delete Failure';
 export const CLEAR_PERSON_MESSAGE = '[Person] Clear Message';
 export const CALC_PERSON_GEO = '[Person] Calc Geo Codes';
 export const CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success';
@@ -66,6 +69,21 @@ export class PersonCreateFailureAction implements Action {
     constructor(public payload: any) { }
 }
 
+export class PersonDeleteAction implements Action {
+    readonly type = DELETE_PERSON;
+    constructor(public payload: Person) { }
+}
+
+export class PersonDeleteSuccessAction implements Action {
+    readonly type = DELETE_PERSON_SUCCESS;
+    constructor(public payload: any) { }
+}
+
+export class PersonDeleteFailureAction implements Action {
+    readonly type = DELETE_PERSON_FAILURE;
+    constructor(public payload: any) { }
+}
+
 export class PersonClearMessageAction implements Action {
     readonly type = CLEAR_PERSON_MESSAGE;
 }
@@ -95,6 +113,9 @@ export type PersonActions =
     | PersonCreateSuccessAction
     | PersonCreateFailureAction
     | PersonClearMessageAction
+    | PersonDeleteAction
+    | PersonDeleteSuccessAction
+    | PersonDeleteFailureAction
     | PersonCalcGeoAction
     | PersonCalcGeoSuccessAction
     | PersonCalcGeoFailureAction;
