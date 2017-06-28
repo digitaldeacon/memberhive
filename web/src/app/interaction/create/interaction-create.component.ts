@@ -51,10 +51,11 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
     this._store.select(app.getAuthPersonId)
         .takeWhile(() => this._alive)
         .subscribe((uid: string) => this._authorId = uid);
-    this._store.select(app.getRouterPath)
+    /*this._store.select(app.getRouterPath)
         .takeWhile(() => this._alive)
-        .subscribe((p: any) => console.log(p));
+        .subscribe((p: any) => console.log(p));*/
 
+    // TODO: move these settings
     this.options = {
       interaction: {
         types: [

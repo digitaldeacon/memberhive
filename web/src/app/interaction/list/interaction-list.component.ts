@@ -28,13 +28,13 @@ export class InteractionListComponent implements OnInit {
 
     ngOnInit(): void {
         this.authorId = this.auth.getPersonId();
-        if (!this.interactions) {
+        /*if (!this.interactions) {
             this.route.params
                 .switchMap((params: Params) => this.interactionService.getInteractions(params['id']))
                 .subscribe((interactions: Array<Interaction>) => {
                     this.interactions = interactions;
                 });
-        }
+        }*/
     }
 
     iOwn(uid: string): boolean {
@@ -46,7 +46,7 @@ export class InteractionListComponent implements OnInit {
         if (!this.iOwn(interaction.authorId)) {
             return;
         }
-        this.interactionService.deleteInteraction(interaction)
+        /*this.interactionService.deleteInteraction(interaction)
             .subscribe(
                 (data: string) => {
                     this.interactions.splice(this.interactions.indexOf(interaction), 1);
@@ -57,6 +57,6 @@ export class InteractionListComponent implements OnInit {
                     this.shout.error('Error in interaction delete!');
                     return false;
                 }
-            );
+            );*/
     }
 }

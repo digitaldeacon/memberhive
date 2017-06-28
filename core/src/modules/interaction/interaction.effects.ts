@@ -26,7 +26,7 @@ export class InteractionEffects {
         .ofType(actions.LIST_INTERACTIONS)
         .map((action: actions.ListInteractionsAction) => action.payload)
         .switchMap((data: InteractionPayload) => {
-            console.log('from effects[I]', data);
+            // console.log('from effects[I]', data);
             return this.http.get('interaction/list?id=' + data.id
                 + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
                 .map((r: InteractionCollection) => new actions.ListInteractionsSuccessAction(r))
