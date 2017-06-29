@@ -52,7 +52,7 @@ export class ViewComponent implements OnInit, OnDestroy {
             title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
         },
         {
-            title: 'Person', route: '/person', icon: 'people'
+            title: 'People', route: '/person', icon: 'people'
         },
         /* {
             title: 'Events', route: '', icon: 'today'
