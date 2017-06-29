@@ -15,7 +15,7 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update', 'update-column', 'create','search','avatar-upload'],
+                    'actions' => ['list','get','update', 'delete', 'update-column', 'create','search','avatar-upload'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -210,6 +210,15 @@ class PersonController extends MHController
         } else {
             throw new BadRequestHttpException(json_encode($person->errors));
         }
+    }
+
+    public function actionDelete($id)
+    {
+        $person = $this->findModelByUID($id);
+        $result = $person->delete();
+        if ($result === false)
+            throw new BadRequestHttpException("Could not delete person with ID ".$id);
+        return true;
     }
 
     protected function findModel($id)

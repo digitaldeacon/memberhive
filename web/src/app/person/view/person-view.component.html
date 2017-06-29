@@ -48,6 +48,8 @@
             <button md-icon-button *ngIf="hasMap" (click)="openDlgMap()">
                 <md-icon>map</md-icon>
             </button>
+            <button md-button (click)="deletePerson()" fxHide.xs>
+                <md-icon>delete</md-icon> <span fxHide.xs i18n>Delete</span></button>
         </md-card-actions>
         <md-card-content>
             <md-tab-group>

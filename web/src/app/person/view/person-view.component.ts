@@ -130,7 +130,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     deletePerson(person: Person): void {
-        this._store.dispatch(new PersonDeleteAction(person));
+        this._store.dispatch(new PersonDeleteAction(this.person));
     }
 
     openDlgRelationships(): void {
