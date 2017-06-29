@@ -88,12 +88,12 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             })
             .mergeMap(() => this.person$)
             .subscribe((person: any) => {
-               if (person) {
+                if (person) {
                     this.person = person;
                     this._titleService.setTitle(this.person.fullName);
-                   if (person.address.home.hasOwnProperty('geocode')) {
+                    if (person.address.home.hasOwnProperty('geocode')) {
                        this.hasMap = Object.keys(person.address.home.geocode).length > 0;
-                   }
+                    }
                 }
             });
     }
@@ -195,7 +195,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 apiKey: this.settings.googleApiKey
             };
             if (this.settings.googleApiKey !== undefined) {
-                this._store.dispatch(new PersonCalcGeoAction(gcPayload))
+                this._store.dispatch(new PersonCalcGeoAction(gcPayload));
             } else {
                 this._shout.error('The API key is not yet saved. Go to settings and set a church address!');
             }
