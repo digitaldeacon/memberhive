@@ -30,6 +30,9 @@ class DemoController extends Controller
             $person->avatarUrlSmall = $item->picture->thumbnail;
             $person->avatarUrlMedium = $item->picture->medium;
             $person->avatarUrlBig = $item->picture->large;
+
+            $person->setAddressEmpty();
+
             if (!$person->save()) {
                 print_r($person->errors);
             }
