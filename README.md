@@ -20,10 +20,21 @@ Memberhive is a **church relationship management system** (CRMS). Our focus is f
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
+## DEMO Environment
+A demo environment can be found [here](https://m2.memberhive.com). The url might change later on again.
+username: _root_
+password: _bibel_
+
+**A few gotchas**:
++ The environment might contain errors that are being worked on (remember, we are not even ALPHA yet)
++ The images of the uploaded users are external images, so no image cropping will work
++ If you find an error **please report** this here on the issues pages
+
 ## High-Level Items for June
 _In order of importance_
 - [ ] State management (#79)
 - [ ] Dashboard: Interactions (#19, #60)
+- [x] Compression of dist files to gzip and brotli
 - [x] Maps: singe person (#23)
 - [ ] Maps: of all people in the db (#22)
 - [x] Person create (#95)
