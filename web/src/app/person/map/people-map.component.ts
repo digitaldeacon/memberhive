@@ -37,7 +37,8 @@ export class PeopleMapComponent implements OnDestroy {
         titleService.setTitle('People Map');
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
-                this.people = people.filter((p: Person) => !this.empty(p.address.home.geocode));
+                this.people = people.filter((p: Person) =>
+                    p.address.hasOwnProperty('home') && !this.empty(p.address.home.geocode));
                 for (let person of this.people) {
                     let marker: GeoMarker;
                     marker = {
