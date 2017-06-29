@@ -54,15 +54,15 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/838f0dfcd51150b6d148ae4e890d029f07a3d7b3"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/a38e976e198a43de8cb481fe2ac35d6fae1b2e16"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/c9040bd4dffab96c1555ad6a91e596e7cd757a0d"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/ebe2b30a91a2c926128c5021f98c1795923e9ec4"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/5a53e7f6b197d2f8a950d1f702a62769471ed6c9"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/279b4eeb36e5c7475098ad84cec322774fd37b9f"
 
 "@types/lodash.isequal@^4.5.1":
   version "4.5.1"
@@ -215,8 +215,8 @@ inherits@2:
   resolved "https://registry.yarnpkg.com/inherits/-/inherits-2.0.3.tgz#633c2c83e3da42a502f52466022480f4208261de"
 
 js-tokens@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.1.tgz#08e9f132484a2c45a30907e9dc4d5567b7f114d7"
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
 jsesc@~0.5.0:
   version "0.5.0"

@@ -1,5 +1,5 @@
 var gulp = require('gulp');
-var gzip = require('gulp-gzip');
+var zopfli = require('gulp-zopfli');
 var brotli = require('gulp-brotli');
 
 gulp.task('compress', function() {
@@ -7,6 +7,6 @@ gulp.task('compress', function() {
         .pipe(brotli.compress())
         .pipe(gulp.dest('./dist'));
     gulp.src(['./dist/*.js', './dist/*.css'])
-        .pipe(gzip())
+        .pipe(zopfli())
         .pipe(gulp.dest('./dist'));
 });
