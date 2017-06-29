@@ -106,8 +106,7 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
       model.authorId = this._authorId;
-      // this._interactionService.create(model);
-      this._store.dispatch(new AddInteractionAction(model))
+      this._store.dispatch(new AddInteractionAction(model));
       this.form.reset();
       this.returnRoute();
     }

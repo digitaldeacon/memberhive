@@ -11,7 +11,7 @@ class ImportController extends Controller
     private $_verb = 'updated';
 
     //Set the API Key as part of the call: e.g. yii import/elvanto-persons pOO7Pk....
-    public function actionElvantoPersons($api)
+    public function actionElvantoPeople($api)
     {
         $inserted = 0;
         $updated = 0;

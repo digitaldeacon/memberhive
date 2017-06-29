@@ -12,7 +12,7 @@ import {
     ListAction,
     ListSettingAction,
     ListInteractionsAction
-}from 'mh-core';
+} from 'mh-core';
 
 @Component({
     selector: 'mh-login',

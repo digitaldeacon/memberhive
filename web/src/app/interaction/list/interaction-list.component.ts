@@ -38,7 +38,7 @@ export class InteractionListComponent implements OnInit {
 
     // TODO: possibly remove with settings
     getType(t: string): string {
-        return this.types.filter((v) => v.type === t)[0].iconString;
+        return this.types.filter((v: any) => v.type === t)[0].iconString;
     }
 
     iOwn(uid: string): boolean {
