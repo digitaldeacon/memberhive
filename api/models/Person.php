@@ -77,7 +77,7 @@ class Person extends \yii\db\ActiveRecord
             'lastName' => $this->lastName,
             'middleName' => $this->middleName,
             'email' => $this->email,
-            'address' => $this->address ? json_decode($this->address) : ['home' => [], 'postal' => []],
+            'address' => $this->address ? json_decode($this->address) : $this->emptyAddress(),
             'gender' => $this->gender,
             'birthday' => $this->birthday,
             'baptized' => $this->baptized,
@@ -174,5 +174,28 @@ class Person extends \yii\db\ActiveRecord
             $insert,
             $changedAttributes
         );
+    }
+
+    private function emptyAddress()
+    {
+        return json_encode([
+            'home' => [
+                'street' => '',
+                'city' => '',
+                'zip' => '',
+                'geocode' => []
+            ],
+            'postal' => [
+                'street' => '',
+                'city' => '',
+                'zip' => '',
+                'geocode' => []
+            ]
+        ]);
+    }
+
+    public function setAddressEmpty()
+    {
+        $this->address = $this->emptyAddress();
     }
 }

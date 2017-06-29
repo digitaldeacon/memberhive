@@ -61,8 +61,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .takeWhile(() => this._alive)
             .subscribe((uid: string) => this.userUid = uid);
         this.person$ = this._store.select(app.getSelectedPerson);
-        /*this.person$.takeWhile(() => this._alive)
-            .subscribe((p: Person) => this.person = p);*/
         this.interactions$ = this._store.select(app.getInteractionsPerson);
         // this.interactions$.takeWhile(() => this._alive).subscribe(v => console.log('Person interactions', v));
         this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
@@ -93,9 +91,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                if (person) {
                     this.person = person;
                     this._titleService.setTitle(this.person.fullName);
-                    this.hasMap = person.address.home.geocode
-                        ? Object.keys(person.address.home.geocode).length > 0
-                        : false;
+                   if (person.address.home.hasOwnProperty('geocode')) {
+                       this.hasMap = Object.keys(person.address.home.geocode).length > 0;
+                   }
                 }
             });
     }
@@ -189,14 +187,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     private _calcGeoCodes(person: Person): void {
         let gcPayload: CalcGeoCodePayload;
-        if (person.address.home.street &&
-            person.address.home.zip &&
-            person.address.home.city) {
+        if ((person.address.home.street && person.address.home.street !== '') &&
+            (person.address.home.city && person.address.home.city !== '') &&
+            (person.address.home.zip && person.address.home.zip !== '')) {
             gcPayload = {
                 person: person,
                 apiKey: this.settings.googleApiKey
             };
-            this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+            if (this.settings.googleApiKey !== undefined) {
+                this._store.dispatch(new PersonCalcGeoAction(gcPayload))
+            } else {
+                this._shout.error('The API key is not yet saved. Go to settings and set a church address!');
+            }
         }
     }
 }
