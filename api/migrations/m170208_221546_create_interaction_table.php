@@ -19,7 +19,7 @@ class m170208_221546_create_interaction_table extends Migration
             'uid' => $this->string(36),
             'text' => $this->text(),
             'type' => $this->string(),
-            'ownerId' => $this->string(36),
+            'refId' => $this->string(36),
             'authorId' => $this->string(36),
             'dueOn' => $this->dateTime(),
             'isPrivate' => $this->boolean(),
@@ -29,9 +29,9 @@ class m170208_221546_create_interaction_table extends Migration
         );
 
         $this->createIndex(
-            'idx-interaction-ownerId',
+            'idx-interaction-refId',
             'interaction',
-            'ownerId'
+            'refId'
         );
 
         $this->createIndex(

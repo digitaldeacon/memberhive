@@ -21,7 +21,6 @@ import { MhFadeDirective } from './animations/fade/fade.directive';
 import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
 import { ShoutService } from './shout.service';
-import { InteractionService } from './interaction.service';
 
 import { AuthGuard } from './auth-guard.service';
 import { NotifyboxComponent } from './components/notifybox/notifybox.component';
@@ -53,8 +52,7 @@ const MATERIAL_MODULES: any[] = [
     providers: [
         Title,
         AuthGuard,
-        ShoutService,
-        InteractionService
+        ShoutService
     ],
     exports: [
         NotifyboxComponent,

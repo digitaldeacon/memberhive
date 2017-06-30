@@ -21,7 +21,6 @@ import { InteractionComponent } from './interaction.component';
 import { InteractionCreateComponent } from './create/interaction-create.component';
 import { InteractionListComponent } from './list/interaction-list.component';
 
-import { InteractionService } from './interaction.service';
 import { TitleService } from 'mh-core';
 
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
@@ -51,9 +50,6 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
         FormsModule,
         ReactiveFormsModule,
         InteractionRoutingModule
-    ],
-    providers: [
-        InteractionService
     ],
     exports: [
         InteractionListComponent,

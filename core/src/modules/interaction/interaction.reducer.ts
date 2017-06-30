@@ -40,15 +40,39 @@ action: actions.InteractionActions): InteractionState {
 
         case actions.ADD_INTERACTION_SUCCESS: {
             const interaction: Interaction = action.payload;
-            // console.log('from reducer[I]', action.payload);
+            let interactions: Interaction[] = [...state.interactions, interaction];
+            console.log('unsorted', interactions);
+            interactions.sort((i1: Interaction, i2: Interaction) => {
+                const left: Date = new Date(i1.createdAt);
+                const right: Date = new Date(i2.createdAt);
+                const now: Date = new Date();
+                left.setFullYear(now.getFullYear());
+                right.setFullYear(now.getFullYear());
+                return left.getTime() - right.getTime();
+            });
+            console.log('sorted', interactions);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                interactions: [...state.interactions, interaction]
+                interactions: interactions
+            });
+        }
+
+        case actions.DELETE_INTERACTION_SUCCESS: {
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully deleted this interaction'
+            };
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                message: message,
+                interactions: state.interactions.filter((i: Interaction) => i.id !== action.payload)
             });
         }
 
         case actions.LIST_INTERACTIONS_FAILURE:
+        case actions.DELETE_INTERACTION_FAILURE:
         case actions.UPDATE_INTERACTION_FAILURE:
         case actions.ADD_INTERACTION_FAILURE: {
             const message: common.Message = {
@@ -86,10 +110,3 @@ export const getInteractions: any = (state: InteractionState) => state.interacti
 export const getMyInteractions: any = (state: InteractionState) => state.myInteractions;
 
 const getSelectedId: any = (state: InteractionState) => state.forPersonId;
-
-export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedId, (interactions: any, selectedId: string) => {
-    return interactions.filter((interaction: Interaction) => {
-        console.log('I Reducer:', interaction);
-        return interaction.recipients.indexOf(selectedId) > -1;
-    });
-});

@@ -24,7 +24,8 @@ const initialState: SettingsState = {
         maritalStatus: ['single', 'engaged', 'married', 'widowed', 'separated', 'divorced']
     },
     system: {
-        churchName: 'Your Church'
+        churchName: 'Your Church',
+        googleApiKey: 'REDACTED_GOOGLE_API_KEY'
     },
     profile: {},
     dashboard: {}

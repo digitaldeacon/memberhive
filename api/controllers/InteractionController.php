@@ -65,9 +65,9 @@ class InteractionController extends MHController
             $interaction = $this->findModel($post['id']);
             if ($interaction->authorId == $post['author']) {
                 if (!$interaction->delete()) {
-                    return ['response' => json_encode($interaction->errors)];
+                    throw new BadRequestHttpException(json_encode($interaction->getFirstErrors()));
                 }
-                return ['response' => true];
+                return $post['id'];
             } else {
                 throw new BadRequestHttpException('This is not yours to delete!');
             }
@@ -136,7 +136,7 @@ class InteractionController extends MHController
             try {
                 $interaction->text = $post['text'];
                 $interaction->type = $post['type'];
-                $interaction->ownerId = $post['owner'];
+                $interaction->refId = $post['owner'];
                 $interaction->authorId = $post['authorId'];
                 $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
                 $interaction->isPrivate = isset($post['isPrivate']) ? intval($post['isPrivate']) : 0;
@@ -158,7 +158,7 @@ class InteractionController extends MHController
                         // new GroupInteraction();
                     }
                     $transaction->commit();
-                    return [$interaction->toResponseArray()];
+                    return $interaction->toResponseArray();
                 } else {
                     throw new BadRequestHttpException(json_encode($interaction->errors));
                 }
@@ -169,7 +169,7 @@ class InteractionController extends MHController
                 $transaction->rollBack();
                 throw new BadRequestHttpException(json_encode($interaction->errors));
             }
-            return [$interaction->toResponseArray()];
+            return $interaction->toResponseArray();
         } else {
             throw new BadRequestHttpException('No valid data was received');
         }
@@ -191,23 +191,6 @@ class InteractionController extends MHController
     {
         $ret = [];
         $noMarkup = isset($_GET['noMarkup']) ? boolval($_GET['noMarkup']) : true;
-        /*$interactions = Interaction::find()
-            ->where(['ownerId' => $id])
-            ->with('recipients', 'author')
-            ->orderBy(['updated_at'=>SORT_DESC])
-            ->all();*/
-        /*$people = Person::find()
-            ->where(['uid' => $id])
-            ->with('interactions')
-            ->all();*/
-        $r = '';
-        /*foreach ($people as $person) {
-            $r .= '[P]' . $person->fullname;
-            foreach ($person->interactions as $interaction) {
-                $r .= ' [I] ' . $interaction->text;
-                $ret[$person->uid][] = $interaction->toResponseArray($noMarkup);
-            }
-        }*/
         $interactions = Interaction::find()
             ->with('recipients', 'author')
             ->orderBy(['updated_at'=>SORT_DESC])

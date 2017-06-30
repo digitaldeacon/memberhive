@@ -1,23 +1,37 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import {
+    Component,
+    OnInit,
+    Input,
+    Output,
+    EventEmitter,
+    ChangeDetectionStrategy
+} from '@angular/core';
+import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
+import { MdDialog} from '@angular/material';
 
-import { Interaction } from '../interaction';
-import { InteractionService } from '../interaction.service';
-
-import { ShoutService } from '../../common/shout.service';
-import { AuthService } from 'mh-core';
-
-import { Person } from 'mh-core';
+import { AuthService, Person, Interaction } from 'mh-core';
 
 @Component({
     selector: 'mh-interaction-list',
     templateUrl: 'interaction-list.component.html',
-    styleUrls: ['interaction-list.component.scss', '../interaction-common.styles.scss']
+    styleUrls: ['interaction-list.component.scss', '../interaction-common.styles.scss'],
+    /*animations: [
+        trigger('signal', [
+            state('void', style({
+
+            })),
+            state('deleted', style({
+
+            })),
+            transition('void => deleted', animate('1s cubic-bezier(0.55, -0.04, 0.91, 0.94) forwards'))
+        ])
+    ],*/
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class InteractionListComponent implements OnInit {
     private authorId: string;
     @Input() interactions: Array<Interaction>;
+    @Output() deleteInteraction: EventEmitter<number> = new EventEmitter<number>();
 
     // TODO: move these to settings
     types: any[] = [
@@ -45,23 +59,10 @@ export class InteractionListComponent implements OnInit {
         return uid === this.authorId;
     }
 
-    // TODO: emit delete action to parent component
-    deleteInteraction(interaction: Interaction): void {
-
-        if (!this.iOwn(interaction.authorId)) {
+    delete(interaction: Interaction): void {
+        if (!this.iOwn(interaction.author.id)) {
             return;
         }
-        /*this.interactionService.deleteInteraction(interaction)
-            .subscribe(
-                (data: string) => {
-                    this.interactions.splice(this.interactions.indexOf(interaction), 1);
-                    this.shout.success('Interaction is deleted!');
-                    return true;
-                },
-                (error: any) => {
-                    this.shout.error('Error in interaction delete!');
-                    return false;
-                }
-            );*/
+        this.deleteInteraction.emit(interaction.id);
     }
 }

@@ -6,10 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
 import { MdDialog } from '@angular/material';
 
-// TODO: remove with interactions in store
-import { InteractionService } from '../common/interaction.service';
-import { Interaction } from '../interaction/interaction';
-
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import {
@@ -18,6 +14,7 @@ import {
     AuthService,
     SystemSettings,
     LayoutSettings,
+    Interaction,
     SettingsState,
     SignOutAction,
     ContextButton,
@@ -41,8 +38,7 @@ import {
             }))
         ])
     ],
-    // changeDetection: ChangeDetectionStrategy.OnPush,
-    providers: [InteractionService]
+    // changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;
@@ -76,7 +72,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     drawerVisible: boolean;
 
     constructor(private _authSrv: AuthService,
-                private _interactionService: InteractionService, // TODO: remove with store
                 private _router: Router,
                 private _store: Store<app.AppState>,
                 private _titleService: TitleService) {
@@ -142,7 +137,6 @@ export class ViewComponent implements OnInit, OnDestroy {
         this._router.navigate([r]);
     }
     createInteraction(): void {
-        this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);
     }
 }
