@@ -216,8 +216,9 @@ class PersonController extends MHController
     {
         $person = $this->findModelByUID($id);
         $result = $person->delete();
-        if ($result === false)
-            throw new BadRequestHttpException("Could not delete person with ID ".$id);
+        if ($result === false) {
+            throw new BadRequestHttpException('Could not delete person with ID ' . $id);
+        }
         return true;
     }
 

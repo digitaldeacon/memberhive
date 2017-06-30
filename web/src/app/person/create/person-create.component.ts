@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
+  Utils,
   TitleService,
   Person,
   Message,
@@ -70,9 +71,7 @@ export class PersonCreateComponent implements OnDestroy {
 
   private _calcGeoCodes(person: Person): void {
     let gcPayload: CalcGeoCodePayload;
-    if (person.address.home.street &&
-        person.address.home.zip &&
-        person.address.home.city) {
+    if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
       gcPayload = {
         person: person,
         apiKey: this.googleApiKey

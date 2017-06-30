@@ -34,12 +34,14 @@ export class PersonAddress {
     home: Address = {
         street: '',
         zip: '',
-        city: ''
+        city: '',
+        geocode: {}
     };
     postal: Address = {
         street: '',
         zip: '',
-        city: ''
+        city: '',
+        geocode: {}
     };
 
     constructor(input?: any) {

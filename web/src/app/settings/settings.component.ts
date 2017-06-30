@@ -120,7 +120,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     save(data: core.SettingsState): void {
         this._store.dispatch(new core.UpdateSettingAction(data));
-        if (this._addressComplete(data.system.churchAddress) &&
+        if (!core.Utils.objEmptyProperties(data.system, 'churchAddress', ['street', 'city', 'zip']) &&
             !isEqual(data.system.churchAddress, this.sysSettings.churchAddress)) {
             this._calcGeoCodes(data.system.churchAddress);
         }
@@ -168,9 +168,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    private _addressComplete(adr: core.Address): boolean {
-        return adr.city !== '' && adr.street !== '' && adr.zip !== '';
-    }
     private _initStore(): void {
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)

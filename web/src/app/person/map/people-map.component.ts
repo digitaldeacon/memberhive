@@ -8,11 +8,12 @@ import {
     TitleService,
     SystemSettings,
     GeoCodes,
+    Utils,
     GeoMarker,
     ContextButton,
     SetContextButtonsAction
 } from 'mh-core';
-import { ShoutService } from "../../common/shout.service";
+import { ShoutService } from '../../common/shout.service';
 
 @Component({
     selector: 'mh-people-map',
@@ -38,7 +39,7 @@ export class PeopleMapComponent implements OnDestroy {
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
-                    p.address.hasOwnProperty('home') && !this.empty(p.address.home.geocode));
+                    !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
                 for (let person of this.people) {
                     let marker: GeoMarker;
                     marker = {
@@ -72,7 +73,9 @@ export class PeopleMapComponent implements OnDestroy {
 
     setInitMarker(): void {
         this.initMarker = {
-            latlng: this.settings.churchAddress.hasOwnProperty('geocode') ? this.settings.churchAddress.geocode : undefined,
+            latlng: !Utils.objEmptyProperties(this.settings, 'churchAddress', 'geocode')
+                ? this.settings.churchAddress.geocode
+                : undefined,
             title: this.settings.churchName,
             // icon: 'assets/icons/blue-dot.png',
             info: {
