@@ -30,16 +30,15 @@ password: _bibel_
 + The images of the uploaded users are external images, so no image cropping will work
 + If you find an error **please report** this here on the issues pages
 
-## High-Level Items for June
+## High-Level Items for July & August
 _In order of importance_
-- [ ] State management (#79)
+- [ ] Interaction State management (#79)
 - [ ] Dashboard: Interactions (#19, #60)
-- [x] Compression of dist files to gzip and brotli
-- [x] Maps: singe person (#23)
-- [ ] Maps: of all people in the db (#22)
-- [x] Person create (#95)
-- [x] Settings (#31, #67)
-- [x] Addressing bugs and shoring up person related components (edit, list, create)
+- [ ] Person delete (#122)
+- [ ] Person status and tags (#46)
+- [ ] Person family (#123)
+- [ ] Person relations (#25)
+- [ ] Tests for settings (#37)
 
 ## Development Philosophy
 We want to keep this project simple (even though it will be large) and maintainable. For that reason
