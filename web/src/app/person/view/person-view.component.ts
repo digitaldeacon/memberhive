@@ -188,6 +188,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     private _calcGeoCodes(person: Person): void {
         let gcPayload: CalcGeoCodePayload;
+        console.log(person.address, Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip']));
         if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
             gcPayload = {
                 person: person,

@@ -71,7 +71,7 @@ export class PersonEffects {
             let address: PersonAddress = payload.person.address;
             let response: GeoCodes;
 
-            if (!Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
+            if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
                 return empty();
             }
 
