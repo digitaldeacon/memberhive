@@ -123,7 +123,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getMyInteractions()
     {
-        return $this->hasMany(Interaction::className(), ['uid' => 'ownerId']);
+        return $this->hasMany(Interaction::className(), ['uid' => 'refId']);
     }
 
     /**

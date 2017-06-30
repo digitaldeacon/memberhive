@@ -14,12 +14,13 @@ import {
     CalcGeoCodePayload,
     TitleService,
     GetInteractionsPersonAction,
+    ClearInteractionMessageAction,
     PersonViewAction,
     PersonUpdateAction,
     PersonDeleteAction,
     PersonClearMessageAction,
     PersonCalcGeoAction,
-    ListInteractionsAction
+    DeleteInteractionAction
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -32,8 +33,8 @@ import { ShoutService } from '../../common/shout.service';
     moduleId: 'mh-person',
     selector: 'mh-person-view',
     templateUrl: './person-view.component.html',
-    styleUrls: ['./person-view.component.scss']
-    // changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrls: ['./person-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;
@@ -76,7 +77,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                     this._shout.out(message.text, message.type)
                     .afterDismissed()
                      .take(1)
-                     .subscribe(() => this._store.dispatch(new PersonClearMessageAction()));
+                     .subscribe(() => {
+                        this._store.dispatch(new PersonClearMessageAction());
+                         this._store.dispatch(new ClearInteractionMessageAction())
+                     });
                 }
         });
     }
@@ -127,9 +131,12 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.dispatch(new PersonUpdateAction(person));
         this._calcGeoCodes(person);
     }
-
     deletePerson(): void {
         this._store.dispatch(new PersonDeleteAction(this.person));
+    }
+
+    deleteInteraction(interactionId: number): void {
+        this._store.dispatch(new DeleteInteractionAction(interactionId));
     }
 
     openDlgRelationships(): void {
@@ -181,23 +188,21 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     createInteraction(): void {
-        // this._interactionService.init(this.person);
-        // this._interactionService.setLastRoute(this._router.url);
         this._router.navigate(['/interaction/create']);
     }
 
     private _calcGeoCodes(person: Person): void {
         let gcPayload: CalcGeoCodePayload;
-        console.log(person.address, Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip']));
         if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
             gcPayload = {
                 person: person,
                 apiKey: this.settings.googleApiKey
             };
-            if (this.settings.googleApiKey !== undefined) {
+            if (!Utils.objEmptyProperties(this.settings, 'googleApiKey')) {
                 this._store.dispatch(new PersonCalcGeoAction(gcPayload));
             } else {
-                this._shout.error('The API key is not yet saved. Go to settings and set a church address!');
+                this._shout.error('There is no Google API key present. Go to settings and set one.');
+                // console.log(this.settings, 'There is no Google API key present. Go to settings and set one.');
             }
         }
     }

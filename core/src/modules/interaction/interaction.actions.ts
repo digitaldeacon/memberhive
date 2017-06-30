@@ -52,7 +52,7 @@ export class AddInteractionFailureAction implements Action {
 }
 export class DeleteInteractionAction implements Action {
     readonly type = DELETE_INTERACTION;
-    constructor(public payload: any) { }
+    constructor(public payload: number) { }
 }
 export class DeleteInteractionSuccessAction implements Action {
     readonly type = DELETE_INTERACTION_SUCCESS;

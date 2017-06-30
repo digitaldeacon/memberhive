@@ -1,18 +1,12 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 
-import { Interaction } from '../interaction';
-import { InteractionService } from '../../common/interaction.service';
-
 import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
-import { Person, TitleService, AddInteractionAction } from 'mh-core';
-
-import { ShoutService } from '../../common/shout.service';
+import { Interaction, Person, TitleService, AddInteractionAction } from 'mh-core';
 
 @Component({
   selector: 'mh-interaction-create',
@@ -41,16 +35,16 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
   constructor(titleService: TitleService,
               private _fb: FormBuilder,
               private _auth: AuthService,
-              private _shout: ShoutService,
-              private _interactionService: InteractionService,
               private _store: Store<app.AppState>,
-              private _location: Location,
-              private _router: Router) {
+              private _location: Location) {
     titleService.setTitle('Create Interaction');
     this.people$ = this._store.select(app.getPeople);
     this._store.select(app.getAuthPersonId)
         .takeWhile(() => this._alive)
         .subscribe((uid: string) => this._authorId = uid);
+    this._store.select(app.getSelectedPerson)
+        .takeWhile(() => this._alive)
+        .subscribe((p: Person) => this._refPerson = p);
 
     // TODO: move these settings
     this.options = {
@@ -127,7 +121,7 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
     /*
     if (this.dialogData.interaction) {
       this.interaction = this.dialogData.interaction;
-      this.form.get('owner').setValue(this.interaction.ownerId);
+      this.form.get('owner').setValue(this.interaction.refId);
       this.form.get('text').setValue(this.interaction.text);
       this.form.get('type').setValue(this.interaction.typeId);
       this.form.get('recipients').setValue(this.interaction.recipients);

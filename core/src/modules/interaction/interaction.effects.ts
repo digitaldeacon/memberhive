@@ -14,34 +14,45 @@ import { Effect, Actions, toPayload } from '@ngrx/effects';
 import * as actions from './interaction.actions';
 import { Interaction, InteractionPayload, InteractionCollection } from './interaction.model';
 import { HttpService } from '../../services/http.service';
+import { AuthService } from '../../modules/auth/auth.service';
 
 @Injectable()
 export class InteractionEffects {
-    constructor(private actions$: Actions,
-                private http: HttpService) {
+    constructor(private _actions$: Actions,
+                private _http: HttpService,
+                private _auth: AuthService) {
     }
 
     @Effect()
-    getInteractions$ = this.actions$
+    getInteractions$ = this._actions$
         .ofType(actions.LIST_INTERACTIONS)
         .map((action: actions.ListInteractionsAction) => action.payload)
         .switchMap((data: InteractionPayload) => {
-            // console.log('from effects[I]', data);
-            return this.http.get('interaction/list?')// + data.id
+            return this._http.get('interaction/list?')// + data.id
                 // + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
                 .map((r: Interaction[]) => {
-                    console.log('from effect', r);
                     return new actions.ListInteractionsSuccessAction(r);
                 })
                 .catch((r: any) => of(new actions.ListInteractionsFailureAction(r)));
         });
 
     @Effect()
-    addInteraction$ = this.actions$
+    addInteraction$ = this._actions$
         .ofType(actions.ADD_INTERACTION)
         .map((action: actions.AddInteractionAction) => action.payload)
-        .switchMap((data: Interaction) => this.http.post('interaction/create-person', data)
+        .switchMap((data: Interaction) => this._http.post('interaction/create-person', data)
             .map((r: Interaction) => new actions.AddInteractionSuccessAction(r))
             .catch((r: any) => of(new actions.AddInteractionFailureAction(r)))
+        );
+
+    @Effect()
+    deleteInteraction$ = this._actions$
+        .ofType(actions.DELETE_INTERACTION)
+        .map((action: actions.DeleteInteractionAction) => action.payload)
+        .switchMap((interactionId: number) => this._http.post('interaction/delete', {
+            id: interactionId, author: this._auth.getPersonId()
+            })
+            .map((r: any) => new actions.DeleteInteractionSuccessAction(r))
+            .catch((r: any) => of(new actions.DeleteInteractionFailureAction(r)))
         );
 }

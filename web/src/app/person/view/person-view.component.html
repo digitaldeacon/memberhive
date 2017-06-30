@@ -54,7 +54,9 @@
         <md-card-content>
             <md-tab-group>
                 <md-tab label="Interactions">
-                    <mh-interaction-list [interactions]="interactions$ | async"></mh-interaction-list>
+                    <mh-interaction-list
+                            [interactions]="interactions$ | async"
+                            (deleteInteraction)="deleteInteraction($event)"></mh-interaction-list>
                 </md-tab>
                 <md-tab label="Edit">
                    <mh-person-form

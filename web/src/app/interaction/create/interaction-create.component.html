@@ -13,7 +13,9 @@
       <mh-tinymce [elementId]="'interaction-editor'"
                   [inline]="false"
                   formControlName="text"></mh-tinymce>
-      <md-error *ngIf="!form.get('text').valid && !form.get('text').pristine" i18n>
+      <md-error *ngIf="!form.get('text').valid && !form.get('text').pristine"
+                class="mat-input-wrapper m-b-10"
+                i18n>
         A text is required
       </md-error>
 

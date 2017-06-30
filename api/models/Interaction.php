@@ -12,7 +12,7 @@ use \aracoool\uuid\UuidBehavior;
  * @property string $title
  * @property string $text
  * @property int $typeId
- * @property string $ownerId
+ * @property string $refId
  * @property int $isPrivate
  * @property string $createdAt
  * @property string $updatedAt
@@ -45,11 +45,11 @@ class Interaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text','ownerId','type','authorId'], 'required'],
+            [['text','refId','type','authorId'], 'required'],
             [['text','type'], 'string'],
             [['isPrivate'], 'integer'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
-            [['ownerId', 'authorId'], 'string', 'max' => 36],
+            [['refId', 'authorId'], 'string', 'max' => 36],
             ['uid', '\aracoool\uuid\UuidValidator']
         ];
     }
@@ -63,7 +63,7 @@ class Interaction extends \yii\db\ActiveRecord
             'id' => 'ID',
             'text' => 'Text',
             'type' => 'Type',
-            'ownerId' => 'Owner ID',
+            'refId' => 'Owner ID',
             'authorId' => 'Author ID', // who created this
             'isPrivate' => 'Is Private',
             'created_at' => 'Created At',
@@ -73,7 +73,7 @@ class Interaction extends \yii\db\ActiveRecord
 
     public function getOwner()
     {
-        return $this->hasOne(Person::className(), ['uid' => 'ownerId']);
+        return $this->hasOne(Person::className(), ['uid' => 'refId']);
     }
 
     public function getAuthor()
@@ -116,7 +116,7 @@ class Interaction extends \yii\db\ActiveRecord
                 'name' => isset($this->author) ? $this->author->fullName : '',
                 'avatar' => isset($this->author->avatar) ? $this->author->avatar : ''
             ],
-            'ownerId' => $this->ownerId,
+            'refId' => $this->refId,
             'type' => $this->type,
             'dueOn' => $this->dueOn,
             'isPrivate' => $this->isPrivate,
