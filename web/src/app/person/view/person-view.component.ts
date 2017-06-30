@@ -79,7 +79,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                      .take(1)
                      .subscribe(() => {
                         this._store.dispatch(new PersonClearMessageAction());
-                         this._store.dispatch(new ClearInteractionMessageAction())
+                        this._store.dispatch(new ClearInteractionMessageAction());
                      });
                 }
         });

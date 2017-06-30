@@ -42,10 +42,10 @@ export class DashletInteractionsComponent implements OnInit, OnChanges {
     }
 
     complete(id: number | string, checked: boolean): void {
-        //this._interactionService.complete(id, checked);
+        // this._interactionService.complete(id, checked);
     }
 
     delete(interaction: Interaction): void {
-        //this._interactionService.remove(interaction.id);
+        // this._interactionService.remove(interaction.id);
     }
 }

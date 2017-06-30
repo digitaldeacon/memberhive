@@ -37,8 +37,8 @@ import {
                 'max-width': '75px'
             }))
         ])
-    ],
-    // changeDetection: ChangeDetectionStrategy.OnPush
+    ]
+    // ,changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnInit, OnDestroy {
     private _alive: boolean = true;
