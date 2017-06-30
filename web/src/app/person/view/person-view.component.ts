@@ -10,6 +10,7 @@ import {
     Interaction,
     Message,
     GeoMarker,
+    Utils,
     CalcGeoCodePayload,
     TitleService,
     GetInteractionsPersonAction,
@@ -91,9 +92,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 if (person) {
                     this.person = person;
                     this._titleService.setTitle(this.person.fullName);
-                    if (person.address.hasOwnProperty('home') && person.address.home.hasOwnProperty('geocode')) {
-                       this.hasMap = person.address.hasOwnProperty('home') && Object.keys(person.address.home.geocode).length > 0;
-                    }
+                    this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');
                 }
             });
     }
@@ -129,7 +128,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._calcGeoCodes(person);
     }
 
-    deletePerson(person: Person): void {
+    deletePerson(): void {
         this._store.dispatch(new PersonDeleteAction(this.person));
     }
 
@@ -141,12 +140,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     openDlgMap(): void {
-        if (!this.person.address.hasOwnProperty('home'))
-            return;
-
         const config: MdDialogConfig = new MdDialogConfig();
         const personMarker: GeoMarker = {
-            latlng: this.person.address.home.geocode,
+            latlng: !Utils.objEmptyProperties(this.person.address, 'home', 'geocode')
+                ? this.person.address.home.geocode
+                : undefined,
             title: this.person.fullName,
             info: {
                 title: this.person.fullName,
@@ -189,13 +187,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     private _calcGeoCodes(person: Person): void {
-        if (person.address.hasOwnProperty('home'))
-            return;
-
         let gcPayload: CalcGeoCodePayload;
-        if ((person.address.home.street && person.address.home.street !== '') &&
-            (person.address.home.city && person.address.home.city !== '') &&
-            (person.address.home.zip && person.address.home.zip !== '')) {
+        if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
             gcPayload = {
                 person: person,
                 apiKey: this.settings.googleApiKey

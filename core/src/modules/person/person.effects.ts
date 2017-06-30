@@ -16,6 +16,7 @@ import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { HttpService } from '../../services/http.service';
 import { GeocodeService } from '../../services/geocode.service';
 import { GeoCodes } from '../../common/common.model';
+import { Utils } from '../../common/common.utils';
 
 @Injectable()
 export class PersonEffects {
@@ -70,9 +71,7 @@ export class PersonEffects {
             let address: PersonAddress = payload.person.address;
             let response: GeoCodes;
 
-            if (!address.home.street &&
-                !address.home.zip &&
-                !address.home.city) {
+            if (!Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
                 return empty();
             }
 
