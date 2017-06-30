@@ -91,8 +91,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 if (person) {
                     this.person = person;
                     this._titleService.setTitle(this.person.fullName);
-                    if (person.address.home.hasOwnProperty('geocode')) {
-                       this.hasMap = Object.keys(person.address.home.geocode).length > 0;
+                    if (person.address.hasOwnProperty('home') && person.address.home.hasOwnProperty('geocode')) {
+                       this.hasMap = person.address.hasOwnProperty('home') && Object.keys(person.address.home.geocode).length > 0;
                     }
                 }
             });
@@ -130,7 +130,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     deletePerson(person: Person): void {
-        this._store.dispatch(new PersonDeleteAction(person));
+        this._store.dispatch(new PersonDeleteAction(this.person));
     }
 
     openDlgRelationships(): void {
@@ -141,6 +141,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     openDlgMap(): void {
+        if (!this.person.address.hasOwnProperty('home'))
+            return;
+
         const config: MdDialogConfig = new MdDialogConfig();
         const personMarker: GeoMarker = {
             latlng: this.person.address.home.geocode,
@@ -186,6 +189,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     private _calcGeoCodes(person: Person): void {
+        if (person.address.hasOwnProperty('home'))
+            return;
+
         let gcPayload: CalcGeoCodePayload;
         if ((person.address.home.street && person.address.home.street !== '') &&
             (person.address.home.city && person.address.home.city !== '') &&

@@ -59,7 +59,7 @@ export class PersonFormComponent implements OnInit {
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
-            if (person.address.home.hasOwnProperty('geocode')) {
+            if (person.address.hasOwnProperty('home') && person.address.home.hasOwnProperty('geocode')) {
                 this.hasMap = Object.keys(person.address.home.geocode).length > 0;
             }
         }

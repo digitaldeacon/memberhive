@@ -11,12 +11,15 @@
                 <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}">
             </a>
             <md-card-title-group>
+                <!--
+                TODO: Tags
                 <md-card-title>
                     <md-chip-list>
                         <md-chip>Mitglied</md-chip>
                         <md-chip>Begrüßungsdienst</md-chip>
                     </md-chip-list>
                 </md-card-title>
+                -->
                 <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column">
                     <div><md-icon>cake</md-icon>{{person?.birthday | date: 'longDate'}}</div>
                     <div><md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
@@ -25,9 +28,12 @@
                     <div *ngIf="person?.maritalStatus"><md-icon>favorite</md-icon>{{person?.maritalStatus}}</div>
                     <div *ngIf="person?.baptized"><md-icon>opacity</md-icon>{{person?.baptized | date: 'longDate'}}</div>
                 </md-card-subtitle>
+                <!--
+                TODO: Relations
                 <md-card-subtitle>
                     <md-icon>loyalty</md-icon> <a href="#">Thomas Hochstetter</a> (mentor), <a href="#">Marco Bartholomä</a> (friend)
                 </md-card-subtitle>
+                -->
             </md-card-title-group>
         </md-card-header>
         <md-card-actions>
@@ -42,6 +48,8 @@
             <button md-icon-button *ngIf="hasMap" (click)="openDlgMap()">
                 <md-icon>map</md-icon>
             </button>
+            <button md-button (click)="deletePerson()" fxHide.xs>
+                <md-icon>delete</md-icon> <span fxHide.xs i18n>Delete</span></button>
         </md-card-actions>
         <md-card-content>
             <md-tab-group>
@@ -54,12 +62,11 @@
                            [settings]="settings"
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </md-tab>
-                <md-tab label="Family" i18n-label>
-
-                </md-tab>
-                <md-tab label="Groups" i18n-label>
-
-                </md-tab>
+                <!--
+                TODO: Family & Group tabs
+                <md-tab label="Family" i18n-label></md-tab>
+                <md-tab label="Groups" i18n-label></md-tab>
+                -->
                 <md-tab label="Logs" i18n-label>
                     <mh-audit-log [person]="person"></mh-audit-log>
                 </md-tab>
