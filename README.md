@@ -60,11 +60,11 @@ See also *Dependencies* below.
 
 ## Dependencies
 - Angular (v4.0.0, with angular/cli and AOT compilation)
-- Ionic (v2)
+- Ionic2
 - Yii2
-- Typescript2 (2.2.1)
+- Typescript
 - MariaDB/MySQL
-- PHP7 (7.0)
+- PHP7
 - Material2 (using angular/flex-layout)
 - NgRX (Redux-like state management)
 
@@ -98,19 +98,21 @@ You have two choices for a manager: ***npm*** or ***yarn***.
 In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). 
 Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
 
-## Installation
-If you are on a *nix based system (including OS X) you should use nvm to install NPM versions. Checkout the github 
-repo for detailed installation instructions concerning your environment (https://github.com/creationix/nvm).
+Since NPMv5 the speed has improved and a lockfile is also produced. So, the choice is yours.
 
-Also checkout the latest node LTS version (currently 6.9.x): https://nodejs.org/en/download/.
-This repo has been checked against Node v.7.7.1 (npm v.4.4.1).
+## Installation
+If you are on a *nix based system (including OS X) you should use [nvm]((https://github.com/creationix/nvm)) to install NPM versions. 
+Checkout the github repo for detailed installation instructions concerning your environment.
+
+We encourage you to use the latest NPM version (currently 8.x branch), until further notice. Version 8 will enter 
+LTS state later this year. NPM v5 is included in the 8.x branch.
 
 ```
-curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh | bash
-nvm install 6.9
-nvm use 6.9
-nvm alias default 6.9
-npm i -g angular-cli@latest typescript@2.2.1 tslint
+curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
+nvm install 8.1.3
+nvm use 8.1
+nvm alias default 8.1
+npm i -g angular-cli@latest typescript@2.3.4 tslint
 git clone git@github.com:digitaldeacon/memberhive2.git
 cd memberhive2
 cd api 
@@ -144,7 +146,7 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 + first uninstall the cli globally
 + clean your npm cache
 + add the latest version of angular-cli back in (globally)
-+ make sure that you have your global TypeScript up to 2.2.1 (in case you have one globally installed)
++ make sure that you have your global TypeScript up to 2.3.4 (in case you have one globally installed)
 + remove your old (or any!) __node_modules__ folder
 + in case you used yarn before, make sure you **do not** have a .yarnclean file
 + reinstall (via ***npm*** or ***yarn*** - see above)
