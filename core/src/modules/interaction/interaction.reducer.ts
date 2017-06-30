@@ -88,5 +88,8 @@ export const getMyInteractions: any = (state: InteractionState) => state.myInter
 const getSelectedId: any = (state: InteractionState) => state.forPersonId;
 
 export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedId, (interactions: any, selectedId: string) => {
-    return interactions.filter((interaction: Interaction) => interaction.recipients.indexOf(selectedId) > -1);
+    return interactions.filter((interaction: Interaction) => {
+        console.log('I Reducer:', interaction);
+        return interaction.recipients.indexOf(selectedId) > -1;
+    });
 });
