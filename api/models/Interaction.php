@@ -45,7 +45,7 @@ class Interaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text','ownerId','typeId','authorId'], 'required'],
+            [['text','ownerId','type','authorId'], 'required'],
             [['text','type'], 'string'],
             [['isPrivate'], 'integer'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],

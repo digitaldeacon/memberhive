@@ -6,7 +6,7 @@ namespace app\models;
  * This is the model class for table "person_interaction".
  *
  * @property int $person_id
- * @property int $note_id
+ * @property int $interaction_id
  * @property string $doneOn
  * @property int $completedBy
  * @property string $completedOn
@@ -33,11 +33,11 @@ class PersonInteraction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['person_id', 'note_id'], 'required'],
-            [['person_id', 'note_id', 'completedBy', 'delegatedBy'], 'integer'],
+            [['person_id', 'interaction_id'], 'required'],
+            [['person_id', 'interaction_id', 'completedBy', 'delegatedBy'], 'integer'],
             [['doneOn', 'completedOn', 'delegatedOn'], 'safe'],
             [['response'], 'string', 'max' => 255],
-            [['note_id'], 'exist', 'skipOnError' => true,
+            [['interaction_id'], 'exist', 'skipOnError' => true,
                 'targetClass' => Interaction::className(),
                 'targetAttribute' => ['interaction_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true,
