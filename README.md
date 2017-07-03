@@ -35,6 +35,7 @@ _In order of importance_
 - [ ] Interaction State management (#79)
 - [ ] Dashboard: Interactions (#19, #60)
 - [ ] Person delete (#122)
+- [ ] RBAC (#139)
 - [ ] Person status and tags (#46)
 - [ ] Person family (#123)
 - [ ] Person relations (#25)
