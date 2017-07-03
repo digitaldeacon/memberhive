@@ -1,10 +1,9 @@
 <div class="interactions" *ngIf="interactions">
     <md-card *ngFor="let interaction of interactions">
         <md-card-header fxLayout="row">
+            <md-icon md-card-avatar>{{getType(interaction.type)}}</md-icon>
             <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
-                <md-icon md-card-avatar>{{getType(interaction.type)}}</md-icon>
-                {{interaction.updatedAt | date: 'medium'}}
-                - <span i18n>by</span>
+                {{interaction.updatedAt | date: 'medium'}} - &nbsp; <span i18n>by</span> &nbsp;
                 <a *ngIf="!iOwn(interaction.author.id)" [routerLink]="['/person/view', interaction.author.id]">
                     {{interaction.author.name}}
                 </a>
@@ -12,7 +11,7 @@
             </div>
             <button md-icon-button [mdMenuTriggerFor]="interactionmenu"><md-icon>more_vert</md-icon></button>
             <md-menu #interactionmenu="mdMenu">
-                <button md-menu-item (click)="openDlgInteractions(interaction)">
+                <button md-menu-item [routerLink]="['/interaction/edit', interaction.uid]">
                     <md-icon>edit</md-icon>
                     <span i18n>Edit</span>
                 </button>

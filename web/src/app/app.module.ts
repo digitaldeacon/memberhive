@@ -48,18 +48,15 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
     ],
     imports: [
         BrowserModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpModule,
-        AppMaterialModule,
         BrowserAnimationsModule,
-
-        AppMaterialModule,
+        HttpModule,
         AppRoutingModule,
         MHCoreModule,
 
         // StoreModule.forRoot(reducers, { reducerFactory: debugReducerFactory }),
         StoreModule.forRoot(reducers),
+        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
+
         StoreRouterConnectingModule,
 
         EffectsModule.forRoot([
@@ -69,11 +66,14 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
             InteractionEffects
         ]),
 
-        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
+        FormsModule,
+        ReactiveFormsModule,
 
+        AppMaterialModule,
         MHCommonModule,
+
         SearchModule,
-        InteractionModule
+        InteractionModule,
     ],
     bootstrap: [AppComponent]
 })

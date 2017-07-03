@@ -3,9 +3,6 @@ import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
-import { ShoutService } from '../common/shout.service';
-import { MdDialog } from '@angular/material';
-
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import {
@@ -116,27 +113,27 @@ export class ViewComponent implements OnInit, OnDestroy {
         };
         this._store.dispatch(new UpdateSettingAction(payload));
     }
+
     closeDrawer(): void {
         const payload: SettingsState = {
             layout: {showDrawer: false}
         };
         this._store.dispatch(new UpdateSettingAction(payload));
     }
+
     drawerWidth(): string {
         return this.drawerVisible ? '220px' : '75px';
-    }
-
-    isActiveItem(module: any): boolean {
-        return this._titleService.getModule() === module;
     }
 
     getTitle(): string {
         return this._titleService.getTitle();
     }
-    route(r: string): void {
-        this._router.navigate([r]);
-    }
-    createInteraction(): void {
-        this._router.navigate(['/interaction/create']);
+
+    route(r: string, part: string = undefined): void {
+        if (part) {
+            this._router.navigate([r, part]);
+        } else {
+            this._router.navigate([r]);
+        }
     }
 }

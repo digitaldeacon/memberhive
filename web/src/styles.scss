@@ -15,8 +15,8 @@ mh-app {
   width: 100%;
 }
 .mat-raised-button.mh-submit {
-  background: mat-color($mh-app-green, 500) !important;
-  color: #ffffff !important;
+  background: mat-color($mh-app-green, 500);
+  color: #ffffff;
   margin: 10px 0 !important;
   font-weight: 800 !important;
 }

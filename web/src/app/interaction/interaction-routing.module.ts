@@ -12,7 +12,8 @@ const routes: Routes = [
         children: [
             {path: '', component: InteractionListComponent},
             {path: 'list', component: InteractionListComponent},
-            {path: 'create', component: InteractionCreateComponent}
+            {path: 'create', component: InteractionCreateComponent},
+            {path: 'edit/:id', component: InteractionCreateComponent}
         ]
     }
 

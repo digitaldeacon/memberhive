@@ -115,7 +115,7 @@
         <md-nav-list>
             <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
                 <a md-list-item
-                   (click)="route(item.route)"
+                   routerLink="item.route"
                    (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
             </ng-template>
         </md-nav-list>
@@ -145,7 +145,7 @@
                     </md-list-item>
                 </md-nav-list>
                 <md-divider></md-divider>
-                <a md-menu-item (click)="createInteraction()" i18n>Create Interaction</a>
+                <a md-menu-item routerLink="/interaction/create" i18n>Create Interaction</a>
             </md-menu>
 
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
@@ -164,7 +164,7 @@
         <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
             <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
                 <md-nav-list>
-                    <a md-list-item>
+                    <a md-list-item (click)="route('/person/view', currentUser?.uid)">
                         <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
                         <h4 md-line *ngIf="drawerVisible">{{currentUser?.firstName}}</h4>
                     </a>
@@ -174,8 +174,8 @@
             <md-nav-list mh-sidenav-content>
                 <a *ngFor="let item of routes"
                    md-list-item
-                   (click)="route(item.route)"
-                   [ngClass]="{'active-list-item': isActiveItem(item.title) }">
+                   routerLink="{{item.route}}"
+                   routerLinkActive="active-list-item">
                     <md-icon md-list-icon>{{item.icon}}</md-icon>
                     <h4 md-line>{{item.title}}</h4>
                 </a>
