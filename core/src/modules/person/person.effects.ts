@@ -39,7 +39,7 @@ export class PersonEffects {
     updatePerson$ = this.actions$
         .ofType(actions.UPDATE_PERSON)
         .map((action: actions.PersonUpdateAction) => action.payload)
-        .switchMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
+        .mergeMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
             .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
             .catch((r: any) => of(new actions.PersonUpdateFailureAction(r)))
         );
