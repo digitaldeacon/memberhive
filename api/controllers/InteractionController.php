@@ -139,19 +139,21 @@ class InteractionController extends MHController
                 $interaction->refId = $post['owner'];
                 $interaction->authorId = $post['authorId'];
                 $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
-                $interaction->isPrivate = isset($post['isPrivate']) ? intval($post['isPrivate']) : 0;
+                $interaction->visibility = isset($post['visibility']) ? $post['visibility'] : null;
                 if ($interaction->save()) {
                     if ($this->interactionType == 'person') {
                         if (!$insert && $interaction->id) {
                             PersonInteraction::deleteAll(['interaction_id'=>$interaction->id]);
                         }
-                        foreach ($post['recipients'] as $recipient) {
-                            $junction = new PersonInteraction();
-                            $junction->interaction_id = $interaction->id;
-                            $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
-                            if (!$junction->save()) {
-                                $transaction->rollBack();
-                                throw new BadRequestHttpException(json_encode($junction->errors));
+                        if (isset($post['recipients']) && !empty($post['recipients'])) {
+                            foreach ($post['recipients'] as $recipient) {
+                                $junction = new PersonInteraction();
+                                $junction->interaction_id = $interaction->id;
+                                $junction->person_id = Person::findOne(['uid'=>$recipient])->id;
+                                if (!$junction->save()) {
+                                    $transaction->rollBack();
+                                    throw new BadRequestHttpException(json_encode($junction->getFirstErrors()));
+                                }
                             }
                         }
                     } elseif ($this->interactionType == 'group') {
@@ -160,14 +162,14 @@ class InteractionController extends MHController
                     $transaction->commit();
                     return $interaction->toResponseArray();
                 } else {
-                    throw new BadRequestHttpException(json_encode($interaction->errors));
+                    throw new BadRequestHttpException(json_encode($interaction->getFirstErrors()));
                 }
             } catch (\Exception $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException(json_encode($e));
+                throw new BadRequestHttpException(json_encode($interaction->getFirstErrors()));
             } catch (\Throwable $e) {
                 $transaction->rollBack();
-                throw new BadRequestHttpException(json_encode($interaction->errors));
+                throw new BadRequestHttpException(json_encode($interaction->getFirstErrors()));
             }
             return $interaction->toResponseArray();
         } else {

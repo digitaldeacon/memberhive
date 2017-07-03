@@ -22,7 +22,7 @@ class m170208_221546_create_interaction_table extends Migration
             'refId' => $this->string(36),
             'authorId' => $this->string(36),
             'dueOn' => $this->dateTime(),
-            'isPrivate' => $this->boolean(),
+            'visibility' => $this->string(),
             'created_at' => $this->integer(11),
             'updated_at' => $this->integer(11)
             ]

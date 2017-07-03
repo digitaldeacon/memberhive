@@ -11,8 +11,8 @@ export interface Interaction {
     refId: string;
     authorId: string;
     recipients: Array<string>;
-    recipientType: string;
     dueOn: string;
+    visibility: string;
 }
 
 export interface InteractionCollection {

@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
+import { ActivatedRoute } from '@angular/router';
 
 import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
@@ -31,11 +32,13 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
 
   people$: Observable<Person[]>;
   options: any = {};
+  visibility: any[] = [];
 
   constructor(titleService: TitleService,
               private _fb: FormBuilder,
               private _auth: AuthService,
               private _store: Store<app.AppState>,
+              private _route: ActivatedRoute,
               private _location: Location) {
     titleService.setTitle('Create Interaction');
     this.people$ = this._store.select(app.getPeople);
@@ -46,7 +49,7 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
         .takeWhile(() => this._alive)
         .subscribe((p: Person) => this._refPerson = p);
 
-    // TODO: move these settings
+    // TODO: move these to settings
     this.options = {
       interaction: {
         types: [
@@ -58,19 +61,28 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
         ]
       }
     };
+
+    this.visibility = [
+        {id: 'PRIVATE', text: 'Only Me', icon: 'lock'},
+        {id: 'SHEPHERD', text: 'Shepherds', icon: 'group'},
+        {id: 'LEADER', text: 'Leaders', icon: 'group'},
+        {id: 'STAFF', text: 'Staff', icon: 'group'},
+        {id: 'ALL', text: 'Users', icon: 'person'}
+    ];
+
     this._authorId = this._auth.getPersonId();
   }
 
   ngOnInit(): void {
-    this.form = this._fb.group({
-      text: [undefined, [<any>Validators.required]],
-      type: [undefined, [<any>Validators.required]],
-      owner: [undefined, [<any>Validators.required]],
-      recipients: [undefined, [<any>Validators.required]],
-      dueOn: [undefined],
-      private: [undefined]
-    });
-    this.initDefaults();
+        this.form = this._fb.group({
+            text: [undefined, [<any>Validators.required]],
+            type: [undefined, [<any>Validators.required]],
+            owner: [undefined, [<any>Validators.required]],
+            recipients: [undefined],
+            dueOn: [undefined],
+            visibility: ['LEADER' ,[<any>Validators.required]]
+        });
+        this.initDefaults();
   }
 
   ngOnDestroy(): void {
@@ -107,13 +119,24 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
   }
 
   private initDefaults(): void {
-    // this._refPerson = this._interactionService.getPersonInteractiond();
+    // this._refPerson = this._interactionService.getPersonInteraction();
     // this.refInteraction = this._interactionService.getInteraction();
     // this.returnToRoute = this._interactionService.getLastRoute();
+      const id: string = this._route.snapshot.paramMap.get('id');
+      if (id) {
+          this._store.select(app.getInteractions);
+              /*.filter((i: Interaction[]) => {
+                console.log('filter',i);
+                return i.indexOf('uid') > 1;
+              })*/
+              //.subscribe((interaction: Interaction) => console.log(interaction));
+      }
 
-    if (this.form && this._authorId) {
+
+    /*if (this.form && this._authorId) {
       this.form.get('recipients').setValue([this._authorId]);
-    }
+    }*/
+
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
       this.form.get('owner').setValue(this._refPerson.uid);

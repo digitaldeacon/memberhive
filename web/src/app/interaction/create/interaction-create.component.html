@@ -53,15 +53,26 @@
         </md-error>
       </div>
 
-      <md-input-container>
-        <input [mdDatepicker]="minDatePicker"
-               mdInput
-               placeholder="Complete by"
-               i18n-placeholder
-               formControlName="dueOn">
-        <button mdSuffix [mdDatepickerToggle]="minDatePicker"></button>
-      </md-input-container>
-      <md-datepicker #minDatePicker></md-datepicker>
+      <div>
+        <md-select class="option-select"
+                   formControlName="visibility"
+                   placeholder="Visible to"
+                   i18n-placeholder>
+          <md-option *ngFor="let item of visibility" [value]="item.id">
+            <md-icon *ngIf="item.icon !== ''">{{item.icon}}</md-icon>
+            {{item.text}}
+          </md-option>
+        </md-select>
+        <md-input-container>
+          <input [mdDatepicker]="minDatePicker"
+                 mdInput
+                 placeholder="Complete by"
+                 i18n-placeholder
+                 formControlName="dueOn">
+          <button mdSuffix [mdDatepickerToggle]="minDatePicker"></button>
+        </md-input-container>
+        <md-datepicker #minDatePicker></md-datepicker>
+      </div>
     </md-card-content>
     <md-card-actions>
       <button md-raised-button

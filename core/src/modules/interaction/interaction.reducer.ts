@@ -1,7 +1,9 @@
+import { Response } from '@angular/http';
 import { createSelector } from '@ngrx/store';
 import { Interaction, InteractionCollection } from './interaction.model';
 import * as actions from './interaction.actions';
 import * as common from '../../common/common.model';
+import { Utils } from '../../common/common.utils';
 
 export interface InteractionState {
     loaded?: boolean;
@@ -41,16 +43,15 @@ action: actions.InteractionActions): InteractionState {
         case actions.ADD_INTERACTION_SUCCESS: {
             const interaction: Interaction = action.payload;
             let interactions: Interaction[] = [...state.interactions, interaction];
-            console.log('unsorted', interactions);
             interactions.sort((i1: Interaction, i2: Interaction) => {
                 const left: Date = new Date(i1.createdAt);
                 const right: Date = new Date(i2.createdAt);
                 const now: Date = new Date();
                 left.setFullYear(now.getFullYear());
                 right.setFullYear(now.getFullYear());
-                return left.getTime() - right.getTime();
+                console.log(left.getTime(), right.getTime());
+                return right.getTime() - left.getTime();
             });
-            console.log('sorted', interactions);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
@@ -75,9 +76,10 @@ action: actions.InteractionActions): InteractionState {
         case actions.DELETE_INTERACTION_FAILURE:
         case actions.UPDATE_INTERACTION_FAILURE:
         case actions.ADD_INTERACTION_FAILURE: {
+            const res: Response = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
-                text: action.payload
+                text: Utils.responseErrors(res)
             };
             return Object.assign({}, state, {
                 loading: false,

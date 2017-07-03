@@ -46,8 +46,7 @@ class Interaction extends \yii\db\ActiveRecord
     {
         return [
             [['text','refId','type','authorId'], 'required'],
-            [['text','type'], 'string'],
-            [['isPrivate'], 'integer'],
+            [['text','type','visibility'], 'string'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
             [['refId', 'authorId'], 'string', 'max' => 36],
             ['uid', '\aracoool\uuid\UuidValidator']
@@ -65,7 +64,6 @@ class Interaction extends \yii\db\ActiveRecord
             'type' => 'Type',
             'refId' => 'Owner ID',
             'authorId' => 'Author ID', // who created this
-            'isPrivate' => 'Is Private',
             'created_at' => 'Created At',
             'updated_at' => 'Updated At',
         ];
@@ -119,7 +117,7 @@ class Interaction extends \yii\db\ActiveRecord
             'refId' => $this->refId,
             'type' => $this->type,
             'dueOn' => $this->dueOn,
-            'isPrivate' => $this->isPrivate,
+            'visibility' => $this->visibility,
             'recipients' => $recipients,
             'createdAt' => date('c', $this->created_at),
             'updatedAt' => date('c', $this->updated_at),
