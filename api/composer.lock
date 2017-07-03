@@ -1885,12 +1885,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "4001a301f86fc006c32f532a741ab613f2bd8990"
+                "reference": "a23b761686d50a560cc56233b9ecf49597cc9118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/4001a301f86fc006c32f532a741ab613f2bd8990",
-                "reference": "4001a301f86fc006c32f532a741ab613f2bd8990",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/a23b761686d50a560cc56233b9ecf49597cc9118",
+                "reference": "a23b761686d50a560cc56233b9ecf49597cc9118",
                 "shasum": ""
             },
             "require": {
@@ -1936,7 +1936,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2017-03-07 08:47:31"
+            "time": "2017-06-30 09:13:00"
         },
         {
             "name": "psr/log",
@@ -2538,12 +2538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "1faeaf2aa8180967d80329213f77c1bcb75fe4fa"
+                "reference": "f46d917c00519312152720916760ab18550c0ce5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/1faeaf2aa8180967d80329213f77c1bcb75fe4fa",
-                "reference": "1faeaf2aa8180967d80329213f77c1bcb75fe4fa",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f46d917c00519312152720916760ab18550c0ce5",
+                "reference": "f46d917c00519312152720916760ab18550c0ce5",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-24 09:47:31"
+            "time": "2017-06-30 09:07:51"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2707,12 +2707,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "9011b6e533811221fffebca2de822c5c87ad7dd9"
+                "reference": "b0057c8eda8ad0b082e7b76c05c612f999b84192"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/9011b6e533811221fffebca2de822c5c87ad7dd9",
-                "reference": "9011b6e533811221fffebca2de822c5c87ad7dd9",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/b0057c8eda8ad0b082e7b76c05c612f999b84192",
+                "reference": "b0057c8eda8ad0b082e7b76c05c612f999b84192",
                 "shasum": ""
             },
             "require": {
@@ -2746,7 +2746,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-06-26 19:37:57"
+            "time": "2017-06-30 16:09:14"
         },
         {
             "name": "yiisoft/yii2-gii",
