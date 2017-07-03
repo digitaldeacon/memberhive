@@ -56,20 +56,24 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _shout: ShoutService,
                 private _dialog: MdDialog) {
 
+        // Selects the current person by fragment param
+        this.person$ = this._store.select(app.getSelectedPerson);
+        // Fetches all Interactions associated with this person
+        this.interactions$ = this._store.select(app.getInteractionsPerson);
+        // Load all people for the back and forth buttons
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
+        // Get the current user
         this._store.select(app.getAuthPersonId)
             .takeWhile(() => this._alive)
             .subscribe((uid: string) => this.userUid = uid);
-        this.person$ = this._store.select(app.getSelectedPerson);
-        this.interactions$ = this._store.select(app.getInteractionsPerson);
-        // this.interactions$.takeWhile(() => this._alive).subscribe(v => console.log('Person interactions', v));
+        // Fetch the combined settings for people and system
         this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
             .subscribe((data: any) => {
                 this.settings = data;
             });
-
+        // Check on messages
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
             .subscribe((message: Message) => {
@@ -111,6 +115,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             this.gotoPerson(this.people[idx].uid);
         }
     }
+
     nextPerson(): void {
         let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
         idx = (idx < this.people.length - 1) ? idx + 1  : 0;
@@ -131,6 +136,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.dispatch(new PersonUpdateAction(person));
         this._calcGeoCodes(person);
     }
+
     deletePerson(): void {
         this._store.dispatch(new PersonDeleteAction(this.person));
     }

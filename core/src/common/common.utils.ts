@@ -25,7 +25,6 @@ export class Utils {
         const rBody: any = JSON.parse(r.text());
         const messages: any = JSON.parse(rBody.message);
         let m: string = '';
-        console.log(messages,rBody);
         for (let key of Object.keys(messages)) {
             m += messages[key];
         }
