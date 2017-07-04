@@ -208,7 +208,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 this._store.dispatch(new PersonCalcGeoAction(gcPayload));
             } else {
                 this._shout.error('There is no Google API key present. Go to settings and set one.');
-                // console.log(this.settings, 'There is no Google API key present. Go to settings and set one.');
             }
         }
     }

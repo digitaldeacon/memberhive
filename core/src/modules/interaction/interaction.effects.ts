@@ -40,9 +40,18 @@ export class InteractionEffects {
     addInteraction$ = this._actions$
         .ofType(actions.ADD_INTERACTION)
         .map((action: actions.AddInteractionAction) => action.payload)
-        .switchMap((data: Interaction) => this._http.post('interaction/create-person', data)
+        .switchMap((data: Interaction) => this._http.post('interaction/save-person', data)
             .map((r: Interaction) => new actions.AddInteractionSuccessAction(r))
             .catch((r: any) => of(new actions.AddInteractionFailureAction(r)))
+        );
+
+    @Effect()
+    updateInteraction$ = this._actions$
+        .ofType(actions.UPDATE_INTERACTION)
+        .map((action: actions.UpdateInteractionAction) => action.payload)
+        .switchMap((data: Interaction) => this._http.post('interaction/save-person', data)
+            .map((r: Interaction) => new actions.UpdateInteractionSuccessAction(r))
+            .catch((r: any) => of(new actions.UpdateInteractionFailureAction(r)))
         );
 
     @Effect()

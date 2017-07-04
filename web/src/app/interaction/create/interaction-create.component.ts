@@ -7,7 +7,13 @@ import { ActivatedRoute } from '@angular/router';
 
 import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
-import { Interaction, Person, TitleService, AddInteractionAction } from 'mh-core';
+import {
+    Interaction,
+    Person,
+    TitleService,
+    AddInteractionAction,
+    UpdateInteractionAction
+} from 'mh-core';
 
 @Component({
   selector: 'mh-interaction-create',
@@ -112,55 +118,39 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
       model.authorId = this._authorId;
-      this._store.dispatch(new AddInteractionAction(model));
+      if (!this.editMode) {
+          this._store.dispatch(new AddInteractionAction(model));
+      } else {
+          model.uid = this.refInteraction.uid;
+          this._store.dispatch(new UpdateInteractionAction(model));
+      }
       this.form.reset();
       this.returnRoute();
     }
   }
 
   private initDefaults(): void {
-    // this._refPerson = this._interactionService.getPersonInteraction();
-    // this.refInteraction = this._interactionService.getInteraction();
-    // this.returnToRoute = this._interactionService.getLastRoute();
       const id: string = this._route.snapshot.paramMap.get('id');
       if (id) {
-          this._store.select(app.getInteractions);
-              /*.filter((i: Interaction[]) => {
-                console.log('filter',i);
-                return i.indexOf('uid') > 1;
-              })*/
-              //.subscribe((interaction: Interaction) => console.log(interaction));
+          this._store.select(app.getInteractions)
+              .subscribe((i: Interaction[]) => {
+                this.refInteraction = i.filter((i: Interaction) => i.uid === id)[0];
+                this.form.get('owner').setValue(this.refInteraction.refId);
+                this.form.get('text').setValue(this.refInteraction.text);
+                this.form.get('type').setValue(this.refInteraction.type);
+                this.form.get('recipients').setValue(this.refInteraction.recipients);
+                this.editMode = true;
+              });
       }
-
-
-    /*if (this.form && this._authorId) {
-      this.form.get('recipients').setValue([this._authorId]);
-    }*/
 
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
       this.form.get('owner').setValue(this._refPerson.uid);
     }
-    /*
-    if (this.dialogData.interaction) {
-      this.interaction = this.dialogData.interaction;
-      this.form.get('owner').setValue(this.interaction.refId);
-      this.form.get('text').setValue(this.interaction.text);
-      this.form.get('type').setValue(this.interaction.typeId);
-      this.form.get('recipients').setValue(this.interaction.recipients);
-      this.editMode = true;
-    }
-    // birthday interactions
-    if (this.dialogData.person) {
-      this._refPerson = this.dialogData.person;
-      this.form.get('owner').setValue(this._refPerson.uid);
-      this.form.get('dueOn').setValue(this._refPerson.birthday);
-    }*/
   }
 
   private _setContextMenu(): void {
     let buttons: ContextButton[] = [];
-    // buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
     buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

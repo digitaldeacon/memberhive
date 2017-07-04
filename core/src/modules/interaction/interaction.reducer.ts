@@ -42,6 +42,10 @@ action: actions.InteractionActions): InteractionState {
 
         case actions.ADD_INTERACTION_SUCCESS: {
             const interaction: Interaction = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully added an interaction'
+            };
             let interactions: Interaction[] = [...state.interactions, interaction];
             interactions.sort((i1: Interaction, i2: Interaction) => {
                 const left: Date = new Date(i1.createdAt);
@@ -49,13 +53,29 @@ action: actions.InteractionActions): InteractionState {
                 const now: Date = new Date();
                 left.setFullYear(now.getFullYear());
                 right.setFullYear(now.getFullYear());
-                console.log(left.getTime(), right.getTime());
                 return right.getTime() - left.getTime();
             });
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
+                message: message,
                 interactions: interactions
+            });
+        }
+
+        case actions.UPDATE_INTERACTION_SUCCESS: {
+            const interaction: Interaction = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully updated this interaction'
+            };
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                message: message,
+                interactions: state.interactions.map((i: Interaction) => {
+                    return i.uid === interaction.uid ? Object.assign({}, i, interaction) : i;
+                })
             });
         }
 
