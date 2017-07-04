@@ -73,16 +73,16 @@
     tsickle "^0.21.0"
 
 "@ionic-native/core@^3.10.3":
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-3.12.1.tgz#5b7c7a4f5adfc8da0b9197e1843e5893acf66021"
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-3.13.0.tgz#1f14d658b03588be839ce4c4552445f4ec5eca7a"
 
 "@ionic-native/splash-screen@^3.10.3":
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-3.12.1.tgz#1c2e468e225d5b90cad7b48fc05505d4c761ace6"
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-3.13.0.tgz#5b1907c42520329b8d63d2b67dd28fef0b743784"
 
 "@ionic-native/status-bar@^3.10.3":
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-3.12.1.tgz#5b2491b43a3d7e08d65ac0e9fdb1927493e32472"
+  version "3.13.0"
+  resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-3.13.0.tgz#76aabac239800aaf6485cc1e704d92785b22df61"
 
 "@ionic/app-scripts@^1.2.5":
   version "1.3.12"
@@ -175,15 +175,15 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/a38e976e198a43de8cb481fe2ac35d6fae1b2e16"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/08de6acb586824d6d2c0deae92e43067edba9f4b"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/ebe2b30a91a2c926128c5021f98c1795923e9ec4"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/b01e875083f45178c32cc11f9b5bb02edf3ff21b"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.0-alpha.0"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/279b4eeb36e5c7475098ad84cec322774fd37b9f"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/745395b9775965e1bfcddaabece172f9f556d794"
 
 "@types/localforage@0.0.30":
   version "0.0.30"
@@ -2973,12 +2973,12 @@ postcss@5.2.17:
     supports-color "^3.2.3"
 
 postcss@^6.0.1:
-  version "6.0.4"
-  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.4.tgz#573acddf73f42ecb24aa618d40ee3d5a7c04a654"
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/postcss/-/postcss-6.0.5.tgz#efa34f745ca25bd3b3cbd15aa4e03112b8237f3c"
   dependencies:
     chalk "^2.0.1"
     source-map "^0.5.6"
-    supports-color "^4.0.0"
+    supports-color "^4.1.0"
 
 preserve@^0.2.0:
   version "0.2.0"
@@ -3659,7 +3659,7 @@ supports-color@^3.1.0, supports-color@^3.2.3:
   dependencies:
     has-flag "^1.0.0"
 
-supports-color@^4.0.0:
+supports-color@^4.0.0, supports-color@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/supports-color/-/supports-color-4.1.0.tgz#92cc14bb3dad8928ca5656c33e19a19f20af5c7a"
   dependencies:

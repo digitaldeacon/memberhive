@@ -726,12 +726,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "90506148b4ce20b80a975018ae26470d98c7b6ba"
+                "reference": "a3f518f6eb240a74354562c1f75a0b483cbf92f0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/90506148b4ce20b80a975018ae26470d98c7b6ba",
-                "reference": "90506148b4ce20b80a975018ae26470d98c7b6ba",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a3f518f6eb240a74354562c1f75a0b483cbf92f0",
+                "reference": "a3f518f6eb240a74354562c1f75a0b483cbf92f0",
                 "shasum": ""
             },
             "require": {
@@ -818,7 +818,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-06-29 15:19:55"
+            "time": "2017-07-03 09:34:20"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2538,12 +2538,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "f46d917c00519312152720916760ab18550c0ce5"
+                "reference": "519fb0872bb41e0f0c221ead8945eb12197bb034"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/f46d917c00519312152720916760ab18550c0ce5",
-                "reference": "f46d917c00519312152720916760ab18550c0ce5",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/519fb0872bb41e0f0c221ead8945eb12197bb034",
+                "reference": "519fb0872bb41e0f0c221ead8945eb12197bb034",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-06-30 09:07:51"
+            "time": "2017-07-03 10:20:17"
         },
         {
             "name": "yiisoft/yii2-apidoc",
