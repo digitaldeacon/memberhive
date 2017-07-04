@@ -86,7 +86,7 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
             owner: [undefined, [<any>Validators.required]],
             recipients: [undefined],
             dueOn: [undefined],
-            visibility: ['LEADER' ,[<any>Validators.required]]
+            visibility: ['LEADER', [<any>Validators.required]]
         });
         this.initDefaults();
   }
@@ -130,18 +130,18 @@ export class InteractionCreateComponent implements OnInit, OnDestroy {
   }
 
   private initDefaults(): void {
-      const id: string = this._route.snapshot.paramMap.get('id');
-      if (id) {
-          this._store.select(app.getInteractions)
-              .subscribe((i: Interaction[]) => {
-                this.refInteraction = i.filter((i: Interaction) => i.uid === id)[0];
-                this.form.get('owner').setValue(this.refInteraction.refId);
-                this.form.get('text').setValue(this.refInteraction.text);
-                this.form.get('type').setValue(this.refInteraction.type);
-                this.form.get('recipients').setValue(this.refInteraction.recipients);
-                this.editMode = true;
-              });
-      }
+    const id: string = this._route.snapshot.paramMap.get('id');
+    if (id) {
+      this._store.select(app.getInteractions)
+          .subscribe((interaction: Interaction[]) => {
+            this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];
+            this.form.get('owner').setValue(this.refInteraction.refId);
+            this.form.get('text').setValue(this.refInteraction.text);
+            this.form.get('type').setValue(this.refInteraction.type);
+            this.form.get('recipients').setValue(this.refInteraction.recipients);
+            this.editMode = true;
+          });
+    }
 
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
