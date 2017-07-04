@@ -6,8 +6,8 @@
   <md-card>
     <md-card-content>
       <div class="mat-input-wrapper muted" *ngIf="editMode">
-        <b i18n>Created:</b> {{interaction.createdAt}},
-        <b i18n>Updated:</b> {{interaction.updatedAt}}
+        <b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}},
+        <b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}
       </div>
 
       <mh-tinymce [elementId]="'interaction-editor'"

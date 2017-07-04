@@ -21,8 +21,8 @@ class InteractionController extends MHController
                         'list',
                         'get',
                         'update',
-                        'create-person',
-                        'create-group',
+                        'save-person',
+                        'save-group',
                         'list-types',
                         'delete',
                         'mine',
@@ -42,8 +42,8 @@ class InteractionController extends MHController
     public function beforeAction($action)
     {
         $allowedActions = [
-            'create-person',
-            'create-group',
+            'save-person',
+            'save-group',
             'delete',
             'complete',
             'end'
@@ -120,7 +120,7 @@ class InteractionController extends MHController
     /**
      * url: /api/interaction/create-person or create-group interaction POST
      */
-    private function actionCreate()
+    private function actionSave()
     {
         $post = \Yii::$app->request->post();
         $interaction = new Interaction();
@@ -177,16 +177,16 @@ class InteractionController extends MHController
         }
     }
 
-    public function actionCreatePerson()
+    public function actionSavePerson()
     {
         $this->interactionType = 'person';
-        return $this->actionCreate();
+        return $this->actionSave();
     }
 
-    public function actionCreateGroup()
+    public function actionSaveGroup()
     {
         $this->interactionType = 'group';
-        return $this->actionCreate();
+        return $this->actionSave();
     }
 
     public function actionList($id = 0)
