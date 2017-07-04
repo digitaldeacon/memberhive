@@ -2,3 +2,6 @@
     color: #888;
     vertical-align: middle;
 }
+.mat-button-toggle:not(.mat-button-toggle-checked) {
+    color: rgba(0, 0, 0, 0.38) !important;
+}
