@@ -24,6 +24,7 @@
         <md-button-toggle-group id="typeSelect" formControlName="type">
           <md-button-toggle value="{{interactionType.type}}"
                             mdTooltip="{{interactionType.type | uppercase}}"
+                            class="mat-button-toggle {{interactionType.type | lowercase}}"
                             *ngFor="let interactionType of options.interaction.types">
             <md-icon>{{interactionType.iconString}}</md-icon>
           </md-button-toggle>

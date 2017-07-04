@@ -12,7 +12,7 @@
 // hue.
 // see also: https://material.io/guidelines/style/color.html#
 $mh-app-primary: mat-palette($md-mh-blue);
-$mh-app-accent:  mat-palette($mat-orange, A200, A100, A400);
+$mh-app-accent:  mat-palette($mat-orange);
 
 // The warn palette is optional (defaults to red).
 $mh-app-warn:    mat-palette($mat-red);

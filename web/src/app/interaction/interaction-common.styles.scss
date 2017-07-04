@@ -1,17 +1,19 @@
-md-icon[aria-label="comment"] {
-  color: #7a43b6;
+@import "../../theme.scss";
+
+.note {
+  color: mat-color($mh-app-accent, A400);
 }
-md-icon[aria-label="phone"] {
-  color: #0000aa;
+.interaction {
+  color: mat-color($mh-app-warn, 400);
 }
-md-icon[aria-label="forum"] {
-  color: #ff49a3;
+.meeting {
+  color: mat-color($mh-app-primary, 900);
 }
-md-icon[aria-label="email"] {
-  color: #6c6c6c;
+.phone {
+  color: mat-color($mh-app-primary, A700);
 }
-md-icon[aria-label="swap_vertical_circle"] {
-  color: #ffab40;
+.email {
+  color: mat-color($mh-app-accent, 300);
 }
 .mat-select {
   min-width: 200px;

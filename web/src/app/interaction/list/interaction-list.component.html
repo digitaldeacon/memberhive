@@ -1,7 +1,11 @@
 <div class="interactions" *ngIf="interactions">
     <md-card *ngFor="let interaction of interactions">
         <md-card-header fxLayout="row">
-            <md-icon md-card-avatar>{{getType(interaction.type)}}</md-icon>
+            <md-icon md-card-avatar
+                     mdTooltip="{{interaction.type | uppercase}}"
+                     class="mat-icon material-icons {{interaction.type | lowercase}}">
+                {{getType(interaction.type)}}
+            </md-icon>
             <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
                 {{interaction.updatedAt | date: 'medium'}} - &nbsp; <span i18n>by</span> &nbsp;
                 <a *ngIf="!iOwn(interaction.author.id)" [routerLink]="['/person/view', interaction.author.id]">
