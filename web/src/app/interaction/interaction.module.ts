@@ -18,7 +18,7 @@ import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { InteractionRoutingModule } from './interaction-routing.module';
 
 import { InteractionComponent } from './interaction.component';
-import { InteractionCreateComponent } from './create/interaction-create.component';
+import { InteractionFormComponent } from './form/interaction-form.component';
 import { InteractionListComponent } from './list/interaction-list.component';
 
 import { TitleService } from 'mh-core';
@@ -29,7 +29,7 @@ import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
     declarations: [
         InteractionListComponent,
         TinyMCEComponent,
-        InteractionCreateComponent,
+        InteractionFormComponent,
         InteractionComponent
     ],
     imports: [

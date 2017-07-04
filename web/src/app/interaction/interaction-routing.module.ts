@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { InteractionComponent } from './interaction.component';
 import { InteractionListComponent } from './list/interaction-list.component';
-import { InteractionCreateComponent } from './create/interaction-create.component';
+import { InteractionFormComponent } from './form/interaction-form.component';
 
 const routes: Routes = [
     {
@@ -12,8 +12,8 @@ const routes: Routes = [
         children: [
             {path: '', component: InteractionListComponent},
             {path: 'list', component: InteractionListComponent},
-            {path: 'create', component: InteractionCreateComponent},
-            {path: 'edit/:id', component: InteractionCreateComponent}
+            {path: 'create', component: InteractionFormComponent},
+            {path: 'edit/:id', component: InteractionFormComponent}
         ]
     }
 
