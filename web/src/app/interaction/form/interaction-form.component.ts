@@ -16,12 +16,12 @@ import {
 } from 'mh-core';
 
 @Component({
-  selector: 'mh-interaction-create',
-  templateUrl: './interaction-create.component.html',
-  styleUrls: ['./interaction-create.component.scss', '../interaction-common.styles.scss'],
+  selector: 'mh-interaction-form',
+  templateUrl: './interaction-form.component.html',
+  styleUrls: ['./interaction-form.component.scss', '../interaction-common.styles.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InteractionCreateComponent implements OnInit, OnDestroy {
+export class InteractionFormComponent implements OnInit, OnDestroy {
 
   private _alive: boolean = true;
   private _authorId: string;
