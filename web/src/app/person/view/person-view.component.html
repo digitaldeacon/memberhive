@@ -1,3 +1,4 @@
+<mh-filter></mh-filter>
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
         <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon><span>Prev</span></a>
@@ -55,6 +56,7 @@
             <md-tab-group>
                 <md-tab label="Interactions">
                     <mh-interaction-list
+                            [people]="people"
                             [interactions]="interactions$ | async"
                             (deleteInteraction)="deleteInteraction($event)"></mh-interaction-list>
                 </md-tab>

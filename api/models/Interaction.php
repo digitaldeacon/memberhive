@@ -45,8 +45,8 @@ class Interaction extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['text','refId','type','authorId'], 'required'],
-            [['text','type','visibility'], 'string'],
+            [['text','refId','type','authorId','visibility'], 'required'],
+            [['text','type','visibility','actionType'], 'string'],
             [['created_at', 'updated_at', 'dueOn'], 'safe'],
             [['refId', 'authorId'], 'string', 'max' => 36],
             ['uid', '\aracoool\uuid\UuidValidator']
@@ -82,12 +82,12 @@ class Interaction extends \yii\db\ActiveRecord
     public function getRecipients()
     {
         return $this->hasMany(Person::className(), ['id' => 'person_id'])
-            ->viaTable('person_interaction', ['interaction_id' => 'id']);
+            ->via('personInteractions');
     }
 
-    public function getPersonInteraction()
+    public function getPersonInteractions()
     {
-        return $this->hasOne(PersonInteraction::className(), ['interaction_id' => 'id']);
+        return $this->hasMany(PersonInteraction::className(), ['interaction_id' => 'id']);
     }
 
     public function toResponseArray($noMarkup = true)
@@ -116,6 +116,7 @@ class Interaction extends \yii\db\ActiveRecord
             ],
             'refId' => $this->refId,
             'type' => $this->type,
+            'actionType' => $this->actionType,
             'dueOn' => $this->dueOn,
             'visibility' => $this->visibility,
             'recipients' => $recipients,

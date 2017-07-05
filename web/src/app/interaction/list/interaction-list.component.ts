@@ -31,6 +31,7 @@ import { AuthService, Person, Interaction } from 'mh-core';
 export class InteractionListComponent implements OnInit {
     private authorId: string;
     @Input() interactions: Array<Interaction>;
+    @Input() people: Person[];
     @Output() deleteInteraction: EventEmitter<number> = new EventEmitter<number>();
 
     // TODO: move these to settings
@@ -64,5 +65,21 @@ export class InteractionListComponent implements OnInit {
             return;
         }
         this.deleteInteraction.emit(interaction.id);
+    }
+
+    recipientTag(uid: string): string {
+      const p: Person = this._person(uid);
+      if (Object.keys(p).length > 0) {
+        return p.firstName.substring(0, 1).toUpperCase() +
+          p.lastName; // .substring(0, 1).toUpperCase();
+      }
+      return '';
+    }
+
+    private _person(uid: string): Person {
+      if (this.people.length > 0 && uid) {
+        return this.people.filter((p: Person) => p.uid === uid)[0];
+      }
+      return {};
     }
 }

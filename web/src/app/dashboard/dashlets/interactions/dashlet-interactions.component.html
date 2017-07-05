@@ -14,7 +14,7 @@
         <div>
             <md-card-subtitle i18n>To Complete <md-divider></md-divider></md-card-subtitle>
             <md-list>
-                <md-list-item *ngFor="let interaction of myOutstanding | async">
+                <md-list-item *ngFor="let interaction of myOutstanding">
                     <md-checkbox
                             #todo
                             fxFlex
@@ -25,7 +25,7 @@
                     </md-checkbox>
                     <span fxFlex="10" *ngIf="todo.checked">
                         <a md-icon-button (click)="delete(interaction)" mdTooltip="Delete">
-                            <md-icon>CLOSE</md-icon>
+                            <md-icon>close</md-icon>
                         </a>
                     </span>
                 </md-list-item>

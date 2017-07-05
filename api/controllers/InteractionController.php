@@ -136,6 +136,7 @@ class InteractionController extends MHController
             try {
                 $interaction->text = $post['text'];
                 $interaction->type = $post['type'];
+                $interaction->actionType = isset($post['actionType']) ? $post['actionType'] : null;
                 $interaction->refId = $post['owner'];
                 $interaction->authorId = $post['authorId'];
                 $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;

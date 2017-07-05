@@ -22,7 +22,7 @@ export class ListSettingAction implements Action {
 
 export class ListSettingSuccessAction implements Action {
     readonly type = LIST_SETTINGS_SUCCESS;
-    constructor(public payload: any[]) { }
+    constructor(public payload: SettingsState) { }
 }
 
 export class ListSettingFailureAction implements Action {
