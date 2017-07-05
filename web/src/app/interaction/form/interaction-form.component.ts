@@ -4,10 +4,13 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
+import { MdButtonToggleChange } from '@angular/material';
 
-import { AuthService, ContextButton, SetContextButtonsAction } from 'mh-core';
 import * as app from '../../app.store';
 import {
+    AuthService,
+    ContextButton,
+    SetContextButtonsAction,
     Interaction,
     Person,
     TitleService,
@@ -30,7 +33,6 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   form: FormGroup;
   refInteraction: Interaction;
 
-  returnToRoute: string;
   showTypeSelector: boolean = false;
   submitted: boolean = false;
   editMode: boolean = false;
@@ -39,6 +41,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   people$: Observable<Person[]>;
   options: any = {};
   visibility: any[] = [];
+  actionVerbs: any[] = [];
 
   constructor(titleService: TitleService,
               private _fb: FormBuilder,
@@ -48,9 +51,6 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
               private _location: Location) {
     titleService.setTitle('Create Interaction');
     this.people$ = this._store.select(app.getPeople);
-    this._store.select(app.getAuthPersonId)
-        .takeWhile(() => this._alive)
-        .subscribe((uid: string) => this._authorId = uid);
     this._store.select(app.getSelectedPerson)
         .takeWhile(() => this._alive)
         .subscribe((p: Person) => this._refPerson = p);
@@ -68,6 +68,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
       }
     };
 
+    // TODO: fetch these from the auth groups DB
     this.visibility = [
         {id: 'PRIVATE', text: 'Only Me', icon: 'lock'},
         {id: 'SHEPHERD', text: 'Shepherds', icon: 'group'},
@@ -76,6 +77,8 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
         {id: 'ALL', text: 'Users', icon: 'person'}
     ];
 
+    this.actionVerbs = ['call', 'meet', 'follow up', 'schedule', 'do', 'check'];
+
     this._authorId = this._auth.getPersonId();
   }
 
@@ -83,6 +86,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
         this.form = this._fb.group({
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
+            actionType: [undefined],
             owner: [undefined, [<any>Validators.required]],
             recipients: [undefined],
             dueOn: [undefined],
@@ -95,14 +99,22 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     this._alive = false;
   }
 
-  toggleTypes(): void {
-    if (this.showTypeSelector && !this.form.dirty) {
-      this.form.reset();
-      this.showTypeSelector = false;
-      this.initDefaults();
-    } else {
-      this.showTypeSelector = true;
-    }
+  toggleTypes(event: MdButtonToggleChange): void {
+      const actionTypeCtrl: any = (<any>this.form).get('type');
+      const recipientsCtrl: any = (<any>this.form).get('recipients');
+      const ownerCtrl: any = (<any>this.form).get('owner');
+      if (actionTypeCtrl.value === 'interaction') {
+          actionTypeCtrl.setValidators(<any>Validators.required);
+          recipientsCtrl.setValidators(<any>Validators.required);
+          ownerCtrl.setValidators(undefined);
+
+      } else {
+          actionTypeCtrl.setValidators(undefined);
+          recipientsCtrl.setValidators(undefined);
+          ownerCtrl.setValidators(<any>Validators.required);
+      }
+      actionTypeCtrl.updateValueAndValidity();
+      recipientsCtrl.updateValueAndValidity();
   }
 
   returnRoute(): void {
@@ -133,14 +145,15 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     const id: string = this._route.snapshot.paramMap.get('id');
     if (id) {
       this._store.select(app.getInteractions)
-          .subscribe((interaction: Interaction[]) => {
-            this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];
-            this.form.get('owner').setValue(this.refInteraction.refId);
-            this.form.get('text').setValue(this.refInteraction.text);
-            this.form.get('type').setValue(this.refInteraction.type);
-            this.form.get('recipients').setValue(this.refInteraction.recipients);
-            this.editMode = true;
-          });
+        .take(1)
+        .subscribe((interaction: Interaction[]) => {
+          this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];
+          this.form.get('owner').setValue(this.refInteraction.refId);
+          this.form.get('text').setValue(this.refInteraction.text);
+          this.form.get('type').setValue(this.refInteraction.type);
+          this.form.get('recipients').setValue(this.refInteraction.recipients);
+          this.editMode = true;
+        });
     }
 
     // person related interaction
@@ -152,7 +165,6 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   private _setContextMenu(): void {
     let buttons: ContextButton[] = [];
     buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
-
     this._store.dispatch(new SetContextButtonsAction(buttons));
   }
 

@@ -8,26 +8,26 @@ export interface User {
 }
 
 export interface Person {
-    id: number;
-    uid: string;
-    firstName: string;
-    lastName: string;
-    middleName: string;
-    fullName: string;
-    email: string;
-    maritalStatus: string;
-    gender: string;
-    birthday: Date;
-    baptized: Date;
-    anniversary: Date;
-    age: number;
-    avatar: string;
-    phoneHome: string;
-    phoneWork: string;
-    phoneMobile: string;
-    user: User;
-    address: PersonAddress;
-    socialContact: any;
+    id?: number;
+    uid?: string;
+    firstName?: string;
+    lastName?: string;
+    middleName?: string;
+    fullName?: string;
+    email?: string;
+    maritalStatus?: string;
+    gender?: string;
+    birthday?: Date;
+    baptized?: Date;
+    anniversary?: Date;
+    age?: number;
+    avatar?: string;
+    phoneHome?: string;
+    phoneWork?: string;
+    phoneMobile?: string;
+    user?: User;
+    address?: PersonAddress;
+    socialContact?: any;
 }
 
 export class PersonAddress {

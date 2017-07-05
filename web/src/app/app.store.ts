@@ -35,6 +35,19 @@ export const getPeople: any = createSelector(getPersonState, person.getPeople);
 export const getSelectedPerson: any = createSelector(getPersonState, person.getPerson);
 export const getLastCreatedPersonId: any = createSelector(getPersonState, person.getLastCreatedPersonId);
 /**
+ * Auth Reducers
+ */
+export const getAuthState: any = (state: AppState) => state.auth;
+export const isAuthenticated: any = createSelector(getAuthState, auth.isAuthenticated);
+export const isAuthLoading: any = createSelector(getAuthState, auth.isAuthenticationLoading);
+export const getAuthError: any = createSelector(getAuthState, auth.getAuthenticationError);
+export const isAuthLoaded: any = createSelector(getAuthState, auth.isAuthenticatedLoaded);
+export const getAuthPersonId: any = createSelector(getAuthState, auth.getPersonId);
+export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
+  (people: person.Person[], personId: string) => {
+    return people.filter((person: person.Person) => person.uid === personId)[0];
+  });
+/**
  * Settings Reducers
  */
 export const getSettingsState: any = (state: AppState) => state.settings;
@@ -55,7 +68,10 @@ export const getPeopleSysSettings: any = createSelector(getPeopleSettings, getSy
  */
 export const getInteractionState: any = (state: AppState) => state.interaction;
 export const getInteractions: any = createSelector(getInteractionState, interaction.getInteractions);
-export const getMyInteractions: any = createSelector(getInteractionState, interaction.getMyInteractions);
+export const getMyInteractions: any = createSelector(getInteractions, getAuthPersonId,
+  (interactions: any, personId: string) => {
+    return interactions.filter((interaction: any) => interaction.recipients.indexOf(personId) > -1);
+  });
 export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedPerson,
     (interactions: any, person: any) => {
     return interactions.filter((interaction: any) => interaction.refId === person.uid);
@@ -79,19 +95,6 @@ export const getMessage: any = createSelector(getMessageP, getMessageS, getMessa
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/
-/**
- * Auth Reducers
- */
-export const getAuthState: any = (state: AppState) => state.auth;
-export const isAuthenticated: any = createSelector(getAuthState, auth.isAuthenticated);
-export const isAuthLoading: any = createSelector(getAuthState, auth.isAuthenticationLoading);
-export const getAuthError: any = createSelector(getAuthState, auth.getAuthenticationError);
-export const isAuthLoaded: any = createSelector(getAuthState, auth.isAuthenticatedLoaded);
-export const getAuthPersonId: any = createSelector(getAuthState, auth.getPersonId);
-export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
-    (people: person.Person[], personId: string) => {
-    return people.filter((person: person.Person) => person.uid === personId)[0];
-});
 /**
  * Router Reducers
  */

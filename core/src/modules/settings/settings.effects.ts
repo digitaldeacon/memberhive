@@ -24,7 +24,7 @@ export class SettingsEffects {
         .do(() => actions.ListSettingAction)
         .switchMap(() =>
             this.http.get('settings/list') // TODO: add personId to fetch user settings too
-                .map((r: any[]) => new actions.ListSettingSuccessAction(r))
+                .map((r: SettingsState) => new actions.ListSettingSuccessAction(r))
                 .catch((r: any) => of(new actions.ListSettingFailureAction(r)))
         );
 

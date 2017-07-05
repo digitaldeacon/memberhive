@@ -2,6 +2,7 @@ export interface Interaction {
     id: number;
     uid: string;
     type: string;
+    actionType?: string;
     text: string;
     icon: string;
     actions: any;
@@ -10,7 +11,7 @@ export interface Interaction {
     updatedAt: number;
     refId: string;
     authorId: string;
-    recipients: Array<string>;
+    recipients?: Array<string>;
     dueOn: string;
     visibility: string;
 }

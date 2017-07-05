@@ -55,9 +55,9 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
 
         // StoreModule.forRoot(reducers, { reducerFactory: debugReducerFactory }),
         StoreModule.forRoot(reducers),
-        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
+        !environment.prod ? StoreDevtoolsModule.instrument() : [],
 
-        StoreRouterConnectingModule,
+        // StoreRouterConnectingModule,
 
         EffectsModule.forRoot([
             PersonEffects,

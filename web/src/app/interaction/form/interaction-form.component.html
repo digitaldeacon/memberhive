@@ -10,6 +10,37 @@
         <b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}
       </div>
 
+        <div class="mat-input-wrapper m-b-10" fxFlex>
+            <label i18n for="typeSelect">Type:</label>
+            <md-button-toggle-group id="typeSelect"
+                                    formControlName="type"
+                                    (change)="toggleTypes($event)">
+                <md-button-toggle value="{{interactionType.type}}"
+                                  mdTooltip="{{interactionType.type | uppercase}}"
+                                  class="mat-button-toggle {{interactionType.type | lowercase}}"
+                                  *ngFor="let interactionType of options.interaction.types">
+                    <md-icon>{{interactionType.iconString}}</md-icon>
+                </md-button-toggle>
+            </md-button-toggle-group>
+            <md-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
+                You need to supply a type
+            </md-error>
+        </div>
+
+        <div class="mat-input-wrapper m-b-10"
+             *ngIf="form.get('type').value === 'interaction'"
+             fxFlex>
+            <md-select class="option-select"
+                       placeholder="Action verb"
+                       formControlName="actionType"
+                       i18n-placeholder
+                       required>
+                <md-option *ngFor="let verb of actionVerbs" [value]="verb">
+                    {{verb}}
+                </md-option>
+            </md-select>
+        </div>
+
       <mh-tinymce [elementId]="'interaction-editor'"
                   [inline]="false"
                   formControlName="text"></mh-tinymce>
@@ -19,29 +50,22 @@
         A text is required
       </md-error>
 
-      <div class="mat-input-wrapper m-b-10" fxFlex>
-        <label i18n for="typeSelect">Type:</label>
-        <md-button-toggle-group id="typeSelect" formControlName="type">
-          <md-button-toggle value="{{interactionType.type}}"
-                            mdTooltip="{{interactionType.type | uppercase}}"
-                            class="mat-button-toggle {{interactionType.type | lowercase}}"
-                            *ngFor="let interactionType of options.interaction.types">
-            <md-icon>{{interactionType.iconString}}</md-icon>
-          </md-button-toggle>
-        </md-button-toggle-group>
-        <md-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
-          You need to supply a type
-        </md-error>
-      </div>
-
       <div class="mat-input-wrapper" fxFlex fxLayout="row">
-        <md-select placeholder="Relates to" i18n-placeholder formControlName="owner">
+        <md-select placeholder="Relates to" i18n-placeholder
+                   formControlName="owner"
+                   [required]="form.get('type').value !== 'interaction'">
           <md-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
           </md-option>
         </md-select>
 
-        <md-select placeholder="Assign to" i18n-placeholder formControlName="recipients" multiple>
+        <md-select *ngIf="form.get('type').value === 'interaction'"
+                   formControlName="recipients"
+                   placeholder="Assign to"
+                   i18n-placeholder
+                   multiple
+                   required
+                   fxFlex>
           <md-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
           </md-option>

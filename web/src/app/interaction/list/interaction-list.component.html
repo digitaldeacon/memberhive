@@ -25,6 +25,14 @@
                 </button>
             </md-menu>
         </md-card-header>
-        <md-card-content>{{interaction.text}}</md-card-content>
+        <md-card-content>
+          <span *ngIf="interaction.recipients.length > 0">(
+            <ng-container *ngFor="let recipientId of interaction.recipients; let i = index">
+              <span *ngIf="i > 0">,</span>
+              {{recipientTag(recipientId)}}
+            </ng-container>)
+          </span>
+          {{interaction.text}}
+        </md-card-content>
     </md-card>
 </div>
