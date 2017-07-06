@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import {
     Interaction,
+    InteractionCompletePayload,
     InteractionPayload,
     InteractionCollection
 } from './interaction.model';
@@ -76,7 +77,7 @@ export class UpdateInteractionFailureAction implements Action {
 }
 export class CompleteInteractionAction implements Action {
     readonly type = COMPLETE_INTERACTION;
-    constructor(public payload: any) { }
+    constructor(public payload: InteractionCompletePayload) { }
 }
 export class CompleteInteractionSuccessAction implements Action {
     readonly type = COMPLETE_INTERACTION_SUCCESS;

@@ -1,9 +1,13 @@
-import { Component, OnInit, OnChanges, SimpleChanges, OnDestroy } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { MdDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import { Interaction } from 'mh-core';
+import {
+    Interaction,
+    CompleteInteractionAction,
+    AuthService
+} from 'mh-core';
 import * as app from '../../../app.store';
 
 @Component({
@@ -12,24 +16,30 @@ import * as app from '../../../app.store';
     styleUrls: ['./dashlet-interactions.component.scss']
 })
 export class DashletInteractionsComponent implements OnInit, OnDestroy {
-    private now: Date = new Date();
-    private rangeDate: Date;
     private _alive: boolean = true;
 
+    myId: string = '';
     myInteractions$: Observable<Interaction[]>;
+    myInteractions: Interaction[];
     myOutstanding: Interaction[];
+    myCompleted: Interaction[];
 
     constructor(private _store: Store<app.AppState>,
+                private _auth: AuthService,
                 private _dialog: MdDialog) {
+        this.myId = this._auth.getPersonId();
     }
 
     ngOnInit(): void {
       this.myInteractions$ = this._store.select(app.getMyInteractions);
       this.myInteractions$.takeWhile(() => this._alive)
         .subscribe((data: Interaction[]) => {
-        this.myOutstanding = data.filter((interaction: Interaction) =>
-          (interaction.dueOn && !interaction.actions.doneOn) || !interaction.dueOn
-        );
+            this.myOutstanding = data.filter((i: Interaction) => {
+                return !i.actions[this.myId].doneOn && !i.actions[this.myId].completedOn;
+            });
+            this.myCompleted = data.filter((i: Interaction) => {
+                return !i.actions[this.myId].doneOn && i.actions[this.myId].completedOn;
+            });
       });
     }
 
@@ -37,8 +47,8 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
         // open settings dialog
     }
 
-    complete(id: number | string, checked: boolean): void {
-        // this._interactionService.complete(id, checked);
+    complete(id: number, checked: boolean): void {
+      this._store.dispatch(new CompleteInteractionAction({id: id, complete: checked}));
     }
 
     delete(interaction: Interaction): void {
