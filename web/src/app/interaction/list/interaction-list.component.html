@@ -26,13 +26,17 @@
             </md-menu>
         </md-card-header>
         <md-card-content>
-          <span *ngIf="interaction.recipients.length > 0">(
-            <ng-container *ngFor="let recipientId of interaction.recipients; let i = index">
-              <span *ngIf="i > 0">,</span>
-              {{recipientTag(recipientId)}}
-            </ng-container>)
-          </span>
           {{interaction.text}}
+            <div *ngIf="interaction.recipients.length > 0" style="margin-top: 2px">
+                <span i18n>Assigned: </span>
+                <ng-container *ngFor="let recipientId of interaction.recipients; let i = index">
+                    <span class="responsible"
+                          [class.responsible-complete]="interaction.actions[recipientId].completedOn"
+                          [class.responsible-done]="interaction.actions[recipientId].doneOn">
+                        {{recipientTag(recipientId)}}
+                    </span>
+                </ng-container>
+            </div>
         </md-card-content>
     </md-card>
 </div>
