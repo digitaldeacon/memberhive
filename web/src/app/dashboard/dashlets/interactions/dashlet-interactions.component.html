@@ -31,5 +31,25 @@
                 </md-list-item>
             </md-list>
         </div>
+      <div>
+        <md-card-subtitle i18n>Completed <md-divider></md-divider></md-card-subtitle>
+        <md-list>
+          <md-list-item *ngFor="let interaction of myCompleted">
+            <md-checkbox
+              #todo
+              fxFlex
+              [class.completed]="todo.checked"
+              [checked]="interaction.actions[myId].completedOn"
+              (change)="complete(interaction.id, todo.checked)">
+              {{interaction.text | slice:0:50}}
+            </md-checkbox>
+            <span fxFlex="10" *ngIf="todo.checked">
+                        <a md-icon-button (click)="delete(interaction)" mdTooltip="Delete">
+                            <md-icon>close</md-icon>
+                        </a>
+                    </span>
+          </md-list-item>
+        </md-list>
+      </div>
     </md-card-content>
 </md-card>

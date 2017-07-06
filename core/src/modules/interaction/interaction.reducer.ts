@@ -26,13 +26,13 @@ action: actions.InteractionActions): InteractionState {
         case actions.LIST_INTERACTIONS:
         case actions.ADD_INTERACTION:
         case actions.DELETE_INTERACTION:
+        case actions.COMPLETE_INTERACTION:
             return Object.assign({}, state, {
                 loading: true
             });
 
         case actions.LIST_INTERACTIONS_SUCCESS: {
             const interactions: Interaction[] = action.payload;
-            // console.log('from reducer[I]', action.payload);
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,

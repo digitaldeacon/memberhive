@@ -82,15 +82,20 @@ class InteractionController extends MHController
     {
         $post = \Yii::$app->request->post();
         if (!empty($post)) {
-            $pinteraction = PersonInteraction::findOne(['interaction_id'=>$post['id']]);
+            $personId = Person::findOne(['uid'=>$post['author']])->id;
+            $pinteraction = PersonInteraction::findOne([
+              'interaction_id'=>$post['id'],
+              'person_id'=>$personId
+            ]);
             if ($pinteraction->interaction->authorId == $post['author']) {
                 $pinteraction->completedOn = boolval($post['complete']) ? date('Y-m-d H:i:s') : null;
+                $pinteraction->completedBy = boolval($post['author']) ? $personId : null;
                 if (!$pinteraction->save()) {
                     return ['response' => json_encode($pinteraction->errors)];
                 }
-                return ['response' => $pinteraction->interaction->toResponseArray()];
+                return $pinteraction->interaction->toResponseArray();
             } else {
-                throw new BadRequestHttpException('This is not yours to delete!');
+                throw new BadRequestHttpException('This is not yours to complete!');
             }
         }
         throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));

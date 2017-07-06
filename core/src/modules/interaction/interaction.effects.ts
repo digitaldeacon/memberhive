@@ -12,7 +12,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import * as actions from './interaction.actions';
-import { Interaction, InteractionPayload, InteractionCollection } from './interaction.model';
+import { Interaction, InteractionPayload, InteractionCompletePayload } from './interaction.model';
 import { HttpService } from '../../services/http.service';
 import { AuthService } from '../../modules/auth/auth.service';
 
@@ -64,4 +64,14 @@ export class InteractionEffects {
             .map((r: any) => new actions.DeleteInteractionSuccessAction(r))
             .catch((r: any) => of(new actions.DeleteInteractionFailureAction(r)))
         );
+
+    @Effect()
+    completeInteraction$ = this._actions$
+      .ofType(actions.COMPLETE_INTERACTION)
+      .map((action: actions.CompleteInteractionAction) => action.payload)
+      .switchMap((payload: InteractionCompletePayload) => this._http.post('interaction/complete',
+        {id: payload.id, author: this._auth.getPersonId(), complete: payload.complete})
+        .map((r: Interaction) => new actions.UpdateInteractionSuccessAction(r))
+        .catch((r: any) => of(new actions.UpdateInteractionFailureAction(r)))
+      );
 }

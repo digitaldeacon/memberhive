@@ -34,6 +34,6 @@
     "lint": "yarn lint:core && yarn lint:web && yarn lint:api",
     "lint:api": "cd api && ./vendor/bin/phpcs --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
     "lint:api:overview": "cd api && ./vendor/bin/phpcbf --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
-    "publish:do": "yarn build:web && cd deploy && ansible-playbook -i hosts -u root site.yml"
+    "deploy:do": "yarn build:web && cd deploy && ansible-playbook -i hosts -u root site.yml"
   }
 }

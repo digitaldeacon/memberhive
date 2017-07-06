@@ -97,18 +97,23 @@ class Interaction extends \yii\db\ActiveRecord
             $recipients[] = $recipient->uid;
         }
 
+        $personActions = [];
+        foreach ($this->personInteractions as $pi) {
+            $personActions[$pi->person->uid] = [
+                'doneOn' => isset($pi->doneOn) ? $pi->doneOn : null,
+                'completedOn' => isset($pi->completedOn) ? $pi->completedOn : null,
+                'completedBy' => isset($pi->completedBy) ? $pi->completedBy : '',
+                'response' => isset($pi->response) ? $pi->response : '',
+                'delegatedBy' => isset($pi->delegatedBy) ? $pi->delegatedBy : '',
+                'delegatedOn' => isset($pi->delegatedOn) ? $pi->delegatedOn : null
+            ];
+        }
+
         return [
             'id' => $this->id,
             'uid' => $this->uid,
             'text' => $noMarkup ? strip_tags($this->text) : $this->text,
-            'actions' => [
-                'doneOn' => isset($this->personInteraction) ? $this->personInteraction->doneOn : null,
-                'completedOn' => isset($this->personInteraction) ? $this->personInteraction->completedOn : null,
-                'completedBy' => isset($this->personInteraction) ? $this->personInteraction->completedBy : '',
-                'response' => isset($this->personInteraction) ? $this->personInteraction->response : '',
-                'delegatedBy' => isset($this->personInteraction) ? $this->personInteraction->delegatedBy : '',
-                'delegatedOn' => isset($this->personInteraction) ? $this->personInteraction->delegatedOn : null
-            ],
+            'actions' => $personActions,
             'author' => [
                 'id' => $this->authorId,
                 'name' => isset($this->author) ? $this->author->fullName : '',

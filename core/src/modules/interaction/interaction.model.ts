@@ -5,7 +5,7 @@ export interface Interaction {
     actionType?: string;
     text: string;
     icon: string;
-    actions: any;
+    actions: InteractionActionCollection[];
     author: any;
     createdAt: number;
     updatedAt: number;
@@ -14,6 +14,19 @@ export interface Interaction {
     recipients?: Array<string>;
     dueOn: string;
     visibility: string;
+}
+
+export interface InteractionPersonAction {
+  doneOn?: Date;
+  completedOn?: Date;
+  completedBy?: number;
+  response?: string;
+  delegatedBy?: number;
+  delegatedOn?: Date;
+}
+
+export interface InteractionActionCollection {
+  [uid: string]: InteractionPersonAction[];
 }
 
 export interface InteractionCollection {
@@ -33,3 +46,7 @@ export interface InteractionPayload {
     author?: string;
 }
 
+export interface InteractionCompletePayload {
+  id: number;
+  complete: boolean;
+}
