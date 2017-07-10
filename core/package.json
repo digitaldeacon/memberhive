@@ -35,7 +35,7 @@
     "@angular/router": "^4.0.0",
     "@ngrx/effects": "github:ngrx/effects-builds",
     "@ngrx/router-store": "github:ngrx/router-store-builds",
-    "@ngrx/store": "github:ngrx/store-builds",
+    "@ngrx/store": "github:ngrx/store-builds#745395b9775965e1bfcddaabece172f9f556d794",
     "@types/lodash": "^4.14.67",
     "@types/lodash.isequal": "^4.5.1",
     "@types/node": "^7.0.12",
