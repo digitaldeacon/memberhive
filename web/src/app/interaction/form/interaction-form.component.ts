@@ -129,7 +129,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
 
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
-      model.authorId = this._authorId;
+      model.author.id = this._authorId;
       if (!this.editMode) {
           this._store.dispatch(new AddInteractionAction(model));
       } else {

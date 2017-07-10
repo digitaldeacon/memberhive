@@ -21,13 +21,13 @@ md-card-actions {
 }
 .responsible {
     padding: 3px;
-    background-color: #f7d6d1;
-    color: #fff;
     border: 1px solid #333;
     margin-right: 2px
 }
 .responsible.responsible-complete {
-    background-color: #ae9513 !important;
+    background-color: #cccccc !important;
+    color: #999;
+    border-color: #aeaeae;
 }
 .responsible.responsible-done {
     background-color: #9acb39 !important;

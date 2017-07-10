@@ -60,7 +60,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
     currentUser: Person;
     myInteractions: Observable<Interaction[]>;
-    myOutstanding: Observable<Interaction[]>;
+    myOutstanding: Interaction[];
     churchName: string;
 
     loading$: Observable<boolean>;
@@ -87,6 +87,14 @@ export class ViewComponent implements OnInit, OnDestroy {
                 if (data) {
                     this.churchName = data.churchName;
                 }
+            });
+        this._store.select(app.getMyInteractions).takeWhile(() => this._alive)
+            .subscribe((data: Interaction[]) => {
+                this.myOutstanding = data.filter((i: Interaction) => {
+                    console.log(i);
+                    return !i.actions[_authSrv.getPersonId()].doneOn
+                        && !i.actions[_authSrv.getPersonId()].completedOn;
+                });
             });
     }
 
