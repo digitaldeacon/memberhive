@@ -6,14 +6,19 @@ export interface Interaction {
     text: string;
     icon: string;
     actions: InteractionActionCollection[];
-    author: any;
+    author: InteractionAuthor;
     createdAt: number;
     updatedAt: number;
     refId: string;
-    authorId: string;
     recipients?: Array<string>;
     dueOn: string;
     visibility: string;
+}
+
+export interface InteractionAuthor {
+  id?: string;
+  name?: string;
+  avatar?: string;
 }
 
 export interface InteractionPersonAction {

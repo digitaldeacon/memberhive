@@ -24,13 +24,15 @@ import { InteractionListComponent } from './list/interaction-list.component';
 import { TitleService } from 'mh-core';
 
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
+import { ViewComponent } from './view/view.component';
 
 @NgModule({
     declarations: [
         InteractionListComponent,
         TinyMCEComponent,
         InteractionFormComponent,
-        InteractionComponent
+        InteractionComponent,
+        ViewComponent
     ],
     imports: [
         CommonModule,
