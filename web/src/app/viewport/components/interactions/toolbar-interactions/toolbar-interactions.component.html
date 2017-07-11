@@ -1,15 +1,15 @@
 <button md-icon-button
         [mdMenuTriggerFor]="interactionsMenu"
         mdTooltip="Interactions"
-        [class.has-interactions]="interactions?.length">
-    <md-icon *ngIf="!interactions?.length">forum</md-icon>
-    <b *ngIf="interactions?.length">{{interactions.length}}</b>
+        [class.has-interactions]="outstandingInteractions?.length">
+    <md-icon *ngIf="!outstandingInteractions?.length">forum</md-icon>
+    <b *ngIf="outstandingInteractions?.length">{{outstandingInteractions.length}}</b>
 </button>
 
 <md-menu #interactionsMenu="mdMenu">
-    <div *ngIf="!interactions?.length" class="no-interactions">No interactions</div>
-    <md-nav-list *ngIf="interactions?.length">
-        <md-list-item *ngFor="let interaction of interactions">
+    <div *ngIf="!outstandingInteractions?.length" class="no-interactions">No interactions</div>
+    <md-nav-list *ngIf="outstandingInteractions?.length">
+        <md-list-item *ngFor="let interaction of outstandingInteractions">
                         <span md-list-avatar class="date-rounded" *ngIf="interaction.dueOn">
                             {{interaction.dueOn | date: 'MMM d'}}
                         </span>
@@ -19,5 +19,5 @@
         </md-list-item>
     </md-nav-list>
     <md-divider></md-divider>
-    <a md-menu-item routerLink="/interaction/create" i18n>Create Interaction</a>
+    <a md-menu-item routerLink="/interaction/create" i18n fxFlex>Create Interaction</a>
 </md-menu>

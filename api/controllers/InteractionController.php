@@ -143,7 +143,7 @@ class InteractionController extends MHController
                 $interaction->type = $post['type'];
                 $interaction->actionType = isset($post['actionType']) ? $post['actionType'] : null;
                 $interaction->refId = $post['owner'];
-                $interaction->authorId = $post['authorId'];
+                $interaction->authorId = $post['author']['id'];
                 $interaction->dueOn = isset($post['dueOn']) ? date('Y-m-d H:i', strtotime($post['dueOn'])) : null;
                 $interaction->visibility = isset($post['visibility']) ? $post['visibility'] : null;
                 if ($interaction->save()) {

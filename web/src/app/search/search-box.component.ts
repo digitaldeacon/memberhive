@@ -23,6 +23,7 @@ export class SearchBoxComponent implements OnInit {
     itemCtrl: FormControl;
     items: Observable<string[]>;
     searchInFocus: boolean = false;
+    searching: boolean = false;
 
     constructor(private searchService: SearchService,
                 private router: Router) {
@@ -37,7 +38,9 @@ export class SearchBoxComponent implements OnInit {
         this.items = this.searchTermStream
             .debounceTime(300)
             .distinctUntilChanged()
-            .switchMap((term: string) => this.searchService.search(term));
+            .do(() => this.searching = true)
+            .switchMap((term: string) => this.searchService.search(term))
+            .do(() => this.searching = false);
     }
 
     searchClicked(): void {

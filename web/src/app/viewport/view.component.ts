@@ -2,19 +2,24 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/
 import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import {
     TitleService,
     Person,
+    Message,
     AuthService,
     SystemSettings,
     Interaction,
     SettingsState,
     SignOutAction,
     ContextButton,
-    UpdateSettingAction
+    UpdateSettingAction,
+    ClearSettingsMessageAction,
+    ClearInteractionMessageAction,
+    PersonClearMessageAction
 } from 'mh-core';
 
 @Component({
@@ -33,8 +38,8 @@ import {
                 'max-width': '75px'
             }))
         ])
-    ]
-    // ,changeDetection: ChangeDetectionStrategy.OnPush
+    ],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnDestroy {
     private _alive: boolean = true;
@@ -68,6 +73,7 @@ export class ViewComponent implements OnDestroy {
 
     constructor(private _authSrv: AuthService,
                 private _router: Router,
+                private _shout: ShoutService,
                 private _store: Store<app.AppState>,
                 private _titleService: TitleService) {
         this.loading$ = this._store.select(app.getLoading);
@@ -86,6 +92,17 @@ export class ViewComponent implements OnDestroy {
             .subscribe((data: SystemSettings) => {
                 if (data) {
                     this.churchName = data.churchName;
+                }
+            });
+
+        this._store.select(app.getMessage)
+            .takeWhile(() => this._alive)
+            .subscribe((message: Message) => {
+                if (message) {
+                    this._shout.out(message.text, message.type);
+                    this._store.dispatch(new ClearSettingsMessageAction());
+                    this._store.dispatch(new ClearInteractionMessageAction());
+                    this._store.dispatch(new PersonClearMessageAction());
                 }
             });
     }
