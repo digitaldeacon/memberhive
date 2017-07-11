@@ -1,4 +1,30 @@
-<md-card fxLayout="row" class="filter-card">
+<md-accordion formGroupName="system">
+    <md-expansion-panel #sysToolbar [hideToggle]="hideToggle">
+        <md-expansion-panel-header i18n>Filter</md-expansion-panel-header>
+        <div fxLayout="row">
+            <md-input-container fxFlex>
+                <md-icon mdPrefix>filter_list</md-icon>
+                <input mdInput
+                       placeholder="Add Filter+"
+                       i18n-placeholder
+                       type="search">
+            </md-input-container>
+            <button md-icon-button [mdMenuTriggerFor]="saveMenu"><md-icon>more_vert</md-icon></button>
+            <md-menu #saveMenu="mdMenu">
+                <button md-menu-item>
+                    <span i18n>Save Filter</span>
+                </button>
+                <button md-menu-item>
+                    <span i18n>Export Filter</span>
+                </button>
+                <button md-menu-item>
+                    <span i18n>Import</span>
+                </button>
+            </md-menu>
+        </div>
+    </md-expansion-panel>
+</md-accordion>
+<!--<md-card fxLayout="row" class="filter-card">
   <md-input-container fxFlex fxFlexFill>
     <md-icon mdPrefix>filter_list</md-icon>
     <input mdInput
@@ -18,4 +44,4 @@
       <span i18n>Import</span>
     </button>
   </md-menu>
-</md-card>
+</md-card>-->
