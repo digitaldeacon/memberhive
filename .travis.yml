@@ -6,7 +6,7 @@ branches:
   only:
     - master
 env:
-  - NODE_JS_VERSION=6.9.5
+  - NODE_JS_VERSION=8.1.3
 addons:
   mariadb: '10.0'
   apt:
@@ -28,7 +28,7 @@ before_install:
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - nvm use $NODE_JS_VERSION
   - nvm alias default $NODE_JS_VERSION
-  - npm i -g @angular/cli typescript@2.2.1 tslint
+  - npm i -g @angular/cli typescript@2.4.1 tslint
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
 before_script:
