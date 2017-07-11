@@ -14,11 +14,11 @@ import {
     CalcGeoCodePayload,
     TitleService,
     GetInteractionsPersonAction,
-    ClearInteractionMessageAction,
     PersonViewAction,
     PersonUpdateAction,
     PersonDeleteAction,
-    PersonClearMessageAction,
+    ContextButton,
+    SetContextButtonsAction,
     PersonCalcGeoAction,
     DeleteInteractionAction
 } from 'mh-core';
@@ -89,6 +89,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                     this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');
                 }
             });
+        this._setContextMenu();
     }
     ngOnDestroy(): void {
         this._alive = false;
@@ -196,5 +197,13 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 this._shout.error('There is no Google API key present. Go to settings and set one.');
             }
         }
+    }
+
+    private _setContextMenu(): void {
+        let buttons: ContextButton[] = [];
+        buttons.push({icon: 'person_pin', link: '/person/map', title: 'PEOPLE MAP'});
+        buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
+
+        this._store.dispatch(new SetContextButtonsAction(buttons));
     }
 }
