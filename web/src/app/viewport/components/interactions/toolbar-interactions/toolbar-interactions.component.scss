@@ -1,0 +1,12 @@
+@import "../../../../../theme.scss";
+
+.has-interactions {
+    background-color: mat-color($mh-app-warn, 400);
+    width: 30px;
+    height: 30px;
+    line-height: 0 !important;
+}
+.no-interactions {
+    text-align: center;
+    padding: 10px
+}
