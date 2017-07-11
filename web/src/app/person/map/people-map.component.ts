@@ -61,7 +61,7 @@ export class PeopleMapComponent implements OnDestroy {
                 if (this.validate()) {
                     this.setInitMarker();
                 } else {
-                    this._shout.error('Church address is missing or incomplete. Got to system settings to fix');
+                    this._shout.error('Church address is missing or incomplete. Go to settings to fix it');
                 }
             });
         this._setContextMenu();
