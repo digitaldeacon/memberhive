@@ -74,7 +74,7 @@ export function personReducer(state: PersonState = initialPersonState,
             const person: Person = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_SUCCESS,
-                text: 'Successfully deleted ' + person.fullName
+                text: 'Successfully deleted this person'
             };
             return Object.assign({}, state, {
                 loaded: true,
