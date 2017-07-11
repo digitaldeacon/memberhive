@@ -27,7 +27,7 @@
         </md-card-header>
         <md-card-content>
           {{interaction.text}}
-            <div *ngIf="interaction.recipients.length > 0" style="margin-top: 2px">
+            <div *ngIf="interaction.recipients.length > 0" class="responsible-list">
                 <span i18n>Assigned: </span>
                 <ng-container *ngFor="let recipientId of interaction.recipients; let i = index">
                     <span class="responsible"
