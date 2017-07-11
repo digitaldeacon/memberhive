@@ -19,7 +19,6 @@ export class ToolbarInteractionsComponent {
                     return !i.actions[this._auth.getPersonId()].doneOn
                         && !i.actions[this._auth.getPersonId()].completedOn;
                 });
-            console.log(this.outstandingInteractions);
         }
     }
 

@@ -14,10 +14,14 @@
                             {{interaction.dueOn | date: 'MMM d'}}
                         </span>
             <md-icon md-list-icon *ngIf="!interaction.dueOn">hourglass_empty</md-icon>
-            <span md-line>{{interaction.text | slice:0:20}}...</span>
+            <span md-line>
+                <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
+                {{interaction.text | slice:0:20}}...</span>
             <span md-line *ngIf="interaction.author.id !== _auth.getPersonId()">{{interaction.author.name}}</span>
         </md-list-item>
     </md-nav-list>
     <md-divider></md-divider>
-    <a md-menu-item routerLink="/interaction/create" i18n fxFlex>Create Interaction</a>
+    <button md-menu-item routerLink="/interaction/create" i18n fxFlex>
+        <md-icon>forum</md-icon> Create Interaction
+    </button>
 </md-menu>

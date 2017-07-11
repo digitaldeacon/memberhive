@@ -21,6 +21,7 @@
                             [class.completed]="todo.checked"
                             [checked]="interaction.actions.completedOn"
                             (change)="complete(interaction.id, todo.checked)">
+                        <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
                         {{interaction.text | slice:0:50}}
                     </md-checkbox>
                     <span fxFlex="10" *ngIf="todo.checked">
@@ -41,7 +42,8 @@
               [class.completed]="todo.checked"
               [checked]="interaction.actions[myId].completedOn"
               (change)="complete(interaction.id, todo.checked)">
-              {{interaction.text | slice:0:50}}
+                <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
+                {{interaction.text | slice:0:50}}
             </md-checkbox>
             <span fxFlex="10" *ngIf="todo.checked">
                         <a md-icon-button (click)="delete(interaction)" mdTooltip="Delete">
