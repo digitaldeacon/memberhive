@@ -92,8 +92,8 @@ export class PersonFormComponent implements OnInit {
             user: this._fb.group({
                 username: [''],
                 password: this._pwFormControl,
-                noCredentials: [undefined],
-                setPassword: [undefined]
+                setPassword: [{value: undefined, disabled: true}],
+                noCredentials: [{value: undefined, disabled: true}]
             }),
             address: this._fb.group({
                 home: this._fb.group({
@@ -156,9 +156,22 @@ export class PersonFormComponent implements OnInit {
         this.randomPassword = this.randomPassword ? false : true;
         if (this.randomPassword) {
             this._pwFormControl.disable();
+            this._pwFormControl.setValue('');
         } else if (this.form.get('user.username').value) {
             this._pwFormControl.enable();
             this._pwFormControl.setValue(this.generateRandomPW());
+        }
+    }
+
+    enablePasswordFields(): void {
+        if (this.form.get('user.username').value.length > 3) {
+            this.form.get('user.setPassword').enable();
+            this.form.get('user.noCredentials').enable();
+        } else {
+            if (!this.form.get('user.setPassword').disabled) {
+                this.form.get('user.setPassword').disable();
+                this.form.get('user.noCredentials').disable();
+            }
         }
     }
 
