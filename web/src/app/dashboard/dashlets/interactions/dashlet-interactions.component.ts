@@ -34,12 +34,10 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
       this.myInteractions$ = this._store.select(app.getMyInteractions);
       this.myInteractions$.takeWhile(() => this._alive)
         .subscribe((data: Interaction[]) => {
-            this.myOutstanding = data.filter((i: Interaction) => {
-                return !i.actions[this.myId].doneOn && !i.actions[this.myId].completedOn;
-            });
-            this.myCompleted = data.filter((i: Interaction) => {
-                return !i.actions[this.myId].doneOn && i.actions[this.myId].completedOn;
-            });
+            this.myOutstanding = data.filter((i: Interaction) =>
+                !i.actions[this.myId].doneOn && !i.actions[this.myId].completedOn);
+            this.myCompleted = data.filter((i: Interaction) =>
+                !i.actions[this.myId].doneOn && i.actions[this.myId].completedOn);
       });
     }
 
