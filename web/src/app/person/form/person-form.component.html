@@ -118,7 +118,11 @@
             <legend i18n>Account</legend>
             <div>
                 <md-input-container>
-                    <input mdInput formControlName="username" placeholder="Username" i18n-placeholder>
+                    <input mdInput
+                           formControlName="username"
+                           placeholder="Username"
+                           (keyup)="enablePasswordFields()"
+                           i18n-placeholder>
                 </md-input-container>
                 <md-error *ngIf="!form.get('user.username').valid" i18n>
                     Username is required (minimum of 4 characters)
@@ -135,7 +139,8 @@
             </div>
             <div fxLayoutAlign="space-between">
                 <md-checkbox formControlName="setPassword"
-                             (change)="toggleRandomPassword($event)" i18n>Set new Password</md-checkbox>
+                             (change)="toggleRandomPassword($event)"
+                             i18n>Set new Password</md-checkbox>
                 <md-checkbox formControlName="noCredentials" i18n>Don't mail credentials</md-checkbox>
             </div>
         </fieldset>
