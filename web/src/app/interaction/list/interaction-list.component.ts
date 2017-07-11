@@ -7,7 +7,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
-import { MdDialog} from '@angular/material';
+import { MdDialog } from '@angular/material';
 
 import { AuthService, Person, Interaction } from 'mh-core';
 

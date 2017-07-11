@@ -17,7 +17,6 @@ export class ToolbarInteractionsComponent {
     }
     get interactions(): Interaction[] {
         return this._interactions.filter((i: Interaction) => {
-            console.log(i, this._auth.getPersonId());
             return !i.actions[this._auth.getPersonId()].doneOn
                 && !i.actions[this._auth.getPersonId()].completedOn;
         });

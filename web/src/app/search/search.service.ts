@@ -1,6 +1,6 @@
-import {Injectable} from '@angular/core';
-import {HttpService} from 'mh-core';
-import {Observable} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { HttpService } from 'mh-core';
+import { Observable } from 'rxjs';
 
 @Injectable()
 export class SearchService {

@@ -1,5 +1,5 @@
-import {Component, Inject, OnInit} from '@angular/core';
-import {MdDialogRef, MD_DIALOG_DATA} from '@angular/material';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'mh-dialog-dashlet-birthday-edit',
