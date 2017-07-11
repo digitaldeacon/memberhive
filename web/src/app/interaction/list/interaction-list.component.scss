@@ -19,9 +19,14 @@ md-card-actions {
     }
   }
 }
+.responsible-list {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #999;
+}
 .responsible {
     padding: 3px;
-    border: 1px solid #333;
+    border: 1px solid #999;
     margin-right: 2px
 }
 .responsible.responsible-complete {
