@@ -127,29 +127,8 @@
         <div mh-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
             <span fxFlex="15" fxHide.xs fxHide.sm></span>
             <mh-search-box fxFlex></mh-search-box>
-            <button md-icon-button
-                    [mdMenuTriggerFor]="interactions"
-                    mdTooltip="Interactions"
-                    [class.has-interactions]="myOutstanding?.length">
-                <md-icon *ngIf="!myOutstanding?.length">forum</md-icon>
-                <b *ngIf="myOutstanding?.length">{{myOutstanding.length}}</b>
-            </button>
 
-            <md-menu #interactions="mdMenu">
-                <div *ngIf="!myOutstanding?.length" class="no-interactions">No interactions</div>
-                <md-nav-list *ngIf="myOutstanding?.length">
-                    <md-list-item *ngFor="let interaction of myOutstanding">
-                        <span md-list-avatar class="date-rounded" *ngIf="interaction.dueOn">
-                            {{interaction.dueOn | date: 'MMM d'}}
-                        </span>
-                        <md-icon md-list-icon *ngIf="!interaction.dueOn">hourglass_empty</md-icon>
-                        <span md-line>{{interaction.text | slice:0:20}}...</span>
-                        <span md-line *ngIf="interaction.author.id !== currentUser?.uid">{{interaction.author.name}}</span>
-                    </md-list-item>
-                </md-nav-list>
-                <md-divider></md-divider>
-                <a md-menu-item routerLink="/interaction/create" i18n>Create Interaction</a>
-            </md-menu>
+            <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
 
             <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
             <md-menu #menu="mdMenu">

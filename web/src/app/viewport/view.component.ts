@@ -10,7 +10,6 @@ import {
     Person,
     AuthService,
     SystemSettings,
-    LayoutSettings,
     Interaction,
     SettingsState,
     SignOutAction,
@@ -59,8 +58,7 @@ export class ViewComponent implements OnInit, OnDestroy {
     ];
 
     currentUser: Person;
-    myInteractions: Observable<Interaction[]>;
-    myOutstanding: Interaction[];
+    myOutstanding$: Observable<Interaction[]>;
     churchName: string;
 
     loading$: Observable<boolean>;
@@ -74,6 +72,8 @@ export class ViewComponent implements OnInit, OnDestroy {
                 private _titleService: TitleService) {
         this.loading$ = this._store.select(app.getLoading);
         this.contextButtons$ = this._store.select(app.getContextButtons);
+        this.myOutstanding$ = this._store.select(app.getMyInteractions);
+
         this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
                 this.drawerVisible = visible;
@@ -88,22 +88,10 @@ export class ViewComponent implements OnInit, OnDestroy {
                     this.churchName = data.churchName;
                 }
             });
-        this._store.select(app.getMyInteractions).takeWhile(() => this._alive)
-            .subscribe((data: Interaction[]) => {
-                this.myOutstanding = data.filter((i: Interaction) => {
-                    console.log(i);
-                    return !i.actions[_authSrv.getPersonId()].doneOn
-                        && !i.actions[_authSrv.getPersonId()].completedOn;
-                });
-            });
     }
 
     ngOnInit(): void {
-        /*this.myInteractions = this._interactionService.myInteractions;
-        this.myOutstanding = this.myInteractions.map((data: Interaction[]) =>
-            data.filter((n: Interaction) => n.dueOn && (!n.actions.doneOn && !n.actions.completedOn))
-        );
-        this._interactionService.loadMy();*/
+
     }
 
     ngOnDestroy(): void {

@@ -30,6 +30,7 @@ import {
 import { reducers } from './app.store';
 
 import 'hammerjs';
+import { ToolbarInteractionsComponent } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
 
 /*function debug(reducer): any {
     return function(state, action): any {
@@ -44,7 +45,8 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
     declarations: [
         AppComponent,
         LoginComponent,
-        ViewComponent
+        ViewComponent,
+        ToolbarInteractionsComponent
     ],
     imports: [
         BrowserModule,
