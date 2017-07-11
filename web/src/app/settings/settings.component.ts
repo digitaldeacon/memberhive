@@ -1,5 +1,5 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
-import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
 import { GLOBALS } from '../../config/globals.config';
 import * as core from 'mh-core';

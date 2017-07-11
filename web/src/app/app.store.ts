@@ -45,7 +45,7 @@ export const isAuthLoaded: any = createSelector(getAuthState, auth.isAuthenticat
 export const getAuthPersonId: any = createSelector(getAuthState, auth.getPersonId);
 export const getAuthPerson: any = createSelector(getPeople, getAuthPersonId,
   (people: person.Person[], personId: string) => {
-    return people.filter((person: person.Person) => person.uid === personId)[0];
+    return people.filter((p: person.Person) => p.uid === personId)[0];
   });
 /**
  * Settings Reducers
@@ -70,11 +70,11 @@ export const getInteractionState: any = (state: AppState) => state.interaction;
 export const getInteractions: any = createSelector(getInteractionState, interaction.getInteractions);
 export const getMyInteractions: any = createSelector(getInteractions, getAuthPersonId,
   (interactions: any, personId: string) => {
-    return interactions.filter((interaction: any) => interaction.recipients.indexOf(personId) > -1);
+    return interactions.filter((i: any) => i.recipients.indexOf(personId) > -1);
   });
 export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedPerson,
-    (interactions: any, person: any) => {
-    return interactions.filter((interaction: any) => interaction.refId === person.uid);
+    (interactions: any, p: any) => {
+    return interactions.filter((i: any) => i.refId === p.uid);
 });
 /**
  * Loading  Reducers

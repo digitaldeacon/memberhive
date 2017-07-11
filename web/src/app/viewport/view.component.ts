@@ -36,7 +36,7 @@ import {
     ]
     // ,changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnInit, OnDestroy {
+export class ViewComponent implements OnDestroy {
     private _alive: boolean = true;
 
     routes: Object[] = [
@@ -88,10 +88,6 @@ export class ViewComponent implements OnInit, OnDestroy {
                     this.churchName = data.churchName;
                 }
             });
-    }
-
-    ngOnInit(): void {
-
     }
 
     ngOnDestroy(): void {
