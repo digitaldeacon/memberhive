@@ -17,7 +17,6 @@ import {
   CalcGeoCodePayload
 } from 'mh-core';
 
-import { ShoutService } from '../../common/shout.service';
 
 @Component({
   selector: 'mh-person-create',
@@ -33,7 +32,6 @@ export class PersonCreateComponent implements OnDestroy {
 
   constructor(titleService: TitleService,
               private _store: Store<app.AppState>,
-              private _shout: ShoutService,
               private _router: Router) {
     titleService.setTitle('Create Person');
     this.settings$ = this._store.select(app.getPeopleSettings);
@@ -45,14 +43,6 @@ export class PersonCreateComponent implements OnDestroy {
         .subscribe((uid: string) => {
           if (uid) {
             this._router.navigate(['/person/view', uid]);
-          }
-        });
-    this._store.select(app.getMessage)
-        .takeWhile(() => this._alive)
-        .subscribe((message: Message) => {
-          if (message) {
-            this._shout.out(message.text, message.type);
-            this._store.dispatch(new PersonClearMessageAction());
           }
         });
     this._setContextMenu();

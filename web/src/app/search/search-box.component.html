@@ -1,6 +1,7 @@
 <div class="mh-search-box" fxFlex>
     <md-input-container floatPlaceholder="never" [class.active]="searchInFocus">
-        <md-icon mdPrefix>search</md-icon>
+        <md-icon mdPrefix *ngIf="!searching">search</md-icon>
+        <md-spinner mdPrefix *ngIf="searching"></md-spinner>
         <input mdInput
                type="search"
                [mdAutocomplete]="auto"

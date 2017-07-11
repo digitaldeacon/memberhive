@@ -169,14 +169,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     private _initStore(): void {
-        this._store.select(app.getMessage)
-            .takeWhile(() => this._alive)
-            .subscribe((message: core.Message) => {
-                if (message) {
-                    this._shout.out(message.text, message.type);
-                    this._store.dispatch(new core.ClearSettingsMessageAction());
-                }
-            });
         this._store.select(app.getSettingsState)
             .take(1)
             .subscribe((data: any) => {

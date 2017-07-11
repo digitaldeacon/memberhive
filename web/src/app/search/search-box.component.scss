@@ -27,6 +27,7 @@
       }
       .mat-input-prefix {
         padding-left: 8px;
+        padding-right: 40px;
       }
       .mat-input-placeholder-wrapper {
         top: -.75375em !important;
@@ -38,9 +39,16 @@
         display: none;
       }
     }
-    md-icon {
-      padding-right: 10px;
+    .mat-icon {
+      position: absolute;
       color: #fff;
+      top: 10px;
+    }
+    .mat-spinner {
+      width: 36px;
+      height: 26px;
+      position: absolute;
+      top: 10px;
     }
   }
 }

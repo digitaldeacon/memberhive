@@ -73,20 +73,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((data: any) => {
                 this.settings = data;
             });
-        // Check on messages
-        this._store.select(app.getMessage)
-            .takeWhile(() => this._alive)
-            .subscribe((message: Message) => {
-                if (message) {
-                    this._shout.out(message.text, message.type)
-                    .afterDismissed()
-                     .take(1)
-                     .subscribe(() => {
-                        this._store.dispatch(new PersonClearMessageAction());
-                        this._store.dispatch(new ClearInteractionMessageAction());
-                     });
-                }
-        });
     }
 
     ngOnInit(): void {

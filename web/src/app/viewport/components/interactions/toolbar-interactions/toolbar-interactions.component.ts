@@ -9,17 +9,18 @@ import { Interaction, AuthService } from 'mh-core';
 })
 export class ToolbarInteractionsComponent {
 
-    private _interactions: Interaction[];
+    outstandingInteractions: Interaction[];
 
     @Input()
-    set interactions(i: Interaction[]) {
-        this._interactions = i;
-    }
-    get interactions(): Interaction[] {
-        return this._interactions.filter((i: Interaction) => {
-            return !i.actions[this._auth.getPersonId()].doneOn
-                && !i.actions[this._auth.getPersonId()].completedOn;
-        });
+    set interactions(collection: Interaction[]) {
+        if (collection) {
+            this.outstandingInteractions = collection
+                .filter((i: Interaction) => {
+                    return !i.actions[this._auth.getPersonId()].doneOn
+                        && !i.actions[this._auth.getPersonId()].completedOn;
+                });
+            console.log(this.outstandingInteractions);
+        }
     }
 
     constructor(private _auth: AuthService) { }
