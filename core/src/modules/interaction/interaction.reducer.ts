@@ -1,5 +1,4 @@
 import { Response } from '@angular/http';
-import { createSelector } from '@ngrx/store';
 import { Interaction, InteractionCollection } from './interaction.model';
 import * as actions from './interaction.actions';
 import * as common from '../../common/common.model';

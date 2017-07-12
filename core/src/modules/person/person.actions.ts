@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Response } from '@angular/http';
 import { Person, CalcGeoCodePayload } from './person.model';
 
 export const LIST_PEOPLE = '[People] List';
@@ -31,7 +32,7 @@ export class ListSuccessAction implements Action {
 
 export class ListFailureAction implements Action {
     readonly type = LIST_PEOPLE_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export class PersonViewAction implements Action {
@@ -51,7 +52,7 @@ export class PersonUpdateSuccessAction implements Action {
 
 export class PersonUpdateFailureAction implements Action {
     readonly type = UPDATE_PERSON_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export class PersonCreateAction implements Action {
@@ -66,7 +67,7 @@ export class PersonCreateSuccessAction implements Action {
 
 export class PersonCreateFailureAction implements Action {
     readonly type = CREATE_PERSON_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export class PersonDeleteAction implements Action {
@@ -81,7 +82,7 @@ export class PersonDeleteSuccessAction implements Action {
 
 export class PersonDeleteFailureAction implements Action {
     readonly type = DELETE_PERSON_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export class PersonClearMessageAction implements Action {
@@ -92,13 +93,15 @@ export class PersonCalcGeoAction implements Action {
     readonly type = CALC_PERSON_GEO;
     constructor(public payload: CalcGeoCodePayload) { }
 }
+
 export class PersonCalcGeoSuccessAction implements Action {
     readonly type = CALC_PERSON_GEO_SUCCESS;
     constructor(public payload: CalcGeoCodePayload) { }
 }
+
 export class PersonCalcGeoFailureAction implements Action {
     readonly type = CALC_PERSON_GEO_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 
 export type PersonActions =

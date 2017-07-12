@@ -1,7 +1,9 @@
+import { Response } from '@angular/http';
 import { createSelector } from '@ngrx/store';
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload } from './person.model';
 import * as common from '../../common/common.model';
+import { Utils } from '../../common/common.utils';
 
 export interface PersonState {
     loaded: boolean;
@@ -77,7 +79,8 @@ export function personReducer(state: PersonState = initialPersonState,
             return Object.assign({}, state, {
                 loaded: true,
                 loading: false,
-                message: message
+                message: message,
+                people: state.people.filter((p: Person) => p.id !== person.id)
             });
         }
 
@@ -86,9 +89,10 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.CREATE_PERSON_FAILURE:
         case actions.UPDATE_PERSON_FAILURE:
         case actions.DELETE_PERSON_FAILURE: {
+            const res: Response = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
-                text: action.payload
+                text: Utils.responseErrors(res)
             };
             return Object.assign({}, state, {
                 loading: false,

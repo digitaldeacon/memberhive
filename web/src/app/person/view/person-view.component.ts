@@ -28,6 +28,7 @@ import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dial
 import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
+import { DialogService } from '../../common/dialog.service';
 
 @Component({
     moduleId: 'mh-person',
@@ -54,6 +55,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _shout: ShoutService,
+                private _dialogSrv: DialogService,
                 private _dialog: MdDialog) {
 
         // Selects the current person by fragment param
@@ -91,6 +93,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             });
         this._setContextMenu();
     }
+
     ngOnDestroy(): void {
         this._alive = false;
     }
@@ -125,7 +128,14 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     deletePerson(): void {
-        this._store.dispatch(new PersonDeleteAction(this.person));
+        this._dialogSrv
+            .confirm('Deleting: ' + this.person.fullName, 'Are you sure you want to do this?')
+            .subscribe((confirmed: boolean) => {
+                if (confirmed) {
+                    this._store.dispatch(new PersonDeleteAction(this.person));
+                    this._router.navigate(['/person']);
+                }
+            });
     }
 
     deleteInteraction(interactionId: number): void {
