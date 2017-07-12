@@ -33,6 +33,7 @@ class PersonController extends MHController
             || $action->id == 'update-column'
             || $action->id == 'avatar-upload'
             || $action->id == 'create'
+            || $action->id == 'delete'
         ) {
             $this->enableCsrfValidation = false;
         }
