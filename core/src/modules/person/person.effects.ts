@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Response } from '@angular/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
@@ -32,7 +33,7 @@ export class PersonEffects {
         .switchMap(() =>
             this.http.get('person/list')
                 .map((r: Person[]) => new actions.ListSuccessAction(r))
-                .catch((r: any) => of(new actions.ListFailureAction(r)))
+                .catch((r: Response) => of(new actions.ListFailureAction(r)))
         );
 
     @Effect()
@@ -41,7 +42,7 @@ export class PersonEffects {
         .map((action: actions.PersonUpdateAction) => action.payload)
         .mergeMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
             .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
-            .catch((r: any) => of(new actions.PersonUpdateFailureAction(r)))
+            .catch((r: Response) => of(new actions.PersonUpdateFailureAction(r)))
         );
 
     @Effect()
@@ -59,7 +60,7 @@ export class PersonEffects {
         .map((action: actions.PersonDeleteAction) => action.payload)
         .switchMap((data: Person) => this.http.post('person/delete?id=' + data.uid, data)
             .map((r: any) => new actions.PersonDeleteSuccessAction(r))
-            .catch((r: any) => of(new actions.PersonDeleteFailureAction(r)))
+            .catch((r: Response) => of(new actions.PersonDeleteFailureAction(r)))
         );
 
     @Effect()
@@ -82,6 +83,6 @@ export class PersonEffects {
                     payload.person.address.home.geocode = data;
                     return new actions.PersonUpdateAction(payload.person);
                 })
-                .catch((error: any) => of(new actions.PersonCalcGeoFailureAction(error)));
+                .catch((error: Response) => of(new actions.PersonCalcGeoFailureAction(error)));
         });
 }

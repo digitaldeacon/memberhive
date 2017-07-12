@@ -1,4 +1,5 @@
 import { Action } from '@ngrx/store';
+import { Response } from '@angular/http';
 import {
     Interaction,
     InteractionCompletePayload,
@@ -37,7 +38,7 @@ export class ListInteractionsSuccessAction implements Action {
 }
 export class ListInteractionsFailureAction implements Action {
     readonly type = LIST_INTERACTIONS_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class AddInteractionAction implements Action {
     readonly type = ADD_INTERACTION;
@@ -49,7 +50,7 @@ export class AddInteractionSuccessAction implements Action {
 }
 export class AddInteractionFailureAction implements Action {
     readonly type = ADD_INTERACTION_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class DeleteInteractionAction implements Action {
     readonly type = DELETE_INTERACTION;
@@ -61,7 +62,7 @@ export class DeleteInteractionSuccessAction implements Action {
 }
 export class DeleteInteractionFailureAction implements Action {
     readonly type = DELETE_INTERACTION_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class UpdateInteractionAction implements Action {
     readonly type = UPDATE_INTERACTION;
@@ -73,7 +74,7 @@ export class UpdateInteractionSuccessAction implements Action {
 }
 export class UpdateInteractionFailureAction implements Action {
     readonly type = UPDATE_INTERACTION_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class CompleteInteractionAction implements Action {
     readonly type = COMPLETE_INTERACTION;
@@ -85,7 +86,7 @@ export class CompleteInteractionSuccessAction implements Action {
 }
 export class CompleteInteractionFailureAction implements Action {
     readonly type = COMPLETE_INTERACTION_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class EndInteractionAction implements Action {
     readonly type = END_INTERACTION;
@@ -97,7 +98,7 @@ export class EndInteractionsSuccessAction implements Action {
 }
 export class EndInteractionsFailureAction implements Action {
     readonly type = END_INTERACTION_FAILURE;
-    constructor(public payload: any) { }
+    constructor(public payload: Response) { }
 }
 export class ClearInteractionMessageAction implements Action {
     readonly type = CLEAR_INTERACTION_MESSAGE;

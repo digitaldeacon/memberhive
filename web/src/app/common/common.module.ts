@@ -21,10 +21,12 @@ import { MhFadeDirective } from './animations/fade/fade.directive';
 import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
 import { ShoutService } from './shout.service';
+import { DialogService } from './dialog.service';
 
 import { AuthGuard } from './auth-guard.service';
 import { NotifyboxComponent } from './components/notifybox/notifybox.component';
 import { FilterComponent } from './components/filter/filter.component';
+import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
 
 import { AgmCoreModule } from '@agm/core';
 
@@ -38,6 +40,7 @@ const MATERIAL_MODULES: any[] = [
     declarations: [
         NotifyboxComponent,
         FilterComponent,
+        ConfirmDialogComponent,
         MhFadeDirective,
         MhToggleDirective
     ], // directives, components, and pipes owned by this NgModule
@@ -52,15 +55,20 @@ const MATERIAL_MODULES: any[] = [
     providers: [
         Title,
         AuthGuard,
-        ShoutService
+        ShoutService,
+        DialogService
     ],
     exports: [
         NotifyboxComponent,
         FilterComponent,
+        ConfirmDialogComponent,
         MATERIAL_MODULES,
         MHLayoutModule,
         FlexLayoutModule,
         AgmCoreModule
+    ],
+    entryComponents: [
+        ConfirmDialogComponent
     ]
 })
 
