@@ -8,6 +8,7 @@ import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { ROUTER_ERROR, ROUTER_CANCEL } from '@ngrx/router-store';
 import { Observable } from 'rxjs/Observable';
 
 import * as actions from './auth.actions';
@@ -62,6 +63,15 @@ export class AuthEffects {
     public signOut: Observable<Action> = this._actions$
         .ofType(actions.SIGN_OUT)
         .map(value => new actions.SignOutSuccessAction());
+
+    @Effect() routeError$: Observable<Action> = this._actions$.ofType(ROUTER_ERROR)
+        .map(toPayload)
+        .do(payload => console.log('router cancelled: ', payload));
+
+    @Effect() routeCancelled$: Observable<Action> = this._actions$.ofType(ROUTER_CANCEL)
+        .map(toPayload)
+        .do(payload => console.log('router cancelled: ', payload));
+
 
     constructor(private _actions$: Actions,
                 private _http: HttpService,
