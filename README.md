@@ -84,6 +84,8 @@ You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is 
 
 On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
 
+On OSX you can get PHP7 via homebrew and composer like this `sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer`
+
 ### Apache/Nginx
 If you want to use/ test the compressions you need to have `mod_rewrite`, `mod_mime` and `mod_negotiation` enabled (Apache, see nginx for related req).
 In case you want to have the server use `brotli` you also need to have **https** working.

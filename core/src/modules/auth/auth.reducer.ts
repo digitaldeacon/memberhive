@@ -42,7 +42,8 @@ export function authReducer(state: AuthState = initialAuthState,
 
         case actions.AUTHENTICATE_FAILURE: {
             const res = action.payload;
-            const resPromise: any = (res.status !== 504) ? res.json() : undefined;
+            const rawStatus: number[] = [504, 404];
+            const resPromise: any = (rawStatus.indexOf(res.status) === -1) ? res.json() : undefined;
             const error: string = resPromise ? resPromise.message : res.statusText;
 
             return {
