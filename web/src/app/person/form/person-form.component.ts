@@ -56,6 +56,10 @@ export class PersonFormComponent implements OnInit {
     initPerson(person?: Person): void {
         if (person) {
             this.address = new PersonAddress(person['address']);
+            // TODO: either have core return date objects or use a dateadapter
+            person.birthday = new Date(person.birthday);
+            person.baptized = new Date(person.baptized);
+            person.anniversary = new Date(person.anniversary);
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;

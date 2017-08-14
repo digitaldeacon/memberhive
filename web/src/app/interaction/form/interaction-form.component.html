@@ -94,7 +94,7 @@
                  placeholder="Complete by"
                  i18n-placeholder
                  formControlName="dueOn">
-          <button mdSuffix [mdDatepickerToggle]="minDatePicker"></button>
+          <md-datepicker-toggle mdSuffix [for]="minDatePicker"></md-datepicker-toggle>
         </md-input-container>
         <md-datepicker #minDatePicker></md-datepicker>
       </div>
