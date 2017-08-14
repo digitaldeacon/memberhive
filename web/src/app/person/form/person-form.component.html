@@ -83,7 +83,7 @@
                        formControlName="birthday"
                        placeholder="Birthday" i18n-placeholder
                        required>
-                <button mdSuffix [mdDatepickerToggle]="dpBirthday"></button>
+                <md-datepicker-toggle mdSuffix [for]="dpBirthday"></md-datepicker-toggle>
             </md-input-container>
             <md-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine" i18n>
                 Birthday is required.
@@ -97,7 +97,7 @@
                        [mdDatepicker]="dpBaptized"
                        formControlName="baptized"
                        placeholder="Baptized" i18n-placeholder>
-                <button mdSuffix [mdDatepickerToggle]="dpBaptized"></button>
+                <md-datepicker-toggle mdSuffix [for]="dpBaptized"></md-datepicker-toggle>
             </md-input-container>
             <md-datepicker #dpBaptized></md-datepicker>
         </div>
@@ -108,7 +108,7 @@
                        [mdDatepicker]="dpAnniversary"
                        formControlName="anniversary"
                        placeholder="Anniversary" i18n-placeholder>
-                <button mdSuffix [mdDatepickerToggle]="dpAnniversary"></button>
+                <md-datepicker-toggle mdSuffix [for]="dpAnniversary"></md-datepicker-toggle>
             </md-input-container>
             <md-datepicker #dpAnniversary></md-datepicker>
         </div>

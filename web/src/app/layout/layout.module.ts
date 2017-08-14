@@ -7,8 +7,8 @@ import {
   MdButtonModule,
   MdIconModule,
   MdCardModule,
-  MdListModule,
-  ScrollDispatchModule } from '@angular/material';
+  MdListModule
+} from '@angular/material';
 
 import { MhLayoutComponent } from './layout.component';
 import { MhLayoutNavComponent } from './layout-nav/layout-nav.component';
@@ -39,7 +39,6 @@ export { MhLayoutComponent, MhLayoutNavComponent, MhLayoutNavListComponent,
   imports: [
     CommonModule,
     FlexLayoutModule,
-    ScrollDispatchModule,
     MdSidenavModule,
     MdToolbarModule,
     MdButtonModule,

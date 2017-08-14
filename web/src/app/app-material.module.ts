@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import {
-    CompatibilityModule,
     MdButtonModule,
     MdCheckboxModule,
     MdAutocompleteModule,
@@ -23,12 +22,6 @@ import {
     MdTabsModule,
     MdToolbarModule,
     MdTooltipModule,
-    OverlayModule,
-    ObserveContentModule,
-    PortalModule,
-    PlatformModule,
-    StyleModule,
-    A11yModule,
     MdNativeDateModule
 } from '@angular/material';
 
@@ -37,7 +30,6 @@ import {
  */
 @NgModule({
     imports: [
-        CompatibilityModule,
         MdButtonModule,
         MdCheckboxModule,
         MdAutocompleteModule,
@@ -60,16 +52,9 @@ import {
         MdTabsModule,
         MdToolbarModule,
         MdTooltipModule,
-        OverlayModule,
-        ObserveContentModule,
-        PortalModule,
-        PlatformModule,
-        StyleModule,
-        A11yModule,
         MdNativeDateModule
     ],
     exports: [
-        CompatibilityModule,
         MdButtonModule,
         MdCheckboxModule,
         MdAutocompleteModule,
@@ -92,12 +77,6 @@ import {
         MdTabsModule,
         MdToolbarModule,
         MdTooltipModule,
-        OverlayModule,
-        ObserveContentModule,
-        PortalModule,
-        PlatformModule,
-        StyleModule,
-        A11yModule,
         MdNativeDateModule
     ]
 })

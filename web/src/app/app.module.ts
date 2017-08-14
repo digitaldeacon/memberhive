@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 
 import { AppMaterialModule } from './app-material.module';
+import { DateAdapter } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 
@@ -21,6 +22,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
+// import { CustomDateAdapter } from './custom-date.adaptor';
+
 import {
     MHCoreModule,
     PersonEffects,
@@ -29,7 +32,6 @@ import {
     AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
-import 'hammerjs';
 import { ToolbarInteractionsComponent } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
 
 /*function debug(reducer): any {
@@ -78,7 +80,11 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         InteractionModule
     ],
     bootstrap: [AppComponent]
+    // providers: [{provide: DateAdapter, useClass: CustomDateAdapter }]
 })
 
 export class AppModule {
+    constructor(private dateAdapter: DateAdapter<Date>) {
+        this.dateAdapter.setLocale('de-DE');
+    }
 }
