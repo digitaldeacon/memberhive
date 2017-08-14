@@ -8,9 +8,7 @@ import { GeocodeService } from './services/geocode.service';
 import { Ng2Webstorage } from 'ngx-webstorage';
 
 @NgModule({
-    declarations: [
-
-    ],
+    declarations: [],
     providers: [
         HttpService,
         AuthService,
