@@ -65,7 +65,7 @@
     "zone.js": "^0.8.10"
   },
   "devDependencies": {
-    "@angular/cli": "^1.2.0",
+    "@angular/cli": "1.2.7",
     "@angular/compiler-cli": "^4.0.0",
     "@angular/platform-server": "^4.0.0",
     "@ngrx/store-devtools": "github:ngrx/store-devtools-builds",

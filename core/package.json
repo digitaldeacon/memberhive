@@ -44,7 +44,7 @@
     "@ngrx/store": "github:ngrx/store-builds",
     "@types/lodash": "^4.14.67",
     "@types/lodash.isequal": "^4.5.1",
-    "@types/node": "^7.0.12",
+    "@types/node": "^8.0.22",
     "codelyzer": "^3.1.1",
     "lodash": "^4.17.4",
     "ngx-webstorage": "^1.8.0",

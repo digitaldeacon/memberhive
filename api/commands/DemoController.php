@@ -9,11 +9,11 @@ use app\helpers\Curl;
 class DemoController extends Controller
 {
 
-    public function actionCreatePeople()
+    public function actionCreate($peopleCnt = 50)
     {
         Person::deleteAll(['NOT IN', 'id', [1]]);
         $curl = new Curl();
-        $resp = $curl->get('https://randomuser.me/api/', ['nat' => 'de', 'results' => 50]);
+        $resp = $curl->get('https://randomuser.me/api/', ['nat' => 'de', 'results' => $peopleCnt]);
         $data = json_decode($resp);
 
         foreach ($data->results as $item) {
