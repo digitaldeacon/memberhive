@@ -1,23 +1,14 @@
 {
-  "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "src",
-    "declaration": true,
-    "emitDecoratorMetadata": true,
+    "baseUrl": "./src",
     "experimentalDecorators": true,
-    "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./dist",
-    "sourceMap": true,
-    "target": "es5",
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
+    "rootDir": "./src",
     "lib": [
-      "es2016",
+      "es2017",
       "dom"
-    ]
+    ],
+    "skipLibCheck": true,
+    "types": []
   }
 }
