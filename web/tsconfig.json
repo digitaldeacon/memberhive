@@ -16,27 +16,8 @@
       "tinymce"
     ],
     "lib": [
-      "es2016",
+      "es2017",
       "dom"
-    ],
-    "paths": {
-      "@angular/common": ["../node_modules/@angular/common"],
-      "@angular/compiler": ["../node_modules/@angular/compiler"],
-      "@angular/compiler-cli": ["../node_modules/@angular/compiler-cli"],
-      "@angular/core": ["../node_modules/@angular/core"],
-      "@angular/http": ["../node_modules/@angular/http"],
-      "@angular/router": ["../node_modules/@angular/router"],
-      "@angular/platform-browser": ["../node_modules/@angular/platform-browser"],
-      "@ngrx/effects": ["../node_modules/@ngrx/effects"],
-      "@ngrx/store": ["../node_modules/@ngrx/store"],
-      "@ngrx/router-store": ["../node_modules/@ngrx/router-store"],
-      "@types/node": ["../node_modules/@types/node"],
-      "@types/lodash.isequal": ["../node_modules/@types/lodash.isequal"],
-      "ngx-webstorage": ["../node_modules/ngx-webstorage"],
-      "lodash.isequal": ["../node_modules/lodash.isequal"],
-      "rxjs": ["../node_modules/rxjs"],
-      "tslint": ["../node_modules/tslint"],
-      "zone.js": ["../node_moduleszone.js"]
-    }
+    ]
   }
 }
