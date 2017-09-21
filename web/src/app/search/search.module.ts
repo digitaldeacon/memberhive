@@ -1,9 +1,14 @@
 import { NgModule } from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { MaterialModule } from '@angular/material';
 import { ReactiveFormsModule }   from '@angular/forms';
 import { RouterModule } from "@angular/router";
 import { FlexLayoutModule } from '@angular/flex-layout';
+
+import { MHCommonModule } from '../common/common.module';
+import {
+    MdAutocompleteModule
+} from '@angular/material';
+
 
 import { SearchBoxComponent } from './search-box.component';
 import { SearchService } from "./search.service";
@@ -14,10 +19,11 @@ import { SearchService } from "./search.service";
     ],
     imports: [
         CommonModule,
-        MaterialModule,
+        MHCommonModule,
         RouterModule,
         FlexLayoutModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        MdAutocompleteModule
     ],
     providers: [
         SearchService

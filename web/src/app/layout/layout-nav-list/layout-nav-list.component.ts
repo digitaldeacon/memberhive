@@ -1,7 +1,7 @@
 import { Component, Input, ViewChild, forwardRef, Optional, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { MdSidenav, MdSidenavToggleResult } from '@angular/material';
+import { MdSidenav, MdDrawerToggleResult } from '@angular/material';
 
 import { MhLayoutComponent } from '../layout.component';
 
@@ -116,21 +116,21 @@ export class MhLayoutNavListComponent {
   /**
    * Proxy toggle method to access sidenav from outside (from mh-layout template).
    */
-  public toggle(): Promise<MdSidenavToggleResult> {
+  public toggle(): Promise<MdDrawerToggleResult> {
     return this._sideNav.toggle(!this._sideNav.opened);
   }
 
   /**
    * Proxy open method to access sidenav from outside (from mh-layout template).
    */
-  public open(): Promise<MdSidenavToggleResult> {
+  public open(): Promise<MdDrawerToggleResult> {
     return this._sideNav.open();
   }
 
   /**
    * Proxy close method to access sidenav from outside (from mh-layout template).
    */
-  public close(): Promise<MdSidenavToggleResult> {
+  public close(): Promise<MdDrawerToggleResult> {
     return this._sideNav.close();
   }
 

@@ -55,7 +55,7 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         BrowserAnimationsModule,
         HttpModule,
         AppRoutingModule,
-        MHCoreModule,
+        MHCoreModule.forRoot(),
 
         // StoreModule.forRoot(reducers, { reducerFactory: debugReducerFactory }),
         StoreModule.forRoot(reducers),
