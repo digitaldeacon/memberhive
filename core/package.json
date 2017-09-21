@@ -1,35 +1,31 @@
 {
   "name": "mh-core",
   "version": "2.0.0",
-  "license": "AGPL-3.0",
-  "angular-cli": {},
+  "scripts": {
+    "build": "gulp build",
+    "build:watch": "gulp",
+    "docs": "yarn docs:build",
+    "docs:build": "compodoc -p tsconfig.json -n mh-core -d docs --hideGenerator",
+    "docs:serve": "yarn docs:build -- -s",
+    "docs:watch": "yarn docs:build -- -s -w",
+    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
+    "test": "tsc && karma start",
+    "install:dep": "cd dist && yarn link"
+  },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/digitaldeacon/memberhive2.git"
+    "url": "https://github.com/digitaldeacon/memberhive2"
   },
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
-  "scripts": {
-    "clean": "rm -rf ./aot/* && rm -rf ./dist/* && yarn clean:postbuild",
-    "clean:postbuild": "find ./src/ -type f -iname *.ngsummary.json -delete && find ./src/ -type f -iname *.ngfactory.ts -delete",
-    "build": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild && yarn lint",
-    "build:raw": "yarn run clean && ngc -p tsconfig.json && yarn run clean:postbuild",
-    "lint": "tslint \"**/*.ts\" -c tslint.json -e \"**/blueprints/*/files/**/*.ts\" -e \"node_modules/**\" -e \"tmp/**\" -e \"dist/**\"",
-    "install:dep": "yarn link"
+  "author": {
+    "name": "Thomas Hochstetter",
+    "email": "thomas.hochstetter@me.com"
   },
-  "engines": {
-    "node": ">= 5.4.1",
-    "npm": ">= 3.10.7",
-    "yarn": ">= 0.24.0"
-  },
-  "peerDependencies": {
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/http": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/router": "^4.0.0"
+  "keywords": [
+    "angular"
+  ],
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/digitaldeacon/memberhive2/issues"
   },
   "devDependencies": {
     "@angular/common": "^4.0.0",
@@ -38,19 +34,45 @@
     "@angular/core": "^4.0.0",
     "@angular/http": "^4.0.0",
     "@angular/platform-browser": "^4.0.0",
+    "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@compodoc/compodoc": "^1.0.0-beta.10",
     "@ngrx/effects": "github:ngrx/effects-builds",
     "@ngrx/router-store": "github:ngrx/router-store-builds",
     "@ngrx/store": "github:ngrx/store-builds",
+    "@types/jasmine": "2.5.38",
     "@types/lodash": "^4.14.67",
     "@types/lodash.isequal": "^4.5.1",
-    "@types/node": "^8.0.22",
-    "codelyzer": "^3.1.1",
+    "@types/node": "~6.0.60",
+    "codelyzer": "~2.0.0",
+    "core-js": "^2.4.1",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-rename": "^1.2.2",
+    "gulp-rollup": "^2.15.0",
+    "jasmine-core": "~2.5.2",
+    "jasmine-spec-reporter": "~3.2.0",
+    "karma": "~1.4.1",
+    "karma-chrome-launcher": "~2.0.0",
+    "karma-cli": "~1.0.1",
+    "karma-coverage-istanbul-reporter": "^0.2.0",
+    "karma-jasmine": "~1.1.0",
+    "karma-jasmine-html-reporter": "^0.2.2",
     "lodash": "^4.17.4",
     "ngx-webstorage": "^1.8.0",
+    "node-sass": "^4.5.2",
+    "node-sass-tilde-importer": "^1.0.0",
+    "node-watch": "^0.5.2",
+    "protractor": "~5.1.0",
+    "rollup": "^0.49.3",
+    "run-sequence": "^1.2.2",
     "rxjs": "^5.4.2",
+    "ts-node": "~2.0.0",
     "tslint": "^5.2.0",
     "typescript": "^2.4.1",
     "zone.js": "^0.8.10"
+  },
+  "engines": {
+    "node": ">=6.0.0"
   }
 }

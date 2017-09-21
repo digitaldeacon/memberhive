@@ -1,17 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
-import 'rxjs/add/operator/map';
+
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
-import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/skip';
+import 'rxjs/add/operator/takeUntil';
+
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
 
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+
+import { Effect, Actions } from '@ngrx/effects';
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { HttpService } from '../../services/http.service';
@@ -65,12 +67,10 @@ export class PersonEffects {
 
     @Effect()
     calcPersonGeo$ = this.actions$
-        .ofType(actions.CALC_PERSON_GEO)
-        .map(toPayload)
+        .ofType<actions.PersonCalcGeoAction>(actions.CALC_PERSON_GEO)
+        .map(action => action.payload)
         .switchMap((payload: CalcGeoCodePayload) => {
-            let adr: string, key: string, url: string;
             let address: PersonAddress = payload.person.address;
-            let response: GeoCodes;
 
             if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
                 return empty();
