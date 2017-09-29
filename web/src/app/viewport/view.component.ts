@@ -36,7 +36,7 @@ import {
                 flex: '1 1 75px;',
                 'min-width': '75px',
                 'max-width': '75px'
-            })),
+            }))
             /*transition('open <=> close', animate('300ms ease-in', keyframes([
                 style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
                 style({opacity: 1, transform: 'translateY(35px)',  offset: 0.5}),

@@ -9,7 +9,6 @@ import {
     MatAutocompleteModule
 } from '@angular/material';
 
-
 import { SearchBoxComponent } from './search-box.component';
 import { SearchService } from "./search.service";
 
