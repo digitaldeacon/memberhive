@@ -24,7 +24,7 @@ export class Utils {
     static responseErrors(r: Response): string {
         const rBody: any = JSON.parse(r.text());
         const messages: any = JSON.parse(rBody.message);
-        let m: string = '';
+        let m = '';
         for (let key of Object.keys(messages)) {
             m += messages[key];
         }

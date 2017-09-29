@@ -3,7 +3,6 @@ import { HttpService } from './http.service';
 import { Address, GeoCodes } from '../common/common.model';
 import { Observable } from 'rxjs';
 import { empty } from 'rxjs/observable/empty';
-import { of } from 'rxjs/observable/of';
 
 @Injectable()
 export class GeocodeService {
@@ -24,7 +23,7 @@ export class GeocodeService {
     }
 
     calc(): Observable<any> {
-        let url: string = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${this._apiKey}`;
+        let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${this._apiKey}`;
 
         if (!this._address.street &&
             !this._address.zip &&
@@ -49,7 +48,7 @@ export class GeocodeService {
     }
 
     private _formatAddress(): string {
-        let adr: string = '';
+        let adr = '';
 
         if (!this._address) {
             return '';
