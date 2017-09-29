@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
@@ -26,7 +26,7 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
 
     constructor(private _store: Store<app.AppState>,
                 private _auth: AuthService,
-                private _dialog: MdDialog) {
+                private _dialog: MatDialog) {
         this.myId = this._auth.getPersonId();
     }
 

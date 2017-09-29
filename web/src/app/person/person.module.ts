@@ -1,7 +1,6 @@
 import { Type, NgModule } from '@angular/core';
 import { CommonModule, DatePipe } from '@angular/common';
 import { MHCommonModule } from '../common/common.module';
-import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -39,8 +38,7 @@ const MH_MODULES: Type<any>[] = [
     MHCommonModule,
     PersonRoutingModule,
     InteractionModule,
-    AuditModule,
-    AppMaterialModule
+    AuditModule
 ];
 
 const MH_COMPONENTS: Type<any>[] = [

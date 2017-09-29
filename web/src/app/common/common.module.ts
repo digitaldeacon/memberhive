@@ -3,20 +3,23 @@ import { Title }  from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     CompatibilityModule,
-    MdButtonModule,
-    MdCardModule,
-    MdIconModule,
-    StyleModule,
-    MdCoreModule,
-    MdDatepickerModule,
-    MdInputModule,
-    MdMenuModule,
-    MdExpansionModule
+    MatButtonModule,
+    MatCardModule,
+    MatIconModule,
+    MatDatepickerModule,
+    MatInputModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatNativeDateModule,
+    MatSnackBarModule,
+    MatListModule,
+    MatToolbarModule
 } from '@angular/material';
 
 import { GLOBALS } from '../../config/globals.config';
 
-import { MHLayoutModule } from '../layout/layout.module';
 import { MhFadeDirective } from './animations/fade/fade.directive';
 import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
@@ -31,9 +34,10 @@ import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.comp
 import { AgmCoreModule } from '@agm/core';
 
 const MATERIAL_MODULES: any[] = [
-    CompatibilityModule, MdButtonModule, MdCardModule, MdIconModule,
-    MdDatepickerModule, StyleModule, MdCoreModule, MdInputModule, MdMenuModule,
-    MdExpansionModule
+    CompatibilityModule, MatButtonModule, MatCardModule, MatIconModule,
+    MatDatepickerModule, MatInputModule, MatMenuModule, MatListModule,
+    MatExpansionModule, MatTooltipModule, MatNativeDateModule, MatSnackBarModule, MatSelectModule,
+    MatToolbarModule
 ];
 
 @NgModule({
@@ -46,7 +50,6 @@ const MATERIAL_MODULES: any[] = [
     ], // directives, components, and pipes owned by this NgModule
     imports: [
         MATERIAL_MODULES,
-        MHLayoutModule,
         FlexLayoutModule,
         AgmCoreModule.forRoot({
             apiKey: GLOBALS.googleAPIKey
@@ -63,7 +66,6 @@ const MATERIAL_MODULES: any[] = [
         FilterComponent,
         ConfirmDialogComponent,
         MATERIAL_MODULES,
-        MHLayoutModule,
         FlexLayoutModule,
         AgmCoreModule
     ],

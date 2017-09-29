@@ -1,80 +1,80 @@
 <mh-filter></mh-filter>
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <a md-button (click)="prevPerson()"><md-icon>chevron_left</md-icon><span>Prev</span></a>
-        <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
-        <a md-button (click)="nextPerson()"><span i18n>Next</span><md-icon>chevron_right</md-icon></a>
+        <a mat-button (click)="prevPerson()"><mat-icon>chevron_left</mat-icon><span>Prev</span></a>
+        <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
+        <a mat-button (click)="nextPerson()"><span i18n>Next</span><mat-icon>chevron_right</mat-icon></a>
     </div>
-    <md-card class="person-card">
-        <md-card-header class="person-card-header">
+    <mat-card class="person-card">
+        <mat-card-header class="person-card-header">
             <a (click)="openDlgAvatar()" class="avatar-container" fxHide.xs>
                 <span class="change-overlay" i18n>Change</span>
-                <img md-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}">
+                <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}">
             </a>
-            <md-card-title-group>
+            <mat-card-title-group>
                 <!--
                 TODO: Tags
-                <md-card-title>
-                    <md-chip-list>
-                        <md-chip>Mitglied</md-chip>
-                        <md-chip>Begrüßungsdienst</md-chip>
-                    </md-chip-list>
-                </md-card-title>
+                <mat-card-title>
+                    <mat-chip-list>
+                        <mat-chip>Mitglied</mat-chip>
+                        <mat-chip>Begrüßungsdienst</mat-chip>
+                    </mat-chip-list>
+                </mat-card-title>
                 -->
-                <md-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column">
-                    <div><md-icon>cake</md-icon>{{person?.birthday | date: 'longDate'}}</div>
-                    <div><md-icon>email</md-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
-                    <div *ngIf="person?.phoneHome"><md-icon>phone</md-icon><a href="tel:{{person.phoneHome}}">{{person.phoneHome}}</a></div>
-                    <div *ngIf="person?.phoneMobile"><md-icon>phonelink_ring</md-icon><a href="tel:{{person.phoneMobile}}">{{person.phoneMobile}}</a></div>
-                    <div *ngIf="person?.maritalStatus"><md-icon>favorite</md-icon>{{person?.maritalStatus}}</div>
-                    <div *ngIf="person?.baptized"><md-icon>opacity</md-icon>{{person?.baptized | date: 'longDate'}}</div>
-                </md-card-subtitle>
+                <mat-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column">
+                    <div><mat-icon>cake</mat-icon>{{person?.birthday | date: 'longDate'}}</div>
+                    <div><mat-icon>email</mat-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
+                    <div *ngIf="person?.phoneHome"><mat-icon>phone</mat-icon><a href="tel:{{person.phoneHome}}">{{person.phoneHome}}</a></div>
+                    <div *ngIf="person?.phoneMobile"><mat-icon>phonelink_ring</mat-icon><a href="tel:{{person.phoneMobile}}">{{person.phoneMobile}}</a></div>
+                    <div *ngIf="person?.maritalStatus"><mat-icon>favorite</mat-icon>{{person?.maritalStatus}}</div>
+                    <div *ngIf="person?.baptized"><mat-icon>opacity</mat-icon>{{person?.baptized | date: 'longDate'}}</div>
+                </mat-card-subtitle>
                 <!--
                 TODO: Relations
-                <md-card-subtitle>
-                    <md-icon>loyalty</md-icon> <a href="#">Thomas Hochstetter</a> (mentor), <a href="#">Marco Bartholomä</a> (friend)
-                </md-card-subtitle>
+                <mat-card-subtitle>
+                    <mat-icon>loyalty</mat-icon> <a href="#">Thomas Hochstetter</a> (mentor), <a href="#">Marco Bartholomä</a> (friend)
+                </mat-card-subtitle>
                 -->
-            </md-card-title-group>
-        </md-card-header>
-        <md-card-actions>
-            <button md-button (click)="prevPerson()" fxHide.xs><md-icon>chevron_left</md-icon><span i18n>Prev</span></button>
-            <button md-button (click)="nextPerson()" fxHide.xs><span i18n>Next</span><md-icon>chevron_right</md-icon></button>
-            <button md-raised-button (click)="createInteraction()" color="accent">
-                <md-icon>forum</md-icon> <span fxHide.xs i18n>Interactions</span></button>
-            <button md-raised-button (click)="openDlgRelationships()" color="accent">
-                <md-icon>loyalty</md-icon> <span fxHide.xs i18n>Relationships</span></button>
-            <button md-raised-button (click)="openDlgAvatar()" color="accent">
-                <md-icon>camera</md-icon> <span fxHide.xs i18n>Avatar</span></button>
-            <button md-icon-button *ngIf="hasMap" (click)="openDlgMap()">
-                <md-icon>map</md-icon>
+            </mat-card-title-group>
+        </mat-card-header>
+        <mat-card-actions>
+            <button mat-button (click)="prevPerson()" fxHide.xs><mat-icon>chevron_left</mat-icon><span i18n>Prev</span></button>
+            <button mat-button (click)="nextPerson()" fxHide.xs><span i18n>Next</span><mat-icon>chevron_right</mat-icon></button>
+            <button mat-raised-button (click)="createInteraction()" color="accent">
+                <mat-icon>forum</mat-icon> <span fxHide.xs i18n>Interactions</span></button>
+            <button mat-raised-button (click)="openDlgRelationships()" color="accent">
+                <mat-icon>loyalty</mat-icon> <span fxHide.xs i18n>Relationships</span></button>
+            <button mat-raised-button (click)="openDlgAvatar()" color="accent">
+                <mat-icon>camera</mat-icon> <span fxHide.xs i18n>Avatar</span></button>
+            <button mat-icon-button *ngIf="hasMap" (click)="openDlgMap()">
+                <mat-icon>map</mat-icon>
             </button>
-            <button md-button (click)="deletePerson()" fxHide.xs>
-                <md-icon>delete</md-icon> <span fxHide.xs i18n>Delete</span></button>
-        </md-card-actions>
-        <md-card-content>
-            <md-tab-group>
-                <md-tab label="Interactions">
+            <button mat-button (click)="deletePerson()" fxHide.xs>
+                <mat-icon>delete</mat-icon> <span fxHide.xs i18n>Delete</span></button>
+        </mat-card-actions>
+        <mat-card-content>
+            <mat-tab-group>
+                <mat-tab label="Interactions">
                     <mh-interaction-list
                             [people]="people"
                             [interactions]="interactions$ | async"
                             (deleteInteraction)="deleteInteraction($event)"></mh-interaction-list>
-                </md-tab>
-                <md-tab label="Edit">
+                </mat-tab>
+                <mat-tab label="Edit">
                    <mh-person-form
                            [person]="person"
                            [settings]="settings"
                            (savePerson)="savePerson($event)"></mh-person-form>
-                </md-tab>
+                </mat-tab>
                 <!--
                 TODO: Family & Group tabs
-                <md-tab label="Family" i18n-label></md-tab>
-                <md-tab label="Groups" i18n-label></md-tab>
+                <mat-tab label="Family" i18n-label></mat-tab>
+                <mat-tab label="Groups" i18n-label></mat-tab>
                 -->
-                <md-tab label="Logs" i18n-label>
+                <mat-tab label="Logs" i18n-label>
                     <mh-audit-log [person]="person"></mh-audit-log>
-                </md-tab>
-            </md-tab-group>
-        </md-card-content>
-    </md-card>
+                </mat-tab>
+            </mat-tab-group>
+        </mat-card-content>
+    </mat-card>
 </div>

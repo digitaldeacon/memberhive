@@ -1,53 +1,53 @@
-<md-card class="dashlet-card">
-    <md-card-header>
-        <md-card-title fxLayout="row" fxLayoutAlign="space-between center">
+<mat-card class="dashlet-card">
+    <mat-card-header>
+        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
             <h3 i18n>Upcoming Birthdays</h3>
             <div>
-                <button md-icon-button md-tooltip="move dashlet">
-                    <md-icon class="handle">tab_unselected</md-icon>
+                <button mat-icon-button matTooltip="move dashlet">
+                    <mat-icon class="handle">tab_unselected</mat-icon>
                 </button>
-                <button md-icon-button (click)="settingsDlg()"><md-icon>more_vert</md-icon></button>
+                <button mat-icon-button (click)="settingsDlg()"><mat-icon>more_vert</mat-icon></button>
             </div>
-        </md-card-title>
-    </md-card-header>
-    <md-card-content>
+        </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
         <div>
-            <md-card-subtitle i18n>Today <md-divider></md-divider></md-card-subtitle>
+            <mat-card-subtitle i18n>Today <mat-divider></mat-divider></mat-card-subtitle>
             <p *ngIf="peopleBdToday?.length == 0" i18n>No birthdays today</p>
-            <md-list>
-                <md-list-item *ngFor="let person of peopleBdToday">
-                    <md-icon md-list-icon class="birthday-notice">cake</md-icon>
-                    <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
-                    <div md-line>
+            <mat-list>
+                <mat-list-item *ngFor="let person of peopleBdToday">
+                    <mat-icon mat-list-icon class="birthday-notice">cake</mat-icon>
+                    <img mat-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+                    <div matLine>
                         <span>{{person.fullName}}</span>
                     </div>
-                    <div md-line>
+                    <div matLine>
                         <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
                         <a href="javascript:void(0)"
                            (click)="interactionsDlg(person)"
                            i18n>interaction</a>
                     </div>
                     <div><b>{{person.age}}</b></div>
-                </md-list-item>
-            </md-list>
+                </mat-list-item>
+            </mat-list>
         </div>
         <div>
-            <md-card-subtitle>
+            <mat-card-subtitle>
                 <ng-container i18n>Next {{range}} days</ng-container>
-                <md-divider></md-divider>
-            </md-card-subtitle>
-            <md-list>
-                <md-list-item *ngFor="let person of peopleBdRange">
-                    <span md-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
-                    <img md-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
-                    <div md-line>
-                        <span md-line>
+                <mat-divider></mat-divider>
+            </mat-card-subtitle>
+            <mat-list>
+                <mat-list-item *ngFor="let person of peopleBdRange">
+                    <span mat-list-avatar class="date-rounded">{{person.birthday | date: 'MMM d'}}</span>
+                    <img mat-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
+                    <div matLine>
+                        <span matLine>
                             {{person.fullName}}
                             (<i><ng-container i18n>in</ng-container>
                             {{birthdayIn(person.birthday)}}
                             <ng-container i18n>days</ng-container></i>)
                         </span>
-                        <span md-line>
+                        <span matLine>
                             <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
                             <a href="javascript:void(0)"
                                (click)="interactionsDlg(person)"
@@ -55,8 +55,8 @@
                         </span>
                     </div>
                     <b>{{person.age + 1}}</b>
-                </md-list-item>
-            </md-list>
+                </mat-list-item>
+            </mat-list>
         </div>
-    </md-card-content>
-</md-card>
+    </mat-card-content>
+</mat-card>

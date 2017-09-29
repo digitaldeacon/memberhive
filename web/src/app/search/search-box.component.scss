@@ -3,14 +3,14 @@
 }
 .mh-search-box {
   width: 100%;
-  md-input-container.active {
+  mat-form-field.active {
     background: #fff;
     color: #000;
-    md-icon {
+    mat-icon {
       color: inherit;
     }
   }
-  md-input-container {
+  mat-form-field {
     width: 95%;
     background: rgba(0, 0, 0, 0.22);
     border-radius: 2px;
@@ -42,13 +42,13 @@
     .mat-icon {
       position: absolute;
       color: #fff;
-      top: 10px;
+      top: 8px;
     }
     .mat-spinner {
       width: 36px;
       height: 26px;
       position: absolute;
-      top: 10px;
+      top: 8px;
     }
   }
 }

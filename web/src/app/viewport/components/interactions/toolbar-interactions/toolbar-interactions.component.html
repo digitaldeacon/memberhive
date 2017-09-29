@@ -1,27 +1,27 @@
-<button md-icon-button
-        [mdMenuTriggerFor]="interactionsMenu"
-        mdTooltip="Interactions"
+<button mat-icon-button
+        [matMenuTriggerFor]="interactionsMenu"
+        matTooltip="Interactions"
         [class.has-interactions]="outstandingInteractions?.length">
-    <md-icon *ngIf="!outstandingInteractions?.length">forum</md-icon>
+    <mat-icon *ngIf="!outstandingInteractions?.length">forum</mat-icon>
     <b *ngIf="outstandingInteractions?.length">{{outstandingInteractions.length}}</b>
 </button>
 
-<md-menu #interactionsMenu="mdMenu">
+<mat-menu #interactionsMenu="matMenu">
     <div *ngIf="!outstandingInteractions?.length" class="no-interactions">No interactions</div>
-    <md-nav-list *ngIf="outstandingInteractions?.length">
-        <md-list-item *ngFor="let interaction of outstandingInteractions">
-                        <span md-list-avatar class="date-rounded" *ngIf="interaction.dueOn">
+    <mat-nav-list *ngIf="outstandingInteractions?.length">
+        <mat-list-item *ngFor="let interaction of outstandingInteractions">
+                        <span mat-list-avatar class="date-rounded" *ngIf="interaction.dueOn">
                             {{interaction.dueOn | date: 'MMM d'}}
                         </span>
-            <md-icon md-list-icon *ngIf="!interaction.dueOn">hourglass_empty</md-icon>
-            <span md-line>
+            <mat-icon mat-list-icon *ngIf="!interaction.dueOn">hourglass_empty</mat-icon>
+            <span matLine>
                 <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
                 {{interaction.text | slice:0:20}}...</span>
-            <span md-line *ngIf="interaction.author.id !== _auth.getPersonId()">{{interaction.author.name}}</span>
-        </md-list-item>
-    </md-nav-list>
-    <md-divider></md-divider>
-    <button md-menu-item routerLink="/interaction/create" i18n fxFlex>
-        <md-icon>forum</md-icon> Create Interaction
+            <span matLine *ngIf="interaction.author.id !== _auth.getPersonId()">{{interaction.author.name}}</span>
+        </mat-list-item>
+    </mat-nav-list>
+    <mat-divider></mat-divider>
+    <button mat-menu-item routerLink="/interaction/create" i18n fxFlex>
+        <mat-icon>forum</mat-icon> Create Interaction
     </button>
-</md-menu>
+</mat-menu>

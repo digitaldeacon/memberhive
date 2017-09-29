@@ -1,11 +1,11 @@
 <div class="interactions" *ngIf="interactions">
-    <md-card *ngFor="let interaction of interactions">
-        <md-card-header fxLayout="row">
-            <md-icon md-card-avatar
-                     mdTooltip="{{interaction.type | uppercase}}"
+    <mat-card *ngFor="let interaction of interactions">
+        <mat-card-header fxLayout="row">
+            <mat-icon mat-card-avatar
+                     matTooltip="{{interaction.type | uppercase}}"
                      class="mat-icon material-icons {{interaction.type | lowercase}}">
                 {{getType(interaction.type)}}
-            </md-icon>
+            </mat-icon>
             <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
                 {{interaction.updatedAt | date: 'medium'}} - &nbsp; <span i18n>by</span> &nbsp;
                 <a *ngIf="!iOwn(interaction.author.id)" [routerLink]="['/person/view', interaction.author.id]">
@@ -13,19 +13,19 @@
                 </a>
                 <span *ngIf="iOwn(interaction.author.id)" i18n>me</span>
             </div>
-            <button md-icon-button [mdMenuTriggerFor]="interactionmenu"><md-icon>more_vert</md-icon></button>
-            <md-menu #interactionmenu="mdMenu">
-                <button md-menu-item [routerLink]="['/interaction/edit', interaction.uid]">
-                    <md-icon>edit</md-icon>
+            <button mat-icon-button [matMenuTriggerFor]="interactionmenu"><mat-icon>more_vert</mat-icon></button>
+            <mat-menu #interactionmenu="matMenu">
+                <button mat-menu-item [routerLink]="['/interaction/edit', interaction.uid]">
+                    <mat-icon>edit</mat-icon>
                     <span i18n>Edit</span>
                 </button>
-                <button md-menu-item (click)="delete(interaction)">
-                    <md-icon>delete</md-icon>
+                <button mat-menu-item (click)="delete(interaction)">
+                    <mat-icon>delete</mat-icon>
                     <span i18n>Delete</span>
                 </button>
-            </md-menu>
-        </md-card-header>
-        <md-card-content>
+            </mat-menu>
+        </mat-card-header>
+        <mat-card-content>
           {{interaction.text}}
             <div *ngIf="interaction.recipients.length > 0" class="responsible-list">
                 <span i18n>Assigned: </span>
@@ -37,6 +37,6 @@
                     </span>
                 </ng-container>
             </div>
-        </md-card-content>
-    </md-card>
+        </mat-card-content>
+    </mat-card>
 </div>

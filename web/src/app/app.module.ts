@@ -2,10 +2,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 
-import { AppMaterialModule } from './app-material.module';
-import { DateAdapter } from '@angular/material';
+import { DateAdapter, MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
+import {
+    MatSidenavModule,
+    MatProgressBarModule
+} from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
@@ -16,8 +19,8 @@ import { InteractionModule } from './interaction/interaction.module';
 import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './viewport/view.component';
 
-import { StoreModule, combineReducers, compose } from '@ngrx/store';
-import { StoreRouterConnectingModule, routerReducer } from '@ngrx/router-store';
+import { StoreModule } from '@ngrx/store';
+import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
@@ -32,16 +35,9 @@ import {
     AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
-import { ToolbarInteractionsComponent } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
-
-/*function debug(reducer): any {
-    return function(state, action): any {
-        console.log('state', state);
-        console.log('action', action);
-        return reducer(state, action);
-    };
-}
-export const debugReducerFactory: any = compose(debug, combineReducers);*/
+import {
+    ToolbarInteractionsComponent
+} from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
 
 @NgModule({
     declarations: [
@@ -57,11 +53,9 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         AppRoutingModule,
         MHCoreModule.forRoot(),
 
-        // StoreModule.forRoot(reducers, { reducerFactory: debugReducerFactory }),
         StoreModule.forRoot(reducers),
         !environment.prod ? StoreDevtoolsModule.instrument() : [],
-
-        // StoreRouterConnectingModule,
+        StoreRouterConnectingModule,
 
         EffectsModule.forRoot([
             PersonEffects,
@@ -73,14 +67,17 @@ export const debugReducerFactory: any = compose(debug, combineReducers);*/
         FormsModule,
         ReactiveFormsModule,
 
-        AppMaterialModule,
         MHCommonModule,
+        MatSidenavModule,
+        MatProgressBarModule,
 
         SearchModule,
         InteractionModule
     ],
-    bootstrap: [AppComponent]
-    // providers: [{provide: DateAdapter, useClass: CustomDateAdapter }]
+    bootstrap: [AppComponent],
+    providers: [
+        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+    ]
 })
 
 export class AppModule {

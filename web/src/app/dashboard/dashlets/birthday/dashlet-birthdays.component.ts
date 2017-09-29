@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 
 import { Person } from 'mh-core';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
@@ -24,9 +24,9 @@ export class DashletBirthdaysComponent {
     peopleBdToday: Array<Person>;
 
     range: number = 7;
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
 
-    constructor(private _dialog: MdDialog,
+    constructor(private _dialog: MatDialog,
                 private _ref: ChangeDetectorRef) { }
 
     filter(people: Person[]): void {
@@ -68,7 +68,7 @@ export class DashletBirthdaysComponent {
     }
 
     settingsDlg(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
+        const config: MatDialogConfig = new MatDialogConfig();
         config.data = {
             range: this.range
         };

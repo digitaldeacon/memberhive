@@ -1,7 +1,7 @@
 @import "../../../theme.scss";
 
 .person-form {
-    md-input-container {
+    mat-form-field {
         width: 100%;
     }
     fieldset {

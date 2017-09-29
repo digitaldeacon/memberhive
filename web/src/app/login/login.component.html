@@ -1,23 +1,23 @@
 <div class="login-container" fxLayout="row" fxLayoutAlign="center center">
     <div class="flex-item login-content">
-        <md-progress-bar
+        <mat-progress-bar
                 mode="indeterminate"
                 color="accent"
-                *ngIf="loading$ | async"></md-progress-bar>
+                *ngIf="loading$ | async"></mat-progress-bar>
         <i class="loading-holder" *ngIf="!(loading$ | async)"></i>
-        <md-card>
+        <mat-card>
             <div class="flex-item logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
 
-            <md-card-title i18n>Sign In</md-card-title>
-            <md-card-subtitle *ngIf="(error$ | async) && !closeError">
+            <mat-card-title i18n>Sign In</mat-card-title>
+            <mat-card-subtitle *ngIf="(error$ | async) && !closeError">
                 <mh-notifybox
                         [message]="error$ | async"
                         [type]="error">
                 </mh-notifybox>
-            </md-card-subtitle>
-            <md-card-content>
+            </mat-card-subtitle>
+            <mat-card-content>
                 <form
                       (ngSubmit)="submit()"
                       [formGroup]="form"
@@ -25,8 +25,8 @@
                       fxLayout="column"
                       autocomplete="off">
 
-                    <md-input-container fxFlex="100">
-                        <input mdInput
+                    <mat-form-field fxFlex="100">
+                        <input matInput
                                required
                                placeholder="Username"
                                i18n-placeholder
@@ -37,10 +37,10 @@
                                [class.invalid]="form.controls.username?.errors && form.controls.username?.dirty"
                                (keyup)="onKey($event)"
                                (focus)="initForm()">
-                    </md-input-container>
+                    </mat-form-field>
 
-                    <md-input-container fxFlex="100">
-                        <input mdInput
+                    <mat-form-field fxFlex="100">
+                        <input matInput
                                type="password"
                                placeholder="Password"
                                i18n-placeholder
@@ -51,10 +51,10 @@
                                formControlName="password"
                                [class.invalid]="form.controls.password?.errors && form.controls.password?.dirty"
                                (keyup)="onKey($event)">
-                    </md-input-container>
+                    </mat-form-field>
 
                     <div>
-                        <button md-raised-button
+                        <button mat-raised-button
                                 color="primary"
                                 type="submit"
                                 [disabled]="form.invalid"
@@ -62,7 +62,7 @@
                     </div>
 
                 </form>
-            </md-card-content>
-        </md-card>
+            </mat-card-content>
+        </mat-card>
     </div>
 </div>

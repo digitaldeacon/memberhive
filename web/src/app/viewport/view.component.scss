@@ -1,6 +1,43 @@
 @import "../../theme.scss";
 
-html, body, mh-app, md-sidenav-container {
+.layout-fixed {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+
+  .header, .footer {
+    max-height: 64px;
+  }
+
+  .mat-toolbar {
+    box-shadow: 0 2px 1px -1px rgba(0, 0, 0, .2), 0 1px 1px 0 rgba(0, 0, 0, .14), 0 1px 3px 0 rgba(0, 0, 0, .12);
+    z-index: 1;
+  }
+
+  .mat-sidenav-container {
+    flex: 1;
+  }
+
+  main {
+    padding: 32px;
+  }
+}
+
+.active-list-item {
+  border-color: mat-color($mh-app-warn, A400);
+  border-width: 0 3px 0 0;
+  border-style: solid;
+}
+.mat-progress-bar {
+  z-index: 10;
+  height: 3px;
+}
+
+/*html, body, mh-app, mat-sidenav-container {
   * {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -26,7 +63,7 @@ html, body, mh-app, md-sidenav-container {
     }
   }
 }
-md-nav-list {
+mat-nav-list {
   .menu-toggle {
     width: 100%;
     text-align: start;
@@ -45,7 +82,7 @@ md-nav-list {
 }
 .drawer {
   background: rgb(56, 53, 53);
-  md-nav-list, .mat-list-item, .mat-icon {
+  mat-nav-list, .mat-list-item, .mat-icon {
     color: #ffffff;
   }
   .mat-divider {
@@ -61,3 +98,4 @@ md-nav-list {
   z-index: 10;
   height: 3px;
 }
+*/

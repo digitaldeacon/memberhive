@@ -7,7 +7,7 @@ import {
     ChangeDetectionStrategy
 } from '@angular/core';
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
-import { MdDialog } from '@angular/material';
+import { MatDialog } from '@angular/material';
 
 import { AuthService, Person, Interaction } from 'mh-core';
 
@@ -44,7 +44,7 @@ export class InteractionListComponent implements OnInit {
     ];
 
     constructor(private auth: AuthService,
-                public dialog: MdDialog) {
+                public dialog: MatDialog) {
     }
 
     ngOnInit(): void {

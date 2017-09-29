@@ -1,8 +1,8 @@
-<md-list class="audit">
-    <md-list-item *ngFor="let log of logs">
-        <md-icon md-list-icon *ngIf="log.context=='person'">person</md-icon>
-        <md-icon md-list-icon *ngIf="log.context=='interaction'">comment</md-icon>
-        <span md-line>{{log.type}} by <b>{{log.refUser}}</b>, at {{log.createdAt | date: 'medium'}}</span>
-        <span md-line *ngIf="log.diff"><i i18n>changed values</i>: {{getDiffDetails(log.diff)}}</span>
-    </md-list-item>
-</md-list>
+<mat-list class="audit">
+    <mat-list-item *ngFor="let log of logs">
+        <mat-icon mat-list-icon *ngIf="log.context=='person'">person</mat-icon>
+        <mat-icon mat-list-icon *ngIf="log.context=='interaction'">comment</mat-icon>
+        <span matLine>{{log.type}} by <b>{{log.refUser}}</b>, at {{log.createdAt | date: 'medium'}}</span>
+        <span matLine *ngIf="log.diff"><i i18n>changed values</i>: {{getDiffDetails(log.diff)}}</span>
+    </mat-list-item>
+</mat-list>
