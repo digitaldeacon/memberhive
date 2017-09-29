@@ -6,7 +6,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { MHCommonModule } from '../common/common.module';
 import {
-    MdAutocompleteModule
+    MatAutocompleteModule
 } from '@angular/material';
 
 
@@ -23,7 +23,7 @@ import { SearchService } from "./search.service";
         RouterModule,
         FlexLayoutModule,
         ReactiveFormsModule,
-        MdAutocompleteModule
+        MatAutocompleteModule
     ],
     providers: [
         SearchService

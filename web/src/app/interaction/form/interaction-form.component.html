@@ -3,8 +3,8 @@
       novalidate
       (ngSubmit)="save(form.value, form.valid)">
 
-  <md-card>
-    <md-card-content>
+  <mat-card>
+    <mat-card-content>
       <div class="mat-input-wrapper muted" *ngIf="editMode">
         <b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}},
         <b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}
@@ -12,113 +12,113 @@
 
         <div class="mat-input-wrapper m-b-10" fxFlex>
             <label i18n for="typeSelect">Type:</label>
-            <md-button-toggle-group id="typeSelect"
+            <mat-button-toggle-group id="typeSelect"
                                     formControlName="type"
                                     (change)="toggleTypes($event)">
-                <md-button-toggle value="{{interactionType.type}}"
-                                  mdTooltip="{{interactionType.type | uppercase}}"
+                <mat-button-toggle value="{{interactionType.type}}"
+                                  matTooltip="{{interactionType.type | uppercase}}"
                                   class="mat-button-toggle {{interactionType.type | lowercase}}"
                                   *ngFor="let interactionType of options.interaction.types">
-                    <md-icon>{{interactionType.iconString}}</md-icon>
-                </md-button-toggle>
-            </md-button-toggle-group>
-            <md-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
+                    <mat-icon>{{interactionType.iconString}}</mat-icon>
+                </mat-button-toggle>
+            </mat-button-toggle-group>
+            <mat-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
                 You need to supply a type
-            </md-error>
+            </mat-error>
         </div>
 
         <div class="mat-input-wrapper m-b-10"
              *ngIf="form.get('type').value === 'interaction'"
              fxFlex>
-            <md-select class="option-select"
+            <mat-select class="option-select"
                        placeholder="Action verb"
                        formControlName="actionType"
                        i18n-placeholder
                        required>
-                <md-option *ngFor="let verb of actionVerbs" [value]="verb">
+                <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
                     {{verb}}
-                </md-option>
-            </md-select>
+                </mat-option>
+            </mat-select>
         </div>
 
       <mh-tinymce [elementId]="'interaction-editor'"
                   [inline]="false"
                   formControlName="text"></mh-tinymce>
-      <md-error *ngIf="!form.get('text').valid && !form.get('text').pristine"
+      <mat-error *ngIf="!form.get('text').valid && !form.get('text').pristine"
                 class="mat-input-wrapper m-b-10"
                 i18n>
         A text is required
-      </md-error>
+      </mat-error>
 
       <div class="mat-input-wrapper" fxFlex fxLayout="row">
-        <md-select placeholder="Relates to" i18n-placeholder
+        <mat-select placeholder="Relates to" i18n-placeholder
                    formControlName="owner"
                    [required]="form.get('type').value !== 'interaction'">
-          <md-option *ngFor="let person of people$ | async" [value]="person.uid">
+          <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
-          </md-option>
-        </md-select>
+          </mat-option>
+        </mat-select>
 
-        <md-select *ngIf="form.get('type').value === 'interaction'"
+        <mat-select *ngIf="form.get('type').value === 'interaction'"
                    formControlName="recipients"
                    placeholder="Assign to"
                    i18n-placeholder
                    multiple
                    required
                    fxFlex>
-          <md-option *ngFor="let person of people$ | async" [value]="person.uid">
+          <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
             {{person.fullName}}
-          </md-option>
-        </md-select>
-        <md-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
           Please supply an interaction owner
-        </md-error>
-        <md-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
+        </mat-error>
+        <mat-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
           You need to have at least one recipient
-        </md-error>
+        </mat-error>
       </div>
 
       <div>
-        <md-select class="option-select"
+        <mat-select class="option-select"
                    formControlName="visibility"
                    placeholder="Visible to"
                    i18n-placeholder>
-          <md-option *ngFor="let item of visibility" [value]="item.id">
-            <md-icon *ngIf="item.icon !== ''">{{item.icon}}</md-icon>
+          <mat-option *ngFor="let item of visibility" [value]="item.id">
+            <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
             {{item.text}}
-          </md-option>
-        </md-select>
-        <md-input-container>
-          <input [mdDatepicker]="minDatePicker"
-                 mdInput
+          </mat-option>
+        </mat-select>
+        <mat-form-field>
+          <input [matDatepicker]="minDatePicker"
+                 matInput
                  placeholder="Complete by"
                  i18n-placeholder
                  formControlName="dueOn">
-          <md-datepicker-toggle mdSuffix [for]="minDatePicker"></md-datepicker-toggle>
-        </md-input-container>
-        <md-datepicker #minDatePicker></md-datepicker>
+          <mat-datepicker-toggle matSuffix [for]="minDatePicker"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #minDatePicker></mat-datepicker>
       </div>
-    </md-card-content>
-    <md-card-actions>
-      <button md-raised-button
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button
               type="submit"
               class="mh-submit"
               [disabled]="!form.valid">
         <span *ngIf="!editMode" i18n>NOTIFY</span>
         <span *ngIf="editMode" i18n>UPDATE</span>
       </button>
-      <button md-raised-button
-              md-button
+      <button mat-raised-button
+              mat-button
               (click)="clearForm()"
               *ngIf="!editMode"
               i18n>
-        <md-icon>clear</md-icon> CLEAR</button>
-      <button md-button
+        <mat-icon>clear</mat-icon> CLEAR</button>
+      <button mat-button
               (click)="returnRoute()"
               i18n>
-        <md-icon>arrow_back</md-icon> CANCEL</button>
-    </md-card-actions>
-  </md-card>
+        <mat-icon>arrow_back</mat-icon> CANCEL</button>
+    </mat-card-actions>
+  </mat-card>
 
 </form>
 <pre *ngIf="error">{{ error | json }}</pre>

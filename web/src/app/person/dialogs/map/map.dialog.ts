@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { GeoCodes, GeoMarker } from 'mh-core';
 
 @Component({
@@ -15,8 +15,8 @@ export class MapDialogComponent implements OnInit {
     initMarkerToMap: boolean = false;
 
     constructor(
-        public dialogRef: MdDialogRef<MapDialogComponent>,
-        @Inject(MD_DIALOG_DATA) public dialogData: any) { }
+        public dialogRef: MatDialogRef<MapDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) public dialogData: any) { }
 
     ngOnInit(): void {
         if (this.dialogData.markers) {

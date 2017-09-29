@@ -1,23 +1,23 @@
 <div class="mh-search-box" fxFlex>
-    <md-input-container floatPlaceholder="never" [class.active]="searchInFocus">
-        <md-icon mdPrefix *ngIf="!searching">search</md-icon>
-        <md-spinner mdPrefix *ngIf="searching"></md-spinner>
-        <input mdInput
+    <mat-form-field floatPlaceholder="never" [class.active]="searchInFocus">
+        <mat-icon matPrefix *ngIf="!searching">search</mat-icon>
+        <mat-spinner matPrefix *ngIf="searching"></mat-spinner>
+        <input matInput
                type="search"
-               [mdAutocomplete]="auto"
+               [matAutocomplete]="auto"
                [formControl]="itemCtrl"
                (focus)="searchInFocus = true"
                (blur)="searchInFocus = false"
                (keyup)="search(term.value)"
                (clear)="toggleVisibility()" #term>
-    </md-input-container>
-    <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let item of items | async"
+    </mat-form-field>
+    <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let item of items | async"
                    [value]="item"
                    class="item"
                    (click)="resultClicked(item)">
             <img src="{{item.icon}}" alt="...">
             <span class="text">{{ item.text }}</span>
-        </md-option>
-    </md-autocomplete>
+        </mat-option>
+    </mat-autocomplete>
 </div>

@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'mh-dialog-person-relations',
@@ -7,5 +7,5 @@ import { MdDialog, MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
 })
 export class PersonRelationsDialogComponent {
     constructor(
-        public dialogRef: MdDialogRef<PersonRelationsDialogComponent>) { }
+        public dialogRef: MatDialogRef<PersonRelationsDialogComponent>) { }
 }

@@ -1,10 +1,10 @@
-<h2 md-dialog-title>{{ title }}</h2>
-<md-dialog-content>
+<h2 matDialogTitle>{{ title }}</h2>
+<mat-dialog-content>
     <p>{{ message }}</p>
-</md-dialog-content>
-<md-dialog-actions>
-    <button type="button" md-button color="warn"
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button type="button" mat-button color="warn"
             (click)="dialogRef.close(true)" i18n>OK</button>
-    <button type="button" md-raised-button
+    <button type="button" mat-raised-button
             (click)="dialogRef.close()" i18n>Cancel</button>
-</md-dialog-actions>
+</mat-dialog-actions>

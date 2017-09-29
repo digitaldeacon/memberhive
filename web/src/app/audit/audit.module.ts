@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule }  from '@angular/common';
-import { MdListModule, MdIconModule } from '@angular/material';
+import { MatListModule, MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 
@@ -14,8 +14,8 @@ import { AuditService } from './audit.service';
     ],
     imports: [
         CommonModule,
-        MdListModule,
-        MdIconModule,
+        MatListModule,
+        MatIconModule,
         FlexLayoutModule,
         MomentModule
     ],

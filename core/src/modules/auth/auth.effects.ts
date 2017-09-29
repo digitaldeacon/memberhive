@@ -22,7 +22,7 @@ export class AuthEffects {
     @Effect()
     public login$: Observable<Action> = this._actions$
         .ofType(actions.AUTHENTICATE)
-        .map(toPayload)
+        .map((action: actions.AuthenticateAction) => action.payload)
         .switchMap((credentials: Credentials) =>
             this._http.unauthenticatedPost('login/login',
                 {
@@ -45,7 +45,7 @@ export class AuthEffects {
     @Effect()
     public $reauth: Observable<Action> = this._actions$
         .ofType(actions.REAUTHENTICATE)
-        .map(toPayload)
+        .map((action: actions.ReAuthenticateAction) => action.payload)
         .switchMap((token: string) =>
             this._http.get('site/test-login')
                 .map((r: any) => {
@@ -63,14 +63,6 @@ export class AuthEffects {
     public signOut: Observable<Action> = this._actions$
         .ofType(actions.SIGN_OUT)
         .map(value => new actions.SignOutSuccessAction());
-
-    @Effect() routeError$: Observable<Action> = this._actions$.ofType(ROUTER_ERROR)
-        .map(toPayload)
-        .do(payload => console.log('router cancelled: ', payload));
-
-    @Effect() routeCancelled$: Observable<Action> = this._actions$.ofType(ROUTER_CANCEL)
-        .map(toPayload)
-        .do(payload => console.log('router cancelled: ', payload));
 
 
     constructor(private _actions$: Actions,

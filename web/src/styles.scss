@@ -9,6 +9,10 @@ html, body {
   background-color: #e0e0e0 !important;
   font-family: $mat-font-family;
   color: #202020;
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
 }
 mh-app {
   height: 100%;
@@ -44,12 +48,15 @@ button.mh-submit {
   padding-top: 1.1em;
   padding-bottom: 1.2em;
 }
-md-icon[mdPrefix] {
+mat-icon[matPrefix] {
   padding-right: 10px;
   color: #888;
 }
 .m-b-10 {
   margin-bottom: 10px;
+}
+.p-r-15 {
+  padding-right: 15px;
 }
 /** Hacks, until Material2 allows changes to these classes from component level **/
 .mat-autocomplete-panel {
@@ -80,7 +87,7 @@ input[type="search"] {
   padding: 0.8em;
   box-sizing: border-box;
 }
-.mat-icon.md-icon-logo {
+.mat-icon.mat-icon-logo {
   width: 38px;
 }
 .mh-layout-manage-list {
@@ -100,65 +107,5 @@ input[type="search"] {
     .mat-divider {
       border-top-color: #666;
     }
-  }
-}
-
-/* Layout related styles */
-md-toolbar {
-  [md-button] {
-    &:first-of-type:not(:last-child) {
-      margin-left: -6px;
-      [dir='rtl'] & {
-        margin-right: -6px;
-        margin-left: 0;
-      }
-    }
-    &:last-of-type:not(:first-child) {
-      margin-right: -6px;
-      [dir='rtl'] & {
-        margin-left: -6px;
-        margin-right: 0;
-      }
-    }
-  }
-  .md-icon-logo {
-    margin-right: 10px;
-    [dir='rtl'] & {
-      margin-left: 10px;
-      margin-right: 0;
-    }
-  }
-  [md-icon-button] {
-    margin: 0 6px;
-  }
-}
-
-// Overall app layout height
-md-sidenav-container {
-  & > md-content,
-  & > [md-content],
-  & > .md-content {
-    height: 100%;
-    overflow: hidden;
-  }
-}
-md-content,
-[md-content],
-.md-content {
-  display: block;
-  position: relative;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  &[md-scroll-y] {
-    overflow-y: auto;
-    overflow-x: hidden;
-  }
-  &[md-scroll-x] {
-    overflow-x: auto;
-    overflow-y: hidden;
-  }
-  // For iOS allow disabling of momentum scrolling
-  &.autoScroll {
-    -webkit-overflow-scrolling: auto;
   }
 }

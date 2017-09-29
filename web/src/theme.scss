@@ -1,17 +1,11 @@
 @import '~@angular/material/theming';
-// @import '~@covalent/core/theming/all-theme';
 @import './palette';
-// Plus imports for other components in your app.
 
 // Include the base styles for Angular Material core. We include this here so that you only
 // have to load a single css file for Angular Material in your app.
 @include mat-core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue.
-// see also: https://material.io/guidelines/style/color.html#
-$mh-app-primary: mat-palette($md-mh-blue);
+$mh-app-primary: mat-palette($mat-mh-blue);
 $mh-app-accent:  mat-palette($mat-orange);
 
 // The warn palette is optional (defaults to red).
@@ -20,8 +14,6 @@ $mh-app-green:  mat-palette($mat-green);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $mh-app-theme: mat-light-theme($mh-app-primary, $mh-app-accent, $mh-app-warn);
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+
+
 @include angular-material-theme($mh-app-theme);
-// @include covalent-theme($mh-app-theme);

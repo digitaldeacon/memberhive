@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MHCommonModule } from '../common/common.module';
-import { AppMaterialModule } from '../app-material.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 import { DragulaModule } from 'ng2-dragula';
@@ -26,7 +25,6 @@ import { TitleService } from 'mh-core';
     imports: [
         CommonModule,
         MHCommonModule,
-        AppMaterialModule,
         DashboardRoutingModule,
         FlexLayoutModule,
         MomentModule,

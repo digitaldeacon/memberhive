@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
-import { MdButtonToggleChange } from '@angular/material';
+import { MatButtonToggleChange } from '@angular/material';
 
 import * as app from '../../app.store';
 import {
@@ -99,7 +99,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     this._alive = false;
   }
 
-  toggleTypes(event: MdButtonToggleChange): void {
+  toggleTypes(event: MatButtonToggleChange): void {
       const actionTypeCtrl: any = (<any>this.form).get('type');
       const recipientsCtrl: any = (<any>this.form).get('recipients');
       const ownerCtrl: any = (<any>this.form).get('owner');

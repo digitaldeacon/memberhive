@@ -1,5 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @Component({
     selector: 'mh-dialog-dashlet-birthday-edit',
@@ -10,8 +10,8 @@ export class DashletEditDialogComponent implements OnInit {
     range: number;
 
     constructor(
-        @Inject(MD_DIALOG_DATA) public dialogData: any,
-        public dialogRef: MdDialogRef<DashletEditDialogComponent>) {
+        @Inject(MAT_DIALOG_DATA) public dialogData: any,
+        public dialogRef: MatDialogRef<DashletEditDialogComponent>) {
     }
 
     ngOnInit(): void {

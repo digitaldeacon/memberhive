@@ -1,5 +1,5 @@
-<h2 md-dialog-title i18n>Manage my profile picture</h2>
-<md-dialog-content>
+<h2 matDialogTitle i18n>Manage my profile picture</h2>
+<mat-dialog-content>
     <div>
         <div class="mat-input-wrapper file-upload">
             <!--<td-file-upload defaultColor="accent"
@@ -7,9 +7,9 @@
                             cancelColor="primary"
                             (upload)="fileChangeListener($event)" #singleFileUpload
                             accept=".png,.jpg">
-                <md-icon>file_upload</md-icon><span>{{ singleFileUpload.files?.name }}</span>
+                <mat-icon>file_upload</mat-icon><span>{{ singleFileUpload.files?.name }}</span>
                 <template td-file-input-label>
-                    <md-icon>attach_file</md-icon><span i18n>Choose a file...</span>
+                    <mat-icon>attach_file</mat-icon><span i18n>Choose a file...</span>
                 </template>
             </td-file-upload>-->
             <input id="avatar-input" type="file" (change)="fileChangeListener($event)">
@@ -23,14 +23,14 @@
                      [height]="cropperSettings.croppedHeight">
         </span>
     </div>
-</md-dialog-content>
-<md-dialog-actions>
+</mat-dialog-content>
+<mat-dialog-actions>
     <button
-            md-raised-button
+            mat-raised-button
             color="primary"
-            md-dialog-close i18n>CLOSE</button>
+            matDialogClose i18n>CLOSE</button>
     <button
-            md-button
+            mat-button
             color="secondary"
             (click)="save()" i18n>SAVE</button>
-</md-dialog-actions>
+</mat-dialog-actions>

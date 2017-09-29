@@ -1,187 +1,81 @@
-<!-- TODO: use this layout once we can fix sidenav and toolbar (remove covalent layout again)
-<md-sidenav-container class="sidenav-container" fullscreen>
+<div class="layout-fixed" fullscreen>
+    <mat-toolbar color="primary" class="header">
 
-    <md-sidenav #sidenav>
-        <md-nav-list>
-            <a *ngFor="let item of routes"
-               md-list-item
-               [routerLink]="[item.route]"
-               (click)="sidenav.close()"
-               tabindex="-1">
-                <md-icon md-list-icon>{{item.icon}}</md-icon>
-                <h4 md-line>{{item.title}}</h4>
-            </a>
-        </md-nav-list>
-        <hr>
-        <button md-button (click)="sidenav.close()" i18n>CLOSE</button>
-    </md-sidenav>
+        <button mat-icon-button
+                (click)="sidenav.open()"
+                class="burger"
+                fxHide
+                fxShow.xs
+                fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
 
-    <header class="top-toolbar">
-        <md-toolbar color="primary">
+        <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
+        <span fxHide.xs class="p-r-15">MemberHive</span>
 
-            <button md-icon-button
-                    (click)="sidenav.open()"
-                    class="burger"
-                    fxHide
-                    fxShow.xs
-                    fxShow.sm><md-icon class="md-24">menu</md-icon></button>
+        <mh-search-box fxFlex></mh-search-box>
 
-            <md-icon class="md-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></md-icon>
-            <span fxHide.xs class="material-label mdl-badge" data-badge="2">MemberHive</span>
+        <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
 
-            <mh-search-box #searchInput class="search-box" fxFlex></mh-search-box>
-
-            <button
-                    md-icon-button
-                    [mdMenuTriggerFor]="interactions"
-                    mdTooltip="Interactions"
-                    [class.has-interactions]="(myOutstanding | async)?.length">
-                <md-icon *ngIf="!(myOutstanding | async)?.length">forum</md-icon>
-                <b *ngIf="(myOutstanding | async)?.length">{{myOutstanding.length}}</b>
+        <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>account_circle</mat-icon>
+                <span i18n>My Profile</span>
             </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span i18n>Logout</span>
+            </button>
+        </mat-menu>
 
-            <md-menu #interactions="mdMenu">
-                <div *ngIf="!(myOutstanding | async)?.length">No interactions</div>
-                <md-nav-list *ngIf="(myOutstanding | async)?.length">
-                    <md-list-item *ngFor="let interaction of myOutstanding | async">
-                        <span md-list-avatar class="date-rounded">{{interaction.dueOn | date: 'MMM d'}}</span>
-                        <span md-line>{{interaction.text | slice:0:20}}...</span>
-                        <span md-line>{{interaction.author.name}}</span>
-                    </md-list-item>
-                </md-nav-list>
-                <md-divider></md-divider>
-                <a md-menu-item (click)="createInteraction()" i18n>Create interaction</a>
-            </md-menu>
-
-            <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-            <md-menu #menu="mdMenu">
-                <button md-menu-item>
-                    <md-icon>account_circle</md-icon>
-                    <span i18n>My Profile</span>
-                </button>
-                <button md-menu-item (click)="logout()">
-                    <md-icon>exit_to_app</md-icon>
-                    <span i18n>Logout</span>
-                </button>
-            </md-menu>
-
-        </md-toolbar>
-        <md-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></md-progress-bar>
-    </header>
-
-    <main fxLayout="row">
-        <div class="drawer"
-             fxFlex="256px"
-             fxHide.xs
-             fxHide.sm
-             [@drawer]="open">
-            <md-nav-list menu-items>
-                <a md-list-item>
-                    <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
-                    <h4 md-line>{{currentUser?.firstName}}</h4>
-                </a>
-                <md-divider color="white"></md-divider>
-                <a *ngFor="let item of routes"
-                   md-list-item
-                   [routerLink]="[item.route]"
-                   [ngClass]="{'active-list-item': isActiveItem(item.title) }">
-                    <md-icon md-list-icon>{{item.icon}}</md-icon>
-                    <h4 md-line>{{item.title}}</h4>
-                </a>
-                <md-divider color="white"></md-divider>
-                <a md-list-item (click)="closeDrawer()" *ngIf="(drawerVisible$ | async)">
-                    <md-icon md-list-icon>first_page</md-icon>
-                    <h4 md-line i18n>collapse</h4>
-                </a>
-                <a md-list-item (click)="openDrawer()" *ngIf="!(drawerVisible$ | async)">
-                    <md-icon md-list-icon>last_page</md-icon>
-                </a>
-            </md-nav-list>
-        </div>
-        <div fxFlex fxLayout="column" class="app-content" fxFill>
-            <router-outlet></router-outlet>
-        </div>
-    </main>
-
-    <footer></footer>
-</md-sidenav-container>-->
-
-<mh-layout #layout>
-    <mh-navigation-drawer
-            sidenavTitle="MemberHive"
-            logo="assets:memberhive"
-            name="{{currentUser?.fullName}}"
-            email="{{currentUser?.email}}">
-        <md-nav-list>
-            <ng-template let-item let-last="last" ngFor [ngForOf]="routes">
-                <a md-list-item
-                   routerLink="item.route"
-                   (click)="layout.close()"><md-icon>{{item.icon}}</md-icon>{{item.title}}</a>
-            </ng-template>
-        </md-nav-list>
-        <md-nav-list mhNavigationDrawerMenu>
-            <a md-list-item (click)="logout()"><md-icon>exit_to_app</md-icon>Sign out</a>
-        </md-nav-list>
-    </mh-navigation-drawer>
-    <mh-layout-nav logo="assets:memberhive" toolbarTitle="{{churchName}}">
-        <div mh-toolbar-content fxLayout="row" fxLayoutAlign="end center" fxFlex>
-            <span fxFlex="15" fxHide.xs fxHide.sm></span>
-            <mh-search-box fxFlex></mh-search-box>
-
-            <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
-
-            <button md-icon-button [mdMenuTriggerFor]="menu"><md-icon>more_vert</md-icon></button>
-            <md-menu #menu="mdMenu">
-                <button md-menu-item>
-                    <md-icon>account_circle</md-icon>
-                    <span i18n>My Profile</span>
-                </button>
-                <button md-menu-item (click)="logout()">
-                    <md-icon>exit_to_app</md-icon>
-                    <span i18n>Sign out</span>
-                </button>
-            </md-menu>
-        </div>
-        <md-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></md-progress-bar>
-        <mh-layout-manage-list #manageList [sidenavWidth]="drawerWidth()">
-            <md-toolbar mh-sidenav-content fxLayoutAlign="center center" class="drawer">
-                <md-nav-list>
-                    <a md-list-item (click)="route('/person/view', currentUser?.uid)">
-                        <img md-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
-                        <h4 md-line *ngIf="drawerVisible">{{currentUser?.firstName}}</h4>
+    </mat-toolbar>
+    <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
+    <mat-sidenav-container>
+        <mat-sidenav #sidenav mode="side" opened="true"
+                    fixedInViewport="true" fixedTopGap="64" fixedBottomGap="0"
+                     fxFlex="220px"
+                     [@drawer]="drawerState">
+            <mat-toolbar>
+                <mat-nav-list>
+                    <a mat-list-item (click)="route('/person/view', currentUser?.uid)">
+                        <img mat-list-avatar src="{{currentUser?.avatar}}" alt="{{currentUser?.fullName}}" />
+                        <span matLine *ngIf="drawerVisible">{{currentUser?.firstName}}</span>
                     </a>
-                </md-nav-list>
-                <md-divider color="white"></md-divider>
-            </md-toolbar>
-            <md-nav-list mh-sidenav-content>
+                </mat-nav-list>
+                <mat-divider color="white"></mat-divider>
+            </mat-toolbar>
+            <mat-nav-list>
                 <a *ngFor="let item of routes"
-                   md-list-item
+                   mat-list-item
                    routerLink="{{item.route}}"
                    routerLinkActive="active-list-item">
-                    <md-icon md-list-icon>{{item.icon}}</md-icon>
-                    <h4 md-line>{{item.title}}</h4>
+                    <mat-icon matListIcon>{{item.icon}}</mat-icon>
+                    <span matLine>{{item.title}}</span>
                 </a>
-                <md-divider color="white"></md-divider>
-                <a md-list-item (click)="closeDrawer()" *ngIf="drawerVisible">
-                    <md-icon md-list-icon>first_page</md-icon>
-                    <h4 md-line i18n>collapse</h4>
+                <mat-divider color="white"></mat-divider>
+                <a mat-list-item (click)="closeDrawer()" *ngIf="drawerVisible">
+                    <mat-icon matListIcon>first_page</mat-icon>
+                    <span matLine i18n>collapse</span>
                 </a>
-                <a md-list-item (click)="openDrawer()" *ngIf="!drawerVisible">
-                    <md-icon md-list-icon>last_page</md-icon>
+                <a mat-list-item (click)="openDrawer()" *ngIf="!drawerVisible">
+                    <mat-icon matListIcon>last_page</mat-icon>
                 </a>
-            </md-nav-list>
-            <div mh-toolbar-content layout="row" layout-align="start center" flex>
+            </mat-nav-list>
+        </mat-sidenav>
+        <mat-sidenav-content>
+            <mat-toolbar>
                 <span>{{getTitle()}}</span>
                 <span flex></span>
-                <button md-icon-button *ngFor="let button of contextButtons$ | async"
+                <button mat-icon-button *ngFor="let button of contextButtons$ | async"
                         [routerLink]="[button.link]"
-                        mdTooltip="{{button.title}}">
-                    <md-icon>{{button.icon}}</md-icon>
+                        matTooltip="{{button.title}}">
+                    <mat-icon>{{button.icon}}</mat-icon>
                 </button>
-            </div>
-            <div class="main-content">
+            </mat-toolbar>
+            <main>
+                <button mat-button (click)="sidenav.toggle()">Toggle Start Side Sidenav</button>
                 <router-outlet></router-outlet>
-            </div>
-        </mh-layout-manage-list>
-    </mh-layout-nav>
-</mh-layout>
+            </main>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+    <!--<mat-toolbar class="footer">Footer</mat-toolbar>-->
+</div>

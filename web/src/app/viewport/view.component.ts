@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
-import { style, state, trigger } from '@angular/animations';
+import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { ShoutService } from '../common/shout.service';
@@ -28,15 +28,20 @@ import {
     styleUrls: ['./view.component.scss'],
     animations: [
         trigger('drawer', [
-            state('true', style({
-                width: '256px'
+            state('open', style({
+                width: '220px'
             })),
-            state('false',  style({
+            state('close',  style({
                 width: '75px',
                 flex: '1 1 75px;',
                 'min-width': '75px',
                 'max-width': '75px'
-            }))
+            })),
+            /*transition('open <=> close', animate('300ms ease-in', keyframes([
+                style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
+                style({opacity: 1, transform: 'translateY(35px)',  offset: 0.5}),
+                style({opacity: 1, transform: 'translateY(0)',     offset: 1.0})
+            ])))*/
         ])
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -69,7 +74,8 @@ export class ViewComponent implements OnDestroy {
     loading$: Observable<boolean>;
     contextButtons$: Observable<ContextButton[]>;
 
-    drawerVisible: boolean;
+    drawerVisible: boolean = true;
+    drawerState: string = 'open';
 
     constructor(private _authSrv: AuthService,
                 private _router: Router,
@@ -83,6 +89,7 @@ export class ViewComponent implements OnDestroy {
         this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
                 this.drawerVisible = visible;
+                this.drawerState = visible ? 'open' : 'close';
             });
         this._store.select(app.getAuthPerson).takeWhile(() => this._alive)
             .subscribe((p: Person) => {
@@ -120,6 +127,7 @@ export class ViewComponent implements OnDestroy {
         const payload: SettingsState = {
             layout: {showDrawer: true}
         };
+        this.drawerState = 'open';
         this._store.dispatch(new UpdateSettingAction(payload));
     }
 
@@ -127,6 +135,7 @@ export class ViewComponent implements OnDestroy {
         const payload: SettingsState = {
             layout: {showDrawer: false}
         };
+        this.drawerState = 'close';
         this._store.dispatch(new UpdateSettingAction(payload));
     }
 

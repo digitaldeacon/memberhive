@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { MdDialog, MdDialogRef, MdDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 
 import { Store } from '@ngrx/store';
@@ -48,7 +48,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     hasMap: boolean = false;
     userUid: string;
 
-    dialogRef: MdDialogRef<any>;
+    dialogRef: MatDialogRef<any>;
 
     constructor(private _titleService: TitleService,
                 private _store: Store<app.AppState>,
@@ -56,7 +56,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _route: ActivatedRoute,
                 private _shout: ShoutService,
                 private _dialogSrv: DialogService,
-                private _dialog: MdDialog) {
+                private _dialog: MatDialog) {
 
         // Selects the current person by fragment param
         this.person$ = this._store.select(app.getSelectedPerson);
@@ -150,7 +150,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     openDlgMap(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
+        const config: MatDialogConfig = new MatDialogConfig();
         const personMarker: GeoMarker = {
             latlng: !Utils.objEmptyProperties(this.person.address, 'home', 'geocode')
                 ? this.person.address.home.geocode
@@ -174,7 +174,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     openDlgAvatar(): void {
-        const config: MdDialogConfig = new MdDialogConfig();
+        const config: MatDialogConfig = new MatDialogConfig();
         config.data = {
             context: 'person',
             id: this.person.uid,

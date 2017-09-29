@@ -1,17 +1,17 @@
 @import "../../../../theme.scss";
 
-md-card {
+mat-card {
   margin: 10px 0 10px 0;
   padding: 10px 10px 0 10px;
   color: #fff;
-  md-card-title {
+  mat-card-title {
     color: #fff;
     font-size: 16px;
   }
-  md-card-subtitle {
+  mat-card-subtitle {
     color: #fff;
   }
-  md-icon {
+  mat-icon {
     font-size: 2.2em;
     margin-right: 8px;
     color: #fff;

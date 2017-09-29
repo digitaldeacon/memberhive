@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
-import { MdDialogRef, MD_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
 import { Person } from 'mh-core';
 
@@ -15,8 +15,8 @@ export class AvatarEditDialogComponent implements OnInit {
     file: File;
     @ViewChild('cropper', undefined) cropper: ImageCropperComponent;
 
-    constructor(public dialogRef: MdDialogRef<AvatarEditDialogComponent>,
-                @Inject(MD_DIALOG_DATA) public dialogData: any) {
+    constructor(public dialogRef: MatDialogRef<AvatarEditDialogComponent>,
+                @Inject(MAT_DIALOG_DATA) public dialogData: any) {
 
         this.cropperSettings = new CropperSettings();
         this.cropperSettings.noFileInput = true;
