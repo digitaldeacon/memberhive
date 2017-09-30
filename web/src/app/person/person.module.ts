@@ -4,6 +4,11 @@ import { MHCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+import {
+    MatFormFieldModule,
+    MatRadioModule, MatCheckboxModule
+} from '@angular/material';
+
 import { InteractionModule } from '../interaction/interaction.module';
 import { AuditModule } from '../audit/audit.module';
 
@@ -41,6 +46,11 @@ const MH_MODULES: Type<any>[] = [
     AuditModule
 ];
 
+const MAT_MODULES: Type<any>[] = [
+    MatFormFieldModule, MatRadioModule, MatCheckboxModule
+];
+
+
 const MH_COMPONENTS: Type<any>[] = [
     PersonComponent,
     PersonListComponent,
@@ -61,6 +71,7 @@ const MH_COMPONENTS: Type<any>[] = [
     imports: [
         NG_MODULES,
         MH_MODULES,
+        MAT_MODULES,
         ImageCropperModule
     ],
     providers: [
