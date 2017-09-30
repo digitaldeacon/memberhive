@@ -28,6 +28,17 @@
         </mat-menu>
 
     </mat-toolbar>
+    <mat-toolbar>
+        <span>{{getTitle()}}</span>
+        <span flex></span>
+        <button mat-icon-button *ngFor="let button of contextButtons$ | async"
+                [routerLink]="[button.link]"
+                matTooltip="{{button.title}}">
+            <mat-icon>{{button.icon}}</mat-icon>
+        </button>
+    </mat-toolbar>
+
+
     <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
     <mat-sidenav-container>
         <mat-sidenav #sidenav mode="side" opened="true"
@@ -41,7 +52,6 @@
                         <span matLine *ngIf="drawerVisible">{{currentUser?.firstName}}</span>
                     </a>
                 </mat-nav-list>
-                <mat-divider color="white"></mat-divider>
             </mat-toolbar>
             <mat-nav-list>
                 <a *ngFor="let item of routes"
@@ -62,15 +72,6 @@
             </mat-nav-list>
         </mat-sidenav>
         <mat-sidenav-content>
-            <mat-toolbar>
-                <span>{{getTitle()}}</span>
-                <span flex></span>
-                <button mat-icon-button *ngFor="let button of contextButtons$ | async"
-                        [routerLink]="[button.link]"
-                        matTooltip="{{button.title}}">
-                    <mat-icon>{{button.icon}}</mat-icon>
-                </button>
-            </mat-toolbar>
             <main>
                 <button mat-button (click)="sidenav.toggle()">Toggle Start Side Sidenav</button>
                 <router-outlet></router-outlet>
