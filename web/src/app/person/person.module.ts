@@ -50,7 +50,6 @@ const MAT_MODULES: Type<any>[] = [
     MatFormFieldModule, MatRadioModule, MatCheckboxModule
 ];
 
-
 const MH_COMPONENTS: Type<any>[] = [
     PersonComponent,
     PersonListComponent,
