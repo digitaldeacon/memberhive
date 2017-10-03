@@ -725,12 +725,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "31cbccb32fd84fa408446bd84af300e52b4af9bf"
+                "reference": "a408e192198423c8d4206e4caf6a6bac878217aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/31cbccb32fd84fa408446bd84af300e52b4af9bf",
-                "reference": "31cbccb32fd84fa408446bd84af300e52b4af9bf",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a408e192198423c8d4206e4caf6a6bac878217aa",
+                "reference": "a408e192198423c8d4206e4caf6a6bac878217aa",
                 "shasum": ""
             },
             "require": {
@@ -817,7 +817,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-09-22T23:24:18+00:00"
+            "time": "2017-09-29T20:02:09+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2535,12 +2535,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "0ae79584f89fee567f21868ddd4ca4d580aba607"
+                "reference": "50c33cf46180f07d75cbec473cdcacacc316b266"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/0ae79584f89fee567f21868ddd4ca4d580aba607",
-                "reference": "0ae79584f89fee567f21868ddd4ca4d580aba607",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/50c33cf46180f07d75cbec473cdcacacc316b266",
+                "reference": "50c33cf46180f07d75cbec473cdcacacc316b266",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-28T15:24:12+00:00"
+            "time": "2017-09-29T11:19:35+00:00"
         },
         {
             "name": "yiisoft/yii2-apidoc",
