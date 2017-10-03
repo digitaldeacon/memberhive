@@ -1,7 +1,14 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import {
+    Component,
+    OnDestroy,
+    ChangeDetectionStrategy,
+    AfterViewInit,
+    ViewChild } from '@angular/core';
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { MatSidenav } from '@angular/material';
+
 import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
@@ -46,8 +53,10 @@ import {
     ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnDestroy {
+export class ViewComponent implements OnDestroy, AfterViewInit {
     private _alive: boolean = true;
+    @ViewChild('sidenav')
+    private sidenav: MatSidenav;
 
     routes: Object[] = [
         {
@@ -116,6 +125,13 @@ export class ViewComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this._alive = false;
+    }
+
+    ngAfterViewInit(): void {
+        const size = this.drawerState === 'open' ? 220 : 64;
+        setTimeout(() => {
+            this.sidenav.open();
+        }, size);
     }
 
     logout(): void {

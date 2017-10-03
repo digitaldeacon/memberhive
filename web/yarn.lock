@@ -37,8 +37,8 @@
     tslib "^1.7.1"
 
 "@angular/cdk@angular/cdk-builds":
-  version "2.0.0-beta.11-53c42a4"
-  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/973c525b8f508f29adf0ac497464cb6d38d1db37"
+  version "2.0.0-beta.11-3c6f7a2"
+  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/ce018c5644133d733da9fd3d846a0c971d55fefe"
   dependencies:
     tslib "^1.7.1"
 
@@ -148,8 +148,8 @@
     tslib "^1.7.1"
 
 "@angular/material@angular/material2-builds":
-  version "2.0.0-beta.11-53c42a4"
-  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/e4790accb002b41cbdc120147ea1c87ceda09e6b"
+  version "2.0.0-beta.11-3c6f7a2"
+  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/4de55d1644bfe52b3327088dd6abee2e1a009a9c"
   dependencies:
     tslib "^1.7.1"
 
