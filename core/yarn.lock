@@ -100,15 +100,15 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.5"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/76c84fe870e14dffb1131645c5d0b242329ba304"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/ae7b1e339e9c39c829321e6012f8b5b0409f00d4"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.4"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/a67118ede369d045ac7a6472c447e4049f63553f"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/7a8f584bb78e320bdc680b62b00ab3307714e55a"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.3"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/8ee5651d001928518e1017aa332767e177fe5ed3"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/88d86b13d0d779113b7ca0fe77a6920a8442b13e"
 
 "@types/jasmine@2.5.38":
   version "2.5.38"
@@ -125,8 +125,8 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.74.tgz#ac3bd8db988e7f7038e5d22bd76a7ba13f876168"
 
 "@types/lodash@^4.14.67":
-  version "4.14.76"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.76.tgz#87874f766774d54e89589697340be9496fb8bf70"
+  version "4.14.77"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.77.tgz#0bc699413e84d6ed5d927ca30ea0f0a890b42d75"
 
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.88"
