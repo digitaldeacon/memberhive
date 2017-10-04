@@ -7,6 +7,8 @@ import {
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/takeWhile';
+
 import { MatSidenav } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
@@ -128,7 +130,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        const size = this.drawerState === 'open' ? 220 : 64;
+        const size = this.drawerState === 'open' ? 220 : 75;
         setTimeout(() => {
             this.sidenav.open();
         }, size);

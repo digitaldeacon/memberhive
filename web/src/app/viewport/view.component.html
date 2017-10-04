@@ -1,20 +1,38 @@
 <div class="layout-fixed" fullscreen>
+    <mat-toolbar color="primary" class="header">
+
+        <button mat-icon-button
+                (click)="sidenav.open()"
+                class="burger"
+                fxHide
+                fxShow.xs
+                fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
+
+        <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
+        <span fxHide.xs class="p-r-15">MemberHive</span>
+
+        <mh-search-box fxFlex></mh-search-box>
+
+        <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
+
+        <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item>
+                <mat-icon>account_circle</mat-icon>
+                <span i18n>My Profile</span>
+            </button>
+            <button mat-menu-item (click)="logout()">
+                <mat-icon>exit_to_app</mat-icon>
+                <span i18n>Logout</span>
+            </button>
+        </mat-menu>
+
+    </mat-toolbar>
     <mat-sidenav-container>
-        <mat-sidenav #sidenav mode="side" opened="true"
-                     fixedInViewport="true" fixedTopGap="0" fixedBottomGap="0"
+        <mat-sidenav #sidenav mode="side"
+                     fixedInViewport="true" fixedTopGap="64" fixedBottomGap="0"
                      fxFlex="220px" class="drawer-menu"
                      [@drawer]="drawerState">
-            <mat-toolbar color="primary">
-                <button mat-icon-button
-                        (click)="sidenav.open()"
-                        class="burger"
-                        fxHide
-                        fxShow.xs
-                        fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
-
-                <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
-                <span fxHide.xs class="p-r-15">MemberHive</span>
-            </mat-toolbar>
             <mat-nav-list>
                 <a *ngFor="let item of routes"
                    mat-list-item
@@ -33,26 +51,8 @@
                 </a>
             </mat-nav-list>
         </mat-sidenav>
+
         <mat-sidenav-content>
-            <mat-toolbar color="primary" class="header">
-
-                <mh-search-box fxFlex></mh-search-box>
-
-                <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
-
-                <button mat-icon-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
-                <mat-menu #menu="matMenu">
-                    <button mat-menu-item>
-                        <mat-icon>account_circle</mat-icon>
-                        <span i18n>My Profile</span>
-                    </button>
-                    <button mat-menu-item (click)="logout()">
-                        <mat-icon>exit_to_app</mat-icon>
-                        <span i18n>Logout</span>
-                    </button>
-                </mat-menu>
-
-            </mat-toolbar>
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
 
             <mat-toolbar>
