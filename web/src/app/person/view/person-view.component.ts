@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/mergeMap';
 
 import { Store } from '@ngrx/store';
 import * as app from '../../app.store';

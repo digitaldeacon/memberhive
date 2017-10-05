@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { CommonModule} from "@angular/common";
 import { Title }  from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    CompatibilityModule,
     MatButtonModule,
     MatCardModule,
     MatIconModule,
@@ -15,7 +15,10 @@ import {
     MatNativeDateModule,
     MatSnackBarModule,
     MatListModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatAutocompleteModule,
+    MatChipsModule,
+    MatFormFieldModule
 } from '@angular/material';
 
 import { GLOBALS } from '../../config/globals.config';
@@ -32,12 +35,13 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
 
 import { AgmCoreModule } from '@agm/core';
+import { TagsComponent } from './components/tags/tags.component';
 
 const MATERIAL_MODULES: any[] = [
-    CompatibilityModule, MatButtonModule, MatCardModule, MatIconModule,
+    MatButtonModule, MatCardModule, MatIconModule,
     MatDatepickerModule, MatInputModule, MatMenuModule, MatListModule,
     MatExpansionModule, MatTooltipModule, MatNativeDateModule, MatSnackBarModule, MatSelectModule,
-    MatToolbarModule
+    MatToolbarModule, MatAutocompleteModule, MatChipsModule, MatFormFieldModule
 ];
 
 @NgModule({
@@ -46,10 +50,12 @@ const MATERIAL_MODULES: any[] = [
         FilterComponent,
         ConfirmDialogComponent,
         MhFadeDirective,
-        MhToggleDirective
+        MhToggleDirective,
+        TagsComponent
     ], // directives, components, and pipes owned by this NgModule
     imports: [
         MATERIAL_MODULES,
+        CommonModule,
         FlexLayoutModule,
         AgmCoreModule.forRoot({
             apiKey: GLOBALS.googleAPIKey
@@ -65,6 +71,7 @@ const MATERIAL_MODULES: any[] = [
         NotifyboxComponent,
         FilterComponent,
         ConfirmDialogComponent,
+        TagsComponent,
         MATERIAL_MODULES,
         FlexLayoutModule,
         AgmCoreModule
