@@ -54,7 +54,7 @@ import {
         MHCoreModule.forRoot(),
 
         StoreModule.forRoot(reducers),
-        !environment.prod ? StoreDevtoolsModule.instrument() : [],
+        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
         StoreRouterConnectingModule,
 
         EffectsModule.forRoot([

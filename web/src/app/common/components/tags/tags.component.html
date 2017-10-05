@@ -1,0 +1,14 @@
+<mat-form-field floatPlaceholder="never">
+  <mat-chip-list #chipList>
+    <mat-chip *ngFor="let value of statusSelected" (remove)="removeStatus(value)">
+      {{value}} <mat-icon matChipRemove>cancel</mat-icon>
+    </mat-chip>
+    <input [matChipInputFor]="chipList"
+           [matAutocomplete]="auto">
+  </mat-chip-list>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="addStatus($event)">
+    <mat-option *ngFor="let state of status" [value]="state.id">
+      <span>{{ state.name }}</span>
+    </mat-option>
+  </mat-autocomplete>
+</mat-form-field>

@@ -5,8 +5,9 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-    MatFormFieldModule,
-    MatRadioModule, MatCheckboxModule
+    MatFormFieldModule, MatAutocompleteModule,
+    MatRadioModule, MatCheckboxModule, MatChipsModule,
+    MatTabsModule
 } from '@angular/material';
 
 import { InteractionModule } from '../interaction/interaction.module';
@@ -47,7 +48,7 @@ const MH_MODULES: Type<any>[] = [
 ];
 
 const MAT_MODULES: Type<any>[] = [
-    MatFormFieldModule, MatRadioModule, MatCheckboxModule
+    MatRadioModule, MatCheckboxModule, MatTabsModule
 ];
 
 const MH_COMPONENTS: Type<any>[] = [
