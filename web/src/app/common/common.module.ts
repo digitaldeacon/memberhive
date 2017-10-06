@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule} from "@angular/common";
+import { CommonModule } from '@angular/common';
 import { Title }  from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {

@@ -1,5 +1,5 @@
-import { Component, Input, Output, OnInit, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { MatAutocompleteSelectedEvent, MatInput, MatChipList } from '@angular/material';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
 import {
     Tag
 } from 'mh-core';
@@ -9,7 +9,7 @@ import {
   templateUrl: './tags.component.html',
   styleUrls: ['./tags.component.scss']
 })
-export class TagsComponent implements OnInit {
+export class TagsComponent {
 
     @Input() source: Array<Tag>;
     @Input() selected: Array<Tag>;
@@ -18,9 +18,8 @@ export class TagsComponent implements OnInit {
 
     // @ViewChild('chipInput') focus: MatInput;
 
-    constructor() { }
-
-    ngOnInit() {
+    constructor() {
+        // construct
     }
 
     add(event: MatAutocompleteSelectedEvent): void {
@@ -33,7 +32,7 @@ export class TagsComponent implements OnInit {
 
     addNew(input: MatInput): void {
         // create a tmp id for interaction until the api has assigned a new one
-        const newId: number = Math.floor(Math.random() * (100000 - 10000 +1)) + 10000;
+        const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
         const newTag: Tag = {'id': newId, 'name': input.value};
         this.selected.push(newTag);
         this.saveSelection.emit(this.selected);
