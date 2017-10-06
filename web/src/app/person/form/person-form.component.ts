@@ -10,15 +10,11 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 
 import {
     Person,
-    PersonAddress
+    PersonAddress,
+    Tag
 } from 'mh-core';
 
 const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-export interface Tag {
-    id: number;
-    name: string;
-}
 
 @Component({
     selector: 'mh-person-form',
@@ -53,6 +49,13 @@ export class PersonFormComponent implements OnInit {
     randomPassword: boolean = true;
     persons: Array<Person>;
     address: PersonAddress = new PersonAddress();
+    // TMP placeholders until in store
+    tagSource: Tag[] = [
+        {'id': 1, 'name': 'one'},
+        {'id': 2, 'name': 'two'}
+    ];
+    statusTagsSelected: Tag[] = [];
+    // */
 
     constructor(private _fb: FormBuilder) { }
 

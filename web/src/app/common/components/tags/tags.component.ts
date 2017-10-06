@@ -1,10 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
-
-export interface Tag {
-    id: number;
-    name: string;
-}
+import { Component, Input, Output, OnInit, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { MatAutocompleteSelectedEvent, MatInput, MatChipList } from '@angular/material';
+import {
+    Tag
+} from 'mh-core';
 
 @Component({
   selector: 'mh-tags',
@@ -13,25 +11,42 @@ export interface Tag {
 })
 export class TagsComponent implements OnInit {
 
-    status: Array<Tag> = [
-        {'id': 1, 'name': 'Mitglied'},
-        {'id': 2, 'name': 'Besucher'},
-        {'id': 3, 'name': 'Erstkontakt'},
-        {'id': 4, 'name': 'regelmäßig'},
-        {'id': 5, 'name': 'unregelmäßig'}
-    ];
-    statusSelected: Array<string> = ['test'];
+    @Input() source: Array<Tag>;
+    @Input() selected: Array<Tag>;
+
+    @Output() saveSelection: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
+
+    // @ViewChild('chipInput') focus: MatInput;
 
     constructor() { }
 
     ngOnInit() {
     }
 
-    addStatus(event: MatAutocompleteSelectedEvent): void {
-        this.statusSelected.push(this.status.find((t: Tag) => t.id === event.option.value).name);
+    add(event: MatAutocompleteSelectedEvent): void {
+        const t: Tag = event.option.value;
+        this.selected.push(t);
+        this.saveSelection.emit(this.selected);
+        this.source = this.source.filter((tag: Tag) => tag.id !== t.id);
+        // TODO: unset focus from input element
     }
-    removeStatus(status: any): void {
-        this.statusSelected = this.statusSelected.filter((i:any) => i !== status);
+
+    addNew(input: MatInput): void {
+        // create a tmp id for interaction until the api has assigned a new one
+        const newId: number = Math.floor(Math.random() * (100000 - 10000 +1)) + 10000;
+        const newTag: Tag = {'id': newId, 'name': input.value};
+        this.selected.push(newTag);
+        this.saveSelection.emit(this.selected);
+    }
+
+    remove(tag: Tag): void {
+        this.selected = this.selected.filter((i: Tag) => i.id !== tag.id);
+        this.source.push(tag);
+        this.saveSelection.emit(this.selected);
+    }
+
+    displayFn(value: any): string {
+        return value && typeof value === 'object' ? value.name : value;
     }
 
 }
