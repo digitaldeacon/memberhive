@@ -1,5 +1,4 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { LoginService } from './services/login.service';
@@ -15,11 +14,11 @@ export * from './modules/auth';
 export * from './modules/interaction';
 export * from './modules/person';
 export * from './modules/settings';
+export * from './modules/tags';
 export * from './common';
 
 @NgModule({
   imports: [
-    CommonModule,
     BrowserModule,
     Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
   ],
