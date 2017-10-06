@@ -37,19 +37,19 @@
     tslib "^1.7.1"
 
 "@angular/cdk@angular/cdk-builds":
-  version "2.0.0-beta.11-b5310da"
-  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/623d1dae5a0dd31b93f58b6e5c93d1026b04bd61"
+  version "2.0.0-beta.12-9fadf12"
+  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/7bb3b62fa2a2bd72c7d4bbcc3c772351588fd887"
   dependencies:
     tslib "^1.7.1"
 
 "@angular/cli@^1.5.0-beta.0":
-  version "1.5.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.5.0-beta.3.tgz#dfd8fab33a1ae2ffe965c9ec4bdc880c76681f59"
+  version "1.5.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@angular/cli/-/cli-1.5.0-beta.4.tgz#21b9387d19793794bc635ff3ff7a81f7734caed4"
   dependencies:
     "@angular-devkit/build-optimizer" "~0.0.18"
     "@angular-devkit/schematics" "~0.0.25"
     "@ngtools/json-schema" "1.1.0"
-    "@ngtools/webpack" "1.8.0-beta.3"
+    "@ngtools/webpack" "1.8.0-beta.4"
     "@schematics/angular" "~0.0.38"
     autoprefixer "^6.5.3"
     chalk "^2.0.1"
@@ -94,7 +94,7 @@
     stylus-loader "^3.0.1"
     typescript ">=2.0.0 <2.6.0"
     uglifyjs-webpack-plugin "1.0.0-beta.1"
-    url-loader "^0.5.7"
+    url-loader "^0.6.0"
     webpack "~3.6.0"
     webpack-concat-plugin "1.4.0"
     webpack-dev-middleware "~1.12.0"
@@ -148,8 +148,8 @@
     tslib "^1.7.1"
 
 "@angular/material@angular/material2-builds":
-  version "2.0.0-beta.11-b5310da"
-  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/103f4ac73d00aa89954df937d5ad2bf3ee3b775e"
+  version "2.0.0-beta.12-9fadf12"
+  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/2f6cf67225b894a6f4e49554fa30ed777a9ed54e"
   dependencies:
     tslib "^1.7.1"
 
@@ -187,27 +187,27 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.5"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/ae7b1e339e9c39c829321e6012f8b5b0409f00d4"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/cb4ebf4eae6e6b326ee368959a59e6823b8449ae"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.4"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/7a8f584bb78e320bdc680b62b00ab3307714e55a"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/1abc5dae57ae285d1fbb6db9ce705fb36b0624b5"
 
 "@ngrx/store-devtools@github:ngrx/store-devtools-builds":
   version "4.0.0"
-  resolved "https://codeload.github.com/ngrx/store-devtools-builds/tar.gz/c6d6843cc053817e30965fdbaa78150b3b9b35cd"
+  resolved "https://codeload.github.com/ngrx/store-devtools-builds/tar.gz/1c4188a91d18e0e5cd1e6c174789d960357383cf"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.3"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/88d86b13d0d779113b7ca0fe77a6920a8442b13e"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/c063b3eccb6595312300caa949842004fe7f6a8a"
 
 "@ngtools/json-schema@1.1.0", "@ngtools/json-schema@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@ngtools/json-schema/-/json-schema-1.1.0.tgz#c3a0c544d62392acc2813a42c8a0dc6f58f86922"
 
-"@ngtools/webpack@1.8.0-beta.3":
-  version "1.8.0-beta.3"
-  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.8.0-beta.3.tgz#d9251d2f1259a7f317be6ca2fa0bef1383f4166c"
+"@ngtools/webpack@1.8.0-beta.4":
+  version "1.8.0-beta.4"
+  resolved "https://registry.yarnpkg.com/@ngtools/webpack/-/webpack-1.8.0-beta.4.tgz#d4f4a6dd7a2f4e79cde9e200c0d02c15c185b282"
   dependencies:
     chalk "^2.0.1"
     enhanced-resolve "^3.1.0"
@@ -1068,8 +1068,8 @@ code-point-at@^1.0.0:
   resolved "https://registry.yarnpkg.com/code-point-at/-/code-point-at-1.1.0.tgz#0d070b4d043a5bea33a2f1a40e2edb3d9a4ccf77"
 
 codelyzer@^3.1.1:
-  version "3.2.0"
-  resolved "https://registry.yarnpkg.com/codelyzer/-/codelyzer-3.2.0.tgz#68eb0a67771ea73006b517053c3035c1838abf14"
+  version "3.2.1"
+  resolved "https://registry.yarnpkg.com/codelyzer/-/codelyzer-3.2.1.tgz#5b1ac75f7e0eb04647842ee29a322bf2167e7229"
   dependencies:
     app-root-path "^2.0.1"
     css-selector-tokenizer "^0.7.0"
@@ -3919,11 +3919,7 @@ mime@1.3.4:
   version "1.3.4"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.4.tgz#115f9e3b6b3daf2959983cb38f149a2d40eb5d53"
 
-mime@1.3.x:
-  version "1.3.6"
-  resolved "https://registry.yarnpkg.com/mime/-/mime-1.3.6.tgz#591d84d3653a6b0b4a3b9df8de5aa8108e72e5e0"
-
-mime@^1.2.11, mime@^1.3.4:
+mime@^1.2.11, mime@^1.3.4, mime@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/mime/-/mime-1.4.1.tgz#121f9ebc49e3766f311a76e1fa1c8003c4b03aa6"
 
@@ -6262,12 +6258,13 @@ upper-case@^1.1.1:
   version "1.1.3"
   resolved "https://registry.yarnpkg.com/upper-case/-/upper-case-1.1.3.tgz#f6b4501c2ec4cdd26ba78be7222961de77621598"
 
-url-loader@^0.5.7:
-  version "0.5.9"
-  resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-0.5.9.tgz#cc8fea82c7b906e7777019250869e569e995c295"
+url-loader@^0.6.0:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/url-loader/-/url-loader-0.6.2.tgz#a007a7109620e9d988d14bce677a1decb9a993f7"
   dependencies:
     loader-utils "^1.0.2"
-    mime "1.3.x"
+    mime "^1.4.1"
+    schema-utils "^0.3.0"
 
 url-parse@1.0.x:
   version "1.0.5"

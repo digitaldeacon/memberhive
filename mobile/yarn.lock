@@ -82,16 +82,16 @@
     tsickle "^0.21.0"
 
 "@ionic-native/core@^4.1.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-4.3.0.tgz#0d613bb6c8779146949514299ca1c02611e308a9"
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-4.3.1.tgz#8bc1a6113157076de4113b878598df6543c6808c"
 
 "@ionic-native/splash-screen@^4.1.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-4.3.0.tgz#9deb07afcf1059807233aa7d90d6e441f6ecb372"
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@ionic-native/splash-screen/-/splash-screen-4.3.1.tgz#3e8c6e7c6786f81ffbd36486c397d2eabaf60ca2"
 
 "@ionic-native/status-bar@^4.1.0":
-  version "4.3.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-4.3.0.tgz#ddb16861a22c7235c0737ba4e0e5127c9aee4ace"
+  version "4.3.1"
+  resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-4.3.1.tgz#d9d294cb8698dd75ba568d19d299829daa0462a6"
 
 "@ionic/app-scripts@^3.0.0":
   version "3.0.0"
@@ -187,15 +187,15 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.5"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/76c84fe870e14dffb1131645c5d0b242329ba304"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/cb4ebf4eae6e6b326ee368959a59e6823b8449ae"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.4"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/a67118ede369d045ac7a6472c447e4049f63553f"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/1abc5dae57ae285d1fbb6db9ce705fb36b0624b5"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.3"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/8ee5651d001928518e1017aa332767e177fe5ed3"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/c063b3eccb6595312300caa949842004fe7f6a8a"
 
 "@types/localforage@0.0.30":
   version "0.0.30"

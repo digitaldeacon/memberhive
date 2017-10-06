@@ -725,12 +725,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "a408e192198423c8d4206e4caf6a6bac878217aa"
+                "reference": "9fefc2ed9c918a7fc4c2f224c2e2c5c90f842628"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/a408e192198423c8d4206e4caf6a6bac878217aa",
-                "reference": "a408e192198423c8d4206e4caf6a6bac878217aa",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/9fefc2ed9c918a7fc4c2f224c2e2c5c90f842628",
+                "reference": "9fefc2ed9c918a7fc4c2f224c2e2c5c90f842628",
                 "shasum": ""
             },
             "require": {
@@ -817,7 +817,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-09-29T20:02:09+00:00"
+            "time": "2017-10-05T22:20:35+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2535,12 +2535,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "50c33cf46180f07d75cbec473cdcacacc316b266"
+                "reference": "70b09b998ad1310e6a60541dbc9b5133701198de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/50c33cf46180f07d75cbec473cdcacacc316b266",
-                "reference": "50c33cf46180f07d75cbec473cdcacacc316b266",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/70b09b998ad1310e6a60541dbc9b5133701198de",
+                "reference": "70b09b998ad1310e6a60541dbc9b5133701198de",
                 "shasum": ""
             },
             "require": {
@@ -2585,7 +2585,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-09-29T11:19:35+00:00"
+            "time": "2017-10-05T14:46:27+00:00"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2703,12 +2703,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-debug.git",
-                "reference": "e158aea48b699eaddf306f4f00c8c168539ec5d4"
+                "reference": "da5208564627b81fd04c166fed07ca5413c52b93"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/e158aea48b699eaddf306f4f00c8c168539ec5d4",
-                "reference": "e158aea48b699eaddf306f4f00c8c168539ec5d4",
+                "url": "https://api.github.com/repos/yiisoft/yii2-debug/zipball/da5208564627b81fd04c166fed07ca5413c52b93",
+                "reference": "da5208564627b81fd04c166fed07ca5413c52b93",
                 "shasum": ""
             },
             "require": {
@@ -2742,7 +2742,7 @@
                 "debugger",
                 "yii2"
             ],
-            "time": "2017-09-19T21:13:50+00:00"
+            "time": "2017-10-02T19:00:08+00:00"
         },
         {
             "name": "yiisoft/yii2-gii",
