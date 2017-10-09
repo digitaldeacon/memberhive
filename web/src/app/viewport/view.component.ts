@@ -2,6 +2,7 @@ import {
     Component,
     OnDestroy,
     ChangeDetectionStrategy,
+    ChangeDetectorRef,
     AfterViewInit,
     ViewChild } from '@angular/core';
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
@@ -92,7 +93,8 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                 private _router: Router,
                 private _shout: ShoutService,
                 private _store: Store<app.AppState>,
-                private _titleService: TitleService) {
+                private _titleService: TitleService,
+                private cd: ChangeDetectorRef) {
         this.loading$ = this._store.select(app.getLoading);
         this.contextButtons$ = this._store.select(app.getContextButtons);
         this.myOutstanding$ = this._store.select(app.getMyInteractions);
@@ -133,6 +135,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         const size = this.drawerState === 'open' ? 220 : 75;
         setTimeout(() => {
             this.sidenav.open();
+            this.cd.detectChanges();
         }, size);
     }
 
