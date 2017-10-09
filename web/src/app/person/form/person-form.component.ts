@@ -71,7 +71,7 @@ export class PersonFormComponent implements OnInit {
             person.birthday = new Date(person.birthday);
             person.baptized = new Date(person.baptized);
             person.anniversary = new Date(person.anniversary);
-            console.log(person, this.tagSource);
+            // console.log(person, this.tagSource);
             this.statusTagsSelected = person.tags;
             this.form.patchValue(person);
             this.listenFormChanges();
