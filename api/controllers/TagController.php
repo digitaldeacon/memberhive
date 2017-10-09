@@ -98,15 +98,14 @@ class TagController extends MHController
 
     /**
      * @param $id
-     * @return Interaction
+     * @return Tag
      */
     protected function findModel($id)
     {
         $tag = Tag::findOne($id);
         if ($tag === null) {
-            throw new NotFoundHttpException('The requested interaction does not exist.');
+            throw new NotFoundHttpException('The requested tag does not exist.');
         }
         return $tag;
     }
-
 }
