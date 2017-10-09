@@ -1,4 +1,5 @@
 import { Address } from '../../common/common.model';
+import { Tag } from '../tags/tag.model';
 
 export interface User {
     token: string;
@@ -28,6 +29,7 @@ export interface Person {
     user?: User;
     address?: PersonAddress;
     socialContact?: any;
+    tags: Tag[]
 }
 
 export class PersonAddress {

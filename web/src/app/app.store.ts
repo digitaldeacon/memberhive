@@ -13,11 +13,13 @@ import * as interaction from 'mh-core';
 import * as person from 'mh-core';
 import * as settings from 'mh-core';
 import * as auth from 'mh-core';
+import * as tags from 'mh-core';
 
 export interface AppState {
     interaction: interaction.InteractionState;
     person: person.PersonState;
     settings: settings.SettingsState;
+    tags: tags.TagState;
     auth: auth.AuthState;
     router: RouterReducerState;
 }
@@ -26,6 +28,7 @@ export const reducers: ActionReducerMap<AppState> = {
     interaction: interaction.interactionReducer,
     person: person.personReducer,
     settings: settings.settingsReducer,
+    tags: tags.tagReducer,
     auth: auth.authReducer,
     router: routerReducer
 };
@@ -89,11 +92,17 @@ export const getInteractionsPerson: any = createSelector(getInteractions, getSel
     return interactions.filter((i: any) => i.refId === p.uid);
 });
 /**
+ * Tag Reducers
+ */
+export const getTagState: any = (state: AppState) => state.tags;
+export const getTags: any = createSelector(getTagState, tags.getTags);
+/**
  * Loading  Reducers
  */
 export const getLoadingP: any = createSelector(getPersonState, person.getLoadingPerson);
 export const getLoadingS: any = createSelector(getSettingsState, settings.getLoadingSettings);
 export const getLoadingI: any = createSelector(getInteractions, interaction.getLoadingInteraction);
+export const getLoadingT: any = createSelector(getTags, tags.getLoadingTags);
 export const getLoading: any = createSelector(getLoadingP, getLoadingS, getLoadingI,
     (lP: boolean, lS: boolean, lI: boolean) => lP || lS || lI);
 /**
@@ -102,8 +111,9 @@ export const getLoading: any = createSelector(getLoadingP, getLoadingS, getLoadi
 export const getMessageP: any = createSelector(getPersonState, person.getMessagePerson);
 export const getMessageS: any = createSelector(getSettingsState, settings.getMessageSettings);
 export const getMessageI: any = createSelector(getInteractionState, interaction.getMessageInteraction);
-export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI,
-    (msgP: any, msgS: any, msgI: any) => msgP || msgS || msgI);
+export const getMessageT: any = createSelector(getTagState, tags.getMessageTags);
+export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI, getMessageT,
+    (msgP: any, msgS: any, msgI: any, msgT: any) => msgP || msgS || msgI || msgT);
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/

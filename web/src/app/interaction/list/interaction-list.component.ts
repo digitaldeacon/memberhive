@@ -80,6 +80,6 @@ export class InteractionListComponent implements OnInit {
       if (this.people.length > 0 && uid) {
         return this.people.filter((p: Person) => p.uid === uid)[0];
       }
-      return {};
+      return undefined;
     }
 }

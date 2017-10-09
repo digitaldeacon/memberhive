@@ -64,6 +64,7 @@
                    <mh-person-form
                            [person]="person"
                            [settings]="settings"
+                           [tagSource]="tags$ | async"
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </mat-tab>
                 <!--

@@ -33,7 +33,7 @@ export class TagsComponent {
     addNew(input: MatInput): void {
         // create a tmp id for interaction until the api has assigned a new one
         const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
-        const newTag: Tag = {'id': newId, 'name': input.value};
+        const newTag: Tag = {id: newId, text: input.value, type: 'status', context: ''};
         this.selected.push(newTag);
         this.saveSelection.emit(this.selected);
     }
@@ -45,7 +45,7 @@ export class TagsComponent {
     }
 
     displayFn(value: any): string {
-        return value && typeof value === 'object' ? value.name : value;
+        return value && typeof value === 'object' ? value.text : value;
     }
 
 }

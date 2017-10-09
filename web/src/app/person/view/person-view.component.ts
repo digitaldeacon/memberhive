@@ -9,6 +9,7 @@ import * as app from '../../app.store';
 import {
     Person,
     Interaction,
+    Tag,
     Message,
     GeoMarker,
     Utils,
@@ -45,6 +46,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     person?: Person;
     person$: Observable<Person>;
     interactions$: Observable<Interaction[]>;
+    tags$: Observable<Tag[]>;
     settings: any; // combines SystemSettings and PersonSettings
     hasMap: boolean = false;
     userUid: string;
@@ -63,6 +65,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this.person$ = this._store.select(app.getSelectedPerson);
         // Fetches all Interactions associated with this person
         this.interactions$ = this._store.select(app.getInteractionsPerson);
+        // Selects the tags by fragment param
+        this.tags$ = this._store.select(app.getTags);
         // Load all people for the back and forth buttons
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)

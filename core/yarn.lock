@@ -100,15 +100,19 @@
 
 "@ngrx/effects@github:ngrx/effects-builds":
   version "4.0.5"
-  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/cb4ebf4eae6e6b326ee368959a59e6823b8449ae"
+  resolved "https://codeload.github.com/ngrx/effects-builds/tar.gz/c1de4f404605109e9d36cedefb22fda85f63a02f"
+
+"@ngrx/entity@github:ngrx/entity-builds":
+  version "4.0.2"
+  resolved "https://codeload.github.com/ngrx/entity-builds/tar.gz/c82bbfc3106acb88d901c64e6bf44935012e0d2f"
 
 "@ngrx/router-store@github:ngrx/router-store-builds":
   version "4.0.4"
-  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/1abc5dae57ae285d1fbb6db9ce705fb36b0624b5"
+  resolved "https://codeload.github.com/ngrx/router-store-builds/tar.gz/0cafc13a9b09cc48e39b43221299b041663b5794"
 
 "@ngrx/store@github:ngrx/store-builds":
   version "4.0.3"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/c063b3eccb6595312300caa949842004fe7f6a8a"
+  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/a969c6fa78d18d7b632294f9939deebc9557be4f"
 
 "@types/jasmine@2.5.38":
   version "2.5.38"
