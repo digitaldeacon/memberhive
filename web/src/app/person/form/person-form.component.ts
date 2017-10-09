@@ -33,6 +33,7 @@ export class PersonFormComponent implements OnInit {
     hasMap: boolean = false;
 
     @Input() settings: any;
+    @Input() tagSource: Tag[];
     @Input()
     set person(person: Person) {
         if (person) {
@@ -50,10 +51,6 @@ export class PersonFormComponent implements OnInit {
     persons: Array<Person>;
     address: PersonAddress = new PersonAddress();
     // TMP placeholders until in store
-    tagSource: Tag[] = [
-        {'id': 1, 'name': 'one'},
-        {'id': 2, 'name': 'two'}
-    ];
     statusTagsSelected: Tag[] = [];
     // */
 
@@ -74,6 +71,8 @@ export class PersonFormComponent implements OnInit {
             person.birthday = new Date(person.birthday);
             person.baptized = new Date(person.baptized);
             person.anniversary = new Date(person.anniversary);
+            console.log(person, this.tagSource);
+            this.statusTagsSelected = person.tags;
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;

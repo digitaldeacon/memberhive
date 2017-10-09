@@ -2,7 +2,7 @@
   "name": "mh-core",
   "version": "2.0.0",
   "scripts": {
-    "build": "gulp build",
+    "build": "gulp build && yarn lint",
     "build:watch": "gulp",
     "docs": "yarn docs:build",
     "docs:build": "compodoc -p tsconfig.json -n mh-core -d docs --hideGenerator",
@@ -38,6 +38,7 @@
     "@angular/router": "^4.0.0",
     "@compodoc/compodoc": "^1.0.0-beta.10",
     "@ngrx/effects": "github:ngrx/effects-builds",
+    "@ngrx/entity": "github:ngrx/entity-builds",
     "@ngrx/router-store": "github:ngrx/router-store-builds",
     "@ngrx/store": "github:ngrx/store-builds",
     "@types/jasmine": "2.5.38",

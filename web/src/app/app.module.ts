@@ -32,6 +32,7 @@ import {
     PersonEffects,
     SettingsEffects,
     InteractionEffects,
+    TagEffects,
     AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
@@ -61,7 +62,8 @@ import {
             PersonEffects,
             AuthEffects,
             SettingsEffects,
-            InteractionEffects
+            InteractionEffects,
+            TagEffects
         ]),
 
         FormsModule,

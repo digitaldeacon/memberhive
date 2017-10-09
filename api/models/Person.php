@@ -89,6 +89,7 @@ class Person extends \yii\db\ActiveRecord
             'phoneHome' => $this->phoneHome,
             'phoneWork' => $this->phoneWork,
             'phoneMobile' => $this->phoneMobile,
+            'tags' => $this->tags,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
             ]
@@ -116,6 +117,15 @@ class Person extends \yii\db\ActiveRecord
     public function getPersonNotes()
     {
         return $this->hasMany(PersonInteraction::className(), ['person_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable('person_tag', ['person_id' => 'id']);
     }
 
     /**

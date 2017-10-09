@@ -11,7 +11,8 @@ import {
     AuthenticateAction,
     ListAction,
     ListSettingAction,
-    ListInteractionsAction
+    ListInteractionsAction,
+    ListTagsAction
 } from 'mh-core';
 
 @Component({
@@ -38,6 +39,7 @@ export class LoginComponent implements OnInit, OnDestroy {
                 this._store.dispatch(new ListAction({}));
                 this._store.dispatch(new ListSettingAction());
                 this._store.dispatch(new ListInteractionsAction({}));
+                this._store.dispatch(new ListTagsAction({}));
                 this.home();
             });
     }

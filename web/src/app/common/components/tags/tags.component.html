@@ -1,7 +1,7 @@
 <mat-form-field floatPlaceholder="never">
   <mat-chip-list #chipList>
     <mat-chip *ngFor="let tag of selected" (remove)="remove(tag)">
-      {{tag.name}} <mat-icon matChipRemove>cancel</mat-icon>
+      {{tag.text}} <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <input [matChipInputFor]="chipList"
            [matChipInputAddOnBlur]="false"
@@ -11,7 +11,7 @@
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="add($event)">
     <mat-option *ngFor="let tag of source" [value]="tag">
-      <span>{{ tag.name }}</span>
+      <span>{{ tag.text }}</span>
     </mat-option>
   </mat-autocomplete>
 </mat-form-field>
