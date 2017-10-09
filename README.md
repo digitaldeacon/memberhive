@@ -11,35 +11,32 @@
 MH2 is very much in Alpha status. Many dependencies, like Material2 (material design for angular2) are still under 
 active development. Things may change/ break rather quickly because of it. So be patient :)
 
-We stay in setp with the dependencies of _angular/material2_ and _angular/angular-cli_.
+We stay in step with the dependencies of _angular/material2_ and _angular/angular-cli_.
 
 ## Introduction
-Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular2 (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
+Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular@next (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
 
 Memberhive is a **church relationship management system** (CRMS). Our focus is facilitating pastoral relationships within small and mid-sized churches.
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
 
 ## DEMO Environment
-A demo environment can be found [here](https://m2.memberhive.com). The url might change later on again.
-username: _root_
-password: _bibel_
+A demo environment is currently unavailable (check the High-Level Items list below).
 
 **A few gotchas**:
-+ The environment might contain errors that are being worked on (remember, we are not even ALPHA yet)
++ The environment might contain errors that are being worked on (remember, we are not even BETA yet)
 + The images of the uploaded users are external images, so no image cropping will work
 + If you find an error **please report** this here on the issues pages
 
-## High-Level Items for July & August
+## High-Level Items for October & November
 _In order of importance_
-- [ ] Interaction State management (#79)
-- [ ] Dashboard: Interactions (#19, #60)
+- [ ] Person status and tags (#46)
+- [ ] Layout fixes (#152)
+- [ ] Person family (#123)
 - [ ] Person delete (#122)
 - [ ] RBAC (#139)
-- [ ] Person status and tags (#46)
-- [ ] Person family (#123)
-- [ ] Person relations (#25)
-- [ ] Tests for settings (#37)
+- [ ] Tests for person (#37)
+- [ ] New DEMO Environment
 
 ## Development Philosophy
 We want to keep this project simple (even though it will be large) and maintainable. For that reason
@@ -101,7 +98,7 @@ You have two choices for a manager: ***npm*** or ***yarn***.
 In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). 
 Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
 
-Since NPMv5 the speed has improved and a lockfile is also produced. So, the choice is yours.
+Since NPMv5 the speed has improved and a lockfile is also produced. So, the choice is yours (but you need to update the scripts in the parent `package.json`).
 
 ## Installation
 If you are on a *nix based system (including OS X) you should use [nvm]((https://github.com/creationix/nvm)) to install NPM versions. 
@@ -112,10 +109,10 @@ LTS state later this year. NPM v5 is included in the 8.x branch.
 
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-nvm install 8.1.3
-nvm use 8.1
-nvm alias default 8.1
-npm i -g angular-cli@latest typescript@2.3.4 tslint
+nvm install 8.5.0
+nvm use 8.5
+nvm alias default 8.5
+npm i -g angular-cli@latest typescript@2.5.3 tslint
 git clone git@github.com:digitaldeacon/memberhive2.git
 cd memberhive2
 cd api 
@@ -149,7 +146,7 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 + first uninstall the cli globally
 + clean your npm cache
 + add the latest version of angular-cli back in (globally)
-+ make sure that you have your global TypeScript up to 2.3.4 (in case you have one globally installed)
++ make sure that you have your global TypeScript up to 2.5.3 (or whatever is the latest version)
 + remove your old (or any!) __node_modules__ folder
 + in case you used yarn before, make sure you **do not** have a .yarnclean file
 + reinstall (via ***npm*** or ***yarn*** - see above)
