@@ -30,15 +30,17 @@
         <div class="mat-input-wrapper m-b-10"
              *ngIf="form.get('type').value === 'interaction'"
              fxFlex>
+          <mat-form-field>
             <mat-select class="option-select"
-                       placeholder="Action verb"
-                       formControlName="actionType"
-                       i18n-placeholder
-                       required>
-                <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
-                    {{verb}}
-                </mat-option>
+                        placeholder="Action verb"
+                        formControlName="actionType"
+                        i18n-placeholder
+                        required>
+              <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
+                {{verb}}
+              </mat-option>
             </mat-select>
+          </mat-form-field>
         </div>
 
       <mh-tinymce [elementId]="'interaction-editor'"
@@ -50,44 +52,48 @@
         A text is required
       </mat-error>
 
-      <div class="mat-input-wrapper" fxFlex fxLayout="row">
-        <mat-select placeholder="Relates to" i18n-placeholder
-                   formControlName="owner"
-                   [required]="form.get('type').value !== 'interaction'">
-          <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
-            {{person.fullName}}
-          </mat-option>
-        </mat-select>
+      <div fxLayout="row">
+        <mat-form-field fxFlex="50">
+          <mat-select placeholder="Relates to" i18n-placeholder
+                      formControlName="owner"
+                      [required]="form.get('type').value !== 'interaction'">
+            <mat-option i18n>None</mat-option>
+            <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
+              {{person.fullName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
+            Please supply an interaction owner
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field *ngIf="form.get('type').value === 'interaction'" fxFlex="50">
+          <mat-select formControlName="recipients"
+                      placeholder="Assign to"
+                      i18n-placeholder
+                      multiple>
+            <mat-option i18n>None</mat-option>
+            <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
+              {{person.fullName}}
+            </mat-option>
+          </mat-select>
+          <mat-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
+            You need to have at least one recipient
+          </mat-error>
+        </mat-form-field>
 
-        <mat-select *ngIf="form.get('type').value === 'interaction'"
-                   formControlName="recipients"
-                   placeholder="Assign to"
-                   i18n-placeholder
-                   multiple
-                   required
-                   fxFlex>
-          <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
-            {{person.fullName}}
-          </mat-option>
-        </mat-select>
-        <mat-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
-          Please supply an interaction owner
-        </mat-error>
-        <mat-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
-          You need to have at least one recipient
-        </mat-error>
       </div>
-
-      <div>
-        <mat-select class="option-select"
-                   formControlName="visibility"
-                   placeholder="Visible to"
-                   i18n-placeholder>
-          <mat-option *ngFor="let item of visibility" [value]="item.id">
-            <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
-            {{item.text}}
-          </mat-option>
-        </mat-select>
+      <div fxLayout="column">
+        <mat-form-field>
+          <mat-select class="option-select"
+                      formControlName="visibility"
+                      placeholder="Visible to"
+                      i18n-placeholder>
+            <mat-option *ngFor="let item of visibility" [value]="item.id">
+              <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
+              {{item.text}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
         <mat-form-field>
           <input [matDatepicker]="minDatePicker"
                  matInput
