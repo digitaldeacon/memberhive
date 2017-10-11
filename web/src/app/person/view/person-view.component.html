@@ -12,15 +12,13 @@
                 <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}">
             </a>
             <mat-card-title-group>
-                <!--
-                TODO: Tags
+
                 <mat-card-title>
                     <mat-chip-list>
-                        <mat-chip>Mitglied</mat-chip>
-                        <mat-chip>Begrüßungsdienst</mat-chip>
+                        <mat-chip *ngFor="let tag of person?.status" color="primary">{{tag.text}}</mat-chip>
                     </mat-chip-list>
                 </mat-card-title>
-                -->
+
                 <mat-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column">
                     <div><mat-icon>cake</mat-icon>{{person?.birthday | date: 'longDate'}}</div>
                     <div><mat-icon>email</mat-icon><a href="mailto:{{person?.email}}">{{person?.email}}</a></div>
