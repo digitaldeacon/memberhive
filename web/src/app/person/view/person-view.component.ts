@@ -131,11 +131,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._calcGeoCodes(person);
     }
 
-    savePersonTags(tags: Tag[]) {
-        this.person.status = [...tags];
-        // this._store.dispatch(new TagUpdatePersonAction(tags, personId));
-    }
-
     deletePerson(): void {
         this._dialogSrv
             .confirm('Deleting: ' + this.person.fullName, 'Are you sure you want to do this?')

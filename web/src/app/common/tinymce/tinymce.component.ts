@@ -51,8 +51,12 @@ export class TinyMCEComponent
         this.onChange(this._value);
     }
 
-    onChange = (_: any): void => {};
-    onTouched = (_: any): void => {};
+    onChange = (_: any): void => {
+        // mock
+    }
+    onTouched = (_: any): void => {
+        // mock
+    }
 
     writeValue(value: any): void {
         this._value = value;

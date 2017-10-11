@@ -42,8 +42,12 @@ export class TagsComponent implements ControlValueAccessor {
         this.onChange(this._value);
     }
 
-    onChange = (_: any): void => {};
-    onTouched = (_: any): void => {};
+    onChange = (_: any): void => {
+        // mock
+    }
+    onTouched = (_: any): void => {
+        // mock
+    }
 
     writeValue(v: Tag[]): void {
         this._value = v;

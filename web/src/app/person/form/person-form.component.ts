@@ -137,7 +137,6 @@ export class PersonFormComponent implements OnInit {
             .distinctUntilChanged()
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
-                console.log(data);
                 if (!this.submitted) {
                     if (userCtrl.setPassword.value) {
                         userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(4)]);
