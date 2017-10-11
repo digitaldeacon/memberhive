@@ -44,6 +44,7 @@ export class PersonFormComponent implements OnInit {
     }
 
     @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
+    @Output() saveStatus: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
 
     form: FormGroup;
     submitted: boolean;
@@ -72,7 +73,7 @@ export class PersonFormComponent implements OnInit {
             person.baptized = new Date(person.baptized);
             person.anniversary = new Date(person.anniversary);
             // console.log(person, this.tagSource);
-            this.statusTagsSelected = person.tags;
+            // this.statusTagsSelected = person.status;
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
@@ -94,9 +95,10 @@ export class PersonFormComponent implements OnInit {
         this._pwRandCheckbox = this._fb.control(this.randomPassword);
 
         this.form = this._fb.group({
-            firstName: ['', ],
+            firstName: [''],
             middleName: [''],
             lastName: [''],
+            status: [undefined],
             email: [''],
             gender: [undefined],
             maritalStatus: [undefined],
@@ -135,6 +137,7 @@ export class PersonFormComponent implements OnInit {
             .distinctUntilChanged()
             .subscribe((data: Person) => {
                 const userCtrl: any = (<any>this.form).get('user').controls;
+                console.log(data);
                 if (!this.submitted) {
                     if (userCtrl.setPassword.value) {
                         userCtrl.username.setValidators([<any>Validators.required, <any>Validators.minLength(4)]);
@@ -163,6 +166,11 @@ export class PersonFormComponent implements OnInit {
             this.toggleRandomPassword();
             this.savePerson.emit(model);
         }
+    }
+
+    changeStatus($event: Tag[]): void {
+        this._person.status = [...$event];
+        this.saveStatus.emit($event);
     }
 
     inCreateMode(): boolean {

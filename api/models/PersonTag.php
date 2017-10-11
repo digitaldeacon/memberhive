@@ -2,21 +2,6 @@
 
 namespace app\models;
 
-/**
- * This is the model class for table "person_interaction".
- *
- * @property int $person_id
- * @property int $interaction_id
- * @property string $doneOn
- * @property int $completedBy
- * @property string $completedOn
- * @property string $response
- * @property int $delegatedBy
- * @property string $delegatedOn
- *
- * @property Interaction $interaction
- * @property Person $person
- */
 class PersonTag extends \yii\db\ActiveRecord
 {
     /**

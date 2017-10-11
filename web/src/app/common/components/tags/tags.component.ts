@@ -1,31 +1,70 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, ViewChild, forwardRef } from '@angular/core';
 import { MatAutocompleteSelectedEvent, MatInput } from '@angular/material';
 import {
-    Tag
+    FormControl,
+    ControlValueAccessor,
+    NG_VALUE_ACCESSOR,
+    NG_VALIDATORS } from '@angular/forms';
+
+import {
+    Tag,
+    Utils
 } from 'mh-core';
 
+const CUSTOM_INPUT_VALIDATORS: any = {
+    provide: NG_VALIDATORS,
+    useExisting: forwardRef(() => TagsComponent),
+    multi: true
+};
+const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
+    provide: NG_VALUE_ACCESSOR,
+    useExisting: forwardRef(() => TagsComponent),
+    multi: true
+};
+
 @Component({
-  selector: 'mh-tags',
-  templateUrl: './tags.component.html',
-  styleUrls: ['./tags.component.scss']
+    selector: 'mh-tags',
+    templateUrl: './tags.component.html',
+    styleUrls: ['./tags.component.scss'],
+    providers: [
+        CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR
+    ]
 })
-export class TagsComponent {
+export class TagsComponent implements ControlValueAccessor {
 
-    @Input() source: Array<Tag>;
-    @Input() selected: Array<Tag>;
+    @ViewChild('chipInput') chipInput: MatInput;
 
-    @Output() saveSelection: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
+    @Input() source: Tag[] = [];
+    @Input() _value: Tag[] = [];
+    get value(): Tag[] { return this._value; }
+    set value(v: Tag[]) {
+        this._value = v;
+        this.onChange(this._value);
+    }
 
-    // @ViewChild('chipInput') focus: MatInput;
+    onChange = (_: any): void => {};
+    onTouched = (_: any): void => {};
 
-    constructor() {
-        // construct
+    writeValue(v: Tag[]): void {
+        this._value = v;
+        this.source = Utils.arrayDiffObj(this.source, v, 'id');
+    }
+
+    registerOnChange(fn: (_: any) => void ): void { this.onChange = fn; }
+    registerOnTouched(fn: () => void): void { this.onTouched = fn; }
+
+    validate(c: FormControl): any {
+        return (this._value) ? undefined : {
+            tinyError: {
+                valid: false
+            }
+        };
     }
 
     add(event: MatAutocompleteSelectedEvent): void {
         const t: Tag = event.option.value;
-        this.selected.push(t);
-        this.saveSelection.emit(this.selected);
+        this._value.push(t);
+        this.value = this._value;
         this.source = this.source.filter((tag: Tag) => tag.id !== t.id);
         // TODO: unset focus from input element
     }
@@ -34,14 +73,15 @@ export class TagsComponent {
         // create a tmp id for interaction until the api has assigned a new one
         const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
         const newTag: Tag = {id: newId, text: input.value, type: 'status', context: ''};
-        this.selected.push(newTag);
-        this.saveSelection.emit(this.selected);
+        this._value.push(newTag);
+        this.value = this._value;
+        this.chipInput['nativeElement'].value = '';
     }
 
     remove(tag: Tag): void {
-        this.selected = this.selected.filter((i: Tag) => i.id !== tag.id);
+        this._value = this._value.filter((i: Tag) => i.id !== tag.id);
+        this.value = this._value;
         this.source.push(tag);
-        this.saveSelection.emit(this.selected);
     }
 
     displayFn(value: any): string {

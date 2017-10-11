@@ -10,7 +10,6 @@ import {
     Person,
     Interaction,
     Tag,
-    Message,
     GeoMarker,
     Utils,
     CalcGeoCodePayload,
@@ -130,6 +129,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         person.uid = this.person.uid;
         this._store.dispatch(new PersonUpdateAction(person));
         this._calcGeoCodes(person);
+    }
+
+    savePersonTags(tags: Tag[]) {
+        this.person.status = [...tags];
+        // this._store.dispatch(new TagUpdatePersonAction(tags, personId));
     }
 
     deletePerson(): void {

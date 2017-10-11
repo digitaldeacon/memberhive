@@ -2,6 +2,8 @@
 namespace app\controllers;
 
 use app\models\Person;
+use app\models\PersonTag;
+use app\models\Tag;
 use app\models\User;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
@@ -150,6 +152,35 @@ class PersonController extends MHController
             $person->birthday = date('Y-m-d', strtotime($post['birthday']));
             $person->baptized = date('Y-m-d', strtotime($post['baptized']));
             $person->anniversary = date('Y-m-d', strtotime($post['anniversary']));
+
+            $ptags_prv = PersonTag::find(['person_id'=>$person->id]);
+            if (!empty($ptags_prv)) {
+                PersonTag::deleteAll(['person_id'=>$person->id]);
+            }
+            if (!empty($post['status'])) {
+                foreach ($post['status'] as $tag) {
+                    $tagCheck = Tag::findOne(['text' => trim($tag['text'])]);
+                    $tagId = intval($tag['id']);
+                    if (empty($tagCheck)) {
+                        $newTag = new Tag();
+                        $newTag->text = trim($tag['text']);
+                        $newTag->context = 'person';
+                        $newTag->type = 'status';
+                        if (!$newTag->save()) {
+                            throw new BadRequestHttpException('New Tag: ' . json_encode($newTag->errors));
+                        }
+                        $tagId = $newTag->id;
+                        // TODO: this breaks currently because ID is yet invalid
+                    }
+                    $ptags = new PersonTag();
+                    $ptags->person_id = $person->id;
+                    $ptags->tag_id = $tagId;
+                    if (!$ptags->save()) {
+                        throw new BadRequestHttpException('PersonTag: ' . json_encode($ptags->errors));
+                    }
+                }
+            }
+
             if (empty($person->user) && !empty($post['user']['password'])) {
                 $user = new User();
                 $user->personId = $person->id;
