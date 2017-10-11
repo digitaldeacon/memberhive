@@ -7,7 +7,8 @@
 
     <fieldset fxFlex="100">
         <legend i18n>Status</legend>
-        <mh-tags [source]="tagSource" [selected]="statusTagsSelected"></mh-tags>
+        <mh-tags [source]="tagSource"
+                 formControlName="status"></mh-tags>
     </fieldset>
 
     <div fxLayout.gt-sm="row"

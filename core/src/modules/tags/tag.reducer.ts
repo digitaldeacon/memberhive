@@ -26,11 +26,13 @@ export function tagReducer(state: TagState = initialState,
                                    action: actions.TagActions): TagState {
     switch (action.type) {
 
+        case actions.UPDATE_TAGS:
         case actions.LIST_TAGS:
             return Object.assign({}, state, {
                 loading: true
             });
 
+        case actions.UPDATE_TAGS_FAILURE:
         case actions.LIST_TAGS_FAILURE: {
             const res: Response = action.payload;
             const message: common.Message = {
@@ -50,6 +52,22 @@ export function tagReducer(state: TagState = initialState,
                 loaded: true,
                 loading: false,
                 tags: [...tags]
+            });
+        }
+
+        case actions.UPDATE_TAGS_SUCCESS: {
+            const tags: Tag[] = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully updated tags'
+            };
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                message: message
+                /*tags: state.tags.map((i: Tag[]) => {
+                    return i.uid === interaction.uid ? Object.assign({}, i, interaction) : i;
+                })*/
             });
         }
 

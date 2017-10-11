@@ -1,6 +1,6 @@
 <mat-form-field floatPlaceholder="never">
   <mat-chip-list #chipList>
-    <mat-chip *ngFor="let tag of selected" (remove)="remove(tag)">
+    <mat-chip *ngFor="let tag of _value" (remove)="remove(tag)">
       {{tag.text}} <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
     <input [matChipInputFor]="chipList"

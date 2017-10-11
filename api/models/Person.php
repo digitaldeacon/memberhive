@@ -89,7 +89,7 @@ class Person extends \yii\db\ActiveRecord
             'phoneHome' => $this->phoneHome,
             'phoneWork' => $this->phoneWork,
             'phoneMobile' => $this->phoneMobile,
-            'tags' => $this->tags,
+            'status' => $this->statusTags,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
             ]
@@ -122,9 +122,9 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getTags()
+    public function getStatusTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->where(['type' => 'status'])
             ->viaTable('person_tag', ['person_id' => 'id']);
     }
 

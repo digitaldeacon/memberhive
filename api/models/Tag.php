@@ -2,6 +2,9 @@
 
 namespace app\models;
 
+use yii\db\ActiveRecord;
+use yii\behaviors\TimestampBehavior;
+
 class Tag extends \yii\db\ActiveRecord
 {
     /**
@@ -15,7 +18,13 @@ class Tag extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className()
+            [
+                'class' => TimestampBehavior::className(),
+                'attributes' => [
+                    ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
+                    ]
+            ]
         ];
     }
 
@@ -38,6 +47,11 @@ class Tag extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [];
+    }
+
+    public function getPerson()
+    {
+        return $this->hasMany(PersonInteraction::className(), ['person_id' => 'id']);
     }
 
     public function toResponseArray()

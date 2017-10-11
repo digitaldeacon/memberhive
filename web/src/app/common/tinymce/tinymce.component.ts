@@ -48,24 +48,19 @@ export class TinyMCEComponent
 
     set value(v: any) {
         this._value = v;
-        this.propagateChange(this._value);
+        this.onChange(this._value);
     }
 
-    propagateChange = (_: any): void => {
-        // dummy function
-    }
+    onChange = (_: any): void => {};
+    onTouched = (_: any): void => {};
 
     writeValue(value: any): void {
         this._value = value;
+        this.onChange(value);
     }
 
-    registerOnChange(fn: any): void {
-        this.propagateChange = fn;
-    }
-
-    registerOnTouched(fn: any): void {
-        // not used
-    }
+    registerOnChange(fn: (_: any) => void ): void { this.onChange = fn; }
+    registerOnTouched(fn: () => void): void { this.onTouched = fn; }
 
     validate(c: FormControl): any {
         return (this.value) ? undefined : {

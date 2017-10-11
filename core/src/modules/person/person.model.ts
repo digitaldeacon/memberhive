@@ -29,7 +29,7 @@ export interface Person {
     user?: User;
     address?: PersonAddress;
     socialContact?: any;
-    tags: Tag[]
+    status: Tag[]
 }
 
 export class PersonAddress {
