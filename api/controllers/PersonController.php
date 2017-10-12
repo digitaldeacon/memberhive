@@ -155,28 +155,23 @@ class PersonController extends MHController
 
             $ptags_prv = PersonTag::find(['person_id'=>$person->id]);
             if (!empty($ptags_prv)) {
-                PersonTag::deleteAll(['person_id'=>$person->id]);
+                $person->unlinkAll('tags', true);
             }
             if (!empty($post['status'])) {
                 foreach ($post['status'] as $tag) {
                     $tagCheck = Tag::findOne(['text' => trim($tag['text'])]);
-                    $tagId = intval($tag['id']);
                     if (empty($tagCheck)) {
                         $newTag = new Tag();
                         $newTag->text = trim($tag['text']);
                         $newTag->context = 'person';
                         $newTag->type = 'status';
-                        if (!$newTag->save()) {
-                            throw new BadRequestHttpException('New Tag: ' . json_encode($newTag->errors));
+                        if ($newTag->save()) {
+                            $newTag->link('person', $person);
+                        } else {
+                            throw new BadRequestHttpException('Tag: ' . json_encode($newTag->errors));
                         }
-                        $tagId = $newTag->id;
-                        // TODO: this breaks currently because ID is yet invalid
-                    }
-                    $ptags = new PersonTag();
-                    $ptags->person_id = $person->id;
-                    $ptags->tag_id = $tagId;
-                    if (!$ptags->save()) {
-                        throw new BadRequestHttpException('PersonTag: ' . json_encode($ptags->errors));
+                    } else {
+                        $tagCheck->link('person', $person);
                     }
                 }
             }
@@ -257,7 +252,7 @@ class PersonController extends MHController
 
     protected function findModel($id)
     {
-        $user = Person::findOne($id);
+        $user = Person::find()->with('tags')->where(['uid'=>$id])->one();
         if ($user === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
         }
@@ -265,7 +260,7 @@ class PersonController extends MHController
     }
     protected function findModelByUID($id)
     {
-        $user = Person::findOne(['uid'=>$id]);
+        $user = Person::find()->with('tags')->where(['uid'=>$id])->one();
         if ($user === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
         }

@@ -1,7 +1,7 @@
 <?php
 namespace app\commands;
 
-use app\models\Note;
+use app\models\Tag;
 use app\models\Person;
 use yii\console\Controller;
 use app\helpers\Curl;
@@ -39,19 +39,12 @@ class DemoController extends Controller
         }
     }
 
-    public function actionGetNotes($uid)
+    public function actionPlaygroundPerson($uid)
     {
         $person = Person::find()
-            ->with('notes')
-            ->where(['uid'=>$uid])
-            ->all();
-        $notes = $person[0]->notes;
-
-        foreach ($notes as $note) {
-            // $ret[] = $note->toResponseArray();
-            $p = \app\models\PersonInteraction::findOne(['note_id'=>$note->id]);
-            var_dump($p->person->uid);
-        }
+            ->with('tags')
+            ->where(['id'=>$uid])
+            ->one();
 
         var_dump(defined('YII_ENV'));
     }

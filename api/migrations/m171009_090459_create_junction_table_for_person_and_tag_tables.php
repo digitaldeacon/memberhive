@@ -36,7 +36,7 @@ class m171009_090459_create_junction_table_for_person_and_tag_tables extends Mig
             'person_id',
             'person',
             'id',
-            'CASCADE'
+            'RESTRICT'
         );
 
         // creates index for column `tag_id`
@@ -53,7 +53,7 @@ class m171009_090459_create_junction_table_for_person_and_tag_tables extends Mig
             'tag_id',
             'tag',
             'id',
-            'CASCADE'
+            'RESTRICT'
         );
     }
 
