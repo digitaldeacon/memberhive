@@ -131,6 +131,15 @@ class Person extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
+    public function getTags()
+    {
+        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+            ->viaTable('person_tag', ['person_id' => 'id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getMyInteractions()
     {
         return $this->hasMany(Interaction::className(), ['uid' => 'refId']);
