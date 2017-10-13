@@ -10,7 +10,7 @@
             #chipInput>
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="add($event)">
-    <mat-option *ngFor="let tag of source" [value]="tag">
+    <mat-option *ngFor="let tag of sourceFiltered()" [value]="tag">
       <span>{{ tag.text }}</span>
     </mat-option>
   </mat-autocomplete>

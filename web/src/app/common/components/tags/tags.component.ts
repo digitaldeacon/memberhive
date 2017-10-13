@@ -51,7 +51,10 @@ export class TagsComponent implements ControlValueAccessor {
 
     writeValue(v: Tag[]): void {
         this._value = v;
-        this.source = Utils.arrayDiffObj(this.source, v, 'id');
+    }
+
+    sourceFiltered(): Tag[] {
+        return Utils.arrayDiffObj(this.source, this._value, 'id');
     }
 
     registerOnChange(fn: (_: any) => void ): void { this.onChange = fn; }
@@ -69,8 +72,7 @@ export class TagsComponent implements ControlValueAccessor {
         const t: Tag = event.option.value;
         this._value.push(t);
         this.value = this._value;
-        this.source = this.source.filter((tag: Tag) => tag.id !== t.id);
-        // TODO: unset focus from input element
+        this.chipInput['nativeElement'].blur();
     }
 
     addNew(input: MatInput): void {
@@ -85,7 +87,6 @@ export class TagsComponent implements ControlValueAccessor {
     remove(tag: Tag): void {
         this._value = this._value.filter((i: Tag) => i.id !== tag.id);
         this.value = this._value;
-        this.source.push(tag);
     }
 
     displayFn(value: any): string {

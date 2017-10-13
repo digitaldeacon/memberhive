@@ -51,9 +51,6 @@ export class PersonFormComponent implements OnInit {
     randomPassword: boolean = true;
     persons: Array<Person>;
     address: PersonAddress = new PersonAddress();
-    // TMP placeholders until in store
-    statusTagsSelected: Tag[] = [];
-    // */
 
     constructor(private _fb: FormBuilder) { }
 
@@ -72,8 +69,6 @@ export class PersonFormComponent implements OnInit {
             person.birthday = new Date(person.birthday);
             person.baptized = new Date(person.baptized);
             person.anniversary = new Date(person.anniversary);
-            // console.log(person, this.tagSource);
-            // this.statusTagsSelected = person.status;
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
