@@ -5,8 +5,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {
-    MatFormFieldModule, MatAutocompleteModule,
-    MatRadioModule, MatCheckboxModule, MatChipsModule,
+    MatRadioModule, MatCheckboxModule,
     MatTabsModule
 } from '@angular/material';
 
