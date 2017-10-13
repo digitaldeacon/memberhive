@@ -6,9 +6,10 @@
       novalidate>
 
     <fieldset fxFlex="100">
-        <legend i18n>Status</legend>
+        <legend i18n>Status & Tags</legend>
         <mh-tags [source]="tagSource"
-                 formControlName="status"></mh-tags>
+                 formControlName="status"
+                 placeholder="Status"></mh-tags>
     </fieldset>
 
     <div fxLayout.gt-sm="row"

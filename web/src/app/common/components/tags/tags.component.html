@@ -1,5 +1,6 @@
-<mat-form-field floatPlaceholder="never">
+<mat-form-field floatPlaceholder="always">
   <mat-chip-list #chipList>
+    <mat-icon matPrefix>label_outline</mat-icon>
     <mat-chip *ngFor="let tag of _value" (remove)="remove(tag)">
       {{tag.text}} <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
@@ -7,7 +8,8 @@
            [matChipInputAddOnBlur]="false"
            (matChipInputTokenEnd)="addNew($event)"
            [matAutocomplete]="auto"
-            #chipInput>
+           placeholder="{{placeholder}}"
+           #chipInput>
   </mat-chip-list>
   <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="add($event)">
     <mat-option *ngFor="let tag of sourceFiltered()" [value]="tag">
