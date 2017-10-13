@@ -47,7 +47,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         'age',
         'phoneHome',
         'phoneWork',
-        'phoneMobile'
+        'phoneMobile',
+        'status'
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;

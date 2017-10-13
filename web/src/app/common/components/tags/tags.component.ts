@@ -34,6 +34,7 @@ export class TagsComponent implements ControlValueAccessor {
 
     @ViewChild('chipInput') chipInput: MatInput;
 
+    @Input() placeholder: string = '';
     @Input() source: Tag[] = [];
     @Input() _value: Tag[] = [];
     get value(): Tag[] { return this._value; }

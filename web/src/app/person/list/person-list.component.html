@@ -15,6 +15,12 @@
                                 <b *ngIf="person.gender === 'f'" i18n>female</b>
                                 <b *ngIf="person.gender === 'm'" i18n>male</b>
                             </span>
+                            <!-- TODO: fix spacing issues -->
+                            <span matLine *ngIf="opt === 'status' && person?.status.length > 0">
+                                <mat-chip-list>
+                                    <mat-chip *ngFor="let tag of person?.status" color="primary">{{tag.text}}</mat-chip>
+                                </mat-chip-list>
+                            </span>
                         </ng-container>
                     </mat-card-subtitle>
                 </mat-card-header>
