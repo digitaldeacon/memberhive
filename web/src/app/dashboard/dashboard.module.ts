@@ -13,8 +13,6 @@ import { DashletBirthdaysComponent } from './dashlets/birthday/dashlet-birthdays
 
 import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-interactions.component';
 
-import { TitleService } from 'mh-core';
-
 @NgModule({
     declarations: [
         DashboardComponent,

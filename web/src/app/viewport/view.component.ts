@@ -13,11 +13,11 @@ import 'rxjs/add/operator/takeWhile';
 import { MatSidenav } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
+import { TitleService } from '../common/title.service';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
 import {
-    TitleService,
     Person,
     Message,
     AuthService,

@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { TitleService } from '../../common/title.service';
 
 import * as app from '../../app.store';
-import { Person, TitleService, ContextButton, SetContextButtonsAction } from 'mh-core';
+import { Person, ContextButton, SetContextButtonsAction } from 'mh-core';
 
 @Component({
     moduleId: 'mh-person',

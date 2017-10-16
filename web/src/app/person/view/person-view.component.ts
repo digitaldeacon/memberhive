@@ -13,7 +13,6 @@ import {
     GeoMarker,
     Utils,
     CalcGeoCodePayload,
-    TitleService,
     GetInteractionsPersonAction,
     PersonViewAction,
     PersonUpdateAction,
@@ -30,6 +29,7 @@ import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { DialogService } from '../../common/dialog.service';
+import { TitleService } from '../../common/title.service';
 
 @Component({
     moduleId: 'mh-person',

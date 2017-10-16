@@ -21,7 +21,7 @@ import { InteractionComponent } from './interaction.component';
 import { InteractionFormComponent } from './form/interaction-form.component';
 import { InteractionListComponent } from './list/interaction-list.component';
 
-import { TitleService } from 'mh-core';
+import { TitleService } from '../common/title.service';
 
 import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
 import { ViewComponent } from './view/view.component';

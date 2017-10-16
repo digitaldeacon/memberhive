@@ -8,7 +8,7 @@ import { MHCommonModule } from '../common/common.module';
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 
-import { TitleService } from 'mh-core';
+import { TitleService } from '../common/title.service';
 
 const NG_MODULES: Type<any>[] = [
   CommonModule,

@@ -6,7 +6,6 @@ import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
   Utils,
-  TitleService,
   Person,
   PersonCreateAction,
   ContextButton,
@@ -14,6 +13,8 @@ import {
   PersonCalcGeoAction,
   CalcGeoCodePayload
 } from 'mh-core';
+
+import { TitleService } from '../../common/title.service';
 
 @Component({
   selector: 'mh-person-create',

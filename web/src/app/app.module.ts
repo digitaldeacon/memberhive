@@ -28,7 +28,7 @@ import { environment } from '../environments/environment';
 // import { CustomDateAdapter } from './custom-date.adaptor';
 
 import {
-    MHCoreModule,
+    MhCoreModule,
     PersonEffects,
     SettingsEffects,
     InteractionEffects,
@@ -52,7 +52,7 @@ import {
         BrowserAnimationsModule,
         HttpModule,
         AppRoutingModule,
-        MHCoreModule.forRoot(),
+        MhCoreModule.forRoot(),
 
         StoreModule.forRoot(reducers),
         // !environment.prod ? StoreDevtoolsModule.instrument() : [],

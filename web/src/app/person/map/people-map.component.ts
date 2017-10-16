@@ -1,11 +1,9 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import * as app from '../../app.store';
 import {
     Person,
-    TitleService,
     SystemSettings,
     GeoCodes,
     Utils,
@@ -13,7 +11,9 @@ import {
     ContextButton,
     SetContextButtonsAction
 } from 'mh-core';
+
 import { ShoutService } from '../../common/shout.service';
+import { TitleService } from '../../common/title.service';
 
 @Component({
     selector: 'mh-people-map',

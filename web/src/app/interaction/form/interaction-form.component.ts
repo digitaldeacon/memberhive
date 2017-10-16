@@ -6,6 +6,8 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonToggleChange } from '@angular/material';
 
+import { TitleService } from '../../common/title.service';
+
 import * as app from '../../app.store';
 import {
     AuthService,
@@ -13,7 +15,6 @@ import {
     SetContextButtonsAction,
     Interaction,
     Person,
-    TitleService,
     AddInteractionAction,
     UpdateInteractionAction
 } from 'mh-core';

@@ -3,7 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { LoginService } from './services/login.service';
 import { GeocodeService } from './services/geocode.service';
-import { TitleService } from './services/title.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
 
@@ -25,15 +24,14 @@ export * from './common';
   declarations: [],
   exports: []
 })
-export class MHCoreModule {
+export class MhCoreModule {
   static forRoot(): ModuleWithProviders {
     return {
-      ngModule: MHCoreModule,
+      ngModule: MhCoreModule,
       providers: [
           LoginService,
           GeocodeService,
           HttpService,
-          TitleService,
           AuthService
       ]
     };

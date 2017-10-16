@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
+import { TitleService } from '../common/title.service';
 import { GLOBALS } from '../../config/globals.config';
 import * as core from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -59,7 +60,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     personSettings: core.PersonSettings;
     settingsForm: FormGroup;
 
-    constructor(titleService: core.TitleService,
+    constructor(titleService: TitleService,
                 private _geoCoder: core.GeocodeService,
                 private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
