@@ -2,9 +2,9 @@ import { Component, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { TitleService } from '../common/title.service';
 
 import {
-    TitleService,
     ContextButton,
     Person,
     SetContextButtonsAction

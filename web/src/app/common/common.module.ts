@@ -28,8 +28,9 @@ import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
 import { ShoutService } from './shout.service';
 import { DialogService } from './dialog.service';
-
 import { AuthGuard } from './auth-guard.service';
+import { TitleService } from './title.service';
+
 import { NotifyboxComponent } from './components/notifybox/notifybox.component';
 import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
@@ -65,7 +66,8 @@ const MATERIAL_MODULES: any[] = [
         Title,
         AuthGuard,
         ShoutService,
-        DialogService
+        DialogService,
+        TitleService
     ],
     exports: [
         NotifyboxComponent,

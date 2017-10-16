@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TitleService } from 'mh-core';
+import { TitleService } from '../common/title.service';
 
 @Component({
     moduleId: 'mh-person',
