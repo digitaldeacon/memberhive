@@ -69,6 +69,9 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         {
             title: 'People', route: '/person', icon: 'people'
         },
+        {
+            title: 'Interactions', route: '/interaction', icon: 'forum'
+        },
         /* {
             title: 'Events', route: '', icon: 'today'
         },
