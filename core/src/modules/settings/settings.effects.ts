@@ -7,9 +7,10 @@ import 'rxjs/add/operator/toArray';
 import 'rxjs/add/observable/of';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
+import { Title } from '@angular/platform-browser';
 
 import * as actions from './settings.actions';
 import { HttpService } from '../../services/http.service';
@@ -19,7 +20,7 @@ import { SettingsState } from './settings.reducer';
 export class SettingsEffects {
 
     @Effect()
-    get$: Observable<Action> = this.actions$
+    getSettings$: Observable<Action> = this.actions$
         .ofType(actions.LIST_SETTINGS)
         .do(() => actions.ListSettingAction)
         .switchMap(() =>
@@ -37,6 +38,13 @@ export class SettingsEffects {
                 .catch((r: any) => of(new actions.UpdateSettingFailureAction(r)))
         );
 
+    @Effect({ dispatch: false })
+    setTitle$: Observable<Action> = this.actions$
+        .ofType(actions.SET_TITLE)
+        .map((action: actions.SetTitleAction) => action.payload)
+        .do((action: any) => this.browserTitle.setTitle(action + ' - Memberhive'));
+
     constructor(private actions$: Actions,
-                private http: HttpService) { }
+                private http: HttpService,
+                private browserTitle: Title) { }
 }

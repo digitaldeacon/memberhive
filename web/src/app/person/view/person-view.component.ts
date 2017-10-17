@@ -17,6 +17,7 @@ import {
     PersonViewAction,
     PersonUpdateAction,
     PersonDeleteAction,
+    SetTitleAction,
     ContextButton,
     SetContextButtonsAction,
     PersonCalcGeoAction,
@@ -29,7 +30,6 @@ import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { DialogService } from '../../common/dialog.service';
-import { TitleService } from '../../common/title.service';
 
 @Component({
     moduleId: 'mh-person',
@@ -52,8 +52,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     dialogRef: MatDialogRef<any>;
 
-    constructor(private _titleService: TitleService,
-                private _store: Store<app.AppState>,
+    constructor(private _store: Store<app.AppState>,
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _shout: ShoutService,
@@ -91,7 +90,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((person: any) => {
                 if (person) {
                     this.person = person;
-                    this._titleService.setTitle(this.person.fullName);
+                    this._store.dispatch(new SetTitleAction(this.person.fullName));
                     this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');
                 }
             });

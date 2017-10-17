@@ -11,10 +11,9 @@ import {
   ContextButton,
   SetContextButtonsAction,
   PersonCalcGeoAction,
+  SetTitleAction,
   CalcGeoCodePayload
 } from 'mh-core';
-
-import { TitleService } from '../../common/title.service';
 
 @Component({
   selector: 'mh-person-create',
@@ -28,10 +27,8 @@ export class PersonCreateComponent implements OnDestroy {
   googleApiKey: string;
   people: Person[];
 
-  constructor(titleService: TitleService,
-              private _store: Store<app.AppState>,
+  constructor(private _store: Store<app.AppState>,
               private _router: Router) {
-    titleService.setTitle('Create Person');
     this.settings$ = this._store.select(app.getPeopleSettings);
     this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
         .subscribe((key: string) => this.googleApiKey = key);
@@ -44,6 +41,7 @@ export class PersonCreateComponent implements OnDestroy {
           }
         });
     this._setContextMenu();
+    this._store.dispatch(new SetTitleAction('Create Person'));
   }
 
   savePerson(person: Person): void {

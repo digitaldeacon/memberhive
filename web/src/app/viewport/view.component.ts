@@ -8,13 +8,11 @@ import {
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/takeWhile';
 
 import { MatSidenav } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
-import { TitleService } from '../common/title.service';
 
 import { Store } from '@ngrx/store';
 import * as app from '../app.store';
@@ -30,7 +28,8 @@ import {
     UpdateSettingAction,
     ClearSettingsMessageAction,
     ClearInteractionMessageAction,
-    PersonClearMessageAction
+    PersonClearMessageAction,
+    LayoutSettings
 } from 'mh-core';
 
 @Component({
@@ -60,9 +59,8 @@ import {
 export class ViewComponent implements OnDestroy, AfterViewInit {
     private _alive: boolean = true;
     @ViewChild('sidenav')
-    private sidenav: MatSidenav;
-    subscription: Subscription;
-    title: string;
+    private _sidenav: MatSidenav;
+    private _layout: LayoutSettings;
 
     routes: Object[] = [
         {
@@ -83,11 +81,12 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     ];
 
     currentUser: Person;
-    myOutstanding$: Observable<Interaction[]>;
     churchName: string;
 
     loading$: Observable<boolean>;
+    title$: Observable<string>;
     contextButtons$: Observable<ContextButton[]>;
+    myOutstanding$: Observable<Interaction[]>;
 
     drawerVisible: boolean = true;
     drawerState: string = 'open';
@@ -96,10 +95,10 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                 private _router: Router,
                 private _shout: ShoutService,
                 private _store: Store<app.AppState>,
-                private _cd: ChangeDetectorRef,
-                public titleService: TitleService,) {
+                private _cd: ChangeDetectorRef) {
 
         this.loading$ = this._store.select(app.getLoading);
+        this.title$ = this._store.select(app.getTitle);
         this.contextButtons$ = this._store.select(app.getContextButtons);
         this.myOutstanding$ = this._store.select(app.getMyInteractions);
 
@@ -118,7 +117,6 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                     this.churchName = data.churchName;
                 }
             });
-
         this._store.select(app.getMessage)
             .takeWhile(() => this._alive)
             .subscribe((message: Message) => {
@@ -129,13 +127,6 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                     this._store.dispatch(new PersonClearMessageAction());
                 }
             });
-
-        this.titleService.getTitle()
-            .takeWhile(() => this._alive)
-            .subscribe(title => {
-                console.log('from ttitle', title);
-                this.title = title;
-            });
     }
 
     ngOnDestroy(): void {
@@ -145,7 +136,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     ngAfterViewInit(): void {
         const size = this.drawerState === 'open' ? 220 : 75;
         setTimeout(() => {
-            this.sidenav.open();
+            this._sidenav.open();
             this._cd.detectChanges();
         }, size);
     }

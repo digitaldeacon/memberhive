@@ -14,7 +14,9 @@ export interface SystemSettings {
 }
 
 export interface LayoutSettings {
-    showDrawer: boolean;
+    showDrawer?: boolean;
+    title?: string;
+    module?: string;
     contextButtons?: ContextButton[];
 }
 

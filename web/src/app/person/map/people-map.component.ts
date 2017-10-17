@@ -5,7 +5,7 @@ import * as app from '../../app.store';
 import {
     Person,
     SystemSettings,
-    GeoCodes,
+    SetTitleAction,
     Utils,
     GeoMarker,
     ContextButton,
@@ -13,7 +13,6 @@ import {
 } from 'mh-core';
 
 import { ShoutService } from '../../common/shout.service';
-import { TitleService } from '../../common/title.service';
 
 @Component({
     selector: 'mh-people-map',
@@ -33,9 +32,8 @@ export class PeopleMapComponent implements OnDestroy {
     zoom: number = 11;
 
     constructor(private _store: Store<app.AppState>,
-                private _shout: ShoutService,
-                titleService: TitleService) {
-        titleService.setTitle('People Map');
+                private _shout: ShoutService) {
+
         this._store.select(app.getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
@@ -65,6 +63,7 @@ export class PeopleMapComponent implements OnDestroy {
                 }
             });
         this._setContextMenu();
+        this._store.dispatch(new SetTitleAction('People Map'));
     }
 
     validate(): boolean {

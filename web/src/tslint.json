@@ -84,7 +84,7 @@
         "no-default-export": true,
         "no-duplicate-variable": true,
         "no-unused-variable": [true, {"ignore-pattern": "^_"}],
-        "no-empty": true,
+        "no-empty": false,
         "no-eval": true,
         "no-inferrable-types": [
             false,

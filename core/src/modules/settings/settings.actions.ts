@@ -52,10 +52,12 @@ export class ToggleDrawerAction implements Action {
 
 export class SetTitleAction implements Action {
     readonly type = SET_TITLE;
+    constructor(public payload: string) { }
 }
 
 export class SetModuleAction implements Action {
     readonly type = SET_MODULE;
+    constructor(public payload: string) { }
 }
 
 export class GetModuleTitleAction implements Action {
@@ -80,5 +82,6 @@ export type SettingActions
     | UpdateSettingSuccessAction
     | UpdateSettingFailureAction
     | ClearSettingsMessageAction
+    | SetTitleAction
     | SetContextButtonsAction
     | SetContextButtonsAction;

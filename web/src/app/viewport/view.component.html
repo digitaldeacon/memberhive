@@ -56,7 +56,7 @@
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
 
             <mat-toolbar>
-                <span>{{title}}</span>
+                <span>{{title$ | async}}</span>
                 <span flex></span>
                 <button mat-icon-button *ngFor="let button of contextButtons$ | async"
                         [routerLink]="[button.link]"
