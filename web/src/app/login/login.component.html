@@ -1,12 +1,13 @@
 <div class="login-container" fxLayout="row" fxLayoutAlign="center center">
-    <div class="flex-item login-content">
+    <div class="login-content">
         <mat-progress-bar
                 mode="indeterminate"
                 color="accent"
                 *ngIf="loading$ | async"></mat-progress-bar>
         <i class="loading-holder" *ngIf="!(loading$ | async)"></i>
         <mat-card>
-            <div class="flex-item logo">
+
+            <div class="logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
 
@@ -17,7 +18,7 @@
                         [type]="error">
                 </mh-notifybox>
             </mat-card-subtitle>
-            <mat-card-content>
+            <mat-card-content fxFlex>
                 <form
                       (ngSubmit)="submit()"
                       [formGroup]="form"
@@ -25,10 +26,11 @@
                       fxLayout="column"
                       autocomplete="off">
 
-                    <mat-form-field fxFlex="100">
+                    <mat-form-field>
+                        <mat-icon matPrefix>email</mat-icon>
                         <input matInput
                                required
-                               placeholder="Username"
+                               placeholder="Email OR Username"
                                i18n-placeholder
                                autocorrect="off"
                                autocapitalize="off"
@@ -39,7 +41,8 @@
                                (focus)="initForm()">
                     </mat-form-field>
 
-                    <mat-form-field fxFlex="100">
+                    <mat-form-field>
+                        <mat-icon matPrefix>lock</mat-icon>
                         <input matInput
                                type="password"
                                placeholder="Password"

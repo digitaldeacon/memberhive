@@ -9,7 +9,7 @@
                 fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
 
         <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
-        <span fxHide.xs class="p-r-15">MemberHive</span>
+        <span fxHide.xs class="p-r-30">{{churchName}}</span>
 
         <mh-search-box fxFlex></mh-search-box>
 
@@ -56,7 +56,7 @@
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
 
             <mat-toolbar>
-                <span>{{getTitle()}}</span>
+                <span>{{title}}</span>
                 <span flex></span>
                 <button mat-icon-button *ngFor="let button of contextButtons$ | async"
                         [routerLink]="[button.link]"

@@ -8,6 +8,7 @@ import {
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/takeWhile';
 
 import { MatSidenav } from '@angular/material';
@@ -60,6 +61,8 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     private _alive: boolean = true;
     @ViewChild('sidenav')
     private sidenav: MatSidenav;
+    subscription: Subscription;
+    title: string;
 
     routes: Object[] = [
         {
@@ -93,8 +96,9 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                 private _router: Router,
                 private _shout: ShoutService,
                 private _store: Store<app.AppState>,
-                private _titleService: TitleService,
-                private cd: ChangeDetectorRef) {
+                private _cd: ChangeDetectorRef,
+                public titleService: TitleService,) {
+
         this.loading$ = this._store.select(app.getLoading);
         this.contextButtons$ = this._store.select(app.getContextButtons);
         this.myOutstanding$ = this._store.select(app.getMyInteractions);
@@ -125,6 +129,13 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                     this._store.dispatch(new PersonClearMessageAction());
                 }
             });
+
+        this.titleService.getTitle()
+            .takeWhile(() => this._alive)
+            .subscribe(title => {
+                console.log('from ttitle', title);
+                this.title = title;
+            });
     }
 
     ngOnDestroy(): void {
@@ -135,7 +146,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         const size = this.drawerState === 'open' ? 220 : 75;
         setTimeout(() => {
             this.sidenav.open();
-            this.cd.detectChanges();
+            this._cd.detectChanges();
         }, size);
     }
 
@@ -162,10 +173,6 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
 
     drawerWidth(): string {
         return this.drawerVisible ? '220px' : '75px';
-    }
-
-    getTitle(): string {
-        return this._titleService.getTitle();
     }
 
     route(r: string, part: string = undefined): void {
