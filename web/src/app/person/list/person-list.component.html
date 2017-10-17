@@ -3,10 +3,10 @@
     <div fxLayout='column'>
         <mat-card *ngFor="let person of people$ | async" class="nav-list">
             <a mat-list-item [routerLink]="['/person/view', person.uid]">
-                <mat-card-header>
+                <mat-card-header fxLayout.gt-sm="row" fxLayout.xs="column">
                     <img mat-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <mat-card-title>{{person.fullName}}</mat-card-title>
-                    <mat-card-subtitle fxLayout.gt-sm="row" fxLayout.xs="column" class="list-detail">
+                    <mat-card-subtitle class="list-detail">
                         <ng-container *ngFor="let opt of options">
                             <span matLine *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
                             <span matLine *ngIf="opt === 'email'">{{person.email}}</span>
@@ -16,10 +16,10 @@
                                 <b *ngIf="person.gender === 'm'" i18n>male</b>
                             </span>
                             <!-- TODO: fix spacing issues -->
-                            <span matLine *ngIf="opt === 'status' && person?.status.length > 0">
-                                <mat-chip-list>
-                                    <mat-chip *ngFor="let tag of person?.status" color="primary">{{tag.text}}</mat-chip>
-                                </mat-chip-list>
+                            <span matLine
+                                  *ngIf="opt === 'status' && person?.status.length > 0"
+                                   >
+                                <mat-basic-chip *ngFor="let tag of person?.status" class="status-chip">{{tag.text}}</mat-basic-chip>
                             </span>
                         </ng-container>
                     </mat-card-subtitle>

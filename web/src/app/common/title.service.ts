@@ -1,35 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Title } from '@angular/platform-browser';
+import { Observable } from 'rxjs/observable';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class TitleService {
-    public module = '';
+    private module = new Subject<string>();
+    private title = new Subject<string>();
+    private subTitle = new Subject<string>();
+
+    /*public module = '';
     public title = '';
-    public subTitle = '';
-    constructor(private browserTitle: Title) {
+    public subTitle = '';*/
+
+    constructor(private _browserTitle: Title) {
     }
 
-    public getModule(): string {
-        return this.module;
+    getModule(): Observable<string> {
+        return this.module.asObservable();
     }
 
-    public getTitle(): string {
-        return this.title;
+    getTitle(): Observable<string> {
+        return this.title.asObservable();
     }
 
-    public getSubTitle(): string {
-        return this.subTitle;
+    getSubTitle(): Observable<string> {
+        return this.subTitle.asObservable();
     }
 
-    public changeModule(module: string): void {
-        this.module = module;
-        this.title = '';
-        this.subTitle = '';
+    changeModule(module: string): void {
+        this.module.next(module);
+        this.title.next('');
+        this.subTitle.next('');
     }
 
-    public setTitle(title: string, subTitle = ''): void {
-        this.browserTitle.setTitle('Memberhive [' + this.module + '] ' + this.title);
-        this.title = title;
-        this.subTitle = subTitle;
+    setTitle(title: string): void {
+        this.title.next(title);
+        this._browserTitle.setTitle(title + ' - Memberhive');
+    }
+
+    setSubTitle(subTitle: string): void {
+        this.subTitle.next(subTitle);
     }
 }

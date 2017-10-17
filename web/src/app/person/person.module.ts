@@ -29,7 +29,7 @@ import { PersonRoutingModule } from './person-routing.module';
 
 import { ImageCropperModule } from 'ng2-img-cropper';
 
-import { TitleService } from 'mh-core';
+import { TitleService } from '../common/title.service';
 import { ShoutService } from '../common/shout.service';
 
 const NG_MODULES: Type<any>[] = [

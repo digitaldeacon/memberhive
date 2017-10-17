@@ -25,11 +25,11 @@ export class DashboardComponent implements OnDestroy {
     dashletsRight: Array<string>;
     dashletsLeft: Array<string>;
 
-    constructor(titleService: TitleService,
+    constructor(private _titleService: TitleService,
                 private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>) {
-        titleService.changeModule('Dashboard');
-        titleService.setTitle('Dashboard');
+        //_titleService.changeModule('Dashboard');
+        _titleService.setTitle('Dashboard');
         this._dragulaService.setOptions('dashlet', {
             moves: function (el: any, container: any, handle: any): boolean {
                 return handle.className.indexOf('handle') > -1;
