@@ -1,10 +1,14 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { TitleService } from '../../common/title.service';
 
 import * as app from '../../app.store';
-import { Person, ContextButton, SetContextButtonsAction } from 'mh-core';
+import {
+    Person,
+    ContextButton,
+    SetContextButtonsAction,
+    SetTitleAction
+} from 'mh-core';
 
 @Component({
     moduleId: 'mh-person',
@@ -20,9 +24,7 @@ export class PersonListComponent implements OnDestroy {
     people$: Observable<Person[]>;
     options: any = {};
 
-    constructor(private _store: Store<app.AppState>,
-                titleService: TitleService) {
-        titleService.setTitle('People List');
+    constructor(private _store: Store<app.AppState>) {
         this.people$ = this._store.select(app.getPeople);
         this._store.select(app.getPeopleListSettings)
             .takeWhile(() => this._alive)
@@ -30,6 +32,7 @@ export class PersonListComponent implements OnDestroy {
                 this.options = data;
         });
         this._setContextMenu();
+        this._store.dispatch(new SetTitleAction('List People'));
     }
 
     display(key: string): boolean {

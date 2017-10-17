@@ -3,7 +3,7 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { MHCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { ImageCropperModule } from 'ng2-img-cropper';
 import {
     MatRadioModule, MatCheckboxModule,
     MatTabsModule
@@ -27,9 +27,6 @@ import { MapDialogComponent } from './dialogs/map/map.dialog';
 
 import { PersonRoutingModule } from './person-routing.module';
 
-import { ImageCropperModule } from 'ng2-img-cropper';
-
-import { TitleService } from '../common/title.service';
 import { ShoutService } from '../common/shout.service';
 
 const NG_MODULES: Type<any>[] = [
@@ -85,7 +82,6 @@ const MH_COMPONENTS: Type<any>[] = [
     ]
 })
 export class PersonModule {
-    constructor(titleService: TitleService) {
-        titleService.changeModule('Person');
+    constructor() {
     }
 }

@@ -73,6 +73,7 @@ export const getProfileSettings: any = createSelector(getSettingsState, settings
 export const getSysSettings: any = createSelector(getSettingsState, settings.getSysSettings);
 
 export const getShowDrawer: any = createSelector(getSettingsState, settings.getShowDrawer);
+export const getTitle: any = createSelector(getSettingsState, settings.getTitle);
 export const getContextButtons: any = createSelector(getSettingsState, settings.getContextButtons);
 export const getSysGoogleKey: any = createSelector(getSettingsState, settings.getSysGoogleKey);
 

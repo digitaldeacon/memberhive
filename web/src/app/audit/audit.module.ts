@@ -4,7 +4,6 @@ import { MatListModule, MatIconModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 
-import { TitleService } from '../common/title.service';
 import { AuditLogComponent } from './audit-log.component';
 import { AuditService } from './audit.service';
 
@@ -27,7 +26,6 @@ import { AuditService } from './audit.service';
     ]
 })
 export class AuditModule {
-    constructor(titleService: TitleService) {
-        titleService.changeModule('Dashboard');
+    constructor() {
     }
 }

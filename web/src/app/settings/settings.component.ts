@@ -1,7 +1,6 @@
 import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
-import { TitleService } from '../common/title.service';
 import { GLOBALS } from '../../config/globals.config';
 import * as core from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
@@ -9,6 +8,7 @@ import * as app from '../app.store';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/take';
 
 import { isEqual } from 'lodash';
 
@@ -60,15 +60,13 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     personSettings: core.PersonSettings;
     settingsForm: FormGroup;
 
-    constructor(titleService: TitleService,
-                private _geoCoder: core.GeocodeService,
+    constructor(private _geoCoder: core.GeocodeService,
                 private _dragulaService: DragulaService,
                 private _store: Store<app.AppState>,
                 private _shout: ShoutService,
                 private _fb: FormBuilder) {
 
-        titleService.changeModule('Settings');
-        titleService.setTitle('All Settings');
+        this._store.dispatch(new core.SetTitleAction('All Settings'));
 
         this._initStore();
         this._initDragula();

@@ -6,8 +6,6 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonToggleChange } from '@angular/material';
 
-import { TitleService } from '../../common/title.service';
-
 import * as app from '../../app.store';
 import {
     AuthService,
@@ -16,7 +14,8 @@ import {
     Interaction,
     Person,
     AddInteractionAction,
-    UpdateInteractionAction
+    UpdateInteractionAction,
+    SetTitleAction
 } from 'mh-core';
 
 @Component({
@@ -44,13 +43,13 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   visibility: any[] = [];
   actionVerbs: any[] = [];
 
-  constructor(titleService: TitleService,
-              private _fb: FormBuilder,
+  constructor(private _fb: FormBuilder,
               private _auth: AuthService,
               private _store: Store<app.AppState>,
               private _route: ActivatedRoute,
               private _location: Location) {
-    titleService.setTitle('Create Interaction');
+
+    this._store.dispatch(new SetTitleAction('Create Interaction'));
     this.people$ = this._store.select(app.getPeople);
     this._store.select(app.getSelectedPerson)
         .takeWhile(() => this._alive)
@@ -79,7 +78,6 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     ];
 
     this.actionVerbs = ['call', 'meet', 'follow up', 'schedule', 'do', 'check'];
-
     this._authorId = this._auth.getPersonId();
   }
 

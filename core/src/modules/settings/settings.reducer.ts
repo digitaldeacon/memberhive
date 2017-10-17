@@ -17,7 +17,9 @@ const initialState: SettingsState = {
     loaded: false,
     loading: false,
     layout: {
-        showDrawer: true
+        showDrawer: true,
+        title: '',
+        module: ''
     },
     people: {
         list: ['email'],
@@ -119,7 +121,18 @@ export function settingsReducer(state: SettingsState = initialState,
             return Object.assign({}, state, {
                 layout: {
                     showDrawer: state.layout.showDrawer,
+                    title: state.layout.title,
                     contextButtons: action.payload
+                }
+            });
+        }
+
+        case actions.SET_TITLE: {
+            return Object.assign({}, state, {
+                layout: {
+                    showDrawer: state.layout.showDrawer,
+                    title: action.payload,
+                    contextButtons: state.layout.contextButtons
                 }
             });
         }
@@ -140,5 +153,7 @@ export const getPeopleListSettings: any = (state: SettingsState) => state.people
 export const getProfileSettings: any = (state: SettingsState) => state.profile;
 
 export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
+export const getTitle: any = (state: SettingsState) => state.layout.title;
+export const getModule: any = (state: SettingsState) => state.layout.module;
 export const getContextButtons: any = (state: SettingsState) => state.layout.contextButtons;
 export const getSysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;

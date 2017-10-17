@@ -8,8 +8,6 @@ import { MHCommonModule } from '../common/common.module';
 import { SettingsComponent } from './settings.component';
 import { SettingsRoutingModule } from './settings-routing.module';
 
-import { TitleService } from '../common/title.service';
-
 const NG_MODULES: Type<any>[] = [
   CommonModule,
   FlexLayoutModule,
@@ -29,7 +27,6 @@ const NG_MODULES: Type<any>[] = [
   ]
 })
 export class SettingsModule {
-  constructor(titleService: TitleService) {
-    titleService.changeModule('Settings');
+  constructor() {
   }
 }
