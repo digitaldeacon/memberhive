@@ -28,6 +28,7 @@ import { MapDialogComponent } from './dialogs/map/map.dialog';
 import { PersonRoutingModule } from './person-routing.module';
 
 import { ShoutService } from '../common/shout.service';
+import { FamilyComponent } from './components/family/family.component';
 
 const NG_MODULES: Type<any>[] = [
     CommonModule,
@@ -56,7 +57,8 @@ const MH_COMPONENTS: Type<any>[] = [
     PeopleMapComponent,
     PersonRelationsDialogComponent,
     AvatarEditDialogComponent,
-    MapDialogComponent
+    MapDialogComponent,
+    FamilyComponent
 ];
 
 @NgModule({

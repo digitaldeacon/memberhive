@@ -65,9 +65,11 @@
                            [tagSource]="tags$ | async"
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </mat-tab>
+                <mat-tab label="Family" i18n-label>
+                    <mh-person-family [person]="person"></mh-person-family>
+                </mat-tab>
                 <!--
-                TODO: Family & Group tabs
-                <mat-tab label="Family" i18n-label></mat-tab>
+                TODO: Groups section
                 <mat-tab label="Groups" i18n-label></mat-tab>
                 -->
                 <mat-tab label="Logs" i18n-label>
