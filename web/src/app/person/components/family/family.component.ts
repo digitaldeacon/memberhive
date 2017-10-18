@@ -18,23 +18,23 @@ export class FamilyComponent implements OnInit {
     @Input() person: Person;
 
     family: Person[] = [];
-    selected: string[] = [];
+    names: any[] = [];
 
     constructor() { }
 
-    ngOnInit() {
-        let names: any[] = [
-            {name:'Tim '+this.person.lastName, gender:'m'},
-            {name:'Anna '+this.person.lastName, gender:'f'},
-            {name:'Nastia '+this.person.lastName, gender:'f'},
-            {name:'Thomas '+this.person.lastName, gender:'m'}
+    ngOnInit(): void {
+       this.names = [
+            {name: 'Tim ' + this.person.lastName, gender: 'm'},
+            {name: 'Anna ' + this.person.lastName, gender: 'f'},
+            {name: 'Nastia ' + this.person.lastName, gender: 'f'},
+            {name: 'Thomas ' + this.person.lastName, gender: 'm'}
         ];
         this.family.push(this.person);
-        for(let name of names) {
+        for (let name of this.names) {
             let p: Person = {
                 fullName: name.name,
                 gender: name.gender,
-                familyRole: ''
+                avatar: 'assets/images/avatar/' + name.gender + '.png'
             };
             this.family.push(p);
         }
