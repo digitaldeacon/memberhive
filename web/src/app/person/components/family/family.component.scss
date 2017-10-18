@@ -1,0 +1,24 @@
+@import "../../../../theme.scss";
+
+.container {
+  padding: 24px;
+  .mat-card {
+    max-width: 200px;
+    margin-bottom: 15px;
+    background-color: rgba(246, 246, 246, 0.30);
+    a:visited, a:active, a:link {
+      color: inherit;
+    }
+    .mat-card-title {
+      font-size: 18px;
+    }
+    .mat-card-avatar {
+      height: 65px;
+      width: 65px;
+    }
+    .mat-select {
+      padding: 8px;
+      background-color: mat-color($mh-app-primary, 100);
+    }
+  }
+}

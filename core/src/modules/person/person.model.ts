@@ -8,6 +8,11 @@ export interface User {
     password?: string;
 }
 
+export interface Family {
+    id?: number[];
+    name?: string
+}
+
 export interface Person {
     id?: number;
     uid?: string;
@@ -29,7 +34,9 @@ export interface Person {
     user?: User;
     address?: PersonAddress;
     socialContact?: any;
-    status: Tag[]
+    status?: Tag[],
+    family?: Family,
+    familyRole?: string
 }
 
 export class PersonAddress {
