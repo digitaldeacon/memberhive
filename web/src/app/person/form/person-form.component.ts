@@ -42,6 +42,9 @@ export class PersonFormComponent implements OnInit {
             this.initPerson(person);
         }
     }
+    get person(): Person {
+        return this._person;
+    }
 
     @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
     @Output() saveStatus: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
@@ -163,7 +166,7 @@ export class PersonFormComponent implements OnInit {
     }
 
     changeStatus($event: Tag[]): void {
-        this._person.status = [...$event];
+        this.person.status = [...$event];
         this.saveStatus.emit($event);
     }
 

@@ -1,5 +1,5 @@
-<mat-toolbar>
-    <h3 fxFlex>{{mode}} {{_person.fullName}}</h3>
+<mat-toolbar *ngIf="!inCreateMode()">
+    <h3 fxFlex>Edit <small>{{person.fullName}}</small></h3>
     <button mat-button i18n><mat-icon>check_circle</mat-icon> SAVE NOW</button>
 </mat-toolbar>
 <form class="person-form"
