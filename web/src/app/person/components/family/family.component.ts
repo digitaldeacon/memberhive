@@ -10,12 +10,20 @@ export class FamilyComponent implements OnInit {
 
     private _person: Person;
 
+    // TODO: move to settings
     relations: string[] = [
         'husband', 'wife', 'child', 'sibling', 'uncle',
         'aunt', 'grandmother', 'grandfather'
     ];
 
-    @Input() person: Person;
+    @Input()
+    set person(person: Person) {
+        if (person) {
+            this._person = person;
+            this.initFamily();
+        }
+    }
+    get person(): Person { return this._person; }
 
     family: Person[] = [];
     names: any[] = [];
@@ -23,7 +31,11 @@ export class FamilyComponent implements OnInit {
     constructor() { }
 
     ngOnInit(): void {
-       this.names = [
+    }
+
+    initFamily(): void {
+        this.family = [];
+        this.names = [
             {name: 'Tim ' + this.person.lastName, gender: 'm'},
             {name: 'Anna ' + this.person.lastName, gender: 'f'},
             {name: 'Nastia ' + this.person.lastName, gender: 'f'},
@@ -39,5 +51,4 @@ export class FamilyComponent implements OnInit {
             this.family.push(p);
         }
     }
-
 }
