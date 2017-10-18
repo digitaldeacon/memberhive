@@ -1,0 +1,30 @@
+<mat-toolbar>
+    <h3 fxFlex>Family members</h3>
+    <button mat-button i18n><mat-icon>add_circle_outline</mat-icon> ADD MEMBER</button>
+</mat-toolbar>
+<div fxLayout="row" fxLayoutWrap fxLayoutGap="15px" class="container">
+    <mat-card *ngFor="let member of family; let i = index">
+        <mat-card-title-group>
+            <mat-card-title>
+                <a [routerLink]="['/person/view', member.uid]" *ngIf="member.uid !== person?.uid">
+                    {{member.fullName}}
+                </a>
+                <span *ngIf="member.uid === person?.uid">{{member.fullName}}</span>
+            </mat-card-title>
+            <mat-card-subtitle fxLayout="column">
+                <span matLine>{{member.age}} <small i18n>years</small></span>
+                <span matLine><a href="tel:{{member.phoneMobile}}">{{member.phoneMobile}}</a></span>
+            </mat-card-subtitle>
+            <img matCardAvatar src="{{member.avatar}}" alt="{{member.fullName}}" />
+        </mat-card-title-group>
+        <mat-card-content>
+            <mat-select [(ngModel)]="member.familyRole">
+                <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+            </mat-select>
+        </mat-card-content>
+        <mat-card-actions fxLayoutAlign="end center">
+            <button mat-button color="warn">REMOVE</button>
+        </mat-card-actions>
+    </mat-card>
+</div>
+<pre>{{person | json}}</pre>

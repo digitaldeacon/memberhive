@@ -9,6 +9,7 @@ import {
     MatMenuModule,
     MatSelectModule,
     MatTooltipModule,
+    MatToolbarModule,
     MatInputModule,
     MatDatepickerModule
 } from '@angular/material';
@@ -45,6 +46,7 @@ import { ViewComponent } from './view/view.component';
         MatTooltipModule,
         MatInputModule,
         MatDatepickerModule,
+        MatToolbarModule,
 
         FlexLayoutModule,
         FormsModule,

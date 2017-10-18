@@ -27,8 +27,8 @@ export class PersonFormComponent implements OnInit {
 
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
-    private _mode: string = 'EDIT';
     private _person: Person;
+    mode: string = 'Edit';
 
     hasMap: boolean = false;
 
@@ -56,7 +56,7 @@ export class PersonFormComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.form) {
-            this._mode = 'CREATE';
+            this.mode = 'Create';
             this.initForm();
             this.initValidators();
         }
@@ -168,7 +168,7 @@ export class PersonFormComponent implements OnInit {
     }
 
     inCreateMode(): boolean {
-        return this._mode === 'CREATE';
+        return this.mode === 'Create';
     }
 
     toggleRandomPassword(event?: any): void {
