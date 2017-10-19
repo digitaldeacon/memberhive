@@ -3,7 +3,7 @@ import { Person } from 'mh-core';
 
 interface Member {
     person: Person;
-    isSuggestion?: boolean
+    isSuggestion?: boolean;
 }
 
 @Component({
@@ -52,6 +52,7 @@ export class FamilyComponent implements OnInit {
             const randNum: number = Math.floor(Math.random() * (100000000000 - 115127539307 + 1)) + 115127539307;
             let suggested: boolean = name.gender === 'f';
             let p: Person = {
+                uid: randNum.toString(),
                 fullName: name.name,
                 gender: name.gender,
                 phoneMobile: randNum.toString(),
@@ -64,18 +65,19 @@ export class FamilyComponent implements OnInit {
 
     accept(m: Member): void {
         // TODO: update isSuggestion & write to store/db
-        console.log('Accept', m);
+        // console.log('Accept', m);
         m.isSuggestion = false;
     }
 
     ignore(m: Member): void {
         // TODO: remove from array, update field 'unrelatedMembers'
-        console.log('Ignore', m);
+        // console.log('Ignore', m);
+        this.family = this.family.filter((member: Member) => member.person.uid !== m.person.uid);
     }
 
-    remove(m: Member) {
+    remove(m: Member): void {
         // TODO: remove from array, remove from store/db, update field 'unrelatedMembers'
-        console.log('Remove', m);
+        // console.log('Remove', m);
     }
 
 }
