@@ -26,10 +26,13 @@
             </mat-select>
         </mat-card-content>
         <mat-card-actions fxLayoutAlign="end center">
-            <button mat-button *ngIf="member.isSuggestion">
+            <button mat-button *ngIf="member.isSuggestion" (click)="accept(member)">
                 <mat-icon>check</mat-icon> <ng-container i18n>ACCEPT</ng-container>
             </button>
-            <button mat-button color="warn">
+            <button mat-button *ngIf="member.isSuggestion" (click)="ignore(member)">
+                <mat-icon>clear</mat-icon> <ng-container i18n>IGNORE</ng-container>
+            </button>
+            <button mat-button color="warn" *ngIf="!member.isSuggestion" (click)="remove(member)">
                 <mat-icon>clear</mat-icon> <ng-container i18n>REMOVE</ng-container>
             </button>
         </mat-card-actions>
