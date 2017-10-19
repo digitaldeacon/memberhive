@@ -1,29 +1,37 @@
 <mat-toolbar>
-    <h3 fxFlex>Family members</h3>
-    <button mat-button i18n><mat-icon>add_circle_outline</mat-icon> ADD MEMBER</button>
+    <h3 fxFlex i18n>Family members</h3>
+    <button mat-button i18n>
+        <mat-icon>add_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
+    </button>
 </mat-toolbar>
 <div fxLayout="row" fxLayoutWrap fxLayoutGap="15px" class="container">
-    <mat-card *ngFor="let member of family; let i = index">
+    <mat-card *ngFor="let member of family; let i = index" [class.suggestion-box]="member.isSuggestion">
+        <div *ngIf="member.isSuggestion" class="suggestion-label"><small>Suggesstion</small></div>
         <mat-card-title-group>
             <mat-card-title>
-                <a [routerLink]="['/person/view', member.uid]" *ngIf="member.uid !== person?.uid">
-                    {{member.fullName}}
+                <a [routerLink]="['/person/view', member.person.uid]" *ngIf="member.person.uid !== person?.uid">
+                    {{member.person.fullName}}
                 </a>
-                <span *ngIf="member.uid === person?.uid">{{member.fullName}}</span>
+                <span *ngIf="member.person.uid === person?.uid">{{member.person.fullName}}</span>
             </mat-card-title>
             <mat-card-subtitle fxLayout="column">
-                <span matLine>{{member.age}} <small i18n>years</small></span>
-                <span matLine><a href="tel:{{member.phoneMobile}}">{{member.phoneMobile}}</a></span>
+                <span matLine>{{member.person.age}} <small i18n>years</small></span>
+                <span matLine><a href="tel:{{member.person.phoneMobile}}">{{member.person.phoneMobile}}</a></span>
             </mat-card-subtitle>
-            <img matCardAvatar src="{{member.avatar}}" alt="{{member.fullName}}" />
+            <img matCardAvatar src="{{member.person.avatar}}" alt="{{member.person.fullName}}" />
         </mat-card-title-group>
         <mat-card-content>
-            <mat-select [(ngModel)]="member.familyRole">
+            <mat-select [(ngModel)]="member.person.familyRole">
                 <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
             </mat-select>
         </mat-card-content>
         <mat-card-actions fxLayoutAlign="end center">
-            <button mat-button color="warn">REMOVE</button>
+            <button mat-button *ngIf="member.isSuggestion">
+                <mat-icon>check</mat-icon> <ng-container i18n>ACCEPT</ng-container>
+            </button>
+            <button mat-button color="warn">
+                <mat-icon>clear</mat-icon> <ng-container i18n>REMOVE</ng-container>
+            </button>
         </mat-card-actions>
     </mat-card>
 </div>

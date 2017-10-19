@@ -21,4 +21,15 @@
       background-color: mat-color($mh-app-primary, 100);
     }
   }
+  .suggestion-box {
+    border: 2px dashed #CCC;
+  }
+  .suggestion-label {
+    padding-bottom: 10px;
+    text-align: right;
+    color: #CCC;
+    position: absolute;
+    top: 5px;
+    right: 15px;
+  }
 }

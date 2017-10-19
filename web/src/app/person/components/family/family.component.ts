@@ -1,6 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Person } from 'mh-core';
 
+interface Member {
+    person: Person;
+    isSuggestion?: boolean
+}
+
 @Component({
   selector: 'mh-person-family',
   templateUrl: './family.component.html',
@@ -25,7 +30,7 @@ export class FamilyComponent implements OnInit {
     }
     get person(): Person { return this._person; }
 
-    family: Person[] = [];
+    family: Member[] = [];
     names: any[] = [];
 
     constructor() { }
@@ -34,21 +39,26 @@ export class FamilyComponent implements OnInit {
     }
 
     initFamily(): void {
-        this.family = [];
+        this.family = [{person: {}}];
+        // TODO: fetch associated members from store
         this.names = [
             {name: 'Tim ' + this.person.lastName, gender: 'm'},
             {name: 'Anna ' + this.person.lastName, gender: 'f'},
             {name: 'Nastia ' + this.person.lastName, gender: 'f'},
             {name: 'Thomas ' + this.person.lastName, gender: 'm'}
         ];
-        this.family.push(this.person);
+        this.family.push({person: this.person});
         for (let name of this.names) {
+            const randNum: number = Math.floor(Math.random() * (100000000000 - 115127539307 + 1)) + 115127539307;
+            let suggested: boolean = name.gender === 'f';
             let p: Person = {
                 fullName: name.name,
                 gender: name.gender,
+                phoneMobile: randNum.toString(),
+                age: Math.floor(Math.random() * (60 - 20 + 1)) + 20,
                 avatar: 'assets/images/avatar/' + name.gender + '.png'
             };
-            this.family.push(p);
+            this.family.push({person: p, isSuggestion: suggested});
         }
     }
 }
