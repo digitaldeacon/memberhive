@@ -61,4 +61,21 @@ export class FamilyComponent implements OnInit {
             this.family.push({person: p, isSuggestion: suggested});
         }
     }
+
+    accept(m: Member): void {
+        // TODO: update isSuggestion & write to store/db
+        console.log('Accept', m);
+        m.isSuggestion = false;
+    }
+
+    ignore(m: Member): void {
+        // TODO: remove from array, update field 'unrelatedMembers'
+        console.log('Ignore', m);
+    }
+
+    remove(m: Member) {
+        // TODO: remove from array, remove from store/db, update field 'unrelatedMembers'
+        console.log('Remove', m);
+    }
+
 }
