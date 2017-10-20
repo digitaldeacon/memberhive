@@ -8,13 +8,13 @@ import { AuthService } from './modules/auth/auth.service';
 
 import { Ng2Webstorage } from 'ngx-webstorage';
 
-export * from './services';
-export * from './modules/auth';
-export * from './modules/interaction';
-export * from './modules/person';
-export * from './modules/settings';
-export * from './modules/tags';
-export * from './common';
+export * from './services/index';
+export * from './modules/auth/index';
+export * from './modules/interaction/index';
+export * from './modules/person/index';
+export * from './modules/settings/index';
+export * from './modules/tags/index';
+export * from './common/index';
 
 @NgModule({
   imports: [
