@@ -37,3 +37,9 @@ mat-card-actions {
 .responsible.responsible-done {
     background-color: #9acb39 !important;
 }
+.quick-note {
+  background-color: rgba(245, 245, 245, 0.38) !important;
+  .mat-form-field {
+    width: 100%;
+  }
+}
