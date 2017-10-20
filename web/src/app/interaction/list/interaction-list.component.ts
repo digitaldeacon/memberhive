@@ -34,6 +34,8 @@ export class InteractionListComponent implements OnInit {
     @Input() people: Person[];
     @Output() deleteInteraction: EventEmitter<number> = new EventEmitter<number>();
 
+    quickNote: boolean = false;
+
     // TODO: move these to settings
     types: any[] = [
         {type: 'interaction', iconString: 'swap_vertical_circle'},
@@ -65,6 +67,10 @@ export class InteractionListComponent implements OnInit {
             return;
         }
         this.deleteInteraction.emit(interaction.id);
+    }
+
+    toggleQuickNote(): void {
+        this.quickNote = !this.quickNote;
     }
 
     recipientTag(uid: string): string {

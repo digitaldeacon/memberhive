@@ -1,7 +1,20 @@
 <mat-toolbar>
     <h3 fxFlex>Person Interactions</h3>
-    <button mat-button i18n><mat-icon>add_circle_outline</mat-icon> QUICK NOTE</button>
+    <button mat-button (click)="toggleQuickNote()">
+        <mat-icon *ngIf="!quickNote">add_circle_outline</mat-icon>
+        <mat-icon *ngIf="quickNote">remove_circle_outline</mat-icon> <ng-container i18n>QUICK NOTE</ng-container>
+    </button>
 </mat-toolbar>
+<mat-card class="quick-note" *ngIf="quickNote">
+    <div>
+        <mat-form-field>
+            <textarea matTextareaAutosize matInput></textarea>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+    </div>
+</mat-card>
 <div class="interactions" *ngIf="interactions">
     <mat-card *ngFor="let interaction of interactions">
         <mat-card-header fxLayout="row">
