@@ -46,7 +46,8 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
     }
 
     complete(id: number, checked: boolean): void {
-      this._store.dispatch(new CompleteInteractionAction({id: id, complete: checked}));
+        // console.log(id, checked);
+        this._store.dispatch(new CompleteInteractionAction({id: id, complete: checked}));
     }
 
     delete(interaction: Interaction): void {

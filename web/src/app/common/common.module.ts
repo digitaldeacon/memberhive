@@ -3,22 +3,14 @@ import { CommonModule } from '@angular/common';
 import { Title }  from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    MatButtonModule,
-    MatCardModule,
-    MatIconModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatExpansionModule,
-    MatTooltipModule,
-    MatNativeDateModule,
-    MatSnackBarModule,
-    MatListModule,
-    MatToolbarModule,
-    MatAutocompleteModule,
-    MatChipsModule,
-    MatFormFieldModule
+    MatButtonModule, MatCardModule,
+    MatIconModule, MatDatepickerModule,
+    MatInputModule, MatMenuModule,
+    MatSelectModule, MatExpansionModule,
+    MatTooltipModule, MatNativeDateModule,
+    MatSnackBarModule, MatListModule,
+    MatToolbarModule, MatAutocompleteModule,
+    MatChipsModule, MatFormFieldModule, MatCheckboxModule
 } from '@angular/material';
 
 import { GLOBALS } from '../../config/globals.config';
@@ -41,7 +33,7 @@ const MATERIAL_MODULES: any[] = [
     MatButtonModule, MatCardModule, MatIconModule,
     MatDatepickerModule, MatInputModule, MatMenuModule, MatListModule,
     MatExpansionModule, MatTooltipModule, MatNativeDateModule, MatSnackBarModule, MatSelectModule,
-    MatToolbarModule, MatAutocompleteModule, MatChipsModule, MatFormFieldModule
+    MatToolbarModule, MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatCheckboxModule
 ];
 
 @NgModule({

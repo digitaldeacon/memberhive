@@ -5,43 +5,45 @@
 
   <mat-card>
     <mat-card-content>
-      <div class="mat-input-wrapper muted" *ngIf="editMode">
-        <b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}},
-        <b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}
+      <div class="mat-input-wrapper m-b-10">
+        <mat-chip-list *ngIf="editMode">
+          <mat-chip color="primary"><b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}}</mat-chip>
+          <mat-chip color="accent"><b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}</mat-chip>
+        </mat-chip-list>
       </div>
 
-        <div class="mat-input-wrapper m-b-10" fxFlex>
-            <label i18n for="typeSelect">Type:</label>
-            <mat-button-toggle-group id="typeSelect"
-                                    formControlName="type"
-                                    (change)="toggleTypes($event)">
-                <mat-button-toggle value="{{interactionType.type}}"
-                                  matTooltip="{{interactionType.type | uppercase}}"
-                                  class="mat-button-toggle {{interactionType.type | lowercase}}"
-                                  *ngFor="let interactionType of options.interaction.types">
-                    <mat-icon>{{interactionType.iconString}}</mat-icon>
-                </mat-button-toggle>
-            </mat-button-toggle-group>
-            <mat-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
-                You need to supply a type
-            </mat-error>
-        </div>
+      <div class="mat-input-wrapper m-b-10" fxFlex>
+          <label i18n for="typeSelect">Type:</label>
+          <mat-button-toggle-group id="typeSelect"
+                                  formControlName="type"
+                                  (change)="toggleTypes($event)">
+              <mat-button-toggle value="{{interactionType.type}}"
+                                matTooltip="{{interactionType.type | uppercase}}"
+                                class="mat-button-toggle {{interactionType.type | lowercase}}"
+                                *ngFor="let interactionType of options.interaction.types">
+                  <mat-icon>{{interactionType.iconString}}</mat-icon>
+              </mat-button-toggle>
+          </mat-button-toggle-group>
+          <mat-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
+              You need to supply a type
+          </mat-error>
+      </div>
 
-        <div class="mat-input-wrapper m-b-10"
-             *ngIf="form.get('type').value === 'interaction'"
-             fxFlex>
-          <mat-form-field>
-            <mat-select class="option-select"
-                        placeholder="Action verb"
-                        formControlName="actionType"
-                        i18n-placeholder
-                        required>
-              <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
-                {{verb}}
-              </mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
+      <div class="mat-input-wrapper m-b-10"
+           *ngIf="form.get('type').value === 'interaction'"
+           fxFlex>
+        <mat-form-field>
+          <mat-select class="option-select"
+                      placeholder="Action verb"
+                      formControlName="actionType"
+                      i18n-placeholder
+                      required>
+            <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
+              {{verb}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
 
       <mh-tinymce [elementId]="'interaction-editor'"
                   [inline]="false"
@@ -55,15 +57,15 @@
       <div fxLayout="row">
         <mat-form-field fxFlex="50">
           <mat-select placeholder="Relates to" i18n-placeholder
-                      formControlName="owner"
+                      formControlName="refId"
                       [required]="form.get('type').value !== 'interaction'">
             <mat-option i18n>None</mat-option>
             <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
               {{person.fullName}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!form.get('owner').valid && !form.get('owner').pristine" i18n>
-            Please supply an interaction owner
+          <mat-error *ngIf="!form.get('refId').valid && !form.get('refId').pristine" i18n>
+            Please supply a person to whom this relates to
           </mat-error>
         </mat-form-field>
         <mat-form-field *ngIf="form.get('type').value === 'interaction'" fxFlex="50">
@@ -82,7 +84,7 @@
         </mat-form-field>
 
       </div>
-      <div fxLayout="column">
+      <div fxLayout.xs="column" fxLayout.gt-sm="row">
         <mat-form-field>
           <mat-select class="option-select"
                       formControlName="visibility"

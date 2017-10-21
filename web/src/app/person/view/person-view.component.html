@@ -56,7 +56,9 @@
                     <mh-interaction-list
                             [people]="people"
                             [interactions]="interactions$ | async"
-                            (deleteInteraction)="deleteInteraction($event)"></mh-interaction-list>
+                            [refPerson]="person$ | async"
+                            (deleteInteraction)="deleteInteraction($event)"
+                            (addInteraction)="addInteraction($event)"></mh-interaction-list>
                 </mat-tab>
                 <mat-tab label="Edit">
                    <mh-person-form
