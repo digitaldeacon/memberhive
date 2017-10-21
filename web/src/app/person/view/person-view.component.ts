@@ -7,21 +7,15 @@ import 'rxjs/add/operator/mergeMap';
 import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
-    Person,
-    Interaction,
-    Tag,
-    GeoMarker,
-    Utils,
-    CalcGeoCodePayload,
+    Person, Interaction,
+    Tag, GeoMarker,
+    Utils, CalcGeoCodePayload,
     GetInteractionsPersonAction,
-    PersonViewAction,
-    PersonUpdateAction,
-    PersonDeleteAction,
-    SetTitleAction,
-    ContextButton,
-    SetContextButtonsAction,
-    PersonCalcGeoAction,
-    DeleteInteractionAction
+    PersonViewAction, PersonUpdateAction,
+    PersonDeleteAction, SetTitleAction,
+    ContextButton, SetContextButtonsAction,
+    PersonCalcGeoAction, DeleteInteractionAction,
+    AddInteractionAction
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -30,7 +24,6 @@ import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { DialogService } from '../../common/dialog.service';
-import {AddInteractionAction} from "../../../../../core/dist";
 
 @Component({
     moduleId: 'mh-person',

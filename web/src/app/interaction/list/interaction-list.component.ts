@@ -10,7 +10,7 @@ import { style, state, trigger, transition, animate, keyframes } from '@angular/
 import { MatDialog } from '@angular/material';
 
 import { AuthService, Person, Interaction } from 'mh-core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
     selector: 'mh-interaction-list',
@@ -96,7 +96,7 @@ export class InteractionListComponent implements OnInit {
                 text: this.qnForm.get('quickNoteText').value,
                 author: {id: this.authorId},
                 refId: this.refPerson.uid,
-                visibility: this.qnForm.get('visibility').value,
+                visibility: this.qnForm.get('visibility').value
             };
             this.addInteraction.emit(qnote);
             this.qnForm.reset();
