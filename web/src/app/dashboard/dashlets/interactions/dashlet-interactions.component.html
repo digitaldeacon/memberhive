@@ -19,7 +19,6 @@
                             #todo
                             fxFlex
                             [class.completed]="todo.checked"
-
                             (change)="complete(interaction.id, todo.checked)">
                         <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
                         {{interaction.text | slice:0:50}}
@@ -40,16 +39,16 @@
               #todo
               fxFlex
               [class.completed]="todo.checked"
-
+              [checked]="true"
               (change)="complete(interaction.id, todo.checked)">
                 <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
                 {{interaction.text | slice:0:50}}
             </mat-checkbox>
             <span fxFlex="10" *ngIf="todo.checked">
-                        <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
-                            <mat-icon>close</mat-icon>
-                        </a>
-                    </span>
+                <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
+                    <mat-icon>close</mat-icon>
+                </a>
+            </span>
           </mat-list-item>
         </mat-list>
       </div>

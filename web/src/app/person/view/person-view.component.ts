@@ -30,6 +30,7 @@ import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { DialogService } from '../../common/dialog.service';
+import {AddInteractionAction} from "../../../../../core/dist";
 
 @Component({
     moduleId: 'mh-person',
@@ -143,6 +144,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     deleteInteraction(interactionId: number): void {
         this._store.dispatch(new DeleteInteractionAction(interactionId));
+    }
+
+    addInteraction(interaction: Interaction): void {
+        this._store.dispatch(new AddInteractionAction(interaction));
     }
 
     openDlgRelationships(): void {

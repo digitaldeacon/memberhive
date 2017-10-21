@@ -1,17 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule }  from '@angular/common';
 import {
-    MatCardModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatMenuModule,
-    MatSelectModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatInputModule,
-    MatDatepickerModule
+    MatCardModule, MatDialogModule,
+    MatButtonModule, MatButtonToggleModule,
+    MatIconModule, MatMenuModule,
+    MatSelectModule, MatTooltipModule,
+    MatToolbarModule, MatInputModule,
+    MatDatepickerModule, MatChipsModule
 } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
@@ -47,6 +42,7 @@ import { ViewComponent } from './view/view.component';
         MatInputModule,
         MatDatepickerModule,
         MatToolbarModule,
+        MatChipsModule,
 
         FlexLayoutModule,
         FormsModule,

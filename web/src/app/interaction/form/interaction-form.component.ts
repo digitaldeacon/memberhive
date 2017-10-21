@@ -86,7 +86,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
             text: [undefined, [<any>Validators.required]],
             type: [undefined, [<any>Validators.required]],
             actionType: [undefined],
-            owner: [undefined, [<any>Validators.required]],
+            refId: [undefined, [<any>Validators.required]],
             recipients: [undefined],
             dueOn: [undefined],
             visibility: ['LEADER', [<any>Validators.required]]
@@ -101,16 +101,16 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   toggleTypes(event: MatButtonToggleChange): void {
       const actionTypeCtrl: any = (<any>this.form).get('type');
       const recipientsCtrl: any = (<any>this.form).get('recipients');
-      const ownerCtrl: any = (<any>this.form).get('owner');
+      const refIdCtrl: any = (<any>this.form).get('refId');
       if (actionTypeCtrl.value === 'interaction') {
           actionTypeCtrl.setValidators(<any>Validators.required);
           recipientsCtrl.setValidators(<any>Validators.required);
-          ownerCtrl.setValidators(undefined);
+          refIdCtrl.setValidators(undefined);
 
       } else {
           actionTypeCtrl.setValidators(undefined);
           recipientsCtrl.setValidators(undefined);
-          ownerCtrl.setValidators(<any>Validators.required);
+          refIdCtrl.setValidators(<any>Validators.required);
       }
       actionTypeCtrl.updateValueAndValidity();
       recipientsCtrl.updateValueAndValidity();
@@ -149,7 +149,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
         .take(1)
         .subscribe((interaction: Interaction[]) => {
           this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];
-          this.form.get('owner').setValue(this.refInteraction.refId);
+          this.form.get('refId').setValue(this.refInteraction.refId);
           this.form.get('text').setValue(this.refInteraction.text);
           this.form.get('type').setValue(this.refInteraction.type);
           this.form.get('recipients').setValue(this.refInteraction.recipients);
@@ -159,7 +159,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
 
     // person related interaction
     if (this._refPerson && this._refPerson !== undefined) {
-      this.form.get('owner').setValue(this._refPerson.uid);
+      this.form.get('refId').setValue(this._refPerson.uid);
     }
   }
 

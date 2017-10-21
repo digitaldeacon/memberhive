@@ -1,18 +1,18 @@
 export interface Interaction {
-    id: number;
-    uid: string;
-    type: string;
+    id?: number;
+    uid?: string;
+    type?: string;
     actionType?: string;
-    text: string;
-    icon: string;
-    actions: InteractionActionCollection[];
-    author: InteractionAuthor;
-    createdAt: number;
-    updatedAt: number;
-    refId: string;
+    text?: string;
+    icon?: string;
+    actions?: InteractionActionCollection[];
+    author?: InteractionAuthor;
+    createdAt?: number;
+    updatedAt?: number;
+    refId?: string;
     recipients?: Array<string>;
-    dueOn: string;
-    visibility: string;
+    dueOn?: string;
+    visibility?: string;
 }
 
 export interface InteractionAuthor {

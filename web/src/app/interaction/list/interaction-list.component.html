@@ -6,14 +6,34 @@
     </button>
 </mat-toolbar>
 <mat-card class="quick-note" *ngIf="quickNote">
-    <div>
-        <mat-form-field>
-            <textarea matTextareaAutosize matInput></textarea>
-        </mat-form-field>
-    </div>
-    <div>
-        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
-    </div>
+    <form #quickNoteForm="ngForm"
+          [formGroup]="qnForm"
+          (ngSubmit)="saveQuickNote()"
+          novalidate>
+        <div>
+            <mat-form-field>
+                <textarea matInput
+                          matTextareaAutosize
+                          formControlName="quickNoteText"
+                          placeholder="Notification"
+                          i18n-placeholder></textarea>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="start center">
+            <mat-form-field fxFlex="25">
+                <mat-select class="option-select"
+                            formControlName="visibility"
+                            placeholder="Visible to"
+                            i18n-placeholder>
+                    <mat-option *ngFor="let item of visibility" [value]="item.id">
+                        <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
+                        {{item.text}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
+    </form>
 </mat-card>
 <div class="interactions" *ngIf="interactions">
     <mat-card *ngFor="let interaction of interactions">
