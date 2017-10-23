@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
+import { Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 
-import { DateAdapter, MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpModule } from '@angular/http';
 import {
+    DateAdapter, MATERIAL_COMPATIBILITY_MODE,
     MatSidenavModule,
     MatProgressBarModule
 } from '@angular/material';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule }   from './app-routing.module';
@@ -83,7 +86,17 @@ import {
 })
 
 export class AppModule {
-    constructor(private dateAdapter: DateAdapter<Date>) {
-        this.dateAdapter.setLocale('de-DE');
+    constructor(private _http: Http,
+                private _dateAdapter: DateAdapter<Date>) {
+        this._dateAdapter.setLocale('de-DE');
+        if (localStorage.getItem('clientToken') === undefined) {
+            this._http.get('assets/client.json')
+                .map(res => res.json())
+                .toPromise()
+                .then((config) => {
+                    console.log('Setting storage item');
+                    localStorage.setItem('clientToken', config.token);
+                });
+        }
     }
 }

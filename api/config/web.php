@@ -1,6 +1,8 @@
 <?php
 $params = include __DIR__ . '/params.php';
 
+$client = getClient();
+
 $config = [
     'id' => 'memberhive',
     'name' => 'MemberHive',

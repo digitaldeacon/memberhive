@@ -5,7 +5,7 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import { defer } from 'rxjs/observable/defer';
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { Response, ResponseType } from '@angular/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { ROUTER_ERROR, ROUTER_CANCEL } from '@ngrx/router-store';
@@ -32,6 +32,9 @@ export class AuthEffects {
             )
             .map((r: LoginResponse) => {
                 // this._db.insert('auth', [r.user.token, r.user.personId]);
+                if (typeof r === 'string') {
+                    return new actions.AuthenticationFailureAction(r);
+                }
                 this._authSrv.setToken(r.user.token);
                 this._authSrv.setPersonId(r.user.personId);
                 this._authSrv.setCreatedAt(new Date());

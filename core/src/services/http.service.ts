@@ -49,6 +49,7 @@ export class HttpService {
         let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
         headers.append('Authorization', `Bearer ${this.auth.getToken()}`);
+        headers.append('Client', localStorage.getItem('clientToken'));
 
         let options: BaseRequestOptions = new BaseRequestOptions();
         options.headers = headers;
