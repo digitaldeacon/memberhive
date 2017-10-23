@@ -48,7 +48,8 @@
         }
     },"autoload": {
         "files": [
-            "globals.php"
+            "globals.php",
+            "clients.php"
         ]
     }
 }

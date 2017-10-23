@@ -27,7 +27,7 @@ export class AuthenticationSuccessAction implements Action {
 
 export class AuthenticationFailureAction implements Action {
     readonly type = AUTHENTICATE_FAILURE;
-    constructor(public payload?: Response) { }
+    constructor(public payload?: Response|string) { }
 }
 
 export class ReAuthenticateAction implements Action {

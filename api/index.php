@@ -1,5 +1,6 @@
 <?php
-// comment out the following two lines when deployed to production
+define('API_BASE', dirname(__FILE__));
+
 if (!file_exists(__DIR__ . '/config/debug.php')) {
     define('YII_DEBUG', false);
 } else {

@@ -1,4 +1,5 @@
 import * as actions from './auth.actions';
+import { Response } from '@angular/http';
 
 export interface AuthState {
     authenticated: boolean;
@@ -41,10 +42,17 @@ export function authReducer(state: AuthState = initialAuthState,
         }
 
         case actions.AUTHENTICATE_FAILURE: {
-            const res = action.payload;
+            const res: any = action.payload;
             const rawStatus: number[] = [504, 404];
-            const resPromise: any = (rawStatus.indexOf(res.status) === -1) ? res.json() : undefined;
-            const error: string = resPromise ? resPromise.message : res.statusText;
+            let error: string = (typeof res === 'string')
+                ? res : '';
+            let resPromise: any;
+            let status: number = 403;
+            if (res instanceof Response && (rawStatus.indexOf(res.status) === -1)) {
+                resPromise = (rawStatus.indexOf(res.status) === -1) ? res.json() : undefined;
+                error = resPromise ? resPromise.message : res.statusText;
+                status = res.status;
+            }
 
             return {
                 authenticated: false,
@@ -52,7 +60,7 @@ export function authReducer(state: AuthState = initialAuthState,
                 loading: false,
                 personId: '',
                 error: error,
-                status: res.status
+                status: status
             };
         }
 

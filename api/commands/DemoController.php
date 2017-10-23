@@ -48,4 +48,16 @@ class DemoController extends Controller
 
         var_dump(defined('YII_ENV'));
     }
+
+    public function actionTest()
+    {
+        $str = "localhost:4200";
+        $str2 = "localhost";
+
+        $res1 = explode(':', $str);
+        $res2 = explode(':', $str2);
+
+        var_dump($res1[0]);
+        var_dump($res2[0]);
+    }
 }
