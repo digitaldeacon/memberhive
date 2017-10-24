@@ -1,7 +1,8 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
 # configs files
-/web/src/config/global.config.ts
+/src/config/global.config.ts
+/src/assets/client.json
 
 # compiled output
 /dist
@@ -9,7 +10,6 @@
 
 # dependencies
 /node_modules
-/src/app/core
 
 # IDEs and editors
 /.idea
