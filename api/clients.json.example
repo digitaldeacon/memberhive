@@ -1,0 +1,16 @@
+{
+  "church": {
+    "domain": "church.memberhive.com",
+    "deploy": "plesk",
+    "token": "dy7e73434C4aWiCr4PT77oRkyoGFusqbJk",
+    "language": "de",
+    "timezone": "Europe\/Berlin",
+    "db": {
+      "dsn": "mysql:host=127.0.0.1;dbname=churchdb",
+      "username": "church_db_admin",
+      "password": "password",
+      "dbName": "churchdb"
+    },
+    "isDemo": 0
+  }
+}

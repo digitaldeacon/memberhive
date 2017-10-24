@@ -13,9 +13,7 @@ function getClient()
     $headers = getallheaders();
 
     if (isset($headers['Client'])) {
-        echo "Client";
         if(!isset($config[$host])) {
-            // throw new \yii\web\BadRequestHttpException("So such host exists!");
             die(json_encode("No such host (".$host.") exists!"));
         }
         if ($config[$host]['token'] !== $headers['Client']) {
@@ -23,7 +21,6 @@ function getClient()
         }
     } else {
         if(!isset($config[$host])) {
-            // throw new \yii\web\BadRequestHttpException("So such host exists!");
             die(json_encode("No such host (".$host.") exists!"));
         }
     }
