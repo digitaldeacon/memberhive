@@ -27,6 +27,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
+import { AuthService } from 'mh-core';
 
 // import { CustomDateAdapter } from './custom-date.adaptor';
 
@@ -87,6 +88,7 @@ import {
 
 export class AppModule {
     constructor(private _http: Http,
+                private _auth: AuthService,
                 private _dateAdapter: DateAdapter<Date>) {
         this._dateAdapter.setLocale('de-DE');
         if (localStorage.getItem('clientToken') === undefined) {
@@ -94,8 +96,8 @@ export class AppModule {
                 .map(res => res.json())
                 .toPromise()
                 .then((config) => {
-                    console.log('Setting storage item');
-                    localStorage.setItem('clientToken', config.token);
+                    // localStorage.setItem('clientToken', config.token);
+                    this._auth.client = config.token;
                 });
         }
     }

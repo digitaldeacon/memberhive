@@ -16,7 +16,8 @@
         "yiisoft/yii2-coding-standards": "*",
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*",
-        "aracoool/yii2-uuid": "*"
+        "aracoool/yii2-uuid": "*",
+        "firebase/php-jwt": "~5.0.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "*",

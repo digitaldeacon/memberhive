@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d3beb82c9cd89f1dffbabc34dc641161",
+    "content-hash": "e12b0455e31e265669a72288aa767320",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -405,6 +405,52 @@
             "time": "2017-06-03T02:28:16+00:00"
         },
         {
+            "name": "firebase/php-jwt",
+            "version": "v5.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/firebase/php-jwt.git",
+                "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/firebase/php-jwt/zipball/9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
+                "reference": "9984a4d3a32ae7673d6971ea00bae9d0a1abba0e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": " 4.8.35"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Firebase\\JWT\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Neuman Vong",
+                    "email": "neuman+pear@twilio.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Anant Narayanan",
+                    "email": "anant@php.net",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A simple library to encode and decode JSON Web Tokens (JWT) in PHP. Should conform to the current spec.",
+            "homepage": "https://github.com/firebase/php-jwt",
+            "time": "2017-06-27T22:17:23+00:00"
+        },
+        {
             "name": "guzzlehttp/guzzle",
             "version": "5.3.x-dev",
             "source": {
@@ -729,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "79ef77cb8f8c0c6bb1b5d259cc2dc09c8480d693"
+                "reference": "1ad69de5e80b54d3b2ce20fe12e982de3bf8b71c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/79ef77cb8f8c0c6bb1b5d259cc2dc09c8480d693",
-                "reference": "79ef77cb8f8c0c6bb1b5d259cc2dc09c8480d693",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/1ad69de5e80b54d3b2ce20fe12e982de3bf8b71c",
+                "reference": "1ad69de5e80b54d3b2ce20fe12e982de3bf8b71c",
                 "shasum": ""
             },
             "require": {
@@ -821,7 +867,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-10-22T20:27:39+00:00"
+            "time": "2017-10-24T12:38:21+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -2542,12 +2588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "348343c4805c860250d8a50cd41b151da3b08881"
+                "reference": "f63664afe959bb1289147112342506a8e215e271"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/348343c4805c860250d8a50cd41b151da3b08881",
-                "reference": "348343c4805c860250d8a50cd41b151da3b08881",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/f63664afe959bb1289147112342506a8e215e271",
+                "reference": "f63664afe959bb1289147112342506a8e215e271",
                 "shasum": ""
             },
             "require": {
@@ -2592,7 +2638,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-10-09T14:53:01+00:00"
+            "time": "2017-10-24T14:36:35+00:00"
         },
         {
             "name": "yiisoft/yii2-apidoc",

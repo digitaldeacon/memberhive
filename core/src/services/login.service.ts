@@ -15,27 +15,27 @@ export class LoginService {
         return this.reurl;
     }
 
-    constructor(private http: HttpService,
-                private auth: AuthService,
-                private route: ActivatedRoute) {
-        this.redirectUrl = this.route.snapshot.queryParams['redirectUrl'] || '/';
+    constructor(private _http: HttpService,
+                private _auth: AuthService,
+                private _route: ActivatedRoute) {
+        this.redirectUrl = this._route.snapshot.queryParams['redirectUrl'] || '/';
     }
 
     /**
      * @deprecated will be removed when the store is complete
      */
     public login(username: string, password: string): Observable<any> {
-        return this.http.unauthenticatedPost(
+        return this._http.unauthenticatedPost(
             'login/login',
             {username: username, password: password}
         );
     }
 
     public isLoggedIn(): Observable<boolean> {
-        if (this.auth.getToken() === undefined) {
+        if (this._auth.token === undefined) {
             return Observable.of(false);
         }
-        return this.http.get('site/test-login').map((e: any) => {
+        return this._http.get('site/test-login').map((e: any) => {
             return e !== '';
         });
     }

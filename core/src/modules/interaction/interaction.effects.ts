@@ -57,7 +57,7 @@ export class InteractionEffects {
         .ofType(actions.DELETE_INTERACTION)
         .map((action: actions.DeleteInteractionAction) => action.payload)
         .switchMap((interactionId: number) => this._http.post('interaction/delete', {
-            id: interactionId, author: this._auth.getPersonId()
+            id: interactionId, author: this._auth.personId
             })
             .map((r: any) => new actions.DeleteInteractionSuccessAction(r))
             .catch((r: Response) => of(new actions.DeleteInteractionFailureAction(r)))
@@ -68,7 +68,7 @@ export class InteractionEffects {
       .ofType(actions.COMPLETE_INTERACTION)
       .map((action: actions.CompleteInteractionAction) => action.payload)
       .switchMap((payload: InteractionCompletePayload) => this._http.post('interaction/complete',
-        {id: payload.id, author: this._auth.getPersonId(), complete: payload.complete})
+        {id: payload.id, author: this._auth.personId, complete: payload.complete})
         .map((r: Interaction) => new actions.UpdateInteractionSuccessAction(r))
         .catch((r: Response) => of(new actions.UpdateInteractionFailureAction(r)))
       );

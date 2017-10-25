@@ -6,35 +6,40 @@ import {
 
 @Injectable()
 export class AuthService {
-    @LocalStorage() private token: string;
-    @LocalStorage() private uid: string;
-    @LocalStorage() private createdAt: Date;
+    @LocalStorage() private _token: string;
+    @LocalStorage() private _uid: string;
+    @LocalStorage() private _createdAt: Date;
+    @LocalStorage() private _clientToken: string;
 
     constructor(private _storage: LocalStorageService) {}
 
-    public setToken(token: string): void {
-        this.token = token;
+    set token(token: string) {
+        this._token = token;
+    }
+    get token(): string {
+        return this._token;
     }
 
-    public getToken(): string {
-        return this.token;
+    set client(clientToken: string) {
+        this._clientToken = clientToken;
+    }
+    get client(): string {
+        return this._clientToken;
     }
 
-    public setPersonId(uid: string): void {
-        this.uid = uid;
-        this.uid = this.uid; // because of issue with extension
+    set personId(uid: string) {
+        this._uid = uid;
+        this._uid = this._uid; // because of issue with extension
+    }
+    get personId(): string {
+        return this._uid;
     }
 
-    public getPersonId(): string {
-        return this.uid;
+    set createdAt(dateTime: Date) {
+        this._createdAt = dateTime;
     }
-
-    public setCreatedAt(dateTime: Date): void {
-        this.createdAt = dateTime;
-    }
-
-    public getCreatedAt(): Date {
-        return this.createdAt;
+    get createdAt(): Date {
+        return this._createdAt;
     }
 
     public clearStore(): void {

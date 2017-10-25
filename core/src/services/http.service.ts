@@ -13,7 +13,7 @@ import { AuthService } from '../modules/auth/auth.service';
 @Injectable()
 export class HttpService {
 
-    constructor(private http: Http, private auth: AuthService) {
+    constructor(private _http: Http, private _auth: AuthService) {
     }
 
     get(url: string): Observable<any> {
@@ -25,7 +25,7 @@ export class HttpService {
     }
 
     getRaw(url: string): Observable<any> {
-        return this.http.get(url);
+        return this._http.get(url);
     }
 
     unauthenticatedPost(url: string, body: any): Observable<any> {
@@ -41,15 +41,15 @@ export class HttpService {
 
         let request: Request = new Request(options);
 
-        return this.http.request(request).map((response: Response) => response.json());
+        return this._http.request(request).map((response: Response) => response.json());
     }
 
     private request(url: string, method: RequestMethod, body?: any): Observable<any> {
 
         let headers: Headers = new Headers();
         headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', `Bearer ${this.auth.getToken()}`);
-        headers.append('Client', localStorage.getItem('clientToken'));
+        headers.append('Authorization', `Bearer ${this._auth.token}`);
+        headers.append('Client', this._auth.client );
 
         let options: BaseRequestOptions = new BaseRequestOptions();
         options.headers = headers;
@@ -60,7 +60,7 @@ export class HttpService {
 
         let request: Request = new Request(options);
 
-        return this.http.request(request).map((response: Response) => response.json());
+        return this._http.request(request).map((response: Response) => response.json());
     }
 
 }

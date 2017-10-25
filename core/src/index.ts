@@ -1,7 +1,7 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { LoginService } from './services/login.service';
+// import { LoginService } from './services/login.service';
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
@@ -29,7 +29,7 @@ export class MhCoreModule {
     return {
       ngModule: MhCoreModule,
       providers: [
-          LoginService,
+          // LoginService,
           GeocodeService,
           HttpService,
           AuthService
