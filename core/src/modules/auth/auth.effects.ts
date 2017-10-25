@@ -35,9 +35,9 @@ export class AuthEffects {
                 if (typeof r === 'string') {
                     return new actions.AuthenticationFailureAction(r);
                 }
-                this._authSrv.setToken(r.user.token);
-                this._authSrv.setPersonId(r.user.personId);
-                this._authSrv.setCreatedAt(new Date());
+                this._authSrv.token = r.user.token;
+                this._authSrv.personId = r.user.personId;
+                this._authSrv.createdAt = new Date();
                 return new actions.AuthenticationSuccessAction(r.user);
             })
             .catch((response: Response) => {
@@ -53,8 +53,8 @@ export class AuthEffects {
             this._http.get('site/test-login')
                 .map((r: any) => {
                     return new actions.ReAuthenticationSuccessAction({
-                        token: this._authSrv.getToken(),
-                        personId: this._authSrv.getPersonId()
+                        token: this._authSrv.token,
+                        personId: this._authSrv.personId
                     });
                 })
                 .catch((response: Response) => {

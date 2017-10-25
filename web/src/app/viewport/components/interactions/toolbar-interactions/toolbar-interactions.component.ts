@@ -16,8 +16,8 @@ export class ToolbarInteractionsComponent {
         if (collection) {
             this.outstandingInteractions = collection
                 .filter((i: Interaction) => {
-                    return !i.actions[this._auth.getPersonId()].doneOn
-                        && !i.actions[this._auth.getPersonId()].completedOn;
+                    return !i.actions[this._auth.personId].doneOn
+                        && !i.actions[this._auth.personId].completedOn;
                 });
         }
     }

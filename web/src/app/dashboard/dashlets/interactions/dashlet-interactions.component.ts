@@ -27,7 +27,7 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
     constructor(private _store: Store<app.AppState>,
                 private _auth: AuthService,
                 private _dialog: MatDialog) {
-        this.myId = this._auth.getPersonId();
+        this.myId = this._auth.personId;
     }
 
     ngOnInit(): void {

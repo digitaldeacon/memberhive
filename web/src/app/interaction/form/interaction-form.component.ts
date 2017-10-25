@@ -78,7 +78,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     ];
 
     this.actionVerbs = ['call', 'meet', 'follow up', 'schedule', 'do', 'check'];
-    this._authorId = this._auth.getPersonId();
+    this._authorId = this._auth.personId;
   }
 
   ngOnInit(): void {

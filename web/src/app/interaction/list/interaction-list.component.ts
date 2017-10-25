@@ -66,7 +66,7 @@ export class InteractionListComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.authorId = this._auth.getPersonId();
+        this.authorId = this._auth.personId;
         this.qnForm = this._fb.group({
             quickNoteText: ['', [<any>Validators.required]],
             visibility: ['LEADER', [<any>Validators.required]]
