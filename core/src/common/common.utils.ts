@@ -22,6 +22,7 @@ export class Utils {
     }
 
     static responseErrors(r: Response): string {
+        console.log('Response', r);
         const rBody: any = JSON.parse(r.text());
         const messages: any = JSON.parse(rBody.message);
         let m = '';

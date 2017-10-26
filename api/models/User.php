@@ -24,6 +24,8 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
+    use \app\helpers\UserTrait;
+
     public static function tableName()
     {
         return 'user';
@@ -52,7 +54,7 @@ class User extends ActiveRecord implements IdentityInterface
     public function toResponseArray()
     {
         return [
-            'token' => $this->accessToken,
+            'token' => $this->getJWT(),
             'personId' => isset($this->person) ? $this->person->uid : ''
         ];
     }
@@ -76,10 +78,10 @@ class User extends ActiveRecord implements IdentityInterface
      * @param string $type
      * @return User
      */
-    public static function findIdentityByAccessToken($token, $type = null)
+    /*public static function findIdentityByAccessToken($token, $type = null)
     {
         return static::findOne(['accessToken' => $token]);
-    }
+    }*/
 
     public function getId()
     {

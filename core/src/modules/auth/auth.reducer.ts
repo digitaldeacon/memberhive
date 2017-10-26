@@ -48,11 +48,12 @@ export function authReducer(state: AuthState = initialAuthState,
                 ? res : '';
             let resPromise: any;
             let status: number = 403;
-            if (res instanceof Response && (rawStatus.indexOf(res.status) === -1)) {
+            /*if (res instanceof Response && (rawStatus.indexOf(res.status) === -1)) {
                 resPromise = (rawStatus.indexOf(res.status) === -1) ? res.json() : undefined;
                 error = resPromise ? resPromise.message : res.statusText;
                 status = res.status;
-            }
+            }*/
+            console.log('resp', res);
 
             return {
                 authenticated: false,

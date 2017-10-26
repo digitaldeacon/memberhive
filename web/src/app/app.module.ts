@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, ErrorHandler } from '@angular/core';
 import { Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
@@ -27,7 +27,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { AuthService } from 'mh-core';
+import { AuthService, AuthErrorHandler } from 'mh-core';
 
 // import { CustomDateAdapter } from './custom-date.adaptor';
 
@@ -82,7 +82,8 @@ import {
     ],
     bootstrap: [AppComponent],
     providers: [
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true}
+        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+        {provide: ErrorHandler, useClass: AuthErrorHandler}
     ]
 })
 
@@ -91,12 +92,11 @@ export class AppModule {
                 private _auth: AuthService,
                 private _dateAdapter: DateAdapter<Date>) {
         this._dateAdapter.setLocale('de-DE');
-        if (localStorage.getItem('clientToken') === undefined) {
+        if (this._auth.client === undefined) {
             this._http.get('assets/client.json')
                 .map(res => res.json())
                 .toPromise()
                 .then((config) => {
-                    // localStorage.setItem('clientToken', config.token);
                     this._auth.client = config.token;
                 });
         }

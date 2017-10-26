@@ -19,6 +19,7 @@ api/config/secrets.php
 api/config/db_local.php
 api/clients.json
 
+
 # core
 core/typings/
 

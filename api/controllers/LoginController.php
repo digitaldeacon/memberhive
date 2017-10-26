@@ -6,28 +6,27 @@ use yii\filters\Cors;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
 
-class LoginController extends MHController
+class LoginController extends \yii\web\Controller
 {
     public $enableCsrfValidation = false;
     public function behaviors()
     {
-        return [
-            'contentNegotiator' => [
-                'class' => ContentNegotiator::className(),
-                'formats' => [
-                    'application/json' => Response::FORMAT_JSON,
-                ],
-            ],
+        $behaviors['contentNegotiator'] = [
+            'class' => ContentNegotiator::className(),
+            'formats' => [
+                'application/json' => Response::FORMAT_JSON,
+            ]
+        ];
+        $behaviors['cors'] = [
+            'class' => Cors::className(),
             'cors' => [
-                'class' => Cors::className(),
-                'cors' => [
-                    'Origin' => ['http://localhost:4200'],
-                    'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
-                    'Access-Control-Request-Headers' => ['*'],
-                    'Access-Control-Allow-Credentials' => true,
-                ],
+                'Origin' => ['*'],
+                'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+                'Access-Control-Request-Headers' => ['*'],
+                'Access-Control-Allow-Credentials' => true,
             ],
         ];
+        return $behaviors;
     }
     public function actionLogin()
     {
