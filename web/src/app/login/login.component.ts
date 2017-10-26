@@ -37,9 +37,9 @@ export class LoginComponent implements OnInit, OnDestroy {
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
                 this._store.dispatch(new ListAction({}));
-                this._store.dispatch(new ListSettingAction());
+                /*this._store.dispatch(new ListSettingAction());
                 this._store.dispatch(new ListInteractionsAction({}));
-                this._store.dispatch(new ListTagsAction({}));
+                this._store.dispatch(new ListTagsAction({}));*/
                 this.home();
             });
     }

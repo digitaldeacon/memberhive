@@ -45,8 +45,12 @@ class MhAuth extends \yii\filters\auth\AuthMethod
             die();
         }
         $authHeader = $request->getHeaders()->get('Authorization');
+        //var_dump($authHeader);
         if ($authHeader !== null && preg_match('/^Bearer\s+(.*?)$/', $authHeader, $matches)) {
+            //var_dump($matches);
             $identity = $user->loginByAccessToken($matches[1], get_class($this));
+            //var_dump($identity);
+            //die();
             if ($identity === null) {
                 $this->handleFailure($response);
             }
