@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
 
         isAuthentic$.subscribe((authenticated: any) => {
             if (!authenticated) {
-                if (this._authSrv.token) {
+                if (this._authSrv.isTokenExpired()) {
                     this._store.dispatch(new ReAuthenticateAction(this._authSrv.token));
                 }
                 this._router.navigate(['/login']);

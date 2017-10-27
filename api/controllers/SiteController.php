@@ -44,20 +44,4 @@ class SiteController extends MHController
     {
         echo 'Memberhive';
     }
-
-
-
-    public function actionError()
-    {
-        $exception = Yii::$app->errorHandler->exception;
-        print_r(Yii::$app->errorHandler->displayVars);
-        if ($exception !== null) {
-            return $this->render('error', ['exception' => $exception]);
-        }
-    }
-
-    public function actionTestLogin()
-    {
-        return ['ok'];
-    }
 }

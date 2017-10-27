@@ -2,6 +2,7 @@ import { Action } from '@ngrx/store';
 import { Credentials } from './auth.model';
 import { Response } from '@angular/http';
 import { User } from '../person/person.model';
+import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 
 export const AUTHENTICATE = '[User] Authenticate';
 export const AUTHENTICATE_FAILURE = '[User] Authentication failure';
@@ -27,7 +28,7 @@ export class AuthenticationSuccessAction implements Action {
 
 export class AuthenticationFailureAction implements Action {
     readonly type = AUTHENTICATE_FAILURE;
-    constructor(public payload?: Response|string) { }
+    constructor(public payload?: HttpErrorResponse|string) { }
 }
 
 export class ReAuthenticateAction implements Action {
@@ -63,7 +64,7 @@ export class SignOutAction implements Action {
 
 export class SignOutFailureAction implements Action {
     readonly type = SIGN_OUT_FAILURE;
-    constructor(public payload?: Response) {}
+    constructor(public payload?: HttpErrorResponse) {}
 }
 
 export class SignOutSuccessAction implements Action {

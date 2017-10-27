@@ -1,14 +1,13 @@
 import { NgModule, ErrorHandler } from '@angular/core';
-import { Http } from '@angular/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule }  from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {
     DateAdapter, MATERIAL_COMPATIBILITY_MODE,
-    MatSidenavModule,
-    MatProgressBarModule
+    MatSidenavModule, MatProgressBarModule
 } from '@angular/material';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
@@ -44,6 +43,10 @@ import {
     ToolbarInteractionsComponent
 } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
 
+export interface AppConfig {
+    token: string;
+}
+
 @NgModule({
     declarations: [
         AppComponent,
@@ -54,6 +57,7 @@ import {
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        HttpClientModule,
         HttpModule,
         AppRoutingModule,
         MhCoreModule.forRoot(),
@@ -88,15 +92,14 @@ import {
 })
 
 export class AppModule {
-    constructor(private _http: Http,
+    constructor(private _http: HttpClient,
                 private _auth: AuthService,
                 private _dateAdapter: DateAdapter<Date>) {
         this._dateAdapter.setLocale('de-DE');
         if (this._auth.client === undefined) {
-            this._http.get('assets/client.json')
-                .map(res => res.json())
+            this._http.get<AppConfig>('assets/client.json')
                 .toPromise()
-                .then((config) => {
+                .then((config: AppConfig) => {
                     this._auth.client = config.token;
                 });
         }

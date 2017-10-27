@@ -1,5 +1,5 @@
 import * as actions from './auth.actions';
-import { Response } from '@angular/http';
+import {HttpErrorResponse} from "@angular/common/http";
 
 export interface AuthState {
     authenticated: boolean;
@@ -48,12 +48,10 @@ export function authReducer(state: AuthState = initialAuthState,
                 ? res : '';
             let resPromise: any;
             let status: number = 403;
-            /*if (res instanceof Response && (rawStatus.indexOf(res.status) === -1)) {
-                resPromise = (rawStatus.indexOf(res.status) === -1) ? res.json() : undefined;
-                error = resPromise ? resPromise.message : res.statusText;
+            if (res instanceof HttpErrorResponse && (rawStatus.indexOf(res.status) === -1)) {
+                error = res.message;
                 status = res.status;
-            }*/
-            console.log('resp', res);
+            }
 
             return {
                 authenticated: false,
