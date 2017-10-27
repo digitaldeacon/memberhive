@@ -4,7 +4,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
-import { JwtModule, JwtHelperService } from '@auth0/angular-jwt';
 
 import { Ng2Webstorage } from 'ngx-webstorage';
 
@@ -19,15 +18,11 @@ export * from './common/index';
 @NgModule({
   imports: [
     BrowserModule,
-    JwtModule.forRoot({
-        config: {
-            whitelistedDomains: ['localhost:4200','memberhive.com']
-        }
-    }),
     Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
   ],
   declarations: [],
-  exports: []
+  exports: [],
+  providers: []
 })
 export class MhCoreModule {
   static forRoot(): ModuleWithProviders {
@@ -36,8 +31,7 @@ export class MhCoreModule {
       providers: [
           GeocodeService,
           HttpService,
-          AuthService,
-          JwtHelperService
+          AuthService
       ]
     };
   }

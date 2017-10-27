@@ -9,6 +9,7 @@ use yii\web\Response;
 class LoginController extends \yii\web\Controller
 {
     public $enableCsrfValidation = false;
+
     public function behaviors()
     {
         $behaviors['contentNegotiator'] = [
@@ -28,11 +29,13 @@ class LoginController extends \yii\web\Controller
         ];
         return $behaviors;
     }
+
     public function actionLogin()
     {
         $request = \Yii::$app->request;
         if (empty($request->post()) || empty($request->post('username')) || empty($request->post('password'))) {
-            return [];
+            return [json_encode($_REQUEST)];
+            // throw new \yii\web\BadRequestHttpException('Request error. Post is empty or has missing parameters');
         }
         $model = User::findOne(['username' => $request->post('username')]);
         if (empty($model)) {
@@ -50,5 +53,10 @@ class LoginController extends \yii\web\Controller
     {
         Yii::$app->user->logout();
         return;
+    }
+
+    public function actionAlive()
+    {
+        return [true];
     }
 }

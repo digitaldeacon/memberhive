@@ -1,11 +1,13 @@
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
+import 'rxjs/add/operator/take';
 import { defer } from 'rxjs/observable/defer';
 import { Injectable } from '@angular/core';
-import { Response, ResponseType } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, toPayload } from '@ngrx/effects';
 import { ROUTER_ERROR, ROUTER_CANCEL } from '@ngrx/router-store';
@@ -30,7 +32,7 @@ export class AuthEffects {
                     password: credentials.password
                 }
             )
-            .map((r: LoginResponse) => {
+            .map((r: any) => {
                 // this._db.insert('auth', [r.user.token, r.user.personId]);
                 if (typeof r === 'string') {
                     return new actions.AuthenticationFailureAction(r);
@@ -40,7 +42,7 @@ export class AuthEffects {
                 this._authSrv.createdAt = new Date();
                 return new actions.AuthenticationSuccessAction(r.user);
             })
-            .catch((response: Response) => {
+            .catch((response: HttpErrorResponse) => {
                 return Observable.of(new actions.AuthenticationFailureAction(response));
             })
         );
@@ -49,24 +51,24 @@ export class AuthEffects {
     public $reauth: Observable<Action> = this._actions$
         .ofType(actions.REAUTHENTICATE)
         .map((action: actions.ReAuthenticateAction) => action.payload)
-        .switchMap((token: string) =>
-            this._http.get('site/test-login')
+        .exhaustMap((token: string) => {
+            return this._http.get('login/alive')
                 .map((r: any) => {
                     return new actions.ReAuthenticationSuccessAction({
                         token: this._authSrv.token,
                         personId: this._authSrv.personId
                     });
                 })
-                .catch((response: Response) => {
+                .catch((response: HttpErrorResponse) => {
                     return Observable.of(new actions.AuthenticationFailureAction(response));
-                })
+                });
+            }
         );
 
     @Effect()
     public signOut: Observable<Action> = this._actions$
         .ofType(actions.SIGN_OUT)
         .map(value => new actions.SignOutSuccessAction());
-
 
     constructor(private _actions$: Actions,
                 private _http: HttpService,

@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
-import { JwtHelperService } from '@auth0/angular-jwt';
+// import { JwtHelperService } from '@auth0/angular-jwt';
+import * as jwt_decode_ from 'jwt-decode';
+
+const jwt_decode = jwt_decode_;
 
 @Injectable()
 export class AuthService {
@@ -9,8 +12,7 @@ export class AuthService {
     private _createdAt: Date;
     private _clientToken: string;
 
-    constructor(private _storage: LocalStorageService,
-                private _jwtHelper: JwtHelperService) {}
+    constructor(private _storage: LocalStorageService) {}
 
     @LocalStorage()
     set token(token: string) {
@@ -50,10 +52,23 @@ export class AuthService {
     }
 
     getTokenExpirationDate(token: string): Date {
-        return this._jwtHelper.getTokenExpirationDate(token);
+        const decoded: any = jwt_decode(token);
+
+        if (decoded.exp === undefined) return null;
+
+        const date = new Date(0);
+        date.setUTCSeconds(decoded.exp);
+        return date;
+        //return this._jwtHelper.getTokenExpirationDate(token);
     }
 
     isTokenExpired(token?: string): boolean {
-        return this._jwtHelper.isTokenExpired(token);
+        if(!token) token = this.token;
+        if(!token) return true;
+
+        const date = this.getTokenExpirationDate(token);
+        if(date === undefined) return false;
+        return !(date.valueOf() > new Date().valueOf());
+        //return this._jwtHelper.isTokenExpired(token);
     }
 }

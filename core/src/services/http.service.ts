@@ -1,27 +1,23 @@
 import { Injectable } from '@angular/core';
 import {
-    Http,
-    Headers,
-    Response,
-    Request,
-    BaseRequestOptions,
-    RequestMethod
-} from '@angular/http';
+    HttpClient,
+    HttpHeaders
+} from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from '../modules/auth/auth.service';
 
 @Injectable()
 export class HttpService {
 
-    constructor(private _http: Http, private _auth: AuthService) {
+    constructor(private _http: HttpClient, private _auth: AuthService) {
     }
 
     get(url: string): Observable<any> {
-        return this.request(url, RequestMethod.Get);
+        return this.request(url, 'GET');
     }
 
     post(url: string, body: any): Observable<any> {
-        return this.request(url, RequestMethod.Post, body);
+        return this.request(url, 'POST', body);
     }
 
     getRaw(url: string): Observable<any> {
@@ -29,38 +25,26 @@ export class HttpService {
     }
 
     unauthenticatedPost(url: string, body: any): Observable<any> {
-        let headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        options.headers = headers;
-        options.url = '/api/' + url;
-        options.method = RequestMethod.Post;
-        options.body = JSON.stringify(body);
-        options.withCredentials = false;
-
-        let request: Request = new Request(options);
-
-        return this._http.request(request).map((response: Response) => response.json());
+        const headers: HttpHeaders = new HttpHeaders()
+            .set('Content-Type', 'application/json; charset=utf-8');
+        let options: any = {
+            headers: headers,
+            withCredentials: false
+        };
+        return this._http.post('/api/' + url, body, options);
     }
 
-    private request(url: string, method: RequestMethod, body?: any): Observable<any> {
+    private request(url: string, method: string, body?: any): Observable<any> {
+        const h: HttpHeaders = new HttpHeaders()
+            .set('Content-Type', 'application/json; charset=utf-8')
+            .set('Authorization', `Bearer ${this._auth.token}`)
+            .set('Client', this._auth.client );
+        let options: any = {
+            body: body,
+            headers: h,
+            withCredentials: true
+        };
 
-        let headers: Headers = new Headers();
-        headers.append('Content-Type', 'application/json');
-        headers.append('Authorization', `Bearer ${this._auth.token}`);
-        headers.append('Client', this._auth.client );
-
-        let options: BaseRequestOptions = new BaseRequestOptions();
-        options.headers = headers;
-        options.url = '/api/' + url;
-        options.method = method;
-        options.body = JSON.stringify(body);
-        options.withCredentials = true;
-
-        let request: Request = new Request(options);
-
-        return this._http.request(request).map((response: Response) => response.json());
+        return this._http.request<any>(method, '/api/' + url, options);
     }
-
 }

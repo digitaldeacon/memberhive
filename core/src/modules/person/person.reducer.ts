@@ -90,7 +90,6 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.UPDATE_PERSON_FAILURE:
         case actions.DELETE_PERSON_FAILURE: {
             const res: Response = action.payload;
-            console.log('Res Object: ',res);
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
                 text: '' // Utils.responseErrors(res)

@@ -23,50 +23,50 @@ import { Utils } from '../../common/common.utils';
 
 @Injectable()
 export class PersonEffects {
-    constructor(private actions$: Actions,
-                private http: HttpService,
+    constructor(private _actions$: Actions,
+                private _http: HttpService,
                 private _geoCoder: GeocodeService) {
     }
 
     @Effect()
-    getPeople$ = this.actions$
+    getPeople$ = this._actions$
         .ofType(actions.LIST_PEOPLE)
         .map((action: actions.ListAction) => action.payload)
         .switchMap(() =>
-            this.http.get('person/list')
+            this._http.get('person/list')
                 .map((r: Person[]) => new actions.ListSuccessAction(r))
                 .catch((r: Response) => of(new actions.ListFailureAction(r)))
         );
 
     @Effect()
-    updatePerson$ = this.actions$
+    updatePerson$ = this._actions$
         .ofType(actions.UPDATE_PERSON)
         .map((action: actions.PersonUpdateAction) => action.payload)
-        .mergeMap((data: any) => this.http.post('person/update?id=' + data.uid, data)
+        .mergeMap((data: any) => this._http.post('person/update?id=' + data.uid, data)
             .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
             .catch((r: Response) => of(new actions.PersonUpdateFailureAction(r)))
         );
 
     @Effect()
-    createPerson$ = this.actions$
+    createPerson$ = this._actions$
         .ofType(actions.CREATE_PERSON)
         .map((action: actions.PersonCreateAction) => action.payload)
-        .switchMap((data: Person) => this.http.post('person/create', data)
+        .switchMap((data: Person) => this._http.post('person/create', data)
             .map((r: Person) => new actions.PersonCreateSuccessAction(r))
             .catch((r: any) => of(new actions.PersonCreateFailureAction(r)))
         );
 
     @Effect()
-    deletePerson$ = this.actions$
+    deletePerson$ = this._actions$
         .ofType(actions.DELETE_PERSON)
         .map((action: actions.PersonDeleteAction) => action.payload)
-        .switchMap((data: Person) => this.http.post('person/delete?id=' + data.uid, data)
+        .switchMap((data: Person) => this._http.post('person/delete?id=' + data.uid, data)
             .map((r: any) => new actions.PersonDeleteSuccessAction(r))
             .catch((r: Response) => of(new actions.PersonDeleteFailureAction(r)))
         );
 
     @Effect()
-    calcPersonGeo$ = this.actions$
+    calcPersonGeo$ = this._actions$
         .ofType<actions.PersonCalcGeoAction>(actions.CALC_PERSON_GEO)
         .map(action => action.payload)
         .switchMap((payload: CalcGeoCodePayload) => {
