@@ -10,7 +10,7 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import {
-    isAuthenticated,
+    isAuth,
     AppState
 } from '../app.store';
 import { ReAuthenticateAction, AuthService } from 'mh-core';
@@ -22,7 +22,7 @@ export class AuthGuard implements CanActivate {
                 private _authSrv: AuthService) {}
 
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
-        const isAuthentic$: any = this._store.select(isAuthenticated);
+        const isAuthentic$: any = this._store.select(isAuth);
 
         isAuthentic$.subscribe((authenticated: boolean) => {
             if (!authenticated) {

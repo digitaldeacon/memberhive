@@ -123,11 +123,10 @@ action: actions.InteractionActions): InteractionState {
     }
 }
 
-export const getLoadedInteraction: any = (state: InteractionState) => state.loaded;
-export const getLoadingInteraction: any = (state: InteractionState) => state.loading;
-export const getMessageInteraction: any = (state: InteractionState) => state.message;
+export const loadedInteraction: any = (state: InteractionState) => state.loaded;
+export const loadingInteraction: any = (state: InteractionState) => state.loading;
+export const messageInteraction: any = (state: InteractionState) => state.message;
 
-export const getInteractions: any = (state: InteractionState) => state.interactions;
-export const getMyInteractions: any = (state: InteractionState) => state.myInteractions;
+export const interactions: any = (state: InteractionState) => state.interactions;
 
-const getSelectedId: any = (state: InteractionState) => state.forPersonId;
+const selectedId: any = (state: InteractionState) => state.forPersonId;

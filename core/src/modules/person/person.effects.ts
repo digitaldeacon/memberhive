@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Response } from '@angular/http';
+import { Params, ActivatedRouteSnapshot } from '@angular/router';
 
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
@@ -11,9 +12,12 @@ import 'rxjs/add/operator/takeUntil';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 import { of } from 'rxjs/observable/of';
-
+// import { AppState } from '../../store';
 
 import { Effect, Actions } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import { RouterAction, ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/router-store';
+
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { HttpService } from '../../services/http.service';
@@ -23,6 +27,7 @@ import { Utils } from '../../common/common.utils';
 
 @Injectable()
 export class PersonEffects {
+    // private _store: Store<app.AppState>
     constructor(private _actions$: Actions,
                 private _http: HttpService,
                 private _geoCoder: GeocodeService) {
@@ -37,6 +42,11 @@ export class PersonEffects {
                 .map((r: Person[]) => new actions.ListSuccessAction(r))
                 .catch((r: Response) => of(new actions.ListFailureAction(r)))
         );
+    /*getPeople$ = this.handleNavigation('dashboard', (r: ActivatedRouteSnapshot) => {
+        return this._http.get('person/list')
+            .map((r: Person[]) => new actions.ListSuccessAction(r))
+            .catch((r: Response) => of(new actions.ListFailureAction(r)));
+    })*/
 
     @Effect()
     updatePerson$ = this._actions$
@@ -85,4 +95,19 @@ export class PersonEffects {
                 })
                 .catch((error: Response) => of(new actions.PersonCalcGeoFailureAction(error)));
         });
+
+    /*private handleNavigation(segment: string, callback: (a: ActivatedRouteSnapshot, state: AppState) => Observable<any>) {
+        const nav = this._actions$.ofType(ROUTER_NAVIGATION).
+        map(firstSegment).
+        filter(s => s.routeConfig.path === segment);
+
+        return nav.withLatestFrom(this._store).switchMap(a => callback(a[0], a[1])).catch(e => {
+            console.log('Network error', e);
+            return of();
+        });
+    }*/
+}
+
+function firstSegment(r: RouterNavigationAction) {
+    return r.payload.routerState.root.firstChild;
 }

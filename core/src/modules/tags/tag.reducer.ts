@@ -76,8 +76,8 @@ export function tagReducer(state: TagState = initialState,
     }
 }
 
-export const getLoadedTags: any = (state: TagState) => state.loaded;
-export const getLoadingTags: any = (state: TagState) => state.loading;
-export const getMessageTags: any = (state: TagState) => state.message;
+export const loadedTags: any = (state: TagState) => state.loaded;
+export const loadingTags: any = (state: TagState) => state.loading;
+export const messageTags: any = (state: TagState) => state.message;
 
-export const getTags: any = (state: TagState) => state.tags
+export const tags: any = (state: TagState) => state.tags
