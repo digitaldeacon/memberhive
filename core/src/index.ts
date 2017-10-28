@@ -15,6 +15,8 @@ export * from './modules/settings/index';
 export * from './modules/tags/index';
 export * from './common/index';
 
+// export * from './store';
+
 @NgModule({
   imports: [
     BrowserModule,

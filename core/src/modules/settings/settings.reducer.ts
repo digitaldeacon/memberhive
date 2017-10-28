@@ -142,18 +142,18 @@ export function settingsReducer(state: SettingsState = initialState,
     }
 }
 
-export const getLoadedSettings: any = (state: SettingsState) => state.loaded;
-export const getLoadingSettings: any = (state: SettingsState) => state.loading;
-export const getMessageSettings: any = (state: SettingsState) => state.message;
+export const loadedSettings: any = (state: SettingsState) => state.loaded;
+export const loadingSettings: any = (state: SettingsState) => state.loading;
+export const messageSettings: any = (state: SettingsState) => state.message;
 
-export const getLayoutSettings: any = (state: SettingsState) => state.layout;
-export const getPeopleSettings: any = (state: SettingsState) => state.people;
-export const getSysSettings: any = (state: SettingsState) => state.system;
-export const getPeopleListSettings: any = (state: SettingsState) => state.people.list;
-export const getProfileSettings: any = (state: SettingsState) => state.profile;
+export const layoutSettings: any = (state: SettingsState) => state.layout;
+export const peopleSettings: any = (state: SettingsState) => state.people;
+export const sysSettings: any = (state: SettingsState) => state.system;
+export const peopleListSettings: any = (state: SettingsState) => state.people.list;
+export const profileSettings: any = (state: SettingsState) => state.profile;
 
-export const getShowDrawer: any = (state: SettingsState) => state.layout.showDrawer;
-export const getTitle: any = (state: SettingsState) => state.layout.title;
-export const getModule: any = (state: SettingsState) => state.layout.module;
-export const getContextButtons: any = (state: SettingsState) => state.layout.contextButtons;
-export const getSysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;
+export const showDrawer: any = (state: SettingsState) => state.layout.showDrawer;
+export const title: any = (state: SettingsState) => state.layout.title;
+export const module: any = (state: SettingsState) => state.layout.module;
+export const contextButtons: any = (state: SettingsState) => state.layout.contextButtons;
+export const sysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;

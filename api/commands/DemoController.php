@@ -51,8 +51,8 @@ class DemoController extends Controller
 
     public function actionTest()
     {
-        $str = "localhost:4200";
-        $str2 = "localhost";
+        $str = 'localhost:4200';
+        $str2 = 'localhost';
 
         $res1 = explode(':', $str);
         $res2 = explode(':', $str2);

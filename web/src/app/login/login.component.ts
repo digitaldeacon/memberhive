@@ -32,14 +32,14 @@ export class LoginComponent implements OnInit, OnDestroy {
                 private _router: Router,
                 private _store: Store<app.AppState>) {
 
-        this._store.select(app.isAuthenticated)
+        this._store.select(app.isAuth)
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
                 this._store.dispatch(new ListAction({}));
-                /*this._store.dispatch(new ListSettingAction());
+                this._store.dispatch(new ListSettingAction());
                 this._store.dispatch(new ListInteractionsAction({}));
-                this._store.dispatch(new ListTagsAction({}));*/
+                this._store.dispatch(new ListTagsAction({}));
                 this.home();
             });
     }

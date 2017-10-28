@@ -4,6 +4,7 @@ namespace app\helpers;
 use Firebase\JWT\JWT;
 use Yii;
 use yii\web\Request as WebRequest;
+
 /**
  * Trait to handle JWT-authorization process. Should be attached to User model.
  * If there are many applications using user model in different ways - best way

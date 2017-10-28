@@ -35,10 +35,12 @@ export class HttpService {
     }
 
     private request(url: string, method: string, body?: any): Observable<any> {
+        let client: string = this._auth.client ? this._auth.client : '';
+        let token: string = this._auth.token ? this._auth.token : '';
         const h: HttpHeaders = new HttpHeaders()
             .set('Content-Type', 'application/json; charset=utf-8')
-            .set('Authorization', `Bearer ${this._auth.token}`)
-            .set('Client', this._auth.client );
+            .set('Authorization', `Bearer ${token}`)
+            .set('Client', client );
         let options: any = {
             body: body,
             headers: h,

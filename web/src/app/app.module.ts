@@ -85,9 +85,7 @@ export interface AppConfig {
         InteractionModule
     ],
     bootstrap: [AppComponent],
-    providers: [
-        {provide: ErrorHandler, useClass: AuthErrorHandler}
-    ]
+    providers: []
 })
 
 export class AppModule {

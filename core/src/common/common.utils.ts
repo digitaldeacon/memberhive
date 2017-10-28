@@ -28,13 +28,14 @@ export class Utils {
      * @deprecated
      */
     static responseErrors(r: Response): string {
-        const rBody: any = JSON.parse(r.text());
+        // TODO: deprecate for an error interceptor (see: https://github.com/digitaldeacon/memberhive2/issues/158)
+        const rBody: any = JSON.parse( (r instanceof Response) ? r.text() : r);
         const messages: any = JSON.parse(rBody.message);
         let m = '';
         for (let key of Object.keys(messages)) {
             m += messages[key];
         }
-        return m;
+        return '';
     }
 
     static arrayDiffObj(s: any[], v: any[], key: string) {
