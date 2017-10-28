@@ -24,9 +24,9 @@ export class AuthGuard implements CanActivate {
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<boolean> {
         const isAuthentic$: any = this._store.select(isAuthenticated);
 
-        isAuthentic$.subscribe((authenticated: any) => {
+        isAuthentic$.subscribe((authenticated: boolean) => {
             if (!authenticated) {
-                if (this._authSrv.isTokenExpired()) {
+                if (!this._authSrv.isTokenExpired()) {
                     this._store.dispatch(new ReAuthenticateAction(this._authSrv.token));
                 }
                 this._router.navigate(['/login']);
