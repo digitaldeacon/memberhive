@@ -13,13 +13,13 @@ const CREATEDAT = 'createdAt';
 @Injectable()
 export class AuthService {
     @LocalStorage()
-    private _token: string;
+    private _token: string = '';
     @LocalStorage()
-    private _clientToken: string;
+    private _clientToken: string = '';
     @LocalStorage()
-    private _uid: string;
+    private _uid: string = '';
     @LocalStorage()
-    private _createdAt: Date;
+    private _createdAt: Date = null;
 
     constructor(private _storage: LocalStorageService) {}
 
@@ -92,7 +92,6 @@ export class AuthService {
     getTokenExpirationDate(token: string): Date {
         const decoded: any = jwt_decode(token);
 
-        // console.log('token exp date', decoded.exp);
         if (!decoded.hasOwnProperty('exp')) {
             return null;
         }
@@ -103,6 +102,7 @@ export class AuthService {
     }
 
     isTokenExpired(token: string = this.token): boolean {
+        if (!token) return true;
         let date = this.getTokenExpirationDate(token);
 
         // console.log('Token Exp Date is:', date);
