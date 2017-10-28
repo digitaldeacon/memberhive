@@ -55,11 +55,6 @@ trait UserTrait
         $secret = static::getSecretKey();
         // Decode token and transform it into array.
         // Firebase\JWT\JWT throws exception if token can not be decoded
-        /*var_dump($token);
-        var_dump($secret);
-        var_dump(JWT::decode($token, $secret, [static::getAlgo()]));
-
-        die(__METHOD__);*/
         try {
             $decoded = JWT::decode($token, $secret, [static::getAlgo()]);
         } catch (\Exception $e) {
@@ -124,7 +119,8 @@ trait UserTrait
             'iss' => $hostInfo,
             'aud' => $hostInfo,
             'iat' => $currentTime,
-            'nbf' => $currentTime
+            'nbf' => $currentTime,
+            'exp' => $currentTime + intval(Yii::$app->params['jwt']['expire'])
         ], static::getHeaderToken());
         // Set up id
         $token['jti'] = $this->getJTI();

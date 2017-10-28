@@ -6,7 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { HttpModule } from '@angular/http';
 import {
-    DateAdapter, MATERIAL_COMPATIBILITY_MODE,
+    DateAdapter,
     MatSidenavModule, MatProgressBarModule
 } from '@angular/material';
 import 'rxjs/add/operator/map';
@@ -86,7 +86,6 @@ export interface AppConfig {
     ],
     bootstrap: [AppComponent],
     providers: [
-        {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
         {provide: ErrorHandler, useClass: AuthErrorHandler}
     ]
 })

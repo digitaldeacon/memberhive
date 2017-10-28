@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { Title }  from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
-    MatButtonModule, MatCardModule,
-    MatIconModule, MatDatepickerModule,
+    MatButtonModule, MatCardModule, MatDialogModule,
+    MatIconModule, MatDatepickerModule, MatProgressSpinnerModule,
     MatInputModule, MatMenuModule,
     MatSelectModule, MatExpansionModule,
     MatTooltipModule, MatNativeDateModule,
@@ -30,10 +30,11 @@ import { AgmCoreModule } from '@agm/core';
 import { TagsComponent } from './components/tags/tags.component';
 
 const MATERIAL_MODULES: any[] = [
-    MatButtonModule, MatCardModule, MatIconModule,
+    MatButtonModule, MatCardModule, MatIconModule, MatDialogModule,
     MatDatepickerModule, MatInputModule, MatMenuModule, MatListModule,
     MatExpansionModule, MatTooltipModule, MatNativeDateModule, MatSnackBarModule, MatSelectModule,
-    MatToolbarModule, MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatCheckboxModule
+    MatToolbarModule, MatAutocompleteModule, MatChipsModule, MatFormFieldModule, MatCheckboxModule,
+    MatProgressSpinnerModule
 ];
 
 @NgModule({
