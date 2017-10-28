@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/takeWhile';
 
-import { MatSidenav } from '@angular/material';
+import { MatSidenav, MatSidenavContainer } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
 
@@ -58,8 +58,8 @@ import {
 })
 export class ViewComponent implements OnDestroy, AfterViewInit {
     private _alive: boolean = true;
-    @ViewChild('sidenav')
-    private _sidenav: MatSidenav;
+    @ViewChild('sidenav') private _sidenav: MatSidenav;
+    @ViewChild('sidenavContainer') private _container: MatSidenavContainer;
     private _layout: LayoutSettings;
 
     routes: Object[] = [
@@ -137,11 +137,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-        const size = this.drawerState === 'open' ? 220 : 75;
-        setTimeout(() => {
-            this._sidenav.open();
-            this._cd.detectChanges();
-        }, size);
+        this.toggleDrawer();
     }
 
     logout(): void {
@@ -153,16 +149,26 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         const payload: SettingsState = {
             layout: {showDrawer: true}
         };
-        this.drawerState = 'open';
         this._store.dispatch(new UpdateSettingAction(payload));
+        this.toggleDrawer('open');
     }
 
     closeDrawer(): void {
         const payload: SettingsState = {
             layout: {showDrawer: false}
         };
-        this.drawerState = 'close';
         this._store.dispatch(new UpdateSettingAction(payload));
+        this.toggleDrawer('close');
+    }
+
+    toggleDrawer(status: string = 'close'): void {
+        let size: number;
+        this.drawerState = status;
+        size = status === 'open' ? 220 : 75;
+        setTimeout(() => {
+            this._sidenav.open();
+            this._cd.detectChanges();
+        }, 0);
     }
 
     drawerWidth(): string {
