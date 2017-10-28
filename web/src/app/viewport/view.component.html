@@ -28,11 +28,10 @@
         </mat-menu>
 
     </mat-toolbar>
-    <mat-sidenav-container>
+    <mat-sidenav-container #sidenavContainer>
         <mat-sidenav #sidenav mode="side"
                      fixedInViewport="true" fixedTopGap="64" fixedBottomGap="0"
-                     fxFlex="220px" class="drawer-menu"
-                     [@drawer]="drawerState">
+                     fxFlex="220px" class="drawer-menu">
             <mat-nav-list>
                 <a *ngFor="let item of routes"
                    mat-list-item
