@@ -157,7 +157,9 @@ class Person extends \yii\db\ActiveRecord
 
     public function getFamilyMemberIds()
     {
-        $f = function($v) { return $v->uid; };
+        $f = function ($v) {
+            return $v->uid;
+        };
         return array_map($f, $this->family->members);
     }
 

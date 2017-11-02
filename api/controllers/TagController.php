@@ -2,8 +2,6 @@
 namespace app\controllers;
 
 use app\models\Tag;
-use app\models\Person;
-use app\models\PersonTag;
 use yii\web\BadRequestHttpException;
 
 class TagController extends MHController

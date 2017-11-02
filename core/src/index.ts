@@ -5,8 +5,6 @@ import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
 
-import { Ng2Webstorage } from 'ngx-webstorage';
-
 export * from './services/index';
 export * from './modules/auth/index';
 export * from './modules/interaction/index';
@@ -20,8 +18,7 @@ export * from './common/index';
 
 @NgModule({
   imports: [
-    BrowserModule,
-    Ng2Webstorage.forRoot({prefix: 'mh', separator: '.'})
+    BrowserModule
   ],
   declarations: [],
   exports: [],

@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, Output} from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Person, Member, Family } from 'mh-core';
 import { MatSelectChange } from '@angular/material';
 

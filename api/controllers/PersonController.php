@@ -154,10 +154,10 @@ class PersonController extends MHController
         }
 
         if (!$person || empty($post)) {
-            throw new BadRequestHttpException('Missing initial data' . ': ['.$dbg.']');
+            throw new BadRequestHttpException('Missing initial data' . ': [' . $dbg . ']');
         }
         if (!isset($post['selected'])) {
-            throw new BadRequestHttpException('Missing data segment `selected`' . ': ['.$dbg.']');
+            throw new BadRequestHttpException('Missing data segment `selected`' . ': [' . $dbg . ']');
         }
 
         // If no family id is set, save the changes to personal settings
@@ -215,7 +215,7 @@ class PersonController extends MHController
                 . json_encode($person) . '**'
                 . json_encode($fam);
         }
-        throw new BadRequestHttpException('Required data could not be loaded' . ': ['.$dbg.']');
+        throw new BadRequestHttpException('Required data could not be loaded' . ': [' . $dbg . ']');
     }
 
     public function actionUpdate($id)
