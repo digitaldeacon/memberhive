@@ -10,12 +10,6 @@ export class FamilyComponent {
 
     private _person: Person;
 
-    // TODO: move to settings
-    relations: string[] = [
-        'husband', 'wife', 'child', 'sibling', 'uncle',
-        'aunt', 'grandmother', 'grandfather'
-    ];
-
     @Input() people: Person[];
     @Input() families: Family[];
     @Input()
