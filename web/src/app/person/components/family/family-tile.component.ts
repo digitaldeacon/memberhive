@@ -18,7 +18,12 @@ export class FamilyTileComponent {
     @Output() acceptMember: EventEmitter<Member> = new EventEmitter<Member>();
     @Output() removeMember: EventEmitter<Member> = new EventEmitter<Member>();
 
-    family: Member[] = [];
+    // TODO: move to settings
+    relations: string[] = [
+        'husband', 'wife', 'child', 'sibling', 'uncle',
+        'aunt', 'grandmother', 'grandfather'
+    ];
+
 
     accept(member: Member): void {
         this.acceptMember.emit(member);
