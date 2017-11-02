@@ -24,7 +24,7 @@ export class FamilyComponent {
             const prvuid: string = !this._person ? '' : this._person.uid;
             this._person = person;
             this.buildSuggestions();
-            if (prvuid != person.uid) {
+            if (prvuid !== person.uid) {
                 this.initFamily();
             }
         }
@@ -59,11 +59,11 @@ export class FamilyComponent {
                         return;
                     }
                     if (person.uid !== this.person.uid) {
-                        const m: Member = {
+                        const member: Member = {
                             person: person,
                             isSuggestion: false
                         };
-                        this.family.push(m);
+                        this.family.push(member);
                     }
                 });
         }
@@ -90,7 +90,7 @@ export class FamilyComponent {
                     return false;
                 }
                 return (person.lastName === this.person.lastName) &&
-                    (person.uid !== this.person.uid)
+                    (person.uid !== this.person.uid);
         });
     }
 
@@ -120,7 +120,7 @@ export class FamilyComponent {
         family = {
             id: this.familyId,
             selected: m.person.uid,
-            members: this.family.map((m: Member) => m.person.uid)
+            members: this.family.map((member: Member) => member.person.uid)
         };
         this.updateFamily.emit(family);
     }

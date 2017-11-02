@@ -2,8 +2,6 @@
 define('API_BASE', dirname(__DIR__));
 define('APP_MODE', 'console');
 
-Yii::setAlias('@tests', dirname(__DIR__) . '/tests/codeception');
-
 $params = include __DIR__ . '/params.php';
 $db = include __DIR__ . '/db_local.php';
 

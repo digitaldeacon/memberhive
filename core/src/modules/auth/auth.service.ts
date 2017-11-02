@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { LocalStorageService, LocalStorage } from 'ngx-webstorage';
 import * as jwt_decode_ from 'jwt-decode';
 import * as localForage from 'localforage';
 
@@ -12,16 +11,12 @@ const CREATEDAT = 'createdAt';
 
 @Injectable()
 export class AuthService {
-    @LocalStorage()
     private _token: string = '';
-    @LocalStorage()
     private _clientToken: string = '';
-    @LocalStorage()
     private _uid: string = '';
-    @LocalStorage()
     private _createdAt: Date = null;
 
-    constructor(private _storage: LocalStorageService) {}
+    constructor() {}
 
     set token(token: string) {
         this._token = token;
@@ -56,7 +51,6 @@ export class AuthService {
     set personId(uid: string) {
         localForage.setItem(UID, uid);
         this._uid = uid;
-        this._uid = this._uid; // because of issue with extension
     }
     get personId(): string {
         localForage.getItem(UID)
@@ -86,7 +80,6 @@ export class AuthService {
 
     clearStore(): void {
         localForage.clear();
-        this._storage.clear();
     }
 
     getTokenExpirationDate(token: string): Date {

@@ -52,7 +52,7 @@ class DemoController extends Controller
 
     public function actionTest($id)
     {
-        echo 'find person with UID: '.$id."\n";
+        echo 'find person with UID: ' . $id . "\n";
         $person = Person::find()->where(['uid'=>$id])->one();
         /*foreach($person->familyMembers as $m) {
             var_dump($m);
@@ -60,6 +60,5 @@ class DemoController extends Controller
 
 
         var_dump(empty($person));
-
     }
 }

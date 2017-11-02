@@ -28,15 +28,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthService, AuthErrorHandler } from 'mh-core';
 
-// import { CustomDateAdapter } from './custom-date.adaptor';
-
 import {
     MhCoreModule,
-    PersonEffects,
-    SettingsEffects,
-    InteractionEffects,
-    TagEffects,
-    AuthEffects } from 'mh-core';
+    PersonEffects, SettingsEffects,
+    InteractionEffects, TagEffects,
+    FamilyEffects, AuthEffects } from 'mh-core';
 import { reducers } from './app.store';
 
 import {
@@ -71,7 +67,8 @@ export interface AppConfig {
             AuthEffects,
             SettingsEffects,
             InteractionEffects,
-            TagEffects
+            TagEffects,
+            FamilyEffects
         ]),
 
         FormsModule,
@@ -93,12 +90,11 @@ export class AppModule {
                 private _auth: AuthService,
                 private _dateAdapter: DateAdapter<Date>) {
         this._dateAdapter.setLocale('de-DE');
-        if (this._auth.client === undefined) {
+        if (!this._auth.client) {
             this._http.get<AppConfig>('assets/client.json')
                 .toPromise()
                 .then((config: AppConfig) => {
                     this._auth.client = config.token;
-                    console.log(this._auth);
                 });
         }
     }
