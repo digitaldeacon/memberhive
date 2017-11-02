@@ -9,10 +9,11 @@ import * as app from '../app.store';
 import {
     Credentials,
     AuthenticateAction,
-    ListAction,
+    ListPersonAction,
     ListSettingAction,
     ListInteractionsAction,
-    ListTagsAction
+    ListTagsAction,
+    ListFamiliesAction
 } from 'mh-core';
 
 @Component({
@@ -36,10 +37,11 @@ export class LoginComponent implements OnInit, OnDestroy {
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
-                this._store.dispatch(new ListAction({}));
+                this._store.dispatch(new ListPersonAction({}));
                 this._store.dispatch(new ListSettingAction());
                 this._store.dispatch(new ListInteractionsAction({}));
                 this._store.dispatch(new ListTagsAction({}));
+                this._store.dispatch(new ListFamiliesAction({}));
                 this.home();
             });
     }

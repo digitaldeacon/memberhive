@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import { Tag } from './tag.model';
 
 export const LIST_TAGS = '[Tags] List';
@@ -21,7 +21,7 @@ export class ListTagsSuccessAction implements Action {
 
 export class ListTagsFailureAction implements Action {
     readonly type = LIST_TAGS_FAILURE;
-    constructor(public payload: Response) { }
+    constructor(public payload: HttpResponse<any>) { }
 }
 
 export class UpdateTagsAction implements Action {
@@ -36,7 +36,7 @@ export class UpdateTagsSuccessAction implements Action {
 
 export class UpdateTagsFailureAction implements Action {
     readonly type = UPDATE_TAGS_FAILURE;
-    constructor(public payload: Response) { }
+    constructor(public payload: HttpResponse<any>) { }
 }
 
 export type TagActions =

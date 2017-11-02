@@ -156,12 +156,16 @@ export class PersonFormComponent implements OnInit {
         }
     }
 
-    save(model: Person): void {
+    save(person: Person): void {
         if (this.form.valid) {
             this.submitted = true;
-            this.form.patchValue(model);
+            // TODO: either have core return date objects or use a dateadapter
+            person.birthday = new Date(person.birthday);
+            person.baptized = new Date(person.baptized);
+            person.anniversary = new Date(person.anniversary);
+            this.form.patchValue(person);
             this.toggleRandomPassword();
-            this.savePerson.emit(model);
+            this.savePerson.emit(person);
         }
     }
 

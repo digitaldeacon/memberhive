@@ -67,12 +67,14 @@
                     Please provide a proper email address
                 </mat-error>
             </div>
-            <div class="mh-input-wrapper">
-                <mat-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
-                    <mat-option *ngFor="let mstatus of settings?.maritalStatus" [value]="mstatus.status">
-                        {{mstatus.status}}
-                    </mat-option>
-                </mat-select>
+            <div>
+                <mat-form-field>
+                    <mat-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
+                        <mat-option *ngFor="let mstatus of settings?.maritalStatus" [value]="mstatus.status">
+                            {{mstatus.status}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
             <div fxLayout.gt-xs="row" fxLayout.xs="column">
                 <mat-form-field>

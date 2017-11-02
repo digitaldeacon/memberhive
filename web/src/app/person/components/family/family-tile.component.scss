@@ -1,0 +1,33 @@
+@import "../../../../theme.scss";
+
+.mat-card {
+  max-width: 220px;
+  margin-bottom: 15px;
+  background-color: rgba(246, 246, 246, 0.30);
+  a:visited, a:active, a:link {
+    color: inherit;
+  }
+  .mat-card-title {
+    font-size: 18px;
+  }
+  .mat-card-avatar {
+    height: 65px;
+    width: 65px;
+  }
+  .mat-select {
+    padding: 8px 0 8px 8px;
+    background-color: mat-color($mh-app-primary, 100);
+  }
+}
+.suggestion-box {
+  border: 2px dashed #CCC;
+}
+.suggestion-label {
+  padding-bottom: 10px;
+  text-align: right;
+  color: #CCC;
+  position: absolute;
+  top: 5px;
+  right: 15px;
+  text-transform: uppercase;
+}

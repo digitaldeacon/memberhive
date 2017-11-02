@@ -13,6 +13,7 @@ export * from './modules/interaction/index';
 export * from './modules/person/index';
 export * from './modules/settings/index';
 export * from './modules/tags/index';
+export * from './modules/family/index';
 export * from './common/index';
 
 // export * from './store';

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
@@ -31,7 +31,7 @@ export class InteractionEffects {
             return this._http.get('interaction/list?')// + data.id
                 // + '&noMarkup=' + data.noMarkup + '&me=' + data.me)
                 .map((r: Interaction[]) => new actions.ListInteractionsSuccessAction(r))
-                .catch((r: Response) => of(new actions.ListInteractionsFailureAction(r)));
+                .catch((r: HttpResponse<any>) => of(new actions.ListInteractionsFailureAction(r)));
         });
 
     @Effect()
@@ -40,7 +40,7 @@ export class InteractionEffects {
         .map((action: actions.AddInteractionAction) => action.payload)
         .switchMap((data: Interaction) => this._http.post('interaction/save-person', data)
             .map((r: Interaction) => new actions.AddInteractionSuccessAction(r))
-            .catch((r: Response) => of(new actions.AddInteractionFailureAction(r)))
+            .catch((r: HttpResponse<any>) => of(new actions.AddInteractionFailureAction(r)))
         );
 
     @Effect()
@@ -49,7 +49,7 @@ export class InteractionEffects {
         .map((action: actions.UpdateInteractionAction) => action.payload)
         .switchMap((data: Interaction) => this._http.post('interaction/save-person', data)
             .map((r: Interaction) => new actions.UpdateInteractionSuccessAction(r))
-            .catch((r: Response) => of(new actions.UpdateInteractionFailureAction(r)))
+            .catch((r: HttpResponse<any>) => of(new actions.UpdateInteractionFailureAction(r)))
         );
 
     @Effect()
@@ -60,7 +60,7 @@ export class InteractionEffects {
             id: interactionId, author: this._auth.personId
             })
             .map((r: any) => new actions.DeleteInteractionSuccessAction(r))
-            .catch((r: Response) => of(new actions.DeleteInteractionFailureAction(r)))
+            .catch((r: HttpResponse<any>) => of(new actions.DeleteInteractionFailureAction(r)))
         );
 
     @Effect()
@@ -70,6 +70,6 @@ export class InteractionEffects {
       .switchMap((payload: InteractionCompletePayload) => this._http.post('interaction/complete',
         {id: payload.id, author: this._auth.personId, complete: payload.complete})
         .map((r: Interaction) => new actions.UpdateInteractionSuccessAction(r))
-        .catch((r: Response) => of(new actions.UpdateInteractionFailureAction(r)))
+        .catch((r: HttpResponse<any>) => of(new actions.UpdateInteractionFailureAction(r)))
       );
 }

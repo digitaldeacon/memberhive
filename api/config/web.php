@@ -1,8 +1,6 @@
 <?php
 $params = include __DIR__ . '/params.php';
 
-$client = getClient();
-
 $config = [
     'id' => 'memberhive',
     'name' => 'MemberHive',
@@ -51,6 +49,10 @@ if (YII_DEBUG === true) {
     $config['components']['log']['targets'][] = [
         'class' => 'yii\log\FileTarget',
         'levels' => ['info']
+    ];
+    $config['bootstrap'][] = 'gii';
+    $config['modules']['gii'] = [
+        'class' => 'yii\gii\Module',
     ];
 }
 return $config;

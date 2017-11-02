@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e12b0455e31e265669a72288aa767320",
+    "content-hash": "6efb3370d77103106bf3efeff073c7f5",
     "packages": [
         {
             "name": "aracoool/yii2-uuid",
@@ -775,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "e2515eede8404451b8822012cd00ca1bb0319b36"
+                "reference": "b92d7c6b3f5dc339f600b34d238046afb02b1cf3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e2515eede8404451b8822012cd00ca1bb0319b36",
-                "reference": "e2515eede8404451b8822012cd00ca1bb0319b36",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/b92d7c6b3f5dc339f600b34d238046afb02b1cf3",
+                "reference": "b92d7c6b3f5dc339f600b34d238046afb02b1cf3",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +867,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-10-27T08:41:45+00:00"
+            "time": "2017-11-01T09:26:25+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1676,7 +1676,7 @@
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.3.3"
+                "php": "^7.0"
             },
             "type": "library",
             "extra": {

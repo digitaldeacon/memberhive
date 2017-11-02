@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
 import { Credentials } from './auth.model';
-import { Response } from '@angular/http';
 import { User } from '../person/person.model';
 import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
 

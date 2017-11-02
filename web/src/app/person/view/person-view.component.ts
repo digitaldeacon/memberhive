@@ -7,15 +7,15 @@ import 'rxjs/add/operator/mergeMap';
 import { Store } from '@ngrx/store';
 import * as app from '../../app.store';
 import {
-    Person, Interaction,
+    Person, Family, Interaction,
     Tag, GeoMarker,
     Utils, CalcGeoCodePayload,
     GetInteractionsPersonAction,
-    PersonViewAction, PersonUpdateAction,
-    PersonDeleteAction, SetTitleAction,
+    ViewPersonAction, UpdatePersonAction,
+    DeletePersonAction, SetTitleAction,
     ContextButton, SetContextButtonsAction,
-    PersonCalcGeoAction, DeleteInteractionAction,
-    AddInteractionAction
+    CalcPersonGeoAction, DeleteInteractionAction,
+    AddInteractionAction, UpdatePersonFamily
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -40,6 +40,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     person$: Observable<Person>;
     interactions$: Observable<Interaction[]>;
     tags$: Observable<Tag[]>;
+    families$: Observable<Family[]>;
     settings: any; // combines SystemSettings and PersonSettings
     hasMap: boolean = false;
     userUid: string;
@@ -59,6 +60,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this.interactions$ = this._store.select(app.getInteractionsPerson);
         // Selects the tags by fragment param
         this.tags$ = this._store.select(app.getTags);
+        // Selects the current person by fragment param
+        this.families$ = this._store.select(app.getFamilies);
+
         // Load all people for the back and forth buttons
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)
@@ -77,7 +81,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     ngOnInit(): void {
         this._route.params
             .map((params: Params) => {
-                this._store.dispatch(new PersonViewAction(params['id']));
+                this._store.dispatch(new ViewPersonAction(params['id']));
                 this._store.dispatch(new GetInteractionsPersonAction(params['id']));
             })
             .mergeMap(() => this.person$)
@@ -120,7 +124,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         let gcPayload: CalcGeoCodePayload;
 
         person.uid = this.person.uid;
-        this._store.dispatch(new PersonUpdateAction(person));
+        this._store.dispatch(new UpdatePersonAction(person));
         this._calcGeoCodes(person);
     }
 
@@ -129,7 +133,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .confirm('Deleting: ' + this.person.fullName, 'Are you sure you want to do this?')
             .subscribe((confirmed: boolean) => {
                 if (confirmed) {
-                    this._store.dispatch(new PersonDeleteAction(this.person));
+                    this._store.dispatch(new DeletePersonAction(this.person));
                     this._router.navigate(['/person']);
                 }
             });
@@ -141,6 +145,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     addInteraction(interaction: Interaction): void {
         this._store.dispatch(new AddInteractionAction(interaction));
+    }
+
+    updateFamily(family: Family): void {
+        this._store.dispatch(new UpdatePersonFamily(family));
     }
 
     openDlgRelationships(): void {
@@ -203,7 +211,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 apiKey: this.settings.googleApiKey
             };
             if (!Utils.objEmptyProperties(this.settings, 'googleApiKey')) {
-                this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+                this._store.dispatch(new CalcPersonGeoAction(gcPayload));
             } else {
                 this._shout.error('There is no Google API key present. Go to settings and set one.');
             }

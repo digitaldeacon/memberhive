@@ -4,6 +4,7 @@ namespace app\models;
 
 use \aracoool\uuid\Uuid;
 use \aracoool\uuid\UuidBehavior;
+use \app\models\Family;
 
 /**
  * Class Person
@@ -46,8 +47,12 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['firstName'], 'required'],
-            [['firstName', 'middleName', 'lastName', 'nickName', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig'], 'string', 'max' => 255],
+            [['uid', 'firstName'], 'required'],
+            [['birthday', 'baptized', 'deceased', 'anniversary'], 'safe'],
+            [['address', 'custom', 'socialContact'], 'string'],
+            [['created_at', 'updated_at'], 'integer'],
+            [['uid'], 'string', 'max' => 36],
+            [['firstName', 'middleName', 'lastName', 'nickName', 'prefix', 'suffix', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig', 'phoneHome', 'phoneWork', 'phoneMobile'], 'string', 'max' => 255],
             [['maritalStatus'], 'string', 'max' => 50],
             [['birthday', 'baptized', 'anniversary', 'deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
@@ -55,6 +60,7 @@ class Person extends \yii\db\ActiveRecord
             ['uid', '\aracoool\uuid\UuidValidator'],
             [['address', 'socialContact'], 'string'],
             [['phoneHome','phoneWork', 'phoneMobile'], 'string'],
+            [['email'], 'unique']
         ];
     }
 
@@ -69,6 +75,8 @@ class Person extends \yii\db\ActiveRecord
 
     public function toResponseArray()
     {
+        $family = $this->family;
+        $familyMember = $this->personFamily;
         return [
             'id' => $this->id,
             'uid' => $this->uid,
@@ -92,7 +100,14 @@ class Person extends \yii\db\ActiveRecord
             'status' => $this->statusTags,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
-            ]
+            ],
+            'family' => !empty($family) ? [
+                'id' => $family->id,
+                'name' => $family->name,
+                'unrelated' => json_decode($family->unrelated),
+                'role' => $familyMember->role,
+                'members' => $this->familyMemberIds
+            ] : []
         ];
     }
 
@@ -126,6 +141,24 @@ class Person extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->where(['type' => 'status'])
             ->viaTable('person_tag', ['person_id' => 'id']);
+    }
+
+    public function getPersonFamily()
+    {
+        return $this->hasOne(PersonFamily::className(), ['person_id' => 'id']);
+    }
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getFamily()
+    {
+        return $this->hasOne(Family::className(), ['id' => 'family_id'])->viaTable('person_family', ['person_id' => 'id']);
+    }
+
+    public function getFamilyMemberIds()
+    {
+        $f = function($v) { return $v->uid; };
+        return array_map($f, $this->family->members);
     }
 
     /**

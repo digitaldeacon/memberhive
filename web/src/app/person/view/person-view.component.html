@@ -68,7 +68,11 @@
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </mat-tab>
                 <mat-tab label="Family" i18n-label>
-                    <mh-person-family [person]="person"></mh-person-family>
+                    <mh-person-family
+                            [people]="people"
+                            [person]="person"
+                            [families]="families$ | async"
+                            (updateFamily)="updateFamily($event)"></mh-person-family>
                 </mat-tab>
                 <!--
                 TODO: Groups section

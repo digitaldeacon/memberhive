@@ -1,4 +1,4 @@
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import { Interaction, InteractionCollection } from './interaction.model';
 import * as actions from './interaction.actions';
 import * as common from '../../common/common.model';
@@ -95,10 +95,10 @@ action: actions.InteractionActions): InteractionState {
         case actions.DELETE_INTERACTION_FAILURE:
         case actions.UPDATE_INTERACTION_FAILURE:
         case actions.ADD_INTERACTION_FAILURE: {
-            const res: Response = action.payload;
+            const res: HttpResponse<any> = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
-                text: Utils.responseErrors(res)
+                text: res.statusText
             };
             return Object.assign({}, state, {
                 loading: false,

@@ -2,6 +2,7 @@
 namespace app\commands;
 
 use app\models\Tag;
+use app\models\PersonFamily;
 use app\models\Person;
 use yii\console\Controller;
 use app\helpers\Curl;
@@ -49,15 +50,16 @@ class DemoController extends Controller
         var_dump(defined('YII_ENV'));
     }
 
-    public function actionTest()
+    public function actionTest($id)
     {
-        $str = 'localhost:4200';
-        $str2 = 'localhost';
+        echo 'find person with UID: '.$id."\n";
+        $person = Person::find()->where(['uid'=>$id])->one();
+        /*foreach($person->familyMembers as $m) {
+            var_dump($m);
+        }*/
 
-        $res1 = explode(':', $str);
-        $res2 = explode(':', $str2);
 
-        var_dump($res1[0]);
-        var_dump($res2[0]);
+        var_dump(empty($person));
+
     }
 }
