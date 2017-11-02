@@ -1,7 +1,9 @@
 <?php
 namespace app\controllers;
 
+use app\models\Family;
 use app\models\Person;
+use app\models\PersonFamily;
 use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
@@ -17,7 +19,10 @@ class PersonController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','get','update', 'delete', 'update-column', 'create','search','avatar-upload'],
+                    'actions' => [
+                        'list','get','update', 'delete', 'update-column',
+                        'create','search','avatar-upload', 'update-family'
+                    ],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -33,6 +38,7 @@ class PersonController extends MHController
     {
         if ($action->id == 'update'
             || $action->id == 'update-column'
+            || $action->id == 'update-family'
             || $action->id == 'avatar-upload'
             || $action->id == 'create'
             || $action->id == 'delete'
@@ -132,6 +138,84 @@ class PersonController extends MHController
             throw new BadRequestHttpException('Bad parameters encountered!');
         }
         return ['response' => $person->toResponseArray()];
+    }
+
+    public function actionUpdateFamily($id)
+    {
+        $dbg = '';
+        $pfam = null;
+        $fam = null;
+
+        $post = \Yii::$app->request->post();
+        $person = Person::find()->where(['uid'=>$id])->one();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post) . ' ** ' . json_encode($person);
+        }
+
+        if (!$person || empty($post)) {
+            throw new BadRequestHttpException('Missing initial data' . ': ['.$dbg.']');
+        }
+        if (!isset($post['selected'])) {
+            throw new BadRequestHttpException('Missing data segment `selected`' . ': ['.$dbg.']');
+        }
+
+        // If no family id is set, save the changes to personal settings
+        /*if (!isset($post['id'])) {
+            $pfam = PersonFamily::findOne(['person_id' => $person->id]);
+            if (empty($pfam)) {
+                $fam = new Family(['name' => 'Fam. ' . $person->lastName]);
+            } else {
+                $fam = $pfam->family;
+            }
+        } else {
+            $fam = Family::findOne(['id' => $post['id']]);
+        }
+
+        // family should exist here
+        if (empty($pfam)) {
+            $pfam = PersonFamily::findOne(['person_id' => $person->id, 'family_id' => $post['id']]);
+        }
+
+        if (empty($pfam)) {
+            if (empty($fam)) {
+                $fam = new Family(['name' => 'Fam. ' . $person->lastName]);
+                if (!$fam->save()) {
+                    throw new BadRequestHttpException(json_encode($fam->errors));
+                }
+            }
+            $fam->link('members', $person);
+            $fam->save();
+            $pfam = $fam->personFamily;
+        }*/
+
+        if ($post && $pfam && $fam) {
+            if (isset($post['role'])) {
+                $pfam->role = $post['role'];
+            }
+            if (isset($post['unrelated'])) {
+                $fam->unrelated = json_encode($post['unrelated']);
+                if (!$fam->save()) {
+                    throw new BadRequestHttpException(json_encode($fam->errors));
+                }
+            }
+            if (isset($post['members'])) {
+                // removes the relation of the selected person
+                PersonFamily::deleteAll(['person_id'=>$person->id]);
+                return $person->toResponseArray();
+            }
+            if (!$pfam->save()) {
+                throw new BadRequestHttpException(json_encode($pfam->errors));
+            }
+            return $pfam->person->toResponseArray();
+        }
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** '
+                . json_encode($post) . ' ** '
+                . json_encode($person) . '**'
+                . json_encode($fam);
+        }
+        throw new BadRequestHttpException('Required data could not be loaded' . ': ['.$dbg.']');
     }
 
     public function actionUpdate($id)
@@ -252,19 +336,19 @@ class PersonController extends MHController
 
     protected function findModel($id)
     {
-        $user = Person::find()->with('tags')->where(['uid'=>$id])->one();
-        if ($user === null) {
+        $person = Person::find()->with('tags')->where(['uid'=>$id])->one();
+        if ($person === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
         }
-        return $user;
+        return $person;
     }
     protected function findModelByUID($id)
     {
-        $user = Person::find()->with('tags')->where(['uid'=>$id])->one();
-        if ($user === null) {
+        $person = Person::find()->with('tags')->where(['uid'=>$id])->one();
+        if ($person === null) {
             throw new NotFoundHttpException('The requested person does not exist.');
         }
-        return $user;
+        return $person;
     }
 
     // TODO: make this into an authenticate process

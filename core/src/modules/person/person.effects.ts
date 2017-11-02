@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Params, ActivatedRouteSnapshot } from '@angular/router';
 
 import 'rxjs/add/operator/catch';
@@ -20,10 +20,12 @@ import { RouterAction, ROUTER_NAVIGATION, RouterNavigationAction } from '@ngrx/r
 
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
+import { Family } from '../family/family.model';
 import { HttpService } from '../../services/http.service';
 import { GeocodeService } from '../../services/geocode.service';
 import { GeoCodes } from '../../common/common.model';
 import { Utils } from '../../common/common.utils';
+import {HttpResponse} from "@angular/common/http";
 
 @Injectable()
 export class PersonEffects {
@@ -36,11 +38,11 @@ export class PersonEffects {
     @Effect()
     getPeople$ = this._actions$
         .ofType(actions.LIST_PEOPLE)
-        .map((action: actions.ListAction) => action.payload)
+        .map((action: actions.ListPersonAction) => action.payload)
         .switchMap(() =>
             this._http.get('person/list')
-                .map((r: Person[]) => new actions.ListSuccessAction(r))
-                .catch((r: Response) => of(new actions.ListFailureAction(r)))
+                .map((r: Person[]) => new actions.ListPersonSuccessAction(r))
+                .catch((r: HttpErrorResponse) => of(new actions.ListPersonFailureAction(r)))
         );
     /*getPeople$ = this.handleNavigation('dashboard', (r: ActivatedRouteSnapshot) => {
         return this._http.get('person/list')
@@ -51,33 +53,33 @@ export class PersonEffects {
     @Effect()
     updatePerson$ = this._actions$
         .ofType(actions.UPDATE_PERSON)
-        .map((action: actions.PersonUpdateAction) => action.payload)
+        .map((action: actions.UpdatePersonAction) => action.payload)
         .mergeMap((data: any) => this._http.post('person/update?id=' + data.uid, data)
-            .map((r: Person) => new actions.PersonUpdateSuccessAction(r))
-            .catch((r: Response) => of(new actions.PersonUpdateFailureAction(r)))
+            .map((r: Person) => new actions.UpdatePersonSuccessAction(r))
+            .catch((r: HttpErrorResponse) => of(new actions.UpdatePersonFailureAction(r)))
         );
 
     @Effect()
     createPerson$ = this._actions$
         .ofType(actions.CREATE_PERSON)
-        .map((action: actions.PersonCreateAction) => action.payload)
+        .map((action: actions.CreatePersonAction) => action.payload)
         .switchMap((data: Person) => this._http.post('person/create', data)
-            .map((r: Person) => new actions.PersonCreateSuccessAction(r))
-            .catch((r: any) => of(new actions.PersonCreateFailureAction(r)))
+            .map((r: Person) => new actions.CreatePersonSuccessAction(r))
+            .catch((r: HttpErrorResponse) => of(new actions.CreatePersonFailureAction(r)))
         );
 
     @Effect()
     deletePerson$ = this._actions$
         .ofType(actions.DELETE_PERSON)
-        .map((action: actions.PersonDeleteAction) => action.payload)
+        .map((action: actions.DeletePersonAction) => action.payload)
         .switchMap((data: Person) => this._http.post('person/delete?id=' + data.uid, data)
-            .map((r: any) => new actions.PersonDeleteSuccessAction(r))
-            .catch((r: Response) => of(new actions.PersonDeleteFailureAction(r)))
+            .map((r: any) => new actions.DeletePersonSuccessAction(r))
+            .catch((r: HttpErrorResponse) => of(new actions.DeletePersonFailureAction(r)))
         );
 
     @Effect()
     calcPersonGeo$ = this._actions$
-        .ofType<actions.PersonCalcGeoAction>(actions.CALC_PERSON_GEO)
+        .ofType<actions.CalcPersonGeoAction>(actions.CALC_PERSON_GEO)
         .map(action => action.payload)
         .switchMap((payload: CalcGeoCodePayload) => {
             let address: PersonAddress = payload.person.address;
@@ -91,10 +93,19 @@ export class PersonEffects {
             return this._geoCoder.calc()
                 .map((data: GeoCodes) => {
                     payload.person.address.home.geocode = data;
-                    return new actions.PersonUpdateAction(payload.person);
+                    return new actions.UpdatePersonAction(payload.person);
                 })
-                .catch((error: Response) => of(new actions.PersonCalcGeoFailureAction(error)));
+                .catch((error: HttpErrorResponse) => of(new actions.CalcPersonGeoFailureAction(error)));
         });
+
+    @Effect()
+    setPersonFamilyRole$ = this._actions$
+        .ofType(actions.UPDATE_PERSON_FAMILY)
+        .map((action: actions.UpdatePersonFamily) => action.payload)
+        .mergeMap((fam: Family) => this._http.post('person/update-family?id=' + fam.selected, fam)
+            .map((r: Person) => new actions.UpdatePersonFamilySuccessAction(r))
+            .catch((r: HttpErrorResponse) => of(new actions.UpdatePersonFamilyFailureAction(r)))
+        );
 
     /*private handleNavigation(segment: string, callback: (a: ActivatedRouteSnapshot, state: AppState) => Observable<any>) {
         const nav = this._actions$.ofType(ROUTER_NAVIGATION).

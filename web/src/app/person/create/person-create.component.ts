@@ -7,10 +7,10 @@ import * as app from '../../app.store';
 import {
   Utils,
   Person,
-  PersonCreateAction,
+  CreatePersonAction,
   ContextButton,
   SetContextButtonsAction,
-  PersonCalcGeoAction,
+  CalcPersonGeoAction,
   SetTitleAction,
   CalcGeoCodePayload
 } from 'mh-core';
@@ -45,7 +45,7 @@ export class PersonCreateComponent implements OnDestroy {
   }
 
   savePerson(person: Person): void {
-    this._store.dispatch(new PersonCreateAction(person));
+    this._store.dispatch(new CreatePersonAction(person));
     // Cannot calculate here as we need the uid for the update action underneath
     // we hide the right part of the form in create mode (for now)
     // this._calcGeoCodes(person);
@@ -62,7 +62,7 @@ export class PersonCreateComponent implements OnDestroy {
         person: person,
         apiKey: this.googleApiKey
       };
-      this._store.dispatch(new PersonCalcGeoAction(gcPayload));
+      this._store.dispatch(new CalcPersonGeoAction(gcPayload));
     }
   }
 

@@ -1,41 +1,92 @@
 <mat-toolbar>
-    <h3 fxFlex i18n>Family members</h3>
-    <button mat-button i18n>
-        <mat-icon>add_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
+    <h3 fxFlex><ng-container i18n>Members for</ng-container>:
+        <small *ngIf="!person.family?.id" fxFlex>no family selected</small>
+        <small *ngIf="person.family?.id" fxFlex>{{person.family.name}}</small>
+    </h3>
+    <button mat-button
+            *ngIf="!person.family?.id"
+            (click)="addFamily = !addFamily; addMember = false"
+            i18n>
+        <mat-icon *ngIf="!addFamily">add_circle_outline</mat-icon>
+        <mat-icon *ngIf="addFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
+    </button>
+    <button mat-button
+            *ngIf="person.family?.id"
+            (click)="addMember = !addMember; addFamily = false" i18n>
+        <mat-icon *ngIf="!addMember">add_circle_outline</mat-icon>
+        <mat-icon *ngIf="addMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
     </button>
 </mat-toolbar>
-<div fxLayout="row" fxLayoutWrap fxLayoutGap="15px" class="container">
-    <mat-card *ngFor="let member of family; let i = index" [class.suggestion-box]="member.isSuggestion">
-        <div *ngIf="member.isSuggestion" class="suggestion-label"><small>Suggesstion</small></div>
-        <mat-card-title-group>
-            <mat-card-title>
-                <a [routerLink]="['/person/view', member.person.uid]" *ngIf="member.person.uid !== person?.uid">
-                    {{member.person.fullName}}
-                </a>
-                <span *ngIf="member.person.uid === person?.uid">{{member.person.fullName}}</span>
-            </mat-card-title>
-            <mat-card-subtitle fxLayout="column">
-                <span matLine>{{member.person.age}} <small i18n>years</small></span>
-                <span matLine><a href="tel:{{member.person.phoneMobile}}">{{member.person.phoneMobile}}</a></span>
-            </mat-card-subtitle>
-            <img matCardAvatar src="{{member.person.avatar}}" alt="{{member.person.fullName}}" />
-        </mat-card-title-group>
-        <mat-card-content>
-            <mat-select [(ngModel)]="member.person.familyRole">
-                <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+<mat-card class="quick-panel" *ngIf="addMember">
+    <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
+        <mat-form-field fxFlex="50">
+            <mat-select class="option-select"
+                        placeholder="Select members"
+                        multiple
+                        i18n-placeholder>
+                <mat-optgroup label="Suggestions" *ngIf="suggestedMembers.length > 0">
+                    <mat-option *ngFor="let member of suggestedMembers" [value]="member.uid">
+                        {{member.fullName}}
+                    </mat-option>
+                </mat-optgroup>
+                <mat-optgroup label="People" i18n-label>
+                    <mat-option *ngFor="let person of people" [value]="person.uid">
+                        {{person.fullName}}
+                    </mat-option>
+                </mat-optgroup>
             </mat-select>
-        </mat-card-content>
-        <mat-card-actions fxLayoutAlign="end center">
-            <button mat-button *ngIf="member.isSuggestion" (click)="accept(member)">
-                <mat-icon>check</mat-icon> <ng-container i18n>ACCEPT</ng-container>
-            </button>
-            <button mat-button *ngIf="member.isSuggestion" (click)="ignore(member)">
-                <mat-icon>clear</mat-icon> <ng-container i18n>IGNORE</ng-container>
-            </button>
-            <button mat-button color="warn" *ngIf="!member.isSuggestion" (click)="remove(member)">
-                <mat-icon>clear</mat-icon> <ng-container i18n>REMOVE</ng-container>
-            </button>
-        </mat-card-actions>
-    </mat-card>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+            <mat-select class="option-select"
+                        placeholder="Select role"
+                        i18n-placeholder>
+                <mat-option *ngFor="let item of relations" [value]="item">
+                    {{item}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div>
+        <button mat-button (click)="addMember = false"><mat-icon>close</mat-icon>
+            <ng-container i18n>CLOSE</ng-container></button>
+        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+    </div>
+</mat-card>
+<mat-card class="quick-panel" *ngIf="addFamily">
+    <h4>Add to family</h4>
+    <div>
+        <mat-form-field>
+            <mat-select>
+                <mat-option *ngFor="let family of families" [value]="family.id">{{family.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <h4>Create new family</h4>
+    <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
+        <mat-form-field fxFlex="50">
+            <input matInput placeholder="Family Name">
+        </mat-form-field>
+        <div fxFlex>
+            <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
+    </div>
+</mat-card>
+<div class="container">
+    <span *ngIf="!person.family?.id">
+        <button mat-raised-button
+                *ngIf="!person.family?.id"
+                (click)="addFamily = !addFamily; addMember = false"
+                i18n>SELECT or ADD
+        </button> <ng-container i18n>a family</ng-container></span>
+    <div *ngIf="person.family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
+        <mh-family-tile *ngFor="let member of family; let i = index"
+                        [person]="person"
+                        [member]="member"
+                        (ignoreMember)="ignore($event)"
+                        (removeMember)="remove($event)"
+                        (acceptMember)="accept($event)"
+                        (setRole)="setRole($event)"></mh-family-tile>
+    </div>
 </div>
-<pre>{{person | json}}</pre>

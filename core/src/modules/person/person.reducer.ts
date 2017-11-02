@@ -1,4 +1,4 @@
-import { Response } from '@angular/http';
+import { HttpErrorResponse } from '@angular/common/http';
 import { createSelector } from '@ngrx/store';
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload } from './person.model';
@@ -70,6 +70,27 @@ export function personReducer(state: PersonState = initialPersonState,
             };
         }
 
+        case actions.UPDATE_PERSON_FAMILY_SUCCESS: {
+            // TODO: design this better so we don't need this replicated method
+            // from 'UPDATE_PERSON_SUCCESS'
+            // the reason why we need it is because of personId,
+            // where we update a different person than selected
+            const person: Person = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully updated ' + person.fullName
+            };
+            return {
+                loaded: true,
+                loading: false,
+                message: message,
+                people: state.people.map((p: Person) => {
+                    return p.uid === person.uid ? Object.assign({}, p, person) : p;
+                }),
+                personId: state.personId
+            };
+        }
+
         case actions.DELETE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             const message: common.Message = {
@@ -88,11 +109,12 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.LIST_PEOPLE_FAILURE:
         case actions.CREATE_PERSON_FAILURE:
         case actions.UPDATE_PERSON_FAILURE:
+        case actions.UPDATE_PERSON_FAMILY_FAILURE:
         case actions.DELETE_PERSON_FAILURE: {
-            const res: Response = action.payload;
+            const res: HttpErrorResponse = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
-                text: '' // Utils.responseErrors(res)
+                text: res.message
             };
             return Object.assign({}, state, {
                 loading: false,

@@ -1,6 +1,6 @@
 {
-    "name": "digitaldeacon/memberhive-server",
-    "description": "The Memberhive Server",
+    "name": "digitaldeacon/memberhive2",
+    "description": "The MemberHive Server",
     "keywords": ["yii2"],
     "homepage": "http://www.memberhive.com/",
     "type": "project",
@@ -46,6 +46,9 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
+        },
+        "asset-installer-paths": {
+            "bower-asset-library": "vendor/bower"
         }
     },"autoload": {
         "files": [

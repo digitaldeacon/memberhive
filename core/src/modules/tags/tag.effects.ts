@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/startWith';
@@ -30,6 +30,6 @@ export class TagEffects {
         .switchMap((data: any) => {
             return this._http.get('tag/list')
                 .map((r: Tag[]) => new actions.ListTagsSuccessAction(r))
-                .catch((r: Response) => of(new actions.ListTagsFailureAction(r)));
+                .catch((r: HttpResponse<any>) => of(new actions.ListTagsFailureAction(r)));
         });
 }

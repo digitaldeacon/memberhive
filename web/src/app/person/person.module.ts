@@ -29,6 +29,7 @@ import { PersonRoutingModule } from './person-routing.module';
 
 import { ShoutService } from '../common/shout.service';
 import { FamilyComponent } from './components/family/family.component';
+import { FamilyTileComponent } from './components/family/family-tile.component';
 
 const NG_MODULES: Type<any>[] = [
     CommonModule,
@@ -58,7 +59,8 @@ const MH_COMPONENTS: Type<any>[] = [
     PersonRelationsDialogComponent,
     AvatarEditDialogComponent,
     MapDialogComponent,
-    FamilyComponent
+    FamilyComponent,
+    FamilyTileComponent
 ];
 
 @NgModule({

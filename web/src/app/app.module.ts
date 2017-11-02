@@ -98,6 +98,7 @@ export class AppModule {
                 .toPromise()
                 .then((config: AppConfig) => {
                     this._auth.client = config.token;
+                    console.log(this._auth);
                 });
         }
     }

@@ -14,12 +14,14 @@ import * as person from 'mh-core';
 import * as settings from 'mh-core';
 import * as auth from 'mh-core';
 import * as tags from 'mh-core';
+import * as family from 'mh-core';
 
 export interface AppState {
     interaction: interaction.InteractionState;
     person: person.PersonState;
     settings: settings.SettingsState;
     tags: tags.TagState;
+    family: family.FamilyState;
     auth: auth.AuthState;
     router: RouterReducerState;
 }
@@ -29,6 +31,7 @@ export const reducers: ActionReducerMap<AppState> = {
     person: person.personReducer,
     settings: settings.settingsReducer,
     tags: tags.tagReducer,
+    family: family.familyReducer,
     auth: auth.authReducer,
     router: routerReducer
 };
@@ -95,6 +98,11 @@ export const getInteractionsPerson: any = createSelector(getInteractions, getSel
  */
 export const getTagState: any = (state: AppState) => state.tags;
 export const getTags: any = createSelector(getTagState, tags.tags);
+/**
+ * Family Reducers
+ */
+export const getFamilyState: any = (state: AppState) => state.family;
+export const getFamilies: any = createSelector(getFamilyState, family.families);
 /**
  * Loading  Reducers
  */

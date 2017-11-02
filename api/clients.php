@@ -10,7 +10,7 @@ function getClient()
     $config = getConfig();
     $host = explode(':', $_SERVER['HTTP_HOST'])[0];
     $host = empty($host) ? 'localhost' : $host;
-    $headers = getallheaders();
+    $headers = APP_MODE == 'api' ? getallheaders() : [];
 
     if (isset($headers['Client'])) {
         if(!isset($config[$host])) {

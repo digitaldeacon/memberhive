@@ -1,7 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
 
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 import { Tag, Tags } from './tag.model';
 import * as actions from './tag.actions';
 import * as common from '../../common/common.model';
@@ -34,10 +34,10 @@ export function tagReducer(state: TagState = initialState,
 
         case actions.UPDATE_TAGS_FAILURE:
         case actions.LIST_TAGS_FAILURE: {
-            const res: Response = action.payload;
+            const res: HttpResponse<any> = action.payload;
             const message: common.Message = {
                 type: common.MESSAGE_FAILURE,
-                text: Utils.responseErrors(res)
+                text: res.statusText
             };
             return Object.assign({}, state, {
                 loading: false,

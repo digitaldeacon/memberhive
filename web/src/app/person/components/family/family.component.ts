@@ -1,17 +1,12 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { Person } from 'mh-core';
-
-interface Member {
-    person: Person;
-    isSuggestion?: boolean;
-}
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Person, Family, Member } from 'mh-core';
 
 @Component({
   selector: 'mh-person-family',
   templateUrl: './family.component.html',
   styleUrls: ['./family.component.scss']
 })
-export class FamilyComponent implements OnInit {
+export class FamilyComponent {
 
     private _person: Person;
 
@@ -21,46 +16,82 @@ export class FamilyComponent implements OnInit {
         'aunt', 'grandmother', 'grandfather'
     ];
 
+    @Input() people: Person[];
+    @Input() families: Family[];
     @Input()
     set person(person: Person) {
         if (person) {
+            const prvuid: string = !this._person ? '' : this._person.uid;
             this._person = person;
-            this.initFamily();
+            this.buildSuggestions();
+            if (prvuid != person.uid) {
+                this.initFamily();
+            }
         }
     }
     get person(): Person { return this._person; }
 
+    @Output() updateFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
+
     family: Member[] = [];
+    familyId: number;
     names: any[] = [];
+    suggestedMembers: Person[] = [];
 
-    constructor() { }
-
-    ngOnInit(): void {
-    }
+    addMember: boolean = false;
+    addFamily: boolean = false;
 
     initFamily(): void {
-        this.family = [{person: {}}];
-        // TODO: fetch associated members from store
-        this.names = [
-            {name: 'Tim ' + this.person.lastName, gender: 'm'},
-            {name: 'Anna ' + this.person.lastName, gender: 'f'},
-            {name: 'Nastia ' + this.person.lastName, gender: 'f'},
-            {name: 'Thomas ' + this.person.lastName, gender: 'm'}
-        ];
-        this.family.push({person: this.person});
-        for (let name of this.names) {
-            const randNum: number = Math.floor(Math.random() * (100000000000 - 115127539307 + 1)) + 115127539307;
-            let suggested: boolean = name.gender === 'f';
-            let p: Person = {
-                uid: randNum.toString(),
-                fullName: name.name,
-                gender: name.gender,
-                phoneMobile: randNum.toString(),
-                age: Math.floor(Math.random() * (60 - 20 + 1)) + 20,
-                avatar: 'assets/images/avatar/' + name.gender + '.png'
+        this.family = [];
+        if (this.people && 'members' in this.person.family) {
+            this.familyId = this.person.family.id;
+            const m: Member = {
+                person: this.person,
+                isSuggestion: false
             };
-            this.family.push({person: p, isSuggestion: suggested});
+            this.family.push(m);
+            this.people
+                .filter((p: Person) => this.person.family.members.indexOf(p.uid) > -1)
+                .map((person: Person) => {
+                    if ('unrelated' in this.person.family &&
+                        this.person.family.unrelated &&
+                        this.person.family.unrelated.indexOf(person.uid) > -1) {
+                        return;
+                    }
+                    if (person.uid !== this.person.uid) {
+                        const m: Member = {
+                            person: person,
+                            isSuggestion: false
+                        };
+                        this.family.push(m);
+                    }
+                });
         }
+        this.suggestedMembers.map((person: Person) => {
+            if (person.maritalStatus === 'married') {
+                person.family.role = this.person.gender === 'f' ? 'husband' : 'wife';
+            } else {
+                person.family.role = 'child';
+            }
+            const m: Member = {
+                person: person,
+                isSuggestion: true
+            };
+            this.family.push(m);
+        });
+    }
+
+    buildSuggestions(): void {
+        this.suggestedMembers = this.people
+            .filter((person: Person) => {
+                if ('unrelated' in this.person.family &&
+                    this.person.family.unrelated &&
+                    this.person.family.unrelated.indexOf(person.uid) > -1) {
+                    return false;
+                }
+                return (person.lastName === this.person.lastName) &&
+                    (person.uid !== this.person.uid)
+        });
     }
 
     accept(m: Member): void {
@@ -70,14 +101,32 @@ export class FamilyComponent implements OnInit {
     }
 
     ignore(m: Member): void {
-        // TODO: remove from array, update field 'unrelatedMembers'
-        // console.log('Ignore', m);
-        this.family = this.family.filter((member: Member) => member.person.uid !== m.person.uid);
+        let family: Family;
+        this.family = this.family
+            .filter((member: Member) => member.person.uid !== m.person.uid);
+        family = {
+            id: this.familyId,
+            selected: this.person.uid,
+            unrelated: 'unrealted' in this.person.family
+                ? [...this.person.family.unrelated, m.person.uid] : [m.person.uid]
+        };
+        this.updateFamily.emit(family);
     }
 
     remove(m: Member): void {
-        // TODO: remove from array, remove from store/db, update field 'unrelatedMembers'
-        // console.log('Remove', m);
+        let family: Family;
+        let mem: string[];
+        this.family = this.family.filter((member: Member) => member.person.uid !== m.person.uid);
+        family = {
+            id: this.familyId,
+            selected: m.person.uid,
+            members: this.family.map((m: Member) => m.person.uid)
+        };
+        this.updateFamily.emit(family);
+    }
+
+    setRole($event: Family): void {
+        this.updateFamily.emit($event);
     }
 
 }

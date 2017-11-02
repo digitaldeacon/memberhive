@@ -1,5 +1,5 @@
 import { isEmpty } from 'lodash';
-import { Response } from '@angular/http';
+import { HttpResponse } from '@angular/common/http';
 
 export class Utils {
     static objEmptyProperties(o: any, part: string, search: string[] | string = ''): boolean {
@@ -27,15 +27,10 @@ export class Utils {
      * @returns {string}
      * @deprecated
      */
-    static responseErrors(r: Response): string {
+    static responseErrors(r: HttpResponse<any>): string {
         // TODO: deprecate for an error interceptor (see: https://github.com/digitaldeacon/memberhive2/issues/158)
-        const rBody: any = JSON.parse( (r instanceof Response) ? r.text() : r);
-        const messages: any = JSON.parse(rBody.message);
         let m = '';
-        for (let key of Object.keys(messages)) {
-            m += messages[key];
-        }
-        return '';
+        return m;
     }
 
     static arrayDiffObj(s: any[], v: any[], key: string) {

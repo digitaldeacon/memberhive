@@ -1,5 +1,6 @@
 <?php
 define('API_BASE', dirname(__FILE__));
+define('APP_MODE', 'api');
 
 if (!file_exists(__DIR__ . '/config/debug.php')) {
     define('YII_DEBUG', false);
@@ -15,7 +16,6 @@ require(__DIR__ . '/vendor/autoload.php');
 require(__DIR__ . '/vendor/yiisoft/yii2/Yii.php');
 
 if (YII_DEBUG === true) {
-
     function stacktrace_error_handler($errno, $message, $file, $line, $context)
     {
         if ($errno === E_WARNING) {
@@ -24,7 +24,6 @@ if (YII_DEBUG === true) {
         return false; // to execute the regular error handler
     }
     set_error_handler('stacktrace_error_handler');
-
 }
 
 $config = require(__DIR__ . '/config/web.php');

@@ -31,7 +31,7 @@
     "@ngrx/store": "github:ngrx/store-builds",
     "ionic-angular": "^3.0.0",
     "ionicons": "^3.0.0",
-    "rxjs": "^5.4.2",
+    "rxjs": "^5.5.0",
     "sw-toolbox": "^3.6.0",
     "zone.js": "^0.8.10"
   },
