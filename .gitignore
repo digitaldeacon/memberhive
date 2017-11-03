@@ -18,7 +18,7 @@ api/config/mail_local.php
 api/config/secrets.php
 api/config/db_local.php
 api/clients.json
-
+api/assetsp
 
 # core
 core/typings/
