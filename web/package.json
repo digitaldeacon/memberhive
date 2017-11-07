@@ -36,7 +36,7 @@
     "@angular/common": "^5.0.0",
     "@angular/compiler": "^5.0.0",
     "@angular/core": "^5.0.0",
-    "@angular/flex-layout": "~2.0.0-beta.10",
+    "@angular/flex-layout": "2.0.0-beta.10-4905443",
     "@angular/forms": "^5.0.0",
     "@angular/http": "^5.0.0",
     "@angular/material": "angular/material2-builds",
@@ -94,7 +94,7 @@
     "protractor": "~5.2.0",
     "ts-node": "^3.0.0",
     "tslint": "^5.2.0",
-    "typescript": "^2.4.1",
+    "typescript": "~2.4.2",
     "yarn-run-all": "^3.1.1"
   }
 }
