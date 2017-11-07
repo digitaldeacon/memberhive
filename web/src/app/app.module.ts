@@ -4,7 +4,6 @@ import { BrowserModule }  from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
-import { HttpModule } from '@angular/http';
 import {
     DateAdapter,
     MatSidenavModule, MatProgressBarModule
@@ -26,7 +25,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { AuthService, AuthErrorHandler } from 'mh-core';
+import { AuthService } from 'mh-core';
 
 import {
     MhCoreModule,
@@ -51,10 +50,9 @@ export interface AppConfig {
         ToolbarInteractionsComponent
     ],
     imports: [
-        BrowserModule,
         BrowserAnimationsModule,
+        BrowserModule,
         HttpClientModule,
-        HttpModule,
         AppRoutingModule,
         MhCoreModule.forRoot(),
 

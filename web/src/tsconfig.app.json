@@ -3,15 +3,7 @@
   "compilerOptions": {
     "outDir": "../out-tsc/mh-app",
     "module": "es2015",
-    "baseUrl": "./",
-    "paths": {
-      "@angular/common": ["../node_modules/@angular/common"],
-      "@angular/compiler": ["../node_modules/@angular/compiler"],
-      "@angular/compiler-cli": ["../node_modules/@angular/compiler-cli"],
-      "@angular/core": ["../node_modules/@angular/core"],
-      "@angular/http": ["../node_modules/@angular/http"],
-      "@angular/router": ["../node_modules/@angular/router"]
-    }
+    "baseUrl": "./"
   },
   "exclude": [
     "test.ts",
