@@ -3,6 +3,7 @@ dist/
 tmp/
 trash/
 _core/
+__core/
 
 *.log
 *.tgz
