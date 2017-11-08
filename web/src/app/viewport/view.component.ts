@@ -93,6 +93,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
 
     drawerVisible: boolean = true;
     drawerState: string = 'open';
+    headerPaddingClass: string = '';
 
     constructor(private _authSrv: AuthService,
                 private _router: Router,
@@ -161,11 +162,12 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         this.toggleDrawer('close');
     }
 
-    toggleDrawer(status: string = 'close'): void {
+    toggleDrawer(status: string = 'open'): void {
         let size: number;
         this.drawerState = status;
         size = status === 'open' ? 220 : 75;
         setTimeout(() => {
+            this.headerPaddingClass = 'p-' + size.toString();
             this._sidenav.open();
             this._cd.detectChanges();
         }, 0);

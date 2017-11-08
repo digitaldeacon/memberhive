@@ -1,12 +1,16 @@
 <mat-toolbar *ngIf="!inCreateMode()">
-    <h3 fxFlex>Edit <small>{{person.fullName}}</small></h3>
-    <button mat-button i18n><mat-icon>check_circle</mat-icon> SAVE NOW</button>
+    <h3 fxFlex><ng-container i18n>Edit</ng-container> <small>{{person.fullName}}</small></h3>
+    <button mat-button i18n>
+        <mat-icon>check_circle</mat-icon>
+        <ng-container i18n>SAVE NOW</ng-container>
+    </button>
 </mat-toolbar>
 <form class="person-form"
       #personEditForm="ngForm"
       [formGroup]="form"
       (ngSubmit)="save(form.value)"
       (keyup)="onKey($event)"
+      fxLayout="column"
       novalidate>
 
     <fieldset fxFlex="100">
