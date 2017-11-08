@@ -1,5 +1,5 @@
 <mat-toolbar>
-    <h3 fxFlex><ng-container i18n>Members for</ng-container>:
+    <h3 fxFlex><ng-container i18n>Members for</ng-container>: &nbsp;
         <small *ngIf="!person.family?.id" fxFlex>no family selected</small>
         <small *ngIf="person.family?.id" fxFlex>{{person.family.name}}</small>
     </h3>
@@ -74,12 +74,12 @@
     </div>
 </mat-card>
 <div class="container">
-    <span *ngIf="!person.family?.id">
+    <span *ngIf="!person.family?.id" fxLayoutAlign="center center">
         <button mat-raised-button
                 *ngIf="!person.family?.id"
                 (click)="addFamily = !addFamily; addMember = false"
                 i18n>SELECT or ADD
-        </button> <ng-container i18n>a family</ng-container></span>
+        </button> &nbsp; <b i18n>a family</b></span>
     <div *ngIf="person.family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
         <mh-family-tile *ngFor="let member of family; let i = index"
                         [person]="person"

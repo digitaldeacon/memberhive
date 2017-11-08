@@ -27,7 +27,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { TagsComponent } from './components/tags/tags.component';
+import { MhTagsComponent } from './components/tags/tags.component';
 
 const MATERIAL_MODULES: any[] = [
     MatButtonModule, MatCardModule, MatIconModule, MatDialogModule,
@@ -44,7 +44,7 @@ const MATERIAL_MODULES: any[] = [
         ConfirmDialogComponent,
         MhFadeDirective,
         MhToggleDirective,
-        TagsComponent
+        MhTagsComponent
     ], // directives, components, and pipes owned by this NgModule
     imports: [
         MATERIAL_MODULES,
@@ -64,7 +64,7 @@ const MATERIAL_MODULES: any[] = [
         NotifyboxComponent,
         FilterComponent,
         ConfirmDialogComponent,
-        TagsComponent,
+        MhTagsComponent,
         MATERIAL_MODULES,
         FlexLayoutModule,
         AgmCoreModule

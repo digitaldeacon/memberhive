@@ -1,11 +1,11 @@
-<div class="login-container" fxLayout="row" fxLayoutAlign="center center">
+<div class="login-container" fxLayoutAlign="center center">
     <div class="login-content">
         <mat-progress-bar
                 mode="indeterminate"
                 color="accent"
                 *ngIf="loading$ | async"></mat-progress-bar>
         <i class="loading-holder" *ngIf="!(loading$ | async)"></i>
-        <mat-card>
+        <mat-card fxLayout="column">
             <div class="logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
@@ -54,11 +54,12 @@
                                (keyup)="onKey($event)">
                     </mat-form-field>
 
-                    <div>
+                    <div fxLayout="row">
                         <button mat-raised-button
                                 color="primary"
                                 type="submit"
                                 [disabled]="form.invalid"
+                                fxFlex
                                 i18n>LOGIN</button>
                     </div>
 
