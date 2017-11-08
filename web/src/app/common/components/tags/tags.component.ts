@@ -17,7 +17,7 @@ export interface Tag {
 }
 
 export function arrayDiffObj(s: any[], v: any[], key: string): any[] {
-    let reducedIds = !v ? [] : v.map((o: any) => o[key]);
+    const reducedIds = !v ? [] : v.map((o: any) => o[key]);
     return !s ? [] : s.filter((obj: any) => reducedIds.indexOf(obj[key]) === -1);
 }
 

@@ -16,7 +16,7 @@ export class ShoutService {
     constructor(private _snackBar: MatSnackBar) {}
 
     out(message: string, type?: string): MatSnackBarRef<SimpleSnackBar> {
-        let config: MatSnackBarConfig = new MatSnackBarConfig();
+        const config: MatSnackBarConfig = new MatSnackBarConfig();
         config.duration = this.autoHide;
         if (type) {
             config.extraClasses = ['shout-' + type];

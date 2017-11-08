@@ -91,7 +91,7 @@ export class InteractionListComponent implements OnInit {
 
     saveQuickNote(): void {
         if (this.qnForm.valid) {
-            let qnote: Interaction = {
+            const qnote: Interaction = {
                 type: 'note',
                 text: this.qnForm.get('quickNoteText').value,
                 author: {id: this.authorId},

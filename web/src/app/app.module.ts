@@ -1,6 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { BrowserModule }  from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
@@ -12,7 +12,7 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
-import { AppRoutingModule }   from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { MHCommonModule } from './common/common.module';
 import { SearchModule } from './search/search.module';
 import { InteractionModule } from './interaction/interaction.module';
