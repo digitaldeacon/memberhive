@@ -1,15 +1,5 @@
 <div class="layout-fixed" fullscreen>
-    <mat-toolbar color="primary" class="header">
-
-        <button mat-icon-button
-                (click)="sidenav.open()"
-                class="burger"
-                fxHide
-                fxShow.xs
-                fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
-
-        <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
-        <span fxHide.xs class="p-r-30">{{churchName}}</span>
+    <mat-toolbar class="header" [ngClass]="[headerPaddingClass]" color="primary">
 
         <mh-search-box fxFlex></mh-search-box>
 
@@ -26,12 +16,30 @@
                 <span i18n>Logout</span>
             </button>
         </mat-menu>
-
+    </mat-toolbar>
+    <mat-toolbar [ngClass]="[headerPaddingClass]">
+        <span fxFlex>{{title$ | async}}</span>
+        <button mat-icon-button *ngFor="let button of contextButtons$ | async"
+                [routerLink]="[button.link]"
+                matTooltip="{{button.title}}">
+            <mat-icon>{{button.icon}}</mat-icon>
+        </button>
     </mat-toolbar>
     <mat-sidenav-container #sidenavContainer>
         <mat-sidenav #sidenav mode="side"
-                     fixedInViewport="true" fixedTopGap="64" fixedBottomGap="0"
+                     fixedInViewport="true" fixedTopGap="0" fixedBottomGap="0"
                      fxFlex="220px" class="drawer-menu">
+            <mat-toolbar color="primary">
+                <button mat-icon-button
+                        (click)="sidenav.open()"
+                        class="burger"
+                        fxHide
+                        fxShow.xs
+                        fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
+
+                <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
+                <span fxHide.xs class="p-r-30">{{churchName}}</span>
+            </mat-toolbar>
             <mat-nav-list>
                 <a *ngFor="let item of routes"
                    mat-list-item
@@ -51,17 +59,8 @@
             </mat-nav-list>
         </mat-sidenav>
 
-        <mat-sidenav-content>
+        <mat-sidenav-content fxFlex>
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
-
-            <mat-toolbar>
-                <span fxFlex>{{title$ | async}}</span>
-                <button mat-icon-button *ngFor="let button of contextButtons$ | async"
-                        [routerLink]="[button.link]"
-                        matTooltip="{{button.title}}">
-                    <mat-icon>{{button.icon}}</mat-icon>
-                </button>
-            </mat-toolbar>
             <main>
                 <button mat-button (click)="sidenav.toggle()">Toggle Start Side Sidenav</button>
                 <router-outlet></router-outlet>

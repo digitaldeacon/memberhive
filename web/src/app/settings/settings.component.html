@@ -7,56 +7,58 @@
         <mat-accordion formGroupName="system">
             <mat-expansion-panel #sysToolbar [hideToggle]="hideToggle">
                 <mat-expansion-panel-header i18n>Church Details</mat-expansion-panel-header>
-                <div fxLayout="row">
-                    <mat-form-field fxFlex>
-                        <input matInput
-                               fxFlex
-                               type="text"
-                               placeholder="Name of Church"
-                               i18n-placeholder
-                               formControlName="churchName">
-                    </mat-form-field>
-                </div>
-                <div formGroupName="churchAddress" fxFlex>
+                <div fxLayout="column">
                     <div fxLayout="row">
                         <mat-form-field fxFlex>
                             <input matInput
+                                   fxFlex
                                    type="text"
-                                   formControlName="street"
-                                   placeholder="Street"
-                                   i18n-placeholder>
+                                   placeholder="Name of Church"
+                                   i18n-placeholder
+                                   formControlName="churchName">
                         </mat-form-field>
                     </div>
-                    <div fxLayout="row">
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="zip"
-                                   placeholder="Postal Code"
-                                   i18n-placeholder>
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="city"
-                                   placeholder="City"
-                                   i18n-placeholder>
-                        </mat-form-field>
-                        <div formGroupName="geocode" fxLayout="row">
+                    <div formGroupName="churchAddress" fxFlex>
+                        <div fxLayout="row">
+                            <mat-form-field fxFlex>
+                                <input matInput
+                                       type="text"
+                                       formControlName="street"
+                                       placeholder="Street"
+                                       i18n-placeholder>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row">
                             <mat-form-field>
                                 <input matInput
                                        type="text"
-                                       formControlName="lat"
-                                       placeholder="Latitude"
+                                       formControlName="zip"
+                                       placeholder="Postal Code"
                                        i18n-placeholder>
                             </mat-form-field>
                             <mat-form-field>
                                 <input matInput
                                        type="text"
-                                       formControlName="lng"
-                                       placeholder="Longitude"
+                                       formControlName="city"
+                                       placeholder="City"
                                        i18n-placeholder>
                             </mat-form-field>
+                            <div formGroupName="geocode" fxLayout="row">
+                                <mat-form-field>
+                                    <input matInput
+                                           type="text"
+                                           formControlName="lat"
+                                           placeholder="Latitude"
+                                           i18n-placeholder>
+                                </mat-form-field>
+                                <mat-form-field>
+                                    <input matInput
+                                           type="text"
+                                           formControlName="lng"
+                                           placeholder="Longitude"
+                                           i18n-placeholder>
+                                </mat-form-field>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -98,35 +100,37 @@
                     #personPanelList
                     [hideToggle]="hideToggle">
                 <mat-expansion-panel-header i18n>Marital Status</mat-expansion-panel-header>
-                <mat-form-field fxFlex>
-                    <input matInput
-                           fxFlex
-                           type="text"
-                           placeholder="Add Status"
-                           i18n-placeholder
-                           #newMaritalStatus>
-                </mat-form-field>
-                <button mat-icon-button (click)="addMaritalStatus(newMaritalStatus)">
-                    <mat-icon>add_circle_outline</mat-icon>
-                </button>
-                <fieldset formArrayName="maritalStatus">
-                    <legend i18n>Available</legend>
-                    <div *ngFor="let status of maritalStatus?.controls; let i=index"
-                         [formGroupName]="i">
-                        <mat-icon class="handle">drag_handle</mat-icon>
-                        <mat-form-field fxFlex>
+                <div fxLayout="column">
+                    <div fxLayout="row">
+                        <mat-form-field>
                             <input matInput
-                                   fxFlex
                                    type="text"
-                                   placeholder="Status"
+                                   placeholder="Add Status"
                                    i18n-placeholder
-                                   formControlName="status">
+                                   #newMaritalStatus>
                         </mat-form-field>
-                        <button mat-icon-button (click)="removeMaritalStatus(i)">
-                            <mat-icon>delete</mat-icon>
+                        <button mat-icon-button (click)="addMaritalStatus(newMaritalStatus)">
+                            <mat-icon>add_circle_outline</mat-icon>
                         </button>
                     </div>
-                </fieldset>
+                    <fieldset formArrayName="maritalStatus">
+                        <legend i18n>Available</legend>
+                        <div *ngFor="let status of maritalStatus?.controls; let i=index"
+                             [formGroupName]="i">
+                            <mat-icon class="handle">drag_handle</mat-icon>
+                            <mat-form-field>
+                                <input matInput
+                                       type="text"
+                                       placeholder="Status"
+                                       i18n-placeholder
+                                       formControlName="status">
+                            </mat-form-field>
+                            <button mat-icon-button (click)="removeMaritalStatus(i)">
+                                <mat-icon>delete</mat-icon>
+                            </button>
+                        </div>
+                    </fieldset>
+                </div>
             </mat-expansion-panel>
         </mat-accordion>
     </form>

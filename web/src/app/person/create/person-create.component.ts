@@ -14,6 +14,7 @@ import {
   SetTitleAction,
   CalcGeoCodePayload
 } from 'mh-core';
+import {Tag} from "../../../../../core/dist";
 
 @Component({
   selector: 'mh-person-create',
@@ -26,10 +27,13 @@ export class PersonCreateComponent implements OnDestroy {
   settings$: Observable<any>;
   googleApiKey: string;
   people: Person[];
+  tags$: Observable<Tag[]>;
 
   constructor(private _store: Store<app.AppState>,
               private _router: Router) {
     this.settings$ = this._store.select(app.getPeopleSettings);
+    // Selects the tags by fragment param
+    this.tags$ = this._store.select(app.getTags);
     this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
         .subscribe((key: string) => this.googleApiKey = key);
 

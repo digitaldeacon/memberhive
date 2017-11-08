@@ -4,7 +4,7 @@
       (ngSubmit)="save(form.value, form.valid)">
 
   <mat-card>
-    <mat-card-content>
+    <mat-card-content fxLayout="column">
       <div class="mat-input-wrapper m-b-10">
         <mat-chip-list *ngIf="editMode">
           <mat-chip color="primary"><b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}}</mat-chip>
