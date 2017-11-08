@@ -199,9 +199,9 @@
   version "4.1.1"
   resolved "https://codeload.github.com/ngrx/store-devtools-builds/tar.gz/70372450005072cf7162b63c767b77267b8e3ce9"
 
-"@ngrx/store@github:ngrx/store-builds":
+"@ngrx/store@^4.1.1":
   version "4.1.1"
-  resolved "https://codeload.github.com/ngrx/store-builds/tar.gz/a9be502a89f5221656f839b75b864e0a7bd43c14"
+  resolved "https://registry.yarnpkg.com/@ngrx/store/-/store-4.1.1.tgz#680e34df2775e8852754ed777ffac95bd81b7de0"
 
 "@ngtools/json-schema@1.1.0", "@ngtools/json-schema@^1.1.0":
   version "1.1.0"
