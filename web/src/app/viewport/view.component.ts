@@ -177,7 +177,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         return this.drawerVisible ? '220px' : '75px';
     }
 
-    route(r: string, part: string = undefined): void {
+    route(r: string, part?: string): void {
         if (part) {
             this._router.navigate([r, part]);
         } else {

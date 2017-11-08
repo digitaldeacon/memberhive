@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from 'mh-core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/publishReplay';
 import { ActionLog } from './audit';
 
@@ -8,11 +8,11 @@ import { ActionLog } from './audit';
 export class AuditService {
     private _logs: Observable<ActionLog[]>;
 
-    constructor(private http: HttpService) {}
+    constructor(private _http: HttpService) {}
 
     public getLogPerson(id: string): Observable<ActionLog[]> {
         if (!this._logs) {
-            this._logs = this.http.get('action-log/list?id=' + id + '&context=person')
+            this._logs = this._http.get('action-log/list?id=' + id + '&context=person')
                 .map(this.deserializeList)
                 .publishReplay()
                 .refCount();

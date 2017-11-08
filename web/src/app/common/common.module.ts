@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Title }  from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {
     MatButtonModule, MatCardModule, MatDialogModule,
@@ -14,9 +14,6 @@ import {
 } from '@angular/material';
 
 import { GLOBALS } from '../../config/globals.config';
-
-import { MhFadeDirective } from './animations/fade/fade.directive';
-import { MhToggleDirective } from './animations/toggle/toggle.directive';
 
 import { ShoutService } from './shout.service';
 import { DialogService } from './dialog.service';
@@ -42,8 +39,6 @@ const MATERIAL_MODULES: any[] = [
         NotifyboxComponent,
         FilterComponent,
         ConfirmDialogComponent,
-        MhFadeDirective,
-        MhToggleDirective,
         MhTagsComponent
     ], // directives, components, and pipes owned by this NgModule
     imports: [
