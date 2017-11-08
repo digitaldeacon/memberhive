@@ -93,7 +93,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
 
     drawerVisible: boolean = true;
     drawerState: string = 'open';
-    headerPaddingClass = '';
+    headerPaddingClass: string = '';
 
     constructor(private _authSrv: AuthService,
                 private _router: Router,

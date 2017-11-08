@@ -16,10 +16,10 @@ export interface Tag {
     text: string;
 }
 
-export function arrayDiffObj(s: any[], v: any[], key: string) {
-    let reducedIds = !v ? [] : v.map((o) => o[key]);
+export function arrayDiffObj(s: any[], v: any[], key: string): any[] {
+    let reducedIds = !v ? [] : v.map((o: any) => o[key]);
     return !s ? [] : s.filter((obj: any) => reducedIds.indexOf(obj[key]) === -1);
-};
+}
 
 const CUSTOM_INPUT_VALIDATORS: any = {
     provide: NG_VALIDATORS,
@@ -49,7 +49,7 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
     @ViewChild(MatAutocompleteTrigger) autoTrigger: MatAutocompleteTrigger;
 
     @Input() source: Tag[] = [];
-    @Input() addNew = true;
+    @Input() addNew: boolean = true;
     @Input()
     set value(v: Tag[]) {
         this.onChange(v);
@@ -78,19 +78,19 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         };
     }
 
-    ngOnChanges(changes: SimpleChanges) {
+    ngOnChanges(changes: SimpleChanges): void {
         if (changes.source && (!this.chipInput || !this.chipInput.value)) {
             this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
         }
     }
 
-    public textChanged(text: string) {
+    textChanged(text: string): void {
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id')
             .filter((obj: Tag) => obj.text.toLowerCase().indexOf(text.toLowerCase()) === 0);
     }
 
     add(event: MatAutocompleteSelectedEvent, input: any): void {
-        this.addTag(event.option.value, input);
+        this._addTag(event.option.value, input);
     }
 
     addTextChip(input: MatInput): void {
@@ -99,23 +99,23 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
                 const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
                 const newTag: Tag = { id: newId, text: input.value };
                 this.source.push(newTag);
-                this.addTag(newTag, input);
+                this._addTag(newTag, input);
             }
         } else {
             if (this.filteredSources.length) {
-                this.addTag(this.filteredSources[0], input);
+                this._addTag(this.filteredSources[0], input);
             }
         }
     }
 
     remove(tag: Tag, input: any): void {
-        this._value = this._value.filter((i) => i !== tag);
+        this._value = this._value.filter((i: Tag) => i !== tag);
         this.value = this._value;
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
         input.focus();
     }
 
-    selectInput(event: MouseEvent, input: any) {
+    selectInput(event: MouseEvent, input: any): boolean {
         event.preventDefault();
         event.stopImmediatePropagation();
         this.textChanged(input.value);
@@ -127,9 +127,9 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         return value && typeof value === 'object' ? value.text : value;
     }
 
-    private addTag(value: Tag, input: any) {
+    private _addTag(value: Tag, input: any): void {
         if (!isNaN(Number(value))) {
-            value = this.source.find((tag) => tag.id === Number(value));
+            value = this.source.find((tag: Tag) => tag.id === Number(value));
         }
         if (!value || !value.text || this._value.indexOf(value) !== -1) {
             return;
@@ -140,5 +140,4 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
         input.focus();
     }
-
 }

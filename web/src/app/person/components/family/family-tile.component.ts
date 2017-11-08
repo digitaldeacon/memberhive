@@ -24,7 +24,6 @@ export class FamilyTileComponent {
         'aunt', 'grandmother', 'grandfather'
     ];
 
-
     accept(member: Member): void {
         this.acceptMember.emit(member);
     }
