@@ -9,7 +9,7 @@ import { defer } from 'rxjs/observable/defer';
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Action } from '@ngrx/store';
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import { ROUTER_ERROR, ROUTER_CANCEL } from '@ngrx/router-store';
 import { Observable } from 'rxjs/Observable';
 

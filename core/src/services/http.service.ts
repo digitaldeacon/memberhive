@@ -3,7 +3,7 @@ import {
     HttpClient,
     HttpHeaders
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../modules/auth/auth.service';
 
 @Injectable()
@@ -21,7 +21,7 @@ export class HttpService {
     }
 
     getRaw(url: string): Observable<any> {
-        return this._http.get(url);
+        return this._http.get<any>(url);
     }
 
     unauthenticatedPost(url: string, body: any): Observable<any> {
