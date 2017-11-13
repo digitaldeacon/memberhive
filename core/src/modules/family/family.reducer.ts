@@ -21,6 +21,7 @@ export function familyReducer(state: FamilyState = initialState,
                            action: actions.FamilyActions): FamilyState {
     switch (action.type) {
 
+        case actions.ADD_FAMILY:
         case actions.LIST_FAMILIES:
             return Object.assign({}, state, {
                 loading: true

@@ -151,6 +151,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.dispatch(new UpdatePersonFamily(family));
     }
 
+    addNewFamily(family: Family): void {
+        // this._store.dispatch(new UpdatePersonFamily(family));
+        console.log('adding family', family);
+    }
+
     openDlgRelationships(): void {
         this.dialogRef = this._dialog.open(PersonRelationsDialogComponent);
         this.dialogRef.afterClosed().subscribe((result: string) => {

@@ -30,4 +30,14 @@ export class FamilyEffects {
                 .map((r: Family[]) => new actions.ListFamiliesSuccessAction(r))
                 .catch((r: HttpErrorResponse) => of(new actions.ListFamiliesFailureAction(r)));
         });
+
+    @Effect()
+    addNewFamily = this._actions$
+        .ofType(actions.ADD_FAMILY)
+        .map((action: actions.AddNewFamilyAction) => action.payload)
+        .switchMap((data: Family) => {
+            return this._http.get('family/new')
+                .map((r: Family[]) => new actions.ListFamiliesSuccessAction(r))
+                .catch((r: HttpErrorResponse) => of(new actions.ListFamiliesFailureAction(r)));
+        });
 }
