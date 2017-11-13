@@ -1,10 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
 import { Person, Family, Member } from 'mh-core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'mh-person-family',
-  templateUrl: './family.component.html',
-  styleUrls: ['./family.component.scss']
+    selector: 'mh-person-family',
+    templateUrl: './family.component.html',
+    styleUrls: ['./family.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FamilyComponent {
 
@@ -26,6 +28,7 @@ export class FamilyComponent {
     get person(): Person { return this._person; }
 
     @Output() updateFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
+    @Output() addNewFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
 
     family: Member[] = [];
     familyId: number;
@@ -34,6 +37,12 @@ export class FamilyComponent {
 
     addMember: boolean = false;
     addFamily: boolean = false;
+
+    addForm: FormGroup;
+
+    constructor(private _fb: FormBuilder) {
+        this.addForm = this._fb.group({familyName: ['']});
+    }
 
     initFamily(): void {
         this.family = [];
@@ -86,6 +95,7 @@ export class FamilyComponent {
                 return (person.lastName === this.person.lastName) &&
                     (person.uid !== this.person.uid);
         });
+        this.addForm.get('familyName').patchValue(this.person.lastName);
     }
 
     accept(m: Member): void {
@@ -117,6 +127,14 @@ export class FamilyComponent {
             members: this.family.map((member: Member) => member.person.uid)
         };
         this.updateFamily.emit(family);
+    }
+
+    addFormSave(model?: any): void {
+        const family: Family = {
+            name: this.addForm.get('familyName').value,
+            members: [this.person.uid]
+        };
+        this.addNewFamily.emit(family);
     }
 
     setRole($event: Family): void {

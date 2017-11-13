@@ -14,7 +14,9 @@ class FamilyController extends MHController
             'rules' => [
                 [
                     'actions' => [
-                        'list'],
+                        'list',
+                        'new'
+                    ],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -29,6 +31,7 @@ class FamilyController extends MHController
     public function beforeAction($action)
     {
         $allowedActions = [
+            'new'
         ];
 
         if (in_array($action->id, $allowedActions)) {
@@ -46,6 +49,18 @@ class FamilyController extends MHController
         throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
     }
 
+    public function actionNew()
+    {
+        $post = \Yii::$app->request->post();
+        if ($post) {
+            $fam = new Family();
+            $fam->name = $post['name'];
+            if (!$fam->save()) {
+                throw new BadRequestHttpException(json_encode($fam->getFirstError()));
+            }
+        }
+    }
+
     public function actionList($id = 0)
     {
         $ret = [];
@@ -61,7 +76,7 @@ class FamilyController extends MHController
 
     /**
      * @param $id
-     * @return Tag
+     * @return Family
      */
     protected function findModel($id)
     {

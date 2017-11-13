@@ -72,7 +72,8 @@
                             [people]="people"
                             [person]="person"
                             [families]="families$ | async"
-                            (updateFamily)="updateFamily($event)"></mh-person-family>
+                            (updateFamily)="updateFamily($event)"
+                            (addNewFamily)="addNewFamily($event)"></mh-person-family>
                 </mat-tab>
                 <!--
                 TODO: Groups section
