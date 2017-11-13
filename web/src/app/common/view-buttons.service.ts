@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import { Subject } from 'rxjs/Subject';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ViewButtonsService {
@@ -12,17 +11,14 @@ export class ViewButtonsService {
 
     constructor() {
         this._buttons = <BehaviorSubject<ViewButton[]>> new BehaviorSubject([]);
-        // console.log('service cvonstructor');
         this._dataStore = { buttons: [] };
     }
 
     addButtons(buttons: ViewButton[]): void {
-        // console.log('before add', this._dataStore.buttons);
         for (let button of buttons) {
             this._dataStore.buttons.push(button);
         }
         this._buttons.next(Object.assign({}, this._dataStore).buttons);
-        // console.log('ds', this._dataStore);
     }
 
     load(): void {
@@ -31,7 +27,6 @@ export class ViewButtonsService {
     }
 
     get buttons(): Observable<ViewButton[]> {
-        // console.log('getButtons:',this._buttons);
         this._buttons.next(Object.assign({}, this._dataStore).buttons);
         return this._buttons.asObservable();
     }

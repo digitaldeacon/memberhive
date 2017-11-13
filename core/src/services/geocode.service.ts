@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Address, GeoCodes } from '../common/common.model';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 
 @Injectable()

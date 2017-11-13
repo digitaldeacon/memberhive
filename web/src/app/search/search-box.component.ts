@@ -18,28 +18,28 @@ import 'rxjs/add/operator/switchMap';
 export class SearchBoxComponent implements OnInit {
 
     private _searchVisible: boolean = false;
-    private searchTermStream: Subject<string> = new Subject<string>();
+    private _searchTermStream$: Subject<string> = new Subject<string>();
 
     itemCtrl: FormControl;
     items: Observable<string[]>;
     searchInFocus: boolean = false;
     searching: boolean = false;
 
-    constructor(private searchService: SearchService,
-                private router: Router) {
+    constructor(private _searchService: SearchService,
+                private _router: Router) {
         this.itemCtrl = new FormControl();
     }
 
     get searchVisible(): boolean { return this._searchVisible; }
 
-    search(term: string): void { this.searchTermStream.next(term); }
+    search(term: string): void { this._searchTermStream$.next(term); }
 
     ngOnInit(): void {
-        this.items = this.searchTermStream
+        this.items = this._searchTermStream$
             .debounceTime(300)
             .distinctUntilChanged()
             .do(() => this.searching = true)
-            .switchMap((term: string) => this.searchService.search(term))
+            .switchMap((term: string) => this._searchService.search(term))
             .do(() => this.searching = false);
     }
 
@@ -56,6 +56,6 @@ export class SearchBoxComponent implements OnInit {
 
     resultClicked(item: any): void {
         this.itemCtrl.reset();
-        this.router.navigate(item.url);
+        this._router.navigate(item.url);
     }
 }
