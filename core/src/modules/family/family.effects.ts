@@ -36,8 +36,8 @@ export class FamilyEffects {
         .ofType(actions.ADD_FAMILY)
         .map((action: actions.AddNewFamilyAction) => action.payload)
         .switchMap((data: Family) => {
-            return this._http.get('family/new')
-                .map((r: Family[]) => new actions.ListFamiliesSuccessAction(r))
-                .catch((r: HttpErrorResponse) => of(new actions.ListFamiliesFailureAction(r)));
+            return this._http.post('family/new', data)
+                .map((r: Family) => new actions.AddNewFamilySuccessAction(r))
+                .catch((r: HttpErrorResponse) => of(new actions.AddNewFamilyFailureAction(r)));
         });
 }

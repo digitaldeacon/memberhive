@@ -29,8 +29,20 @@ export class AddNewFamilyAction implements Action {
     constructor(public payload: Family) { }
 }
 
+export class AddNewFamilySuccessAction implements Action {
+    readonly type = ADD_FAMILY_SUCCESS;
+    constructor(public payload: Family) { }
+}
+
+export class AddNewFamilyFailureAction implements Action {
+    readonly type = ADD_FAMILY_FAILURE;
+    constructor(public payload: HttpErrorResponse) { }
+}
+
 export type FamilyActions =
     ListFamiliesAction
     | ListFamiliesSuccessAction
     | ListFamiliesFailureAction
-    | AddNewFamilyAction;
+    | AddNewFamilyAction
+    | AddNewFamilySuccessAction
+    | AddNewFamilyFailureAction;

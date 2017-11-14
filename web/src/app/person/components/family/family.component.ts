@@ -39,21 +39,23 @@ export class FamilyComponent {
     addFamily: boolean = false;
 
     addForm: FormGroup;
+    linkForm: FormGroup;
 
     constructor(private _fb: FormBuilder) {
         this.addForm = this._fb.group({familyName: ['']});
+        this.linkForm = this._fb.group({family: [undefined]});
     }
 
     initFamily(): void {
         this.family = [];
-        if (this.people && 'members' in this.person.family) {
+        if (this.people && 'id' in this.person.family) {
             this.familyId = this.person.family.id;
             const m: Member = {
                 person: this.person,
                 isSuggestion: false
             };
             this.family.push(m);
-            this.people
+            /*this.people
                 .filter((p: Person) => this.person.family.members.indexOf(p.uid) > -1)
                 .map((person: Person) => {
                     if ('unrelated' in this.person.family &&
@@ -68,7 +70,7 @@ export class FamilyComponent {
                         };
                         this.family.push(member);
                     }
-                });
+                });*/
         }
         this.suggestedMembers.map((person: Person) => {
             if (person.maritalStatus === 'married') {
@@ -87,11 +89,11 @@ export class FamilyComponent {
     buildSuggestions(): void {
         this.suggestedMembers = this.people
             .filter((person: Person) => {
-                if ('unrelated' in this.person.family &&
+                /*if ('unrelated' in this.person.family &&
                     this.person.family.unrelated &&
                     this.person.family.unrelated.indexOf(person.uid) > -1) {
                     return false;
-                }
+                }*/
                 return (person.lastName === this.person.lastName) &&
                     (person.uid !== this.person.uid);
         });
@@ -104,6 +106,19 @@ export class FamilyComponent {
         m.isSuggestion = false;
     }
 
+    link(): void {
+        let family: Family;
+        let familySelected: Family = this.linkForm.get('family').value;
+        console.log(familySelected);
+        // this.person.family = familySelected;
+        family = {
+            id: familySelected.id,
+            selected: this.person.uid,
+            members: [...familySelected.members, this.person.uid]
+        };
+        this.updateFamily.emit(family);
+    }
+
     ignore(m: Member): void {
         let family: Family;
         this.family = this.family
@@ -111,8 +126,8 @@ export class FamilyComponent {
         family = {
             id: this.familyId,
             selected: this.person.uid,
-            unrelated: 'unrealted' in this.person.family
-                ? [...this.person.family.unrelated, m.person.uid] : [m.person.uid]
+        /*unrelated: 'unrealted' in this.person.family
+                ? [...this.person.family.unrelated, m.person.uid] : [m.person.uid]*/
         };
         this.updateFamily.emit(family);
     }
@@ -129,7 +144,7 @@ export class FamilyComponent {
         this.updateFamily.emit(family);
     }
 
-    addFormSave(model?: any): void {
+    addFormSave(): void {
         const family: Family = {
             name: this.addForm.get('familyName').value,
             members: [this.person.uid]

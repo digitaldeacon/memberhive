@@ -189,7 +189,7 @@ class PersonController extends MHController
             $pfam = $fam->personFamily;
         }*/
 
-        if ($post && $pfam && $fam) {
+        if ($post) {
             if (isset($post['role'])) {
                 $pfam->role = $post['role'];
             }
@@ -199,9 +199,19 @@ class PersonController extends MHController
                     throw new BadRequestHttpException(json_encode($fam->errors));
                 }
             }
-            if (isset($post['members'])) {
-                // removes the relation of the selected person
-                PersonFamily::deleteAll(['person_id'=>$person->id]);
+            if (isset($post['members']) && isset($post['id'])) {
+                $fam = Family::findOne($post['id']);
+                foreach ($post['members'] as $uid) {
+                    $person = Person::find()
+                        ->with('family')
+                        ->where(['uid'=>$uid])
+                        ->one();
+                    if (empty($person->family)) {
+                        $fam->link('members', $person);
+                        $person->save();
+                        $fam->save();
+                    }
+                }
                 return $person->toResponseArray();
             }
             if (!$pfam->save()) {

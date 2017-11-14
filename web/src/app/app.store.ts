@@ -102,6 +102,10 @@ export const getTags: any = createSelector(getTagState, tags.tags);
  */
 export const getFamilyState: any = (state: AppState) => state.family;
 export const getFamilies: any = createSelector(getFamilyState, family.families);
+export const getFamilyPerson: any = createSelector(getFamilies, getSelectedPerson,
+    (families: any, p: any) => {
+        return 'id' in p.family ? families.filter((f: any) => f.id === p.family.id) : [];
+    });
 /**
  * Loading  Reducers
  */
