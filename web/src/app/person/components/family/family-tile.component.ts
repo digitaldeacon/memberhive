@@ -12,6 +12,7 @@ export class FamilyTileComponent {
     @Input() people: Person[];
     @Input() member: Member;
     @Input() person: Person;
+    @Input() families: Family[];
 
     @Output() setRole: EventEmitter<Family> = new EventEmitter<Family>();
     @Output() ignoreMember: EventEmitter<Member> = new EventEmitter<Member>();

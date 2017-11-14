@@ -52,31 +52,35 @@
         <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
     </div>
 </mat-card>
-<mat-card class="quick-panel" *ngIf="addFamily">
-    <h4 i18n>Add to family</h4>
-    <div>
-        <mat-form-field>
-            <mat-select>
-                <mat-option *ngFor="let family of families" [value]="family.id">{{family.name}}</mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <h4 i18n>Create new family</h4>
-    <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <form [formGroup]="addForm"
-              (ngSubmit)="addFormSave()"
-              fxLayout="column"
-              novalidate>
-            <mat-form-field fxFlex="50">
-                <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+<mat-card class="quick-panel" *ngIf="addFamily" fxLayout="row">
+    <form [formGroup]="linkForm"
+          (ngSubmit)="link()"
+          fxLayout="column"
+          novalidate>
+        <div fxLayout="column">
+            <h4 i18n>Add to family</h4>
+            <mat-form-field>
+                <mat-select formControlName="family">
+                    <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
+                </mat-select>
             </mat-form-field>
-            <div fxFlex>
-                <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
-                    <ng-container i18n>CLOSE</ng-container></button>
-                <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
-            </div>
-        </form>
-    </div>
+            <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
+    </form>
+    <form [formGroup]="addForm"
+          (ngSubmit)="addFormSave()"
+          fxLayout="column"
+          novalidate>
+        <h4 i18n>Create new family</h4>
+        <mat-form-field fxFlex="50">
+            <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+        </mat-form-field>
+        <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+            <ng-container i18n>CLOSE</ng-container></button>
+        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+    </form>
 </mat-card>
 <div class="container">
     <span *ngIf="!person.family?.id" fxLayoutAlign="center center">

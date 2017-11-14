@@ -57,7 +57,7 @@ export interface AppConfig {
         MhCoreModule.forRoot(),
 
         StoreModule.forRoot(reducers),
-        // !environment.prod ? StoreDevtoolsModule.instrument() : [],
+        // !environment.production ? StoreDevtoolsModule.instrument() : [],
         StoreRouterConnectingModule,
 
         EffectsModule.forRoot([

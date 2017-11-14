@@ -15,7 +15,8 @@ import {
     DeletePersonAction, SetTitleAction,
     ContextButton, SetContextButtonsAction,
     CalcPersonGeoAction, DeleteInteractionAction,
-    AddInteractionAction, UpdatePersonFamily
+    AddInteractionAction, UpdatePersonFamily,
+    AddNewFamilyAction
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -152,8 +153,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     addNewFamily(family: Family): void {
-        // this._store.dispatch(new UpdatePersonFamily(family));
-        console.log('adding family', family);
+        this._store.dispatch(new AddNewFamilyAction(family));
+        // console.log('adding family', family);
     }
 
     openDlgRelationships(): void {

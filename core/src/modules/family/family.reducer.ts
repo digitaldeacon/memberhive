@@ -27,6 +27,7 @@ export function familyReducer(state: FamilyState = initialState,
                 loading: true
             });
 
+        case actions.ADD_FAMILY_FAILURE:
         case actions.LIST_FAMILIES_FAILURE: {
             const res: HttpErrorResponse = action.payload;
             const message: common.Message = {
@@ -46,6 +47,20 @@ export function familyReducer(state: FamilyState = initialState,
                 loaded: true,
                 loading: false,
                 families: [...families]
+            });
+        }
+
+        case actions.ADD_FAMILY_SUCCESS: {
+            const family: Family = action.payload;
+            const message: common.Message = {
+                type: common.MESSAGE_SUCCESS,
+                text: 'Successfully added family ' + family.name
+            };
+            return Object.assign({}, state, {
+                loaded: true,
+                loading: false,
+                message: message,
+                families: [...state.families, family]
             });
         }
 

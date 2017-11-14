@@ -103,10 +103,7 @@ class Person extends \yii\db\ActiveRecord
             ],
             'family' => !empty($family) ? [
                 'id' => $family->id,
-                'name' => $family->name,
-                'unrelated' => json_decode($family->unrelated),
-                'role' => $familyMember->role,
-                'members' => $this->familyMemberIds
+                'role' => $familyMember->role
             ] : []
         ];
     }

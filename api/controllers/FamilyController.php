@@ -2,6 +2,7 @@
 namespace app\controllers;
 
 use app\models\Family;
+use app\models\Person;
 use yii\web\BadRequestHttpException;
 
 class FamilyController extends MHController
@@ -53,18 +54,38 @@ class FamilyController extends MHController
     {
         $post = \Yii::$app->request->post();
         if ($post) {
-            $fam = new Family();
-            $fam->name = $post['name'];
-            if (!$fam->save()) {
-                throw new BadRequestHttpException(json_encode($fam->getFirstError()));
+            if (!empty($post['name']) && empty($post['id'])) {
+                $fam = new Family();
+                $fam->name = $post['name'];
+                if (!$fam->save()) {
+                    throw new BadRequestHttpException(json_encode($fam->getFirstError()));
+                }
             }
+            if (!empty($post['id'])) {
+                $fam = Family::findOne($post['id']);
+            }
+            if (isset($post['members'])) {
+                foreach ($post['members'] as $uid) {
+                    $person = Person::find()->where(['uid'=>$uid])->one();
+                    if ($person) {
+                        try {
+                            $fam->link('members', $person);
+                        } catch(\yii\base\InvalidCallException $e) {
+                            throw new BadRequestHttpException(json_encode($fam->getFirstError()));
+                        }
+                    }
+                }
+            }
+            return $fam->toResponseArray();
         }
+        throw new BadRequestHttpException('Wrong or missing parameters');
     }
 
     public function actionList($id = 0)
     {
         $ret = [];
         $families = Family::find()
+            ->with('members')
             ->orderBy(['name' => SORT_ASC])
             ->all();
 

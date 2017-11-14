@@ -1,6 +1,10 @@
 import { Address } from '../../common/common.model';
 import { Tag } from '../tags/tag.model';
-import { Family } from '../family/family.model';
+
+export interface PersonFamily {
+    id?: number;
+    role?: string;
+}
 
 export interface User {
     token: string;
@@ -31,7 +35,7 @@ export interface Person {
     address?: PersonAddress;
     socialContact?: any;
     status?: Tag[];
-    family?: Family;
+    family?: PersonFamily;
 }
 
 export class PersonAddress {
