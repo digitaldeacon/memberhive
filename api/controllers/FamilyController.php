@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\Family;
 use app\models\Person;
+use app\models\PersonFamily;
 use yii\web\BadRequestHttpException;
 
 class FamilyController extends MHController
@@ -16,7 +17,13 @@ class FamilyController extends MHController
                 [
                     'actions' => [
                         'list',
-                        'new'
+                        'new',
+                        'update',
+                        'accept',
+                        'remove',
+                        'ignore',
+                        'set-role',
+                        'link'
                     ],
                     'allow' => true,
                     'roles' => ['@'],
@@ -32,7 +39,9 @@ class FamilyController extends MHController
     public function beforeAction($action)
     {
         $allowedActions = [
-            'new'
+            'new', 'update', 'accept',
+            'remove', 'ignore', 'set-role',
+            'link'
         ];
 
         if (in_array($action->id, $allowedActions)) {
@@ -70,7 +79,7 @@ class FamilyController extends MHController
                     if ($person) {
                         try {
                             $fam->link('members', $person);
-                        } catch(\yii\base\InvalidCallException $e) {
+                        } catch (\yii\base\InvalidCallException $e) {
                             throw new BadRequestHttpException(json_encode($fam->getFirstError()));
                         }
                     }
@@ -79,6 +88,134 @@ class FamilyController extends MHController
             return $fam->toResponseArray();
         }
         throw new BadRequestHttpException('Wrong or missing parameters');
+    }
+
+    public function actionUpdate($id = 0) {
+
+        $post = \Yii::$app->request->post();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post);
+        }
+
+        if (empty($post)) {
+            throw new BadRequestHttpException('Empty POST' . ': [' . $dbg . ']');
+        }
+
+    }
+
+    public function actionRemove($id = 0) {
+        $post = \Yii::$app->request->post();
+        $person = Person::find()
+            ->where(['uid'=>$id])
+            ->one();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post) . ' ** ' . json_encode($person);
+        }
+        if (!$person || empty($post) || !isset($post['family'])) {
+            throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
+        }
+
+        PersonFamily::deleteAll([
+            'family_id' => $post['family']['id'],
+            'person_id' => $person->id
+        ]);
+
+        return Family::findOne($post['family']['id'])->toResponseArray();
+    }
+
+    public function actionIgnore($id = 0) {
+        $post = \Yii::$app->request->post();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post);
+        }
+        if (empty($post) || !isset($post['family'])) {
+            throw new BadRequestHttpException('No family or empty POST' . ': [' . $dbg . ']');
+        }
+
+        // ignore suggested member and save to family, so no suggestions appear again
+        $family = Family::findOne($post['family']['id']);
+        array_push($family->unrelated, $post['member']);
+        if (!$family->save()) {
+            throw new BadRequestHttpException(json_encode($family->getFirstError()));
+        }
+        return Family::findOne($post['family']['id'])->toResponseArray();
+    }
+
+    public function actionAccept($id = 0) {
+        $post = \Yii::$app->request->post();
+        $person = Person::find()
+            ->where(['uid'=>$id])
+            ->one();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post) . ' ** ' . json_encode($person);
+        }
+        if (!$person || empty($post) || !isset($post['family'])) {
+            throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
+        }
+
+        $family = Family::findOne($post['family']['id']);
+
+        // accept suggested member to family
+        if (!empty($family)) {
+            $family->link('members', $person);
+        }
+        return Family::findOne($post['family']['id'])->toResponseArray();
+    }
+
+    public function actionLink($id = 0) {
+        $post = \Yii::$app->request->post();
+        $person = Person::find()
+            ->where(['uid'=>$id])
+            ->one();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post) . ' ** ' . json_encode($person);
+        }
+        if (!$person || empty($post) || !isset($post['family'])) {
+            throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
+        }
+
+        $family = Family::findOne($post['family']['id']);
+
+        if (isset($post['role']) && !empty($post['role'])) {
+            $pfam = PersonFamily::find()->where(['family_id'=>$family->id])->one();
+            $pfam->role = $post['role'];
+            if (!$pfam->save()) {
+                throw new BadRequestHttpException(json_encode($pfam->errors));
+            }
+        }
+
+        // accept suggested member to family
+        if (!empty($family)) {
+            $family->link('members', $person);
+        }
+        return Family::findOne($post['family']['id'])->toResponseArray();
+    }
+
+    public function actionSetRole($id = 0) {
+        $post = \Yii::$app->request->post();
+
+        if (YII_DEBUG) {
+            $dbg =  $id . ' ** ' . json_encode($post);
+        }
+
+        if (empty($post) || !isset($post['family'])) {
+            throw new BadRequestHttpException('Empty POST' . ': [' . $dbg . ']');
+        }
+
+        // Change role if Family object contains a role string
+        if (isset($post['role']) && !empty($post['role'])) {
+            $pfam = PersonFamily::find()->where(['family_id'=>$post['family']['id']])->one();
+            $pfam->role = $post['role'];
+            if (!$pfam->save()) {
+                throw new BadRequestHttpException(json_encode($pfam->errors));
+            }
+        }
+        return Family::findOne($post['family']['id'])->toResponseArray();
     }
 
     public function actionList($id = 0)

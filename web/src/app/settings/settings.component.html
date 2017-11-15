@@ -87,9 +87,9 @@
                         <div class='container'
                              [dragula]='"PEOPLE_LIST"'
                              [dragulaModel]='personAttrSelected'>
-                            <!--<div *ngFor="let element of personAttrSelected"
+                            <div *ngFor="let element of personAttrSelected"
                                  class="div draggable-item"
-                                 [innerHtml]='element'></div>-->
+                                 [innerHtml]='element'></div>
                         </div>
                     </fieldset>
                     <fieldset fxFlex="50">
@@ -119,7 +119,7 @@
                     </div>
                     <fieldset formArrayName="maritalStatus">
                         <legend i18n>Available</legend>
-                        <!--<div *ngFor="let status of maritalStatus?.controls; let i=index"
+                        <div *ngFor="let status of maritalStatus?.controls; let i=index"
                              [formGroupName]="i">
                             <mat-icon class="handle">drag_handle</mat-icon>
                             <mat-form-field>
@@ -132,7 +132,7 @@
                             <button mat-icon-button (click)="removeMaritalStatus(i)">
                                 <mat-icon>delete</mat-icon>
                             </button>
-                        </div>-->
+                        </div>
                     </fieldset>
                 </div>
             </mat-expansion-panel>

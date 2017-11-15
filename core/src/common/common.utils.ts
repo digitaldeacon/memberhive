@@ -1,5 +1,6 @@
+// tslint:disable: no-unused-variable
 import { isEmpty } from 'lodash';
-import { HttpResponse } from '@angular/common/http';
+// tslint:enable: no-unused-variable
 
 export class Utils {
     static objEmptyProperties(o: any, part: string, search: string[] | string = ''): boolean {
@@ -19,18 +20,6 @@ export class Utils {
             }
         }
         return false;
-    }
-
-    /**
-     *
-     * @param {Response} r
-     * @returns {string}
-     * @deprecated
-     */
-    static responseErrors(r: HttpResponse<any>): string {
-        // TODO: deprecate for an error interceptor (see: https://github.com/digitaldeacon/memberhive2/issues/158)
-        let m = '';
-        return m;
     }
 
     static arrayDiffObj(s: any[], v: any[], key: string) {

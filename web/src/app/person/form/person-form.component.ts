@@ -14,8 +14,6 @@ import {
     Tag
 } from 'mh-core';
 
-const EMAIL_REGEX = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 @Component({
     selector: 'mh-person-form',
     templateUrl: './person-form.component.html',
@@ -54,8 +52,13 @@ export class PersonFormComponent implements OnInit {
     randomPassword: boolean = true;
     persons: Array<Person>;
     address: PersonAddress = new PersonAddress();
+    emailRegex: RegExp;
 
-    constructor(private _fb: FormBuilder) { }
+    constructor(private _fb: FormBuilder) {
+        const regex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))';
+        const regex2 = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
+        this.emailRegex = new RegExp(regex + regex2);
+    }
 
     ngOnInit(): void {
         if (!this.form) {
@@ -84,7 +87,7 @@ export class PersonFormComponent implements OnInit {
     initValidators(): void {
         this.form.get('firstName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('lastName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
-        this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(EMAIL_REGEX)]);
+        this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(this.emailRegex)]);
         this.form.get('birthday').setValidators([<any>Validators.required]);
     }
 

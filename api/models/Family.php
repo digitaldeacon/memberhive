@@ -75,7 +75,9 @@ class Family extends \yii\db\ActiveRecord
 
     public function toResponseArray()
     {
-        $membermap = function($person) { return $person->uid; };
+        $membermap = function ($person) {
+            return $person->uid;
+        };
         return [
             'id' => $this->id,
             'name' => $this->name,

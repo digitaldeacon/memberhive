@@ -237,6 +237,7 @@ class PersonController extends MHController
             $person->firstName = $post['firstName'];
             $person->middleName = $post['middleName'];
             $person->lastName = $post['lastName'];
+            $person->email = $post['email'];
             $person->gender = $post['gender'];
             $person->maritalStatus = $post['maritalStatus'];
             $person->address = json_encode($post['address']);

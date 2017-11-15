@@ -17,6 +17,7 @@
         <mat-icon *ngIf="addMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
     </button>
 </mat-toolbar>
+
 <mat-card class="quick-panel" *ngIf="addMember">
     <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
         <mat-form-field fxFlex="50">
@@ -52,6 +53,7 @@
         <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
     </div>
 </mat-card>
+
 <mat-card class="quick-panel" *ngIf="addFamily">
     <form [formGroup]="linkForm"
           (ngSubmit)="link()"
@@ -72,7 +74,7 @@
                 </mat-form-field>
                 <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
                     <ng-container i18n>CLOSE</ng-container></button>
-                <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+                <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
             </div>
         </div>
     </form>
@@ -87,10 +89,11 @@
             </mat-form-field>
             <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
                 <ng-container i18n>CLOSE</ng-container></button>
-            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+            <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
 </mat-card>
+
 <div class="container">
     <span *ngIf="!family?.id" fxLayoutAlign="center center">
         <button mat-raised-button
@@ -105,6 +108,6 @@
                         (ignoreMember)="ignore($event)"
                         (removeMember)="remove($event)"
                         (acceptMember)="accept($event)"
-                        (setRole)="setRole($event)"></mh-family-tile>
+                        (setRole)="changeRole($event)"></mh-family-tile>
     </div>
 </div>

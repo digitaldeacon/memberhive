@@ -29,6 +29,7 @@ import {
     ClearSettingsMessageAction,
     ClearInteractionMessageAction,
     ClearPersonMessageAction,
+    ClearFamilyMessageAction,
     LayoutSettings
 } from 'mh-core';
 
@@ -129,6 +130,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                     this._store.dispatch(new ClearSettingsMessageAction());
                     this._store.dispatch(new ClearInteractionMessageAction());
                     this._store.dispatch(new ClearPersonMessageAction());
+                    this._store.dispatch(new ClearFamilyMessageAction());
                 }
             });
     }

@@ -15,7 +15,7 @@ import {
     DeletePersonAction, SetTitleAction,
     ContextButton, SetContextButtonsAction,
     CalcPersonGeoAction, DeleteInteractionAction,
-    AddInteractionAction, UpdatePersonFamily,
+    AddInteractionAction,
     AddNewFamilyAction
 } from 'mh-core';
 
@@ -25,6 +25,8 @@ import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
 import { ShoutService } from '../../common/shout.service';
 import { DialogService } from '../../common/dialog.service';
+
+import { isEqual } from 'lodash';
 
 @Component({
     moduleId: 'mh-person',
@@ -61,8 +63,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this.interactions$ = this._store.select(app.getInteractionsPerson);
         // Selects the tags by fragment param
         this.tags$ = this._store.select(app.getTags);
-        // Selects the current person by fragment param
-        this.families$ = this._store.select(app.getFamilies);
 
         // Load all people for the back and forth buttons
         this._store.select(app.getPeople)
@@ -121,9 +121,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     savePerson(person: Person): void {
-        let origin: Person = this.person;
-        let gcPayload: CalcGeoCodePayload;
-
         person.uid = this.person.uid;
         this._store.dispatch(new UpdatePersonAction(person));
         this._calcGeoCodes(person);
@@ -146,15 +143,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     addInteraction(interaction: Interaction): void {
         this._store.dispatch(new AddInteractionAction(interaction));
-    }
-
-    updateFamily(family: Family): void {
-        this._store.dispatch(new UpdatePersonFamily(family));
-    }
-
-    addNewFamily(family: Family): void {
-        this._store.dispatch(new AddNewFamilyAction(family));
-        // console.log('adding family', family);
     }
 
     openDlgRelationships(): void {
@@ -210,7 +198,13 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     private _calcGeoCodes(person: Person): void {
+        const org: Person = this.person;
         let gcPayload: CalcGeoCodePayload;
+
+        if (isEqual(org.address, person.address)) {
+            return;
+        }
+
         if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
             gcPayload = {
                 person: person,
@@ -225,7 +219,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     }
 
     private _setContextMenu(): void {
-        let buttons: ContextButton[] = [];
+        const buttons: ContextButton[] = [];
         buttons.push({icon: 'person_pin', link: '/person/map', title: 'PEOPLE MAP'});
         buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
 

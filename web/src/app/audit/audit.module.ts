@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule }  from '@angular/common';
+import { CommonModule } from '@angular/common';
 import { MatListModule, MatIconModule, MatToolbarModule, MatButtonModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';

@@ -1,6 +1,16 @@
-import {ChangeDetectionStrategy, Component, EventEmitter, Input, Output} from '@angular/core';
-import { Person, Family, Member } from 'mh-core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
+import {
+    Person, Family, Member, FamilyPayload,
+    LinkPersonFamilyAction, IgnoreMemberFamilyAction,
+    RemoveMemberFamilyAction, AddNewFamilyAction,
+    SetFamilyRoleAction, AcceptMemberFamilyAction,
+    UpdatePersonAction
+} from 'mh-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import 'rxjs/add/operator/takeWhile';
+
+import { Store } from '@ngrx/store';
+import * as app from '../../../app.store';
 
 @Component({
     selector: 'mh-person-family',
@@ -8,18 +18,18 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
     styleUrls: ['./family.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FamilyComponent {
+export class FamilyComponent implements OnDestroy {
 
     private _person: Person;
+    private _alive: boolean = true;
 
     @Input() people: Person[];
-    @Input() families: Family[];
     @Input()
     set person(person: Person) {
         if (person) {
             const prvuid: string = !this._person ? '' : this._person.uid;
             this._person = person;
-            this.family = this.families.filter((f: Family) => f.id === this.person.family.id)[0];
+            this.family = this.families.filter((f: Family) => f.id === person.family.id)[0];
             this.buildSuggestions();
             if (prvuid !== person.uid) {
                 this.initFamily();
@@ -28,12 +38,10 @@ export class FamilyComponent {
     }
     get person(): Person { return this._person; }
 
-    @Output() updateFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
-    @Output() addNewFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
-
     members: Member[] = [];
     family: Family;
-    names: any[] = [];
+    families: Family[];
+
     suggestedMembers: Person[] = [];
 
     addMember: boolean = false;
@@ -47,9 +55,19 @@ export class FamilyComponent {
         'aunt', 'grandmother', 'grandfather'
     ];
 
-    constructor(private _fb: FormBuilder) {
+    constructor(private _store: Store<app.AppState>,
+                private _fb: FormBuilder) {
         this.addForm = this._fb.group({familyName: ['']});
         this.linkForm = this._fb.group({family: [undefined], role: ['']});
+
+        // Get all current families
+        this._store.select(app.getFamilies)
+            .takeWhile(() => this._alive)
+            .subscribe((families: Family[]) => this.families = families);
+    }
+
+    ngOnDestroy(): void {
+        this._alive = false;
     }
 
     initFamily(): void {
@@ -113,54 +131,70 @@ export class FamilyComponent {
     }
 
     accept(m: Member): void {
-        // TODO: update isSuggestion & write to store/db
-        // console.log('Accept', m);
-        m.isSuggestion = false;
-    }
-
-    link(): void {
-        let family: Family;
-        let familySelected: Family = this.linkForm.get('family').value;
-        family = {
-            id: familySelected.id,
-            selected: this.person.uid,
-            members: [...familySelected.members, this.person.uid]
+        const payload: FamilyPayload = {
+            family: this.family,
+            member: m.person.uid
         };
-        this.updateFamily.emit(family);
+        this._store.dispatch(new AcceptMemberFamilyAction(payload));
+        m.person.family = {
+            id: this.family.id
+        };
+        this._store.dispatch(new UpdatePersonAction(m.person));
     }
 
     ignore(m: Member): void {
-        let family: Family;
-        family = {
-            id: this.family.id,
-            selected: this.person.uid,
-            unrelated: this.family
-                ? [...this.family.unrelated, m.person.uid] : [m.person.uid]
+        const payload: FamilyPayload = {
+            family: this.family,
+            member: this.person.uid
         };
-        this.updateFamily.emit(family);
+        this._store.dispatch(new IgnoreMemberFamilyAction(payload));
     }
 
     remove(m: Member): void {
-        let family: Family;
-        let mem: string[];
-        this.members = this.members.filter((member: Member) => member.person.uid !== m.person.uid);
-        family = {
-            id: this.family.id,
-            selected: m.person.uid,
-            members: this.members.map((member: Member) => member.person.uid)
+        let payload: FamilyPayload;
+        payload = {
+            family: this.family,
+            member: m.person.uid
         };
-        this.updateFamily.emit(family);
+        this._store.dispatch(new RemoveMemberFamilyAction(payload));
+        m.person.family = {
+            id: undefined,
+            role: ''
+        };
+        this._store.dispatch(new UpdatePersonAction(m.person));
+    }
+
+    link(): void {
+        if (this.linkForm.valid) {
+            let payload: FamilyPayload;
+            payload = {
+                family: this.linkForm.get('family').value,
+                member: this.person.uid,
+                role: this.linkForm.get('role').value
+            };
+            this._store.dispatch(new LinkPersonFamilyAction(payload));
+            this.addFamily = false;
+            this.linkForm.reset();
+            this.person.family = {
+                id: this.linkForm.get('family').value.id
+            };
+            this._store.dispatch(new UpdatePersonAction(this.person));
+        }
     }
 
     addFormSave(): void {
-        const family: Family = {
-            name: this.addForm.get('familyName').value,
-            members: [this.person.uid]
-        };
-        this.addNewFamily.emit(family);
+        if (this.addForm.valid) {
+            const family: Family = {
+                name: this.addForm.get('familyName').value,
+                members: [this.person.uid]
+            };
+            this._store.dispatch(new AddNewFamilyAction(family));
+            this.addFamily = false;
+            this.addForm.reset();
+        }
     }
 
-    setRole($event: Family): void {
-        this.updateFamily.emit($event);
+    changeRole(payload: FamilyPayload): void {
+        this._store.dispatch(new SetFamilyRoleAction(payload));
     }
 }

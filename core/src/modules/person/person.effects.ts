@@ -98,15 +98,6 @@ export class PersonEffects {
                 .catch((error: HttpErrorResponse) => of(new actions.CalcPersonGeoFailureAction(error)));
         });
 
-    @Effect()
-    setPersonFamilyRole$ = this._actions$
-        .ofType(actions.UPDATE_PERSON_FAMILY)
-        .map((action: actions.UpdatePersonFamily) => action.payload)
-        .mergeMap((fam: Family) => this._http.post('person/update-family?id=' + fam.selected, fam)
-            .map((r: Person) => new actions.UpdatePersonFamilySuccessAction(r))
-            .catch((r: HttpErrorResponse) => of(new actions.UpdatePersonFamilyFailureAction(r)))
-        );
-
     /*private handleNavigation(segment: string, callback: (a: ActivatedRouteSnapshot, state: AppState) => Observable<any>) {
         const nav = this._actions$.ofType(ROUTER_NAVIGATION).
         map(firstSegment).

@@ -31,7 +31,7 @@ export class DashletBirthdaysComponent {
 
     filter(people: Person[]): void {
         if (people) {
-            let rangeDate: Date = new Date(this.now);
+            const rangeDate: Date = new Date(this.now);
             rangeDate.setDate(new Date(this.now).getDate() + this.range);
             this.peopleBdRange = people.filter((p: Person) => {
                 const bday: Date = new Date(p.birthday);

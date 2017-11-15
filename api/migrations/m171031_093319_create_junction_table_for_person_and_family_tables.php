@@ -37,7 +37,7 @@ class m171031_093319_create_junction_table_for_person_and_family_tables extends 
             'person_id',
             'person',
             'id',
-            'CASCADE'
+            'RESTRICT'
         );
 
         // creates index for column `family_id`
@@ -54,7 +54,7 @@ class m171031_093319_create_junction_table_for_person_and_family_tables extends 
             'family_id',
             'family',
             'id',
-            'CASCADE'
+            'RESTRICT'
         );
     }
 
