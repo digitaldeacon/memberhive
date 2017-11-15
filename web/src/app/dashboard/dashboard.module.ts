@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { MHCommonModule } from '../common/common.module';
+import { MhCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MomentModule } from 'angular2-moment';
 import { DragulaModule } from 'ng2-dragula';
@@ -21,8 +20,7 @@ import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-in
         DashletInteractionsComponent
     ],
     imports: [
-        CommonModule,
-        MHCommonModule,
+        MhCommonModule,
         DashboardRoutingModule,
         FlexLayoutModule,
         MomentModule,

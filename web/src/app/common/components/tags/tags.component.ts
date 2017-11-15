@@ -55,6 +55,7 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         this.onChange(v);
     }
     get value(): Tag[] { return this._value; }
+    @Input() placeholder: string = '';
 
     onChange = (_: any): void => {
         // mock
@@ -89,37 +90,37 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
             .filter((obj: Tag) => obj.text.toLowerCase().indexOf(text.toLowerCase()) === 0);
     }
 
-    add(event: MatAutocompleteSelectedEvent, input: any): void {
-        this._addTag(event.option.value, input);
+    add(event: MatAutocompleteSelectedEvent): void {
+        this._addTag(event.option.value);
     }
 
-    addTextChip(input: MatInput): void {
+    addTextChip(input: MatInput = this.chipInput): void {
         if (this.addNew) {
             if (input.value && !this.autoTrigger.activeOption) {
                 const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
                 const newTag: Tag = { id: newId, text: input.value };
                 this.source.push(newTag);
-                this._addTag(newTag, input);
+                this._addTag(newTag);
             }
         } else {
             if (this.filteredSources.length) {
-                this._addTag(this.filteredSources[0], input);
+                this._addTag(this.filteredSources[0]);
             }
         }
     }
 
-    remove(tag: Tag, input: any): void {
+    remove(tag: Tag): void {
         this._value = this._value.filter((i: Tag) => i !== tag);
         this.value = this._value;
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
-        input.focus();
+        this.chipInput.focus();
     }
 
-    selectInput(event: MouseEvent, input: any): boolean {
+    selectInput(event: MouseEvent): boolean {
         event.preventDefault();
         event.stopImmediatePropagation();
-        this.textChanged(input.value);
-        input.focus();
+        this.textChanged(this.chipInput.value);
+        this.chipInput.focus();
         return false;
     }
 
@@ -127,7 +128,7 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         return value && typeof value === 'object' ? value.text : value;
     }
 
-    private _addTag(value: Tag, input: any): void {
+    private _addTag(value: Tag): void {
         if (!isNaN(Number(value))) {
             value = this.source.find((tag: Tag) => tag.id === Number(value));
         }
@@ -136,8 +137,8 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         }
         this._value.push(value);
         this.value = this._value;
-        input.value = '';
+        this.chipInput.value = '';
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
-        input.focus();
+        this.chipInput.focus();
     }
 }

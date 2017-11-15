@@ -89,8 +89,8 @@
   resolved "https://registry.yarnpkg.com/@ionic-native/status-bar/-/status-bar-4.4.0.tgz#35bcf2012ece652bd765a972008bec5a7f258a95"
 
 "@ionic/app-scripts@^3.0.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@ionic/app-scripts/-/app-scripts-3.1.0.tgz#7bc598c9af0cda466c3989ee341d3db10b638e48"
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/@ionic/app-scripts/-/app-scripts-3.1.2.tgz#2e3e686d30f9df8a5bcb20c344172cabac5c5ae3"
   dependencies:
     "@angular-devkit/build-optimizer" "0.0.32"
     autoprefixer "^7.1.6"
@@ -115,7 +115,7 @@
     tslint "^5.8.0"
     tslint-eslint-rules "^4.1.1"
     uglify-es "^3.1.6"
-    webpack "^3.8.1"
+    webpack "3.6.0"
     ws "^3.2.0"
     xml2js "^0.4.19"
 
@@ -193,8 +193,8 @@
   resolved "https://registry.yarnpkg.com/@types/localforage/-/localforage-0.0.30.tgz#3d60a6bf6dda38e3f8a469611598379f1f649509"
 
 "@types/node@*":
-  version "8.0.51"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.51.tgz#b31d716fb8d58eeb95c068a039b9b6292817d5fb"
+  version "8.0.52"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-8.0.52.tgz#8e7f47747868e7687f2cd4922966e2d6af78d22d"
 
 abbrev@1:
   version "1.1.1"
@@ -672,8 +672,8 @@ camelcase@^4.1.0:
   resolved "https://registry.yarnpkg.com/camelcase/-/camelcase-4.1.0.tgz#d545635be1e33c542649c69173e5de6acfae34dd"
 
 caniuse-lite@^1.0.30000748, caniuse-lite@^1.0.30000760:
-  version "1.0.30000760"
-  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000760.tgz#ec720395742f1c7ec8947fd6dd2604e77a8f98ff"
+  version "1.0.30000764"
+  resolved "https://registry.yarnpkg.com/caniuse-lite/-/caniuse-lite-1.0.30000764.tgz#97ea7472f9d3e691eede34f21983cfc219ac7842"
 
 caseless@~0.12.0:
   version "0.12.0"
@@ -3771,9 +3771,9 @@ webpack-sources@^1.0.1:
     source-list-map "^2.0.0"
     source-map "~0.6.1"
 
-webpack@^3.8.1:
-  version "3.8.1"
-  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.8.1.tgz#b16968a81100abe61608b0153c9159ef8bb2bd83"
+webpack@3.6.0:
+  version "3.6.0"
+  resolved "https://registry.yarnpkg.com/webpack/-/webpack-3.6.0.tgz#a89a929fbee205d35a4fa2cc487be9cbec8898bc"
   dependencies:
     acorn "^5.0.0"
     acorn-dynamic-import "^2.0.0"

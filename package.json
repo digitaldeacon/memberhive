@@ -25,6 +25,7 @@
     "update:all": "yarn update:core && yarn update:web && yarn update:mobile && cd api/ && composer update",
     "build:web": "cd web && yarn build",
     "start:web": "cd web && yarn start",
+    "start:web:prod": "cd web && yarn start:prod",
     "start:web:ssl": "cd web && yarn start:ssl",
     "build:core": "cd core && yarn build",
     "outdated:all": "cd web && yarn outdated && cd ../core && yarn outdated && cd ../mobile && yarn outdated",

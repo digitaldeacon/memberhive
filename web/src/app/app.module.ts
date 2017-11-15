@@ -13,7 +13,7 @@ import 'rxjs/add/operator/toPromise';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { MHCommonModule } from './common/common.module';
+import { MhCommonModule } from './common/common.module';
 import { SearchModule } from './search/search.module';
 import { InteractionModule } from './interaction/interaction.module';
 
@@ -72,7 +72,7 @@ export interface AppConfig {
         FormsModule,
         ReactiveFormsModule,
 
-        MHCommonModule,
+        MhCommonModule,
         MatSidenavModule,
         MatProgressBarModule,
 

@@ -1,6 +1,6 @@
 {
   "name": "MemberHive",
-  "version": "2.0.0",
+  "version": "2.0.0-beta.1",
   "license": "AGPL-3.0",
   "repository": {
     "url": "https://github.com/digitaldeacon/memberhive2"
@@ -8,9 +8,10 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --proxy-config proxy.conf.json --preserve-symlinks",
+    "start:prod": "ng serve --proxy-config proxy.conf.json --preserve-symlinks --prod",
     "start:ssl": "ng serve --proxy-config proxy.conf.json --preserve-symlinks --ssl 1 --ssl-key \"/Applications/MAMP/ssl/localhost.key\" --ssl-cert \"/Applications/MAMP/ssl/localhost.cert\"",
-    "build:noc": "rm -rf dist/ && ng build",
-    "build": "rm -rf dist/ && ng build && gulp compress",
+    "build:noc": "rm -rf dist/ && ng build --prod",
+    "build": "rm -rf dist/ && ng build --prod && gulp compress",
     "extract-i18n": "cd src && ng xi18n",
     "test": "ng test",
     "lint": "ng lint",
