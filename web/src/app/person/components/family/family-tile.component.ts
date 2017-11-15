@@ -1,11 +1,12 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { Person, Member, Family } from 'mh-core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Person, Member, Family, FamilyPayload } from 'mh-core';
 import { MatSelectChange } from '@angular/material';
 
 @Component({
     selector: 'mh-family-tile',
     templateUrl: './family-tile.component.html',
-    styleUrls: ['./family-tile.component.scss']
+    styleUrls: ['./family-tile.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FamilyTileComponent {
 
@@ -15,7 +16,7 @@ export class FamilyTileComponent {
 
     @Input() families: Family[];
 
-    @Output() setRole: EventEmitter<Family> = new EventEmitter<Family>();
+    @Output() setRole: EventEmitter<FamilyPayload> = new EventEmitter<FamilyPayload>();
     @Output() ignoreMember: EventEmitter<Member> = new EventEmitter<Member>();
     @Output() acceptMember: EventEmitter<Member> = new EventEmitter<Member>();
     @Output() removeMember: EventEmitter<Member> = new EventEmitter<Member>();
@@ -39,11 +40,11 @@ export class FamilyTileComponent {
     }
 
     changeRole($event: MatSelectChange, memberId: string): void {
-        const family: Family = {
-            id: 'id' in this.person.family ? this.person.family.id : undefined,
-            selected: memberId,
+        const payload: FamilyPayload = {
+            family: this.person.family,
+            member: memberId,
             role: $event.value
         };
-        this.setRole.emit(family);
+        this.setRole.emit(payload);
     }
 }

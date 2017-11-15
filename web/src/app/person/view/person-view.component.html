@@ -70,10 +70,7 @@
                 <mat-tab label="Family" i18n-label>
                     <mh-person-family
                             [people]="people"
-                            [person]="person"
-                            [families]="families$ | async"
-                            (updateFamily)="updateFamily($event)"
-                            (addNewFamily)="addNewFamily($event)"></mh-person-family>
+                            [person]="person"></mh-person-family>
                 </mat-tab>
                 <!--
                 TODO: Groups section

@@ -20,9 +20,6 @@ export const CLEAR_PERSON_MESSAGE = '[Person] Clear Message';
 export const CALC_PERSON_GEO = '[Person] Calc Geo Codes';
 export const CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success';
 export const CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure';
-export const UPDATE_PERSON_FAMILY = '[Person] Update Family';
-export const UPDATE_PERSON_FAMILY_SUCCESS = '[Person] Update Family Success';
-export const UPDATE_PERSON_FAMILY_FAILURE = '[Person] Update Family Failure';
 
 export class ListPersonAction implements Action {
     readonly type = LIST_PEOPLE;
@@ -108,22 +105,6 @@ export class CalcPersonGeoFailureAction implements Action {
     constructor(public payload: HttpErrorResponse) { }
 }
 
-export class UpdatePersonFamily implements Action {
-    readonly type = UPDATE_PERSON_FAMILY;
-    constructor(public payload: Family) { }
-}
-
-export class UpdatePersonFamilySuccessAction implements Action {
-    readonly type = UPDATE_PERSON_FAMILY_SUCCESS;
-    constructor(public payload: Person) { }
-}
-
-export class UpdatePersonFamilyFailureAction implements Action {
-    readonly type = UPDATE_PERSON_FAMILY_FAILURE;
-    constructor(public payload: HttpErrorResponse) { }
-}
-
-
 export type PersonActions =
     ListPersonAction
     | ListPersonSuccessAction
@@ -141,7 +122,4 @@ export type PersonActions =
     | DeletePersonFailureAction
     | CalcPersonGeoAction
     | CalcPersonGeoSuccessAction
-    | CalcPersonGeoFailureAction
-    | UpdatePersonFamily
-    | UpdatePersonFamilySuccessAction
-    | UpdatePersonFamilyFailureAction;
+    | CalcPersonGeoFailureAction;

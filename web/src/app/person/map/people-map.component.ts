@@ -38,7 +38,7 @@ export class PeopleMapComponent implements OnDestroy {
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
                     !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
-                for (let person of this.people) {
+                for (const person of this.people) {
                     let marker: GeoMarker;
                     marker = {
                         latlng: person.address.home.geocode,
@@ -94,7 +94,7 @@ export class PeopleMapComponent implements OnDestroy {
     }
 
     private _setContextMenu(): void {
-        let buttons: ContextButton[] = [];
+        const buttons: ContextButton[] = [];
         buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
         buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
 

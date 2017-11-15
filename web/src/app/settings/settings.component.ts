@@ -127,8 +127,8 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     buildFormArray(): FormArray {
-        let fga: Array<FormGroup> = [];
-        for (let status of this.personSettings.maritalStatus) {
+        const fga: Array<FormGroup> = [];
+        for (const status of this.personSettings.maritalStatus) {
             fga.push(this.buildFormGroup(status));
         }
         this.maritalStatus = this._fb.array(fga);
@@ -209,7 +209,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             });
     }
     private _setContextMenu(): void {
-        let buttons: core.ContextButton[] = [];
+        const buttons: core.ContextButton[] = [];
         // buttons.push({icon: 'person_add', link: '/person/create', title: 'ADD PERSON'});
 
         this._store.dispatch(new core.SetContextButtonsAction(buttons));

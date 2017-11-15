@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MhCommonModule } from '../common/common.module';
 import { MatButtonToggleModule } from '@angular/material';
-import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { InteractionRoutingModule } from './interaction-routing.module';
 

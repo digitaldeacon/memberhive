@@ -4,6 +4,11 @@ import { Address, GeoCodes } from '../common/common.model';
 import { Observable } from 'rxjs/Observable';
 import { empty } from 'rxjs/observable/empty';
 
+export interface ServiceResults {
+    results: any[];
+    status: string;
+}
+
 @Injectable()
 export class GeocodeService {
     private _apiKey: string;
@@ -32,9 +37,8 @@ export class GeocodeService {
         }
 
         return this._http.getRaw(url)
-            .map((res: any) => {
-                const response: any = JSON.parse(res.text());
-                this._geoCodes = response.results[0].geometry.location;
+            .map((res: ServiceResults) => {
+                this._geoCodes = res.results[0].geometry.location;
                 return this._geoCodes || undefined;
             });
     }

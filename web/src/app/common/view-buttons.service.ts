@@ -15,7 +15,7 @@ export class ViewButtonsService {
     }
 
     addButtons(buttons: ViewButton[]): void {
-        for (let button of buttons) {
+        for (const button of buttons) {
             this._dataStore.buttons.push(button);
         }
         this._buttons.next(Object.assign({}, this._dataStore).buttons);

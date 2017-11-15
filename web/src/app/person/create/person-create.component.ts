@@ -71,7 +71,7 @@ export class PersonCreateComponent implements OnDestroy {
   }
 
   private _setContextMenu(): void {
-    let buttons: ContextButton[] = [];
+    const buttons: ContextButton[] = [];
     buttons.push({icon: 'people', link: '/person', title: 'LIST PEOPLE'});
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

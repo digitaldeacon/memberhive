@@ -10,7 +10,7 @@ import 'rxjs/add/observable/of';
 import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
-import { Effect, Actions, toPayload } from '@ngrx/effects';
+import { Effect, Actions } from '@ngrx/effects';
 import * as actions from './interaction.actions';
 import { Interaction, InteractionPayload, InteractionCompletePayload } from './interaction.model';
 import { HttpService } from '../../services/http.service';

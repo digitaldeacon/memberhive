@@ -122,8 +122,9 @@ export const getMessageP: any = createSelector(getPersonState, person.messagePer
 export const getMessageS: any = createSelector(getSettingsState, settings.messageSettings);
 export const getMessageI: any = createSelector(getInteractionState, interaction.messageInteraction);
 export const getMessageT: any = createSelector(getTagState, tags.messageTags);
-export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI, getMessageT,
-    (msgP: any, msgS: any, msgI: any, msgT: any) => msgP || msgS || msgI || msgT);
+export const getMessageF: any = createSelector(getFamilyState, family.messageFamilies);
+export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI, getMessageT, getMessageF,
+    (msgP: any, msgS: any, msgI: any, msgT: any, msgF: any) => msgP || msgS || msgI || msgT || msgF);
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/

@@ -1,13 +1,11 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 
 import {
     ContextButton,
     Person,
-    SettingsState,
-    LayoutSettings,
     SetContextButtonsAction,
     SetTitleAction
 } from 'mh-core';
@@ -21,7 +19,6 @@ import * as app from '../app.store';
 })
 export class DashboardComponent implements OnDestroy {
 
-    private _settings: LayoutSettings;
     private _alive: boolean = true;
 
     people$: Observable<Person[]>;
@@ -43,8 +40,7 @@ export class DashboardComponent implements OnDestroy {
     }
 
     setContextMenu(): void {
-        let buttons: ContextButton[] = [];
-        this._store.dispatch(new SetContextButtonsAction(buttons));
+        this._store.dispatch(new SetContextButtonsAction([]));
     }
 
     ngOnDestroy(): void {
