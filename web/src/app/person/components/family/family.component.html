@@ -1,17 +1,17 @@
 <mat-toolbar>
     <h3 fxFlex><ng-container i18n>Members for</ng-container>: &nbsp;
-        <small *ngIf="!person.family?.id" fxFlex>no family selected</small>
-        <small *ngIf="person.family?.id" fxFlex>{{person.family.name}}</small>
+        <small *ngIf="!family?.id" fxFlex>no family selected</small>
+        <small *ngIf="family?.id" fxFlex>{{family.name}}</small>
     </h3>
     <button mat-button
-            *ngIf="!person.family?.id"
+            *ngIf="!family?.id"
             (click)="addFamily = !addFamily; addMember = false"
             i18n>
         <mat-icon *ngIf="!addFamily">add_circle_outline</mat-icon>
         <mat-icon *ngIf="addFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
     </button>
     <button mat-button
-            *ngIf="person.family?.id"
+            *ngIf="family?.id"
             (click)="addMember = !addMember; addFamily = false" i18n>
         <mat-icon *ngIf="!addMember">add_circle_outline</mat-icon>
         <mat-icon *ngIf="addMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
@@ -52,21 +52,28 @@
         <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
     </div>
 </mat-card>
-<mat-card class="quick-panel" *ngIf="addFamily" fxLayout="row">
+<mat-card class="quick-panel" *ngIf="addFamily">
     <form [formGroup]="linkForm"
           (ngSubmit)="link()"
           fxLayout="column"
           novalidate>
         <div fxLayout="column">
             <h4 i18n>Add to family</h4>
-            <mat-form-field>
-                <mat-select formControlName="family">
-                    <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
-                </mat-select>
-            </mat-form-field>
-            <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
-                <ng-container i18n>CLOSE</ng-container></button>
-            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+            <div>
+                <mat-form-field>
+                    <mat-select formControlName="family" placeholder="Family" i18n-placeholder>
+                        <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-select formControlName="role" placeholder="Role" i18n-placeholder>
+                        <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+                    <ng-container i18n>CLOSE</ng-container></button>
+                <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+            </div>
         </div>
     </form>
     <form [formGroup]="addForm"
@@ -74,23 +81,25 @@
           fxLayout="column"
           novalidate>
         <h4 i18n>Create new family</h4>
-        <mat-form-field fxFlex="50">
-            <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
-        </mat-form-field>
-        <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
-            <ng-container i18n>CLOSE</ng-container></button>
-        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        <div>
+            <mat-form-field>
+                <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+            </mat-form-field>
+            <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
     </form>
 </mat-card>
 <div class="container">
-    <span *ngIf="!person.family?.id" fxLayoutAlign="center center">
+    <span *ngIf="!family?.id" fxLayoutAlign="center center">
         <button mat-raised-button
-                *ngIf="!person.family?.id"
+                *ngIf="!family?.id"
                 (click)="addFamily = !addFamily; addMember = false"
                 i18n>SELECT or ADD
         </button> &nbsp; <b i18n>a family</b></span>
-    <div *ngIf="person.family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
-        <mh-family-tile *ngFor="let member of family; let i = index"
+    <div *ngIf="family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
+        <mh-family-tile *ngFor="let member of members"
                         [person]="person"
                         [member]="member"
                         (ignoreMember)="ignore($event)"

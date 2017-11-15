@@ -19,6 +19,7 @@ export class FamilyComponent {
         if (person) {
             const prvuid: string = !this._person ? '' : this._person.uid;
             this._person = person;
+            this.family = this.families.filter((f: Family) => f.id === this.person.family.id)[0];
             this.buildSuggestions();
             if (prvuid !== person.uid) {
                 this.initFamily();
@@ -30,8 +31,8 @@ export class FamilyComponent {
     @Output() updateFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
     @Output() addNewFamily: EventEmitter<Family> = new EventEmitter<Family>(true);
 
-    family: Member[] = [];
-    familyId: number;
+    members: Member[] = [];
+    family: Family;
     names: any[] = [];
     suggestedMembers: Person[] = [];
 
@@ -41,40 +42,45 @@ export class FamilyComponent {
     addForm: FormGroup;
     linkForm: FormGroup;
 
+    relations: string[] = [
+        'husband', 'wife', 'child', 'sibling', 'uncle',
+        'aunt', 'grandmother', 'grandfather'
+    ];
+
     constructor(private _fb: FormBuilder) {
         this.addForm = this._fb.group({familyName: ['']});
-        this.linkForm = this._fb.group({family: [undefined]});
+        this.linkForm = this._fb.group({family: [undefined], role: ['']});
     }
 
     initFamily(): void {
-        this.family = [];
+        this.members = [];
         if (this.people && 'id' in this.person.family) {
-            this.familyId = this.person.family.id;
             const m: Member = {
                 person: this.person,
                 isSuggestion: false
             };
-            this.family.push(m);
-            /*this.people
-                .filter((p: Person) => this.person.family.members.indexOf(p.uid) > -1)
+            this.members.push(m);
+            console.log(this.families, this.person);
+            console.log(this.members, this.family);
+            this.people
+                .filter((p: Person) => this.family.members.indexOf(p.uid) > -1)
                 .map((person: Person) => {
-                    if ('unrelated' in this.person.family &&
-                        this.person.family.unrelated &&
-                        this.person.family.unrelated.indexOf(person.uid) > -1) {
+                    if (this.family.unrelated &&
+                        this.family.unrelated.indexOf(person.uid) > -1) {
                         return;
                     }
-                    if (person.uid !== this.person.uid) {
+                    if (person.id !== this.person.id) {
                         const member: Member = {
                             person: person,
                             isSuggestion: false
                         };
-                        this.family.push(member);
+                        this.members.push(member);
                     }
-                });*/
+                });
         }
         this.suggestedMembers.map((person: Person) => {
             if (person.maritalStatus === 'married') {
-                person.family.role = this.person.gender === 'f' ? 'husband' : 'wife';
+                person.family.role = this.person.gender === 'm' ? 'husband' : 'wife';
             } else {
                 person.family.role = 'child';
             }
@@ -82,18 +88,21 @@ export class FamilyComponent {
                 person: person,
                 isSuggestion: true
             };
-            this.family.push(m);
+            this.members.push(m);
         });
     }
 
     buildSuggestions(): void {
         this.suggestedMembers = this.people
             .filter((person: Person) => {
-                /*if ('unrelated' in this.person.family &&
-                    this.person.family.unrelated &&
-                    this.person.family.unrelated.indexOf(person.uid) > -1) {
+                if (this.family.unrelated &&
+                    this.family.unrelated.indexOf(person.uid) > -1) {
                     return false;
-                }*/
+                }
+                if (this.family.members &&
+                    this.family.members.indexOf(person.uid) > -1) {
+                    return false;
+                }
                 return (person.lastName === this.person.lastName) &&
                     (person.uid !== this.person.uid);
         });
@@ -109,8 +118,6 @@ export class FamilyComponent {
     link(): void {
         let family: Family;
         let familySelected: Family = this.linkForm.get('family').value;
-        console.log(familySelected);
-        // this.person.family = familySelected;
         family = {
             id: familySelected.id,
             selected: this.person.uid,
@@ -121,13 +128,11 @@ export class FamilyComponent {
 
     ignore(m: Member): void {
         let family: Family;
-        this.family = this.family
-            .filter((member: Member) => member.person.uid !== m.person.uid);
         family = {
-            id: this.familyId,
+            id: this.family.id,
             selected: this.person.uid,
-        /*unrelated: 'unrealted' in this.person.family
-                ? [...this.person.family.unrelated, m.person.uid] : [m.person.uid]*/
+            unrelated: 'unrelated' in this.family
+                ? [...this.family.unrelated, m.person.uid] : [m.person.uid]
         };
         this.updateFamily.emit(family);
     }
@@ -135,11 +140,11 @@ export class FamilyComponent {
     remove(m: Member): void {
         let family: Family;
         let mem: string[];
-        this.family = this.family.filter((member: Member) => member.person.uid !== m.person.uid);
+        this.members = this.members.filter((member: Member) => member.person.uid !== m.person.uid);
         family = {
-            id: this.familyId,
+            id: this.family.id,
             selected: m.person.uid,
-            members: this.family.map((member: Member) => member.person.uid)
+            members: this.members.map((member: Member) => member.person.uid)
         };
         this.updateFamily.emit(family);
     }
@@ -155,5 +160,4 @@ export class FamilyComponent {
     setRole($event: Family): void {
         this.updateFamily.emit($event);
     }
-
 }

@@ -1,6 +1,7 @@
 <?php
 namespace app\commands;
 
+use app\models\Family;
 use app\models\Tag;
 use app\models\PersonFamily;
 use app\models\Person;
@@ -56,12 +57,10 @@ class DemoController extends Controller
         $person = Person::find()
             ->with('family')
             ->where(['uid'=>$id])
-            ->exists();
-        /*foreach($person->familyMembers as $m) {
-            var_dump($m);
-        }*/
+            ->one();
+        $fam = Family::findOne(1);
+        $fam->link('members', $person);
 
-
-        var_dump($person);
+        var_dump($person->toResponseArray());
     }
 }
