@@ -69,7 +69,8 @@ class Family extends \yii\db\ActiveRecord
      */
     public function getMembers()
     {
-        return $this->hasMany(Person::className(), ['id' => 'person_id'])->viaTable('person_family', ['family_id' => 'id']);
+        return $this->hasMany(Person::className(), ['id' => 'person_id'])
+            ->viaTable('person_family', ['family_id' => 'id']);
     }
 
     public function toResponseArray()

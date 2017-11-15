@@ -9,9 +9,10 @@ import { MatSelectChange } from '@angular/material';
 })
 export class FamilyTileComponent {
 
+    @Input() person: Person;
     @Input() people: Person[];
     @Input() member: Member;
-    @Input() person: Person;
+
     @Input() families: Family[];
 
     @Output() setRole: EventEmitter<Family> = new EventEmitter<Family>();

@@ -202,16 +202,16 @@ class PersonController extends MHController
             if (isset($post['members']) && isset($post['id'])) {
                 $fam = Family::findOne($post['id']);
                 foreach ($post['members'] as $uid) {
-                    $person = Person::find()
+                    $p = Person::find()
                         ->with('family')
                         ->where(['uid'=>$uid])
                         ->one();
-                    if (empty($person->family)) {
-                        $fam->link('members', $person);
-                        $person->save();
-                        $fam->save();
+                    if (empty($p->family)) {
+                        $fam->link('members', $p);
                     }
                 }
+                // TODO: find a smoother way to update relations after link
+                $person = Person::find()->where(['uid'=>$id])->one();
                 return $person->toResponseArray();
             }
             if (!$pfam->save()) {

@@ -2,6 +2,7 @@ import { Person } from '../person/person.model';
 
 export interface Member {
     person?: Person;
+    role?: string;
     isSuggestion?: boolean;
 }
 
