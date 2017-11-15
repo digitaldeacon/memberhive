@@ -3,7 +3,7 @@
     <mat-icon matPrefix>label_outline</mat-icon>
     <mat-chip *ngFor="let tag of value"
               (remove)="remove(tag, chipInput)"
-              (keydown.ArrowRight)="last && selectInput($event, chipInput)">
+              (keydown.ArrowRight)="last && selectInput($event)">
         {{tag.text}}
         <mat-icon matChipRemove>cancel</mat-icon>
     </mat-chip>
@@ -15,7 +15,10 @@
            placeholder="{{placeholder}}"
            #chipInput>
   </mat-chip-list>
-  <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="add($event)">
+  <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+          (optionSelected)="add($event)">
     <mat-option *ngFor="let tag of filteredSources" [value]="tag">
       <span>{{ tag.text }}</span>
     </mat-option>

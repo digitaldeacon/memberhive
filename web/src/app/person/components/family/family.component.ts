@@ -60,12 +60,13 @@ export class FamilyComponent {
                 isSuggestion: false
             };
             this.members.push(m);
-            console.log(this.families, this.person);
-            console.log(this.members, this.family);
+            // console.log(this.families, this.person);
+            // console.log(this.members, this.family);
             this.people
                 .filter((p: Person) => this.family.members.indexOf(p.uid) > -1)
                 .map((person: Person) => {
-                    if (this.family.unrelated &&
+                    if (this.family &&
+                        this.family.unrelated &&
                         this.family.unrelated.indexOf(person.uid) > -1) {
                         return;
                     }
@@ -95,11 +96,13 @@ export class FamilyComponent {
     buildSuggestions(): void {
         this.suggestedMembers = this.people
             .filter((person: Person) => {
-                if (this.family.unrelated &&
+                if (this.family &&
+                    this.family.unrelated &&
                     this.family.unrelated.indexOf(person.uid) > -1) {
                     return false;
                 }
-                if (this.family.members &&
+                if (this.family &&
+                    this.family.members &&
                     this.family.members.indexOf(person.uid) > -1) {
                     return false;
                 }
@@ -131,7 +134,7 @@ export class FamilyComponent {
         family = {
             id: this.family.id,
             selected: this.person.uid,
-            unrelated: 'unrelated' in this.family
+            unrelated: this.family
                 ? [...this.family.unrelated, m.person.uid] : [m.person.uid]
         };
         this.updateFamily.emit(family);

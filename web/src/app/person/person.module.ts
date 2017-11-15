@@ -1,6 +1,6 @@
 import { Type, NgModule } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
-import { MHCommonModule } from '../common/common.module';
+import { DatePipe } from '@angular/common';
+import { MhCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ng2-img-cropper';
@@ -32,14 +32,13 @@ import { FamilyComponent } from './components/family/family.component';
 import { FamilyTileComponent } from './components/family/family-tile.component';
 
 const NG_MODULES: Type<any>[] = [
-    CommonModule,
     FlexLayoutModule,
     FormsModule,
     ReactiveFormsModule
 ];
 
 const MH_MODULES: Type<any>[] = [
-    MHCommonModule,
+    MhCommonModule,
     PersonRoutingModule,
     InteractionModule,
     AuditModule

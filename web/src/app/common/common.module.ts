@@ -61,6 +61,7 @@ const MATERIAL_MODULES: any[] = [
         ConfirmDialogComponent,
         MhTagsComponent,
         MATERIAL_MODULES,
+        CommonModule,
         FlexLayoutModule,
         AgmCoreModule
     ],
@@ -69,5 +70,5 @@ const MATERIAL_MODULES: any[] = [
     ]
 })
 
-export class MHCommonModule {
+export class MhCommonModule {
 }

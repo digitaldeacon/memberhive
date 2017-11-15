@@ -775,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "44eb50f56dd6afe890dd2bae48df558ff4cc2981"
+                "reference": "7b9cc001ee115cb80c1ccdb00173cb1f1c9387dc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/44eb50f56dd6afe890dd2bae48df558ff4cc2981",
-                "reference": "44eb50f56dd6afe890dd2bae48df558ff4cc2981",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/7b9cc001ee115cb80c1ccdb00173cb1f1c9387dc",
+                "reference": "7b9cc001ee115cb80c1ccdb00173cb1f1c9387dc",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +867,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-11-11T20:42:41+00:00"
+            "time": "2017-11-14T21:49:40+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1853,12 +1853,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "4683365268a066342d6a829496c58d89a431ad72"
+                "reference": "4b1c822a68ae6577df38a59eb49b046712ec0f6a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4683365268a066342d6a829496c58d89a431ad72",
-                "reference": "4683365268a066342d6a829496c58d89a431ad72",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4b1c822a68ae6577df38a59eb49b046712ec0f6a",
+                "reference": "4b1c822a68ae6577df38a59eb49b046712ec0f6a",
                 "shasum": ""
             },
             "require": {
@@ -1927,7 +1927,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2017-11-10T09:13:14+00:00"
+            "time": "2017-11-14T14:50:51+00:00"
         },
         {
             "name": "phpunit/phpunit-mock-objects",

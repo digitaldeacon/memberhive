@@ -1,14 +1,6 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import {
-    MatCardModule, MatDialogModule,
-    MatButtonModule, MatButtonToggleModule,
-    MatIconModule, MatMenuModule,
-    MatSelectModule, MatTooltipModule,
-    MatToolbarModule, MatInputModule,
-    MatDatepickerModule, MatChipsModule
-} from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { MhCommonModule } from '../common/common.module';
+import { MatButtonToggleModule } from '@angular/material';
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 
 import { InteractionRoutingModule } from './interaction-routing.module';
@@ -29,22 +21,8 @@ import { ViewComponent } from './view/view.component';
         ViewComponent
     ],
     imports: [
-        CommonModule,
-
-        MatCardModule,
-        MatDialogModule,
-        MatButtonModule,
-        MatIconModule,
-        MatMenuModule,
-        MatSelectModule,
+        MhCommonModule,
         MatButtonToggleModule,
-        MatTooltipModule,
-        MatInputModule,
-        MatDatepickerModule,
-        MatToolbarModule,
-        MatChipsModule,
-
-        FlexLayoutModule,
         FormsModule,
         ReactiveFormsModule,
         InteractionRoutingModule
