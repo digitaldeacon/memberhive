@@ -62,7 +62,7 @@
                 </mat-tab>
                 <mat-tab label="Edit">
                    <mh-person-form
-                           [person]="person"
+                           [person]="person$ | async"
                            [settings]="settings"
                            [tagSource]="tags$ | async"
                            (savePerson)="savePerson($event)"></mh-person-form>
@@ -70,7 +70,7 @@
                 <mat-tab label="Family" i18n-label>
                     <mh-person-family
                             [people]="people"
-                            [person]="person"></mh-person-family>
+                            [person]="person$ | async"></mh-person-family>
                 </mat-tab>
                 <!--
                 TODO: Groups section

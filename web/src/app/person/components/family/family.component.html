@@ -102,7 +102,7 @@
                 i18n>SELECT or ADD
         </button> &nbsp; <b i18n>a family</b></span>
     <div *ngIf="family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
-        <mh-family-tile *ngFor="let member of members"
+        <mh-family-tile *ngFor="let member of members$ | async"
                         [person]="person"
                         [member]="member"
                         (ignoreMember)="ignore($event)"

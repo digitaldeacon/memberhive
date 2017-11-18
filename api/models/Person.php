@@ -75,8 +75,11 @@ class Person extends \yii\db\ActiveRecord
 
     public function toResponseArray()
     {
-        $family = $this->family;
-        $familyMember = $this->personFamily;
+
+        $familyMember = PersonFamily::find()->where(['person_id' => $this->id])->one();
+        //$family = $familyMember->family;
+        //$this->personFamily;
+       // $family = $this->family;
         return [
             'id' => $this->id,
             'uid' => $this->uid,
@@ -101,8 +104,8 @@ class Person extends \yii\db\ActiveRecord
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
             ],
-            'family' => !empty($family) ? [
-                'id' => $family->id,
+            'family' => !empty($familyMember->family) ? [
+                'id' => $familyMember->family->id,
                 'role' => $familyMember->role
             ] : []
         ];

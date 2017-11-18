@@ -1,8 +1,3 @@
-/**
-* This file gets uniquely generated for each customer (localhost being one of them).
-* In case of localhost the developer needs to ensure a proper setup of api/clients.json
-* ... as well as a matching token.
-*/
 {
   "token": "my_matching_token_from_api_clients.json"
 }

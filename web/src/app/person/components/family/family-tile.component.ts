@@ -10,9 +10,17 @@ import { MatSelectChange } from '@angular/material';
 })
 export class FamilyTileComponent {
 
+    _member: Member;
     @Input() person: Person;
     @Input() people: Person[];
     @Input() member: Member;
+    /*set member(member: Member) {
+        console.log('setting ... MEMBER to:', member);
+        this._member = member;
+    }
+    get member(): Member {
+        return this._member;
+    }*/
 
     @Input() families: Family[];
 
