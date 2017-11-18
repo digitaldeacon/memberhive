@@ -57,8 +57,8 @@ export interface AppConfig {
         MhCoreModule.forRoot(),
 
         StoreModule.forRoot(reducers),
-        // !environment.production ? StoreDevtoolsModule.instrument() : [],
-        StoreRouterConnectingModule,
+        !environment.production ? StoreDevtoolsModule.instrument() : [],
+        // StoreRouterConnectingModule,
 
         EffectsModule.forRoot([
             PersonEffects,
@@ -90,8 +90,7 @@ export class AppModule {
         this._dateAdapter.setLocale('de-DE');
         if (!this._auth.client) {
             this._http.get<AppConfig>('assets/client.json')
-                .toPromise()
-                .then((config: AppConfig) => {
+                .map((config: AppConfig) => {
                     this._auth.client = config.token;
                 });
         }

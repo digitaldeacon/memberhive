@@ -181,17 +181,16 @@ class FamilyController extends MHController
 
         $family = Family::findOne($post['family']['id']);
 
+        // accept suggested member to family
+        if (!empty($family)) {
+            $family->link('members', $person);
+        }
         if (isset($post['role']) && !empty($post['role'])) {
             $pfam = PersonFamily::find()->where(['family_id'=>$family->id])->one();
             $pfam->role = $post['role'];
             if (!$pfam->save()) {
                 throw new BadRequestHttpException(json_encode($pfam->errors));
             }
-        }
-
-        // accept suggested member to family
-        if (!empty($family)) {
-            $family->link('members', $person);
         }
         return Family::findOne($post['family']['id'])->toResponseArray();
     }

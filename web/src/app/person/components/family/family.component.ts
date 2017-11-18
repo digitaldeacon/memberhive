@@ -7,6 +7,7 @@ import {
     UpdatePersonAction
 } from 'mh-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/takeWhile';
 
 import { Store } from '@ngrx/store';
@@ -26,19 +27,15 @@ export class FamilyComponent implements OnDestroy {
     @Input() people: Person[];
     @Input()
     set person(person: Person) {
-        if (person) {
-            const prvuid: string = !this._person ? '' : this._person.uid;
-            this._person = person;
-            this.family = this.families.filter((f: Family) => f.id === person.family.id)[0];
-            this.buildSuggestions();
-            if (prvuid !== person.uid) {
-                this.initFamily();
-            }
-        }
+        // console.log('setting ... PERSON to:', person);
+        this._person = person;
+        this.build();
     }
     get person(): Person { return this._person; }
 
     members: Member[] = [];
+    members$: BehaviorSubject<Member[]> = new BehaviorSubject<Member[]>([]);
+
     family: Family;
     families: Family[];
 
@@ -63,23 +60,44 @@ export class FamilyComponent implements OnDestroy {
         // Get all current families
         this._store.select(app.getFamilies)
             .takeWhile(() => this._alive)
-            .subscribe((families: Family[]) => this.families = families);
+            .subscribe((families: Family[]) => {
+                this.families = families;
+                if (this.person) {
+                    this.build();
+                }
+            });
     }
 
     ngOnDestroy(): void {
         this._alive = false;
     }
 
+    build(): void {
+        // console.log('building ...');
+        this.initFamily();
+        this.initMembers();
+        this.buildSuggestions();
+    }
+
     initFamily(): void {
+        if (this.families) {
+            this.family = this.families
+                .filter((f: Family) => f.id === this.person.family.id)[0];
+            // console.log('setting ... FAMILY to:', this.family);
+            this.addForm.get('familyName').patchValue(this.person.lastName);
+        }
+    }
+
+    initMembers(): void {
         this.members = [];
+        this.members$.next(this.members);
         if (this.people && 'id' in this.person.family) {
             const m: Member = {
                 person: this.person,
                 isSuggestion: false
             };
             this.members.push(m);
-            // console.log(this.families, this.person);
-            // console.log(this.members, this.family);
+            this.members$.next(this.members);
             this.people
                 .filter((p: Person) => this.family.members.indexOf(p.uid) > -1)
                 .map((person: Person) => {
@@ -94,40 +112,44 @@ export class FamilyComponent implements OnDestroy {
                             isSuggestion: false
                         };
                         this.members.push(member);
+                        this.members$.next(this.members);
                     }
                 });
         }
-        this.suggestedMembers.map((person: Person) => {
-            if (person.maritalStatus === 'married') {
-                person.family.role = this.person.gender === 'm' ? 'husband' : 'wife';
-            } else {
-                person.family.role = 'child';
-            }
-            const m: Member = {
-                person: person,
-                isSuggestion: true
-            };
-            this.members.push(m);
-        });
     }
 
     buildSuggestions(): void {
-        this.suggestedMembers = this.people
-            .filter((person: Person) => {
-                if (this.family &&
-                    this.family.unrelated &&
-                    this.family.unrelated.indexOf(person.uid) > -1) {
-                    return false;
-                }
-                if (this.family &&
-                    this.family.members &&
-                    this.family.members.indexOf(person.uid) > -1) {
-                    return false;
-                }
-                return (person.lastName === this.person.lastName) &&
-                    (person.uid !== this.person.uid);
-        });
-        this.addForm.get('familyName').patchValue(this.person.lastName);
+        if (this.family) {
+            this.people
+                .filter((person: Person) => {
+                    if (this.family &&
+                        this.family.unrelated &&
+                        this.family.unrelated.indexOf(person.uid) > -1) {
+                        return false;
+                    }
+                    if (this.family &&
+                        this.family.members &&
+                        this.family.members.indexOf(person.uid) > -1) {
+                        return false;
+                    }
+                    return (person.lastName === this.person.lastName) &&
+                        (person.uid !== this.person.uid);
+                })
+                .map((person: Person) => {
+                    if (person.maritalStatus === 'married') {
+                        person.family.role = this.person.gender === 'm' ? 'husband' : 'wife';
+                    } else {
+                        person.family.role = 'child';
+                    }
+                    const m: Member = {
+                        person: person,
+                        isSuggestion: true
+                    };
+                    // console.log('[SUG] pushing to members...', m);
+                    this.members.push(m);
+                    this.members$.next(this.members);
+                });
+        }
     }
 
     accept(m: Member): void {
@@ -137,7 +159,8 @@ export class FamilyComponent implements OnDestroy {
         };
         this._store.dispatch(new AcceptMemberFamilyAction(payload));
         m.person.family = {
-            id: this.family.id
+            id: this.family.id,
+            role: m.role
         };
         this._store.dispatch(new UpdatePersonAction(m.person));
     }
@@ -173,12 +196,12 @@ export class FamilyComponent implements OnDestroy {
                 role: this.linkForm.get('role').value
             };
             this._store.dispatch(new LinkPersonFamilyAction(payload));
-            this.addFamily = false;
-            this.linkForm.reset();
             this.person.family = {
                 id: this.linkForm.get('family').value.id
             };
             this._store.dispatch(new UpdatePersonAction(this.person));
+            this.addFamily = false;
+            this.linkForm.reset();
         }
     }
 

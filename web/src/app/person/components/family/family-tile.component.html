@@ -1,5 +1,5 @@
-<mat-card [class.suggestion-box]="member?.isSuggestion">
-    <div *ngIf="member?.isSuggestion" class="suggestion-label"><small i18n>Suggesstion</small></div>
+<mat-card [class.suggestion-box]="member.isSuggestion" *ngIf="member">
+    <div *ngIf="member.isSuggestion" class="suggestion-label"><small i18n>Suggesstion</small></div>
     <mat-card-title-group>
         <mat-card-title>
             <a [routerLink]="['/person/view', member.person.uid]"
@@ -17,19 +17,19 @@
     <mat-card-content>
         <mat-select [(ngModel)]="member.person.family.role"
                     (selectionChange)="changeRole($event, member.person.uid)"
-                    [disabled]="member?.isSuggestion">
+                    [disabled]="member.isSuggestion">
             <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
         </mat-select>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="end center">
-        <button mat-button *ngIf="member?.isSuggestion" (click)="accept(member)">
+        <button mat-button *ngIf="member.isSuggestion" (click)="accept(member)">
             <mat-icon>check</mat-icon> <ng-container i18n>ACCEPT</ng-container>
         </button>
-        <button mat-button *ngIf="member?.isSuggestion" (click)="ignore(member)">
+        <button mat-button *ngIf="member.isSuggestion" (click)="ignore(member)">
             <mat-icon>clear</mat-icon> <ng-container i18n>IGNORE</ng-container>
         </button>
         <button mat-button color="warn"
-                *ngIf="!member?.isSuggestion && member.person.uid !== person?.uid"
+                *ngIf="!member.isSuggestion && member.person.uid !== person?.uid"
                 (click)="remove(member)">
             <mat-icon>clear</mat-icon> <ng-container i18n>REMOVE</ng-container>
         </button>

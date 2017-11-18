@@ -66,7 +66,7 @@ export function personReducer(state: PersonState = initialPersonState,
                 people: state.people.map((p: Person) => {
                     return p.uid === person.uid ? Object.assign({}, p, person) : p;
                 }),
-                personId: person.uid
+                personId: state.personId
             };
         }
 

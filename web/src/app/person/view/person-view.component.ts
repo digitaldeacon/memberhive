@@ -46,7 +46,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     families$: Observable<Family[]>;
     settings: any; // combines SystemSettings and PersonSettings
     hasMap: boolean = false;
-    userUid: string;
 
     dialogRef: MatDialogRef<any>;
 
@@ -59,6 +58,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
         // Selects the current person by fragment param
         this.person$ = this._store.select(app.getSelectedPerson);
+        // this.person$.subscribe((data: Person) => console.log('person updated:', data));
         // Fetches all Interactions associated with this person
         this.interactions$ = this._store.select(app.getInteractionsPerson);
         // Selects the tags by fragment param
@@ -68,10 +68,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         this._store.select(app.getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
-        // Get the current user
-        this._store.select(app.getAuthPersonId)
-            .takeWhile(() => this._alive)
-            .subscribe((uid: string) => this.userUid = uid);
+
         // Fetch the combined settings for people and system
         this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
             .subscribe((data: any) => {
