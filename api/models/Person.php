@@ -21,12 +21,27 @@ use \app\models\Family;
  */
 class Person extends \yii\db\ActiveRecord
 {
+    const SCENARIO_EDIT = 'edit';
+    const SCENARIO_NEW = 'new';
+
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
         return 'person';
+    }
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_NEW] = [
+            'firstName', 'lastName', 'email'
+        ];
+        $scenarios[self::SCENARIO_EDIT] = [
+            'firstName', 'lastName', 'email', 'uid'
+        ];
+        return $scenarios;
     }
 
     public function behaviors()
@@ -47,12 +62,15 @@ class Person extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['uid', 'firstName'], 'required'],
+            [['uid', 'firstName', 'lastName'], 'required', 'on' => self::SCENARIO_EDIT],
+            [['firstName', 'lastName'], 'required', 'on' => self::SCENARIO_NEW],
             [['birthday', 'baptized', 'deceased', 'anniversary'], 'safe'],
             [['address', 'custom', 'socialContact'], 'string'],
             [['created_at', 'updated_at'], 'integer'],
             [['uid'], 'string', 'max' => 36],
-            [['firstName', 'middleName', 'lastName', 'nickName', 'prefix', 'suffix', 'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig', 'phoneHome', 'phoneWork', 'phoneMobile'], 'string', 'max' => 255],
+            [['firstName', 'middleName', 'lastName', 'nickName', 'prefix', 'suffix',
+                'email', 'avatarUrlSmall', 'avatarUrlMedium', 'avatarUrlBig', 'phoneHome',
+                'phoneWork', 'phoneMobile'], 'string', 'max' => 255],
             [['maritalStatus'], 'string', 'max' => 50],
             [['birthday', 'baptized', 'anniversary', 'deceased'], 'date', 'format' => 'php:Y-m-d'],
             [['gender'], 'string', 'max' => 1],
