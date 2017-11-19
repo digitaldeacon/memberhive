@@ -35,18 +35,18 @@ export class DashletBirthdaysComponent {
             rangeDate.setDate(new Date(this.now).getDate() + this.range);
             this.peopleBdRange = people.filter((p: Person) => {
                 const bday: Date = new Date(p.birthday);
+                let contextYr: number = this.now.getFullYear();
                 if (!p.birthday) {
                     return false;
                 }
-                bday.setFullYear(this.now.getFullYear());
+                bday.setFullYear(this._contextYear(bday));
                 return bday > this.now && bday < rangeDate;
             });
             this.peopleBdRange.sort((p1: Person, p2: Person) => {
                 const left: Date = new Date(p1.birthday);
                 const right: Date = new Date(p2.birthday);
-                // Set year to current to calculate correctly (Issue #130)
-                left.setFullYear(this.now.getFullYear());
-                right.setFullYear(this.now.getFullYear());
+                left.setFullYear(this._contextYear(left));
+                right.setFullYear(this._contextYear(right));
                 return left.getTime() - right.getTime();
             });
             // Filter for today's birthdays
@@ -86,10 +86,20 @@ export class DashletBirthdaysComponent {
 
     // could become a pipe, in case momentjs does not work with AOT
     birthdayIn(birthday: string): number  {
-        const bDay: Date = new Date(birthday);
-        bDay.setFullYear(this.now.getFullYear());
-        const interval: number = Math.floor(bDay.getTime() - this.now.getTime()) / 1000;
+        const bday: Date = new Date(birthday);
+        bday.setFullYear(this._contextYear(bday));
+        const interval: number = Math.floor(bday.getTime() - this.now.getTime()) / 1000;
         const days: number = Math.ceil(interval / 86400);
         return days;
+    }
+
+    private _contextYear(d: Date): number {
+        let contextYr: number = this.now.getFullYear();
+        if (d.getMonth() < this.now.getMonth() ||
+            (d.getMonth() === this.now.getMonth()
+                && (d.getDay() < this.now.getDay()))) {
+            contextYr += 1;
+        }
+        return contextYr;
     }
 }
