@@ -28,11 +28,13 @@ A demo environment is currently unavailable (check the High-Level Items list bel
 + The images of the uploaded users are external images, so no image cropping will work
 + If you find an error **please report** this here on the issues pages
 
-## High-Level Items for October & November
+## High-Level Items for November & December
 _In order of importance_
-- [ ] Person status and tags (#46)
+- [x] Person status (#46)
 - [ ] Layout fixes (#152)
-- [ ] Person family (#123)
+- [ ] Rework entire App Structure (#163)
+- [x] Upgrade to Angular5 (#161)
+- [x] Person family (#123)
 - [ ] Person delete (#122)
 - [ ] RBAC (#139)
 - [ ] Tests for person (#37)
