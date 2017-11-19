@@ -4,13 +4,15 @@ import { Store } from '@ngrx/store';
 import { DragulaService } from 'ng2-dragula';
 
 import {
+    AppState,
+    getAuthPerson,
+    getPeople,
     ContextButton,
     Person,
     SetContextButtonsAction,
     SetTitleAction
 } from 'mh-core';
 
-import * as app from '../app.store';
 
 @Component({
     selector: 'mh-dashboard',
@@ -30,10 +32,10 @@ export class DashboardComponent implements OnDestroy {
     dashletsLeft: Array<string>;
 
     constructor(private _dragulaService: DragulaService,
-                private _store: Store<app.AppState>) {
+                private _store: Store<AppState>) {
 
-        this.currentUser$ = this._store.select(app.getAuthPerson);
-        this.people$ = this._store.select(app.getPeople);
+        this.currentUser$ = this._store.select(getAuthPerson);
+        this.people$ = this._store.select(getPeople);
         this._store.dispatch(new SetTitleAction('Dashboard'));
         this.initDragServices();
         this.setContextMenu();

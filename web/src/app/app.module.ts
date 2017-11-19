@@ -19,20 +19,11 @@ import { InteractionModule } from './interaction/interaction.module';
 
 import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './viewport/view.component';
-
-import { StoreModule } from '@ngrx/store';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
-import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AuthService } from 'mh-core';
 
-import {
-    MhCoreModule,
-    PersonEffects, SettingsEffects,
-    InteractionEffects, TagEffects,
-    FamilyEffects, AuthEffects } from 'mh-core';
-import { reducers } from './app.store';
+import { MhCoreModule } from 'mh-core';
 
 import {
     ToolbarInteractionsComponent
@@ -55,20 +46,7 @@ export interface AppConfig {
         HttpClientModule,
         AppRoutingModule,
         MhCoreModule.forRoot(),
-
-        StoreModule.forRoot(reducers),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        // StoreRouterConnectingModule,
-
-        EffectsModule.forRoot([
-            PersonEffects,
-            AuthEffects,
-            SettingsEffects,
-            InteractionEffects,
-            TagEffects,
-            FamilyEffects
-        ]),
-
         FormsModule,
         ReactiveFormsModule,
 

@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import {
+    AppState, getFamilies,
     Person, Family, Member, FamilyPayload,
     LinkPersonFamilyAction, IgnoreMemberFamilyAction,
     RemoveMemberFamilyAction, AddNewFamilyAction,
@@ -11,7 +12,7 @@ import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/takeWhile';
 
 import { Store } from '@ngrx/store';
-import * as app from '../../../app.store';
+
 
 @Component({
     selector: 'mh-person-family',
@@ -52,13 +53,13 @@ export class FamilyComponent implements OnDestroy {
         'aunt', 'grandmother', 'grandfather'
     ];
 
-    constructor(private _store: Store<app.AppState>,
+    constructor(private _store: Store<AppState>,
                 private _fb: FormBuilder) {
         this.addForm = this._fb.group({familyName: ['']});
         this.linkForm = this._fb.group({family: [undefined], role: ['']});
 
         // Get all current families
-        this._store.select(app.getFamilies)
+        this._store.select(getFamilies)
             .takeWhile(() => this._alive)
             .subscribe((families: Family[]) => {
                 this.families = families;
@@ -212,6 +213,10 @@ export class FamilyComponent implements OnDestroy {
                 members: [this.person.uid]
             };
             this._store.dispatch(new AddNewFamilyAction(family));
+            /*this.person.family = {
+                id: this.linkForm.get('family').value.id
+            };*/
+            this._store.dispatch(new UpdatePersonAction(this.person));
             this.addFamily = false;
             this.addForm.reset();
         }

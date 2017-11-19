@@ -7,7 +7,7 @@ import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/filter';
 
 import { Store } from '@ngrx/store';
-import * as app from '../app.store';
+import { AppState, getAuthError, isAuthLoading, isAuth } from 'mh-core';
 import {
     Credentials,
     AuthenticateAction,
@@ -33,9 +33,9 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     constructor(private _fb: FormBuilder,
                 private _router: Router,
-                private _store: Store<app.AppState>) {
+                private _store: Store<AppState>) {
 
-        this._store.select(app.isAuth)
+        this._store.select(isAuth)
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
@@ -50,8 +50,8 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.initForm();
-        this.error$ = this._store.select(app.getAuthError);
-        this.loading$ = this._store.select(app.isAuthLoading);
+        this.error$ = this._store.select(getAuthError);
+        this.loading$ = this._store.select(isAuthLoading);
     }
 
     onKey(event: KeyboardEvent): void {

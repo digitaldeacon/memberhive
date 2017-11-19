@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import * as app from '../../app.store';
 import {
+    AppState, getPeople, getPeopleListSettings,
     Person,
     ContextButton,
     SetContextButtonsAction,
@@ -24,9 +24,9 @@ export class PersonListComponent implements OnDestroy {
     people$: Observable<Person[]>;
     options: any = {};
 
-    constructor(private _store: Store<app.AppState>) {
-        this.people$ = this._store.select(app.getPeople);
-        this._store.select(app.getPeopleListSettings)
+    constructor(private _store: Store<AppState>) {
+        this.people$ = this._store.select(getPeople);
+        this._store.select(getPeopleListSettings)
             .takeWhile(() => this._alive)
             .subscribe((data: any) => {
                 this.options = data;
