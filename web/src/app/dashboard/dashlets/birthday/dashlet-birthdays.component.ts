@@ -35,7 +35,6 @@ export class DashletBirthdaysComponent {
             rangeDate.setDate(new Date(this.now).getDate() + this.range);
             this.peopleBdRange = people.filter((p: Person) => {
                 const bday: Date = new Date(p.birthday);
-                let contextYr: number = this.now.getFullYear();
                 if (!p.birthday) {
                     return false;
                 }
