@@ -4,6 +4,15 @@ import { BrowserModule } from '@angular/platform-browser';
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { reducers } from './store';
+import { PersonEffects } from './modules/person/person.effects';
+import { SettingsEffects } from './modules/settings/settings.effects';
+import { InteractionEffects } from  './modules/interaction/interaction.effects';
+import { TagEffects } from './modules/tags/tag.effects';
+import { FamilyEffects } from './modules/family/family.effects';
+import { AuthEffects } from './modules/auth/auth.effects';
 
 export * from './services/index';
 export * from './modules/auth/index';
@@ -14,11 +23,20 @@ export * from './modules/tags/index';
 export * from './modules/family/index';
 export * from './common/index';
 
-// export * from './store';
+export * from './store';
 
 @NgModule({
   imports: [
-    BrowserModule
+    BrowserModule,
+    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([
+        PersonEffects,
+        AuthEffects,
+        SettingsEffects,
+        InteractionEffects,
+        TagEffects,
+        FamilyEffects
+    ])
   ],
   declarations: [],
   exports: [],

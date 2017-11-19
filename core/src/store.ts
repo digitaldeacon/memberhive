@@ -12,12 +12,14 @@ import * as person from './modules/person/index';
 import * as settings from './modules/settings/index';
 import * as auth from './modules/auth/index';
 import * as tags from './modules/tags/index';
+import * as family from './modules/family/index';
 
 export interface AppState {
     interaction: interaction.InteractionState;
     person: person.PersonState;
     settings: settings.SettingsState;
     tags: tags.TagState;
+    family: family.FamilyState;
     auth: auth.AuthState;
     router: RouterReducerState;
 }
@@ -27,6 +29,7 @@ export const reducers: ActionReducerMap<AppState> = {
     person: person.personReducer,
     settings: settings.settingsReducer,
     tags: tags.tagReducer,
+    family: family.familyReducer,
     auth: auth.authReducer,
     router: routerReducer
 };
@@ -79,12 +82,12 @@ export const getPeopleSysSettings: any = createSelector(getPeopleSettings, getSy
  * Interaction Reducers
  */
 export const getInteractionState: any = (state: AppState) => state.interaction;
-export const getAllInteractions: any = createSelector(getInteractionState, interaction.interactions);
-export const getMyInteractions: any = createSelector(getAllInteractions, getAuthPersonId,
+export const getInteractions: any = createSelector(getInteractionState, interaction.interactions);
+export const getMyInteractions: any = createSelector(getInteractions, getAuthPersonId,
     (interactions: any, personId: string) => {
         return interactions.filter((i: any) => i.recipients.indexOf(personId) > -1);
     });
-export const getInteractionsPerson: any = createSelector(getAllInteractions, getSelectedPerson,
+export const getInteractionsPerson: any = createSelector(getInteractions, getSelectedPerson,
     (interactions: any, p: any) => {
         return interactions.filter((i: any) => i.refId === p.uid);
     });
@@ -94,11 +97,20 @@ export const getInteractionsPerson: any = createSelector(getAllInteractions, get
 export const getTagState: any = (state: AppState) => state.tags;
 export const getTags: any = createSelector(getTagState, tags.tags);
 /**
+ * Family Reducers
+ */
+export const getFamilyState: any = (state: AppState) => state.family;
+export const getFamilies: any = createSelector(getFamilyState, family.families);
+export const getFamilyPerson: any = createSelector(getFamilies, getSelectedPerson,
+    (families: any, p: any) => {
+        return 'id' in p.family ? families.filter((f: any) => f.id === p.family.id) : [];
+    });
+/**
  * Loading  Reducers
  */
 export const getLoadingP: any = createSelector(getPersonState, person.loadingPerson);
 export const getLoadingS: any = createSelector(getSettingsState, settings.loadingSettings);
-export const getLoadingI: any = createSelector(getAllInteractions, interaction.loadingInteraction);
+export const getLoadingI: any = createSelector(getInteractions, interaction.loadingInteraction);
 export const getLoadingT: any = createSelector(getTags, tags.loadingTags);
 export const getLoading: any = createSelector(getLoadingP, getLoadingS, getLoadingI,
     (lP: boolean, lS: boolean, lI: boolean) => lP || lS || lI);
@@ -109,8 +121,9 @@ export const getMessageP: any = createSelector(getPersonState, person.messagePer
 export const getMessageS: any = createSelector(getSettingsState, settings.messageSettings);
 export const getMessageI: any = createSelector(getInteractionState, interaction.messageInteraction);
 export const getMessageT: any = createSelector(getTagState, tags.messageTags);
-export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI, getMessageT,
-    (msgP: any, msgS: any, msgI: any, msgT: any) => msgP || msgS || msgI || msgT);
+export const getMessageF: any = createSelector(getFamilyState, family.messageFamilies);
+export const getMessage: any = createSelector(getMessageP, getMessageS, getMessageI, getMessageT, getMessageF,
+    (msgP: any, msgS: any, msgI: any, msgT: any, msgF: any) => msgP || msgS || msgI || msgT || msgF);
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/

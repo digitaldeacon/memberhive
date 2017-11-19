@@ -4,11 +4,13 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import {
+    AppState,
+    getMyInteractions,
     Interaction,
     CompleteInteractionAction,
     AuthService
 } from 'mh-core';
-import * as app from '../../../app.store';
+
 
 @Component({
     selector: 'mh-dashlet-interactions',
@@ -24,14 +26,14 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
     myOutstanding: Interaction[];
     myCompleted: Interaction[];
 
-    constructor(private _store: Store<app.AppState>,
+    constructor(private _store: Store<AppState>,
                 private _auth: AuthService,
                 private _dialog: MatDialog) {
         this.myId = this._auth.personId;
     }
 
     ngOnInit(): void {
-      this.myInteractions$ = this._store.select(app.getMyInteractions);
+      this.myInteractions$ = this._store.select(getMyInteractions);
       this.myInteractions$.takeWhile(() => this._alive)
         .subscribe((data: Interaction[]) => {
             this.myOutstanding = data.filter((i: Interaction) =>

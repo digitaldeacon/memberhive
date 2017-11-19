@@ -88,7 +88,7 @@ export class PersonFormComponent implements OnInit {
         this.form.get('firstName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('lastName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(this.emailRegex)]);
-        this.form.get('birthday').setValidators([<any>Validators.required]);
+        // this.form.get('birthday').setValidators([<any>Validators.required]);
     }
 
     initForm(): void {

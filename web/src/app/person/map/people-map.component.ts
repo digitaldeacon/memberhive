@@ -1,13 +1,12 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import * as app from '../../app.store';
 import {
+    AppState, getPeople, getSysSettings,
     Person,
     SystemSettings,
     SetTitleAction,
-    Utils,
-    GeoMarker,
+    Utils, GeoMarker,
     ContextButton,
     SetContextButtonsAction
 } from 'mh-core';
@@ -31,10 +30,10 @@ export class PeopleMapComponent implements OnDestroy {
     markers: GeoMarker[] = [];
     zoom: number = 11;
 
-    constructor(private _store: Store<app.AppState>,
+    constructor(private _store: Store<AppState>,
                 private _shout: ShoutService) {
 
-        this._store.select(app.getPeople).takeWhile(() => this._alive)
+        this._store.select(getPeople).takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
                     !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
@@ -52,7 +51,7 @@ export class PeopleMapComponent implements OnDestroy {
                     this.markers.push(marker);
                 }
             });
-        this._store.select(app.getSysSettings)
+        this._store.select(getSysSettings)
             .takeWhile(() => this._alive)
             .subscribe((data: SystemSettings) => {
                 this.settings = data;

@@ -15,23 +15,7 @@ import { MatSidenav, MatSidenavContainer } from '@angular/material';
 import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
-import * as app from '../app.store';
-import {
-    Person,
-    Message,
-    AuthService,
-    SystemSettings,
-    Interaction,
-    SettingsState,
-    SignOutAction,
-    ContextButton,
-    UpdateSettingAction,
-    ClearSettingsMessageAction,
-    ClearInteractionMessageAction,
-    ClearPersonMessageAction,
-    ClearFamilyMessageAction,
-    LayoutSettings
-} from 'mh-core';
+import * as core from 'mh-core';
 
 @Component({
     selector: 'mh-view',
@@ -61,7 +45,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     private _alive: boolean = true;
     @ViewChild('sidenav') private _sidenav: MatSidenav;
     @ViewChild('sidenavContainer') private _container: MatSidenavContainer;
-    private _layout: LayoutSettings;
+    private _layout: core.LayoutSettings;
 
     routes: Object[] = [
         {
@@ -84,53 +68,53 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
         }
     ];
 
-    currentUser: Person;
+    currentUser: core.Person;
     churchName: string;
 
     loading$: Observable<boolean>;
     title$: Observable<string>;
-    contextButtons$: Observable<ContextButton[]>;
-    myOutstanding$: Observable<Interaction[]>;
+    contextButtons$: Observable<core.ContextButton[]>;
+    myOutstanding$: Observable<core.Interaction[]>;
 
     drawerVisible: boolean = true;
     drawerState: string = 'open';
     headerPaddingClass: string = '';
 
-    constructor(private _authSrv: AuthService,
+    constructor(private _authSrv: core.AuthService,
                 private _router: Router,
                 private _shout: ShoutService,
-                private _store: Store<app.AppState>,
+                private _store: Store<core.AppState>,
                 private _cd: ChangeDetectorRef) {
 
-        this.loading$ = this._store.select(app.getLoading);
-        this.title$ = this._store.select(app.getTitle);
-        this.contextButtons$ = this._store.select(app.getContextButtons);
-        this.myOutstanding$ = this._store.select(app.getMyInteractions);
+        this.loading$ = this._store.select(core.getLoading);
+        this.title$ = this._store.select(core.getTitle);
+        this.contextButtons$ = this._store.select(core.getContextButtons);
+        this.myOutstanding$ = this._store.select(core.getMyInteractions);
 
-        this._store.select(app.getShowDrawer).takeWhile(() => this._alive)
+        this._store.select(core.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
                 this.drawerVisible = visible;
                 this.drawerState = visible ? 'open' : 'close';
             });
-        this._store.select(app.getAuthPerson).takeWhile(() => this._alive)
-            .subscribe((p: Person) => {
+        this._store.select(core.getAuthPerson).takeWhile(() => this._alive)
+            .subscribe((p: core.Person) => {
                 this.currentUser = p;
             });
-        this._store.select(app.getSysSettings).takeWhile(() => this._alive)
-            .subscribe((data: SystemSettings) => {
+        this._store.select(core.getSysSettings).takeWhile(() => this._alive)
+            .subscribe((data: core.SystemSettings) => {
                 if (data) {
                     this.churchName = data.churchName;
                 }
             });
-        this._store.select(app.getMessage)
+        this._store.select(core.getMessage)
             .takeWhile(() => this._alive)
-            .subscribe((message: Message) => {
+            .subscribe((message: core.Message) => {
                 if (message) {
                     this._shout.out(message.text, message.type);
-                    this._store.dispatch(new ClearSettingsMessageAction());
-                    this._store.dispatch(new ClearInteractionMessageAction());
-                    this._store.dispatch(new ClearPersonMessageAction());
-                    this._store.dispatch(new ClearFamilyMessageAction());
+                    this._store.dispatch(new core.ClearSettingsMessageAction());
+                    this._store.dispatch(new core.ClearInteractionMessageAction());
+                    this._store.dispatch(new core.ClearPersonMessageAction());
+                    this._store.dispatch(new core.ClearFamilyMessageAction());
                 }
             });
     }
@@ -145,22 +129,22 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
 
     logout(): void {
         this._authSrv.clearStore();
-        this._store.dispatch(new SignOutAction());
+        this._store.dispatch(new core.SignOutAction());
     }
 
     openDrawer(): void {
-        const payload: SettingsState = {
+        const payload: core.SettingsState = {
             layout: {showDrawer: true}
         };
-        this._store.dispatch(new UpdateSettingAction(payload));
+        this._store.dispatch(new core.UpdateSettingAction(payload));
         this.toggleDrawer('open');
     }
 
     closeDrawer(): void {
-        const payload: SettingsState = {
+        const payload: core.SettingsState = {
             layout: {showDrawer: false}
         };
-        this._store.dispatch(new UpdateSettingAction(payload));
+        this._store.dispatch(new core.UpdateSettingAction(payload));
         this.toggleDrawer('close');
     }
 

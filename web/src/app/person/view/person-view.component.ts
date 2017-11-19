@@ -5,8 +5,10 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/mergeMap';
 
 import { Store } from '@ngrx/store';
-import * as app from '../../app.store';
+
 import {
+    AppState, getSelectedPerson, getInteractionsPerson,
+    getTags, getPeople, getPeopleSysSettings,
     Person, Family, Interaction,
     Tag, GeoMarker,
     Utils, CalcGeoCodePayload,
@@ -49,7 +51,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     dialogRef: MatDialogRef<any>;
 
-    constructor(private _store: Store<app.AppState>,
+    constructor(private _store: Store<AppState>,
                 private _router: Router,
                 private _route: ActivatedRoute,
                 private _shout: ShoutService,
@@ -57,20 +59,20 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 private _dialog: MatDialog) {
 
         // Selects the current person by fragment param
-        this.person$ = this._store.select(app.getSelectedPerson);
+        this.person$ = this._store.select(getSelectedPerson);
         // this.person$.subscribe((data: Person) => console.log('person updated:', data));
         // Fetches all Interactions associated with this person
-        this.interactions$ = this._store.select(app.getInteractionsPerson);
+        this.interactions$ = this._store.select(getInteractionsPerson);
         // Selects the tags by fragment param
-        this.tags$ = this._store.select(app.getTags);
+        this.tags$ = this._store.select(getTags);
 
         // Load all people for the back and forth buttons
-        this._store.select(app.getPeople)
+        this._store.select(getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => this.people = people);
 
         // Fetch the combined settings for people and system
-        this._store.select(app.getPeopleSysSettings).takeWhile(() => this._alive)
+        this._store.select(getPeopleSysSettings).takeWhile(() => this._alive)
             .subscribe((data: any) => {
                 this.settings = data;
             });

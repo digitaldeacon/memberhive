@@ -9,11 +9,7 @@ import {
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
-import {
-    isAuth,
-    AppState
-} from '../app.store';
-import { ReAuthenticateAction, AuthService } from 'mh-core';
+import { isAuth, AppState, ReAuthenticateAction, AuthService } from 'mh-core';
 
 @Injectable()
 export class AuthGuard implements CanActivate {

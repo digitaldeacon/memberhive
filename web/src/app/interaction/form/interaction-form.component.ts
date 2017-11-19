@@ -6,8 +6,11 @@ import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonToggleChange } from '@angular/material';
 
-import * as app from '../../app.store';
 import {
+    AppState,
+    getPeople,
+    getSelectedPerson,
+    getInteractions,
     AuthService,
     ContextButton,
     SetContextButtonsAction,
@@ -45,13 +48,13 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
 
   constructor(private _fb: FormBuilder,
               private _auth: AuthService,
-              private _store: Store<app.AppState>,
+              private _store: Store<AppState>,
               private _route: ActivatedRoute,
               private _location: Location) {
 
     this._store.dispatch(new SetTitleAction('Create Interaction'));
-    this.people$ = this._store.select(app.getPeople);
-    this._store.select(app.getSelectedPerson)
+    this.people$ = this._store.select(getPeople);
+    this._store.select(getSelectedPerson)
         .takeWhile(() => this._alive)
         .subscribe((p: Person) => this._refPerson = p);
 
@@ -145,7 +148,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   private initDefaults(): void {
     const id: string = this._route.snapshot.paramMap.get('id');
     if (id) {
-      this._store.select(app.getInteractions)
+      this._store.select(getInteractions)
         .take(1)
         .subscribe((interaction: Interaction[]) => {
           this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];

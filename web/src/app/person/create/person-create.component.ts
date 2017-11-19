@@ -3,11 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
-import * as app from '../../app.store';
 import {
-  Utils,
-  Tag,
-  Person,
+  AppState, getPeopleSettings, getTags,
+    getSysGoogleKey, getLastCreatedPersonId,
+  Utils, Tag, Person,
   CreatePersonAction,
   ContextButton,
   SetContextButtonsAction,
@@ -29,15 +28,15 @@ export class PersonCreateComponent implements OnDestroy {
   people: Person[];
   tags$: Observable<Tag[]>;
 
-  constructor(private _store: Store<app.AppState>,
+  constructor(private _store: Store<AppState>,
               private _router: Router) {
-    this.settings$ = this._store.select(app.getPeopleSettings);
+    this.settings$ = this._store.select(getPeopleSettings);
     // Selects the tags by fragment param
-    this.tags$ = this._store.select(app.getTags);
-    this._store.select(app.getSysGoogleKey).takeWhile(() => this._alive)
+    this.tags$ = this._store.select(getTags);
+    this._store.select(getSysGoogleKey).takeWhile(() => this._alive)
         .subscribe((key: string) => this.googleApiKey = key);
 
-    this._store.select(app.getLastCreatedPersonId).takeWhile(() => this._alive)
+    this._store.select(getLastCreatedPersonId).takeWhile(() => this._alive)
         .distinctUntilChanged()
         .subscribe((uid: string) => {
           if (uid) {

@@ -2,15 +2,14 @@ import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
 import { GLOBALS } from '../../config/globals.config';
-import * as core from 'mh-core';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import * as app from '../app.store';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/take';
 
 import { isEqual } from 'lodash';
+import * as core from 'mh-core';
 
 /**
  * The Settings class can easily be extended with options simply by adding to the form:
@@ -62,7 +61,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     constructor(private _geoCoder: core.GeocodeService,
                 private _dragulaService: DragulaService,
-                private _store: Store<app.AppState>,
+                private _store: Store<core.AppState>,
                 private _shout: ShoutService,
                 private _fb: FormBuilder) {
 
@@ -169,7 +168,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     }
 
     private _initStore(): void {
-        this._store.select(app.getSettingsState)
+        this._store.select(core.getSettingsState)
             .take(1)
             .subscribe((data: any) => {
                 this.personAttrSelected = data.people.list ? data.people.list : [];
