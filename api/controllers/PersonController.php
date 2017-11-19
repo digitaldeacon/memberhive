@@ -231,6 +231,7 @@ class PersonController extends MHController
     public function actionUpdate($id)
     {
         $person = $this->findModelByUID($id);
+        $person->scenario = PERSON::SCENARIO_EDIT;
         $post = \Yii::$app->request->post();
         // throw new BadRequestHttpException(json_encode(date('Y-m-d', strtotime($post['birthday']))));
         if ($person && $post) {
@@ -307,7 +308,7 @@ class PersonController extends MHController
     public function actionCreate()
     {
         $post = \Yii::$app->request->post();
-        $person = new Person();
+        $person = new Person(['scenario' => PERSON::SCENARIO_NEW]);
 
         $person->firstName = $post['firstName'];
         $person->middleName = $post['middleName'];
