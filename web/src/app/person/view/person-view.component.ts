@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/exhaustMap';
 
 import { Store } from '@ngrx/store';
 
@@ -72,10 +72,9 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .subscribe((people: Person[]) => this.people = people);
 
         // Fetch the combined settings for people and system
-        this._store.select(getPeopleSysSettings).takeWhile(() => this._alive)
-            .subscribe((data: any) => {
-                this.settings = data;
-            });
+        this._store.select(getPeopleSysSettings)
+            .takeWhile(() => this._alive)
+            .subscribe((data: any) => this.settings = data);
     }
 
     ngOnInit(): void {
@@ -84,9 +83,10 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 this._store.dispatch(new ViewPersonAction(params['id']));
                 this._store.dispatch(new GetInteractionsPersonAction(params['id']));
             })
-            .mergeMap(() => this.person$)
+            .exhaustMap(() => this.person$)
             .subscribe((person: any) => {
                 if (person) {
+                    console.log('reset route params', person);
                     this.person = person;
                     this._store.dispatch(new SetTitleAction(this.person.fullName));
                     this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');
