@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Person, CalcGeoCodePayload } from './person.model';
-import { Family } from '../family/family.model';
 
 export const LIST_PEOPLE = '[People] List';
 export const LIST_PEOPLE_SUCCESS = '[People] List Success';

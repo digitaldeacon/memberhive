@@ -22,8 +22,7 @@ const initialState: SettingsState = {
         module: ''
     },
     people: {
-        list: ['email'],
-        maritalStatus: ['single', 'engaged', 'married', 'widowed', 'separated', 'divorced']
+        list: ['email']
     },
     system: {
         churchName: 'Your Church',
@@ -58,7 +57,7 @@ export function settingsReducer(state: SettingsState = initialState,
         case actions.UPDATE_SETTINGS_FAILURE:
         case actions.LIST_SETTINGS_FAILURE: {
             let message: common.Message = {
-                type: common.MESSAGE_FAILURE,
+                type: common.MessageType.FAILURE,
                 text: 'Setting failure: ' + action.payload // TODO: add to i18n
             };
             return Object.assign({}, state, {
@@ -74,7 +73,7 @@ export function settingsReducer(state: SettingsState = initialState,
             const values = (<any>Object).values(payload);
 
             let message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated settings' // TODO: add to i18n
             };
             let system: model.SystemSettings = state.system;

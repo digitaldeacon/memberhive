@@ -6,6 +6,29 @@ export interface PersonFamily {
     role?: string;
 }
 
+export enum MaritalStatus {
+    MARRIED = 'married',
+    SINGLE = 'single',
+    WIDOWED = 'widowed',
+    DIVORCED = 'divorced',
+    SEPARATED = 'separated',
+    ENGAGED = 'engaged'
+}
+
+export const enum Gender {
+    MALE = 'm',
+    FEMALE = 'f'
+}
+
+export const maritalStatusArray: MaritalStatus[] = [
+    MaritalStatus.MARRIED,
+    MaritalStatus.SINGLE,
+    MaritalStatus.WIDOWED,
+    MaritalStatus.DIVORCED,
+    MaritalStatus.SEPARATED,
+    MaritalStatus.ENGAGED
+];
+
 export interface User {
     token: string;
     personId: string;
@@ -21,7 +44,7 @@ export interface Person {
     middleName?: string;
     fullName?: string;
     email?: string;
-    maritalStatus?: string;
+    maritalStatus?: MaritalStatus;
     gender?: string;
     birthday?: Date;
     baptized?: Date;

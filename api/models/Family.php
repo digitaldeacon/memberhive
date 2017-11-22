@@ -82,7 +82,7 @@ class Family extends \yii\db\ActiveRecord
             'id' => $this->id,
             'name' => $this->name,
             'members' => array_map($membermap, $this->members),
-            'unrelated' => $this->unrelated
+            'unrelated' => json_decode($this->unrelated)
         ];
     }
 }

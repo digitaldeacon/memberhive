@@ -18,7 +18,7 @@
         <mat-select [(ngModel)]="member.person.family.role"
                     (selectionChange)="changeRole($event, member.person.uid)"
                     [disabled]="member.isSuggestion">
-            <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+            <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>
         </mat-select>
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="end center">

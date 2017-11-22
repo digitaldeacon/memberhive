@@ -17,8 +17,7 @@ import {
     DeletePersonAction, SetTitleAction,
     ContextButton, SetContextButtonsAction,
     CalcPersonGeoAction, DeleteInteractionAction,
-    AddInteractionAction,
-    AddNewFamilyAction
+    AddInteractionAction
 } from 'mh-core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -45,7 +44,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     person$: Observable<Person>;
     interactions$: Observable<Interaction[]>;
     tags$: Observable<Tag[]>;
-    families$: Observable<Family[]>;
     settings: any; // combines SystemSettings and PersonSettings
     hasMap: boolean = false;
 
@@ -86,7 +84,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
             .exhaustMap(() => this.person$)
             .subscribe((person: any) => {
                 if (person) {
-                    console.log('reset route params', person);
                     this.person = person;
                     this._store.dispatch(new SetTitleAction(this.person.fullName));
                     this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');

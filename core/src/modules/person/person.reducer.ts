@@ -3,7 +3,6 @@ import { createSelector } from '@ngrx/store';
 import * as actions from './person.actions';
 import { Person, CalcGeoCodePayload } from './person.model';
 import * as common from '../../common/common.model';
-import { Utils } from '../../common/common.utils';
 
 export interface PersonState {
     loaded: boolean;
@@ -56,7 +55,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.UPDATE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated ' + person.fullName
             };
             return {
@@ -73,7 +72,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.DELETE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully deleted this person'
             };
             return Object.assign({}, state, {
@@ -90,7 +89,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.DELETE_PERSON_FAILURE: {
             const res: HttpErrorResponse = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_FAILURE,
+                type: common.MessageType.FAILURE,
                 text: res.message
             };
             return Object.assign({}, state, {
@@ -103,7 +102,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.CREATE_PERSON_SUCCESS: {
             const person: Person = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully created ' + person.fullName
             };
             return Object.assign({}, state, {
@@ -121,7 +120,7 @@ export function personReducer(state: PersonState = initialPersonState,
         case actions.CALC_PERSON_GEO_SUCCESS: {
             const payload: CalcGeoCodePayload = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated geocodes for ' + payload.person.fullName
             };
             return {

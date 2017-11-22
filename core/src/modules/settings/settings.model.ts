@@ -22,7 +22,6 @@ export interface LayoutSettings {
 
 export interface PersonSettings {
     list: Array<string>;
-    maritalStatus: Array<any>;
 }
 
 export interface ContextButton {

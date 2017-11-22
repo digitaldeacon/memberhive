@@ -16,10 +16,12 @@
                                 <b *ngIf="person.gender === 'm'" i18n>male</b>
                             </span>
                             <!-- TODO: fix spacing issues -->
-                            <span matLine
-                                  *ngIf="opt === 'status' && person?.status.length > 0"
-                                   >
+                            <span matLine *ngIf="opt === 'status' && person?.status.length > 0">
                                 <mat-basic-chip *ngFor="let tag of person?.status" class="status-chip">{{tag.text}}</mat-basic-chip>
+                            </span>
+                            <span matLine *ngIf="opt === 'family' && person.family.id">
+                                <mat-basic-chip class="family-chip">
+                                    <mat-icon>face</mat-icon>{{familyName(person.family.id)}}</mat-basic-chip>
                             </span>
                         </ng-container>
                     </mat-card-subtitle>

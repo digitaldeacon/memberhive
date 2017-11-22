@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Person, Member, Family, FamilyPayload } from 'mh-core';
+import {
+    Person, Member, Family, FamilyPayload,
+    FamilyRole, familyRoleArray
+} from 'mh-core';
 import { MatSelectChange } from '@angular/material';
 
 @Component({
@@ -14,15 +17,7 @@ export class FamilyTileComponent {
     @Input() person: Person;
     @Input() people: Person[];
     @Input() member: Member;
-    /*set member(member: Member) {
-        console.log('setting ... MEMBER to:', member);
-        this._member = member;
-    }
-    get member(): Member {
-        return this._member;
-    }*/
-
-    @Input() families: Family[];
+    @Input() family: Family;
 
     @Output() setRole: EventEmitter<FamilyPayload> = new EventEmitter<FamilyPayload>();
     @Output() ignoreMember: EventEmitter<Member> = new EventEmitter<Member>();
@@ -30,10 +25,7 @@ export class FamilyTileComponent {
     @Output() removeMember: EventEmitter<Member> = new EventEmitter<Member>();
 
     // TODO: move to settings
-    relations: string[] = [
-        'husband', 'wife', 'child', 'sibling', 'uncle',
-        'aunt', 'grandmother', 'grandfather'
-    ];
+    roles: FamilyRole[] = familyRoleArray;
 
     accept(member: Member): void {
         this.acceptMember.emit(member);

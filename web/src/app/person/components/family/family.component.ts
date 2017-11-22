@@ -1,17 +1,19 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
-import {
-    AppState, getFamilies,
-    Person, Family, Member, FamilyPayload,
-    LinkPersonFamilyAction, IgnoreMemberFamilyAction,
-    RemoveMemberFamilyAction, AddNewFamilyAction,
-    SetFamilyRoleAction, AcceptMemberFamilyAction,
-    UpdatePersonAction
-} from 'mh-core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import 'rxjs/add/operator/takeWhile';
 
 import { Store } from '@ngrx/store';
+
+import {
+    AppState, getFamilies,
+    Person, Family, Member, FamilyPayload,
+    MaritalStatus, FamilyRole, Gender,
+    LinkPersonFamilyAction, IgnoreMemberFamilyAction,
+    RemoveMemberFamilyAction, AddNewFamilyAction,
+    SetFamilyRoleAction, AcceptMemberFamilyAction,
+    UpdatePersonAction
+} from 'mh-core';
 
 
 @Component({
@@ -28,7 +30,6 @@ export class FamilyComponent implements OnDestroy {
     @Input() people: Person[];
     @Input()
     set person(person: Person) {
-        // console.log('setting ... PERSON to:', person);
         this._person = person;
         this.build();
     }
@@ -47,11 +48,6 @@ export class FamilyComponent implements OnDestroy {
 
     addForm: FormGroup;
     linkForm: FormGroup;
-
-    relations: string[] = [
-        'husband', 'wife', 'child', 'sibling', 'uncle',
-        'aunt', 'grandmother', 'grandfather'
-    ];
 
     constructor(private _store: Store<AppState>,
                 private _fb: FormBuilder) {
@@ -74,7 +70,6 @@ export class FamilyComponent implements OnDestroy {
     }
 
     build(): void {
-        // console.log('building ...');
         this.initFamily();
         this.initMembers();
         this.buildSuggestions();
@@ -84,8 +79,8 @@ export class FamilyComponent implements OnDestroy {
         if (this.families) {
             this.family = this.families
                 .filter((f: Family) => f.id === this.person.family.id)[0];
-            // console.log('setting ... FAMILY to:', this.family);
-            this.addForm.get('familyName').patchValue(this.person.lastName);
+            this.addForm.get('familyName')
+                .patchValue(this.person.lastName + '(' + this.person.firstName + ')');
         }
     }
 
@@ -137,16 +132,17 @@ export class FamilyComponent implements OnDestroy {
                         (person.uid !== this.person.uid);
                 })
                 .map((person: Person) => {
-                    if (person.maritalStatus === 'married') {
-                        person.family.role = this.person.gender === 'm' ? 'husband' : 'wife';
+                    if (person.maritalStatus === MaritalStatus.MARRIED) {
+                        person.family.role = this.person.gender === Gender.MALE
+                            ? FamilyRole.HUSBAND
+                            : FamilyRole.WIFE ;
                     } else {
-                        person.family.role = 'child';
+                        person.family.role = FamilyRole.CHILD;
                     }
                     const m: Member = {
                         person: person,
                         isSuggestion: true
                     };
-                    // console.log('[SUG] pushing to members...', m);
                     this.members.push(m);
                     this.members$.next(this.members);
                 });
@@ -169,7 +165,7 @@ export class FamilyComponent implements OnDestroy {
     ignore(m: Member): void {
         const payload: FamilyPayload = {
             family: this.family,
-            member: this.person.uid
+            member: m.person.uid
         };
         this._store.dispatch(new IgnoreMemberFamilyAction(payload));
     }
@@ -197,25 +193,19 @@ export class FamilyComponent implements OnDestroy {
                 role: this.linkForm.get('role').value
             };
             this._store.dispatch(new LinkPersonFamilyAction(payload));
-            this.person.family = {
-                id: this.linkForm.get('family').value.id
-            };
             this._store.dispatch(new UpdatePersonAction(this.person));
             this.addFamily = false;
             this.linkForm.reset();
         }
     }
 
-    addFormSave(): void {
+    addNew(): void {
         if (this.addForm.valid) {
             const family: Family = {
                 name: this.addForm.get('familyName').value,
                 members: [this.person.uid]
             };
             this._store.dispatch(new AddNewFamilyAction(family));
-            /*this.person.family = {
-                id: this.linkForm.get('family').value.id
-            };*/
             this._store.dispatch(new UpdatePersonAction(this.person));
             this.addFamily = false;
             this.addForm.reset();
@@ -223,6 +213,11 @@ export class FamilyComponent implements OnDestroy {
     }
 
     changeRole(payload: FamilyPayload): void {
+        const member: Person = this.people.find((p: Person) => p.uid === payload.member);
         this._store.dispatch(new SetFamilyRoleAction(payload));
+        if (!member.maritalStatus) {
+            member.maritalStatus = MaritalStatus.MARRIED;
+        }
+        this._store.dispatch(new UpdatePersonAction(member));
     }
 }

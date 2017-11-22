@@ -19,3 +19,29 @@ export interface FamilyPayload {
     member?: string;
     role?: string;
 }
+
+export enum FamilyRole {
+    HUSBAND = 'husband',
+    WIFE = 'wife',
+    CHILD = 'child',
+    MOTHER = 'mother',
+    FATHER = 'father',
+    BROTHER = 'brother',
+    SISTER = 'sister',
+    GRANDMOTHER = 'grandmother',
+    GRANDFATHER = 'grandfather',
+    INLAW = 'inlaw'
+}
+
+export const familyRoleArray: FamilyRole[] = [
+    FamilyRole.HUSBAND,
+    FamilyRole.WIFE,
+    FamilyRole.CHILD,
+    FamilyRole.MOTHER,
+    FamilyRole.FATHER,
+    FamilyRole.BROTHER,
+    FamilyRole.SISTER,
+    FamilyRole.INLAW,
+    FamilyRole.GRANDFATHER,
+    FamilyRole.GRANDMOTHER
+];

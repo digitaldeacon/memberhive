@@ -5,7 +5,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Family } from './family.model';
 import * as actions from './family.actions';
 import * as common from '../../common/common.model';
-import {Person} from "../person/person.model";
 
 export interface FamilyState {
     loaded?: boolean;
@@ -38,7 +37,7 @@ export function familyReducer(state: FamilyState = initialState,
         case actions.LIST_FAMILIES_FAILURE: {
             const res: HttpErrorResponse = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_FAILURE,
+                type: common.MessageType.FAILURE,
                 text: res.message
             };
             return Object.assign({}, state, {
@@ -51,7 +50,7 @@ export function familyReducer(state: FamilyState = initialState,
         case actions.UPDATE_FAMILY_SUCCESS: {
             const family: Family = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated family ' + family.name
             };
             return {
@@ -76,7 +75,7 @@ export function familyReducer(state: FamilyState = initialState,
         case actions.ADD_FAMILY_SUCCESS: {
             const family: Family = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully added family ' + family.name
             };
             return Object.assign({}, state, {
