@@ -12,6 +12,7 @@ import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions } from '@ngrx/effects';
 import * as actions from './family.actions';
+import { UpdatePersonAction } from '../person/person.actions';
 import { Family, FamilyPayload } from './family.model';
 import { HttpService } from '../../services/http.service';
 
@@ -37,9 +38,15 @@ export class FamilyEffects {
         .map((action: actions.AddNewFamilyAction) => action.payload)
         .switchMap((data: Family) => {
             return this._http.post('family/new', data)
-                .map((r: Family) => new actions.AddNewFamilySuccessAction(r))
+                .mergeMap((r: Family) => {
+                    return [
+                        new actions.AddNewFamilySuccessAction(r)
+                    ];
+                })
                 .catch((r: HttpErrorResponse) => of(new actions.AddNewFamilyFailureAction(r)));
         });
+    /*,
+                        new UpdatePersonAction(r)*/
 
     @Effect()
     updateFamily$ = this._actions$

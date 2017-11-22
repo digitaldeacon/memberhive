@@ -9,9 +9,8 @@ import {
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import {
-    Person,
-    PersonAddress,
-    Tag
+    Person, PersonAddress, Tag, FormStatus,
+    MaritalStatus, maritalStatusArray
 } from 'mh-core';
 
 @Component({
@@ -26,8 +25,9 @@ export class PersonFormComponent implements OnInit {
     private _pwFormControl: FormControl;
     private _pwRandCheckbox: FormControl;
     private _person: Person;
-    mode: string = 'Edit';
 
+    maritalStatus: MaritalStatus[] = maritalStatusArray;
+    mode: FormStatus = FormStatus.EDIT;
     hasMap: boolean = false;
 
     @Input() settings: any;
@@ -62,7 +62,7 @@ export class PersonFormComponent implements OnInit {
 
     ngOnInit(): void {
         if (!this.form) {
-            this.mode = 'Create';
+            this.mode = FormStatus.CREATE;
             this.initForm();
             this.initValidators();
         }
@@ -178,7 +178,7 @@ export class PersonFormComponent implements OnInit {
     }
 
     inCreateMode(): boolean {
-        return this.mode === 'Create';
+        return this.mode === FormStatus.CREATE;
     }
 
     toggleRandomPassword(event?: any): void {

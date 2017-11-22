@@ -38,22 +38,13 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     submitted: boolean = false;
     hideToggle: boolean = false;
     personAttrSet: Array<string> = [
-        'firstName',
-        'middleName',
-        'lastName',
-        'email',
-        'birthday',
-        'gender',
-        'age',
-        'phoneHome',
-        'phoneWork',
-        'phoneMobile',
-        'status'
+        'firstName', 'middleName', 'lastName',
+        'email', 'birthday', 'gender',
+        'phoneHome', 'phoneWork', 'phoneMobile',
+        'status', 'age', 'family'
     ];
     personAttr: Array<string>;
     personAttrSelected: Array<string>;
-
-    maritalStatus: FormArray;
 
     sysSettings: core.SystemSettings;
     personSettings: core.PersonSettings;
@@ -78,7 +69,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
     ngOnDestroy(): void {
         this._alive = false;
-        this._dragulaService.destroy('PEOPLE_MARITAL');
         this._dragulaService.destroy('PEOPLE_LIST');
     }
 
@@ -98,11 +88,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
                 googleApiKey: GLOBALS.googleAPIKey
             }),
             people: this._fb.group({
-                maritalStatus: this.buildFormArray()
             })
         });
         this.settingsForm.get('system').patchValue(this.sysSettings);
-        this.settingsForm.get('people').patchValue(this.personSettings);
+        // this.settingsForm.get('people').patchValue(this.personSettings);
 
         this.settingsForm.valueChanges
             .debounceTime(2000)
@@ -125,33 +114,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         }
     }
 
-    buildFormArray(): FormArray {
-        const fga: Array<FormGroup> = [];
-        for (const status of this.personSettings.maritalStatus) {
-            fga.push(this.buildFormGroup(status));
-        }
-        this.maritalStatus = this._fb.array(fga);
-        return this.maritalStatus;
-    }
-
     buildFormGroup(status?: string): FormGroup {
         return this._fb.group({
             status: status
         });
-    }
-
-    addMaritalStatus(el: HTMLInputElement): void {
-        if (el.value !== '') {
-            this.maritalStatus.push(this.buildFormGroup(el.value));
-        }
-        el.value = '';
-    }
-    removeMaritalStatus(index: number): void {
-        if (this.maritalStatus.length > 3) {
-            this.maritalStatus.removeAt(index);
-        } else {
-            this._shout.error('We need to have a min. of 3 status items');
-        }
     }
 
     filter(): void {
@@ -179,11 +145,6 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
             });
     }
     private _initDragula(): void {
-        this._dragulaService.setOptions('PEOPLE_MARITAL', {
-            moves: function (el: any, container: any, handle: any): boolean {
-                return handle.className.indexOf('handle') > -1;
-            }
-        });
         this._dragulaService.dropModel.subscribe(() => {
             this.submitted = true;
             this.personSettings.list = this.personAttrSelected;

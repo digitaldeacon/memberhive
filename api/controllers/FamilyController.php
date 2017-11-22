@@ -127,6 +127,7 @@ class FamilyController extends MHController
 
     public function actionIgnore($id = 0) {
         $post = \Yii::$app->request->post();
+        $unrelated = [];
 
         if (YII_DEBUG) {
             $dbg =  $id . ' ** ' . json_encode($post);
@@ -137,11 +138,13 @@ class FamilyController extends MHController
 
         // ignore suggested member and save to family, so no suggestions appear again
         $family = Family::findOne($post['family']['id']);
-        array_push($family->unrelated, $post['member']);
+        $unrelated = !empty($family->unrelated) ? json_decode($family->unrelated) : [];
+        array_push($unrelated, $post['member']);
+        $family->unrelated = json_encode($unrelated);
         if (!$family->save()) {
-            throw new BadRequestHttpException(json_encode($family->getFirstError()));
+            throw new BadRequestHttpException(json_encode($family->getFirstErrors()));
         }
-        return Family::findOne($post['family']['id'])->toResponseArray();
+        return $family->toResponseArray();
     }
 
     public function actionAccept($id = 0) {
@@ -197,6 +200,7 @@ class FamilyController extends MHController
 
     public function actionSetRole($id = 0) {
         $post = \Yii::$app->request->post();
+        $person = Person::findOne(['uid' => $id]);
 
         if (YII_DEBUG) {
             $dbg =  $id . ' ** ' . json_encode($post);
@@ -208,7 +212,12 @@ class FamilyController extends MHController
 
         // Change role if Family object contains a role string
         if (isset($post['role']) && !empty($post['role'])) {
-            $pfam = PersonFamily::find()->where(['family_id'=>$post['family']['id']])->one();
+            $pfam = PersonFamily::find()
+                ->where([
+                'family_id' => $post['family']['id'],
+                'person_id' => $person->id
+                ])
+                ->one();
             $pfam->role = $post['role'];
             if (!$pfam->save()) {
                 throw new BadRequestHttpException(json_encode($pfam->errors));

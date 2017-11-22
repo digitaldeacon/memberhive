@@ -3,10 +3,10 @@ import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
 
 import {
-    AppState, getPeople, getPeopleListSettings,
-    Person,
-    ContextButton,
-    SetContextButtonsAction,
+    AppState,
+    getPeople, getPeopleListSettings, getFamilies,
+    Person, Family,
+    ContextButton, SetContextButtonsAction,
     SetTitleAction
 } from 'mh-core';
 
@@ -22,10 +22,14 @@ export class PersonListComponent implements OnDestroy {
     private _alive: boolean = true;
 
     people$: Observable<Person[]>;
+    families: Family[];
     options: any = {};
 
     constructor(private _store: Store<AppState>) {
         this.people$ = this._store.select(getPeople);
+        this._store.select(getFamilies)
+            .takeWhile(() => this._alive)
+            .subscribe((families: Family[]) => this.families = families);
         this._store.select(getPeopleListSettings)
             .takeWhile(() => this._alive)
             .subscribe((data: any) => {
@@ -41,6 +45,10 @@ export class PersonListComponent implements OnDestroy {
 
     ngOnDestroy(): void {
         this._alive = false;
+    }
+
+    familyName(id: number): string {
+        return this.families.find((f: Family) => f.id === id).name;
     }
 
     private _setContextMenu(): void {

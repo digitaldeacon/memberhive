@@ -73,9 +73,11 @@
             </div>
             <div>
                 <mat-form-field>
-                    <mat-select name="maritalStatus" formControlName="maritalStatus" placeholder="Marital Status" i18n-placeholder>
-                        <mat-option *ngFor="let mstatus of settings?.maritalStatus" [value]="mstatus.status">
-                            {{mstatus.status}}
+                    <mat-select name="maritalStatus"
+                                formControlName="maritalStatus"
+                                placeholder="Marital Status" i18n-placeholder>
+                        <mat-option *ngFor="let mstatus of maritalStatus" [value]="mstatus">
+                            {{mstatus | titlecase}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

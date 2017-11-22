@@ -42,7 +42,7 @@ action: actions.InteractionActions): InteractionState {
         case actions.ADD_INTERACTION_SUCCESS: {
             const interaction: Interaction = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully added an interaction'
             };
             let interactions: Interaction[] = [...state.interactions, interaction];
@@ -65,7 +65,7 @@ action: actions.InteractionActions): InteractionState {
         case actions.UPDATE_INTERACTION_SUCCESS: {
             const interaction: Interaction = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated this interaction'
             };
             return Object.assign({}, state, {
@@ -80,7 +80,7 @@ action: actions.InteractionActions): InteractionState {
 
         case actions.DELETE_INTERACTION_SUCCESS: {
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully deleted this interaction'
             };
             return Object.assign({}, state, {
@@ -97,7 +97,7 @@ action: actions.InteractionActions): InteractionState {
         case actions.ADD_INTERACTION_FAILURE: {
             const res: HttpResponse<any> = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_FAILURE,
+                type: common.MessageType.FAILURE,
                 text: res.statusText
             };
             return Object.assign({}, state, {

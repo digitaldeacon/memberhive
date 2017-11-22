@@ -101,16 +101,16 @@
         },
         {
             "name": "bower-asset/inputmask",
-            "version": "3.3.10",
+            "version": "3.3.11",
             "source": {
                 "type": "git",
                 "url": "https://github.com/RobinHerbots/Inputmask.git",
-                "reference": "14873e5775964275d13621cbe2b52e4448af3707"
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/14873e5775964275d13621cbe2b52e4448af3707",
-                "reference": "14873e5775964275d13621cbe2b52e4448af3707",
+                "url": "https://api.github.com/repos/RobinHerbots/Inputmask/zipball/5e670ad62f50c738388d4dcec78d2888505ad77b",
+                "reference": "5e670ad62f50c738388d4dcec78d2888505ad77b",
                 "shasum": ""
             },
             "require": {
@@ -775,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "3d218a09d989afd6bba34a7c46f63f79080737f7"
+                "reference": "ba56c51dcb9e8b8cdaaea109fd4a4727457f085f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/3d218a09d989afd6bba34a7c46f63f79080737f7",
-                "reference": "3d218a09d989afd6bba34a7c46f63f79080737f7",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/ba56c51dcb9e8b8cdaaea109fd4a4727457f085f",
+                "reference": "ba56c51dcb9e8b8cdaaea109fd4a4727457f085f",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +867,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2017-11-17T21:23:46+00:00"
+            "time": "2017-11-20T06:20:12+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -1261,12 +1261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/myclabs/DeepCopy.git",
-                "reference": "ae684c84fd1be31813faffa78ebd70cdc013fc8e"
+                "reference": "b270f34b740863c588a3f65f5ab7a3afa38a81e5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/ae684c84fd1be31813faffa78ebd70cdc013fc8e",
-                "reference": "ae684c84fd1be31813faffa78ebd70cdc013fc8e",
+                "url": "https://api.github.com/repos/myclabs/DeepCopy/zipball/b270f34b740863c588a3f65f5ab7a3afa38a81e5",
+                "reference": "b270f34b740863c588a3f65f5ab7a3afa38a81e5",
                 "shasum": ""
             },
             "require": {
@@ -1298,7 +1298,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2017-10-16T22:02:21+00:00"
+            "time": "2017-10-20T11:34:00+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -2588,12 +2588,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "686c7fc416b454fe4019f1a225206b133ceb4fc1"
+                "reference": "cf16b193ab0e18aaebf1bdd7404cab9a859e5429"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/686c7fc416b454fe4019f1a225206b133ceb4fc1",
-                "reference": "686c7fc416b454fe4019f1a225206b133ceb4fc1",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/cf16b193ab0e18aaebf1bdd7404cab9a859e5429",
+                "reference": "cf16b193ab0e18aaebf1bdd7404cab9a859e5429",
                 "shasum": ""
             },
             "require": {
@@ -2611,7 +2611,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -2638,7 +2638,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2017-11-10T19:37:45+00:00"
+            "time": "2017-11-21T17:31:29+00:00"
         },
         {
             "name": "yiisoft/yii2-apidoc",
@@ -2646,12 +2646,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-apidoc.git",
-                "reference": "ac3581f9c8db805da5a2637a27ded7dc620c5bf8"
+                "reference": "96e1651ea205c624d5e89f646c0c5969f2224a0f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-apidoc/zipball/ac3581f9c8db805da5a2637a27ded7dc620c5bf8",
-                "reference": "ac3581f9c8db805da5a2637a27ded7dc620c5bf8",
+                "url": "https://api.github.com/repos/yiisoft/yii2-apidoc/zipball/96e1651ea205c624d5e89f646c0c5969f2224a0f",
+                "reference": "96e1651ea205c624d5e89f646c0c5969f2224a0f",
                 "shasum": ""
             },
             "require": {
@@ -2702,7 +2702,7 @@
                 "phpdoc",
                 "yii2"
             ],
-            "time": "2017-10-16T09:17:26+00:00"
+            "time": "2017-11-20T08:37:25+00:00"
         },
         {
             "name": "yiisoft/yii2-bootstrap",

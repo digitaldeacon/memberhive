@@ -94,44 +94,10 @@
                     </fieldset>
                     <fieldset fxFlex="50">
                         <legend i18n>Available</legend>
-                        <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
-                        <div class="container" [dragula]='"PEOPLE_LIST"' [dragulaModel]='personAttr'>
-                        </div>
-                    </fieldset>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel
-                    #personPanelList
-                    [hideToggle]="hideToggle">
-                <mat-expansion-panel-header i18n>Marital Status</mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <div fxLayout="row">
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   placeholder="Add Status"
-                                   i18n-placeholder
-                                   #newMaritalStatus>
-                        </mat-form-field>
-                        <button mat-icon-button (click)="addMaritalStatus(newMaritalStatus)">
-                            <mat-icon>add_circle_outline</mat-icon>
-                        </button>
-                    </div>
-                    <fieldset formArrayName="maritalStatus">
-                        <legend i18n>Available</legend>
-                        <div *ngFor="let status of maritalStatus?.controls; let i=index"
-                             [formGroupName]="i">
-                            <mat-icon class="handle">drag_handle</mat-icon>
-                            <mat-form-field>
-                                <input matInput
-                                       type="text"
-                                       placeholder="Status"
-                                       i18n-placeholder
-                                       formControlName="status">
-                            </mat-form-field>
-                            <button mat-icon-button (click)="removeMaritalStatus(i)">
-                                <mat-icon>delete</mat-icon>
-                            </button>
+                        <div class="container"
+                             [dragula]='"PEOPLE_LIST"'
+                             [dragulaModel]='personAttr'>
+                            <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
                         </div>
                     </fieldset>
                 </div>

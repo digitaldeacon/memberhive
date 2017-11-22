@@ -79,7 +79,7 @@
         </div>
     </form>
     <form [formGroup]="addForm"
-          (ngSubmit)="addFormSave()"
+          (ngSubmit)="addNew()"
           fxLayout="column"
           novalidate>
         <h4 i18n>Create new family</h4>
@@ -104,6 +104,7 @@
     <div *ngIf="family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
         <mh-family-tile *ngFor="let member of members$ | async"
                         [person]="person"
+                        family="family"
                         [member]="member"
                         (ignoreMember)="ignore($event)"
                         (removeMember)="remove($event)"

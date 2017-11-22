@@ -1,5 +1,6 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { TitleCasePipe } from '@angular/common';
 
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
@@ -40,7 +41,9 @@ export * from './store';
   ],
   declarations: [],
   exports: [],
-  providers: []
+  providers: [
+      TitleCasePipe
+  ]
 })
 export class MhCoreModule {
   static forRoot(): ModuleWithProviders {

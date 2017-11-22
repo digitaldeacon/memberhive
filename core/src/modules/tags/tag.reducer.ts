@@ -1,11 +1,7 @@
-import { createSelector } from '@ngrx/store';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
 import { HttpResponse } from '@angular/common/http';
-import { Tag, Tags } from './tag.model';
+import { Tag } from './tag.model';
 import * as actions from './tag.actions';
 import * as common from '../../common/common.model';
-import { Utils } from '../../common/common.utils';
 
 export interface TagState {
     loaded?: boolean;
@@ -36,7 +32,7 @@ export function tagReducer(state: TagState = initialState,
         case actions.LIST_TAGS_FAILURE: {
             const res: HttpResponse<any> = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_FAILURE,
+                type: common.MessageType.FAILURE,
                 text: res.statusText
             };
             return Object.assign({}, state, {
@@ -58,7 +54,7 @@ export function tagReducer(state: TagState = initialState,
         case actions.UPDATE_TAGS_SUCCESS: {
             const tags: Tag[] = action.payload;
             const message: common.Message = {
-                type: common.MESSAGE_SUCCESS,
+                type: common.MessageType.SUCCESS,
                 text: 'Successfully updated tags'
             };
             return Object.assign({}, state, {

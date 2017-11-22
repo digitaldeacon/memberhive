@@ -30,6 +30,12 @@ export interface Address {
     geocode?: GeoCodes;
 }
 
-export const MESSAGE_SUCCESS = 'success';
-export const MESSAGE_FAILURE = 'failure';
-export const MESSAGE_DEFAULT = '';
+export enum FormStatus {
+    EDIT = 'edit',
+    CREATE = 'create'
+}
+
+export enum MessageType {
+    SUCCESS = 'success',
+    FAILURE = 'failure'
+}
