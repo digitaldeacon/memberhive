@@ -10,6 +10,7 @@ export interface Member {
 export interface Family {
     id?: number;
     name?: string;
+    primary?: string[];
     members?: string[];
     unrelated?: string[];
 }

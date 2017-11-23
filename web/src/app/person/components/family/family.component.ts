@@ -79,8 +79,10 @@ export class FamilyComponent implements OnDestroy {
         if (this.families) {
             this.family = this.families
                 .filter((f: Family) => f.id === this.person.family.id)[0];
-            this.addForm.get('familyName')
-                .patchValue(this.person.lastName + '(' + this.person.firstName + ')');
+            if (!this.family) {
+                this.addForm.get('familyName')
+                    .patchValue(this.person.lastName + '(' + this.person.firstName + ')');
+            }
         }
     }
 

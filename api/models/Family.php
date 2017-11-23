@@ -44,7 +44,7 @@ class Family extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'string', 'max' => 255],
-            [['unrelated'], 'string'],
+            [['unrelated', 'primary'], 'string'],
         ];
     }
 
@@ -70,7 +70,7 @@ class Family extends \yii\db\ActiveRecord
     public function getMembers()
     {
         return $this->hasMany(Person::className(), ['id' => 'person_id'])
-            ->viaTable('person_family', ['family_id' => 'id']);
+            ->via('personFamily');
     }
 
     public function toResponseArray()
@@ -81,6 +81,7 @@ class Family extends \yii\db\ActiveRecord
         return [
             'id' => $this->id,
             'name' => $this->name,
+            'primary' => json_decode($this->primary),
             'members' => array_map($membermap, $this->members),
             'unrelated' => json_decode($this->unrelated)
         ];

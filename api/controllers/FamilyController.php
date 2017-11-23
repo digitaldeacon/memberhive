@@ -51,7 +51,9 @@ class FamilyController extends MHController
     }
 
     /**
-     * @inheritdoc
+     * @api
+     * @see using $_POST['family'] directly
+     * @throws BadRequestHttpException
      */
     public function actionDelete() // on post
     {
@@ -59,6 +61,23 @@ class FamilyController extends MHController
         throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
     }
 
+    /**
+     * @api
+     * @see using $_POST['family'] directly
+     * @throws BadRequestHttpException
+     */
+    public function actionUpdate() // on post
+    {
+        $post = \Yii::$app->request->post();
+        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+    }
+
+    /**
+     * @api
+     * @see Family (in family.model.ts), using $_POST['family'] directly
+     * @throws BadRequestHttpException
+     * @return Family
+     */
     public function actionNew()
     {
         $post = \Yii::$app->request->post();
@@ -90,20 +109,13 @@ class FamilyController extends MHController
         throw new BadRequestHttpException('Wrong or missing parameters');
     }
 
-    public function actionUpdate($id = 0) {
-
-        $post = \Yii::$app->request->post();
-
-        if (YII_DEBUG) {
-            $dbg =  $id . ' ** ' . json_encode($post);
-        }
-
-        if (empty($post)) {
-            throw new BadRequestHttpException('Empty POST' . ': [' . $dbg . ']');
-        }
-
-    }
-
+    /**
+     * @api
+     * @param $id (the uid of person table)
+     * @see Family (in family.model.ts), using $_POST['family'] directly
+     * @throws BadRequestHttpException
+     * @return Family
+     */
     public function actionRemove($id = 0) {
         $post = \Yii::$app->request->post();
         $person = Person::find()
@@ -117,14 +129,37 @@ class FamilyController extends MHController
             throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
         }
 
-        PersonFamily::deleteAll([
-            'family_id' => $post['family']['id'],
-            'person_id' => $person->id
-        ]);
+        $t = PersonFamily::getDb()->beginTransaction();
+        try {
+            PersonFamily::findOne([
+                'family_id' => $post['family']['id'],
+                'person_id' => $person->id
+            ])->delete();
+
+            $fam = Family::findOne($post['family']['id']);
+            $primary = json_decode($fam->primary);
+            $key = array_search($id,$primary);
+            if($key!==false){
+                unset($primary[$key]);
+            }
+            $fam->primary = $primary;
+            $fam->save();
+            $t->commit();
+        } catch(\Throwable $e) {
+            $t->rollBack();
+            throw new BadRequestHttpException('Error in delete from family: ' . $e->getMessage());
+        }
 
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
 
+    /**
+     * @api
+     * @param $id (the uid of person table)
+     * @see Family (in family.model.ts), using $_POST['family'] directly
+     * @throws BadRequestHttpException
+     * @return Family
+     */
     public function actionIgnore($id = 0) {
         $post = \Yii::$app->request->post();
         $unrelated = [];
@@ -147,6 +182,13 @@ class FamilyController extends MHController
         return $family->toResponseArray();
     }
 
+    /**
+     * @api
+     * @param $id (the uid of person table)
+     * @see Family (in family.model.ts), using $_POST['family'] directly
+     * @throws BadRequestHttpException
+     * @return Family
+     */
     public function actionAccept($id = 0) {
         $post = \Yii::$app->request->post();
         $person = Person::find()
@@ -169,6 +211,13 @@ class FamilyController extends MHController
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
 
+    /**
+     * @api
+     * @param $id (the uid of person table)
+     * @see Family (in family.model.ts), using $_POST['family'], $_POST['role'] directly
+     * @throws BadRequestHttpException
+     * @return Family
+     */
     public function actionLink($id = 0) {
         $post = \Yii::$app->request->post();
         $person = Person::find()
@@ -182,50 +231,83 @@ class FamilyController extends MHController
             throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
         }
 
-        $family = Family::findOne($post['family']['id']);
+        $fam = Family::findOne($post['family']['id']);
 
         // accept suggested member to family
-        if (!empty($family)) {
-            $family->link('members', $person);
+        if (!empty($fam)) {
+            $fam->link('members', $person);
+            if ($post['primary']) {
+                $fam->primary = json_encode($post['primary']);
+                $fam->save();
+            }
         }
         if (isset($post['role']) && !empty($post['role'])) {
-            $pfam = PersonFamily::find()->where(['family_id'=>$family->id])->one();
+            $pfam = PersonFamily::find()->where(['family_id'=>$fam->id])->one();
             $pfam->role = $post['role'];
             if (!$pfam->save()) {
-                throw new BadRequestHttpException(json_encode($pfam->errors));
+                throw new BadRequestHttpException('Error in add link to family: '
+                    . json_encode($pfam->errors));
             }
         }
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
 
+    /**
+     * @api
+     * @param $id (the uid of person table)
+     * @see Family (in family.model.ts), using $_POST['family'], $_POST['role'] directly
+     * @throws BadRequestHttpException
+     * @throws \Throwable
+     * @return Family
+     */
     public function actionSetRole($id = 0) {
         $post = \Yii::$app->request->post();
         $person = Person::findOne(['uid' => $id]);
 
         if (YII_DEBUG) {
-            $dbg =  $id . ' ** ' . json_encode($post);
+            $dbg =  $id . ' ** ' . json_encode($post)
+                . ' ** ' . json_encode($person);
         }
 
-        if (empty($post) || !isset($post['family'])) {
-            throw new BadRequestHttpException('Empty POST' . ': [' . $dbg . ']');
+        if (empty($post) || !isset($post['family']) || empty($person)) {
+            throw new BadRequestHttpException('Some objects could not be created' . ': [' . $dbg . ']');
         }
+
+        $fam = Family::findOne($post['family']['id']);
+        $pfam = PersonFamily::find()
+            ->where([
+                'family_id' => $post['family']['id'],
+                'person_id' => $person->id
+            ])
+            ->one();
 
         // Change role if Family object contains a role string
         if (isset($post['role']) && !empty($post['role'])) {
-            $pfam = PersonFamily::find()
-                ->where([
-                'family_id' => $post['family']['id'],
-                'person_id' => $person->id
-                ])
-                ->one();
-            $pfam->role = $post['role'];
-            if (!$pfam->save()) {
-                throw new BadRequestHttpException(json_encode($pfam->errors));
+            $t = Family::getDb()->beginTransaction();
+            try {
+                $primary = isset($fam->primary) ? json_decode($fam->primary) : [];
+                if (empty($primary) || !in_array($id, $primary)) {
+                    array_push($primary, $id);
+                    $fam->primary = json_encode($primary);
+                    $fam->save();
+                }
+                $pfam->role = $post['role'];
+                $pfam->save();
+                $t->commit();
+            } catch (\Throwable $e) {
+                $t->rollBack();
+                throw new BadRequestHttpException('Error in add new family: '
+                    . json_encode($e->getMessage()));
             }
         }
-        return Family::findOne($post['family']['id'])->toResponseArray();
+        return $fam->toResponseArray();
     }
 
+    /**
+     * @api
+     * @param $id (the family id)
+     * @return Family[]
+     */
     public function actionList($id = 0)
     {
         $ret = [];

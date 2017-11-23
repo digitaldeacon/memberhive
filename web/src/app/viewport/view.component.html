@@ -26,7 +26,7 @@
         </button>
     </mat-toolbar>
     <mat-sidenav-container #sidenavContainer>
-        <mat-sidenav #sidenav mode="side"
+        <mat-sidenav #sidenav mode="side" role="navigation"
                      fixedInViewport="true" fixedTopGap="0" fixedBottomGap="0"
                      fxFlex="220px" class="drawer-menu">
             <mat-toolbar color="primary">
@@ -59,7 +59,7 @@
             </mat-nav-list>
         </mat-sidenav>
 
-        <mat-sidenav-content fxFlex>
+        <mat-sidenav-content role="main" fxFlex>
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
             <main>
                 <button mat-button (click)="sidenav.toggle()">Toggle Start Side Sidenav</button>
