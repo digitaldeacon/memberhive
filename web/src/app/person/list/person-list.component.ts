@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import {
     AppState,
     getPeople, getPeopleListSettings, getFamilies,
-    Person, Family,
+    Person, Family, ListFamiliesAction, ListPersonAction,
     ContextButton, SetContextButtonsAction,
     SetTitleAction
 } from 'mh-core';
@@ -26,6 +26,8 @@ export class PersonListComponent implements OnDestroy {
     options: any = {};
 
     constructor(private _store: Store<AppState>) {
+        this._store.dispatch(new ListPersonAction({}));
+        this._store.dispatch(new ListFamiliesAction({}));
         this.people$ = this._store.select(getPeople);
         this._store.select(getFamilies)
             .takeWhile(() => this._alive)
@@ -48,7 +50,12 @@ export class PersonListComponent implements OnDestroy {
     }
 
     familyName(id: number): string {
-        return this.families.find((f: Family) => f.id === id).name;
+        const fam: Family = this.families.find((f: Family) => !!f.members[id]);
+        return fam ? fam.name : '';
+    }
+
+    isFamilyMember(id: string): boolean {
+        return this.families.some((f: Family) => !!f.members[id]);
     }
 
     private _setContextMenu(): void {

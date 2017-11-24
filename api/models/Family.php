@@ -44,7 +44,7 @@ class Family extends \yii\db\ActiveRecord
     {
         return [
             [['name'], 'string', 'max' => 255],
-            [['unrelated', 'primary'], 'string'],
+            [['unrelated'], 'string'],
         ];
     }
 
@@ -75,14 +75,31 @@ class Family extends \yii\db\ActiveRecord
 
     public function toResponseArray()
     {
-        $membermap = function ($person) {
-            return $person->uid;
-        };
+        $familyMembers = PersonFamily::find()
+            ->with('person')
+            ->where([
+                'family_id' => $this->id
+            ])
+            /*->andWhere(['or',
+                ['role' => 'husband'],
+                ['role' => 'wife']])*/
+            ->all();
+        $prim = [];
+        $members = [];
+        foreach ($familyMembers as $member) {
+            $members[$member->person->uid] = [
+                'role' => $member->role
+            ];
+            if ($member->role == 'husband' || $member->role == 'wife') {
+                array_push($prim, $member->person->uid);
+            }
+        }
+
         return [
             'id' => $this->id,
             'name' => $this->name,
-            'primary' => json_decode($this->primary),
-            'members' => array_map($membermap, $this->members),
+            'primary' => $prim,
+            'members' => $members,
             'unrelated' => json_decode($this->unrelated)
         ];
     }

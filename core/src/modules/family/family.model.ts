@@ -1,24 +1,28 @@
 import { Person } from '../person/person.model';
 
 export interface Member {
-    personId?: string;
+    id?: string;
     person?: Person;
-    role?: string;
+    role?: FamilyRole;
     isSuggestion?: boolean;
+}
+
+export interface Members {
+    [member: string]: Member;
 }
 
 export interface Family {
     id?: number;
     name?: string;
     primary?: string[];
-    members?: string[];
+    members?: Members;
     unrelated?: string[];
 }
 
 export interface FamilyPayload {
     family: Family;
     member?: string;
-    role?: string;
+    role?: FamilyRole;
 }
 
 export enum FamilyRole {

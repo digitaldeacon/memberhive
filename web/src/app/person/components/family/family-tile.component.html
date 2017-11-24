@@ -15,7 +15,7 @@
         <img matCardAvatar src="{{member.person.avatar}}" alt="{{member.person.fullName}}" />
     </mat-card-title-group>
     <mat-card-content>
-        <mat-select [(ngModel)]="member.person.family.role"
+        <mat-select [(ngModel)]="member.role"
                     (selectionChange)="changeRole($event, member.person.uid)"
                     [disabled]="member.isSuggestion">
             <mat-option *ngFor="let role of roles" [value]="role">{{role}}</mat-option>

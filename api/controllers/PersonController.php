@@ -3,7 +3,6 @@ namespace app\controllers;
 
 use app\models\Family;
 use app\models\Person;
-use app\models\PersonFamily;
 use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
@@ -140,7 +139,7 @@ class PersonController extends MHController
         return ['response' => $person->toResponseArray()];
     }
 
-    public function actionUpdateFamily($id)
+    /*public function actionUpdateFamily($id)
     {
         $dbg = '';
         $pfam = null;
@@ -159,35 +158,6 @@ class PersonController extends MHController
         if (!isset($post['selected'])) {
             throw new BadRequestHttpException('Missing data segment `selected`' . ': [' . $dbg . ']');
         }
-
-        // If no family id is set, save the changes to personal settings
-        /*if (!isset($post['id'])) {
-            $pfam = PersonFamily::findOne(['person_id' => $person->id]);
-            if (empty($pfam)) {
-                $fam = new Family(['name' => 'Fam. ' . $person->lastName]);
-            } else {
-                $fam = $pfam->family;
-            }
-        } else {
-            $fam = Family::findOne(['id' => $post['id']]);
-        }
-
-        // family should exist here
-        if (empty($pfam)) {
-            $pfam = PersonFamily::findOne(['person_id' => $person->id, 'family_id' => $post['id']]);
-        }
-
-        if (empty($pfam)) {
-            if (empty($fam)) {
-                $fam = new Family(['name' => 'Fam. ' . $person->lastName]);
-                if (!$fam->save()) {
-                    throw new BadRequestHttpException(json_encode($fam->errors));
-                }
-            }
-            $fam->link('members', $person);
-            $fam->save();
-            $pfam = $fam->personFamily;
-        }*/
 
         if ($post) {
             if (isset($post['role'])) {
@@ -226,14 +196,13 @@ class PersonController extends MHController
                 . json_encode($fam);
         }
         throw new BadRequestHttpException('Required data could not be loaded' . ': [' . $dbg . ']');
-    }
+    }*/
 
     public function actionUpdate($id)
     {
         $person = $this->findModelByUID($id);
         $person->scenario = PERSON::SCENARIO_EDIT;
         $post = \Yii::$app->request->post();
-        // throw new BadRequestHttpException(json_encode(date('Y-m-d', strtotime($post['birthday']))));
         if ($person && $post) {
             $person->firstName = $post['firstName'];
             $person->middleName = $post['middleName'];
@@ -309,7 +278,6 @@ class PersonController extends MHController
     {
         $post = \Yii::$app->request->post();
         $person = new Person(['scenario' => PERSON::SCENARIO_NEW]);
-
         $person->firstName = $post['firstName'];
         $person->middleName = $post['middleName'];
         $person->lastName = $post['lastName'];
@@ -376,7 +344,7 @@ class PersonController extends MHController
                 ]
             )
             ->setFrom('mailbee@memberhive.com')
-            ->setTo('thomas.hochstetter@me.com') //$person->firstName
+            ->setTo('thomas.hochstetter@me.com') //$person->email
             ->setSubject('MH - New Credentials')
             ->send();
     }
