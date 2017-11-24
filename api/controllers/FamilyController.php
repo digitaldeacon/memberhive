@@ -98,8 +98,10 @@ class FamilyController extends MHController
                     if ($person) {
                         try {
                             $fam->link('members', $person);
-                        } catch (\yii\base\InvalidCallException $e) {
-                            throw new BadRequestHttpException(json_encode($fam->getFirstError()));
+                            $person->setDefaultRole();
+                            $person->save();
+                        } catch (\Throwable $e) {
+                            throw new BadRequestHttpException($e->getMessage());
                         }
                     }
                 }
@@ -129,24 +131,12 @@ class FamilyController extends MHController
             throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
         }
 
-        $t = PersonFamily::getDb()->beginTransaction();
         try {
             PersonFamily::findOne([
                 'family_id' => $post['family']['id'],
                 'person_id' => $person->id
             ])->delete();
-
-            $fam = Family::findOne($post['family']['id']);
-            $primary = json_decode($fam->primary);
-            $key = array_search($id,$primary);
-            if($key!==false){
-                unset($primary[$key]);
-            }
-            $fam->primary = $primary;
-            $fam->save();
-            $t->commit();
         } catch(\Throwable $e) {
-            $t->rollBack();
             throw new BadRequestHttpException('Error in delete from family: ' . $e->getMessage());
         }
 
@@ -202,11 +192,21 @@ class FamilyController extends MHController
             throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
         }
 
-        $family = Family::findOne($post['family']['id']);
+        try {
+            $family = Family::findOne($post['family']['id']);
+            if (!empty($family)) {
+                // accept suggested member to family
+                $family->link('members', $person);
+                // update role
+                if (isset($post['role'])) {
+                    $person->role = $post['role'];
+                } else {
+                    $person->setDefaultRole();
+                }
+                $person->save();
+            }
+        } catch (\Throwable $e) {
 
-        // accept suggested member to family
-        if (!empty($family)) {
-            $family->link('members', $person);
         }
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
@@ -231,23 +231,21 @@ class FamilyController extends MHController
             throw new BadRequestHttpException('No person or empty POST' . ': [' . $dbg . ']');
         }
 
-        $fam = Family::findOne($post['family']['id']);
-
-        // accept suggested member to family
-        if (!empty($fam)) {
+        try {
+            $fam = Family::findOne($post['family']['id']);
             $fam->link('members', $person);
-            if ($post['primary']) {
-                $fam->primary = json_encode($post['primary']);
-                $fam->save();
+            // accept suggested member to family
+            if (isset($post['role']) && !empty($post['role'])) {
+                $pfam = PersonFamily::find()->where([
+                    'family_id' => $fam->id,
+                    'person_id' => $person->id
+                ])->one();
+                $pfam->role = $post['role'];
+                $pfam->save();
             }
-        }
-        if (isset($post['role']) && !empty($post['role'])) {
-            $pfam = PersonFamily::find()->where(['family_id'=>$fam->id])->one();
-            $pfam->role = $post['role'];
-            if (!$pfam->save()) {
-                throw new BadRequestHttpException('Error in add link to family: '
-                    . json_encode($pfam->errors));
-            }
+        } catch (\Throwable $e) {
+            throw new BadRequestHttpException('Error in link to family: '
+                . $e->getMessage());
         }
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
@@ -283,19 +281,10 @@ class FamilyController extends MHController
 
         // Change role if Family object contains a role string
         if (isset($post['role']) && !empty($post['role'])) {
-            $t = Family::getDb()->beginTransaction();
             try {
-                $primary = isset($fam->primary) ? json_decode($fam->primary) : [];
-                if (empty($primary) || !in_array($id, $primary)) {
-                    array_push($primary, $id);
-                    $fam->primary = json_encode($primary);
-                    $fam->save();
-                }
                 $pfam->role = $post['role'];
                 $pfam->save();
-                $t->commit();
             } catch (\Throwable $e) {
-                $t->rollBack();
                 throw new BadRequestHttpException('Error in add new family: '
                     . json_encode($e->getMessage()));
             }

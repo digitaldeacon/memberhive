@@ -15,7 +15,6 @@ class m171028_142055_create_family_table extends Migration
         $this->createTable('family', [
             'id' => $this->primaryKey(),
             'name' => $this->string(),
-            'primary' => $this->text(),
             'unrelated' => $this->text(),
             'updated_at' => $this->integer(),
             'updated_by'=> $this->string()

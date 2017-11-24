@@ -93,11 +93,6 @@ class Person extends \yii\db\ActiveRecord
 
     public function toResponseArray()
     {
-
-        $familyMember = PersonFamily::find()->where(['person_id' => $this->id])->one();
-        //$family = $familyMember->family;
-        //$this->personFamily;
-       // $family = $this->family;
         return [
             'id' => $this->id,
             'uid' => $this->uid,
@@ -121,27 +116,8 @@ class Person extends \yii\db\ActiveRecord
             'status' => $this->statusTags,
             'user' => [
                 'username' => $this->user ? $this->user->username : ''
-            ],
-            'family' => !empty($familyMember->family) ? [
-                'id' => $familyMember->family->id,
-                'role' => $familyMember->role
-            ] : []
+            ]
         ];
-    }
-
-    public function getFullName()
-    {
-        return $this->firstName . ' ' . $this->lastName;
-    }
-
-    public function getUser()
-    {
-        return $this->hasOne(User::className(), ['personId' => 'id']);
-    }
-
-    public function setUser($user)
-    {
-        return $this->user = $user;
     }
 
     /**
@@ -161,24 +137,48 @@ class Person extends \yii\db\ActiveRecord
             ->viaTable('person_tag', ['person_id' => 'id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getPersonFamily()
     {
-        return $this->hasOne(PersonFamily::className(), ['person_id' => 'id']);
+        return $this->hasOne(PersonFamily::className(), ['person_id' => 'id'])
+            ->where([
+                'or',
+                ['role' => 'husband'],
+                ['role' => 'wife']
+            ]);
     }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getPersonFamilies()
+    {
+        return $this->hasMany(PersonFamily::className(), ['person_id' => 'id']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
     public function getFamily()
     {
-        return $this->hasOne(Family::className(), ['id' => 'family_id'])->viaTable('person_family', ['person_id' => 'id']);
+        return $this->hasOne(Family::className(), ['id' => 'family_id'])
+            ->via('personFamily');
     }
 
-    public function getFamilyMemberIds()
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getMyFamilies()
     {
-        $f = function ($v) {
-            return $v->uid;
-        };
-        return array_map($f, $this->family->members);
+        return $this->hasOne(Family::className(), ['id' => 'family_id'])
+            ->via('personFamily');
+    }
+
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['personId' => 'id']);
     }
 
     /**
@@ -212,6 +212,19 @@ class Person extends \yii\db\ActiveRecord
         return $this->hasOne(Import::className(), ['refId' => 'id']);
     }
 
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function getFamilyMemberIds()
+    {
+        $f = function ($v) {
+            return $v->uid;
+        };
+        return array_map($f, $this->family->members);
+    }
+
     public function getAvatar($size = 's')
     {
         $avatar_root = 'assets/images/avatar/';
@@ -229,11 +242,44 @@ class Person extends \yii\db\ActiveRecord
         if (empty($this->birthday)) {
             return null;
         }
-
         $now = new \DateTime();
         $bDay = new \DateTime($this->birthday);
         $interval = $bDay->diff($now);
         return $interval->y;
+    }
+
+    public function setRole($role)
+    {
+        try {
+            $emptyRoles = $this->getPersonFamilies()->where(['role' => NULL])->all();
+            foreach ($emptyRoles as $entry) {
+                $entry->role = $role;
+                $entry->save();
+            }
+        } catch(\Throwable $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
+    }
+
+    public function getRole()
+    {
+        $pfam = $this->getPersonFamily()->one();
+        return !empty($pfam) ? $pfam->role : '';
+    }
+
+    public function setDefaultRole()
+    {
+        $this->role = $this->gender == 'm' ? 'husband' : 'wife';
+    }
+
+    public function setUser($user)
+    {
+        return $this->user = $user;
+    }
+
+    public function setAddressEmpty()
+    {
+        $this->address = $this->emptyAddress();
     }
 
     public function afterSave($insert, $changedAttributes)
@@ -264,10 +310,5 @@ class Person extends \yii\db\ActiveRecord
                 'geocode' => []
             ]
         ]);
-    }
-
-    public function setAddressEmpty()
-    {
-        $this->address = $this->emptyAddress();
     }
 }

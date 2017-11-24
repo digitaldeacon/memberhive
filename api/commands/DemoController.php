@@ -54,19 +54,9 @@ class DemoController extends Controller
     public function actionTest($id)
     {
         echo 'find person with UID: ' . $id . "\n";
-        $f = Family::find()
-            ->with(['personFamily' => function($q) {
-                $q->andWhere(['person_id'=>17]);
-            }])
-            ->where(['id' => $id])
-            ->one();
-        $f->unrelated = '[00a87051-00b5-45b9-9c32-bd3c73b3667d]';
-        $f->save();
-        $pfam = $f->getPersonFamily()->one();
-        $pfam->role = 'servant3';
-        $pfam->save();
-        var_dump($f->toResponseArray());
-        var_dump(date('Y-m-d H:i:s',$f->updated_at));
-        var_dump(Family::findOne($id)->toResponseArray());
+        $p = Person::findOne(['id'=>$id]);
+        $p->role = 'husband';
+        var_dump($p->role);
+        //var_dump($p->toResponseArray());
     }
 }

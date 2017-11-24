@@ -51,6 +51,7 @@ if (YII_DEBUG === true) {
         'levels' => ['info']
     ];
     $config['bootstrap'][] = 'gii';
+
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
     ];
