@@ -92,21 +92,22 @@ class FamilyController extends MHController
             if (!empty($post['id'])) {
                 $fam = Family::findOne($post['id']);
             }
-            if (isset($post['members'])) {
-                foreach ($post['members'] as $uid) {
+            if (isset($post['members']) && isset($fam)) {
+                foreach ($post['members'] as $uid => $data) {
                     $person = Person::find()->where(['uid'=>$uid])->one();
                     if ($person) {
                         try {
                             $fam->link('members', $person);
                             $person->setDefaultRole();
                             $person->save();
+                            $fam->setPrimaryMember($person->id);
                         } catch (\Throwable $e) {
                             throw new BadRequestHttpException($e->getMessage());
                         }
                     }
                 }
             }
-            return $fam->toResponseArray();
+            return Family::findOne($fam->id)->toResponseArray();
         }
         throw new BadRequestHttpException('Wrong or missing parameters');
     }
@@ -118,7 +119,8 @@ class FamilyController extends MHController
      * @throws BadRequestHttpException
      * @return Family
      */
-    public function actionRemove($id = 0) {
+    public function actionRemove($id = 0)
+    {
         $post = \Yii::$app->request->post();
         $person = Person::find()
             ->where(['uid'=>$id])
@@ -136,7 +138,7 @@ class FamilyController extends MHController
                 'family_id' => $post['family']['id'],
                 'person_id' => $person->id
             ])->delete();
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new BadRequestHttpException('Error in delete from family: ' . $e->getMessage());
         }
 
@@ -150,7 +152,8 @@ class FamilyController extends MHController
      * @throws BadRequestHttpException
      * @return Family
      */
-    public function actionIgnore($id = 0) {
+    public function actionIgnore($id = 0)
+    {
         $post = \Yii::$app->request->post();
         $unrelated = [];
 
@@ -179,7 +182,8 @@ class FamilyController extends MHController
      * @throws BadRequestHttpException
      * @return Family
      */
-    public function actionAccept($id = 0) {
+    public function actionAccept($id = 0)
+    {
         $post = \Yii::$app->request->post();
         $person = Person::find()
             ->where(['uid'=>$id])
@@ -204,9 +208,11 @@ class FamilyController extends MHController
                     $person->setDefaultRole();
                 }
                 $person->save();
+                if ($post['isPrimary'] && boolval($post['isPrimary'])) {
+                    $family->setPrimaryMember($person->id);
+                }
             }
         } catch (\Throwable $e) {
-
         }
         return Family::findOne($post['family']['id'])->toResponseArray();
     }
@@ -218,7 +224,8 @@ class FamilyController extends MHController
      * @throws BadRequestHttpException
      * @return Family
      */
-    public function actionLink($id = 0) {
+    public function actionLink($id = 0)
+    {
         $post = \Yii::$app->request->post();
         $person = Person::find()
             ->where(['uid'=>$id])
@@ -258,7 +265,8 @@ class FamilyController extends MHController
      * @throws \Throwable
      * @return Family
      */
-    public function actionSetRole($id = 0) {
+    public function actionSetRole($id = 0)
+    {
         $post = \Yii::$app->request->post();
         $person = Person::findOne(['uid' => $id]);
 

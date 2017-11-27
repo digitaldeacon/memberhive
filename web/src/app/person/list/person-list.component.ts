@@ -23,7 +23,7 @@ export class PersonListComponent implements OnDestroy {
 
     people$: Observable<Person[]>;
     families: Family[];
-    options: any = {};
+    options: string[] = [];
 
     constructor(private _store: Store<AppState>) {
         this._store.dispatch(new ListPersonAction({}));
@@ -34,11 +34,11 @@ export class PersonListComponent implements OnDestroy {
             .subscribe((families: Family[]) => this.families = families);
         this._store.select(getPeopleListSettings)
             .takeWhile(() => this._alive)
-            .subscribe((data: any) => {
+            .subscribe((data: string[]) => {
                 this.options = data;
         });
         this._setContextMenu();
-        this._store.dispatch(new SetTitleAction('List People'));
+        this._store.dispatch(new SetTitleAction('List Members'));
     }
 
     display(key: string): boolean {
@@ -50,12 +50,12 @@ export class PersonListComponent implements OnDestroy {
     }
 
     familyName(id: number): string {
-        const fam: Family = this.families.find((f: Family) => !!f.members[id]);
+        const fam: Family = this.families.find((f: Family) => !!f.primary[id]);
         return fam ? fam.name : '';
     }
 
     isFamilyMember(id: string): boolean {
-        return this.families.some((f: Family) => !!f.members[id]);
+        return this.families.some((f: Family) => !!f.primary[id]);
     }
 
     private _setContextMenu(): void {

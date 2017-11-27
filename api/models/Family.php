@@ -59,7 +59,7 @@ class Family extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getPersonFamily()
+    public function getPersonFamilies()
     {
         return $this->hasMany(PersonFamily::className(), ['family_id' => 'id']);
     }
@@ -70,28 +70,22 @@ class Family extends \yii\db\ActiveRecord
     public function getMembers()
     {
         return $this->hasMany(Person::className(), ['id' => 'person_id'])
-            ->via('personFamily');
+            ->via('personFamilies');
     }
 
     public function toResponseArray()
     {
-        $familyMembers = PersonFamily::find()
-            ->with('person')
-            ->where([
-                'family_id' => $this->id
-            ])
-            /*->andWhere(['or',
-                ['role' => 'husband'],
-                ['role' => 'wife']])*/
-            ->all();
         $prim = [];
         $members = [];
-        foreach ($familyMembers as $member) {
-            $members[$member->person->uid] = [
-                'role' => $member->role
-            ];
-            if ($member->role == 'husband' || $member->role == 'wife') {
-                array_push($prim, $member->person->uid);
+        foreach ($this->personFamilies as $member) {
+            if ($member->is_primary || $member->role == 'husband' || $member->role == 'wife') {
+                $prim[$member->person->uid] = [
+                    'role' => $member->role
+                ];
+            } else {
+                $members[$member->person->uid] = [
+                    'role' => $member->role
+                ];
             }
         }
 
@@ -102,5 +96,19 @@ class Family extends \yii\db\ActiveRecord
             'members' => $members,
             'unrelated' => json_decode($this->unrelated)
         ];
+    }
+
+    public function setPrimaryMember($personId, $isPrimary = true)
+    {
+        try {
+            PersonFamily::updateAll(['is_primary' => false], ['person_id' => $personId]);
+            if ($isPrimary) {
+                $pfam = $this->getPersonFamilies()->andWhere(['person_id' => $personId])->one();
+                $pfam->is_primary = true;
+                $pfam->save();
+            }
+        } catch (\Throwable $e) {
+            throw new BadRequestHttpException($e->getMessage());
+        }
     }
 }

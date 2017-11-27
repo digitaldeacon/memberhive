@@ -1,5 +1,9 @@
 <div class="main-content">
     <mh-filter></mh-filter>
+    <h5>
+        Displaying {{(people$ | async)?.length}} Members
+        <small *ngIf="options.indexOf('family') > -1">in {{families.length}} families</small>
+    </h5>
     <div fxLayout='column'>
         <mat-card *ngFor="let person of people$ | async" class="nav-list">
             <a mat-list-item [routerLink]="['/person/view', person.uid]">
