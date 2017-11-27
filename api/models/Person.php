@@ -251,12 +251,12 @@ class Person extends \yii\db\ActiveRecord
     public function setRole($role)
     {
         try {
-            $emptyRoles = $this->getPersonFamilies()->where(['role' => NULL])->all();
+            $emptyRoles = $this->getPersonFamilies()->where(['role' => null])->all();
             foreach ($emptyRoles as $entry) {
                 $entry->role = $role;
                 $entry->save();
             }
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             throw new BadRequestHttpException($e->getMessage());
         }
     }

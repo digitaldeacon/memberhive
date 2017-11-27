@@ -33,11 +33,12 @@ export class PeopleMapComponent implements OnDestroy {
     constructor(private _store: Store<AppState>,
                 private _shout: ShoutService) {
 
-        this._store.select(getPeople).takeWhile(() => this._alive)
+        this._store.select(getPeople)
+            .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
                     !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
-                for (const person of this.people) {
+                this.people.map((person: Person) => {
                     let marker: GeoMarker;
                     marker = {
                         latlng: person.address.home.geocode,
@@ -49,7 +50,7 @@ export class PeopleMapComponent implements OnDestroy {
                         }
                     };
                     this.markers.push(marker);
-                }
+                });
             });
         this._store.select(getSysSettings)
             .takeWhile(() => this._alive)

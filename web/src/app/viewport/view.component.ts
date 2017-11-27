@@ -52,7 +52,7 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
             title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
         },
         {
-            title: 'People', route: '/person', icon: 'people'
+            title: 'Members', route: '/person', icon: 'people'
         },
         {
             title: 'Interactions', route: '/interaction', icon: 'forum'

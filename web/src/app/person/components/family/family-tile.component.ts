@@ -39,12 +39,16 @@ export class FamilyTileComponent {
         this.removeMember.emit(member);
     }
 
-    changeRole($event: MatSelectChange, memberId: string): void {
-        const payload: FamilyPayload = {
-            family: this.person.family,
-            member: memberId,
-            role: $event.value
-        };
-        this.setRole.emit(payload);
+    changeRole($event: MatSelectChange, member: Member): void {
+        if (!member.isSuggestion) {
+            const payload: FamilyPayload = {
+                family: this.family,
+                member: member.person.uid,
+                role: $event.value,
+                isPrimary: member.isPrimary
+            };
+            this.setRole.emit(payload);
+        }
+
     }
 }

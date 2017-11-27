@@ -5,6 +5,7 @@ export interface Member {
     person?: Person;
     role?: FamilyRole;
     isSuggestion?: boolean;
+    isPrimary?: boolean;
 }
 
 export interface Members {
@@ -14,7 +15,7 @@ export interface Members {
 export interface Family {
     id?: number;
     name?: string;
-    primary?: string[];
+    primary?: Members;
     members?: Members;
     unrelated?: string[];
 }
@@ -23,6 +24,7 @@ export interface FamilyPayload {
     family: Family;
     member?: string;
     role?: FamilyRole;
+    isPrimary?: boolean;
 }
 
 export enum FamilyRole {

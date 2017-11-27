@@ -1,61 +1,69 @@
 <mat-toolbar>
     <h3 fxFlex><ng-container i18n>Members for</ng-container>: &nbsp;
-        <small *ngIf="!family?.id" fxFlex>no family selected</small>
-        <small *ngIf="family?.id" fxFlex>{{family.name}}</small>
+        <small *ngIf="!(hasFamily$ | async)" fxFlex>no family selected</small>
+        <small *ngIf="(hasFamily$ | async)" fxFlex>{{family.name}}</small>
     </h3>
     <button mat-button
-            *ngIf="!family?.id"
-            (click)="addFamily = !addFamily; addMember = false"
+            *ngIf="!(hasFamily$ | async)"
+            (click)="displayAddFamily = !displayAddFamily; displayAddMember = false"
             i18n>
-        <mat-icon *ngIf="!addFamily">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="addFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
+        <mat-icon *ngIf="!displayAddFamily">add_circle_outline</mat-icon>
+        <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
     </button>
     <button mat-button
-            *ngIf="family?.id"
-            (click)="addMember = !addMember; addFamily = false" i18n>
-        <mat-icon *ngIf="!addMember">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="addMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
+            *ngIf="(hasFamily$ | async)"
+            (click)="displayAddMember = !displayAddMember; displayAddFamily = false" i18n>
+        <mat-icon *ngIf="!displayAddMember">add_circle_outline</mat-icon>
+        <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
     </button>
 </mat-toolbar>
 
-<mat-card class="quick-panel" *ngIf="addMember">
-    <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
-        <mat-form-field fxFlex="50">
-            <mat-select class="option-select"
-                        placeholder="Select members"
-                        multiple
-                        i18n-placeholder>
-                <mat-optgroup label="Suggestions" i18n-label *ngIf="suggestedMembers.length > 0">
-                    <mat-option *ngFor="let member of suggestedMembers" [value]="member.uid">
-                        {{member.fullName}}
+<mat-card class="quick-panel" *ngIf="displayAddMember">
+    <form [formGroup]="addFamilyMemberForm"
+          #afmForm="ngForm"
+          (ngSubmit)="addFamilyMember()"
+          fxLayout="column"
+          novalidate>
+        <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="10px">
+            <mat-form-field fxFlex="50">
+                <mat-select class="option-select"
+                            placeholder="Select member"
+                            formControlName="member"
+                            i18n-placeholder>
+                    <mat-optgroup label="Suggestions" i18n-label *ngIf="suggestedMembers.length > 0">
+                        <mat-option *ngFor="let member of suggestedMembers" [value]="member.uid">
+                            {{member.fullName}}
+                        </mat-option>
+                    </mat-optgroup>
+                    <mat-optgroup label="Members" i18n-label>
+                        <mat-option *ngFor="let person of peopleNoSuggestions" [value]="person.uid">
+                            {{person.fullName}}
+                        </mat-option>
+                    </mat-optgroup>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field fxFlex>
+                <mat-select class="option-select"
+                            formControlName="role"
+                            placeholder="Select role"
+                            i18n-placeholder>
+                    <mat-option *ngFor="let role of familyRoles" [value]="role">
+                        {{role}}
                     </mat-option>
-                </mat-optgroup>
-                <mat-optgroup label="People" i18n-label>
-                    <mat-option *ngFor="let person of people" [value]="person.uid">
-                        {{person.fullName}}
-                    </mat-option>
-                </mat-optgroup>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field fxFlex>
-            <mat-select class="option-select"
-                        placeholder="Select role"
-                        i18n-placeholder>
-                <mat-option *ngFor="let item of relations" [value]="item">
-                    {{item}}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-    </div>
-    <div>
-        <button mat-button (click)="addMember = false"><mat-icon>close</mat-icon>
-            <ng-container i18n>CLOSE</ng-container></button>
-        <button mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
-    </div>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div>
+            <button mat-button (click)="displayAddMember = false; afmForm.reset()"><mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
+    </form>
 </mat-card>
 
-<mat-card class="quick-panel" *ngIf="addFamily">
-    <form [formGroup]="linkForm"
+<mat-card class="quick-panel" *ngIf="displayAddFamily">
+    <form [formGroup]="linkFamilyForm"
+          #lfForm="ngForm"
           (ngSubmit)="link()"
           fxLayout="column"
           novalidate>
@@ -72,14 +80,16 @@
                         <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
                     </mat-select>
                 </mat-form-field>
-                <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+                <button mat-button (click)="displayAddFamily = false; lfForm.reset();">
+                    <mat-icon>close</mat-icon>
                     <ng-container i18n>CLOSE</ng-container></button>
                 <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
             </div>
         </div>
     </form>
-    <form [formGroup]="addForm"
-          (ngSubmit)="addNew()"
+    <form [formGroup]="addFamilyForm"
+          #afForm="ngForm"
+          (ngSubmit)="addFamily()"
           fxLayout="column"
           novalidate>
         <h4 i18n>Create new family</h4>
@@ -87,7 +97,7 @@
             <mat-form-field>
                 <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
             </mat-form-field>
-            <button mat-button (click)="addFamily = false"><mat-icon>close</mat-icon>
+            <button mat-button (click)="displayAddFamily = false; afForm.reset();"><mat-icon>close</mat-icon>
                 <ng-container i18n>CLOSE</ng-container></button>
             <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
@@ -95,16 +105,16 @@
 </mat-card>
 
 <div class="container">
-    <span *ngIf="!family?.id" fxLayoutAlign="center center">
+    <span *ngIf="!(hasFamily$ | async)" fxLayoutAlign="center center">
         <button mat-raised-button
-                *ngIf="!family?.id"
-                (click)="addFamily = !addFamily; addMember = false"
+                *ngIf="!(hasFamily$ | async)"
+                (click)="displayAddFamily = !displayAddFamily; displayAddMember = false"
                 i18n>SELECT or ADD
         </button> &nbsp; <b i18n>a family</b></span>
-    <div *ngIf="family?.id" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
+    <div *ngIf="(hasFamily$ | async)" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
         <mh-family-tile *ngFor="let member of members$ | async"
                         [person]="person"
-                        family="family"
+                        [family]="family"
                         [member]="member"
                         (ignoreMember)="ignore($event)"
                         (removeMember)="remove($event)"

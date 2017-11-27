@@ -45,8 +45,6 @@ export class FamilyEffects {
                 })
                 .catch((r: HttpErrorResponse) => of(new actions.AddNewFamilyFailureAction(r)));
         });
-    /*,
-                        new UpdatePersonAction(r)*/
 
     @Effect()
     updateFamily$ = this._actions$

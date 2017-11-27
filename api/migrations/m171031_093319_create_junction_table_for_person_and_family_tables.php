@@ -20,6 +20,7 @@ class m171031_093319_create_junction_table_for_person_and_family_tables extends 
             'person_id' => $this->integer(),
             'family_id' => $this->integer(),
             'role' => $this->string(),
+            'is_primary' => $this->boolean(),
             'PRIMARY KEY(person_id, family_id)',
         ]);
 
