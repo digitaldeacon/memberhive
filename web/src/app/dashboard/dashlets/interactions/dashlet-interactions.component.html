@@ -12,7 +12,8 @@
     </mat-card-header>
     <mat-card-content>
         <div>
-            <mat-card-subtitle i18n>To Complete <mat-divider></mat-divider></mat-card-subtitle>
+            <mat-card-subtitle>
+                <span i18n>To Complete</span> <mat-divider></mat-divider></mat-card-subtitle>
             <mat-list>
                 <mat-list-item *ngFor="let interaction of myOutstanding">
                     <mat-checkbox
@@ -32,7 +33,7 @@
             </mat-list>
         </div>
       <div>
-        <mat-card-subtitle i18n>Completed <mat-divider></mat-divider></mat-card-subtitle>
+          <mat-card-subtitle><span i18n>Completed</span> <mat-divider></mat-divider></mat-card-subtitle>
         <mat-list>
           <mat-list-item *ngFor="let interaction of myCompleted">
             <mat-checkbox

@@ -62,6 +62,7 @@
     "karma-jasmine-html-reporter": "^0.2.2",
     "localforage": "^1.5.2",
     "lodash": "^4.17.4",
+    "moment": "^2.19.2",
     "ngx-webstorage": "^1.8.0",
     "node-sass": "^4.5.2",
     "node-sass-tilde-importer": "^1.0.0",

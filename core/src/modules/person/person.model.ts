@@ -1,5 +1,6 @@
 import { Address } from '../../common/common.model';
 import { Tag } from '../tags/tag.model';
+import { Moment } from 'moment'
 
 export interface PersonFamily {
     id?: number;
@@ -46,9 +47,9 @@ export interface Person {
     email?: string;
     maritalStatus?: MaritalStatus;
     gender?: string;
-    birthday?: Date;
-    baptized?: Date;
-    anniversary?: Date;
+    birthday?: Moment;
+    baptized?: Moment;
+    anniversary?: Moment;
     age?: number;
     avatar?: string;
     phoneHome?: string;

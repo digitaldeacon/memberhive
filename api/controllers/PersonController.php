@@ -139,127 +139,18 @@ class PersonController extends MHController
         return ['response' => $person->toResponseArray()];
     }
 
-    /*public function actionUpdateFamily($id)
-    {
-        $dbg = '';
-        $pfam = null;
-        $fam = null;
-
-        $post = \Yii::$app->request->post();
-        $person = Person::find()->where(['uid'=>$id])->one();
-
-        if (YII_DEBUG) {
-            $dbg =  $id . ' ** ' . json_encode($post) . ' ** ' . json_encode($person);
-        }
-
-        if (!$person || empty($post)) {
-            throw new BadRequestHttpException('Missing initial data' . ': [' . $dbg . ']');
-        }
-        if (!isset($post['selected'])) {
-            throw new BadRequestHttpException('Missing data segment `selected`' . ': [' . $dbg . ']');
-        }
-
-        if ($post) {
-            if (isset($post['role'])) {
-                $pfam->role = $post['role'];
-            }
-            if (isset($post['unrelated'])) {
-                $fam->unrelated = json_encode($post['unrelated']);
-                if (!$fam->save()) {
-                    throw new BadRequestHttpException(json_encode($fam->errors));
-                }
-            }
-            if (isset($post['members']) && isset($post['id'])) {
-                $fam = Family::findOne($post['id']);
-                foreach ($post['members'] as $uid) {
-                    $p = Person::find()
-                        ->with('family')
-                        ->where(['uid'=>$uid])
-                        ->one();
-                    if (empty($p->family)) {
-                        $fam->link('members', $p);
-                    }
-                }
-                // TODO: find a smoother way to update relations after link
-                $person = Person::find()->where(['uid'=>$id])->one();
-                return $person->toResponseArray();
-            }
-            if (!$pfam->save()) {
-                throw new BadRequestHttpException(json_encode($pfam->errors));
-            }
-            return $pfam->person->toResponseArray();
-        }
-        if (YII_DEBUG) {
-            $dbg =  $id . ' ** '
-                . json_encode($post) . ' ** '
-                . json_encode($person) . '**'
-                . json_encode($fam);
-        }
-        throw new BadRequestHttpException('Required data could not be loaded' . ': [' . $dbg . ']');
-    }*/
-
     public function actionUpdate($id)
     {
         $person = $this->findModelByUID($id);
         $person->scenario = PERSON::SCENARIO_EDIT;
         $post = \Yii::$app->request->post();
         if ($person && $post) {
-            $person->firstName = $post['firstName'];
-            $person->middleName = $post['middleName'];
-            $person->lastName = $post['lastName'];
-            $person->email = $post['email'];
-            $person->gender = $post['gender'];
-            $person->maritalStatus = $post['maritalStatus'];
-            $person->address = json_encode($post['address']);
-            $person->phoneHome = $post['phoneHome'];
-            $person->phoneWork = $post['phoneWork'];
-            $person->phoneMobile = $post['phoneMobile'];
-            $person->birthday = date('Y-m-d', strtotime($post['birthday']));
-            $person->baptized = date('Y-m-d', strtotime($post['baptized']));
-            $person->anniversary = date('Y-m-d', strtotime($post['anniversary']));
-
-            $ptags_prv = PersonTag::find(['person_id'=>$person->id]);
-            if (!empty($ptags_prv)) {
-                $person->unlinkAll('tags', true);
-            }
-            if (!empty($post['status'])) {
-                foreach ($post['status'] as $tag) {
-                    $tagCheck = Tag::findOne(['text' => trim($tag['text'])]);
-                    if (empty($tagCheck)) {
-                        $newTag = new Tag();
-                        $newTag->text = trim($tag['text']);
-                        $newTag->context = 'person';
-                        $newTag->type = 'status';
-                        if ($newTag->save()) {
-                            $newTag->link('person', $person);
-                        } else {
-                            throw new BadRequestHttpException('Tag: ' . json_encode($newTag->errors));
-                        }
-                    } else {
-                        $tagCheck->link('person', $person);
-                    }
-                }
-            }
-
-            if (empty($person->user) && !empty($post['user']['password'])) {
-                $user = new User();
-                $user->personId = $person->id;
-                $user->username = trim($post['user']['username']);
-                $user->setPassword(trim($post['user']['password']));
-                if (!$user->save()) {
-                    throw new BadRequestHttpException(json_encode($user->errors));
-                }
-            } elseif (!empty($person->user) && !empty($post['user']['password'])) {
-                $user = $person->user;
-                $user->username = trim($post['user']['username']);
-                $user->setPassword(trim($post['user']['password']));
-                if (!$user->save()) {
-                    throw new BadRequestHttpException(json_encode($user->errors));
-                }
-            }
+            $person = $this->setPerson($person, $post);
+            $user = $this->setUser($person, $post);
             if (!$person->save()) {
                 throw new BadRequestHttpException(json_encode($person->errors));
             }
+            $this->saveTags($person, $post);
             if (isset($user)) {
                 $person->user = $user;
                 if (!isset($post['user']['noCredentials'])
@@ -278,25 +169,18 @@ class PersonController extends MHController
     {
         $post = \Yii::$app->request->post();
         $person = new Person(['scenario' => PERSON::SCENARIO_NEW]);
-        $person->firstName = $post['firstName'];
-        $person->middleName = $post['middleName'];
-        $person->lastName = $post['lastName'];
-        $person->gender = $post['gender'];
-        $person->maritalStatus = $post['maritalStatus'];
-        $person->address = json_encode($post['address']);
-        $person->phoneHome = $post['phoneHome'];
-        $person->phoneWork = $post['phoneWork'];
-        $person->phoneMobile = $post['phoneMobile'];
-        if (empty($person->user) && !empty($post['user']['password'])) {
-            $user = new User();
-            $user->personId = $person->id;
-            $user->username = trim($post['user']['username']);
-            $user->setPassword(trim($post['user']['password']));
-            if (!$user->save()) {
-                throw new BadRequestHttpException(json_encode($user->errors));
-            }
-        }
+        $person = $this->setPerson($person, $post);
+        $user = $this->setUser($person, $post);
         if ($person->save()) {
+            $this->saveTags($person, $post);
+            if (isset($user)) {
+                $person->user = $user;
+                if (!isset($post['user']['noCredentials'])
+                    || empty($post['user']['noCredentials'])
+                ) {
+                    $this->sendCredentials($person, trim($post['user']['password']));
+                }
+            }
             return $person->toResponseArray();
         } else {
             throw new BadRequestHttpException(json_encode($person->errors));
@@ -314,7 +198,73 @@ class PersonController extends MHController
         return $ret;
     }
 
-    protected function findModel($id)
+    protected function saveTags($person, $post)
+    {
+        $ptags_prv = PersonTag::find(['person_id'=>$person->id]);
+        if (!empty($ptags_prv)) {
+            $person->unlinkAll('tags', true);
+        }
+        if (!empty($post['status'])) {
+            foreach ($post['status'] as $tag) {
+                $tagCheck = Tag::findOne(['text' => trim($tag['text'])]);
+                if (empty($tagCheck)) {
+                    $newTag = new Tag();
+                    $newTag->text = trim($tag['text']);
+                    $newTag->context = 'person';
+                    $newTag->type = 'status';
+                    if ($newTag->save()) {
+                        $newTag->link('person', $person);
+                    } else {
+                        throw new BadRequestHttpException('Tag: ' . json_encode($newTag->errors));
+                    }
+                } else {
+                    $tagCheck->link('person', $person);
+                }
+            }
+        }
+    }
+
+    protected function setPerson($person, $post): Person
+    {
+        $person->firstName = $post['firstName'];
+        $person->middleName = $post['middleName'];
+        $person->lastName = $post['lastName'];
+        $person->email = $post['email'];
+        $person->gender = $post['gender'];
+        $person->maritalStatus = $post['maritalStatus'];
+        $person->address = json_encode($post['address']);
+        $person->phoneHome = $post['phoneHome'];
+        $person->phoneWork = $post['phoneWork'];
+        $person->phoneMobile = $post['phoneMobile'];
+        $person->birthday = date('Y-m-d', strtotime($post['birthday']));
+        $person->baptized = date('Y-m-d', strtotime($post['baptized']));
+        $person->anniversary = date('Y-m-d', strtotime($post['anniversary']));
+        return $person;
+    }
+
+    protected function setUser($person, $post)
+    {
+        $user = null;
+        if (empty($person->user) && !empty($post['user']['password'])) {
+            $user = new User();
+            $user->personId = $person->id;
+            $user->username = trim($post['user']['username']);
+            $user->setPassword(trim($post['user']['password']));
+            if (!$user->save()) {
+                throw new BadRequestHttpException(json_encode($user->errors));
+            }
+        } elseif (!empty($person->user) && !empty($post['user']['password'])) {
+            $user = $person->user;
+            $user->username = trim($post['user']['username']);
+            $user->setPassword(trim($post['user']['password']));
+            if (!$user->save()) {
+                throw new BadRequestHttpException(json_encode($user->errors));
+            }
+        }
+        return $user;
+    }
+
+    protected function findModel($id): Person
     {
         $person = Person::find()->with('tags')->where(['uid'=>$id])->one();
         if ($person === null) {
@@ -322,7 +272,7 @@ class PersonController extends MHController
         }
         return $person;
     }
-    protected function findModelByUID($id)
+    protected function findModelByUID($id): Person
     {
         $person = Person::find()->with('tags')->where(['uid'=>$id])->one();
         if ($person === null) {

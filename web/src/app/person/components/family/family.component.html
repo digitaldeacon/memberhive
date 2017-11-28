@@ -5,14 +5,13 @@
     </h3>
     <button mat-button
             *ngIf="!(hasFamily$ | async)"
-            (click)="displayAddFamily = !displayAddFamily; displayAddMember = false"
-            i18n>
+            (click)="displayAddFamily = !displayAddFamily; displayAddMember = false">
         <mat-icon *ngIf="!displayAddFamily">add_circle_outline</mat-icon>
         <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
     </button>
     <button mat-button
             *ngIf="(hasFamily$ | async)"
-            (click)="displayAddMember = !displayAddMember; displayAddFamily = false" i18n>
+            (click)="displayAddMember = !displayAddMember; displayAddFamily = false">
         <mat-icon *ngIf="!displayAddMember">add_circle_outline</mat-icon>
         <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
     </button>
