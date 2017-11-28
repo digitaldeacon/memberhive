@@ -118,13 +118,10 @@
       <button mat-raised-button
               mat-button
               (click)="clearForm()"
-              *ngIf="!editMode"
-              i18n>
-        <mat-icon>clear</mat-icon> CLEAR</button>
-      <button mat-button
-              (click)="returnRoute()"
-              i18n>
-        <mat-icon>arrow_back</mat-icon> CANCEL</button>
+              *ngIf="!editMode">
+        <mat-icon>clear</mat-icon> <ng-container i18n>CLEAR</ng-container></button>
+      <button mat-button (click)="returnRoute()">
+        <mat-icon>arrow_back</mat-icon> <ng-container i18n>CANCEL</ng-container></button>
     </mat-card-actions>
   </mat-card>
 

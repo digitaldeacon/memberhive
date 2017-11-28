@@ -1,13 +1,15 @@
-import { NgModule, ErrorHandler } from '@angular/core';
+import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import {
-    DateAdapter,
-    MatSidenavModule, MatProgressBarModule
+    MatSidenavModule,
+    MatProgressBarModule
 } from '@angular/material';
+import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/toPromise';
 
@@ -58,14 +60,15 @@ export interface AppConfig {
         InteractionModule
     ],
     bootstrap: [AppComponent],
-    providers: []
+    providers: [
+        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+        { provide: LOCALE_ID, useValue: 'de' }
+    ]
 })
 
 export class AppModule {
     constructor(private _http: HttpClient,
-                private _auth: AuthService,
-                private _dateAdapter: DateAdapter<Date>) {
-        this._dateAdapter.setLocale('de-DE');
+                private _auth: AuthService) {
         if (!this._auth.client) {
             this._http.get<AppConfig>('assets/client.json')
                 .map((config: AppConfig) => {

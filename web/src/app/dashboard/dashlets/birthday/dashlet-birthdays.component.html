@@ -12,7 +12,7 @@
     </mat-card-header>
     <mat-card-content>
         <div>
-            <mat-card-subtitle i18n>Today <mat-divider></mat-divider></mat-card-subtitle>
+            <mat-card-subtitle><span i18n>Today</span> <mat-divider></mat-divider></mat-card-subtitle>
             <p *ngIf="peopleBdToday?.length == 0" i18n>No birthdays today</p>
             <mat-list>
                 <mat-list-item *ngFor="let person of peopleBdToday">
@@ -42,10 +42,7 @@
                     <img mat-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
                     <div matLine>
                         <span matLine>
-                            {{person.fullName}}
-                            (<i><ng-container i18n>in</ng-container>
-                            {{birthdayIn(person.birthday)}}
-                            <ng-container i18n>days</ng-container></i>)
+                            {{person.fullName}} (<i>{{birthdayIn(person.birthday)}}</i>)
                         </span>
                         <span matLine>
                             <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |

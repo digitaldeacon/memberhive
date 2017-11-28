@@ -52,7 +52,7 @@
         </mat-card-actions>
         <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="Interactions">
+                <mat-tab label="Interactions" i18n-label>
                     <mh-interaction-list
                             [people]="people"
                             [interactions]="interactions$ | async"
@@ -60,7 +60,7 @@
                             (deleteInteraction)="deleteInteraction($event)"
                             (addInteraction)="addInteraction($event)"></mh-interaction-list>
                 </mat-tab>
-                <mat-tab label="Edit">
+                <mat-tab label="Edit" i18n-label>
                    <mh-person-form
                            [person]="person$ | async"
                            [settings]="settings"

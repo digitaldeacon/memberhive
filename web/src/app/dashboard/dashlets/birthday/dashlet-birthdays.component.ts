@@ -4,13 +4,17 @@ import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 import { Person } from 'mh-core';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
+import { Moment } from 'moment';
+import * as _moment from 'moment';
+const moment = _moment;
+
 @Component({
     selector: 'mh-dashlet-birthdays',
     templateUrl: './dashlet-birthdays.component.html',
     styleUrls: ['./dashlet-birthdays.component.scss']
 })
 export class DashletBirthdaysComponent {
-    private now: Date = new Date();
+    private now: Moment = moment();
 
     @Input()
     set people(p: Person[]) {
@@ -27,40 +31,40 @@ export class DashletBirthdaysComponent {
     dialogRef: MatDialogRef<any>;
 
     constructor(private _dialog: MatDialog,
-                private _ref: ChangeDetectorRef) { }
+                private _ref: ChangeDetectorRef) {
+    }
 
     filter(people: Person[]): void {
         if (people) {
-            const rangeDate: Date = new Date(this.now);
-            rangeDate.setDate(new Date(this.now).getDate() + this.range);
+            const rangeDate: Moment = moment().add(this.range, 'days');
             this.peopleBdRange = people.filter((p: Person) => {
-                const bday: Date = new Date(p.birthday);
+                const bday: Moment = moment(p.birthday);
                 if (!p.birthday) {
                     return false;
                 }
-                bday.setFullYear(this._contextYear(bday));
+                bday.set('year', this._contextYear(bday));
                 return bday > this.now && bday < rangeDate;
             });
             this.peopleBdRange.sort((p1: Person, p2: Person) => {
-                const left: Date = new Date(p1.birthday);
-                const right: Date = new Date(p2.birthday);
-                left.setFullYear(this._contextYear(left));
-                right.setFullYear(this._contextYear(right));
-                return left.getTime() - right.getTime();
+                const left: Moment = moment(p1.birthday);
+                const right: Moment = moment(p2.birthday);
+                left.set('year', this._contextYear(left));
+                right.set('year', this._contextYear(right));
+                return left.unix() - right.unix();
             });
             // Filter for today's birthdays
             this.peopleBdToday = people.filter((p: Person) => {
-                const bday: Date = new Date(p.birthday);
+                const bday: Moment = moment(p.birthday);
                 if (!p.birthday) {
                     return false;
                 }
-                bday.setFullYear(this.now.getFullYear());
-                return bday.toLocaleDateString() === this.now.toLocaleDateString();
+                bday.set('year', this.now.year());
+                return bday.unix() === this.now.unix();
             });
             // Sort it, closest date on top
             this.peopleBdToday.sort((p1: Person, p2: Person) => {
-                const left: number = new Date(p1.birthday).getDate();
-                const right: number = new Date(p2.birthday).getDate();
+                const left: number = moment(p1.birthday).unix();
+                const right: number = moment(p2.birthday).unix();
                 return left - right;
             });
         }
@@ -83,20 +87,17 @@ export class DashletBirthdaysComponent {
         });
     }
 
-    // could become a pipe, in case momentjs does not work with AOT
-    birthdayIn(birthday: string): number  {
-        const bday: Date = new Date(birthday);
-        bday.setFullYear(this._contextYear(bday));
-        const interval: number = Math.floor(bday.getTime() - this.now.getTime()) / 1000;
-        const days: number = Math.ceil(interval / 86400);
-        return days;
+    birthdayIn(birthday: string): string  {
+        const bday: Moment = moment(birthday);
+        bday.locale('de').set('year', this._contextYear(bday));
+        return bday.fromNow();
     }
 
-    private _contextYear(d: Date): number {
-        let contextYr: number = this.now.getFullYear();
-        if (d.getMonth() < this.now.getMonth() ||
-            (d.getMonth() === this.now.getMonth()
-                && (d.getDay() < this.now.getDay()))) {
+    private _contextYear(d: Moment): number {
+        let contextYr: number = this.now.year();
+        if (d.month() < this.now.month() ||
+            (d.month() === this.now.month()
+                && (d.day() < this.now.day()))) {
             contextYr += 1;
         }
         return contextYr;

@@ -1,6 +1,8 @@
 <mat-toolbar>
     <h3 fxFlex>Audit Logs</h3>
-    <button mat-button i18n><mat-icon>remove_circle_outline</mat-icon> CLEAR LOGS</button>
+    <button mat-button>
+        <mat-icon>remove_circle_outline</mat-icon>
+        <ng-container i18n>CLEAR LOGS</ng-container></button>
 </mat-toolbar>
 <mat-list class="audit">
     <mat-list-item *ngFor="let log of logs">

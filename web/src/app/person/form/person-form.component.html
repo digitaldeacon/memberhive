@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="!inCreateMode()">
     <h3 fxFlex><ng-container i18n>Edit</ng-container> <small>{{person.fullName}}</small></h3>
-    <button mat-button i18n>
+    <button mat-button>
         <mat-icon>check_circle</mat-icon>
         <ng-container i18n>SAVE NOW</ng-container>
     </button>
@@ -58,6 +58,9 @@
                     <mat-radio-button value="f" i18n>Female</mat-radio-button>
                     <mat-radio-button value="m" i18n>Male</mat-radio-button>
                 </mat-radio-group>
+                <mat-error *ngIf="form.get('gender').invalid" i18n>
+                    Please provide a gender
+                </mat-error>
             </div>
             <div>
                 <mat-form-field>
@@ -67,7 +70,7 @@
                            placeholder="Email" i18n-placeholder
                            email required>
                 </mat-form-field>
-                <mat-error *ngIf="form.get('email').hasError('pattern')" i18n>
+                <mat-error *ngIf="form.get('email').invalid || form.get('email').hasError('pattern')" i18n>
                     Please provide a proper email address
                 </mat-error>
             </div>
@@ -98,10 +101,11 @@
             <div>
                 <mat-form-field>
                     <mat-icon matPrefix>cake</mat-icon>
-                    <input matInput fxFlex
+                    <input matInput
                            [matDatepicker]="dpBirthday"
                            formControlName="birthday"
                            placeholder="Birthday" i18n-placeholder
+                           fxFlex
                            required>
                     <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
                 </mat-form-field>
@@ -113,10 +117,11 @@
             <div>
                 <mat-form-field>
                     <mat-icon matPrefix>opacity</mat-icon>
-                    <input matInput fxFlex
+                    <input matInput
                            [matDatepicker]="dpBaptized"
                            formControlName="baptized"
-                           placeholder="Baptized" i18n-placeholder>
+                           placeholder="Baptized" i18n-placeholder
+                           fxFlex>
                     <mat-datepicker-toggle matSuffix [for]="dpBaptized"></mat-datepicker-toggle>
                 </mat-form-field>
                 <mat-datepicker #dpBaptized></mat-datepicker>
@@ -195,7 +200,9 @@
                     </div>
                 </div>
                 <div formGroupName="postal">
-                    <h4 i18n>Postal <small>(if it differs from home address)</small></h4>
+                    <h4>
+                        <ng-container i18n>Postal</ng-container>
+                        <small i18n>(if it differs from home address)</small></h4>
                     <mat-form-field>
                         <input matInput
                                type="text"

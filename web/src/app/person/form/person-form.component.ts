@@ -13,6 +13,9 @@ import {
     MaritalStatus, maritalStatusArray
 } from 'mh-core';
 
+import * as _moment from 'moment';
+const moment = _moment;
+
 @Component({
     selector: 'mh-person-form',
     templateUrl: './person-form.component.html',
@@ -71,10 +74,6 @@ export class PersonFormComponent implements OnInit {
     initPerson(person?: Person): void {
         if (person) {
             this.address = new PersonAddress(person['address']);
-            // TODO: either have core return date objects or use a dateadapter
-            person.birthday = new Date(person.birthday);
-            person.baptized = new Date(person.baptized);
-            person.anniversary = new Date(person.anniversary);
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
@@ -88,7 +87,7 @@ export class PersonFormComponent implements OnInit {
         this.form.get('firstName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('lastName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
         this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(this.emailRegex)]);
-        // this.form.get('birthday').setValidators([<any>Validators.required]);
+        this.form.get('gender').setValidators([<any>Validators.required]);
     }
 
     initForm(): void {
@@ -160,15 +159,22 @@ export class PersonFormComponent implements OnInit {
     }
 
     save(person: Person): void {
+        console.log('Form valid?:', this.form.valid);
         if (this.form.valid) {
             this.submitted = true;
             // TODO: either have core return date objects or use a dateadapter
-            person.birthday = new Date(person.birthday);
-            person.baptized = new Date(person.baptized);
-            person.anniversary = new Date(person.anniversary);
+            /*if (!this.inCreateMode()) {
+                console.log(person);
+                person.birthday = person.birthday ? moment(person.birthday) : undefined;
+                person.baptized = person.baptized ? moment(person.baptized) : undefined;
+                person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
+                console.log(person);
+            }*/
             this.form.patchValue(person);
             this.toggleRandomPassword();
             this.savePerson.emit(person);
+        } else {
+            console.log(this.form.errors, this.form.getRawValue());
         }
     }
 

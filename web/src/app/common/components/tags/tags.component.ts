@@ -66,6 +66,7 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
 
     writeValue(v: Tag[]): void {
         this._value = v;
+        console.log(v);
     }
 
     registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }
@@ -107,20 +108,21 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
                 this._addTag(this.filteredSources[0]);
             }
         }
+        this.chipInput['nativeElement'].value = '';
     }
 
     remove(tag: Tag): void {
         this._value = this._value.filter((i: Tag) => i !== tag);
         this.value = this._value;
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
-        this.chipInput.focus();
+        this.chipInput['nativeElement'].blur();
     }
 
     selectInput(event: MouseEvent): boolean {
         event.preventDefault();
         event.stopImmediatePropagation();
         this.textChanged(this.chipInput.value);
-        this.chipInput.focus();
+        this.chipInput['nativeElement'].focus();
         return false;
     }
 
@@ -132,13 +134,16 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
         if (!isNaN(Number(value))) {
             value = this.source.find((tag: Tag) => tag.id === Number(value));
         }
-        if (!value || !value.text || this._value.indexOf(value) !== -1) {
+        if (!this._value) {
+            this._value = [];
+        }
+        if (!value || !value.text || (this._value && this._value.indexOf(value) !== -1)) {
             return;
         }
         this._value.push(value);
         this.value = this._value;
         this.chipInput.value = '';
         this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
-        this.chipInput.focus();
+        this.chipInput['nativeElement'].blur();
     }
 }
