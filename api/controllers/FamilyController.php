@@ -96,6 +96,7 @@ class FamilyController extends MHController
                 foreach ($post['members'] as $uid => $data) {
                     $person = Person::find()->where(['uid'=>$uid])->one();
                     if ($person) {
+                        PersonFamily::deleteAll(['person_id' => $person->id, 'is_primary' => true]);
                         try {
                             $fam->link('members', $person);
                             $person->setDefaultRole();
