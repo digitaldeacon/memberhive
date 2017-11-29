@@ -77,7 +77,8 @@ export class PersonFormComponent implements OnInit {
             this.form.patchValue(person);
             this.listenFormChanges();
             this._person = person;
-            if (person.address.hasOwnProperty('home') && person.address.home.hasOwnProperty('geocode')) {
+            if (person.address.hasOwnProperty('home') &&
+                person.address.home.hasOwnProperty('geocode')) {
                 this.hasMap = Object.keys(person.address.home.geocode).length > 0;
             }
         }
@@ -162,14 +163,11 @@ export class PersonFormComponent implements OnInit {
         console.log('Form valid?:', this.form.valid);
         if (this.form.valid) {
             this.submitted = true;
-            // TODO: either have core return date objects or use a dateadapter
-            /*if (!this.inCreateMode()) {
-                console.log(person);
-                person.birthday = person.birthday ? moment(person.birthday) : undefined;
-                person.baptized = person.baptized ? moment(person.baptized) : undefined;
-                person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
-                console.log(person);
-            }*/
+           
+            person.birthday = person.birthday ? moment(person.birthday) : undefined;
+            person.baptized = person.baptized ? moment(person.baptized) : undefined;
+            person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
+
             this.form.patchValue(person);
             this.toggleRandomPassword();
             this.savePerson.emit(person);

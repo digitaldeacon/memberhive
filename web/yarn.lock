@@ -37,8 +37,8 @@
     tslib "^1.7.1"
 
 "@angular/cdk@angular/cdk-builds":
-  version "5.0.0-rc.2-741378a"
-  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/444051fc81e444c9c1ce7af142bcaaa55bb88a02"
+  version "5.0.0-rc.2-d6fec35"
+  resolved "https://codeload.github.com/angular/cdk-builds/tar.gz/22762be629f174e1a19876ac166c91e027e811c2"
   dependencies:
     tslib "^1.7.1"
 
@@ -162,8 +162,8 @@
     tslib "^1.7.1"
 
 "@angular/material@angular/material2-builds":
-  version "5.0.0-rc.2-741378a"
-  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/32d1a91b21876fb558dfc3a2bfae3bb718e04010"
+  version "5.0.0-rc.2-d6fec35"
+  resolved "https://codeload.github.com/angular/material2-builds/tar.gz/9317869311d015c4a663ebc087f99e31bfc4d276"
   dependencies:
     tslib "^1.7.1"
 
@@ -246,8 +246,8 @@
   resolved "https://registry.yarnpkg.com/@types/jwt-decode/-/jwt-decode-2.2.1.tgz#afdf5c527fcfccbd4009b5fd02d1e18241f2d2f2"
 
 "@types/lodash@^4.14.67":
-  version "4.14.85"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.85.tgz#a16fbf942422f6eca5622b6910492c496c35069b"
+  version "4.14.86"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.86.tgz#6788d3d75032c46322ff1c144c948cf8117c405b"
 
 "@types/node@^6.0.46", "@types/node@~6.0.60":
   version "6.0.92"
@@ -959,8 +959,8 @@ caniuse-api@^1.5.2:
     lodash.uniq "^4.5.0"
 
 caniuse-db@^1.0.30000529, caniuse-db@^1.0.30000634, caniuse-db@^1.0.30000639:
-  version "1.0.30000772"
-  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000772.tgz#51aae891768286eade4a3d8319ea76d6a01b512b"
+  version "1.0.30000775"
+  resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000775.tgz#04bccdd0214edf25b97f61a096609f7ad6904333"
 
 caseless@~0.11.0:
   version "0.11.0"
@@ -3781,8 +3781,8 @@ loader-utils@^1.0.1, loader-utils@^1.0.2, loader-utils@^1.1.0:
     json5 "^0.5.0"
 
 localforage@^1.5.2:
-  version "1.5.3"
-  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.5.3.tgz#698aa16af1022340b240be9d93192e8af022ff16"
+  version "1.5.4"
+  resolved "https://registry.yarnpkg.com/localforage/-/localforage-1.5.4.tgz#2d5cd0f1e0cf0d344c24324acc5bab6c82cd2f6f"
   dependencies:
     lie "3.0.2"
 
@@ -6238,8 +6238,8 @@ svgo@^0.7.0:
     whet.extend "~0.9.9"
 
 symbol-observable@^1.0.1:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.0.4.tgz#29bf615d4aa7121bdd898b22d4b3f9bc4e2aa03d"
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/symbol-observable/-/symbol-observable-1.1.0.tgz#5c68fd8d54115d9dfb72a84720549222e8db9b32"
 
 tapable@^0.2.7:
   version "0.2.8"
