@@ -35,8 +35,7 @@ class m171009_090459_create_junction_table_for_person_and_tag_tables extends Mig
             'person_tag',
             'person_id',
             'person',
-            'id',
-            'RESTRICT'
+            'id'
         );
 
         // creates index for column `tag_id`
