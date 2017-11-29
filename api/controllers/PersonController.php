@@ -3,6 +3,7 @@ namespace app\controllers;
 
 use app\models\Family;
 use app\models\Person;
+use app\models\PersonFamily;
 use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
@@ -190,11 +191,19 @@ class PersonController extends MHController
     public function actionDelete($id)
     {
         $person = $this->findModelByUID($id);
-        $ret = ['id'=>$person->id, 'fullName'=>$person->fullName];
-        $result = $person->delete();
-        if ($result === false) {
-            throw new BadRequestHttpException('Could not delete person with ID ' . $id);
+        $t = Person::getDb()->beginTransaction();
+        try {
+            PersonFamily::deleteAll(['person_id'=>$person->id]);
+            PersonTag::deleteAll(['person_id'=>$person->id]);
+            $person->delete();
+            $t->commit();
+        } catch(\Throwable $e) {
+            $t->rollBack();
+            throw new BadRequestHttpException('Could not delete '
+                . $person->fullName . ': ' . $e->getMessage());
         }
+        $ret = ['id'=>$person->id, 'fullName'=>$person->fullName];
+
         return $ret;
     }
 

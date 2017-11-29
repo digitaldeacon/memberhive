@@ -70,7 +70,8 @@
                            placeholder="Email" i18n-placeholder
                            email required>
                 </mat-form-field>
-                <mat-error *ngIf="(form.get('email').invalid && form.get('email').dirty) ||
+                <mat-error *ngIf="form.get('email').invalid &&
+                form.get('email').dirty &&
                 form.get('email').hasError('pattern')" i18n>
                     Please provide a proper email address
                 </mat-error>
