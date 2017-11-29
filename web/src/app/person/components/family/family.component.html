@@ -7,13 +7,19 @@
             *ngIf="!(hasFamily$ | async)"
             (click)="displayAddFamily = !displayAddFamily; displayAddMember = false">
         <mat-icon *ngIf="!displayAddFamily">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon> <ng-container i18n>ADD FAMILY</ng-container>
+        <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon> <ng-container i18n>FAMILY</ng-container>
     </button>
     <button mat-button
             *ngIf="(hasFamily$ | async)"
             (click)="displayAddMember = !displayAddMember; displayAddFamily = false">
         <mat-icon *ngIf="!displayAddMember">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon> <ng-container i18n>ADD MEMBER</ng-container>
+        <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon> <ng-container i18n>MEMBER</ng-container>
+    </button>
+    <button mat-button
+            *ngIf="(hasFamily$ | async)"
+            (click)="displayAddFamily = !displayAddFamily;">
+        <mat-icon>edit</mat-icon>
+        <ng-container i18n>FAMILY</ng-container>
     </button>
 </mat-toolbar>
 
