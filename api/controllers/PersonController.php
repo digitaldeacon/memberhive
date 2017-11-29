@@ -226,6 +226,7 @@ class PersonController extends MHController
 
     protected function setPerson($person, $post): Person
     {
+        // throw new BadRequestHttpException(json_encode($post));
         $person->firstName = $post['firstName'];
         $person->middleName = $post['middleName'];
         $person->lastName = $post['lastName'];
@@ -236,9 +237,15 @@ class PersonController extends MHController
         $person->phoneHome = $post['phoneHome'];
         $person->phoneWork = $post['phoneWork'];
         $person->phoneMobile = $post['phoneMobile'];
-        $person->birthday = date('Y-m-d', strtotime($post['birthday']));
-        $person->baptized = date('Y-m-d', strtotime($post['baptized']));
-        $person->anniversary = date('Y-m-d', strtotime($post['anniversary']));
+        $person->birthday = !empty($post['birthday'])
+            ? date('Y-m-d', strtotime($post['birthday']))
+            : null;
+        $person->baptized = !empty($post['baptized'])
+            ? date('Y-m-d', strtotime($post['baptized']))
+            : null;
+        $person->anniversary = !empty($post['anniversary'])
+            ? date('Y-m-d', strtotime($post['anniversary']))
+            : null;
         return $person;
     }
 

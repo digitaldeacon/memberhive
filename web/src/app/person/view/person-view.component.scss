@@ -21,6 +21,7 @@
 }
 
 .mobile-avatar {
+  padding-top: 15px;
   padding-bottom: 10px;
   img[mat-card-avatar] {
     height: 60px;
@@ -29,8 +30,10 @@
 }
 
 .avatar-container {
-  margin-right: 30px;
   cursor: pointer;
+  padding-left: 20px;
+  padding-right: 65px;
+  max-width: 185px;
   span {
     position: absolute;
     line-height: 100px;
