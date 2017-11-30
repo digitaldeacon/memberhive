@@ -51,16 +51,20 @@ export class FamilyComponent implements OnDestroy {
 
     suggestedMembers: Person[] = [];
     peopleNoSuggestions: Person[] = [];
+    unrelatedMembers: Person[] = [];
 
     displayAddMember: boolean = false;
     displayAddFamily: boolean = false;
+    displayEditFamily: boolean = false;
 
     addFamilyForm: FormGroup;
     addFamilyMemberForm: FormGroup;
     linkFamilyForm: FormGroup;
+    editFamilyForm: FormGroup;
 
     constructor(private _store: Store<AppState>,
                 private _fb: FormBuilder) {
+
         this.addFamilyForm = this._fb.group({
             familyName: ['', [<any>Validators.required]]
         });
@@ -71,6 +75,10 @@ export class FamilyComponent implements OnDestroy {
         this.addFamilyMemberForm = this._fb.group({
             member: ['', [<any>Validators.required]],
             role: ['', [<any>Validators.required]]
+        });
+        this.editFamilyForm = this._fb.group({
+            familyName: ['', [<any>Validators.required]],
+            unrelated: []
         });
 
         this._store.select(getFamilies)
@@ -94,14 +102,21 @@ export class FamilyComponent implements OnDestroy {
     }
 
     initFamily(): void {
+        let familyName: string = this.person.lastName + ' (' + this.person.firstName + ')';
         if (this.families) {
             this.family = this.families
                 .filter((f: Family) => !!f.primary[this.person.uid])[0];
             this.hasFamily$.next(!!this.family);
-            if (!this.family) {
-                this.addFamilyForm.get('familyName')
-                    .patchValue(this.person.lastName + '(' + this.person.firstName + ')');
+            if (this.family) {
+                familyName = this.family.name;
+                if (this.family.unrelated) {
+                    this.unrelatedMembers = this.family.unrelated.map((uid: string) =>
+                        this.people.filter((p: Person) => p.uid === uid)[0]
+                    );
+                }
             }
+            this.addFamilyForm.get('familyName').patchValue(familyName);
+            this.editFamilyForm.get('familyName').patchValue(familyName);
         }
     }
 
@@ -117,6 +132,7 @@ export class FamilyComponent implements OnDestroy {
             };
             this.members.push(m);
             this.members$.next(this.members);
+            console.log(this.family);
             this.people
                 .filter((p: Person) => this._isPrimaryMember(p.uid))
                 .map((person: Person) => this._addMember(person));
@@ -230,6 +246,21 @@ export class FamilyComponent implements OnDestroy {
             this._store.dispatch(new AddNewFamilyAction(family));
             this.displayAddFamily = false;
             this.addFamilyForm.reset();
+        }
+    }
+
+    editFamily(): void {
+        if (this.editFamilyForm.valid) {
+            let unrelated: string[] = [];
+
+            const family: Family = {
+                name: this.addFamilyForm.get('familyName').value,
+                unrelated: unrelated
+            };
+            //this._store.dispatch(new EditFamilyAction(family));
+            this.displayAddFamily = false;
+            this.displayEditFamily = false;
+            this.editFamilyForm.reset();
         }
     }
 

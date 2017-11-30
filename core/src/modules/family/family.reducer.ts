@@ -1,15 +1,12 @@
-import { createSelector } from '@ngrx/store';
-import { createEntityAdapter, EntityAdapter, EntityState } from '@ngrx/entity';
-
 import { HttpErrorResponse } from '@angular/common/http';
 import { Family } from './family.model';
-import * as actions from './family.actions';
-import * as common from '../../common/common.model';
+import { FamilyActionTypes, FamilyActions } from './family.actions';
+import { Message, MessageType } from '../../common/common.model';
 
 export interface FamilyState {
     loaded?: boolean;
     loading?: boolean;
-    message?: common.Message;
+    message?: Message;
     families: Family[];
 }
 
@@ -17,27 +14,29 @@ const initialState: FamilyState = {
     families: []
 };
 
-export function familyReducer(state: FamilyState = initialState,
-                           action: actions.FamilyActions): FamilyState {
+export function familyReducer(
+    state: FamilyState = initialState,
+    action: FamilyActions): FamilyState {
+
     switch (action.type) {
 
-        case actions.UPDATE_FAMILY:
-        case actions.REMOVE_MEMBER:
-        case actions.LINK_PERSON_FAMILY:
-        case actions.ACCEPT_MEMBER:
-        case actions.IGNORE_MEMBER:
-        case actions.ADD_FAMILY:
-        case actions.LIST_FAMILIES:
+        case FamilyActionTypes.UPDATE_FAMILY:
+        case FamilyActionTypes.REMOVE_MEMBER:
+        case FamilyActionTypes.LINK_PERSON_FAMILY:
+        case FamilyActionTypes.ACCEPT_MEMBER:
+        case FamilyActionTypes.IGNORE_MEMBER:
+        case FamilyActionTypes.ADD_FAMILY:
+        case FamilyActionTypes.LIST_FAMILIES:
             return Object.assign({}, state, {
                 loading: true
             });
 
-        case actions.UPDATE_FAMILY_FAILURE:
-        case actions.ADD_FAMILY_FAILURE:
-        case actions.LIST_FAMILIES_FAILURE: {
+        case FamilyActionTypes.UPDATE_FAMILY_FAILURE:
+        case FamilyActionTypes.ADD_FAMILY_FAILURE:
+        case FamilyActionTypes.LIST_FAMILIES_FAILURE: {
             const res: HttpErrorResponse = action.payload;
-            const message: common.Message = {
-                type: common.MessageType.FAILURE,
+            const message: Message = {
+                type: MessageType.FAILURE,
                 text: res.message
             };
             return Object.assign({}, state, {
@@ -47,10 +46,10 @@ export function familyReducer(state: FamilyState = initialState,
             });
         }
 
-        case actions.UPDATE_FAMILY_SUCCESS: {
+        case FamilyActionTypes.UPDATE_FAMILY_SUCCESS: {
             const family: Family = action.payload;
-            const message: common.Message = {
-                type: common.MessageType.SUCCESS,
+            const message: Message = {
+                type: MessageType.SUCCESS,
                 text: 'Successfully updated family ' + family.name
             };
             return {
@@ -63,7 +62,7 @@ export function familyReducer(state: FamilyState = initialState,
             };
         }
 
-        case actions.LIST_FAMILIES_SUCCESS: {
+        case FamilyActionTypes.LIST_FAMILIES_SUCCESS: {
             const families: Family[] = action.payload;
             return Object.assign({}, state, {
                 loaded: true,
@@ -72,10 +71,10 @@ export function familyReducer(state: FamilyState = initialState,
             });
         }
 
-        case actions.ADD_FAMILY_SUCCESS: {
+        case FamilyActionTypes.ADD_FAMILY_SUCCESS: {
             const family: Family = action.payload;
-            const message: common.Message = {
-                type: common.MessageType.SUCCESS,
+            const message: Message = {
+                type: MessageType.SUCCESS,
                 text: 'Successfully added family ' + family.name
             };
             return Object.assign({}, state, {
@@ -86,7 +85,7 @@ export function familyReducer(state: FamilyState = initialState,
             });
         }
 
-        case actions.CLEAR_FAMILY_MESSAGE:
+        case FamilyActionTypes.CLEAR_FAMILY_MESSAGE:
             return Object.assign({}, state, {
                 message: undefined
             });

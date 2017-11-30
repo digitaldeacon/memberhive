@@ -37,5 +37,10 @@ export enum FormStatus {
 
 export enum MessageType {
     SUCCESS = 'success',
-    FAILURE = 'failure'
+    FAILURE = 'failure',
+    DEFAULT = ''
+}
+
+export const emptyMessage: Message = {
+    type: MessageType.DEFAULT
 }

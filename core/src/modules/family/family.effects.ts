@@ -24,7 +24,7 @@ export class FamilyEffects {
 
     @Effect()
     listFamilies = this._actions$
-        .ofType(actions.LIST_FAMILIES)
+        .ofType(actions.FamilyActionTypes.LIST_FAMILIES)
         .map((action: actions.ListFamiliesAction) => action.payload)
         .switchMap((data: any) => {
             return this._http.get('family/list')
@@ -34,7 +34,7 @@ export class FamilyEffects {
 
     @Effect()
     addNewFamily = this._actions$
-        .ofType(actions.ADD_FAMILY)
+        .ofType(actions.FamilyActionTypes.ADD_FAMILY)
         .map((action: actions.AddNewFamilyAction) => action.payload)
         .switchMap((data: Family) => {
             return this._http.post('family/new', data)
@@ -48,7 +48,7 @@ export class FamilyEffects {
 
     @Effect()
     updateFamily$ = this._actions$
-        .ofType(actions.UPDATE_FAMILY)
+        .ofType(actions.FamilyActionTypes.UPDATE_FAMILY)
         .map((action: actions.UpdateFamilyAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/update?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
@@ -57,7 +57,7 @@ export class FamilyEffects {
 
     @Effect()
     setFamilyRole$ = this._actions$
-        .ofType(actions.SET_FAMILY_ROLE)
+        .ofType(actions.FamilyActionTypes.SET_FAMILY_ROLE)
         .map((action: actions.SetFamilyRoleAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/set-role?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
@@ -66,7 +66,7 @@ export class FamilyEffects {
 
     @Effect()
     acceptFamilyMember$ = this._actions$
-        .ofType(actions.ACCEPT_MEMBER)
+        .ofType(actions.FamilyActionTypes.ACCEPT_MEMBER)
         .map((action: actions.AcceptMemberFamilyAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/accept?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
@@ -75,7 +75,7 @@ export class FamilyEffects {
 
     @Effect()
     ignoreSuggestedMember$ = this._actions$
-        .ofType(actions.IGNORE_MEMBER)
+        .ofType(actions.FamilyActionTypes.IGNORE_MEMBER)
         .map((action: actions.IgnoreMemberFamilyAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/ignore?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
@@ -84,7 +84,7 @@ export class FamilyEffects {
 
     @Effect()
     removeMemberFamily$ = this._actions$
-        .ofType(actions.REMOVE_MEMBER)
+        .ofType(actions.FamilyActionTypes.REMOVE_MEMBER)
         .map((action: actions.RemoveMemberFamilyAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/remove?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
@@ -93,7 +93,7 @@ export class FamilyEffects {
 
     @Effect()
     linkMemberFamily$ = this._actions$
-        .ofType(actions.LINK_PERSON_FAMILY)
+        .ofType(actions.FamilyActionTypes.LINK_PERSON_FAMILY)
         .map((action: actions.LinkPersonFamilyAction) => action.payload)
         .mergeMap((payload: FamilyPayload) => this._http.post('family/link?id=' + payload.member, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
