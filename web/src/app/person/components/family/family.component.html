@@ -17,7 +17,7 @@
     </button>
     <button mat-button
             *ngIf="(hasFamily$ | async)"
-            (click)="displayAddFamily = !displayAddFamily;">
+            (click)="displayAddFamily = !displayAddFamily; displayEditFamily = !displayEditFamily; displayAddMember = false">
         <mat-icon>edit</mat-icon>
         <ng-container i18n>FAMILY</ng-container>
     </button>
@@ -67,29 +67,53 @@
 </mat-card>
 
 <mat-card class="quick-panel" *ngIf="displayAddFamily">
+    <form *ngIf="displayEditFamily"
+          [formGroup]="editFamilyForm"
+          #afForm="ngForm"
+          (ngSubmit)="editFamily()"
+          fxLayout="column"
+          novalidate>
+        <h4 i18n>Edit your family</h4>
+        <div>
+            <mat-form-field>
+                <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select formControlName="unrelated"
+                            placeholder="Unrelated Members"
+                            i18n-placeholder
+                            multiple>
+                    <mat-option *ngFor="let member of unrelatedMembers" [value]="member.uid">
+                        {{member.fullName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-button (click)="displayAddFamily = false; afForm.reset();"><mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
+        </div>
+    </form>
     <form [formGroup]="linkFamilyForm"
           #lfForm="ngForm"
           (ngSubmit)="link()"
           fxLayout="column"
           novalidate>
-        <div fxLayout="column">
-            <h4 i18n>Add to family</h4>
-            <div>
-                <mat-form-field>
-                    <mat-select formControlName="family" placeholder="Family" i18n-placeholder>
-                        <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-select formControlName="role" placeholder="Role" i18n-placeholder>
-                        <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <button mat-button (click)="displayAddFamily = false; lfForm.reset();">
-                    <mat-icon>close</mat-icon>
-                    <ng-container i18n>CLOSE</ng-container></button>
-                <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
-            </div>
+        <h4 i18n>Add to family</h4>
+        <div>
+            <mat-form-field>
+                <mat-select formControlName="family" placeholder="Family" i18n-placeholder>
+                    <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field>
+                <mat-select formControlName="role" placeholder="Role" i18n-placeholder>
+                    <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <button mat-button (click)="displayAddFamily = false; lfForm.reset();">
+                <mat-icon>close</mat-icon>
+                <ng-container i18n>CLOSE</ng-container></button>
+            <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
     <form [formGroup]="addFamilyForm"
