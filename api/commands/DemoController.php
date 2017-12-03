@@ -3,6 +3,7 @@ namespace app\commands;
 
 use app\models\Family;
 use app\models\Tag;
+use app\models\User;
 use app\models\PersonFamily;
 use app\models\Person;
 use yii\console\Controller;
@@ -53,10 +54,6 @@ class DemoController extends Controller
 
     public function actionTest($id)
     {
-        echo 'find person with UID: ' . $id . "\n";
-        $p = Person::findOne(['id'=>$id]);
-        $p->role = 'husband';
-        var_dump($p->role);
-        //var_dump($p->toResponseArray());
+        var_dump($id);
     }
 }
