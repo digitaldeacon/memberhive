@@ -173,7 +173,7 @@ class ImportController extends Controller
                 $fam->save();
             }
             if (!empty($family['members'])) {
-                foreach($family['members'] as $fmember) {
+                foreach ($family['members'] as $fmember) {
                     $person = Person::findOne(intval($fmember['id']));
                     if (!empty($person)) {
                         $pfam = new PersonFamily([
@@ -182,11 +182,11 @@ class ImportController extends Controller
                         ]);
                         $pfam->role = $fmember['role'];
                         $pfam->is_primary = $family['adr'] == trim($person->address);
-                        if(!$pfam->save()) {
+                        if (!$pfam->save()) {
                             echo json_encode($pfam->getErrors());
                         } else {
-                            var_dump( 'Added '.$person->fullName.' to family '.$family['name']
-                                .' with role '.$fmember['role']. ' ('.$pfam->is_primary.')');
+                            var_dump('Added ' . $person->fullName . ' to family ' . $family['name']
+                                . ' with role ' . $fmember['role'] . ' (' . $pfam->is_primary . ')');
                         }
                     }
                 }
@@ -194,14 +194,14 @@ class ImportController extends Controller
         }
     }
 
-    private function isRolePrimary($role, $person) {
-
+    private function isRolePrimary($role, $person)
+    {
     }
 
     private function setRole($role, $person)
     {
         $res = 'child';
-        switch($role) {
+        switch ($role) {
             // since differentiate between husband/wife and inlaw a manual adjustment is needed
             case 'Spouse':
             case 'Primary Contact':

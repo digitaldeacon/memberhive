@@ -197,7 +197,7 @@ class PersonController extends MHController
             PersonTag::deleteAll(['person_id'=>$person->id]);
             $person->delete();
             $t->commit();
-        } catch(\Throwable $e) {
+        } catch (\Throwable $e) {
             $t->rollBack();
             throw new BadRequestHttpException('Could not delete '
                 . $person->fullName . ': ' . $e->getMessage());
