@@ -160,10 +160,8 @@ export class PersonFormComponent implements OnInit {
     }
 
     save(person: Person): void {
-        console.log('Form valid?:', this.form.valid);
         if (this.form.valid) {
             this.submitted = true;
-           
             person.birthday = person.birthday ? moment(person.birthday) : undefined;
             person.baptized = person.baptized ? moment(person.baptized) : undefined;
             person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
@@ -171,8 +169,6 @@ export class PersonFormComponent implements OnInit {
             this.form.patchValue(person);
             this.toggleRandomPassword();
             this.savePerson.emit(person);
-        } else {
-            console.log(this.form.errors, this.form.getRawValue());
         }
     }
 
