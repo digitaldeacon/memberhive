@@ -251,13 +251,13 @@ export class FamilyComponent implements OnDestroy {
 
     editFamily(): void {
         if (this.editFamilyForm.valid) {
-            let unrelated: string[] = [];
+            const unrelated: string[] = [];
 
             const family: Family = {
                 name: this.addFamilyForm.get('familyName').value,
                 unrelated: unrelated
             };
-            //this._store.dispatch(new EditFamilyAction(family));
+            // this._store.dispatch(new EditFamilyAction(family));
             this.displayAddFamily = false;
             this.displayEditFamily = false;
             this.editFamilyForm.reset();
