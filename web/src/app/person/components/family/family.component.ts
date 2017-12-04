@@ -12,7 +12,7 @@ import {
     LinkPersonFamilyAction, IgnoreMemberFamilyAction,
     RemoveMemberFamilyAction, AddNewFamilyAction,
     SetFamilyRoleAction, AcceptMemberFamilyAction,
-    UpdatePersonAction
+    UpdatePersonAction, UpdateFamilyAction
 } from 'mh-core';
 
 import { isEqual } from 'lodash';
@@ -254,10 +254,11 @@ export class FamilyComponent implements OnDestroy {
             const unrelated: string[] = [];
 
             const family: Family = {
-                name: this.addFamilyForm.get('familyName').value,
+                id: this.family.id,
+                name: this.editFamilyForm.get('familyName').value,
                 unrelated: unrelated
             };
-            // this._store.dispatch(new EditFamilyAction(family));
+            this._store.dispatch(new UpdateFamilyAction(family));
             this.displayAddFamily = false;
             this.displayEditFamily = false;
             this.editFamilyForm.reset();

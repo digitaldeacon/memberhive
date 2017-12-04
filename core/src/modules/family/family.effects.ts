@@ -50,7 +50,7 @@ export class FamilyEffects {
     updateFamily$ = this._actions$
         .ofType(actions.FamilyActionTypes.UPDATE_FAMILY)
         .map((action: actions.UpdateFamilyAction) => action.payload)
-        .mergeMap((payload: FamilyPayload) => this._http.post('family/update?id=' + payload.member, payload)
+        .mergeMap((payload: Family) => this._http.post('family/update?id=' + payload.id, payload)
             .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
             .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
         );

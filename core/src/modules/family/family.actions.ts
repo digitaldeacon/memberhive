@@ -52,7 +52,7 @@ export class AddNewFamilyFailureAction implements Action {
 
 export class UpdateFamilyAction implements Action {
     readonly type = FamilyActionTypes.UPDATE_FAMILY;
-    constructor(public payload: FamilyPayload) { }
+    constructor(public payload: Family) { }
 }
 
 export class UpdateFamilySuccessAction implements Action {

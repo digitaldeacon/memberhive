@@ -107,7 +107,7 @@
             </mat-form-field>
             <mat-form-field>
                 <mat-select formControlName="role" placeholder="Role" i18n-placeholder>
-                    <mat-option *ngFor="let relation of relations" [value]="relation">{{relation}}</mat-option>
+                    <mat-option *ngFor="let role of familyRoles" [value]="role">{{role}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <button mat-button (click)="displayAddFamily = false; lfForm.reset();">
