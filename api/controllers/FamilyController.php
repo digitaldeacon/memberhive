@@ -58,7 +58,9 @@ class FamilyController extends MHController
     public function actionDelete() // on post
     {
         $post = \Yii::$app->request->post();
-        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+        if (empty($post) || !isset($post['id'])) {
+            throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+        }
     }
 
     /**
@@ -66,10 +68,23 @@ class FamilyController extends MHController
      * @see using $_POST['family'] directly
      * @throws BadRequestHttpException
      */
-    public function actionUpdate() // on post
+    public function actionUpdate($id) // on post
     {
         $post = \Yii::$app->request->post();
-        throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+
+        if (empty($post) || !$id) {
+            throw new BadRequestHttpException('Insufficient parameters: ' . json_encode($post));
+        }
+
+        $family = Family::findOne($id);
+        if ($family) {
+            $family->name = $post['name'];
+            $family->unrelated = json_encode($post['unrelated']);
+            if (!$family->save()) {
+                throw new BadRequestHttpException(json_encode($family->getErrors()));
+            }
+        }
+        return $family->toResponseArray();
     }
 
     /**
