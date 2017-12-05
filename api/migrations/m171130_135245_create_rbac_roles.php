@@ -88,23 +88,6 @@ class m171130_135245_create_rbac_roles extends Migration
         $viewPrivateInteractions->description = 'Allow to view private interactions' .
         $auth->add($viewPrivateInteractions);
 
-
-        $staff = $auth->createRole('staff');
-        $auth->add($staff);
-        $auth->addChild($staff, $login);
-        $auth->addChild($staff, $createAdmins);
-        $auth->addChild($staff, $editAdmins);
-        $auth->addChild($staff, $createMembers);
-        $auth->addChild($staff, $deleteMembers);
-        $auth->addChild($staff, $editMembers);
-        $auth->addChild($staff, $createStaff);
-        $auth->addChild($staff, $editStaff);
-        $auth->addChild($staff, $deleteStaff);
-        $auth->addChild($staff, $createInteractions);
-        $auth->addChild($staff, $editInteractions);
-        $auth->addChild($staff, $deleteInteractions);
-        $auth->addChild($staff, $viewSysSettings);
-
         $admin = $auth->createRole('admin');
         $auth->add($admin);
         $auth->addChild($admin, $login);
@@ -124,11 +107,28 @@ class m171130_135245_create_rbac_roles extends Migration
         $auth->addChild($admin, $viewSysSettings);
         $auth->addChild($admin, $editSysSettings);
 
+        $staff = $auth->createRole('staff');
+        $auth->add($staff);
+        $auth->addChild($staff, $login);
+        $auth->addChild($staff, $createAdmins);
+        $auth->addChild($staff, $editAdmins);
+        $auth->addChild($staff, $createMembers);
+        $auth->addChild($staff, $deleteMembers);
+        $auth->addChild($staff, $editMembers);
+        $auth->addChild($staff, $createStaff);
+        $auth->addChild($staff, $editStaff);
+        $auth->addChild($staff, $deleteStaff);
+        $auth->addChild($staff, $createInteractions);
+        $auth->addChild($staff, $editInteractions);
+        $auth->addChild($staff, $deleteInteractions);
+        $auth->addChild($staff, $viewSysSettings);
+
         $member = $auth->createRole('member');
         $auth->add($member);
         $auth->addChild($member, $login);
         $auth->addChild($member, $viewInteractions);
     }
+
     public function down()
     {
         Yii::$app->authManager->removeAll();

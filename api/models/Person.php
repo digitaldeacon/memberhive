@@ -143,11 +143,7 @@ class Person extends \yii\db\ActiveRecord
     public function getPersonFamily()
     {
         return $this->hasOne(PersonFamily::className(), ['person_id' => 'id'])
-            ->where([
-                'or',
-                ['role' => 'husband'],
-                ['role' => 'wife']
-            ]);
+            ->andWhere(['is_primary' => true]);
     }
 
     /**
@@ -254,6 +250,7 @@ class Person extends \yii\db\ActiveRecord
             $emptyRoles = $this->getPersonFamilies()->where(['role' => null])->all();
             foreach ($emptyRoles as $entry) {
                 $entry->role = $role;
+                $entry->ref = $this->uid;
                 $entry->save();
             }
         } catch (\Throwable $e) {

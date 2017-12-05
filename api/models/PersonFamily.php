@@ -32,7 +32,7 @@ class PersonFamily extends \yii\db\ActiveRecord
         return [
             [['person_id', 'family_id'], 'required'],
             [['person_id', 'family_id'], 'integer'],
-            [['role'], 'string', 'max' => 255],
+            [['role','ref'], 'string', 'max' => 255],
             [['is_primary'], 'boolean'],
             [['person_id', 'family_id'], 'unique', 'targetAttribute' => ['person_id', 'family_id']],
             [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],

@@ -13,6 +13,20 @@
     },
     "isDemo": 0
   },
+  "dev": {
+    "domain": "dev.memberhive.com",
+    "deploy": "plesk",
+    "token": "FQoVo2j4363b8HpdhoyRqdi8wd68wD8i",
+    "language": "de",
+    "timezone": "Europe\/Berlin",
+    "db": {
+      "dsn": "mysql:host=127.0.0.1;dbname=mh2_eckstein",
+      "username": "mh2-db_eckstein",
+      "password": "}6Atkxs8z$pU7qo}MG",
+      "dbName": "mh2_eckstein"
+    },
+    "isDemo": 0
+  },
   "localhost": {
     "domain": "localhost",
     "deploy": "",

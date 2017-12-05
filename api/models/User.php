@@ -26,6 +26,12 @@ class User extends ActiveRecord implements IdentityInterface
 {
     use \app\helpers\UserTrait;
 
+    public function init()
+    {
+        parent::init();
+        \Yii::$app->user->enableSession = false;
+    }
+
     public static function tableName()
     {
         return 'user';
