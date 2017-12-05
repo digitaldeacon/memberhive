@@ -8,10 +8,10 @@
 [![Join the chat at https://gitter.im/memberhive2/Lobby](https://badges.gitter.im/memberhive2/Lobby.svg)](https://gitter.im/memberhive2/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Note
-MH2 is very much in Alpha status. Many dependencies, like Material2 (material design for angular2) are still under 
+MH2 is very much in Alpha status. Many dependencies, like material design for angular, are still under 
 active development. Things may change/ break rather quickly because of it. So be patient :)
 
-We stay in step with the dependencies of _angular/material2_ and _angular/angular-cli_.
+We stay in step with the dependencies of _angular/material_ and _angular/angular-cli_.
 
 ## Introduction
 Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular@next (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
@@ -32,12 +32,12 @@ A demo environment is currently unavailable (check the High-Level Items list bel
 _In order of importance_
 - [x] Person status (#46)
 - [ ] Layout fixes (#152)
-- [ ] Rework entire App Structure (#163)
+- [ ] various bug fixes (#174, #175)
 - [x] Upgrade to Angular5 (#161)
 - [x] Person family (#123)
-- [ ] Person delete (#122)
-- [ ] RBAC (#139)
-- [ ] Tests for person (#37)
+- [x] Person delete (#122)
+- [ ] RBAC (#139) (in progress...)
+- [x] Performance issues on API
 - [ ] New DEMO Environment
 
 ## Development Philosophy
@@ -59,13 +59,13 @@ If you care to contribute you should bring some of the following skills to the t
 See also *Dependencies* below.
 
 ## Dependencies
-- Angular (v4.0.0, with angular/cli and AOT compilation)
-- Ionic2
+- Angular (>5, with angular/cli and AOT compilation)
+- Ionic3
 - Yii2
 - Typescript
 - MariaDB/MySQL
-- PHP7
-- Material2 (using angular/flex-layout)
+- PHP7.1
+- Material (using angular/flex-layout)
 - NgRX (Redux-like state management)
 
 # Install
@@ -159,6 +159,10 @@ In case you are updating from a version that was dependent on Angular2.4 you nee
 ...or any of the other subcommands (see package.json in root directory).
 
 # Developing
+## Debugging API Requests
+In dev mode the debug window is available under: http://localhost/memberhive2/api/web/debug/default/view.
+You can view all the latest requests there, as well as the runtime/logs folder.
+
 ## Developing with NgRX (Redux pattern)
 Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
 
