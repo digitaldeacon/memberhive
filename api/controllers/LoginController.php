@@ -44,7 +44,7 @@ class LoginController extends \yii\web\Controller
                 ->where(['email' => $request->post('username')])
                 ->one();
             $model = !empty($person) && isset($person->user) ? $person->user : null;
-            if(empty($model)) {
+            if (empty($model)) {
                 throw new \yii\web\NotFoundHttpException('User not found');
             }
         }

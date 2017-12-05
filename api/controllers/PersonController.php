@@ -99,7 +99,7 @@ class PersonController extends MHController
     {
         $ret = [];
         $people = Person::find()
-            ->with('user','statusTags')
+            ->with('user', 'statusTags')
             ->orderBy(['lastName' => SORT_ASC])
             ->all();
 

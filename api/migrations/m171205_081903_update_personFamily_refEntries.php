@@ -14,7 +14,7 @@ class m171205_081903_update_personFamily_refEntries extends Migration
     {
         $pfam = \app\models\PersonFamily::find()
             ->with('person')
-            ->where(['ref' => NULL])
+            ->where(['ref' => null])
             ->all();
         foreach ($pfam as $data) {
             $data->ref = $data->person->uid;

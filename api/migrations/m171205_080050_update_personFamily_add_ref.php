@@ -12,7 +12,7 @@ class m171205_080050_update_personFamily_add_ref extends Migration
      */
     public function safeUp()
     {
-        $this->addColumn('person_family','ref', $this->string());
+        $this->addColumn('person_family', 'ref', $this->string());
     }
 
     /**
