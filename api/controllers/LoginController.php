@@ -41,7 +41,7 @@ class LoginController extends \yii\web\Controller
         if (empty($model)) {
             $person = \app\models\Person::find()
                 ->with('user')
-                ->where(['email'=>'tm@example.com'])
+                ->where(['email' => $request->post('username')])
                 ->one();
             $model = !empty($person) && isset($person->user) ? $person->user : null;
             if(empty($model)) {
