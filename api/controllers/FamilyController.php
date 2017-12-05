@@ -219,6 +219,7 @@ class FamilyController extends MHController
                 $family->link('members', $person);
                 // update role
                 if (isset($post['role'])) {
+                    // ref is set implicitly here
                     $person->role = $post['role'];
                 } else {
                     $person->setDefaultRole();
@@ -264,6 +265,7 @@ class FamilyController extends MHController
                     'person_id' => $person->id
                 ])->one();
                 $pfam->role = $post['role'];
+                $pfam->ref = $person->uid;
                 $pfam->save();
             }
         } catch (\Throwable $e) {

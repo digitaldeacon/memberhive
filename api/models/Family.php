@@ -76,15 +76,20 @@ class Family extends \yii\db\ActiveRecord
     public function toResponseArray()
     {
         $prim = [];
+        $famMembers = [];
         $members = [];
-        foreach ($this->personFamilies as $member) {
-            if ($member->is_primary || $member->role == 'husband' || $member->role == 'wife') {
-                $prim[$member->person->uid] = [
-                    'role' => $member->role
+        foreach ($this->personFamilies as $pfam) {
+            if (empty($pfam->ref)) {
+                $pfam->ref = $pfam->person->uid;
+                $pfam->save();
+            }
+            if ($pfam->is_primary || $pfam->role == 'husband' || $pfam->role == 'wife') {
+                $prim[$pfam->ref] = [
+                    'role' => $pfam->role
                 ];
             } else {
-                $members[$member->person->uid] = [
-                    'role' => $member->role
+                $members[$pfam->ref] = [
+                    'role' => $pfam->role
                 ];
             }
         }
@@ -93,7 +98,7 @@ class Family extends \yii\db\ActiveRecord
             'id' => $this->id,
             'name' => $this->name,
             'primary' => $prim,
-            'members' => $members,
+            'members' => $famMembers,
             'unrelated' => json_decode($this->unrelated)
         ];
     }

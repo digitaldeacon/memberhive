@@ -11,6 +11,8 @@ function getClient()
     $host = explode(':', $_SERVER['HTTP_HOST'])[0];
     $host = empty($host) ? 'localhost' : $host;
     $headers = APP_MODE == 'api' ? getallheaders() : [];
+    $dbgView = explode('?', $_SERVER['REQUEST_URI'])[0] == ('/memberhive2/api/web/debug/default/view' ||
+            '/memberhive2/api/web/debug/default/index');
 
     if (isset($headers['Client'])) {
         if(!isset($config[$host])) {
@@ -20,7 +22,7 @@ function getClient()
             die(json_encode("Hostname and Token mismatch"));
         }
     } else {
-        if(!isset($config[$host])) {
+        if(!$dbgView && !isset($config[$host])) {
             die(json_encode("No such host (".$host.") exists!"));
         }
     }
