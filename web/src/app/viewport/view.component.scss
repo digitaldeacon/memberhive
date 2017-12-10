@@ -42,9 +42,15 @@
     border-top-color: #666;
   }
 }
-.p-220 {
+.p-opened {
   padding-left: 236px !important;
 }
-.p-75 {
+.p-closed {
   padding-left: 91px !important;
+}
+.drawer-opened {
+  width: 200px;
+}
+.drawer-closed {
+  width: 75px;
 }

@@ -2,50 +2,35 @@ import {
     Component,
     OnDestroy,
     ChangeDetectionStrategy,
-    ChangeDetectorRef,
-    AfterViewInit,
-    ViewChild } from '@angular/core';
-import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
+    ViewChild
+} from '@angular/core';
+import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
 import 'rxjs/add/operator/takeWhile';
 
-import { MatSidenav, MatSidenavContainer } from '@angular/material';
+import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { MatSidenav } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
 import * as core from 'mh-core';
 
+const enum DrawerState {
+    OPENED = 'opened',
+    CLOSED = 'closed'
+}
+
 @Component({
     selector: 'mh-view',
     templateUrl: './view.component.html',
     styleUrls: ['./view.component.scss'],
-    animations: [
-        trigger('drawer', [
-            state('open', style({
-                width: '220px'
-            })),
-            state('close',  style({
-                width: '75px',
-                flex: '1 1 75px;',
-                'min-width': '75px',
-                'max-width': '75px'
-            }))
-            /*transition('open <=> close', animate('300ms ease-in', keyframes([
-                style({opacity: 0, transform: 'translateY(-75%)', offset: 0}),
-                style({opacity: 1, transform: 'translateY(35px)',  offset: 0.5}),
-                style({opacity: 1, transform: 'translateY(0)',     offset: 1.0})
-            ])))*/
-        ])
-    ],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnDestroy, AfterViewInit {
+export class ViewComponent implements OnDestroy {
     private _alive: boolean = true;
-    @ViewChild('sidenav') private _sidenav: MatSidenav;
-    @ViewChild('sidenavContainer') private _container: MatSidenavContainer;
-    private _layout: core.LayoutSettings;
 
     routes: Object[] = [
         {
@@ -76,16 +61,89 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
     contextButtons$: Observable<core.ContextButton[]>;
     myOutstanding$: Observable<core.Interaction[]>;
 
-    drawerVisible: boolean = true;
-    drawerState: string = 'open';
-    headerPaddingClass: string = '';
+    watcher: Subscription;
+    drawerState: DrawerState = DrawerState.OPENED;
+    drawerMode: string = 'side';
+    drawerClass: string = 'drawer-opened';
+    previousAlias: string = '';
+
+    @ViewChild('sidenav') private _sidenav: MatSidenav;
 
     constructor(private _authSrv: core.AuthService,
                 private _router: Router,
                 private _shout: ShoutService,
                 private _store: Store<core.AppState>,
-                private _cd: ChangeDetectorRef) {
+                private _media: ObservableMedia) {
 
+        this._initStore();
+        this.watcher = _media.subscribe((change: MediaChange) => {
+            if (change.mqAlias == 'xs' && change.mqAlias != this.previousAlias) {
+                this._toggleMobile(true);
+            }
+            else if (this.previousAlias == 'xs') {
+                this._toggleMobile(false);
+            }
+            this.previousAlias = change.mqAlias;
+        });
+    }
+
+    ngOnDestroy(): void {
+        this._alive = false;
+    }
+
+    logout(): void {
+        this._authSrv.clearStore();
+        this._store.dispatch(new core.SignOutAction());
+    }
+
+    openDrawer(): void {
+        //this.toggleDrawer('opened');
+        const payload: core.SettingsState = {
+            layout: {showDrawer: true}
+        };
+        this._store.dispatch(new core.UpdateSettingAction(payload));
+    }
+
+    closeDrawer(): void {
+        //this.toggleDrawer('closed');
+        const payload: core.SettingsState = {
+            layout: {showDrawer: false}
+        };
+        this._store.dispatch(new core.UpdateSettingAction(payload));
+    }
+
+    toggleDrawer(status: DrawerState = DrawerState.OPENED): void {
+        this.drawerState = status;
+        this.drawerClass = 'drawer-' + status;
+    }
+
+    paddingClasses(): string {
+        if (this._sidenav.mode == 'over') {
+            return '';
+        }
+        return  'p-' + this.drawerState;
+    }
+
+    route(r: string, part?: string): void {
+        if (part) {
+            this._router.navigate([r, part]);
+        } else {
+            this._router.navigate([r]);
+        }
+    }
+
+    private _toggleMobile(isMobile: boolean): void {
+        if (isMobile) {
+            this.drawerMode = 'over';
+            this._sidenav.close();
+            this.toggleDrawer(DrawerState.OPENED);
+        } else {
+            this.drawerMode = 'side';
+            this._sidenav.open();
+        }
+    }
+
+    private _initStore(): void {
         this.loading$ = this._store.select(core.getLoading);
         this.title$ = this._store.select(core.getTitle);
         this.contextButtons$ = this._store.select(core.getContextButtons);
@@ -93,8 +151,8 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
 
         this._store.select(core.getShowDrawer).takeWhile(() => this._alive)
             .subscribe((visible: boolean) => {
-                this.drawerVisible = visible;
-                this.drawerState = visible ? 'open' : 'close';
+                this.drawerState = visible ? DrawerState.OPENED : DrawerState.CLOSED;
+                this.drawerClass = 'drawer-' + this.drawerState;
             });
         this._store.select(core.getAuthPerson).takeWhile(() => this._alive)
             .subscribe((p: core.Person) => {
@@ -117,57 +175,5 @@ export class ViewComponent implements OnDestroy, AfterViewInit {
                     this._store.dispatch(new core.ClearFamilyMessageAction());
                 }
             });
-    }
-
-    ngOnDestroy(): void {
-        this._alive = false;
-    }
-
-    ngAfterViewInit(): void {
-        this.toggleDrawer();
-    }
-
-    logout(): void {
-        this._authSrv.clearStore();
-        this._store.dispatch(new core.SignOutAction());
-    }
-
-    openDrawer(): void {
-        const payload: core.SettingsState = {
-            layout: {showDrawer: true}
-        };
-        this._store.dispatch(new core.UpdateSettingAction(payload));
-        this.toggleDrawer('open');
-    }
-
-    closeDrawer(): void {
-        const payload: core.SettingsState = {
-            layout: {showDrawer: false}
-        };
-        this._store.dispatch(new core.UpdateSettingAction(payload));
-        this.toggleDrawer('close');
-    }
-
-    toggleDrawer(status: string = 'open'): void {
-        let size: number;
-        this.drawerState = status;
-        size = status === 'open' ? 220 : 75;
-        setTimeout(() => {
-            this.headerPaddingClass = 'p-' + size.toString();
-            this._sidenav.open();
-            this._cd.detectChanges();
-        }, 0);
-    }
-
-    drawerWidth(): string {
-        return this.drawerVisible ? '220px' : '75px';
-    }
-
-    route(r: string, part?: string): void {
-        if (part) {
-            this._router.navigate([r, part]);
-        } else {
-            this._router.navigate([r]);
-        }
     }
 }

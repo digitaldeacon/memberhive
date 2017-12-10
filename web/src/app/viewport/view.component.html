@@ -1,6 +1,12 @@
 <div class="layout-fixed" fullscreen>
-    <mat-toolbar class="header" [ngClass]="[headerPaddingClass]" color="primary">
+    <mat-toolbar class="header" [ngClass]="paddingClasses()" color="primary">
 
+        <button mat-icon-button
+                class="burger"
+                (click)="sidenav.open()"
+                fxHide fxShow.xs>
+            <mat-icon class="md-24">menu</mat-icon>
+        </button>
         <mh-search-box fxFlex></mh-search-box>
 
         <mh-toolbar-interactions [interactions]="myOutstanding$ | async"></mh-toolbar-interactions>
@@ -17,7 +23,7 @@
             </button>
         </mat-menu>
     </mat-toolbar>
-    <mat-toolbar [ngClass]="[headerPaddingClass]">
+    <mat-toolbar [ngClass]="paddingClasses()">
         <span fxFlex>{{title$ | async}}</span>
         <button mat-icon-button *ngFor="let button of contextButtons$ | async"
                 [routerLink]="[button.link]"
@@ -25,20 +31,13 @@
             <mat-icon>{{button.icon}}</mat-icon>
         </button>
     </mat-toolbar>
-    <mat-sidenav-container #sidenavContainer>
-        <mat-sidenav #sidenav mode="side" role="navigation"
+    <mat-sidenav-container #sidenavContainer autosize>
+        <mat-sidenav #sidenav [mode]="drawerMode" role="navigation" opened="true"
                      fixedInViewport="true" fixedTopGap="0" fixedBottomGap="0"
-                     fxFlex="220px" class="drawer-menu">
+                     class="drawer-menu" [ngClass]="drawerClass">
             <mat-toolbar color="primary">
-                <button mat-icon-button
-                        (click)="sidenav.open()"
-                        class="burger"
-                        fxHide
-                        fxShow.xs
-                        fxShow.sm><mat-icon class="md-24">menu</mat-icon></button>
-
                 <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
-                <span fxHide.xs class="p-r-30">{{churchName}}</span>
+                <span fxHide.xs class="p-r-30" *ngIf="drawerState == 'opened'">{{churchName}}</span>
             </mat-toolbar>
             <mat-nav-list>
                 <a *ngFor="let item of routes"
@@ -49,11 +48,11 @@
                     <span matLine>{{item.title}}</span>
                 </a>
                 <mat-divider color="white"></mat-divider>
-                <a mat-list-item (click)="closeDrawer()" *ngIf="drawerVisible">
+                <a mat-list-item (click)="closeDrawer()" *ngIf="drawerState == 'opened'">
                     <mat-icon matListIcon>first_page</mat-icon>
                     <span matLine i18n>collapse</span>
                 </a>
-                <a mat-list-item (click)="openDrawer()" *ngIf="!drawerVisible">
+                <a mat-list-item (click)="openDrawer()" *ngIf="drawerState != 'opened'">
                     <mat-icon matListIcon>last_page</mat-icon>
                 </a>
             </mat-nav-list>
@@ -62,7 +61,6 @@
         <mat-sidenav-content role="main" fxFlex>
             <mat-progress-bar mode="indeterminate" color="accent" *ngIf="loading$ | async"></mat-progress-bar>
             <main>
-                <button mat-button (click)="sidenav.toggle()">Toggle Start Side Sidenav</button>
                 <router-outlet></router-outlet>
             </main>
         </mat-sidenav-content>
