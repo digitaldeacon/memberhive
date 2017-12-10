@@ -77,10 +77,9 @@ export class ViewComponent implements OnDestroy {
 
         this._initStore();
         this.watcher = _media.subscribe((change: MediaChange) => {
-            if (change.mqAlias == 'xs' && change.mqAlias != this.previousAlias) {
+            if (change.mqAlias === 'xs' && change.mqAlias !== this.previousAlias) {
                 this._toggleMobile(true);
-            }
-            else if (this.previousAlias == 'xs') {
+            } else if (this.previousAlias === 'xs') {
                 this._toggleMobile(false);
             }
             this.previousAlias = change.mqAlias;
@@ -97,7 +96,6 @@ export class ViewComponent implements OnDestroy {
     }
 
     openDrawer(): void {
-        //this.toggleDrawer('opened');
         const payload: core.SettingsState = {
             layout: {showDrawer: true}
         };
@@ -105,7 +103,6 @@ export class ViewComponent implements OnDestroy {
     }
 
     closeDrawer(): void {
-        //this.toggleDrawer('closed');
         const payload: core.SettingsState = {
             layout: {showDrawer: false}
         };
@@ -118,7 +115,7 @@ export class ViewComponent implements OnDestroy {
     }
 
     paddingClasses(): string {
-        if (this._sidenav.mode == 'over') {
+        if (this._sidenav.mode === 'over') {
             return '';
         }
         return  'p-' + this.drawerState;
