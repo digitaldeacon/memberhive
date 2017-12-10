@@ -4,6 +4,7 @@ tmp/
 trash/
 _core/
 __core/
+test.html
 
 *.log
 *.tgz
