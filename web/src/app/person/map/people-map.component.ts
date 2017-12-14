@@ -2,8 +2,8 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import {
-    AppState, getPeople, getSysSettings,
-    Person,
+    AppState, getPeople, getSysSettings, getFamilies,
+    Person, Family,
     SystemSettings,
     SetTitleAction,
     Utils, GeoMarker,
@@ -24,6 +24,7 @@ export class PeopleMapComponent implements OnDestroy {
     private _alive: boolean = true;
 
     people: Person[];
+    families: Family[];
     settings: SystemSettings;
 
     initMarker: GeoMarker;
@@ -33,12 +34,18 @@ export class PeopleMapComponent implements OnDestroy {
     constructor(private _store: Store<AppState>,
                 private _shout: ShoutService) {
 
+        this._store.select(getFamilies)
+            .takeWhile(() => this._alive)
+            .subscribe((families: Family[]) => {
+                this.families = families;
+            });
         this._store.select(getPeople)
             .takeWhile(() => this._alive)
             .subscribe((people: Person[]) => {
                 this.people = people.filter((p: Person) =>
                     !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
                 this.people.map((person: Person) => {
+                    console.log(this.families[person.uid]);
                     let marker: GeoMarker;
                     marker = {
                         latlng: person.address.home.geocode,

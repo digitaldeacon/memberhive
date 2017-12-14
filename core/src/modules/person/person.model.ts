@@ -2,11 +2,6 @@ import { Address } from '../../common/common.model';
 import { Tag } from '../tags/tag.model';
 import { Moment } from 'moment'
 
-export interface PersonFamily {
-    id?: number;
-    role?: string;
-}
-
 export enum MaritalStatus {
     MARRIED = 'married',
     SINGLE = 'single',
@@ -59,7 +54,6 @@ export interface Person {
     address?: PersonAddress;
     socialContact?: any;
     status?: Tag[];
-    family?: PersonFamily;
 }
 
 export class PersonAddress {

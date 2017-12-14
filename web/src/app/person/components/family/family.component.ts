@@ -212,10 +212,10 @@ export class FamilyComponent implements OnDestroy {
             member: m.person.uid
         };
         this._store.dispatch(new RemoveMemberFamilyAction(payload));
-        m.person.family = {
+        /*m.person.family = {
             id: undefined,
             role: ''
-        };
+        };*/
         this._store.dispatch(new UpdatePersonAction(m.person));
     }
 
