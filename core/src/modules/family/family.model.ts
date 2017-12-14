@@ -12,6 +12,10 @@ export interface Members {
     [member: string]: Member;
 }
 
+export interface Families {
+    [person: string]: Family;
+}
+
 export interface Family {
     id?: number;
     name?: string;
