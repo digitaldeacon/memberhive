@@ -12,7 +12,7 @@ export interface Members {
     [member: string]: Member;
 }
 
-export interface Families {
+export interface PersonFamilies {
     [person: string]: Family;
 }
 

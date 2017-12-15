@@ -132,7 +132,7 @@ export class FamilyComponent implements OnDestroy {
             };
             this.members.push(m);
             this.members$.next(this.members);
-            console.log(this.family);
+            // console.log(this.family);
             this.people
                 .filter((p: Person) => this._isPrimaryMember(p.uid))
                 .map((person: Person) => this._addMember(person));

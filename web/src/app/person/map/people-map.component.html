@@ -14,6 +14,9 @@
                         [iconUrl]="marker?.icon">
                 <agm-info-window *ngIf="marker.info">
                     <strong>{{marker.info?.title}}</strong>
+                    <div *ngFor="let member of marker.info?.people">
+                        <a [routerLink]="['/person/view', member.uid]">{{member.fullName}}</a>
+                    </div>
                     <p>
                         {{marker.info.address?.street}}<br>
                         {{marker.info.address?.zip}}, {{marker.info.address?.city}}

@@ -10,7 +10,7 @@ export class ShoutService {
     actionButtonLabel: string = 'OK';
     action: boolean = true;
     setAutoHide: boolean = true;
-    autoHide: number = 6000;
+    autoHide: number = 3000;
     addExtraClass: boolean = false;
 
     constructor(private _snackBar: MatSnackBar) {}
@@ -19,7 +19,7 @@ export class ShoutService {
         const config: MatSnackBarConfig = new MatSnackBarConfig();
         config.duration = this.autoHide;
         if (type) {
-            config.extraClasses = ['shout-' + type];
+            config.panelClass = ['shout-' + type];
         }
         return this._snackBar.open(message, this.actionButtonLabel, config);
     }
