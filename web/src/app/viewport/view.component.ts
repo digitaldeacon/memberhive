@@ -39,10 +39,10 @@ export class ViewComponent implements OnDestroy {
         {
             title: 'Members', route: '/person', icon: 'people'
         },
-        {
+        /*{
             title: 'Interactions', route: '/interaction', icon: 'forum'
         },
-        /* {
+         {
             title: 'Events', route: '', icon: 'today'
         },
         {

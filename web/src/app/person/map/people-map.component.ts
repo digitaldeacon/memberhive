@@ -45,17 +45,39 @@ export class PeopleMapComponent implements OnDestroy {
                 this.people = people.filter((p: Person) =>
                     !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
                 this.people.map((person: Person) => {
-                    console.log(this.families[person.uid]);
+                    const family = this.families.find((f: Family) => !!f.primary[person.uid]);
                     let marker: GeoMarker;
-                    marker = {
-                        latlng: person.address.home.geocode,
-                        title: person.fullName,
-                        icon: 'assets/icons/ic_person_pin_' + person.gender + '_36px.png',
-                        info: {
-                            title: person.fullName,
-                            address: person.address.home
+                    const familyPeople: Partial<Person>[] = [];
+                    if (family) {
+                        if (!this.markers.some((m: GeoMarker) => m.info.uid === family.id)) {
+                            Object.keys(family.primary).map((uid: string) => {
+                                const fp = this.people.find((p: Person) => p.uid === uid);
+                                if (fp) {
+                                    familyPeople.push({fullName: fp.fullName, uid: fp.uid});
+                                }
+                            });
+                            marker = {
+                                latlng: person.address.home.geocode,
+                                title: family.name,
+                                icon: 'assets/icons/ic_family_pin_36px.png',
+                                info: {
+                                    title: family.name,
+                                    people: familyPeople,
+                                    address: person.address.home
+                                }
+                            };
                         }
-                    };
+                    } else {
+                        marker = {
+                            latlng: person.address.home.geocode,
+                            title: person.fullName,
+                            icon: 'assets/icons/ic_person_pin_' + person.gender + '_36px.png',
+                            info: {
+                                title: person.fullName,
+                                address: person.address.home
+                            }
+                        };
+                    }
                     this.markers.push(marker);
                 });
             });

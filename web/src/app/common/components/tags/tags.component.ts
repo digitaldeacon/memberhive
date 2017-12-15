@@ -66,7 +66,7 @@ export class MhTagsComponent implements ControlValueAccessor, OnChanges {
 
     writeValue(v: Tag[]): void {
         this._value = v;
-        console.log(v);
+        // console.log(v);
     }
 
     registerOnChange(fn: (_: any) => void): void { this.onChange = fn; }

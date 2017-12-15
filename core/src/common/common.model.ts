@@ -1,3 +1,5 @@
+import { Person } from '../modules/person/person.model';
+
 export interface Message {
     type: string;
     text?: string;
@@ -19,6 +21,8 @@ export interface GeoMarker {
 export interface GeoMarkerInfo {
     title: string;
     address?: Address;
+    uid?: string | number;
+    people?: Partial<Person>[]
     avatar?: any;
     link?: string;
 }
