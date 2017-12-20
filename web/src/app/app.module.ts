@@ -1,5 +1,4 @@
-import { NgModule, ErrorHandler, LOCALE_ID } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -10,8 +9,7 @@ import {
 } from '@angular/material';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/toPromise';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
@@ -23,7 +21,6 @@ import { LoginComponent } from './login/login.component';
 import { ViewComponent } from './viewport/view.component';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
-import { AuthService } from 'mh-core';
 
 import { MhCoreModule } from 'mh-core';
 
@@ -45,12 +42,13 @@ export interface AppConfig {
     imports: [
         BrowserAnimationsModule,
         BrowserModule,
+        ServiceWorkerModule.register('/ngsw-worker.js', {
+            enabled: environment.production
+        }),
         HttpClientModule,
         AppRoutingModule,
         MhCoreModule.forRoot(),
         !environment.production ? StoreDevtoolsModule.instrument() : [],
-        FormsModule,
-        ReactiveFormsModule,
 
         MhCommonModule,
         MatSidenavModule,
@@ -67,13 +65,6 @@ export interface AppConfig {
 })
 
 export class AppModule {
-    constructor(private _http: HttpClient,
-                private _auth: AuthService) {
-        if (!this._auth.client) {
-            this._http.get<AppConfig>('assets/client.json')
-                .map((config: AppConfig) => {
-                    this._auth.client = config.token;
-                });
-        }
+    constructor(private _http: HttpClient) {
     }
 }
