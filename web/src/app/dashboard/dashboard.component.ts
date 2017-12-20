@@ -36,9 +36,9 @@ export class DashboardComponent implements OnDestroy {
 
         this.currentUser$ = this._store.select(getAuthPerson);
         this.people$ = this._store.select(getPeople);
-        this._store.dispatch(new SetTitleAction('Dashboard'));
         this.initDragServices();
         this.setContextMenu();
+        this._store.dispatch(new SetTitleAction('Dashboard'));
     }
 
     setContextMenu(): void {

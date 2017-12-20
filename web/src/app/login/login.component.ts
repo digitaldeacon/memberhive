@@ -7,15 +7,10 @@ import 'rxjs/add/operator/takeWhile';
 import 'rxjs/add/operator/filter';
 
 import { Store } from '@ngrx/store';
-import { AppState, getAuthError, isAuthLoading, isAuth } from 'mh-core';
-import {
-    Credentials,
-    AuthenticateAction,
-    ListPersonAction,
-    ListSettingAction,
-    ListInteractionsAction,
-    ListTagsAction,
-    ListFamiliesAction
+import { AppState, getAuthError, isAuthLoading, isAuth, Credentials,
+    AuthenticateAction, ListPeopleAction,
+    ListSettingAction, ListInteractionsAction,
+    ListTagsAction, ListFamiliesAction
 } from 'mh-core';
 
 @Component({
@@ -39,7 +34,7 @@ export class LoginComponent implements OnInit, OnDestroy {
             .takeWhile(() => this.alive)
             .filter((authenticated: boolean) => authenticated)
             .subscribe((value: boolean) => {
-                this._store.dispatch(new ListPersonAction({}));
+                this._store.dispatch(new ListPeopleAction({}));
                 this._store.dispatch(new ListSettingAction());
                 this._store.dispatch(new ListInteractionsAction({}));
                 this._store.dispatch(new ListTagsAction({}));

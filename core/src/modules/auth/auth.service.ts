@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { HttpRequest } from '@angular/common/http';
 import * as jwt_decode_ from 'jwt-decode';
 import * as localForage from 'localforage';
 
@@ -15,6 +16,7 @@ export class AuthService {
     private _clientToken: string = '';
     private _uid: string = '';
     private _createdAt: Date = null;
+    private _cachedRequests: Array<HttpRequest<any>> = [];
 
     constructor() {}
 
@@ -23,29 +25,13 @@ export class AuthService {
         localForage.setItem(TOKEN, token);
     }
     get token(): string {
-        localForage.getItem(TOKEN)
-            .then((val: string) => {
-                this._token = val;
-            })
-            .catch((err: any) => {
-                // console.log('Error fetching from forage:', err);
-        });
+        if (!this._token) {
+            localForage.getItem(TOKEN)
+                .then((val: string) => {
+                    this._token = val;
+                });
+        }
         return this._token;
-    }
-
-    set client(token: string) {
-        localForage.setItem(CLIENT, token);
-        this._clientToken = token;
-    }
-    get client(): string {
-        localForage.getItem(CLIENT)
-            .then((val: string) => {
-                this._clientToken = val;
-            })
-            .catch((err: any) => {
-                // console.log('Error fetching from forage:', err);
-            });
-        return this._clientToken;
     }
 
     set personId(uid: string) {
@@ -78,30 +64,43 @@ export class AuthService {
         return this._createdAt;
     }
 
-    clearStore(): void {
-        localForage.clear();
+    clearStore(): Promise<void> {
+        this.createdAt = undefined;
+        this._cachedRequests = [];
+        this.token = '';
+        this.personId = '';
+        return localForage.clear();
     }
 
-    getTokenExpirationDate(token: string): Date {
-        const decoded: any = jwt_decode(token);
-
-        if (!decoded.hasOwnProperty('exp')) {
-            return null;
+    getTokenExpirationDate(): Date {
+        if (!this.token) {
+            return undefined;
         }
-
+        const decoded: any = jwt_decode(this.token);
+        if (!decoded.hasOwnProperty('exp')) {
+            return undefined;
+        }
         const date = new Date(0);
         date.setUTCSeconds(decoded.exp);
         return date;
     }
 
-    isTokenExpired(token: string = this.token): boolean {
-        if (!token) return true;
-        let date = this.getTokenExpirationDate(token);
-
-        // console.log('Token Exp Date is:', date);
-        if (date === null) {
+    isTokenExpired(): boolean {
+        if (!this.token) return true;
+        let date = this.getTokenExpirationDate();
+        if (date === undefined) {
             return false;
         }
         return !(date.valueOf() > new Date().valueOf());
+    }
+
+    collectFailedRequest(request): void {
+        this._cachedRequests.push(request);
+    }
+
+    retryFailedRequests(): void {
+        // retry the requests. this method can
+        // be called after the token is refreshed
+        console.log(this._cachedRequests);
     }
 }

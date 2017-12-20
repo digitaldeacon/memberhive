@@ -22,6 +22,11 @@ function init()
             'authManager' => [
                 'class' => 'yii\rbac\DbManager',
             ],
+            'user' => [
+                'class' => 'yii\web\User',
+                'identityClass' => 'app\models\User',
+                //'enableAutoLogin' => true,
+            ],
             'log' => [
                 'targets' => [
                     [

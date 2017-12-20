@@ -20,17 +20,17 @@ export const CALC_PERSON_GEO = '[Person] Calc Geo Codes';
 export const CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success';
 export const CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure';
 
-export class ListPersonAction implements Action {
+export class ListPeopleAction implements Action {
     readonly type = LIST_PEOPLE;
     constructor(public payload: any) { }
 }
 
-export class ListPersonSuccessAction implements Action {
+export class ListPeolpeSuccessAction implements Action {
     readonly type = LIST_PEOPLE_SUCCESS;
     constructor(public payload: Person[]) { }
 }
 
-export class ListPersonFailureAction implements Action {
+export class ListPeolpeFailureAction implements Action {
     readonly type = LIST_PEOPLE_FAILURE;
     constructor(public payload: HttpErrorResponse) { }
 }
@@ -105,9 +105,9 @@ export class CalcPersonGeoFailureAction implements Action {
 }
 
 export type PersonActions =
-    ListPersonAction
-    | ListPersonSuccessAction
-    | ListPersonFailureAction
+    ListPeopleAction
+    | ListPeolpeSuccessAction
+    | ListPeolpeFailureAction
     | ViewPersonAction
     | UpdatePersonAction
     | UpdatePersonSuccessAction

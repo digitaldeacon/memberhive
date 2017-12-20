@@ -82,6 +82,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
                 this._store.dispatch(new GetInteractionsPersonAction(params['id']));
             })
             .exhaustMap(() => this.person$)
+            .takeWhile(() => this._alive)
             .subscribe((person: any) => {
                 if (person) {
                     this.person = person;

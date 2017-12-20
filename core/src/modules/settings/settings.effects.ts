@@ -42,7 +42,7 @@ export class SettingsEffects {
     @Effect({ dispatch: false })
     setTitle$: Observable<Action> = this.actions$
         .ofType(actions.SET_TITLE)
-        .map((action: actions.SetTitleAction) => action.payload)
+        .switchMap((action: actions.SetTitleAction) => action.payload)
         .do((action: any) => this.browserTitle.setTitle(action + ' - Memberhive'));
 
     constructor(private actions$: Actions,

@@ -6,6 +6,7 @@ use yii\web\Controller;
 use yii\filters\ContentNegotiator;
 use yii\web\Response;
 use app\helpers\MhAuth;
+use yii\filters\auth\HttpBearerAuth;
 
 class MHController extends Controller
 {
@@ -31,6 +32,16 @@ class MHController extends Controller
                 'Access-Control-Allow-Credentials' => true,
             ],
         ];
+        $behaviors['authenticator']['except'] = [
+            'options', 'login', 'signup', 'confirm',
+            'password-reset-request',
+            'password-reset-token-verification',
+            'password-reset'];
         return $behaviors;
+    }
+
+    public function actionOptions($id = null)
+    {
+        return 'ok';
     }
 }

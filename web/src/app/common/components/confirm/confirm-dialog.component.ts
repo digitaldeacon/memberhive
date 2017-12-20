@@ -11,7 +11,13 @@ export class ConfirmDialogComponent {
     public title: string;
     public message: string;
 
-    constructor(public dialogRef: MatDialogRef<ConfirmDialogComponent>) {
+    constructor(private _dialogRef: MatDialogRef<ConfirmDialogComponent>) {}
 
+    close(result?: any): void {
+        if (result) {
+            this._dialogRef.close(result);
+        } else {
+            this._dialogRef.close();
+        }
     }
 }

@@ -44,13 +44,15 @@ class MhAuth extends \yii\filters\auth\AuthMethod
             \Yii::$app->getResponse()->send();
             die();
         }
+
         $authHeader = $request->getHeaders()->get('Authorization');
-        //var_dump($authHeader);
+        if ($authHeader == null && isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION'])
+            && $_SERVER['REDIRECT_HTTP_AUTHORIZATION'] != '') {
+            $authHeader = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
+
         if ($authHeader !== null && preg_match('/^Bearer\s+(.*?)$/', $authHeader, $matches)) {
-            //var_dump($matches);
             $identity = $user->loginByAccessToken($matches[1], get_class($this));
-            //var_dump($identity);
-            //die();
             if ($identity === null) {
                 $this->handleFailure($response);
             }

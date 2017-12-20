@@ -1,28 +1,40 @@
 <?php
 namespace app\controllers;
 
-use app\models\Family;
 use app\models\Person;
 use app\models\PersonFamily;
 use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
+
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
+use yii\web\ServerErrorHttpException;
+use yii\web\UnprocessableEntityHttpException;
 
 class PersonController extends MHController
 {
+    private $_actions = [
+        'list' => ['get'],
+        'update' => ['post'],
+        'delete' => ['post'],
+        'create' => ['post'],
+        'search' => ['get'],
+        'avatar-upload' => ['post']
+    ];
+
     public function behaviors()
     {
         $behaviors = parent::behaviors();
+        $behaviors['verbs'] = [
+            'class' => \yii\filters\VerbFilter::className(),
+            'actions' => $this->_actions,
+        ];
         $behaviors['access'] = [
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => [
-                        'list','get','update', 'delete', 'update-column',
-                        'create','search','avatar-upload', 'update-family'
-                    ],
+                    'actions' => array_keys($this->_actions),
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -37,8 +49,6 @@ class PersonController extends MHController
     public function beforeAction($action)
     {
         if ($action->id == 'update'
-            || $action->id == 'update-column'
-            || $action->id == 'update-family'
             || $action->id == 'avatar-upload'
             || $action->id == 'create'
             || $action->id == 'delete'
@@ -87,7 +97,7 @@ class PersonController extends MHController
             // this will make moving of files easier
             $person->avatarUrlSmall = $image;
             if (!$person->save()) {
-                throw new BadRequestHttpException($person->errors);
+                throw new UnprocessableEntityHttpException($person->errors);
             }
             $ret[] = $person;
         }
@@ -125,21 +135,6 @@ class PersonController extends MHController
         return ['response' => $person->toResponseArray()];
     }
 
-    public function actionUpdateColumn($id)
-    {
-        $person = $this->findModelByUID($id);
-        $post = \Yii::$app->request->post();
-        if ($person && !empty($post['name'])) {
-            $person->{$post['name']} = trim(json_encode($post['value']));
-            if (!$person->save()) {
-                throw new BadRequestHttpException(json_encode($person->errors));
-            }
-        } else {
-            throw new BadRequestHttpException('Bad parameters encountered!');
-        }
-        return ['response' => $person->toResponseArray()];
-    }
-
     public function actionUpdate($id)
     {
         $person = $this->findModelByUID($id);
@@ -149,7 +144,7 @@ class PersonController extends MHController
             $person = $this->setPerson($person, $post);
             $user = $this->setUser($person, $post);
             if (!$person->save()) {
-                throw new BadRequestHttpException(json_encode($person->errors));
+                throw new UnprocessableEntityHttpException(json_encode($person->errors));
             }
             $this->saveTags($person, $post);
             if (isset($user)) {
@@ -162,7 +157,7 @@ class PersonController extends MHController
             }
             return $person->toResponseArray();
         } else {
-            throw new BadRequestHttpException(json_encode($person->errors));
+            throw new ServerErrorHttpException(json_encode($person->errors));
         }
     }
 
@@ -184,7 +179,7 @@ class PersonController extends MHController
             }
             return $person->toResponseArray();
         } else {
-            throw new BadRequestHttpException(json_encode($person->errors));
+            throw new UnprocessableEntityHttpException(json_encode($person->errors));
         }
     }
 
@@ -199,7 +194,7 @@ class PersonController extends MHController
             $t->commit();
         } catch (\Throwable $e) {
             $t->rollBack();
-            throw new BadRequestHttpException('Could not delete '
+            throw new UnprocessableEntityHttpException('Could not delete '
                 . $person->fullName . ': ' . $e->getMessage());
         }
         $ret = ['id'=>$person->id, 'fullName'=>$person->fullName];
@@ -224,7 +219,7 @@ class PersonController extends MHController
                     if ($newTag->save()) {
                         $newTag->link('person', $person);
                     } else {
-                        throw new BadRequestHttpException('Tag: ' . json_encode($newTag->errors));
+                        throw new UnprocessableEntityHttpException('Tag: ' . json_encode($newTag->errors));
                     }
                 } else {
                     $tagCheck->link('person', $person);
@@ -267,14 +262,14 @@ class PersonController extends MHController
             $user->username = trim($post['user']['username']);
             $user->setPassword(trim($post['user']['password']));
             if (!$user->save()) {
-                throw new BadRequestHttpException(json_encode($user->errors));
+                throw new UnprocessableEntityHttpException(json_encode($user->errors));
             }
         } elseif (!empty($person->user) && !empty($post['user']['password'])) {
             $user = $person->user;
             $user->username = trim($post['user']['username']);
             $user->setPassword(trim($post['user']['password']));
             if (!$user->save()) {
-                throw new BadRequestHttpException(json_encode($user->errors));
+                throw new UnprocessableEntityHttpException(json_encode($user->errors));
             }
         }
         return $user;

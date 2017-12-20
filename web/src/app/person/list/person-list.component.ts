@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import {
     AppState,
     getPeople, getPeopleListSettings, getFamilies,
-    Person, Family, ListFamiliesAction, ListPersonAction,
+    Person, Family, ListFamiliesAction, ListPeopleAction,
     ContextButton, SetContextButtonsAction,
     SetTitleAction
 } from 'mh-core';
@@ -26,8 +26,10 @@ export class PersonListComponent implements OnDestroy {
     options: string[] = [];
 
     constructor(private _store: Store<AppState>) {
-        this._store.dispatch(new ListPersonAction({}));
+
+        this._store.dispatch(new ListPeopleAction({}));
         this._store.dispatch(new ListFamiliesAction({}));
+
         this.people$ = this._store.select(getPeople);
         this._store.select(getFamilies)
             .takeWhile(() => this._alive)

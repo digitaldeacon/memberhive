@@ -72,8 +72,10 @@ export function authReducer(state: AuthState = initialAuthState,
                 personId: state.personId
             });
 
-        case actions.SIGN_OUT_SUCCESS:
+        case actions.SIGN_OUT_SUCCESS: {
+            console.log('sign out success');
             return Object.assign({}, state, initialAuthState);
+        }
 
         case actions.REAUTHENTICATE:
             return Object.assign({}, state, {

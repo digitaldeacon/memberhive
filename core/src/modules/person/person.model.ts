@@ -28,8 +28,9 @@ export const maritalStatusArray: MaritalStatus[] = [
 export interface User {
     token: string;
     personId: string;
-    username: string;
+    username?: string;
     password?: string;
+    expiresAt?: Moment;
 }
 
 export interface Person {
