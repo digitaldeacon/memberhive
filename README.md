@@ -31,8 +31,8 @@ A demo environment is currently unavailable (check the High-Level Items list bel
 ## High-Level Items for November & December
 _In order of importance_
 - [x] Person status (#46)
-- [ ] Layout fixes (#152)
-- [ ] various bug fixes (#174, #175)
+- [x] Layout fixes (#152)
+- [x] various bug fixes (#174, #175)
 - [x] Upgrade to Angular5 (#161)
 - [x] Person family (#123)
 - [x] Person delete (#122)
