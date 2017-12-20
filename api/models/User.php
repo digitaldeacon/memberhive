@@ -26,6 +26,24 @@ class User extends ActiveRecord implements IdentityInterface
 {
     use \app\helpers\UserTrait;
 
+    protected static function getSecretKey()
+    {
+        $token = '';
+        if (file_exists('../.ssh/jwtRS256.key')) {
+            $token = file_get_contents('../.ssh/jwtRS256.key');
+        }
+        return $token;
+    }
+
+    protected static function getPublicKey()
+    {
+        $token = '';
+        if (file_exists('../.ssh/jwtRS256.key.pub')) {
+            $token = file_get_contents('../.ssh/jwtRS256.key.pub');
+        }
+        return $token;
+    }
+
     public function init()
     {
         parent::init();
@@ -61,7 +79,8 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'token' => $this->getJWT(),
-            'personId' => isset($this->person) ? $this->person->uid : ''
+            'personId' => isset($this->person) ? $this->person->uid : '',
+            'expiresAt' => $this->getJwtExpirationDate()
         ];
     }
 

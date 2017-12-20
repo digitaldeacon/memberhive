@@ -91,8 +91,11 @@ export class ViewComponent implements OnDestroy {
     }
 
     logout(): void {
-        this._authSrv.clearStore();
-        this._store.dispatch(new core.SignOutAction());
+        this._authSrv.clearStore()
+       .then(() => {
+            console.log('store cleared');
+            this._store.dispatch(new core.SignOutAction());
+        });
     }
 
     openDrawer(): void {

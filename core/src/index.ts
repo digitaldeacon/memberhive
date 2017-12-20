@@ -1,19 +1,25 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
 
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
 import { AuthService } from './modules/auth/auth.service';
+
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+
 import { reducers } from './store';
+
 import { PersonEffects } from './modules/person/person.effects';
 import { SettingsEffects } from './modules/settings/settings.effects';
 import { InteractionEffects } from  './modules/interaction/interaction.effects';
 import { TagEffects } from './modules/tags/tag.effects';
 import { FamilyEffects } from './modules/family/family.effects';
 import { AuthEffects } from './modules/auth/auth.effects';
+
+import { AuthInterceptor } from './modules/auth/auth.interceptor';
 
 export * from './services/index';
 export * from './modules/auth/index';
@@ -52,7 +58,12 @@ export class MhCoreModule {
       providers: [
           GeocodeService,
           HttpService,
-          AuthService
+          AuthService,
+          {
+              provide: HTTP_INTERCEPTORS,
+              useClass: AuthInterceptor,
+              multi: true
+          }
       ]
     };
   }

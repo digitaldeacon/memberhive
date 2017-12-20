@@ -5,17 +5,17 @@ import 'rxjs/add/operator/exhaustMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/take';
-import { defer } from 'rxjs/observable/defer';
+
 import { Injectable } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions } from '@ngrx/effects';
-import { ROUTER_ERROR, ROUTER_CANCEL } from '@ngrx/router-store';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 
 import * as actions from './auth.actions';
-import { Credentials, LoginResponse } from './auth.model';
-import { HttpService } from '../../services/http.service';
+import { Credentials } from './auth.model';
+import { User } from '../person/person.model';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class AuthEffects {
         .ofType(actions.AUTHENTICATE)
         .map((action: actions.AuthenticateAction) => action.payload)
         .switchMap((credentials: Credentials) =>
-            this._http.unauthenticatedPost('login/login',
+            this._http.post<User>('/api/login/login',
                 {
                     username: credentials.username,
                     password: credentials.password
@@ -52,25 +52,31 @@ export class AuthEffects {
         .ofType(actions.REAUTHENTICATE)
         .map((action: actions.ReAuthenticateAction) => action.payload)
         .exhaustMap((token: string) => {
-            return this._http.get('login/alive')
+            return this._http.get('api/login/alive')
                 .map((r: any) => {
                     return new actions.ReAuthenticationSuccessAction({
                         token: this._authSrv.token,
                         personId: this._authSrv.personId
                     });
                 })
+                .do(() => this._router.navigate(['/dashboard']))
                 .catch((response: HttpErrorResponse) => {
                     return Observable.of(new actions.AuthenticationFailureAction(response));
-                });
+                })
+                .do(() => this._router.navigate(['/login']));
             }
         );
 
     @Effect()
     public signOut: Observable<Action> = this._actions$
         .ofType(actions.SIGN_OUT)
-        .map(value => new actions.SignOutSuccessAction());
+        .map(value => new actions.SignOutSuccessAction())
+        .do((v: any) => {
+            this._router.navigate(['/login']);
+        });
 
     constructor(private _actions$: Actions,
-                private _http: HttpService,
+                private _router: Router,
+                private _http: HttpClient,
                 private _authSrv: AuthService) { }
 }

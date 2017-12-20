@@ -14,6 +14,7 @@ api/vendor
 deploy/
 mobile/resources/android/**
 mobile/resources/ios/**
+.ssh/
 
 # api
 api/config/mail_local.php

@@ -33,9 +33,10 @@ class LoginController extends \yii\web\Controller
     public function actionLogin()
     {
         $request = \Yii::$app->request;
-        if (empty($request->post()) || empty($request->post('username')) || empty($request->post('password'))) {
-            return [json_encode($_REQUEST)];
-            // throw new \yii\web\BadRequestHttpException('Request error. Post is empty or has missing parameters');
+        if (empty($request->post()) ||
+            empty($request->post('username')) ||
+            empty($request->post('password'))) {
+            throw new \yii\web\BadRequestHttpException('Request error. Post is empty or has missing parameters');
         }
         $model = User::findOne(['username' => $request->post('username')]);
         if (empty($model)) {

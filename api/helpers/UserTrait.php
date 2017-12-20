@@ -5,11 +5,6 @@ use Firebase\JWT\JWT;
 use Yii;
 use yii\web\Request as WebRequest;
 
-/**
- * Trait to handle JWT-authorization process. Should be attached to User model.
- * If there are many applications using user model in different ways - best way
- * is to use this trait only in the JWT related part.
- */
 trait UserTrait
 {
 
@@ -18,6 +13,8 @@ trait UserTrait
      * @var array
      */
     protected static $decodedToken;
+    private $_tokenData = [];
+    private $_token = [];
 
     /**
      * Getter for exp that's used for generation of JWT
@@ -34,6 +31,14 @@ trait UserTrait
     protected static function getSecretKey()
     {
         return Yii::$app->params['jwt']['secret'];
+    }
+    /**
+     * Getter for secret key that's used for generation of JWT
+     * @return string secret key used to generate JWT
+     */
+    protected static function getPublicKey()
+    {
+        return Yii::$app->params['jwt']['rsaPub'];
     }
 
     /**
@@ -53,12 +58,15 @@ trait UserTrait
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        $secret = static::getSecretKey();
+        $secret = static::getPublicKey();
+        // \Yii::trace($secret);
         // Decode token and transform it into array.
         // Firebase\JWT\JWT throws exception if token can not be decoded
         try {
             $decoded = JWT::decode($token, $secret, [static::getAlgo()]);
+            // \Yii::trace($decoded);
         } catch (\Exception $e) {
+            \Yii::trace($e);
             return false;
         }
         static::$decodedToken = (array) $decoded;
@@ -88,7 +96,7 @@ trait UserTrait
      */
     public static function getAlgo()
     {
-        return 'HS256';
+        return 'RS256';
     }
     /**
      * Returns some 'id' to encode to token. By default is current model id.
@@ -116,15 +124,26 @@ trait UserTrait
         }
         // Merge token with presets not to miss any params in custom
         // configuration
-        $token = array_merge([
+        $this->_token = array_merge([
             'iss' => $hostInfo,
             'aud' => $hostInfo,
             'iat' => $currentTime,
             'nbf' => $currentTime,
-            'exp' => $currentTime + intval(Yii::$app->params['jwt']['expire'])
+            'exp' => $currentTime + intval(Yii::$app->params['jwt']['expire']),
+            'data' => $this->_tokenData
         ], static::getHeaderToken());
         // Set up id
-        $token['jti'] = $this->getJTI();
-        return JWT::encode($token, $secret, static::getAlgo());
+        $this->_token['jti'] = $this->getJTI();
+        return JWT::encode($this->_token, $secret, static::getAlgo());
+    }
+
+    protected function setTokenData($data)
+    {
+        $this->_tokenData = $data;
+    }
+
+    protected function getJwtExpirationDate()
+    {
+        return $this->_token['exp'];
     }
 }

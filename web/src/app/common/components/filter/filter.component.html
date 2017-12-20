@@ -1,27 +1,33 @@
-<mat-accordion formGroupName="system">
-    <mat-expansion-panel #sysToolbar>
+<mat-accordion>
+    <mat-expansion-panel #filterToolbar>
         <mat-expansion-panel-header i18n>Filter</mat-expansion-panel-header>
-        <div fxLayout="row">
-            <mat-form-field fxFlex>
-                <mat-icon matPrefix>filter_list</mat-icon>
-                <input matInput
-                       placeholder="Add Filter+"
-                       i18n-placeholder
-                       type="search">
-            </mat-form-field>
-            <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
-            <mat-menu #saveMenu="matMenu">
-                <button mat-menu-item>
-                    <span i18n>Save Filter</span>
-                </button>
-                <button mat-menu-item>
-                    <span i18n>Export Filter</span>
-                </button>
-                <button mat-menu-item>
-                    <span i18n>Import</span>
-                </button>
-            </mat-menu>
-        </div>
+        <form [formGroup]="form"
+              novalidate
+              fxLayout="column"
+              autocomplete="off">
+            <div fxLayout="row">
+                <mat-form-field fxFlex>
+                    <mat-icon matPrefix>filter_list</mat-icon>
+                    <input matInput
+                           placeholder="Add Filter+"
+                           i18n-placeholder
+                           formControlName="filter"
+                           type="search">
+                </mat-form-field>
+                <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
+                <mat-menu #saveMenu="matMenu">
+                    <button mat-menu-item>
+                        <span i18n>Save Filter</span>
+                    </button>
+                    <button mat-menu-item>
+                        <span i18n>Export Filter</span>
+                    </button>
+                    <button mat-menu-item>
+                        <span i18n>Import</span>
+                    </button>
+                </mat-menu>
+            </div>
+        </form>
     </mat-expansion-panel>
 </mat-accordion>
 <!--<mat-card fxLayout="row" class="filter-card">

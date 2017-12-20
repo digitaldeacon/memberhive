@@ -5,10 +5,19 @@ import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/do';
+
+interface SearchItem {
+    id: number;
+    uid: string;
+    icon: string;
+    type: string;
+    url: string[];
+}
 
 @Component({
     moduleId: 'mh-search',
@@ -33,7 +42,9 @@ export class SearchBoxComponent implements OnInit {
 
     get searchVisible(): boolean { return this._searchVisible; }
 
-    search(term: string): void { this._searchTermStream$.next(term); }
+    search(term: string): void {
+        this._searchTermStream$.next(term);
+    }
 
     ngOnInit(): void {
         this.items = this._searchTermStream$
@@ -49,6 +60,14 @@ export class SearchBoxComponent implements OnInit {
             this.itemCtrl.reset();
         }
         this.toggleVisibility();
+    }
+
+    selected(event: MatAutocompleteSelectedEvent): void {
+        const searchObj: SearchItem = event.option.value;
+        if (searchObj.url.length === 2) {
+            this.itemCtrl.reset();
+            this._router.navigate([searchObj.url[0] + '/' + searchObj.url[1]]);
+        }
     }
 
     toggleVisibility(): void {
