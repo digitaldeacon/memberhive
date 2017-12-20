@@ -8,7 +8,7 @@
     "docs:build": "compodoc -p tsconfig.json -n mh-core -d docs --hideGenerator",
     "docs:serve": "yarn docs:build -- -s",
     "docs:watch": "yarn docs:build -- -s -w",
-    "lint": "tslint --type-check --project tsconfig.json src/**/*.ts",
+    "lint": "tslint --project tsconfig.json src/**/*.ts",
     "test": "tsc && karma start",
     "install:dep": "cd dist && yarn link"
   },
