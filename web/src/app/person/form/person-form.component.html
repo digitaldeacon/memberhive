@@ -1,9 +1,5 @@
 <mat-toolbar *ngIf="!inCreateMode()">
-    <h3 fxFlex><ng-container i18n>Edit</ng-container> <small>{{person.fullName}}</small></h3>
-    <button mat-button>
-        <mat-icon>check_circle</mat-icon>
-        <ng-container i18n>SAVE NOW</ng-container>
-    </button>
+    <h3 fxFlex><ng-container i18n="@@edit">Edit</ng-container> <small>{{person.fullName}}</small></h3>
 </mat-toolbar>
 <form class="person-form"
       #personEditForm="ngForm"
@@ -14,7 +10,7 @@
       novalidate>
 
     <fieldset fxFlex="100">
-        <legend i18n>Status & Tags</legend>
+        <legend i18n="@@form.statustags">Status & Tags</legend>
         <mh-tags [source]="tagSource"
                  formControlName="status"
                  placeholder="Status"></mh-tags>
@@ -23,22 +19,24 @@
     <div fxLayout.gt-sm="row"
          fxLayout.xs="column">
         <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
-            <legend i18n>Personal</legend>
+            <legend i18n="@@form.personal">Personal</legend>
             <div>
                 <mat-form-field fxFlex>
                     <input matInput fxFlex
                            type="text"
                            formControlName="firstName"
-                           placeholder="First Name" i18n-placeholder
+                           placeholder="First Name" i18n-placeholder="@@form.firstname"
                            required>
                 </mat-form-field>
-                <mat-error *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine" i18n>
+                <mat-error *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine"
+                           i18n="@@form.firstname.required">
                     First name is required (minimum 2 characters).
                 </mat-error>
             </div>
             <div>
                 <mat-form-field>
-                    <input matInput fxFlex type="text" formControlName="middleName" placeholder="Middle Name" i18n-placeholder>
+                    <input matInput type="text" formControlName="middleName"
+                           placeholder="Middle Name" i18n-placeholder="@@form.middlename">
                 </mat-form-field>
             </div>
             <div>
@@ -46,19 +44,20 @@
                     <input matInput fxFlex
                            type="text"
                            formControlName="lastName"
-                           placeholder="Lastname" i18n-placeholder
+                           placeholder="Lastname" i18n-placeholder="@@form.lastname"
                            required>
                 </mat-form-field>
-                <mat-error *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine" i18n>
+                <mat-error *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine"
+                           i18n="@@form.lastname.required">
                     Lastname is required (minimum of 2 characters)
                 </mat-error>
             </div>
             <div class="mh-input-wrapper">
                 <mat-radio-group formControlName="gender" fxFlex>
-                    <mat-radio-button value="f" i18n>Female</mat-radio-button>
-                    <mat-radio-button value="m" i18n>Male</mat-radio-button>
+                    <mat-radio-button value="f" i18n="@@female">Female</mat-radio-button>
+                    <mat-radio-button value="m" i18n="@@male">Male</mat-radio-button>
                 </mat-radio-group>
-                <mat-error *ngIf="form.get('gender').invalid" i18n>
+                <mat-error *ngIf="form.get('gender').invalid" i18n="@@form.gender.required">
                     Please provide a gender
                 </mat-error>
             </div>
@@ -67,12 +66,12 @@
                     <input matInput fxFlex
                            type="email"
                            formControlName="email"
-                           placeholder="Email" i18n-placeholder
+                           placeholder="Email" i18n-placeholder="@@form.email"
                            email required>
                 </mat-form-field>
                 <mat-error *ngIf="form.get('email').invalid &&
                 form.get('email').dirty &&
-                form.get('email').hasError('pattern')" i18n>
+                form.get('email').hasError('pattern')" i18n="@@form.email.valid">
                     Please provide a proper email address
                 </mat-error>
             </div>
@@ -80,7 +79,7 @@
                 <mat-form-field>
                     <mat-select name="maritalStatus"
                                 formControlName="maritalStatus"
-                                placeholder="Marital Status" i18n-placeholder>
+                                placeholder="Marital Status" i18n-placeholder="@@maritalstatus">
                         <mat-option *ngFor="let mstatus of maritalStatus" [value]="mstatus">
                             {{mstatus | titlecase}}
                         </mat-option>
@@ -89,15 +88,18 @@
             </div>
             <div fxLayout.gt-xs="row" fxLayout.xs="column">
                 <mat-form-field>
-                    <input matInput fxFlex type="tel" formControlName="phoneHome" placeholder="Phone (Home)" i18n-placeholder>
+                    <input matInput fxFlex type="tel" formControlName="phoneHome"
+                           placeholder="Phone (Home)" i18n-placeholder="@@phone.home">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput fxFlex type="tel" formControlName="phoneMobile" placeholder="Phone (Mobile)" i18n-placeholder>
+                    <input matInput fxFlex type="tel" formControlName="phoneMobile"
+                           placeholder="Phone (Mobile)" i18n-placeholder="@@phone.mobile">
                 </mat-form-field>
             </div>
             <div>
                 <mat-form-field>
-                    <input type="tel" matInput fxFlex type="tel" formControlName="phoneWork" placeholder="Phone (Work)" i18n-placeholder>
+                    <input type="tel" matInput fxFlex type="tel" formControlName="phoneWork"
+                           placeholder="Phone (Work)" i18n-placeholder="@@phone.work">
                 </mat-form-field>
             </div>
             <div>
@@ -106,12 +108,13 @@
                     <input matInput
                            [matDatepicker]="dpBirthday"
                            formControlName="birthday"
-                           placeholder="Birthday" i18n-placeholder
+                           placeholder="Birthday" i18n-placeholder="@@birthday"
                            fxFlex
                            required>
                     <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
                 </mat-form-field>
-                <mat-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine" i18n>
+                <mat-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine"
+                           i18n="@@form.birthday.required">
                     Birthday is required.
                 </mat-error>
                 <mat-datepicker #dpBirthday></mat-datepicker>
@@ -122,7 +125,7 @@
                     <input matInput
                            [matDatepicker]="dpBaptized"
                            formControlName="baptized"
-                           placeholder="Baptized" i18n-placeholder
+                           placeholder="Baptized" i18n-placeholder="@@baptized"
                            fxFlex>
                     <mat-datepicker-toggle matSuffix [for]="dpBaptized"></mat-datepicker-toggle>
                 </mat-form-field>
@@ -134,7 +137,7 @@
                     <input matInput fxFlex
                            [matDatepicker]="dpAnniversary"
                            formControlName="anniversary"
-                           placeholder="Anniversary" i18n-placeholder>
+                           placeholder="Anniversary" i18n-placeholder="@@anniversary">
                     <mat-datepicker-toggle matSuffix [for]="dpAnniversary"></mat-datepicker-toggle>
                 </mat-form-field>
                 <mat-datepicker #dpAnniversary></mat-datepicker>
@@ -142,16 +145,16 @@
         </fieldset>
         <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
             <fieldset formGroupName="user">
-                <legend i18n>Account</legend>
+                <legend i18n="@@form.account">Account</legend>
                 <div>
                     <mat-form-field>
                         <input matInput
                                formControlName="username"
                                placeholder="Username"
                                (keyup)="enablePasswordFields()"
-                               i18n-placeholder>
+                               i18n-placeholder="@@form.username">
                     </mat-form-field>
-                    <mat-error *ngIf="!form.get('user.username').valid" i18n>
+                    <mat-error *ngIf="!form.get('user.username').valid" i18n="@@form.username.required">
                         Username is required (minimum of 4 characters)
                     </mat-error>
                 </div>
@@ -161,28 +164,29 @@
                                type="text"
                                formControlName="password"
                                placeholder="Password"
-                               i18n-placeholder>
+                               i18n-placeholder="@@form.password">
                     </mat-form-field>
                 </div>
                 <div fxLayoutAlign="space-between">
                     <mat-checkbox formControlName="setPassword"
                                   (change)="toggleRandomPassword($event)"
-                                  i18n>Set new Password</mat-checkbox>
-                    <mat-checkbox formControlName="noCredentials" i18n>Don't mail credentials</mat-checkbox>
+                                  i18n="@@form.password.setnew">Set new Password</mat-checkbox>
+                    <mat-checkbox formControlName="noCredentials"
+                                  i18n="@@form.credentials.nomail">Do not mail credentials</mat-checkbox>
                 </div>
             </fieldset>
             <fieldset formGroupName="address" *ngIf="!inCreateMode()">
-                <legend i18n>Addresses</legend>
+                <legend i18n="@@form.address.title">Addresses</legend>
                 <div formGroupName="home">
                     <div fxLayout="row" fxLayoutAlign="space-between center">
-                        <h4 i18n>Home</h4>
+                        <h4 i18n="@@form.address.home">Home</h4>
                     </div>
                     <mat-form-field>
                         <input matInput
                                type="text"
                                formControlName="street"
                                placeholder="Street"
-                               i18n-placeholder>
+                               i18n-placeholder="@@form.address.street">
                     </mat-form-field>
                     <div fxLayout="row">
                         <mat-form-field>
@@ -190,27 +194,27 @@
                                    type="text"
                                    formControlName="zip"
                                    placeholder="Postal Code"
-                                   i18n-placeholder>
+                                   i18n-placeholder="@@form.address.zip">
                         </mat-form-field>
                         <mat-form-field>
                             <input matInput
                                    type="text"
                                    formControlName="city"
                                    placeholder="City"
-                                   i18n-placeholder>
+                                   i18n-placeholder="@@form.address.city">
                         </mat-form-field>
                     </div>
                 </div>
                 <div formGroupName="postal">
                     <h4>
-                        <ng-container i18n>Postal</ng-container>
-                        <small i18n>(if it differs from home address)</small></h4>
+                        <ng-container i18n="The postal address@@form.address.postal">Postal</ng-container>
+                        <small i18n="@@form.address.postal.note">(if it differs from home address)</small></h4>
                     <mat-form-field>
                         <input matInput
                                type="text"
                                formControlName="street"
                                placeholder="Street"
-                               i18n-placeholder>
+                               i18n-placeholder="@@form.address.street">
                     </mat-form-field>
                     <div fxLayout="row">
                         <mat-form-field>
@@ -218,14 +222,14 @@
                                    type="text"
                                    formControlName="zip"
                                    placeholder="Postal Code"
-                                   i18n-placeholder>
+                                   i18n-placeholder="@@form.address.zip">
                         </mat-form-field>
                         <mat-form-field>
                             <input matInput
                                    type="text"
                                    formControlName="city"
                                    placeholder="City"
-                                   i18n-placeholder>
+                                   i18n-placeholder="@@form.address.city">
                         </mat-form-field>
                     </div>
                 </div>
@@ -234,7 +238,7 @@
                     *ngIf="inCreateMode()"
                     type="submit"
                     class="mh-submit"
-                    i18n>SUBMIT</button>
+                    i18n="@@form.submit">SUBMIT</button>
         </div>
     </div>
 </form>

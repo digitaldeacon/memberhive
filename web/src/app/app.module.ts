@@ -1,4 +1,5 @@
-import { NgModule, LOCALE_ID } from '@angular/core';
+import { NgModule, LOCALE_ID, TRANSLATIONS,
+    TRANSLATIONS_FORMAT, MissingTranslationStrategy } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -23,14 +24,13 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 import { MhCoreModule } from 'mh-core';
+import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
 
 import {
     ToolbarInteractionsComponent
 } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
 
-export interface AppConfig {
-    token: string;
-}
+declare const require;
 
 @NgModule({
     declarations: [
@@ -59,8 +59,20 @@ export interface AppConfig {
     ],
     bootstrap: [AppComponent],
     providers: [
-        {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
-        { provide: LOCALE_ID, useValue: 'de' }
+        {provide: LOCALE_ID, useValue: "de"},
+        {
+            provide: TRANSLATIONS,
+            useFactory: (locale) => {
+                console.log('using locale', locale);
+                locale = locale || 'de';
+                return require(`raw-loader!../i18n/messages.${locale}.xlf`);
+            },
+            deps: [LOCALE_ID]
+        },
+        // format of translations that you use
+        {provide: TRANSLATIONS_FORMAT, useValue: "xlf"},
+        {provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Error},
+        I18n
     ]
 })
 

@@ -1,8 +1,9 @@
 <mat-toolbar>
-    <h3 fxFlex i18n>Person Interactions</h3>
+    <h3 fxFlex i18n="@@person.interactions">Person Interactions</h3>
     <button mat-button (click)="toggleQuickNote()">
         <mat-icon *ngIf="!quickNote">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="quickNote">remove_circle_outline</mat-icon> <ng-container i18n>QUICK NOTE</ng-container>
+        <mat-icon *ngIf="quickNote">remove_circle_outline</mat-icon>
+        <ng-container i18n="@@btn.quicknote">QUICK NOTE</ng-container>
     </button>
 </mat-toolbar>
 <mat-card class="quick-note" *ngIf="quickNote">
@@ -16,7 +17,7 @@
                           matTextareaAutosize
                           formControlName="quickNoteText"
                           placeholder="Notification"
-                          i18n-placeholder></textarea>
+                          i18n-placeholder="@@interactions.notification"></textarea>
             </mat-form-field>
         </div>
         <div fxLayout="row" fxLayoutAlign="start center">
@@ -24,7 +25,7 @@
                 <mat-select class="option-select"
                             formControlName="visibility"
                             placeholder="Visible to"
-                            i18n-placeholder>
+                            i18n-placeholder="@@interactions.visibleto">
                     <mat-option *ngFor="let item of visibility" [value]="item.id">
                         <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
                         {{item.text}}
@@ -44,28 +45,28 @@
                 {{getType(interaction.type)}}
             </mat-icon>
             <div fxFlex="90" fxLayout="row" fxLayoutAlign="start center">
-                {{interaction.updatedAt | date: 'medium'}} - &nbsp; <span i18n>by</span> &nbsp;
+                {{interaction.updatedAt | date: 'medium'}} - &nbsp; <span i18n="@@by">by</span> &nbsp;
                 <a *ngIf="!iOwn(interaction.author.id)" [routerLink]="['/person/view', interaction.author.id]">
                     {{interaction.author.name}}
                 </a>
-                <span *ngIf="iOwn(interaction.author.id)" i18n>me</span>
+                <span *ngIf="iOwn(interaction.author.id)" i18n="@@me">me</span>
             </div>
             <button mat-icon-button [matMenuTriggerFor]="interactionmenu"><mat-icon>more_vert</mat-icon></button>
             <mat-menu #interactionmenu="matMenu">
                 <button mat-menu-item [routerLink]="['/interaction/edit', interaction.uid]">
                     <mat-icon>edit</mat-icon>
-                    <span i18n>Edit</span>
+                    <span i18n="@@btn.edit">Edit</span>
                 </button>
                 <button mat-menu-item (click)="delete(interaction)">
                     <mat-icon>delete</mat-icon>
-                    <span i18n>Delete</span>
+                    <span i18n="@@btn.delete">Delete</span>
                 </button>
             </mat-menu>
         </mat-card-header>
         <mat-card-content>
           {{interaction.text}}
             <div *ngIf="interaction.recipients.length > 0" class="responsible-list">
-                <span i18n>Assigned: </span>
+                <span i18n="@@interactions.assigned">Assigned: </span>
                 <ng-container *ngFor="let recipientId of interaction.recipients; let i = index">
                     <span class="responsible"
                           [class.responsible-complete]="interaction.actions[recipientId].completedOn"

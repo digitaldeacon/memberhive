@@ -9,7 +9,7 @@
             <div class="logo">
                 <img src="/assets/images/logo.png" alt=""/>
             </div>
-            <mat-card-title i18n>Sign In</mat-card-title>
+            <mat-card-title i18n="@@login.title">Sign In</mat-card-title>
             <mat-card-subtitle *ngIf="(error$ | async) && !closeError">
                 <mh-notifybox
                         [message]="error$ | async"
@@ -29,7 +29,7 @@
                         <input matInput
                                required
                                placeholder="Email OR Username"
-                               i18n-placeholder
+                               i18n-placeholder="@@login.username"
                                autocorrect="off"
                                autocapitalize="off"
                                spellcheck="off"
@@ -44,7 +44,7 @@
                         <input matInput
                                type="password"
                                placeholder="Password"
-                               i18n-placeholder
+                               i18n-placeholder="@@form.password"
                                autocomplete="off"
                                autocorrect="off"
                                autocapitalize="off"
@@ -60,7 +60,7 @@
                                 type="submit"
                                 [disabled]="form.invalid"
                                 fxFlex
-                                i18n>LOGIN</button>
+                                i18n="@@login.submit">LOGIN</button>
                     </div>
 
                 </form>

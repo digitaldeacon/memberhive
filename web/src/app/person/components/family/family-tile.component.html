@@ -1,5 +1,7 @@
 <mat-card [class.suggestion-box]="member.isSuggestion" *ngIf="member">
-    <div *ngIf="member.isSuggestion" class="suggestion-label"><small i18n>Suggesstion</small></div>
+    <div *ngIf="member.isSuggestion" class="suggestion-label">
+        <small i18n="@@suggesstion">Suggesstion</small>
+    </div>
     <mat-card-title-group>
         <mat-card-title>
             <a [routerLink]="['/person/view', member.person.uid]"
@@ -9,7 +11,7 @@
             <span *ngIf="member.person.uid === person?.uid">{{member.person.fullName}}</span>
         </mat-card-title>
         <mat-card-subtitle fxLayout="column">
-            <span matLine>{{member.person.age}} <small i18n>years</small></span>
+            <span matLine>{{member.person.age}} <small i18n="@@years">years</small></span>
             <span matLine><a href="tel:{{member.person.phoneMobile}}">{{member.person.phoneMobile}}</a></span>
         </mat-card-subtitle>
         <img matCardAvatar src="{{member.person.avatar}}" alt="{{member.person.fullName}}" />
@@ -22,15 +24,15 @@
     </mat-card-content>
     <mat-card-actions fxLayoutAlign="end center">
         <button mat-button *ngIf="member.isSuggestion" (click)="accept(member)">
-            <mat-icon>check</mat-icon> <ng-container i18n>ACCEPT</ng-container>
+            <mat-icon>check</mat-icon> <ng-container i18n="@@btn.accept">ACCEPT</ng-container>
         </button>
         <button mat-button *ngIf="member.isSuggestion" (click)="ignore(member)">
-            <mat-icon>clear</mat-icon> <ng-container i18n>IGNORE</ng-container>
+            <mat-icon>clear</mat-icon> <ng-container i18n="@@btn.ignore">IGNORE</ng-container>
         </button>
         <button mat-button color="warn"
                 *ngIf="!member.isSuggestion && member.person.uid !== person?.uid"
                 (click)="remove(member)">
-            <mat-icon>clear</mat-icon> <ng-container i18n>REMOVE</ng-container>
+            <mat-icon>clear</mat-icon> <ng-container i18n="@@btn.remove">REMOVE</ng-container>
         </button>
     </mat-card-actions>
 </mat-card>

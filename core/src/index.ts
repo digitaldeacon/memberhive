@@ -2,6 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
+import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
@@ -48,7 +49,8 @@ export * from './store';
   declarations: [],
   exports: [],
   providers: [
-      TitleCasePipe
+      TitleCasePipe,
+      I18n
   ]
 })
 export class MhCoreModule {
@@ -59,6 +61,7 @@ export class MhCoreModule {
           GeocodeService,
           HttpService,
           AuthService,
+          I18n,
           {
               provide: HTTP_INTERCEPTORS,
               useClass: AuthInterceptor,

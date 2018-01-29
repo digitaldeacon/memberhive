@@ -1,14 +1,18 @@
 <mh-filter></mh-filter>
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <a mat-button (click)="prevPerson()"><mat-icon>chevron_left</mat-icon><span>Prev</span></a>
+        <a mat-button (click)="prevPerson()">
+            <mat-icon>chevron_left</mat-icon><span i18n="@@btn.prev">Prev</span>
+        </a>
         <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
-        <a mat-button (click)="nextPerson()"><span i18n>Next</span><mat-icon>chevron_right</mat-icon></a>
+        <a mat-button (click)="nextPerson()">
+            <span i18n="@@btn.next">Next</span><mat-icon>chevron_right</mat-icon>
+        </a>
     </div>
     <mat-card class="person-card">
         <mat-card-header class="person-card-header">
             <a (click)="openDlgAvatar()" class="avatar-container" fxHide.xs>
-                <span class="change-overlay" i18n>Change</span>
+                <span class="change-overlay" i18n="@@btn.change">Change</span>
                 <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}">
             </a>
             <mat-card-title-group>
@@ -36,23 +40,30 @@
             </mat-card-title-group>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-button (click)="prevPerson()" fxHide.xs><mat-icon>chevron_left</mat-icon><span i18n>Prev</span></button>
-            <button mat-button (click)="nextPerson()" fxHide.xs><span i18n>Next</span><mat-icon>chevron_right</mat-icon></button>
+            <button mat-button (click)="prevPerson()" fxHide.xs>
+                <mat-icon>chevron_left</mat-icon><span i18n="@@btn.prev">Prev</span>
+            </button>
+            <button mat-button (click)="nextPerson()" fxHide.xs>
+                <span i18n="@@btn.next">Next</span><mat-icon>chevron_right</mat-icon>
+            </button>
             <button mat-raised-button (click)="createInteraction()" color="accent">
-                <mat-icon>forum</mat-icon> <span fxHide.xs i18n>Interactions</span></button>
+                <mat-icon>forum</mat-icon> <span fxHide.xs i18n="@@interactions">Interactions</span>
+            </button>
             <button mat-raised-button (click)="openDlgRelationships()" color="accent">
-                <mat-icon>loyalty</mat-icon> <span fxHide.xs i18n>Relationships</span></button>
+                <mat-icon>loyalty</mat-icon> <span fxHide.xs i18n="@@relationships">Relationships</span>
+            </button>
             <button mat-raised-button (click)="openDlgAvatar()" color="accent">
-                <mat-icon>camera</mat-icon> <span fxHide.xs i18n>Avatar</span></button>
+                <mat-icon>camera</mat-icon> <span fxHide.xs i18n="@@avatar">Avatar</span>
+            </button>
             <button mat-icon-button *ngIf="hasMap" (click)="openDlgMap()">
                 <mat-icon>map</mat-icon>
             </button>
             <button mat-button (click)="deletePerson()" fxHide.xs>
-                <mat-icon>delete</mat-icon> <span fxHide.xs i18n>Delete</span></button>
+                <mat-icon>delete</mat-icon> <span fxHide.xs i18n="@@btn.delete">Delete</span></button>
         </mat-card-actions>
         <mat-card-content>
             <mat-tab-group>
-                <mat-tab label="Interactions" i18n-label>
+                <mat-tab label="Interactions" i18n-label="@@tab.interactions">
                     <mh-interaction-list
                             [people]="people"
                             [interactions]="interactions$ | async"
@@ -60,14 +71,14 @@
                             (deleteInteraction)="deleteInteraction($event)"
                             (addInteraction)="addInteraction($event)"></mh-interaction-list>
                 </mat-tab>
-                <mat-tab label="Edit" i18n-label>
+                <mat-tab label="Edit" i18n-label="@@tab.edit">
                    <mh-person-form
                            [person]="person$ | async"
                            [settings]="settings"
                            [tagSource]="tags$ | async"
                            (savePerson)="savePerson($event)"></mh-person-form>
                 </mat-tab>
-                <mat-tab label="Family" i18n-label>
+                <mat-tab label="Family" i18n-label="@@tab.family">
                     <mh-person-family
                             [people]="people"
                             [person]="person$ | async"></mh-person-family>
@@ -76,7 +87,7 @@
                 TODO: Groups section
                 <mat-tab label="Groups" i18n-label></mat-tab>
                 -->
-                <mat-tab label="Logs" i18n-label>
+                <mat-tab label="Logs" i18n-label="@@tab.logs">
                     <mh-audit-log [person]="person"></mh-audit-log>
                 </mat-tab>
             </mat-tab-group>

@@ -155,7 +155,7 @@ gulp.task('rollup:fesm', function () {
 
             // Format of generated bundle
             // See "format" in https://rollupjs.org/#core-functionality
-            format: 'es'
+            output: {format: 'es'}
         }))
         .pipe(gulp.dest(distFolder));
 });
@@ -185,7 +185,7 @@ gulp.task('rollup:umd', function () {
 
             // Format of generated bundle
             // See https://github.com/rollup/rollup/wiki/JavaScript-API#format
-            format: 'umd',
+            output: {format: 'umd'},
 
             // Export mode to use
             // See https://github.com/rollup/rollup/wiki/JavaScript-API#exports

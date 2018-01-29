@@ -1,7 +1,7 @@
 <mat-card class="dashlet-card">
     <mat-card-header>
         <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-            <h3 i18n>Upcoming Birthdays</h3>
+            <h3 i18n="@@birthday.upcoming">Upcoming Birthdays</h3>
             <div>
                 <button mat-icon-button matTooltip="move dashlet">
                     <mat-icon class="handle">tab_unselected</mat-icon>
@@ -12,8 +12,8 @@
     </mat-card-header>
     <mat-card-content>
         <div>
-            <mat-card-subtitle><span i18n>Today</span> <mat-divider></mat-divider></mat-card-subtitle>
-            <p *ngIf="peopleBdToday?.length == 0" i18n>No birthdays today</p>
+            <mat-card-subtitle><span i18n="@@today">Today</span> <mat-divider></mat-divider></mat-card-subtitle>
+            <p *ngIf="peopleBdToday?.length == 0" i18n="@@birthday.none">No birthdays today</p>
             <mat-list>
                 <mat-list-item *ngFor="let person of peopleBdToday">
                     <mat-icon mat-list-icon class="birthday-notice">cake</mat-icon>
@@ -22,10 +22,10 @@
                         <span>{{person.fullName}}</span>
                     </div>
                     <div matLine>
-                        <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
+                        <a [routerLink]="['/person/view', person.uid]" i18n="@@btn.view">view</a> |
                         <a href="javascript:void(0)"
                            (click)="interactionsDlg(person)"
-                           i18n>interaction</a>
+                           i18n="@@btn.interactions">interaction</a>
                     </div>
                     <div><b>{{person.age}}</b></div>
                 </mat-list-item>
@@ -33,7 +33,7 @@
         </div>
         <div>
             <mat-card-subtitle>
-                <ng-container i18n>Next {{range}} days</ng-container>
+                <ng-container i18n="@@date.range">Next {{range}} days</ng-container>
                 <mat-divider></mat-divider>
             </mat-card-subtitle>
             <mat-list>
@@ -45,10 +45,10 @@
                             {{person.fullName}} (<i>{{birthdayIn(person.birthday)}}</i>)
                         </span>
                         <span matLine>
-                            <a [routerLink]="['/person/view', person.uid]" i18n>view</a> |
+                            <a [routerLink]="['/person/view', person.uid]" i18n="@@btn.view">view</a> |
                             <a href="javascript:void(0)"
                                (click)="interactionsDlg(person)"
-                               i18n>reminde me</a>
+                               i18n="@@btn.remind">reminde me</a>
                         </span>
                     </div>
                     <b>{{person.age + 1}}</b>
