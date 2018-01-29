@@ -1,6 +1,6 @@
 <mat-accordion>
     <mat-expansion-panel #filterToolbar>
-        <mat-expansion-panel-header i18n>Filter</mat-expansion-panel-header>
+        <mat-expansion-panel-header i18n="@@filter">Filter</mat-expansion-panel-header>
         <form [formGroup]="form"
               novalidate
               fxLayout="column"
@@ -10,20 +10,20 @@
                     <mat-icon matPrefix>filter_list</mat-icon>
                     <input matInput
                            placeholder="Add Filter+"
-                           i18n-placeholder
+                           i18n-placeholder="@@filter.add"
                            formControlName="filter"
                            type="search">
                 </mat-form-field>
                 <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
                 <mat-menu #saveMenu="matMenu">
                     <button mat-menu-item>
-                        <span i18n>Save Filter</span>
+                        <span i18n="@@btn.save.filter">Save Filter</span>
                     </button>
                     <button mat-menu-item>
-                        <span i18n>Export Filter</span>
+                        <span i18n="@@btn.export.filter">Export Filter</span>
                     </button>
                     <button mat-menu-item>
-                        <span i18n>Import</span>
+                        <span i18n="@@btn.import.filter">Import</span>
                     </button>
                 </mat-menu>
             </div>

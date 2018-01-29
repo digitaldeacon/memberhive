@@ -1,25 +1,27 @@
 <mat-toolbar>
-    <h3 fxFlex><ng-container i18n>Members for</ng-container>: &nbsp;
-        <small *ngIf="!(hasFamily$ | async)" fxFlex>no family selected</small>
+    <h3 fxFlex><ng-container i18n="@@family.members.for">Members for</ng-container>: &nbsp;
+        <small *ngIf="!(hasFamily$ | async)" fxFlex i18n="@@family.members.none">no family selected</small>
         <small *ngIf="(hasFamily$ | async)" fxFlex>{{family.name}}</small>
     </h3>
     <button mat-button
             *ngIf="!(hasFamily$ | async)"
             (click)="displayAddFamily = !displayAddFamily; displayAddMember = false">
         <mat-icon *ngIf="!displayAddFamily">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon> <ng-container i18n>FAMILY</ng-container>
+        <mat-icon *ngIf="displayAddFamily">remove_circle_outline</mat-icon>
+        <ng-container i18n="@@btn.family">FAMILY</ng-container>
     </button>
     <button mat-button
             *ngIf="(hasFamily$ | async)"
             (click)="displayAddMember = !displayAddMember; displayAddFamily = false">
         <mat-icon *ngIf="!displayAddMember">add_circle_outline</mat-icon>
-        <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon> <ng-container i18n>MEMBER</ng-container>
+        <mat-icon *ngIf="displayAddMember">remove_circle_outline</mat-icon>
+        <ng-container i18n="@@btn.member">MEMBER</ng-container>
     </button>
     <button mat-button
             *ngIf="(hasFamily$ | async)"
             (click)="displayAddFamily = !displayAddFamily; displayEditFamily = !displayEditFamily; displayAddMember = false">
         <mat-icon>edit</mat-icon>
-        <ng-container i18n>FAMILY</ng-container>
+        <ng-container i18n="@@btn.family">FAMILY</ng-container>
     </button>
 </mat-toolbar>
 
@@ -34,13 +36,14 @@
                 <mat-select class="option-select"
                             placeholder="Select member"
                             formControlName="member"
-                            i18n-placeholder>
-                    <mat-optgroup label="Suggestions" i18n-label *ngIf="suggestedMembers.length > 0">
+                            i18n-placeholder="@@family.member">
+                    <mat-optgroup label="Suggestions" i18n-label="@@suggestions"
+                                  *ngIf="suggestedMembers.length > 0">
                         <mat-option *ngFor="let member of suggestedMembers" [value]="member.uid">
                             {{member.fullName}}
                         </mat-option>
                     </mat-optgroup>
-                    <mat-optgroup label="Members" i18n-label>
+                    <mat-optgroup label="Members" i18n-label="@@family.members">
                         <mat-option *ngFor="let person of peopleNoSuggestions" [value]="person.uid">
                             {{person.fullName}}
                         </mat-option>
@@ -51,7 +54,7 @@
                 <mat-select class="option-select"
                             formControlName="role"
                             placeholder="Select role"
-                            i18n-placeholder>
+                            i18n-placeholder="@@family.role.select">
                     <mat-option *ngFor="let role of familyRoles" [value]="role">
                         {{role}}
                     </mat-option>
@@ -60,7 +63,7 @@
         </div>
         <div>
             <button mat-button (click)="displayAddMember = false; afmForm.reset()"><mat-icon>close</mat-icon>
-                <ng-container i18n>CLOSE</ng-container></button>
+                <ng-container i18n="@@btn.close">CLOSE</ng-container></button>
             <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
@@ -73,15 +76,15 @@
           (ngSubmit)="editFamily()"
           fxLayout="column"
           novalidate>
-        <h4 i18n>Edit your family</h4>
+        <h4 i18n="@@family.title.edit">Edit your family</h4>
         <div>
             <mat-form-field>
-                <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+                <input matInput formControlName="familyName"
+                       placeholder="Family Name" i18n-placeholder="@@family.name">
             </mat-form-field>
             <mat-form-field>
                 <mat-select formControlName="unrelated"
-                            placeholder="Unrelated Members"
-                            i18n-placeholder
+                            placeholder="Unrelated Members" i18n-placeholder="@@family.unrelated"
                             multiple>
                     <mat-option *ngFor="let member of unrelatedMembers" [value]="member.uid">
                         {{member.fullName}}
@@ -89,7 +92,7 @@
                 </mat-select>
             </mat-form-field>
             <button mat-button (click)="displayAddFamily = false; afForm.reset();"><mat-icon>close</mat-icon>
-                <ng-container i18n>CLOSE</ng-container></button>
+                <ng-container i18n="@@btn.close">CLOSE</ng-container></button>
             <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
@@ -98,21 +101,21 @@
           (ngSubmit)="link()"
           fxLayout="column"
           novalidate>
-        <h4 i18n>Add to family</h4>
+        <h4 i18n="@@family.title.add">Add to family</h4>
         <div>
             <mat-form-field>
-                <mat-select formControlName="family" placeholder="Family" i18n-placeholder>
+                <mat-select formControlName="family" placeholder="Family" i18n-placeholder="@@family">
                     <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field>
-                <mat-select formControlName="role" placeholder="Role" i18n-placeholder>
+                <mat-select formControlName="role" placeholder="Role" i18n-placeholder="@@family.role">
                     <mat-option *ngFor="let role of familyRoles" [value]="role">{{role}}</mat-option>
                 </mat-select>
             </mat-form-field>
             <button mat-button (click)="displayAddFamily = false; lfForm.reset();">
                 <mat-icon>close</mat-icon>
-                <ng-container i18n>CLOSE</ng-container></button>
+                <ng-container i18n="@@btn.close">CLOSE</ng-container></button>
             <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
@@ -121,13 +124,14 @@
           (ngSubmit)="addFamily()"
           fxLayout="column"
           novalidate>
-        <h4 i18n>Create new family</h4>
+        <h4 i18n="@@family.title.create">Create new family</h4>
         <div>
             <mat-form-field>
-                <input matInput formControlName="familyName" placeholder="Family Name" i18n-placeholder>
+                <input matInput formControlName="familyName"
+                       placeholder="Family Name" i18n-placeholder="@@family.name">
             </mat-form-field>
             <button mat-button (click)="displayAddFamily = false; afForm.reset();"><mat-icon>close</mat-icon>
-                <ng-container i18n>CLOSE</ng-container></button>
+                <ng-container i18n="@@btn.close">CLOSE</ng-container></button>
             <button type="submit" mat-raised-button color="primary"><mat-icon>send</mat-icon></button>
         </div>
     </form>
@@ -138,8 +142,8 @@
         <button mat-raised-button
                 *ngIf="!(hasFamily$ | async)"
                 (click)="displayAddFamily = !displayAddFamily; displayAddMember = false"
-                i18n>SELECT or ADD
-        </button> &nbsp; <b i18n>a family</b></span>
+                i18n="@@btn.selectoradd">SELECT or ADD
+        </button> &nbsp; <b i18n="@@family.a">a family</b></span>
     <div *ngIf="(hasFamily$ | async)" fxLayout="row" fxLayoutWrap fxLayoutGap="15px">
         <mh-family-tile *ngFor="let member of members$ | async"
                         [person]="person"

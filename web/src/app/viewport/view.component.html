@@ -15,11 +15,11 @@
         <mat-menu #menu="matMenu">
             <button mat-menu-item>
                 <mat-icon>account_circle</mat-icon>
-                <span i18n>My Profile</span>
+                <span i18n="@@btn.profile">My Profile</span>
             </button>
             <button mat-menu-item (click)="logout()">
                 <mat-icon>exit_to_app</mat-icon>
-                <span i18n>Logout</span>
+                <span i18n="@@btn.logout">Logout</span>
             </button>
         </mat-menu>
     </mat-toolbar>
@@ -50,7 +50,7 @@
                 <mat-divider></mat-divider>
                 <a mat-list-item (click)="closeDrawer()" *ngIf="drawerState == 'opened'">
                     <mat-icon matListIcon>first_page</mat-icon>
-                    <span matLine i18n>collapse</span>
+                    <span matLine i18n="@@btn.collapse">collapse</span>
                 </a>
                 <a mat-list-item (click)="openDrawer()" *ngIf="drawerState != 'opened'">
                     <mat-icon matListIcon>last_page</mat-icon>

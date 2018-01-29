@@ -17,6 +17,7 @@ import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
 import * as core from 'mh-core';
+import { I18n } from "@ngx-translate/i18n-polyfill";
 
 const enum DrawerState {
     OPENED = 'opened',
@@ -34,10 +35,14 @@ export class ViewComponent implements OnDestroy {
 
     routes: Object[] = [
         {
-            title: 'Dashboard', route: '/dashboard', icon: 'dashboard'
+            title: this.i18n({value: 'Dashboard', id: 'menu.dashboard'}),
+            route: '/dashboard',
+            icon: 'dashboard'
         },
         {
-            title: 'Members', route: '/person', icon: 'people'
+            title: this.i18n({value: 'People', id: 'menu.people'}),
+            route: '/person',
+            icon: 'people'
         },
         /*{
             title: 'Interactions', route: '/interaction', icon: 'forum'
@@ -49,7 +54,9 @@ export class ViewComponent implements OnDestroy {
             title: 'Groups', route: '', icon: 'people_outline'
         },*/
         {
-            title: 'Settings', route: '/settings', icon: 'build'
+            title: this.i18n({value: 'Settings', id: 'menu.settings'}),
+            route: '/settings',
+            icon: 'build'
         }
     ];
 
@@ -73,7 +80,8 @@ export class ViewComponent implements OnDestroy {
                 private _router: Router,
                 private _shout: ShoutService,
                 private _store: Store<core.AppState>,
-                private _media: ObservableMedia) {
+                private _media: ObservableMedia,
+                public i18n: I18n) {
 
         this._initStore();
         this.watcher = _media.subscribe((change: MediaChange) => {
@@ -93,7 +101,6 @@ export class ViewComponent implements OnDestroy {
     logout(): void {
         this._authSrv.clearStore()
        .then(() => {
-            console.log('store cleared');
             this._store.dispatch(new core.SignOutAction());
         });
     }

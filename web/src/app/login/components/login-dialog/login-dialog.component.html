@@ -1,5 +1,5 @@
 <mat-card fxLayout="column">
-  <mat-card-title i18n>Sign In</mat-card-title>
+  <mat-card-title i18n="@@login.title">Sign In</mat-card-title>
   <mat-card-subtitle *ngIf="message">
     {{message}}
   </mat-card-subtitle>
@@ -15,7 +15,7 @@
         <input matInput
                required
                placeholder="Email OR Username"
-               i18n-placeholder
+               i18n-placeholder="@@login.username"
                autocorrect="off"
                autocapitalize="off"
                spellcheck="off"
@@ -28,7 +28,7 @@
         <input matInput
                type="password"
                placeholder="Password"
-               i18n-placeholder
+               i18n-placeholder="@@form.password"
                autocomplete="off"
                autocorrect="off"
                autocapitalize="off"
@@ -44,16 +44,16 @@
                   type="submit"
                   fxFlex
                   [disabled]="form.invalid"
-                  i18n>LOGIN</button>
+                  i18n="@@login.submit">LOGIN</button>
         </div>
-        <div fxLayout="row" fxLayoutAlign="center center" i18n>
+        <div fxLayout="row" fxLayoutAlign="center center" i18n="@@or">
           <span fxFlex>or</span>
         </div>
         <div fxLayout="row">
           <button mat-button
                   fxFlex
                   (click)="cancel()"
-                  i18n>cancel</button>
+                  i18n="@@form.cancel">cancel</button>
         </div>
       </div>
 

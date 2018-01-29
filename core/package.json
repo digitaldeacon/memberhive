@@ -40,6 +40,7 @@
     "@ngrx/entity": "github:ngrx/entity-builds",
     "@ngrx/router-store": "github:ngrx/router-store-builds",
     "@ngrx/store": "github:ngrx/store-builds",
+    "@ngx-translate/i18n-polyfill": "^0.1.1",
     "@types/jasmine": "2.6.2",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.67",

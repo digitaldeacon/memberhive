@@ -1,8 +1,15 @@
 <div class="main-content">
     <mh-filter></mh-filter>
     <h5>
-        <span i18n>Displaying {{(people$ | async)?.length}} Members</span>
-        <small *ngIf="options.indexOf('family') > -1" i18n>in {{families.length}} families</small>
+        <span>
+            <ng-container i18n="@@displaying">Displaying</ng-container>
+            {{(people$ | async)?.length}}
+            <ng-container i18n="@@members">Members</ng-container>
+        </span>
+        <small *ngIf="options.indexOf('family') > -1">
+            <ng-container i18n="@@in">in</ng-container>
+            {{families.length}}
+            <ng-container i18n="@@families">families</ng-container></small>
     </h5>
     <div fxLayout='column'>
         <mat-card *ngFor="let person of people$ | async" class="nav-list">
@@ -16,8 +23,8 @@
                             <span matLine *ngIf="opt === 'email'">{{person.email}}</span>
                             <span matLine *ngIf="opt === 'age'">{{person.age}}</span>
                             <span matLine *ngIf="opt === 'gender'">
-                                <b *ngIf="person.gender === 'f'" i18n>female</b>
-                                <b *ngIf="person.gender === 'm'" i18n>male</b>
+                                <b *ngIf="person.gender === 'f'" i18n="@@female">female</b>
+                                <b *ngIf="person.gender === 'm'" i18n="@@male">male</b>
                             </span>
                             <!-- TODO: fix spacing issues -->
                             <span matLine *ngIf="opt === 'status' && person?.status.length > 0">

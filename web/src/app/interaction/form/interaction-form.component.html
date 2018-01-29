@@ -7,13 +7,17 @@
     <mat-card-content fxLayout="column">
       <div class="mat-input-wrapper m-b-10">
         <mat-chip-list *ngIf="editMode">
-          <mat-chip color="primary"><b i18n>Created:</b> {{refInteraction.createdAt | date: 'medium'}}</mat-chip>
-          <mat-chip color="accent"><b i18n>Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}</mat-chip>
+          <mat-chip color="primary">
+            <b i18n="@@form.created">Created:</b> {{refInteraction.createdAt | date: 'medium'}}
+          </mat-chip>
+          <mat-chip color="accent">
+            <b i18n="@@form.updated">Updated:</b> {{refInteraction.updatedAt | date: 'medium'}}
+          </mat-chip>
         </mat-chip-list>
       </div>
 
       <div class="mat-input-wrapper m-b-10" fxFlex>
-          <label i18n for="typeSelect">Type:</label>
+          <label i18n="@@interactions.type" for="typeSelect">Type</label>
           <mat-button-toggle-group id="typeSelect"
                                   formControlName="type"
                                   (change)="toggleTypes($event)">
@@ -24,7 +28,8 @@
                   <mat-icon>{{interactionType.iconString}}</mat-icon>
               </mat-button-toggle>
           </mat-button-toggle-group>
-          <mat-error *ngIf="!form.get('type').valid && !form.get('type').pristine" i18n>
+          <mat-error *ngIf="!form.get('type').valid && !form.get('type').pristine"
+                     i18n="@@interaction.type.required">
               You need to supply a type
           </mat-error>
       </div>
@@ -34,9 +39,9 @@
            fxFlex>
         <mat-form-field>
           <mat-select class="option-select"
-                      placeholder="Action verb"
                       formControlName="actionType"
-                      i18n-placeholder
+                      placeholder="Action verb"
+                      i18n-placeholder="@@interaction.verb"
                       required>
             <mat-option *ngFor="let verb of actionVerbs" [value]="verb">
               {{verb}}
@@ -50,35 +55,37 @@
                   formControlName="text"></mh-tinymce>
       <mat-error *ngIf="!form.get('text').valid && !form.get('text').pristine"
                 class="mat-input-wrapper m-b-10"
-                i18n>
+                i18n="@@interactions.text.required">
         A text is required
       </mat-error>
 
       <div fxLayout="row">
         <mat-form-field fxFlex="50">
-          <mat-select placeholder="Relates to" i18n-placeholder
+          <mat-select placeholder="Relates to" i18n-placeholder="@@interactions.relates"
                       formControlName="refId"
                       [required]="form.get('type').value !== 'interaction'">
-            <mat-option i18n>None</mat-option>
+            <mat-option i18n="@@none">None</mat-option>
             <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
               {{person.fullName}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!form.get('refId').valid && !form.get('refId').pristine" i18n>
+          <mat-error *ngIf="!form.get('refId').valid && !form.get('refId').pristine"
+                     i18n="@@interactions.relates.required">
             Please supply a person to whom this relates to
           </mat-error>
         </mat-form-field>
         <mat-form-field *ngIf="form.get('type').value === 'interaction'" fxFlex="50">
           <mat-select formControlName="recipients"
                       placeholder="Assign to"
-                      i18n-placeholder
+                      i18n-placeholder="@@interactions.recipients"
                       multiple>
-            <mat-option i18n>None</mat-option>
+            <mat-option i18n="@@none">None</mat-option>
             <mat-option *ngFor="let person of people$ | async" [value]="person.uid">
               {{person.fullName}}
             </mat-option>
           </mat-select>
-          <mat-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine" i18n>
+          <mat-error *ngIf="!form.get('recipients').valid && !form.get('recipients').pristine"
+                     i18n="@@interactions.recipients.required">
             You need to have at least one recipient
           </mat-error>
         </mat-form-field>
@@ -89,7 +96,7 @@
           <mat-select class="option-select"
                       formControlName="visibility"
                       placeholder="Visible to"
-                      i18n-placeholder>
+                      i18n-placeholder="@@interactions.visible">
             <mat-option *ngFor="let item of visibility" [value]="item.id">
               <mat-icon *ngIf="item.icon !== ''">{{item.icon}}</mat-icon>
               {{item.text}}
@@ -100,7 +107,7 @@
           <input [matDatepicker]="minDatePicker"
                  matInput
                  placeholder="Complete by"
-                 i18n-placeholder
+                 i18n-placeholder="@@interactions.completeby"
                  formControlName="dueOn">
           <mat-datepicker-toggle matSuffix [for]="minDatePicker"></mat-datepicker-toggle>
         </mat-form-field>
@@ -112,16 +119,16 @@
               type="submit"
               class="mh-submit"
               [disabled]="!form.valid">
-        <span *ngIf="!editMode" i18n>NOTIFY</span>
-        <span *ngIf="editMode" i18n>UPDATE</span>
+        <span *ngIf="!editMode" i18n="@@btn.notify">NOTIFY</span>
+        <span *ngIf="editMode" i18n="@@btn.update">UPDATE</span>
       </button>
       <button mat-raised-button
               mat-button
               (click)="clearForm()"
               *ngIf="!editMode">
-        <mat-icon>clear</mat-icon> <ng-container i18n>CLEAR</ng-container></button>
+        <mat-icon>clear</mat-icon> <ng-container i18n="@@btn.clear">CLEAR</ng-container></button>
       <button mat-button (click)="returnRoute()">
-        <mat-icon>arrow_back</mat-icon> <ng-container i18n>CANCEL</ng-container></button>
+        <mat-icon>arrow_back</mat-icon> <ng-container i18n="@@btn.cancel">CANCEL</ng-container></button>
     </mat-card-actions>
   </mat-card>
 

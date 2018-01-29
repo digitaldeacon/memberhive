@@ -1,14 +1,16 @@
 <mat-toolbar>
-    <h3 fxFlex>Audit Logs</h3>
+    <h3 fxFlex i18n="@@audit.title">Audit Logs</h3>
     <button mat-button>
         <mat-icon>remove_circle_outline</mat-icon>
-        <ng-container i18n>CLEAR LOGS</ng-container></button>
+        <ng-container i18n="@@btn.clear">CLEAR LOGS</ng-container></button>
 </mat-toolbar>
 <mat-list class="audit">
     <mat-list-item *ngFor="let log of logs">
         <mat-icon mat-list-icon *ngIf="log.context=='person'">person</mat-icon>
         <mat-icon mat-list-icon *ngIf="log.context=='interaction'">comment</mat-icon>
         <span matLine>{{log.type}} by <b>{{log.refUser}}</b>, at {{log.createdAt | date: 'medium'}}</span>
-        <span matLine *ngIf="log.diff"><i i18n>changed values</i>: {{getDiffDetails(log.diff)}}</span>
+        <span matLine *ngIf="log.diff">
+            <i i18n="@@audit.changed">changed values</i>: {{getDiffDetails(log.diff)}}
+        </span>
     </mat-list-item>
 </mat-list>
