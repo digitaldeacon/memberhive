@@ -32,11 +32,11 @@ export function interactionReducer(
       });
 
     case actions.LIST_INTERACTIONS_SUCCESS: {
-      const interactions: Interaction[] = action.payload;
+      const interact: Interaction[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        interactions: interactions
+        interactions: interact
       });
     }
 
@@ -46,8 +46,8 @@ export function interactionReducer(
         type: common.MessageType.SUCCESS,
         text: 'Successfully added an interaction'
       };
-      let interactions: Interaction[] = [...state.interactions, interaction];
-      interactions.sort((i1: Interaction, i2: Interaction) => {
+      const newInteract: Interaction[] = [...state.interactions, interaction];
+        newInteract.sort((i1: Interaction, i2: Interaction) => {
         const left: Date = new Date(i1.createdAt);
         const right: Date = new Date(i2.createdAt);
         const now: Date = new Date();
@@ -59,7 +59,7 @@ export function interactionReducer(
         loaded: true,
         loading: false,
         message: message,
-        interactions: interactions
+        interactions: newInteract
       });
     }
 

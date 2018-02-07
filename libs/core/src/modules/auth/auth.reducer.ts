@@ -43,7 +43,6 @@ export function authReducer(state: AuthState = initialAuthState, action: actions
       const res: any = action.payload;
       const rawStatus: number[] = [504, 404];
       let error: string = typeof res === 'string' ? res : '';
-      let resPromise: any;
       let status: number = 403;
       if (res instanceof HttpErrorResponse && rawStatus.indexOf(res.status) === -1) {
         error = res.message;

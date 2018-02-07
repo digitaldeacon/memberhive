@@ -46,7 +46,7 @@
     "no-empty-interface": true,
     "no-eval": true,
     "no-inferrable-types": [
-      true,
+      false,
       "ignore-params"
     ],
     "no-misused-new": true,
@@ -57,7 +57,7 @@
     "no-switch-case-fall-through": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
-    "no-use-before-declare": true,
+    "no-use-before-declare": false,
     "no-var-keyword": true,
     "object-literal-sort-keys": false,
     "prefer-const": true,
@@ -77,7 +77,7 @@
     "component-selector": [
       true,
       "element",
-      "app",
+      "mh",
       "kebab-case"
     ],
     "no-output-on-prefix": true,

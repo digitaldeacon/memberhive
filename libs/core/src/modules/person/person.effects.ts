@@ -74,7 +74,7 @@ export class PersonEffects {
     .ofType<actions.CalcPersonGeoAction>(actions.CALC_PERSON_GEO)
     .map(action => action.payload)
     .switchMap((payload: CalcGeoCodePayload) => {
-      let address: PersonAddress = payload.person.address;
+      const address: PersonAddress = payload.person.address;
 
       if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
         return empty();

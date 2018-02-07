@@ -27,12 +27,10 @@ export class GeocodeService {
   }
 
   calc(): Observable<any> {
-    let url = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${this._apiKey}`;
-
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${this._apiKey}`;
     if (!this._address.street && !this._address.zip && !this._address.city) {
       return empty();
     }
-
     return this._http.getRaw(url).map((res: ServiceResults) => {
       this._geoCodes = res.results[0].geometry.location;
       return this._geoCodes || undefined;

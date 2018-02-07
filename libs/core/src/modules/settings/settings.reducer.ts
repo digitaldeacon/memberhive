@@ -55,7 +55,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
 
     case actions.UPDATE_SETTINGS_FAILURE:
     case actions.LIST_SETTINGS_FAILURE: {
-      let message: common.Message = {
+      const message: common.Message = {
         type: common.MessageType.FAILURE,
         text: 'Setting failure: ' + action.payload // TODO: add to i18n
       };
@@ -80,7 +80,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       let layout: model.LayoutSettings = state.layout;
 
       let i = 0;
-      for (let section of types) {
+      for (const section of types) {
         if (section === model.SettingType[model.SettingType.people]) {
           people = Object.assign({}, state.people, values[i]);
         }

@@ -12,7 +12,7 @@
     "start:prod": "yarn start --prod --i18nFile apps/web/src/i18n/messages.de.xlf --i18nFormat xlf",
     "start:ssl": "yarn start --ssl 1 --ssl-key \"/Applications/MAMP/ssl/localhost.key\" --ssl-cert \"/Applications/MAMP/ssl/localhost.cert\"",
     "build:noc": "rm -rf dist/ && ng build --prod",
-    "build": "rm -rf dist/ && ng build --prod --locale de && gulp compress",
+    "build": "rm -rf dist/ && ng build --prod --locale de",
     "i18n:init": "ng xi18n --outputPath src/i18n",
     "i18n:de": "ng xi18n --outputPath src/i18n --locale de",
     "i18n:code": "ngx-extractor -i src/**/*.ts -f xlf -o apps/web/src/i18n/messages.en.xlf",
