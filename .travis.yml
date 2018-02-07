@@ -6,7 +6,7 @@ branches:
   only:
     - master
 env:
-  - NODE_JS_VERSION=8.5.0
+  - NODE_JS_VERSION=9.5.0
 addons:
   mariadb: '10.2'
   apt:
@@ -34,15 +34,14 @@ before_install:
   - bash -c "source ~/.nvm/nvm.sh; nvm install $NODE_JS_VERSION; node --version"
   - nvm use $NODE_JS_VERSION
   - nvm alias default $NODE_JS_VERSION
-  - npm i -g @angular/cli typescript@2.4.2 tslint
+  - yarn global add @angular/cli@latest @nrwl/schematics
   - echo -e "Host *\n\tStrictHostKeyChecking no\n" >> ~/.ssh/config
   - npm set progress=false
 before_script:
   - export NODE_ENV="travis"
-  - yarn install:all
+  - yarn
 script:
-  - yarn build:web
+  - yarn build
   - yarn lint
 after_success:
-  - ls web/dist/
-  - ls core/dist/
+  - ls dist/
