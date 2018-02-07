@@ -1,45 +1,65 @@
-node_modules/
-dist/
-tmp/
-trash/
-_core/
-__core/
-test.html
-
-*.log
-*.tgz
-.idea/
-api/shares.sec
-api/vendor
-deploy/
-mobile/resources/android/**
-mobile/resources/ios/**
-.ssh/
-
 # api
 api/config/mail_local.php
 api/config/secrets.php
 api/config/db_local.php
 api/clients.json
 api/assetsp
+api/shares.sec
+api/vendor
+api/web/assets
+api/assets
 
-# core
-core/typings/
+# deploy
+deploy/
 
-# web
-web/typings/
-web/e2e/*.d.ts
-
-# mobile
+# mobile app
+mobile/resources/android/**
+mobile/resources/ios/**
 mobile/www/build/
 mobile/platforms/
 mobile/plugins/
 mobile/typings/
 *.swp
 
+.ssh/
+
+# compiled output
+/dist
+/tmp
+/out-tsc
+
+# dependencies
+/node_modules
+
+# IDEs and editors
+/.idea
+.project
+.classpath
+.c9/
+*.launch
+.settings/
+*.sublime-workspace
+
+# IDE - VSCode
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# misc
+/.sass-cache
+/connect.lock
+/coverage
+/libpeerconnection.log
+npm-debug.log
+testem.log
+/typings
+
+# e2e
+/e2e/*.js
+/e2e/*.map
+
+# System Files
 .DS_Store
 Thumbs.db
-.afdesign
-mobile/resources/android/
-mobile/resources/ios/
-web/src/assets/icons/memberhive.afdesign

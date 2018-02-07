@@ -1,4 +1,4 @@
-# Memberhive v2
+# Memberhive
 
 <img src="http://memberhive.com/images/mh-logo.png" alt="Logo Memberhive" width="300px" />
 
@@ -8,14 +8,15 @@
 [![Join the chat at https://gitter.im/memberhive2/Lobby](https://badges.gitter.im/memberhive2/Lobby.svg)](https://gitter.im/memberhive2/Lobby?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ## Note
-MH2 is very much in Alpha status. Many dependencies, like material design for angular, are still under 
-active development. Things may change/ break rather quickly because of it. So be patient :)
+Memberhive is now in Beta status. Many dependencies, like material design for angular, are still under 
+heavy development. Things may change/ break rather quickly because of it. So be patient :)
 
-We stay in step with the dependencies of _angular/material_ and _angular/angular-cli_.
+We stay in step with the dependencies of _angular/material_, _angular/angular-cli_ and _nrwl/nx_.
+
+<a href="https://nrwl.io/nx"><img src="https://preview.ibb.co/mW6sdw/nx_logo.png"></a>
 
 ## Introduction
-Memberhive2 is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive). We dropped the nodejs backend for a PHP based one, upgraded to Angular@next (using TypeScript) and switched to a RDBMS (MySQL/MariaDB). All this makes development quicker and more robust.
-
+The current Memberhive is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive1). 
 Memberhive is a **church relationship management system** (CRMS). Our focus is facilitating pastoral relationships within small and mid-sized churches.
 
 Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadmap) (no dates, see ceveat below).
@@ -23,63 +24,26 @@ Check out our [Roadmap](https://github.com/digitaldeacon/memberhive2/wiki/Roadma
 ## DEMO Environment
 A demo environment is currently unavailable (check the High-Level Items list below).
 
-**A few gotchas**:
-+ The environment might contain errors that are being worked on (remember, we are not even BETA yet)
-+ The images of the uploaded users are external images, so no image cropping will work
-+ If you find an error **please report** this here on the issues pages
-
-## High-Level Items for November & December
+## High-Level Items for February & March
 _In order of importance_
-- [x] Person status (#46)
-- [x] Layout fixes (#152)
-- [x] various bug fixes (#174, #175)
-- [x] Upgrade to Angular5 (#161)
-- [x] Person family (#123)
-- [x] Person delete (#122)
 - [ ] RBAC (#139) (in progress...)
-- [x] Performance issues on API
+- [ ] Translation (#9)
+- [ ] GDPDR readiness (#165)
 - [ ] New DEMO Environment
-
-## Development Philosophy
-We want to keep this project simple (even though it will be large) and maintainable. For that reason
-we want to adher to the following rules:
-+ **Try to avoid** add new dependencies, unless absolutely needed
-+ **Do not use** any large libraries to accomplish something that you could accomplish with what is already included
-+ **Lint** your code
-
-## Contribute
-If you care to contribute you should bring some of the following skills to the table:
-+ Good experience with Angular development
-+ Experience in RDBMS design
-+ Ideally also experience with Yii2 (or similar frameworks)
-+ Have some sense for SCSS and styling with Material Design
-+ Have a desire to work with Ionic2 and the idea of a hybrid app (web + mobile + common code)
-+ Understand (or want to learn) Redux-like state managements (using NgRX)
-
-See also *Dependencies* below.
-
-## Dependencies
-- Angular (>5, with angular/cli and AOT compilation)
-- Ionic3
-- Yii2
-- Typescript
-- MariaDB/MySQL
-- PHP7.1
-- Material (using angular/flex-layout)
-- NgRX (Redux-like state management)
+- [ ] Some rework (#156, #159, #163)
 
 # Install
-
 ## Prerequisites
-### Node/NPM
-You will need to have node installed, in order to get NPM as package manager. [Check this out](https://docs.npmjs.com/getting-started/installing-node) for instructions on how to install node.
-
-Also refer to the heading below (Package Managing) for additional infos.
-
-We use **YARN** now (install via npm - funny, i know), but you are not absolutely required to use it.
+In order to set your dev environment you need to have the following things in order
+- Node (see below)
+- Composer
+- PHP >= 7.1
+- Yarn package manager
+- any RDB system (we test against MySQL/MariaDB)
+- NX Schematics ([Watch a 5-minute video on how to get started with Nx.](http://nrwl.io/nx))
 
 ### PHP
-You need PHP 7 with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
+You need PHP 7.1, or higher, with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
 
 On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
 
@@ -89,54 +53,22 @@ On OSX you can get PHP7 via homebrew and composer like this `sudo curl -sS https
 If you want to use/ test the compressions you need to have `mod_rewrite`, `mod_mime` and `mod_negotiation` enabled (Apache, see nginx for related req).
 In case you want to have the server use `brotli` you also need to have **https** working.
 
-### DB
-Of course you also need a RDB system, such as MySQL/ MariaDB (which we test against). But since Yii2 can deal with any 
-system, and we are not using system specific features (such as JSON fields), you are welcome to use another system 
-(at your own risk).
-
-### Package Managing
-You have two choices for a manager: ***npm*** or ***yarn***. 
-
-In case you want to try yarn (which we do now) you can follow the installation instructions [here](yarnpkg.com). 
-Yarn has some speed improvements and produces a lock file, which e.g. Travis will automatically read.
-
-Since NPMv5 the speed has improved and a lockfile is also produced. So, the choice is yours (but you need to update the scripts in the parent `package.json`).
-
-## Installation
+## Environment installation
 If you are on a *nix based system (including OS X) you should use [nvm]((https://github.com/creationix/nvm)) to install NPM versions. 
 Checkout the github repo for detailed installation instructions concerning your environment.
 
-We encourage you to use the latest NPM version (currently 8.x branch), until further notice. Version 8 will enter 
-LTS state later this year. NPM v5 is included in the 8.x branch.
+We encourage you to use the latest NPM version (currently 9.x branch), until further notice.
 
 ```
 curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.2/install.sh | bash
-nvm install 8.5.0
-nvm use 8.5
-nvm alias default 8.5
-npm i -g angular-cli@latest typescript@2.5.3 tslint
-git clone git@github.com:digitaldeacon/memberhive2.git
-cd memberhive2
-cd api 
-composer install
+nvm install 9.5.0
+nvm use 9.5
+nvm alias default 9.5
+yarn global add angular-cli@latest @nrwl/schematics 
+git clone git@github.com:digitaldeacon/memberhive.git
+cd memberhive
+yarn && cd api && composer install
 ```
-Using YARN
-```
-yarn install:all
-```
-Using NPM
-... if you care to use npm, you may add the scripts yourself. Maybe we'll add it later again.
-
-Now you should have the client and the Yii backend in place. Next you need to create a database:
-
-Under 'api/config/examples' you will find `db_local.example.php`. Copy this file to the parent folder (config) and edit 
-this according to your needs (renaming it to `db_local.php` of course).
-
-After you have a DB you need to run: `php api/yii migrate`. This will create all necessary tables and set a default user
-with the following credentials: `root/ bibel`.
-
-You will also need an **Email Service**, either local or online. For that you need to copy the file `mail_local.example.php`
-to its parent directory and adjust it as needed (renaming it to `mail_local.php` of course).
 
 # DEMO Data
 You can load some sample demo data by running the following command: `php api/yii demo/create-people`.
@@ -144,96 +76,61 @@ You can load some sample demo data by running the following command: `php api/yi
 This will load 50 random profiles into the app. You can play with this data during development.
 
 # Update/ Upgrade
-In case you are updating from a version that was dependent on Angular2.4 you need to make sure that you follow the [instructions](https://github.com/angular/angular-cli/wiki/stories-1.0-update) from the angular/angular-cli project closely. This requires that you:
+In case you are updating from a version previsou to the changes from #166 then you should ideally remove everything and clone a fresh copy.
+Additionally you should clean your dev env as well:
+
 + first uninstall the cli globally
-+ clean your npm cache
-+ add the latest version of angular-cli back in (globally)
-+ make sure that you have your global TypeScript up to 2.5.3 (or whatever is the latest version)
++ clean your npm/ yarn cache
++ add the latest version of angular-cli back in (globally, via yarn)
++ make sure that you have your global TypeScript up to 2.6.2 (or whatever is the latest version we use now)
 + remove your old (or any!) __node_modules__ folder
 + in case you used yarn before, make sure you **do not** have a .yarnclean file
-+ reinstall (via ***npm*** or ***yarn*** - see above)
-
-## YARN (what we use now)
-+ `yarn upgrade:all` (which will automatically remove your node_modules/ folder).
-+ `yarn install:all` (which will automatically remove your node_modules/ folder).
-...or any of the other subcommands (see package.json in root directory).
++ reinstall
 
 # Developing
+## Code scaffolding
+
+Run `ng generate component component-name --app=web` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+
+## Build
+
+Run `yarn build:web` to build the project. The build artifacts will be stored in the `dist/` directory. This uses the `-prod` flag for a production build.
+
 ## Debugging API Requests
-In dev mode the debug window is available under: http://localhost/memberhive2/api/web/debug/default/view.
+
+In dev mode the debug window is available under: http://localhost/memberhive/api/web/debug/default/view.
 You can view all the latest requests there, as well as the runtime/logs folder.
 
 ## Developing with NgRX (Redux pattern)
-Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
 
+Checkout this tutorial for a good overview: https://gist.github.com/btroncone/a6e4347326749f938510.
 Install the [devTools for Chrome](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd).
 
-Development has become a litte different. All the state altering logic has moved
- to the core module now (./core). The core will be symlinked to the web and the mobile apps.
- That means:
- + when you make changes you will need to **build the core first** (see "Changes to Core") 
- before you get updated data
- + whatever is on the core can be accessed by mobile and web
- + all state is now stored as a single observable (one source of truth)
- + every action (like updating, fetching, etc) needs to be defined with actions and reducers
- + no state should be mutated directly (e.g. people.push()), but must be done via the reducer methods
- 
-We are not done with moving everything. This will completed by the end of the month.
-We understand that this move makes the application more complex. The hope is that 
-it will pay off as we grow the functionality and the complexity of state.
-
 ## Serve App
-+ `yarn start:web` or `yarn start:mobile` or `yarn start:all`
+
++ `yarn start`
++ serving with a specific language `yarn start:de`
+
+## Running unit tests
+
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+
+## Running end-to-end tests
+
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Before running the tests make sure you are serving the app via `ng serve`.
 
 ## Linting your code
-**Everything (TS and PHP)**: `yarn lint` (or one of :web, :core, :mobile or :all])
+**Everything (TS and PHP)**: `yarn lint:all`
 
-**Typescript**: `yarn tslint:all` or `npm run npm.tslint:all` (or one of :web, :core, :mobile or :all])
+**Typescript only**: `yarn lint`
 
-**PHP**: `yarn phplint` or `npm run phplint`
-
-## Changes to Core 
-Whenever you change something in the core folder you are required to rebuild the package **AND** also 
-restart the web `yarn start:web` or `yarn start` (when in the web folder).
-
-**UNLESS** you use `node_modules/typescript/bin/tsc -w`, which will compile and watch. That only works
-for the web so far. Ionic does not seem to reload (yet).
-
-In a Yarn environment you would either be in /core and `yarn build`, or
-be in the root and `yarn build:core`.
-
-If you don't do that your changed code will not show up in the web or mobile app.
+**PHP only**: `yarn lint:php`
 
 ## Changes to DB
 
 + Undo all migrations : `php api/yii migrate/down all --interactive=0`
 + Then redo all migrations again: `php api/yii migrate`
-
-## Caveat
-We started with MemberHive in 2015 because it was hard to find a church management system that was multi-lingual, had its focus on relationships, was affordable, had a modern UI and was technologically not outdated.
-
-If you are interested in some of the projects we looked at you should check this [page](https://github.com/digitaldeacon/memberhive2/wiki/Similar-Software).
-
-During the initial phase of our redevelopment in 2016 we came across a software that did exactly what we had planned to do. This software is called [ELVANTO](https://www.elvanto.com/eu/). 
-Check it out and see if you want to use it. It is the kitchensink when it comes to church management.
-
-So why continue with this project?
-
-A fair question.
-
-Here are some reasons:
-+ **Complexity**. We do not know if the average church pastor (in middle Europe) will need/want the kind of complexity that Elvanto and others offer. These are software solutions for large churches.
-+ **Relationships**. The above mentioned software majors on church planning, group management and events. Others function mainly as a CRM. What is missing here is a good relationship management (e.g. discipleship)
-+ **Printed member lists**. Although Elvanto does a great job with reports, it does not fit our needs when it comes to a printed version of the church membership list.
-+ **Tags**. Elvanto is missing a tag system. We kind of got used to that.
-+ **UI (speed + design)**. This is not the strongest argument, but Angular/Material makes page naviagtion quick and clean.
-+ **Closed Source**. Most other systems are closed source (understandably so). As we build on Open Source we want to give something back (of course, we will also cover the hosting for you, which will cost).
-
-So the plan is to major on the above reasons. We want to be **simple**, enforce **easy realtionship management**, make **printed church lists** a breeze, stay with our **tag based system**, and ... the rest seems obvious.
-
-We will be slowing down the development progress, for the moment. Unless we can **find more contributors**.
-
-**So** if you share this reasons and see the value in it then **PLEASE DO CONTRIBUTE**! All of us here are pastorally involved in our churches. We have family and many other responsibilities. Any help will be welcome.
 
 ## License
 All files are made available under the terms of the GNU Affero General Public License (AGPL). See [LICENSE](https://github.com/digitaldeacon/memberhive2/blob/master/LICENSE).
