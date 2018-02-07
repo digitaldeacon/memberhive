@@ -13,8 +13,6 @@ heavy development. Things may change/ break rather quickly because of it. So be 
 
 We stay in step with the dependencies of _angular/material_, _angular/angular-cli_ and _nrwl/nx_.
 
-<a href="https://nrwl.io/nx"><img src="https://preview.ibb.co/mW6sdw/nx_logo.png"></a>
-
 ## Introduction
 The current Memberhive is the redevelopment of [Memberhive1](https://github.com/digitaldeacon/memberhive1). 
 Memberhive is a **church relationship management system** (CRMS). Our focus is facilitating pastoral relationships within small and mid-sized churches.
@@ -45,7 +43,7 @@ In order to set your dev environment you need to have the following things in or
 ### PHP
 You need PHP 7.1, or higher, with the 'mbstring' and 'simplexml' extensions. Also Composer is required.
 
-On Ubuntu you can install all of those with: `sudo apt install php7.0 php7.0-xml php7.0-mbstring composer`
+On Ubuntu you can install all of those with: `sudo apt install php7.1 php7.1-xml php7.1-mbstring composer`
 
 On OSX you can get PHP7 via homebrew and composer like this `sudo curl -sS https://getcomposer.org/installer | sudo php -- --install-dir=/usr/local/bin --filename=composer`
 
