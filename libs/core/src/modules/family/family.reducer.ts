@@ -59,11 +59,11 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
     }
 
     case FamilyActionTypes.LIST_FAMILIES_SUCCESS: {
-      const families: Family[] = action.payload;
+      const fam: Family[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        families: [...families]
+        families: [...fam]
       });
     }
 

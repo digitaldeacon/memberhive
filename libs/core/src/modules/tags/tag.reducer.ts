@@ -41,16 +41,16 @@ export function tagReducer(state: TagState = initialState, action: actions.TagAc
     }
 
     case actions.LIST_TAGS_SUCCESS: {
-      const tags: Tag[] = action.payload;
+      const payload: Tag[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        tags: [...tags]
+        tags: [...payload]
       });
     }
 
     case actions.UPDATE_TAGS_SUCCESS: {
-      const tags: Tag[] = action.payload;
+      const payload: Tag[] = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
         text: 'Successfully updated tags'

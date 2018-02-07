@@ -21,7 +21,7 @@ export class HttpService {
 
   unauthenticatedPost(url: string, body: any): Observable<any> {
     const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
-    let options: any = {
+    const options: any = {
       headers: headers,
       withCredentials: false
     };
@@ -29,12 +29,12 @@ export class HttpService {
   }
 
   private request(url: string, method: string, body?: any): Observable<any> {
-    let token: string = this._auth.token ? this._auth.token : '';
+    const token: string = this._auth.token ? this._auth.token : '';
     const h: HttpHeaders = new HttpHeaders()
       .set('Content-Type', 'application/json; charset=utf-8')
       .set('Authorization', `Bearer ${token}`);
     // .set('Client', client );
-    let options: any = {
+    const options: any = {
       body: body,
       headers: h,
       withCredentials: true

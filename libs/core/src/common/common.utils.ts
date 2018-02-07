@@ -13,7 +13,7 @@ export class Utils {
       }
       return isEmpty(o[part][search]);
     } else {
-      for (let s of search) {
+      for (const s of search) {
         if (isEmpty(o[part][s])) {
           return true;
         }
@@ -23,7 +23,7 @@ export class Utils {
   }
 
   static arrayDiffObj(s: any[], v: any[], key: string) {
-    let reducedIds = v.map(o => o[key]);
+    const reducedIds = v.map(o => o[key]);
     return s.filter((obj: any) => reducedIds.indexOf(obj[key]) === -1);
   }
 }

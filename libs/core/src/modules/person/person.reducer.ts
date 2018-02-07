@@ -36,11 +36,11 @@ export function personReducer(state: PersonState = initialPersonState, action: a
       });
 
     case actions.LIST_PEOPLE_SUCCESS: {
-      const people: Person[] = action.payload;
+      const payload: Person[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        people: people
+        people: payload
       });
     }
 
@@ -51,24 +51,24 @@ export function personReducer(state: PersonState = initialPersonState, action: a
     }
 
     case actions.UPDATE_PERSON_SUCCESS: {
-      const person: Person = action.payload;
+      const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated ' + person.fullName
+        text: 'Successfully updated ' + payload.fullName
       };
       return {
         loaded: true,
         loading: false,
         message: message,
         people: state.people.map((p: Person) => {
-          return p.uid === person.uid ? Object.assign({}, p, person) : p;
+          return p.uid === payload.uid ? Object.assign({}, p, payload) : p;
         }),
         personId: state.personId
       };
     }
 
     case actions.DELETE_PERSON_SUCCESS: {
-      const person: Person = action.payload;
+      const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
         text: 'Successfully deleted this person'
@@ -77,7 +77,7 @@ export function personReducer(state: PersonState = initialPersonState, action: a
         loaded: true,
         loading: false,
         message: message,
-        people: state.people.filter((p: Person) => p.id !== person.id)
+        people: state.people.filter((p: Person) => p.id !== payload.id)
       });
     }
 
@@ -98,17 +98,17 @@ export function personReducer(state: PersonState = initialPersonState, action: a
     }
 
     case actions.CREATE_PERSON_SUCCESS: {
-      const person: Person = action.payload;
+      const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully created ' + person.fullName
+        text: 'Successfully created ' + payload.fullName
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: true,
         message: message,
-        lastCreated: person.uid,
-        people: [...state.people, person]
+        lastCreated: payload.uid,
+        people: [...state.people, payload]
       });
     }
 
@@ -145,6 +145,6 @@ export const messagePerson: any = (state: PersonState) => state.message;
 export const people: any = (state: PersonState) => state.people;
 export const lastCreatedPersonId: any = (state: PersonState) => state.lastCreated;
 export const selectedId: any = (state: PersonState) => state.personId;
-export const person: any = createSelector(people, selectedId, (people: any, uid: string) => {
-  return people.filter((person: Person) => person.uid === uid)[0];
+export const person: any = createSelector(people, selectedId, (ppl: any, uid: string) => {
+  return ppl.filter((p: Person) => p.uid === uid)[0];
 });
