@@ -28,7 +28,7 @@
     "nx-migrate": "./node_modules/.bin/nx migrate",
     "nx-migrate:check": "./node_modules/.bin/nx migrate check",
     "nx-migrate:skip": "./node_modules/.bin/nx migrate skip",
-    "postinstall": "./node_modules/.bin/nx migrate check"
+    "postinstall": "./node_modules/.bin/nx migrate check && node version.js"
   },
   "private": true,
   "dependencies": {
@@ -62,22 +62,26 @@
     "moment": "^2.20.1",
     "ng2-dragula": "^1.5.0",
     "ng2-img-cropper": "^0.9.0",
-    "roboto-fontface": "^0.8.0",
+    "roboto-fontface": "^0.9.0",
     "rxjs": "^5.5.6",
     "tinymce": "^4.5.5",
     "zone.js": "^0.8.19"
   },
   "devDependencies": {
+    "@angular-devkit/core": "^0.0.29",
+    "@angular-devkit/schematics": "0.0.52",
     "@angular/cli": "file:.angular_cli165.tgz",
     "@angular/compiler-cli": "^5.2.0",
     "@angular/language-service": "^5.2.0",
     "@ngrx/store-devtools": "^5.0.1",
     "@nrwl/nx": "^0.7.3",
     "@nrwl/schematics": "^0.7.3",
+    "@schematics/angular": "0.1.17",
     "@types/jasmine": "~2.5.53",
     "@types/jasminewd2": "~2.0.2",
     "@types/node": "~6.0.60",
     "codelyzer": "^4.0.1",
+    "git-describe": "^4.0.2",
     "gulp": "^4.0.0",
     "gulp-brotli": "^1.2.1",
     "gulp-zopfli": "^1.0.0",
@@ -93,9 +97,6 @@
     "protractor": "~5.1.2",
     "ts-node": "~4.1.0",
     "tslint": "~5.9.1",
-    "typescript": "2.6.2",
-    "@angular-devkit/core": "^0.0.29",
-    "@angular-devkit/schematics": "0.0.52",
-    "@schematics/angular": "0.1.17"
+    "typescript": "2.6.2"
   }
 }
