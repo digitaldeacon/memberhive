@@ -1,5 +1,4 @@
 import { ActionReducerMap, createSelector, createFeatureSelector, ActionReducer, MetaReducer } from '@ngrx/store';
-import { routerReducer, RouterReducerState } from '@ngrx/router-store';
 
 import * as interaction from './modules/interaction/index';
 import * as person from './modules/person/index';
@@ -15,7 +14,6 @@ export interface AppState {
   tags: tags.TagState;
   family: family.FamilyState;
   auth: auth.AuthState;
-  router: RouterReducerState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
@@ -24,8 +22,7 @@ export const reducers: ActionReducerMap<AppState> = {
   settings: settings.settingsReducer,
   tags: tags.tagReducer,
   family: family.familyReducer,
-  auth: auth.authReducer,
-  router: routerReducer
+  auth: auth.authReducer
 };
 
 /**
@@ -140,10 +137,3 @@ export const getMessage: any = createSelector(
 // TODO: make this work (below)
 /*export const getMessage: any = (state: AppState) => [getMessageP, getMessageS]
         .find(messageSelector => messageSelector(state));*/
-/**
- * Router Reducers
- */
-export const getRouterState: any = (state: AppState) => state.router;
-export const getRouterPath: any = createSelector(getRouterState, (reducerState: RouterReducerState) => {
-  return reducerState.state.url;
-});

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { style, state, trigger } from '@angular/animations';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
