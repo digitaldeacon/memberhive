@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="en">
+<html lang="de">
+
 <head>
   <meta charset="utf-8">
   <title>Memberhive</title>
@@ -7,12 +8,174 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <style type="text/css">
+    .progress {
+      width: 300px;
+      max-width: 85vw;
+      height: 4px;
+      position: absolute;
+      bottom: 50vh;
+      left: 50%;
+      border-radius: 4px;
+      background: rgba(255,255,255,0.5);
+      transform: translate(-50%, -50%);
+      overflow: hidden;
+    }
+    .progress:after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 4px;
+      background: #fba75c;
+      animation: load 10s linear;
+    }
+    @-moz-keyframes load {
+      0% {
+        width: 0;
+      }
+      10% {
+        width: 5%;
+      }
+      20% {
+        width: 15%;
+      }
+      30% {
+        width: 25%;
+      }
+      40% {
+        width: 30%;
+      }
+      50% {
+        width: 44%;
+      }
+      60% {
+        width: 50%;
+      }
+      70% {
+        width: 72%;
+      }
+      80% {
+        width: 84%;
+      }
+      90% {
+        width: 92%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    @-webkit-keyframes load {
+      0% {
+        width: 0;
+      }
+      10% {
+        width: 5%;
+      }
+      20% {
+        width: 15%;
+      }
+      30% {
+        width: 25%;
+      }
+      40% {
+        width: 30%;
+      }
+      50% {
+        width: 44%;
+      }
+      60% {
+        width: 50%;
+      }
+      70% {
+        width: 72%;
+      }
+      80% {
+        width: 84%;
+      }
+      90% {
+        width: 92%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    @-o-keyframes load {
+      0% {
+        width: 0;
+      }
+      10% {
+        width: 5%;
+      }
+      20% {
+        width: 15%;
+      }
+      30% {
+        width: 25%;
+      }
+      40% {
+        width: 30%;
+      }
+      50% {
+        width: 44%;
+      }
+      60% {
+        width: 50%;
+      }
+      70% {
+        width: 72%;
+      }
+      80% {
+        width: 84%;
+      }
+      90% {
+        width: 92%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+    @keyframes load {
+      0% {
+        width: 0;
+      }
+      10% {
+        width: 5%;
+      }
+      20% {
+        width: 15%;
+      }
+      30% {
+        width: 25%;
+      }
+      40% {
+        width: 30%;
+      }
+      50% {
+        width: 44%;
+      }
+      60% {
+        width: 50%;
+      }
+      70% {
+        width: 72%;
+      }
+      80% {
+        width: 84%;
+      }
+      90% {
+        width: 92%;
+      }
+      100% {
+        width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <mh-app>
     <div style="padding: 20%;text-align:center;">
       <img src="assets/icons/memberhive.svg" width="120">
-      <div i18n>Loading ...</div>
+      <div i18n class="progress"></div>
     </div>
   </mh-app>
 </body>
