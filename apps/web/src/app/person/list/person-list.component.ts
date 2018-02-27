@@ -46,7 +46,8 @@ export class PersonListComponent implements OnDestroy {
         this.options = data;
       });
     this._setContextMenu();
-    this._store.dispatch(new SetTitleAction('List Members'));
+    // TODO: @I18n
+    this._store.dispatch(new SetTitleAction('Mitglieder auflisten'));
   }
 
   display(key: string): boolean {
@@ -68,8 +69,9 @@ export class PersonListComponent implements OnDestroy {
 
   private _setContextMenu(): void {
     const buttons: ContextButton[] = [];
-    buttons.push({ icon: 'person_pin', link: '/person/map', title: 'PEOPLE MAP' });
-    buttons.push({ icon: 'person_add', link: '/person/create', title: 'ADD PERSON' });
+    // TODO: @I18n
+    buttons.push({ icon: 'person_pin', link: '/person/map', title: 'KARTE' });
+    buttons.push({ icon: 'person_add', link: '/person/create', title: 'HINZUFÜGEN' });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));
   }

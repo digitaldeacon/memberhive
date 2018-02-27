@@ -440,7 +440,7 @@
       </trans-unit>
       <trans-unit id="date.range" datatype="html">
         <source>Next <x id="INTERPOLATION" equiv-text="{{range}}"/> days</source>
-        <target>Nächsten  &lt;x id="INTERPOLATION" equiv-text="{{range}}"/&gt; Tage</target>
+        <target>Nächsten  <x id="INTERPOLATION" equiv-text="{{range}}"/> Tage</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/dashboard/dashlets/birthday/dashlet-birthdays.component.ts</context>
           <context context-type="linenumber">36</context>
@@ -1399,7 +1399,7 @@
       </trans-unit>
       <trans-unit id="e351be6239bf9c184d28703a53db91d04d4fb81d">
         <source>Next <x id="INTERPOLATION" equiv-text="{{range}}"/> days</source>
-        <target>Nächsten &lt;x id="INTERPOLATION" equiv-text="{{range}}"/&gt; Tage</target>
+        <target>Nächsten <x id="INTERPOLATION" equiv-text="{{range}}"/> Tage</target>
       </trans-unit>
       <trans-unit id="cb0f69bdd4dea41d7d45c74b6e07f98de8a2ab26">
         <source>in</source>
@@ -1423,11 +1423,11 @@
       </trans-unit>
       <trans-unit id="a0440fe02caa01ae68ea5c8b283fa4daf0c1b171">
         <source>Displaying <x id="INTERPOLATION" equiv-text="{{(people$ | async)?.length}}"/> Members</source>
-        <target>Es werden &lt;x id="INTERPOLATION" equiv-text="{{(people$ | async)?.length}}"/&gt; Mitglieder angezeigt</target>
+        <target>Es werden <x id="INTERPOLATION" equiv-text="{{(people$ | async)?.length}}"/> Mitglieder angezeigt</target>
       </trans-unit>
       <trans-unit id="d1b30419bd70312a0fece53f7a569e5ad4dde79a">
         <source>in <x id="INTERPOLATION" equiv-text="{{families.length}}"/> families</source>
-        <target>in &lt;x id="INTERPOLATION" equiv-text="{{families.length}}"/&gt; Familien</target>
+        <target>in <x id="INTERPOLATION" equiv-text="{{families.length}}"/> Familien</target>
       </trans-unit>
       <trans-unit id="90132202e554a6642f937453a63a6df19131bb75">
         <source>female</source>

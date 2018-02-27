@@ -9,7 +9,7 @@ import { InteractionComponent } from './interaction.component';
 import { InteractionFormComponent } from './form/interaction-form.component';
 import { InteractionListComponent } from './list/interaction-list.component';
 
-import { TinyMCEComponent } from '../common/tinymce/tinymce.component';
+import { TinyMCEComponent } from '../common/components/tinymce/tinymce.component';
 import { ViewComponent } from './view/view.component';
 
 @NgModule({

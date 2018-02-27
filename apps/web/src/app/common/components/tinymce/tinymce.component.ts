@@ -77,6 +77,7 @@ export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueA
       theme: 'modern',
       menubar: false,
       elementpath: false,
+      branding: false,
       toolbar: 'undo redo | bold italic | bullist numlist | link',
       content_style:
         'body {font-family: Roboto, "Helvetica Neue", sans-serif !important;' +

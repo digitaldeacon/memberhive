@@ -21,9 +21,5 @@ export class AppComponent {
       'memberhive',
       this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/memberhive.svg')
     );
-
-    console.log(`Using locale: ${locale}`);
-    // set the "lang" attribute on the "<html>" element
-    renderer.setAttribute(doc.documentElement, 'lang', locale);
   }
 }

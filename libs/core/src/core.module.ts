@@ -2,7 +2,7 @@ import { NgModule, ModuleWithProviders } from '@angular/core';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { TitleCasePipe } from '@angular/common';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+// import { I18n } from '@ngx-translate/i18n-polyfill';
 
 import { GeocodeService } from './services/geocode.service';
 import { HttpService } from './services/http.service';
@@ -30,7 +30,7 @@ import { AuthInterceptor } from './modules/auth/auth.interceptor';
   ],
   declarations: [],
   exports: [],
-  providers: [TitleCasePipe, I18n]
+  providers: [TitleCasePipe]
 })
 export class MhCoreModule {
   static forRoot(): ModuleWithProviders {
@@ -40,7 +40,7 @@ export class MhCoreModule {
         GeocodeService,
         HttpService,
         AuthService,
-        I18n,
+        // I18n,
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,

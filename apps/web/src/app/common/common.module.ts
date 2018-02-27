@@ -62,7 +62,7 @@ const MATERIAL_MODULES: any[] = [
 ];
 
 @NgModule({
-  declarations: [NotifyboxComponent, FilterComponent, ConfirmDialogComponent, LoginDialogComponent, MhTagsComponent], // directives, components, and pipes owned by this NgModule
+  declarations: [NotifyboxComponent, FilterComponent, ConfirmDialogComponent, LoginDialogComponent, MhTagsComponent],
   imports: [
     MATERIAL_MODULES,
     CommonModule,
