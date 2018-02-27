@@ -1,9 +1,9 @@
-import { NgModule, LOCALE_ID, TRANSLATIONS, TRANSLATIONS_FORMAT, MissingTranslationStrategy } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { NxModule } from '@nrwl/nx';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HttpClientModule, HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { MatSidenavModule, MatProgressBarModule } from '@angular/material';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
@@ -21,11 +21,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 
 import { MhCoreModule } from '@memberhivex/core';
-import { I18n, MISSING_TRANSLATION_STRATEGY } from '@ngx-translate/i18n-polyfill';
 
 import { ToolbarInteractionsComponent } from './viewport/components/interactions/toolbar-interactions/toolbar-interactions.component';
-
-declare const require;
 
 @NgModule({
   declarations: [AppComponent, LoginComponent, ViewComponent, ToolbarInteractionsComponent],
@@ -49,23 +46,8 @@ declare const require;
     InteractionModule
   ],
   bootstrap: [AppComponent],
-  providers: [
-    { provide: LOCALE_ID, useValue: 'de' },
-    {
-      provide: TRANSLATIONS,
-      useFactory: locale => {
-        console.log('using locale', locale);
-        locale = locale || 'de';
-        return require(`raw-loader!../i18n/messages.${locale}.xlf`);
-      },
-      deps: [LOCALE_ID]
-    },
-    // format of translations that you use
-    { provide: TRANSLATIONS_FORMAT, useValue: 'xlf' },
-    { provide: MISSING_TRANSLATION_STRATEGY, useValue: MissingTranslationStrategy.Error },
-    I18n
-  ]
+  providers: []
 })
 export class AppModule {
-  constructor(private _http: HttpClient) {}
+  constructor() {}
 }

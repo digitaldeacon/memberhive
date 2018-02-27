@@ -37,7 +37,7 @@
                      class="drawer-menu" [ngClass]="drawerClass">
             <mat-toolbar color="primary">
                 <mat-icon class="mat-icon-logo"><img src="assets/images/logo-xs.png" width="28px"/></mat-icon>
-                <span fxHide.xs class="p-r-30" *ngIf="drawerState == 'opened'">{{churchName}}</span>
+                <span fxHide.xs class="p-r-30" *ngIf="drawerState == 'opened'">{{church()}} </span>
             </mat-toolbar>
             <mat-nav-list>
                 <a *ngFor="let item of routes"

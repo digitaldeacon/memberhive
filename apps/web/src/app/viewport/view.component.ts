@@ -11,7 +11,7 @@ import { ShoutService } from '../common/shout.service';
 
 import { Store } from '@ngrx/store';
 import * as core from '@memberhivex/core';
-import { I18n } from '@ngx-translate/i18n-polyfill';
+// import { I18n } from '@ngx-translate/i18n-polyfill';
 
 const enum DrawerState {
   OPENED = 'opened',
@@ -27,14 +27,15 @@ const enum DrawerState {
 export class ViewComponent implements OnDestroy {
   private _alive: boolean = true;
 
+  // TODO: @I18n
   routes: Object[] = [
     {
-      title: this.i18n({ value: 'Dashboard', id: 'menu.dashboard' }),
+      title: 'Dashboard', // this.i18n({ value: 'Dashboard', id: 'menu.dashboard' }),
       route: '/dashboard',
       icon: 'dashboard'
     },
     {
-      title: this.i18n({ value: 'People', id: 'menu.people' }),
+      title: 'Mitglieder', //this.i18n({ value: 'People', id: 'menu.people' }),
       route: '/person',
       icon: 'people'
     },
@@ -48,7 +49,7 @@ export class ViewComponent implements OnDestroy {
             title: 'Groups', route: '', icon: 'people_outline'
         },*/
     {
-      title: this.i18n({ value: 'Settings', id: 'menu.settings' }),
+      title: 'Einstellungen', // this.i18n({ value: 'Settings', id: 'menu.settings' }),
       route: '/settings',
       icon: 'build'
     }
@@ -76,7 +77,7 @@ export class ViewComponent implements OnDestroy {
     private _shout: ShoutService,
     private _store: Store<core.AppState>,
     private _media: ObservableMedia,
-    public i18n: I18n
+    // public i18n: I18n
   ) {
     this._initStore();
     this.watcher = _media.subscribe((change: MediaChange) => {
@@ -97,6 +98,10 @@ export class ViewComponent implements OnDestroy {
     this._authSrv.clearStore().then(() => {
       this._store.dispatch(new core.SignOutAction());
     });
+  }
+
+  church(): string {
+    return this.churchName.split(' ').map(w => w[0]).join('');
   }
 
   openDrawer(): void {

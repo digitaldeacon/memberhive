@@ -52,35 +52,39 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _location: Location
   ) {
-    this._store.dispatch(new SetTitleAction('Create Interaction'));
+
+    // TODO: @I18n
+    this._store.dispatch(new SetTitleAction('Dialog erstellen'));
     this.people$ = this._store.select(getPeople);
     this._store
       .select(getSelectedPerson)
       .takeWhile(() => this._alive)
       .subscribe((p: Person) => (this._refPerson = p));
 
-    // TODO: move these to settings
+    // TODO: @I18n
     this.options = {
       interaction: {
         types: [
-          { type: 'interaction', iconString: 'swap_vertical_circle' },
-          { type: 'note', iconString: 'comment' },
-          { type: 'meeting', iconString: 'forum' },
-          { type: 'email', iconString: 'email' },
-          { type: 'phone', iconString: 'contact_phone' }
+          { type: 'interaction', label: 'Dialog', iconString: 'swap_vertical_circle' },
+          { type: 'note', label: 'Notiz', iconString: 'comment' },
+          { type: 'meeting', label: 'Treffen', iconString: 'forum' },
+          { type: 'email', label: 'E-Mail', iconString: 'email' },
+          { type: 'phone', label: 'Telefon', iconString: 'contact_phone' }
         ]
       }
     };
 
     // TODO: fetch these from the auth groups DB
+    // TODO: @I18n
     this.visibility = [
-      { id: 'PRIVATE', text: 'Only Me', icon: 'lock' },
-      { id: 'SHEPHERD', text: 'Shepherds', icon: 'group' },
-      { id: 'LEADER', text: 'Leaders', icon: 'group' },
-      { id: 'STAFF', text: 'Staff', icon: 'group' },
-      { id: 'ALL', text: 'Users', icon: 'person' }
+      { id: 'PRIVATE', text: 'Privat', icon: 'lock' },
+      { id: 'SHEPHERD', text: 'Hirten', icon: 'group' },
+      { id: 'LEADER', text: 'Leiter', icon: 'group' },
+      { id: 'STAFF', text: 'Mitarbeiter', icon: 'group' },
+      { id: 'ALL', text: 'Benutzer', icon: 'person' }
     ];
 
+    // TODO: @I18n
     this.actionVerbs = ['call', 'meet', 'follow up', 'schedule', 'do', 'check'];
     this._authorId = this._auth.personId;
   }

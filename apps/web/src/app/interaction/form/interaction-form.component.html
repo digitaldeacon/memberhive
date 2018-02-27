@@ -22,7 +22,7 @@
                                   formControlName="type"
                                   (change)="toggleTypes($event)">
               <mat-button-toggle value="{{interactionType.type}}"
-                                matTooltip="{{interactionType.type | uppercase}}"
+                                matTooltip="{{interactionType.label | uppercase}}"
                                 class="mat-button-toggle {{interactionType.type | lowercase}}"
                                 *ngFor="let interactionType of options.interaction.types">
                   <mat-icon>{{interactionType.iconString}}</mat-icon>
