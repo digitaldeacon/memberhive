@@ -50,7 +50,6 @@ class SettingsController extends MHController
         $post = \Yii::$app->request->post();
         $ret = [];
         foreach ($post as $section => $data) {
-            $i = 0;
             foreach ($data as $key => $value) {
                 $setting = Settings::findOne(['section'=>$section,'key'=>$key]);
                 if ($setting) {
@@ -70,7 +69,6 @@ class SettingsController extends MHController
                 $ret[$section][$key] = $setting->toResponseArray();
             }
         }
-
         return $ret;
     }
 

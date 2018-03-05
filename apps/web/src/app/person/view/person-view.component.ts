@@ -8,17 +8,10 @@ import { Store } from '@ngrx/store';
 
 import {
   AppState,
-  getSelectedPerson,
-  getInteractionsPerson,
-  getTags,
-  getPeople,
-  getPeopleSysSettings,
-  Person,
-  Family,
-  Interaction,
-  Tag,
-  GeoMarker,
-  Utils,
+  getSelectedPerson, getInteractionsPerson,
+  getTags, getPeople, getPeopleSysSettings,
+  Person, Family, Interaction,
+  Tag, GeoMarker, Utils,
   CalcGeoCodePayload,
   GetInteractionsPersonAction,
   ViewPersonAction,
@@ -50,11 +43,15 @@ import { isEqual } from 'lodash';
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
   private _alive: boolean = true;
-  interactions: Array<Interaction>;
+
   people: Array<Person>;
+  peopleFiltered: Person[];
   person?: Person;
   person$: Observable<Person>;
+
   interactions$: Observable<Interaction[]>;
+  interactions: Array<Interaction>;
+
   tags$: Observable<Tag[]>;
   settings: any; // combines SystemSettings and PersonSettings
   hasMap: boolean = false;
@@ -81,13 +78,19 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     this._store
       .select(getPeople)
       .takeWhile(() => this._alive)
-      .subscribe((people: Person[]) => (this.people = people));
+      .subscribe((people: Person[]) => {
+        this.people = people;
+        this.peopleFiltered = people;
+      });
 
     // Fetch the combined settings for people and system
     this._store
       .select(getPeopleSysSettings)
       .takeWhile(() => this._alive)
-      .subscribe((data: any) => (this.settings = data));
+      .subscribe((data: any) => {
+        this.settings = data;
+        this.filterResults(data.filter);
+      });
   }
 
   ngOnInit(): void {
@@ -113,18 +116,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   prevPerson(): void {
-    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-    idx = idx > 0 ? idx - 1 : this.people.length - 1;
-    if (this.people[idx]) {
-      this.gotoPerson(this.people[idx].uid);
+    let idx: number = this.peopleFiltered.findIndex((p: Person) => p.uid === this.person.uid);
+    idx = idx > 0 ? idx - 1 : this.peopleFiltered.length - 1;
+    if (this.peopleFiltered[idx]) {
+      this.gotoPerson(this.peopleFiltered[idx].uid);
     }
   }
 
   nextPerson(): void {
-    let idx: number = this.people.findIndex((p: Person) => p.uid === this.person.uid);
-    idx = idx < this.people.length - 1 ? idx + 1 : 0;
-    if (this.people[idx]) {
-      this.gotoPerson(this.people[idx].uid);
+    let idx: number = this.peopleFiltered.findIndex((p: Person) => p.uid === this.person.uid);
+    idx = idx < this.peopleFiltered.length - 1 ? idx + 1 : 0;
+    if (this.peopleFiltered[idx]) {
+      this.gotoPerson(this.peopleFiltered[idx].uid);
     }
   }
 
@@ -207,6 +210,16 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
   createInteraction(): void {
     this._router.navigate(['/interaction/create']);
+  }
+
+  filterResults(filter: any) {
+      this.peopleFiltered = this.people.filter(search, filter.split(" "));
+      function search(person: Person){
+          return this.every((searchTerm: string) => {
+              return (person.fullName.includes(searchTerm)
+                  || person.status.some((s: Tag) => s.text.includes(searchTerm)))
+          });
+      }
   }
 
   private _calcGeoCodes(person: Person): void {

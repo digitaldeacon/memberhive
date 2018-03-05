@@ -1,4 +1,4 @@
-import * as actions from './settings.actions';
+import { SettingsActions, SettingsActionTypes } from './settings.actions';
 import * as model from './settings.model';
 import * as common from '../../common/common.model';
 
@@ -22,7 +22,8 @@ const initialState: SettingsState = {
     module: ''
   },
   people: {
-    list: ['email']
+    list: ['email'],
+    filter: ''
   },
   system: {
     churchName: 'Your Church',
@@ -32,32 +33,33 @@ const initialState: SettingsState = {
   dashboard: {}
 };
 
-export function settingsReducer(state: SettingsState = initialState, action: actions.SettingActions): SettingsState {
+export function settingsReducer(state: SettingsState = initialState,
+                                action: SettingsActions): SettingsState {
   switch (action.type) {
-    case actions.LIST_SETTINGS:
-    case actions.UPDATE_SETTINGS: {
+    case SettingsActionTypes.LIST_SETTINGS:
+    case SettingsActionTypes.UPDATE_SETTINGS: {
       return Object.assign({}, state, {
         loading: true
       });
     }
 
-    case actions.CLEAR_SETTINGS_MESSAGE:
+    case SettingsActionTypes.CLEAR_SETTINGS_MESSAGE:
       return Object.assign({}, state, {
         message: undefined
       });
 
-    case actions.LIST_SETTINGS_SUCCESS: {
+    case SettingsActionTypes.LIST_SETTINGS_SUCCESS: {
       const settings: SettingsState = action.payload;
       settings.loading = false;
       settings.loaded = true;
       return Object.assign({}, state, settings);
     }
 
-    case actions.UPDATE_SETTINGS_FAILURE:
-    case actions.LIST_SETTINGS_FAILURE: {
+    case SettingsActionTypes.UPDATE_SETTINGS_FAILURE:
+    case SettingsActionTypes.LIST_SETTINGS_FAILURE: {
       const message: common.Message = {
         type: common.MessageType.FAILURE,
-        text: 'Setting failure: ' + action.payload // TODO: add to i18n
+        text: 'Setting failure: ' + action.payload // TODO: @I18n
       };
       return Object.assign({}, state, {
         loading: false,
@@ -66,14 +68,14 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       });
     }
 
-    case actions.UPDATE_SETTINGS_SUCCESS: {
+    case SettingsActionTypes.UPDATE_SETTINGS_SUCCESS: {
       const payload: SettingsState = action.payload;
       const types = Object.keys(payload);
       const values = (<any>Object).values(payload);
 
-      let message: common.Message = {
+      let msg: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated settings' // TODO: add to i18n
+        text: 'Successfully updated settings' // TODO: @I18n
       };
       let system: model.SystemSettings = state.system;
       let people: model.PersonSettings = state.people;
@@ -88,7 +90,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
           system = Object.assign({}, state.system, values[i]);
         }
         if (section === model.SettingType[model.SettingType.layout]) {
-          message = undefined;
+          msg = undefined;
           layout = Object.assign({}, state.layout, values[i]);
         }
         i++;
@@ -97,7 +99,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       return Object.assign({}, state, {
         loading: false,
         loaded: true,
-        message: message,
+        message: msg,
         layout: layout,
         people: people,
         system: system,
@@ -106,7 +108,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       });
     }
 
-    case actions.TOGGLE_DRAWER: {
+    case SettingsActionTypes.TOGGLE_DRAWER: {
       return Object.assign({}, state, {
         layout: {
           showDrawer: action.payload,
@@ -115,7 +117,7 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       });
     }
 
-    case actions.SET_CONTEXT_BUTTONS: {
+    case SettingsActionTypes.SET_CONTEXT_BUTTONS: {
       return Object.assign({}, state, {
         layout: {
           showDrawer: state.layout.showDrawer,
@@ -125,7 +127,16 @@ export function settingsReducer(state: SettingsState = initialState, action: act
       });
     }
 
-    case actions.SET_TITLE: {
+      case SettingsActionTypes.SAVE_PEOPLE_FILTER: {
+          return Object.assign({}, state, {
+              people: {
+                  list: state.people.list,
+                  filter: action.payload
+              }
+          });
+      }
+
+    case SettingsActionTypes.SET_TITLE: {
       return Object.assign({}, state, {
         layout: {
           showDrawer: state.layout.showDrawer,
@@ -154,4 +165,7 @@ export const showDrawer: any = (state: SettingsState) => state.layout.showDrawer
 export const title: any = (state: SettingsState) => state.layout.title;
 export const module: any = (state: SettingsState) => state.layout.module;
 export const contextButtons: any = (state: SettingsState) => state.layout.contextButtons;
+
 export const sysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;
+
+export const peopleFilterSettings: any = (state: SettingsState) => state.people.filter;

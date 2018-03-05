@@ -1,4 +1,4 @@
-<mh-filter></mh-filter>
+<mh-filter (filters)="filterResults($event)"></mh-filter>
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around">
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
         <a mat-button (click)="prevPerson()">

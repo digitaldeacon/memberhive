@@ -1,5 +1,5 @@
 <mat-accordion>
-    <mat-expansion-panel #filterToolbar>
+    <mat-expansion-panel #filterToolbar [expanded]="hasFilter">
         <mat-expansion-panel-header i18n="@@filter">Filter</mat-expansion-panel-header>
         <form [formGroup]="form"
               novalidate
@@ -7,22 +7,25 @@
               autocomplete="off">
             <div fxLayout="row">
                 <mat-form-field fxFlex>
-                    <mat-icon matPrefix>filter_list</mat-icon>
+                    <mat-icon matPrefix>search</mat-icon>
                     <input matInput
-                           placeholder="Add Filter+"
+                           placeholder="Type your filter criteria"
                            i18n-placeholder="@@filter.add"
                            formControlName="filter"
-                           type="search">
+                           type="search"
+                           (keyup)="filtering()"
+                           (change)="persistFilter()">
+                    <mat-hint i18n>Searches in <b>name</b>, <b>surname</b> and all <b>tags</b></mat-hint>
                 </mat-form-field>
                 <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
                 <mat-menu #saveMenu="matMenu">
-                    <button mat-menu-item>
+                    <button mat-menu-item (click)="saveFilter()">
                         <span i18n="@@btn.save.filter">Save Filter</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item disabled>
                         <span i18n="@@btn.export.filter">Export Filter</span>
                     </button>
-                    <button mat-menu-item>
+                    <button mat-menu-item disabled>
                         <span i18n="@@btn.import.filter">Import</span>
                     </button>
                 </mat-menu>

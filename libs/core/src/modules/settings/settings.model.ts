@@ -5,7 +5,8 @@ export enum SettingType {
   people,
   system,
   dashboard,
-  profile
+  profile,
+  filter
 }
 
 export interface SettingsPayload {
@@ -28,6 +29,7 @@ export interface LayoutSettings {
 
 export interface PersonSettings {
   list: Array<string>;
+  filter: string;
 }
 
 export interface ContextButton {
