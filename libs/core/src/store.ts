@@ -62,6 +62,7 @@ export const getSettingsState: any = (state: AppState) => state.settings;
 export const getLayoutSettings: any = createSelector(getSettingsState, settings.layoutSettings);
 export const getPeopleSettings: any = createSelector(getSettingsState, settings.peopleSettings);
 export const getPeopleListSettings: any = createSelector(getSettingsState, settings.peopleListSettings);
+export const getPeopleFilterSettings: any = createSelector(getSettingsState, settings.peopleFilterSettings);
 export const getProfileSettings: any = createSelector(getSettingsState, settings.profileSettings);
 export const getSysSettings: any = createSelector(getSettingsState, settings.sysSettings);
 

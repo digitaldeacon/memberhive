@@ -1,51 +1,54 @@
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/mergeMap';
-import 'rxjs/add/operator/toArray';
-import 'rxjs/add/observable/of';
-import 'rxjs/add/operator/do';
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { Effect, Actions } from '@ngrx/effects';
+import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
+import { tap, switchMap, catchError, map } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Title } from '@angular/platform-browser';
 
-import * as actions from './settings.actions';
+import {
+    SettingsActionTypes,
+    ListSettingAction, ListSettingSuccessAction, ListSettingFailureAction,
+    UpdateSettingAction, UpdateSettingSuccessAction, UpdateSettingFailureAction,
+    SetTitleAction
+
+} from './settings.actions';
 import { HttpService } from '../../services/http.service';
 import { SettingsState } from './settings.reducer';
 
 @Injectable()
 export class SettingsEffects {
   @Effect()
-  getSettings$: Observable<Action> = this.actions$
-    .ofType(actions.LIST_SETTINGS)
-    .do(() => actions.ListSettingAction)
-    .switchMap(() =>
+  getSettings$: Observable<Action> = this.actions$.pipe(
+    ofType(SettingsActionTypes.LIST_SETTINGS),
+    tap(() => ListSettingAction),
+    switchMap(() =>
       this.http
         .get('settings/list') // TODO: add personId to fetch user settings too
-        .map((r: SettingsState) => new actions.ListSettingSuccessAction(r))
-        .catch((r: any) => of(new actions.ListSettingFailureAction(r)))
+        .pipe(
+            map((r: SettingsState) => new ListSettingSuccessAction(r)),
+            catchError((r: any) => of(new ListSettingFailureAction(r)))
+        ))
     );
 
   @Effect()
-  updateSetting$: Observable<Action> = this.actions$
-    .ofType(actions.UPDATE_SETTINGS)
-    .map((action: actions.UpdateSettingAction) => action.payload)
-    .switchMap((payload: SettingsState) =>
+  updateSetting$: Observable<Action> = this.actions$.pipe(
+    ofType(SettingsActionTypes.UPDATE_SETTINGS),
+    map((action: UpdateSettingAction) => action.payload),
+    switchMap((payload: SettingsState) =>
       this.http
-        .post('settings/update-or-create', payload)
-        .map((r: SettingsState) => new actions.UpdateSettingSuccessAction(payload))
-        .catch((r: any) => of(new actions.UpdateSettingFailureAction(r)))
+        .post('settings/update-or-create', payload).pipe(
+          map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
+          catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+      ))
     );
 
   @Effect({ dispatch: false })
-  setTitle$: Observable<String> = this.actions$
-    .ofType(actions.SET_TITLE)
-    .map((action: actions.SetTitleAction) => action.payload)
-    .do((action: any) => this.browserTitle.setTitle(action + ' - Memberhive'));
+  setTitle$: Observable<String> = this.actions$.pipe(
+    ofType(SettingsActionTypes.SET_TITLE),
+    map((action: SetTitleAction) => action.payload),
+    tap((action: any) => this.browserTitle.setTitle(action + ' - Memberhive'))
+  );
 
   constructor(private actions$: Actions, private http: HttpService, private browserTitle: Title) {}
 }

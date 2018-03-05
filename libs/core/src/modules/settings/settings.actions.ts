@@ -2,78 +2,74 @@ import { Action } from '@ngrx/store';
 import { ContextButton } from './settings.model';
 import { SettingsState } from './settings.reducer';
 
-export const LIST_SETTINGS = '[Settings] List';
-export const LIST_SETTINGS_SUCCESS = '[Settings] List Success';
-export const LIST_SETTINGS_FAILURE = '[Settings] List Failure';
-export const UPDATE_SETTINGS = '[Settings] Update';
-export const UPDATE_SETTINGS_SUCCESS = '[Settings] Update Success';
-export const UPDATE_SETTINGS_FAILURE = '[Settings] Update Failure';
-export const TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer';
-export const SET_TITLE = '[Settings:Title] Set title';
-export const SET_MODULE = '[Settings:Title] Set module';
-export const GET_MODULE_TITLE = '[Settings:Title] Get module and title';
-export const CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message';
-export const SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons';
-export const CLEAR_CONTEXT_BUTTONS = '[Settings:Context Buttons] Clear Context Buttons';
+export enum SettingsActionTypes {
+  LIST_SETTINGS = '[Settings] List',
+  LIST_SETTINGS_SUCCESS = '[Settings] List Success',
+  LIST_SETTINGS_FAILURE = '[Settings] List Failure',
+  UPDATE_SETTINGS = '[Settings] Update',
+  UPDATE_SETTINGS_SUCCESS = '[Settings] Update Success',
+  UPDATE_SETTINGS_FAILURE = '[Settings] Update Failure',
+  TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer',
+  SET_TITLE = '[Settings:Title] Set title',
+  CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message',
+  SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons',
+  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter',
+};
 
 export class ListSettingAction implements Action {
-  readonly type = LIST_SETTINGS;
+  readonly type = SettingsActionTypes.LIST_SETTINGS;
 }
 
 export class ListSettingSuccessAction implements Action {
-  readonly type = LIST_SETTINGS_SUCCESS;
+  readonly type = SettingsActionTypes.LIST_SETTINGS_SUCCESS;
   constructor(public payload: SettingsState) {}
 }
 
 export class ListSettingFailureAction implements Action {
-  readonly type = LIST_SETTINGS_FAILURE;
+  readonly type = SettingsActionTypes.LIST_SETTINGS_FAILURE;
   constructor(public payload: any) {}
 }
 
 export class UpdateSettingAction implements Action {
-  readonly type = UPDATE_SETTINGS;
+  readonly type = SettingsActionTypes.UPDATE_SETTINGS;
   constructor(public payload: any) {}
 }
 
 export class UpdateSettingSuccessAction implements Action {
-  readonly type = UPDATE_SETTINGS_SUCCESS;
+  readonly type = SettingsActionTypes.UPDATE_SETTINGS_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class UpdateSettingFailureAction implements Action {
-  readonly type = UPDATE_SETTINGS_FAILURE;
+  readonly type = SettingsActionTypes.UPDATE_SETTINGS_FAILURE;
   constructor(public payload: any) {}
 }
 
 export class ToggleDrawerAction implements Action {
-  readonly type = TOGGLE_DRAWER;
+  readonly type = SettingsActionTypes.TOGGLE_DRAWER;
   constructor(public payload: boolean) {}
 }
 
 export class SetTitleAction implements Action {
-  readonly type = SET_TITLE;
+  readonly type = SettingsActionTypes.SET_TITLE;
   constructor(public payload: string) {}
-}
-
-export class SetModuleAction implements Action {
-  readonly type = SET_MODULE;
-  constructor(public payload: string) {}
-}
-
-export class GetModuleTitleAction implements Action {
-  readonly type = GET_MODULE_TITLE;
 }
 
 export class ClearSettingsMessageAction implements Action {
-  readonly type = CLEAR_SETTINGS_MESSAGE;
+  readonly type = SettingsActionTypes.CLEAR_SETTINGS_MESSAGE;
 }
 
 export class SetContextButtonsAction implements Action {
-  readonly type = SET_CONTEXT_BUTTONS;
+  readonly type = SettingsActionTypes.SET_CONTEXT_BUTTONS;
   constructor(public payload: ContextButton[]) {}
 }
 
-export type SettingActions =
+export class SavePeopleFilterAction implements Action {
+    readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER;
+    constructor(public payload: string) {}
+}
+
+export type SettingsActions =
   | ListSettingAction
   | ListSettingSuccessAction
   | ListSettingFailureAction
@@ -84,4 +80,5 @@ export type SettingActions =
   | ClearSettingsMessageAction
   | SetTitleAction
   | SetContextButtonsAction
-  | SetContextButtonsAction;
+  | SetContextButtonsAction
+  | SavePeopleFilterAction;

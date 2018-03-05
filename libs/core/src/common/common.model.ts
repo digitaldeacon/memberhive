@@ -1,7 +1,7 @@
 import { Person } from '../modules/person/person.model';
 
 export interface Message {
-  type: string;
+  type: MessageType;
   text?: string;
 }
 

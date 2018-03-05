@@ -1,18 +1,18 @@
 <div class="main-content">
-    <mh-filter></mh-filter>
+    <mh-filter (filters)="filterResults($event)"></mh-filter>
     <h5>
         <span>
             <ng-container i18n="@@displaying">Displaying</ng-container>
-            {{(people$ | async)?.length}}
+            {{peopleFiltered.length}}
             <ng-container i18n="@@members">Members</ng-container>
         </span>
         <small *ngIf="options.indexOf('family') > -1">
-            <ng-container i18n="@@in">in</ng-container>
-            {{families.length}}
-            <ng-container i18n="@@families">families</ng-container></small>
+        <ng-container i18n="@@in">in</ng-container>
+        {{families.length}}
+        <ng-container i18n="@@families">families</ng-container></small>
     </h5>
     <div fxLayout='column'>
-        <mat-card *ngFor="let person of people$ | async" class="nav-list">
+        <mat-card *ngFor="let person of peopleFiltered" class="nav-list">
             <a mat-list-item [routerLink]="['/person/view', person.uid]">
                 <mat-card-header fxLayout.gt-sm="row" fxLayout.xs="column">
                     <img mat-card-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
