@@ -212,9 +212,13 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     this._router.navigate(['/interaction/create']);
   }
 
-  filterResults(filter: any) {
-      this.peopleFiltered = this.people.filter(search, filter.split(" "));
-      function search(person: Person){
+  filterResults(filter: any): void {
+      if (filter) {
+          this.peopleFiltered = this.people.filter(search, filter.split(" "));
+      } else {
+          this.peopleFiltered = this.people;
+      }
+      function search(person: Person) {
           return this.every((searchTerm: string) => {
               return (person.fullName.includes(searchTerm)
                   || person.status.some((s: Tag) => s.text.includes(searchTerm)))
