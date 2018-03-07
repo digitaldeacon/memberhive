@@ -6,7 +6,7 @@ import * as settings from './modules/settings/index';
 import * as auth from './modules/auth/index';
 import * as tags from './modules/tags/index';
 import * as family from './modules/family/index';
-import {Tag} from "@memberhivex/core";
+import { Tag } from '@memberhivex/core';
 
 export interface AppState {
   interaction: interaction.InteractionState;
@@ -141,17 +141,18 @@ export const getMessage: any = createSelector(
         .find(messageSelector => messageSelector(state));*/
 
 export const getPeopleWithFilter: any = createSelector(
-    getPeople,
-    getPeopleFilterSettings,
-    (people: person.Person[], filter: any) => {
-        if (filter) {
-            return people.filter(search, filter.split(' '));
-        } else {
-            return people;
-        }
-        function search(prs: person.Person) {
-            return this.every((searchTerm: string) => {
-                return prs.fullName.includes(searchTerm) || prs.status.some((s: Tag) => s.text.includes(searchTerm));
-            });
-        }
-    });
+  getPeople,
+  getPeopleFilterSettings,
+  (people: person.Person[], filter: any) => {
+    if (filter) {
+      return people.filter(search, filter.split(' '));
+    } else {
+      return people;
+    }
+    function search(prs: person.Person) {
+      return this.every((searchTerm: string) => {
+        return prs.fullName.includes(searchTerm) || prs.status.some((s: Tag) => s.text.includes(searchTerm));
+      });
+    }
+  }
+);

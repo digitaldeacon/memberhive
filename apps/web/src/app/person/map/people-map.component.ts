@@ -2,7 +2,8 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import {
-  AppState, getPeopleWithFilter,
+  AppState,
+  getPeopleWithFilter,
   getSysSettings,
   getFamilies,
   Person,

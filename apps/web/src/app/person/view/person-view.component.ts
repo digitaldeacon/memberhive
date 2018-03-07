@@ -11,7 +11,7 @@ import {
   getSelectedPerson,
   getInteractionsPerson,
   getTags,
-    getPeopleWithFilter,
+  getPeopleWithFilter,
   getPeopleSysSettings,
   Person,
   Family,

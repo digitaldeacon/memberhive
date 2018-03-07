@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import {
   AppState,
-    getPeopleWithFilter,
+  getPeopleWithFilter,
   getPeopleListSettings,
   getFamilies,
   Person,
