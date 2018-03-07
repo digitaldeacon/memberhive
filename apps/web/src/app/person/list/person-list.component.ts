@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 
 import {
   AppState,
-  getPeople,
+    getPeopleWithFilter,
   getPeopleListSettings,
   getFamilies,
   Person,
@@ -36,7 +36,7 @@ export class PersonListComponent implements OnDestroy {
     this._store.dispatch(new ListFamiliesAction({}));
 
     this._store
-      .select(getPeople)
+      .select(getPeopleWithFilter)
       .takeWhile(() => this._alive)
       .subscribe((people: Person[]) => {
         this.people = people;
@@ -72,19 +72,6 @@ export class PersonListComponent implements OnDestroy {
 
   isFamilyMember(id: string): boolean {
     return this.families.some((f: Family) => !!f.primary[id]);
-  }
-
-  filterResults(filter: any) {
-    if (filter) {
-      this.peopleFiltered = this.people.filter(search, filter.split(' '));
-    } else {
-      this.peopleFiltered = this.people;
-    }
-    function search(person: Person) {
-      return this.every((searchTerm: string) => {
-        return person.fullName.includes(searchTerm) || person.status.some((s: Tag) => s.text.includes(searchTerm));
-      });
-    }
   }
 
   private _setContextMenu(): void {
