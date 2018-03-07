@@ -26,7 +26,9 @@ export class FilterComponent {
 
   filtering(): void {
     this.filters.emit(this.form.get('filter').value);
-    this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value));
+    setTimeout(() => {
+        this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value));
+    }, 500)
   }
 
   persistFilter(): void {
