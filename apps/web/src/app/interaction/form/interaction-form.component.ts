@@ -52,7 +52,6 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     private _route: ActivatedRoute,
     private _location: Location
   ) {
-
     // TODO: @I18n
     this._store.dispatch(new SetTitleAction('Dialog erstellen'));
     this.people$ = this._store.select(getPeople);

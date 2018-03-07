@@ -8,10 +8,17 @@ import { Store } from '@ngrx/store';
 
 import {
   AppState,
-  getSelectedPerson, getInteractionsPerson,
-  getTags, getPeople, getPeopleSysSettings,
-  Person, Family, Interaction,
-  Tag, GeoMarker, Utils,
+  getSelectedPerson,
+  getInteractionsPerson,
+  getTags,
+  getPeople,
+  getPeopleSysSettings,
+  Person,
+  Family,
+  Interaction,
+  Tag,
+  GeoMarker,
+  Utils,
   CalcGeoCodePayload,
   GetInteractionsPersonAction,
   ViewPersonAction,
@@ -213,17 +220,16 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   filterResults(filter: any): void {
-      if (filter) {
-          this.peopleFiltered = this.people.filter(search, filter.split(" "));
-      } else {
-          this.peopleFiltered = this.people;
-      }
-      function search(person: Person) {
-          return this.every((searchTerm: string) => {
-              return (person.fullName.includes(searchTerm)
-                  || person.status.some((s: Tag) => s.text.includes(searchTerm)))
-          });
-      }
+    if (filter) {
+      this.peopleFiltered = this.people.filter(search, filter.split(' '));
+    } else {
+      this.peopleFiltered = this.people;
+    }
+    function search(person: Person) {
+      return this.every((searchTerm: string) => {
+        return person.fullName.includes(searchTerm) || person.status.some((s: Tag) => s.text.includes(searchTerm));
+      });
+    }
   }
 
   private _calcGeoCodes(person: Person): void {

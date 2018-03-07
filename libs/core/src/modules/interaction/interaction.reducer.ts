@@ -47,7 +47,7 @@ export function interactionReducer(
         text: 'Successfully added an interaction'
       };
       const newInteract: Interaction[] = [...state.interactions, interaction];
-        newInteract.sort((i1: Interaction, i2: Interaction) => {
+      newInteract.sort((i1: Interaction, i2: Interaction) => {
         const left: Date = new Date(i1.createdAt);
         const right: Date = new Date(i2.createdAt);
         const now: Date = new Date();

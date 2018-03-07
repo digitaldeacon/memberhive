@@ -33,8 +33,7 @@ const initialState: SettingsState = {
   dashboard: {}
 };
 
-export function settingsReducer(state: SettingsState = initialState,
-                                action: SettingsActions): SettingsState {
+export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
   switch (action.type) {
     case SettingsActionTypes.LIST_SETTINGS:
     case SettingsActionTypes.UPDATE_SETTINGS: {
@@ -127,14 +126,14 @@ export function settingsReducer(state: SettingsState = initialState,
       });
     }
 
-      case SettingsActionTypes.SAVE_PEOPLE_FILTER: {
-          return Object.assign({}, state, {
-              people: {
-                  list: state.people.list,
-                  filter: action.payload
-              }
-          });
-      }
+    case SettingsActionTypes.SAVE_PEOPLE_FILTER: {
+      return Object.assign({}, state, {
+        people: {
+          list: state.people.list,
+          filter: action.payload
+        }
+      });
+    }
 
     case SettingsActionTypes.SET_TITLE: {
       return Object.assign({}, state, {

@@ -9,14 +9,12 @@ import { Store } from '@ngrx/store';
   styleUrls: ['./filter.component.scss']
 })
 export class FilterComponent {
-
   @Output() filters: EventEmitter<any> = new EventEmitter<any>();
 
   form: FormGroup;
   hasFilter: boolean = false;
 
-  constructor(private _fb: FormBuilder,
-              private _store: Store<AppState>,) {
+  constructor(private _fb: FormBuilder, private _store: Store<AppState>) {
     this.form = this._fb.group({
       filter: ['']
     });
@@ -32,11 +30,11 @@ export class FilterComponent {
 
   persistFilter(): void {
     this.filters.emit(this.form.get('filter').value);
-    this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value))
+    this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value));
   }
 
   saveFilter(): void {
     // TODO: turn this into a db persist action
-    this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value))
+    this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value));
   }
 }

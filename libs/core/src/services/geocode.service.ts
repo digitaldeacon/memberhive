@@ -27,7 +27,9 @@ export class GeocodeService {
   }
 
   calc(): Observable<any> {
-    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${this._apiKey}`;
+    const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${this._formatAddress()}&key=${
+      this._apiKey
+    }`;
     if (!this._address.street && !this._address.zip && !this._address.city) {
       return empty();
     }
