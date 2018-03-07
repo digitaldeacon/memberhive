@@ -26,11 +26,12 @@ export class FilterComponent {
     });
   }
 
-  filtering(data: any): void {
+  filtering(): void {
     this.filters.emit(this.form.get('filter').value);
   }
 
   persistFilter(): void {
+    this.filters.emit(this.form.get('filter').value);
     this._store.dispatch(new SavePeopleFilterAction(this.form.get('filter').value))
   }
 
