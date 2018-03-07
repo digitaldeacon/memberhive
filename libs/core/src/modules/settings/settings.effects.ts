@@ -7,11 +7,14 @@ import { of } from 'rxjs/observable/of';
 import { Title } from '@angular/platform-browser';
 
 import {
-    SettingsActionTypes,
-    ListSettingAction, ListSettingSuccessAction, ListSettingFailureAction,
-    UpdateSettingAction, UpdateSettingSuccessAction, UpdateSettingFailureAction,
-    SetTitleAction
-
+  SettingsActionTypes,
+  ListSettingAction,
+  ListSettingSuccessAction,
+  ListSettingFailureAction,
+  UpdateSettingAction,
+  UpdateSettingSuccessAction,
+  UpdateSettingFailureAction,
+  SetTitleAction
 } from './settings.actions';
 import { HttpService } from '../../services/http.service';
 import { SettingsState } from './settings.reducer';
@@ -26,10 +29,11 @@ export class SettingsEffects {
       this.http
         .get('settings/list') // TODO: add personId to fetch user settings too
         .pipe(
-            map((r: SettingsState) => new ListSettingSuccessAction(r)),
-            catchError((r: any) => of(new ListSettingFailureAction(r)))
-        ))
-    );
+          map((r: SettingsState) => new ListSettingSuccessAction(r)),
+          catchError((r: any) => of(new ListSettingFailureAction(r)))
+        )
+    )
+  );
 
   @Effect()
   updateSetting$: Observable<Action> = this.actions$.pipe(
@@ -37,11 +41,13 @@ export class SettingsEffects {
     map((action: UpdateSettingAction) => action.payload),
     switchMap((payload: SettingsState) =>
       this.http
-        .post('settings/update-or-create', payload).pipe(
+        .post('settings/update-or-create', payload)
+        .pipe(
           map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
           catchError((r: any) => of(new UpdateSettingFailureAction(r)))
-      ))
-    );
+        )
+    )
+  );
 
   @Effect({ dispatch: false })
   setTitle$: Observable<String> = this.actions$.pipe(

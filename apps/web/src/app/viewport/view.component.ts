@@ -76,8 +76,7 @@ export class ViewComponent implements OnDestroy {
     private _router: Router,
     private _shout: ShoutService,
     private _store: Store<core.AppState>,
-    private _media: ObservableMedia,
-    // public i18n: I18n
+    private _media: ObservableMedia // public i18n: I18n
   ) {
     this._initStore();
     this.watcher = _media.subscribe((change: MediaChange) => {
@@ -101,7 +100,10 @@ export class ViewComponent implements OnDestroy {
   }
 
   church(): string {
-    return this.churchName.split(' ').map(w => w[0]).join('');
+    return this.churchName
+      .split(' ')
+      .map(w => w[0])
+      .join('');
   }
 
   openDrawer(): void {

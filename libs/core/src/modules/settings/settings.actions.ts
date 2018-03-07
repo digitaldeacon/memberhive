@@ -13,8 +13,8 @@ export enum SettingsActionTypes {
   SET_TITLE = '[Settings:Title] Set title',
   CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message',
   SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons',
-  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter',
-};
+  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter'
+}
 
 export class ListSettingAction implements Action {
   readonly type = SettingsActionTypes.LIST_SETTINGS;
@@ -65,8 +65,8 @@ export class SetContextButtonsAction implements Action {
 }
 
 export class SavePeopleFilterAction implements Action {
-    readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER;
-    constructor(public payload: string) {}
+  readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER;
+  constructor(public payload: string) {}
 }
 
 export type SettingsActions =

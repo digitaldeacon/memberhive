@@ -6,7 +6,8 @@ import {
   getPeople,
   getPeopleListSettings,
   getFamilies,
-  Person, Tag,
+  Person,
+  Tag,
   Family,
   ListFamiliesAction,
   ListPeopleAction,
@@ -34,12 +35,13 @@ export class PersonListComponent implements OnDestroy {
     this._store.dispatch(new ListPeopleAction({}));
     this._store.dispatch(new ListFamiliesAction({}));
 
-   this._store.select(getPeople)
-        .takeWhile(() => this._alive)
-        .subscribe((people: Person[]) => {
-          this.people = people;
-          this.peopleFiltered = people;
-        });
+    this._store
+      .select(getPeople)
+      .takeWhile(() => this._alive)
+      .subscribe((people: Person[]) => {
+        this.people = people;
+        this.peopleFiltered = people;
+      });
     this._store
       .select(getFamilies)
       .takeWhile(() => this._alive)
@@ -73,12 +75,15 @@ export class PersonListComponent implements OnDestroy {
   }
 
   filterResults(filter: any) {
-    this.peopleFiltered = this.people.filter(search, filter.split(" "));
-    function search(person: Person){
-        return this.every((searchTerm: string) => {
-            return (person.fullName.includes(searchTerm)
-                || person.status.some((s: Tag) => s.text.includes(searchTerm)))
-        });
+    if (filter) {
+      this.peopleFiltered = this.people.filter(search, filter.split(' '));
+    } else {
+      this.peopleFiltered = this.people;
+    }
+    function search(person: Person) {
+      return this.every((searchTerm: string) => {
+        return person.fullName.includes(searchTerm) || person.status.some((s: Tag) => s.text.includes(searchTerm));
+      });
     }
   }
 
