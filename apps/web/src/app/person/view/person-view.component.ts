@@ -11,7 +11,7 @@ import {
   getSelectedPerson,
   getInteractionsPerson,
   getTags,
-  getPeople,
+    getPeopleWithFilter,
   getPeopleSysSettings,
   Person,
   Family,
@@ -83,7 +83,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     // Load all people for the back and forth buttons
     this._store
-      .select(getPeople)
+      .select(getPeopleWithFilter)
       .takeWhile(() => this._alive)
       .subscribe((people: Person[]) => {
         this.people = people;
@@ -96,7 +96,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
       .takeWhile(() => this._alive)
       .subscribe((data: any) => {
         this.settings = data;
-        this.filterResults(data.filter);
       });
   }
 
@@ -217,19 +216,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
   createInteraction(): void {
     this._router.navigate(['/interaction/create']);
-  }
-
-  filterResults(filter: any): void {
-    if (filter) {
-      this.peopleFiltered = this.people.filter(search, filter.split(' '));
-    } else {
-      this.peopleFiltered = this.people;
-    }
-    function search(person: Person) {
-      return this.every((searchTerm: string) => {
-        return person.fullName.includes(searchTerm) || person.status.some((s: Tag) => s.text.includes(searchTerm));
-      });
-    }
   }
 
   private _calcGeoCodes(person: Person): void {

@@ -2,8 +2,7 @@ import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import {
-  AppState,
-  getPeople,
+  AppState, getPeopleWithFilter,
   getSysSettings,
   getFamilies,
   Person,
@@ -43,9 +42,10 @@ export class PeopleMapComponent implements OnDestroy {
         this.families = families;
       });
     this._store
-      .select(getPeople)
+      .select(getPeopleWithFilter)
       .takeWhile(() => this._alive)
       .subscribe((people: Person[]) => {
+        this.markers = [];
         this.people = people.filter((p: Person) => !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
         this.people.map((person: Person) => {
           const family = this.families.find((f: Family) => !!f.primary[person.uid]);
