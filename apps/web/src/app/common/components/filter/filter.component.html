@@ -14,7 +14,8 @@
                            formControlName="filter"
                            type="search"
                            (keyup)="filtering()"
-                           (change)="persistFilter()">
+                           (change)="persistFilter()"
+                           (keypress.enter)="filtering()">
                     <mat-hint i18n>Searches in <b>name</b>, <b>surname</b> and all <b>tags</b></mat-hint>
                 </mat-form-field>
                 <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
@@ -33,24 +34,3 @@
         </form>
     </mat-expansion-panel>
 </mat-accordion>
-<!--<mat-card fxLayout="row" class="filter-card">
-  <mat-form-field fxFlex fxFlexFill>
-    <mat-icon matPrefix>filter_list</mat-icon>
-    <input matInput
-           placeholder="Filter..."
-           i18n-placeholder
-           type="search">
-  </mat-form-field>
-  <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
-  <mat-menu #saveMenu="matMenu">
-    <button mat-menu-item>
-      <span i18n>Save Filter</span>
-    </button>
-    <button mat-menu-item>
-      <span i18n>Export Filter</span>
-    </button>
-    <button mat-menu-item>
-      <span i18n>Import</span>
-    </button>
-  </mat-menu>
-</mat-card>-->
