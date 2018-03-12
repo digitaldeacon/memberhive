@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\models\Settings;
 use yii\web\BadRequestHttpException;
+use app\helpers\Access;
 
 class SettingsController extends MHController
 {
@@ -14,7 +15,7 @@ class SettingsController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','update-or-create'],
+                    'actions' => ['list','upsert', 'upsert-people-filter'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -38,14 +39,34 @@ class SettingsController extends MHController
     public function actionList()
     {
         $ret = [];
-        $settings = Settings::find()->all();
+        $settings = Settings::find()
+            ->andWhere(['personId' => NULL])
+            ->orWhere(['personId' => Access::userId()])
+            ->all();
         foreach ($settings as $setting) {
-            $ret[$setting->section][$setting->key] = json_decode($setting->value);
+            if ($setting->key == 'filter') {
+                $ret[$setting->section]['filter']['filters'][] = json_decode($setting->value);
+                // $ret[$setting->section]['filter']['current'] = '';
+            } else {
+                $ret[$setting->section][$setting->key] = json_decode($setting->value);
+            }
         }
         return $ret;
     }
 
-    public function actionUpdateOrCreate()
+    public function actionUpsertPeopleFilter()
+    {
+        $ret = [];
+        $post = \Yii::$app->request->post();
+        $settings = $setting = Settings::findOne([
+            'section'=>'people',
+            'key'=>'filter',
+            'personId'=>Access::userId()]);
+        var_dump($post);
+        return $ret;
+    }
+
+    public function actionUpsert()
     {
         $post = \Yii::$app->request->post();
         $ret = [];

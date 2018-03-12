@@ -1,4 +1,4 @@
-import { Address } from '../../common/common.model';
+import { Address, FilterSet } from '../../common/common.model';
 import { Tag } from '../tags/tag.model';
 import { Moment } from 'moment';
 
@@ -83,3 +83,12 @@ export interface CalcGeoCodePayload {
   person: Person;
   apiKey?: string;
 }
+
+export const personFilterSet: FilterSet[] = [
+    {key: 'firstName', label: 'name'},
+    {key: 'lastName', label: 'nachname'},
+    {key: 'email', label: 'email'},
+    {key: 'gender', label: 'sex'},
+    {key: 'status', label: 'status'},
+    {key: 'age', label: 'alter'}
+];

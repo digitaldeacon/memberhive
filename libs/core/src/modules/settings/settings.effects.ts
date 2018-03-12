@@ -14,7 +14,9 @@ import {
   UpdateSettingAction,
   UpdateSettingSuccessAction,
   UpdateSettingFailureAction,
-  SetTitleAction
+  SetTitleAction,
+  SavePeopleFilterAction,
+  PersistPeopleFilterAction
 } from './settings.actions';
 import { HttpService } from '../../services/http.service';
 import { SettingsState } from './settings.reducer';
@@ -36,17 +38,31 @@ export class SettingsEffects {
   );
 
   @Effect()
-  updateSetting$: Observable<Action> = this.actions$.pipe(
+  upsertSettings$: Observable<Action> = this.actions$.pipe(
     ofType(SettingsActionTypes.UPDATE_SETTINGS),
     map((action: UpdateSettingAction) => action.payload),
     switchMap((payload: SettingsState) =>
       this.http
-        .post('settings/update-or-create', payload)
+        .post('settings/upsert', payload)
         .pipe(
           map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
           catchError((r: any) => of(new UpdateSettingFailureAction(r)))
         )
     )
+  );
+
+  @Effect()
+  upsertPeopleFilterSetting$: Observable<Action> = this.actions$.pipe(
+      ofType(SettingsActionTypes.SAVE_PEOPLE_FILTER),
+      map((action: SavePeopleFilterAction) => action.payload),
+      switchMap((payload: string) =>
+          this.http
+              .post('settings/upsert-people-filter', JSON.stringify(payload))
+              .pipe(
+                  map((r: string) => new PersistPeopleFilterAction(payload)),
+                  catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+              )
+      )
   );
 
   @Effect({ dispatch: false })

@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { ContextButton } from './settings.model';
+import { ContextButton, SettingsPayload } from './settings.model';
 import { SettingsState } from './settings.reducer';
 
 export enum SettingsActionTypes {
@@ -7,13 +7,15 @@ export enum SettingsActionTypes {
   LIST_SETTINGS_SUCCESS = '[Settings] List Success',
   LIST_SETTINGS_FAILURE = '[Settings] List Failure',
   UPDATE_SETTINGS = '[Settings] Update',
+  UPDATE_PERSONAL_SETTINGS = '[Settings] Update personal settings',
   UPDATE_SETTINGS_SUCCESS = '[Settings] Update Success',
   UPDATE_SETTINGS_FAILURE = '[Settings] Update Failure',
   TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer',
   SET_TITLE = '[Settings:Title] Set title',
   CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message',
   SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons',
-  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter'
+  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter',
+  PERSIST_PEOPLE_FILTER = '[Settings:Filter] Persist people filter'
 }
 
 export class ListSettingAction implements Action {
@@ -33,6 +35,11 @@ export class ListSettingFailureAction implements Action {
 export class UpdateSettingAction implements Action {
   readonly type = SettingsActionTypes.UPDATE_SETTINGS;
   constructor(public payload: any) {}
+}
+
+export class UpdatePersonalSettingAction implements Action {
+    readonly type = SettingsActionTypes.UPDATE_PERSONAL_SETTINGS;
+    constructor(public payload: SettingsPayload) {}
 }
 
 export class UpdateSettingSuccessAction implements Action {
@@ -64,6 +71,11 @@ export class SetContextButtonsAction implements Action {
   constructor(public payload: ContextButton[]) {}
 }
 
+export class PersistPeopleFilterAction implements Action {
+    readonly type = SettingsActionTypes.PERSIST_PEOPLE_FILTER;
+    constructor(public payload: string) {}
+}
+
 export class SavePeopleFilterAction implements Action {
   readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER;
   constructor(public payload: string) {}
@@ -81,4 +93,6 @@ export type SettingsActions =
   | SetTitleAction
   | SetContextButtonsAction
   | SetContextButtonsAction
-  | SavePeopleFilterAction;
+  | SavePeopleFilterAction
+  | PersistPeopleFilterAction
+  | UpdatePersonalSettingAction;

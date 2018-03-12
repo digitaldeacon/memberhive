@@ -11,16 +11,18 @@
         </context-group>
       </trans-unit>
       <trans-unit id="filter.add" datatype="html">
-        <source>Type your filter criteria</source>
-        <target>Gib hier deine Filterkriterien ein</target>
+        <source>Search in name, surname and all tags</source>
+        <target>Suche in Name, Tags und speziellen Begriffen</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="82e91c511c9a831fbe4e6949b581b5bdb5adb0fa" datatype="html">
-        <source>Searches in <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>name<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/>, <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>surname<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/> and all <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>tags<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/></source>
-        <target>Sucht nach <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Namen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/>, <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Nachname<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/> und allen <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Tags<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/></target>
+      <trans-unit id="hint.filter.terms" datatype="html">
+        <source>
+                        Searches in name and status. Other Options are age:number (or number-number for range), gender:m (or f)
+                    </source>
+        <target>Sucht in Namen und Status. Andere Optionen sind alter:zahl (oder zahl-zahl für Bereich), sex:m (oder f)</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -31,7 +33,7 @@
         <target>Filter speichern</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.export.filter" datatype="html">
@@ -39,7 +41,7 @@
         <target>Filter exportieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.import.filter" datatype="html">
@@ -47,7 +49,7 @@
         <target>Importieren</target>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.ok" datatype="html">
@@ -654,14 +656,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/person/view/person-view.component.ts</context>
           <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="relationships" datatype="html">
-        <source>Relationships</source>
-        <target>Beziehungen</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/person/view/person-view.component.ts</context>
-          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="avatar" datatype="html">
@@ -1289,6 +1283,14 @@
       <trans-unit id="form.updated">
         <source>Updated:</source>
         <target>Aktualisiert:</target>
+      </trans-unit>
+      <trans-unit id="relationships">
+        <source>Relationships</source>
+        <target>Beziehungen</target>
+      </trans-unit>
+      <trans-unit id="82e91c511c9a831fbe4e6949b581b5bdb5adb0fa">
+        <source>Searches in <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>name<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/>, <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>surname<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/> and all <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>tags<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/></source>
+        <target>Sucht nach <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Namen<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/>, <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Nachname<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/> und allen <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="<b>"/>Tags<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="</b>"/></target>
       </trans-unit>
       <trans-unit id="5ca707824ab93066c7d9b44e1b8bf216725c2c22">
         <source>Filter</source>

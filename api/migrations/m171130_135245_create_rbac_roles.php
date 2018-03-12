@@ -133,13 +133,4 @@ class m171130_135245_create_rbac_roles extends Migration
     {
         Yii::$app->authManager->removeAll();
     }
-    /*
-    // Use safeUp/safeDown to run migration code within a transaction
-    public function safeUp()
-    {
-    }
-    public function safeDown()
-    {
-    }
-    */
 }
