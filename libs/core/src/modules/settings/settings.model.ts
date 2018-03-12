@@ -1,17 +1,16 @@
-import { Address } from '../../common/common.model';
+import { Address, Filter } from '../../common/common.model';
 
 export enum SettingType {
-  layout,
-  people,
-  system,
-  dashboard,
-  profile,
-  filter
+  LAYOUT = 'layout',
+  PEOPLE = 'people',
+  SYSTEM = 'system',
+  DASHBOARD = 'dashboard'
 }
 
 export interface SettingsPayload {
-  type: SettingType;
-  data: any;
+  section: SettingType;
+  key: string;
+  value: any;
 }
 
 export interface SystemSettings {
@@ -29,7 +28,7 @@ export interface LayoutSettings {
 
 export interface PersonSettings {
   list: Array<string>;
-  filter: string;
+  filter: Filter;
 }
 
 export interface ContextButton {

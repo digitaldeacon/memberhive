@@ -10,14 +10,16 @@
         </context-group>
       </trans-unit>
       <trans-unit id="filter.add" datatype="html">
-        <source>Type your filter criteria</source>
+        <source>Search in name, surname and all tags</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="82e91c511c9a831fbe4e6949b581b5bdb5adb0fa" datatype="html">
-        <source>Searches in <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>name<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/>, <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>surname<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/> and all <x id="START_BOLD_TEXT" ctype="x-b" equiv-text="&lt;b&gt;"/>tags<x id="CLOSE_BOLD_TEXT" ctype="x-b" equiv-text="&lt;/b&gt;"/></source>
+      <trans-unit id="hint.filter.terms" datatype="html">
+        <source>
+                        Searches in name and status. Other Options are age:number (or number-number for range), gender:m (or f)
+                    </source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
           <context context-type="linenumber">18</context>
@@ -27,21 +29,21 @@
         <source>Save Filter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">23</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.export.filter" datatype="html">
         <source>Export Filter</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="linenumber">28</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.import.filter" datatype="html">
         <source>Import</source>
         <context-group purpose="location">
           <context context-type="sourcefile">app/common/components/filter/filter.component.ts</context>
-          <context context-type="linenumber">29</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="btn.ok" datatype="html">
@@ -583,13 +585,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">app/person/view/person-view.component.ts</context>
           <context context-type="linenumber">50</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="relationships" datatype="html">
-        <source>Relationships</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">app/person/view/person-view.component.ts</context>
-          <context context-type="linenumber">53</context>
         </context-group>
       </trans-unit>
       <trans-unit id="avatar" datatype="html">

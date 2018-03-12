@@ -1,4 +1,4 @@
-import { ActionReducerMap, createSelector, createFeatureSelector, ActionReducer, MetaReducer } from '@ngrx/store';
+import { ActionReducerMap, createSelector, MetaReducer } from '@ngrx/store';
 
 import * as interaction from './modules/interaction/index';
 import * as person from './modules/person/index';
@@ -6,7 +6,8 @@ import * as settings from './modules/settings/index';
 import * as auth from './modules/auth/index';
 import * as tags from './modules/tags/index';
 import * as family from './modules/family/index';
-import { Tag } from '@memberhivex/core';
+
+import { FilterSet, Filter } from './common/common.model';
 
 export interface AppState {
   interaction: interaction.InteractionState;
@@ -143,15 +144,40 @@ export const getMessage: any = createSelector(
 export const getPeopleWithFilter: any = createSelector(
   getPeople,
   getPeopleFilterSettings,
-  (people: person.Person[], filter: any) => {
-    if (filter) {
-      return people.filter(search, filter.split(' '));
+  (people: person.Person[], filter: Filter) => {
+    if (filter && filter.hasOwnProperty('current')) {
+      return people.filter(search, filter.current.split(' '));
     } else {
       return people;
     }
     function search(prs: person.Person) {
       return this.every((searchTerm: string) => {
-        return prs.fullName.includes(searchTerm) || prs.status.some((s: Tag) => s.text.includes(searchTerm));
+          let found = false;
+          const fieldSearch: string[] = searchTerm.split(':');
+          if (fieldSearch.length === 1) {
+              const sFullname = prs.fullName.includes(searchTerm);
+              const sStatus = prs.status.some((s: tags.Tag) => s.text.includes(searchTerm));
+              found = sFullname || sStatus;
+          } else {
+              console.log('fieldSearch Term', fieldSearch);
+                const filterSet: FilterSet = person.personFilterSet
+                    .filter((set: any) => set.label === fieldSearch[0].toLocaleLowerCase())[0];
+                if (filterSet.key === 'age') {
+                    const exprRange = fieldSearch[1].split('-');
+                    // const exprGt = fieldSearch[1].split('>');
+                    // const exprLt = fieldSearch[1].split('<');
+
+                    if (exprRange.length > 1) {
+                        found = prs[filterSet.key] >= parseInt(exprRange[0] , 10)
+                            && prs[filterSet.key] <= parseInt(exprRange[1], 10);
+                    } else {
+                        found = parseInt(fieldSearch[1], 10) === prs[filterSet.key];
+                    }
+                } else {
+                    found = fieldSearch[1] === prs[filterSet.key]
+                }
+          }
+          return found;
       });
     }
   }

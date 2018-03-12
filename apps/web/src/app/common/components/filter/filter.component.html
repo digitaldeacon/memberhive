@@ -3,20 +3,21 @@
         <mat-expansion-panel-header i18n="@@filter">Filter</mat-expansion-panel-header>
         <form [formGroup]="form"
               novalidate
-              fxLayout="column"
               autocomplete="off">
             <div fxLayout="row">
                 <mat-form-field fxFlex>
                     <mat-icon matPrefix>search</mat-icon>
                     <input matInput
-                           placeholder="Type your filter criteria"
+                           placeholder="Search in name, surname and all tags"
                            i18n-placeholder="@@filter.add"
                            formControlName="filter"
                            type="search"
                            (keyup)="filtering()"
                            (change)="persistFilter()"
                            (keypress.enter)="filtering()">
-                    <mat-hint i18n>Searches in <b>name</b>, <b>surname</b> and all <b>tags</b></mat-hint>
+                    <mat-hint i18n="@@hint.filter.terms">
+                        Searches in name and status. Other Options are age:number (or number-number for range), gender:m (or f)
+                    </mat-hint>
                 </mat-form-field>
                 <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
                 <mat-menu #saveMenu="matMenu">
@@ -30,6 +31,12 @@
                         <span i18n="@@btn.import.filter">Import</span>
                     </button>
                 </mat-menu>
+            </div>
+            <div fxLayout="column" fxLayoutGap="10px">
+                <h5 fxFlex>Saved Filters</h5>
+                <mat-chip-list>
+                    <mat-chip *ngFor="let filter of savedFilters">{{filter}}</mat-chip>
+                </mat-chip-list>
             </div>
         </form>
     </mat-expansion-panel>

@@ -34,6 +34,16 @@ export interface Address {
   geocode?: GeoCodes;
 }
 
+export interface FilterSet {
+  key: string;
+  label: string;
+}
+
+export interface Filter {
+  current?: string;
+  filters?: string[];
+}
+
 export enum FormStatus {
   EDIT = 'edit',
   CREATE = 'create'

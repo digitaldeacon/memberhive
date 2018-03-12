@@ -23,7 +23,10 @@ const initialState: SettingsState = {
   },
   people: {
     list: ['email'],
-    filter: ''
+    filter: {
+      current: '',
+      filters: []
+    }
   },
   system: {
     churchName: 'Your Church',
@@ -35,6 +38,8 @@ const initialState: SettingsState = {
 
 export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
   switch (action.type) {
+
+    case SettingsActionTypes.SAVE_PEOPLE_FILTER:
     case SettingsActionTypes.LIST_SETTINGS:
     case SettingsActionTypes.UPDATE_SETTINGS: {
       return Object.assign({}, state, {
@@ -82,13 +87,13 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
 
       let i = 0;
       for (const section of types) {
-        if (section === model.SettingType[model.SettingType.people]) {
+        if (section === model.SettingType[model.SettingType.PEOPLE]) {
           people = Object.assign({}, state.people, values[i]);
         }
-        if (section === model.SettingType[model.SettingType.system]) {
+        if (section === model.SettingType[model.SettingType.SYSTEM]) {
           system = Object.assign({}, state.system, values[i]);
         }
-        if (section === model.SettingType[model.SettingType.layout]) {
+        if (section === model.SettingType[model.SettingType.LAYOUT]) {
           msg = undefined;
           layout = Object.assign({}, state.layout, values[i]);
         }
@@ -126,7 +131,7 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
       });
     }
 
-    case SettingsActionTypes.SAVE_PEOPLE_FILTER: {
+    case SettingsActionTypes.PERSIST_PEOPLE_FILTER:{
       return Object.assign({}, state, {
         people: {
           list: state.people.list,
