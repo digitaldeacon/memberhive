@@ -15,16 +15,16 @@ class MHController extends Controller
     {
         $behaviors = parent::behaviors();
         $behaviors['authenticator'] = [
-            'class' => MhAuth::className(),
+            'class' => MhAuth::class,
         ];
         $behaviors['contentNegotiator'] = [
-            'class' => ContentNegotiator::className(),
+            'class' => ContentNegotiator::class,
             'formats' => [
                 'application/json' => Response::FORMAT_JSON,
             ]
         ];
         $behaviors['cors'] = [
-            'class' => Cors::className(),
+            'class' => Cors::class,
             'cors' => [
                 'Origin' => ['*'],
                 'Access-Control-Request-Method' => ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],

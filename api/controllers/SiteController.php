@@ -12,7 +12,7 @@ class SiteController extends MHController
     {
         $behaviors = parent::behaviors();
         $behaviors['access'] = [
-            'class' => \yii\filters\AccessControl::className(),
+            'class' => \yii\filters\AccessControl::class,
             'rules' => [
                 [
                     'actions' => ['index', 'error', 'log-js'],

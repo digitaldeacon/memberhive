@@ -28,7 +28,7 @@ class Family extends \yii\db\ActiveRecord
     {
         return [
             [
-                'class' => TimestampBehavior::className(),
+                'class' => TimestampBehavior::class,
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['updated_at'],
                     ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at']
@@ -61,7 +61,7 @@ class Family extends \yii\db\ActiveRecord
      */
     public function getPersonFamilies()
     {
-        return $this->hasMany(PersonFamily::className(), ['family_id' => 'id']);
+        return $this->hasMany(PersonFamily::class, ['family_id' => 'id']);
     }
 
     /**
@@ -69,7 +69,7 @@ class Family extends \yii\db\ActiveRecord
      */
     public function getMembers()
     {
-        return $this->hasMany(Person::className(), ['id' => 'person_id'])
+        return $this->hasMany(Person::class, ['id' => 'person_id'])
             ->via('personFamilies');
     }
 

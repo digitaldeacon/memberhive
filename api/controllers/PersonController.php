@@ -27,11 +27,11 @@ class PersonController extends MHController
     {
         $behaviors = parent::behaviors();
         $behaviors['verbs'] = [
-            'class' => \yii\filters\VerbFilter::className(),
+            'class' => \yii\filters\VerbFilter::class,
             'actions' => $this->_actions,
         ];
         $behaviors['access'] = [
-            'class' => \yii\filters\AccessControl::className(),
+            'class' => \yii\filters\AccessControl::class,
             'rules' => [
                 [
                     'actions' => array_keys($this->_actions),

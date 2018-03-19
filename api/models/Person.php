@@ -47,7 +47,7 @@ class Person extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::class,
             [
                 'class' => UuidBehavior::class,
                 'version' => Uuid::V4,
@@ -125,7 +125,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonNotes()
     {
-        return $this->hasMany(PersonInteraction::className(), ['person_id' => 'id']);
+        return $this->hasMany(PersonInteraction::class, ['person_id' => 'id']);
     }
 
     /**
@@ -133,7 +133,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getStatusTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])->where(['type' => 'status'])
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])->where(['type' => 'status'])
             ->viaTable('person_tag', ['person_id' => 'id']);
     }
 
@@ -142,7 +142,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonFamily()
     {
-        return $this->hasOne(PersonFamily::className(), ['person_id' => 'id'])
+        return $this->hasOne(PersonFamily::class, ['person_id' => 'id'])
             ->andWhere(['is_primary' => true]);
     }
 
@@ -151,7 +151,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getPersonFamilies()
     {
-        return $this->hasMany(PersonFamily::className(), ['person_id' => 'id']);
+        return $this->hasMany(PersonFamily::class, ['person_id' => 'id']);
     }
 
     /**
@@ -159,7 +159,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getFamily()
     {
-        return $this->hasOne(Family::className(), ['id' => 'family_id'])
+        return $this->hasOne(Family::class, ['id' => 'family_id'])
             ->via('personFamily');
     }
 
@@ -168,13 +168,13 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getMyFamilies()
     {
-        return $this->hasOne(Family::className(), ['id' => 'family_id'])
+        return $this->hasOne(Family::class, ['id' => 'family_id'])
             ->via('personFamily');
     }
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['personId' => 'id']);
+        return $this->hasOne(User::class, ['personId' => 'id']);
     }
 
     /**
@@ -182,7 +182,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getTags()
     {
-        return $this->hasMany(Tag::className(), ['id' => 'tag_id'])
+        return $this->hasMany(Tag::class, ['id' => 'tag_id'])
             ->viaTable('person_tag', ['person_id' => 'id']);
     }
 
@@ -191,7 +191,7 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getMyInteractions()
     {
-        return $this->hasMany(Interaction::className(), ['uid' => 'refId']);
+        return $this->hasMany(Interaction::class, ['uid' => 'refId']);
     }
 
     /**
@@ -199,13 +199,13 @@ class Person extends \yii\db\ActiveRecord
      */
     public function getInteractions()
     {
-        return $this->hasMany(Interaction::className(), ['id' => 'interaction_id'])
+        return $this->hasMany(Interaction::class, ['id' => 'interaction_id'])
             ->viaTable('person_interaction', ['person_id' => 'id']);
     }
 
     public function getImport()
     {
-        return $this->hasOne(Import::className(), ['refId' => 'id']);
+        return $this->hasOne(Import::class, ['refId' => 'id']);
     }
 
     public function getFullName()

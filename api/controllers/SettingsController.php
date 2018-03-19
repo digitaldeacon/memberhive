@@ -14,7 +14,7 @@ class SettingsController extends MHController
     {
         $behaviors = parent::behaviors();
         $behaviors['access'] = [
-            'class' => \yii\filters\AccessControl::className(),
+            'class' => \yii\filters\AccessControl::class,
             'rules' => [
                 [
                     'actions' => ['list','upsert', 'upsert-people-filter', 'delete-people-filter'],
@@ -42,7 +42,7 @@ class SettingsController extends MHController
     {
         $ret = [];
         $settings = Settings::find()
-            ->andWhere(['personId' => NULL])
+            ->andWhere(['personId' => null])
             ->orWhere(['personId' => Access::userId()])
             ->all();
         foreach ($settings as $setting) {

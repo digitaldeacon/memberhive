@@ -29,7 +29,7 @@ class ActionLog extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className()
+            \yii\behaviors\TimestampBehavior::class
         ];
     }
 
@@ -65,7 +65,7 @@ class ActionLog extends \yii\db\ActiveRecord
 
     public function getUser()
     {
-        return $this->hasOne(User::className(), ['refUser' => 'id']);
+        return $this->hasOne(User::class, ['refUser' => 'id']);
     }
 
     public function toResponseArray()

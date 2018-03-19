@@ -34,7 +34,7 @@ class Settings extends \yii\db\ActiveRecord
             [['personId'], 'integer'],
             [['key'], 'string', 'max' => 255],
             ['section', 'in', 'range'=>\app\enums\SettingSection::getValidValues()],
-            [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['personId' => 'id']],
+            [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::class, 'targetAttribute' => ['personId' => 'id']],
         ];
     }
 
@@ -64,6 +64,6 @@ class Settings extends \yii\db\ActiveRecord
      */
     public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'personId']);
+        return $this->hasOne(Person::class, ['id' => 'personId']);
     }
 }
