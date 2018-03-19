@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { ContextButton, SettingsPayload } from './settings.model';
 import { SettingsState } from './settings.reducer';
+import { Filter } from '../../common/common.model';
 
 export enum SettingsActionTypes {
   LIST_SETTINGS = '[Settings] List',
@@ -15,7 +16,10 @@ export enum SettingsActionTypes {
   CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message',
   SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons',
   SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter',
-  PERSIST_PEOPLE_FILTER = '[Settings:Filter] Persist people filter'
+  SAVE_PEOPLE_FILTER_SUCCESS = '[Settings:Filter] Save people filter success',
+  PERSIST_PEOPLE_FILTER = '[Settings:Filter] Persist people filter',
+  DELETE_PEOPLE_FILTER = '[Settings:Filter] Delete people filter',
+  DELETE_PEOPLE_FILTER_SUCCESS = '[Settings:Filter] Delete people filter success'
 }
 
 export class ListSettingAction implements Action {
@@ -78,7 +82,22 @@ export class PersistPeopleFilterAction implements Action {
 
 export class SavePeopleFilterAction implements Action {
   readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER;
-  constructor(public payload: string) {}
+  constructor(public payload: Filter) {}
+}
+
+export class DeletePeopleFilterAction implements Action {
+    readonly type = SettingsActionTypes.DELETE_PEOPLE_FILTER;
+    constructor(public payload: string) {}
+}
+
+export class DeletePeopleFilterSuccessAction implements Action {
+    readonly type = SettingsActionTypes.DELETE_PEOPLE_FILTER_SUCCESS;
+    constructor(public payload: string) {}
+}
+
+export class SavePeopleFilterSuccessAction implements Action {
+    readonly type = SettingsActionTypes.SAVE_PEOPLE_FILTER_SUCCESS;
+    constructor(public payload: string) {}
 }
 
 export type SettingsActions =
@@ -95,4 +114,7 @@ export type SettingsActions =
   | SetContextButtonsAction
   | SavePeopleFilterAction
   | PersistPeopleFilterAction
-  | UpdatePersonalSettingAction;
+  | UpdatePersonalSettingAction
+  | DeletePeopleFilterAction
+  | DeletePeopleFilterSuccessAction
+  | SavePeopleFilterSuccessAction;

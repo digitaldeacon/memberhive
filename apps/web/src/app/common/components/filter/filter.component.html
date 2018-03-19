@@ -21,7 +21,7 @@
                 </mat-form-field>
                 <button mat-icon-button [matMenuTriggerFor]="saveMenu"><mat-icon>more_vert</mat-icon></button>
                 <mat-menu #saveMenu="matMenu">
-                    <button mat-menu-item (click)="saveFilter()">
+                    <button mat-menu-item (click)="saveFilter()" [disabled]="isSaveable()">
                         <span i18n="@@btn.save.filter">Save Filter</span>
                     </button>
                     <button mat-menu-item disabled>
@@ -33,9 +33,16 @@
                 </mat-menu>
             </div>
             <div fxLayout="column" fxLayoutGap="10px">
-                <h5 fxFlex>Saved Filters</h5>
+                <h5 fxFlex i18n="@@filter.saved">Saved Filters</h5>
                 <mat-chip-list>
-                    <mat-chip *ngFor="let filter of savedFilters">{{filter}}</mat-chip>
+                    <mat-chip *ngFor="let filter of savedFilters"
+                              (click)="setFilter(filter, $event)"
+                              (remove)="deleteFilter(filter)"
+                              [color]="highlightSelected(filter)"
+                              [selected]="isSelectedFilter(filter)">
+                        {{filter}}
+                        <mat-icon matChipRemove>cancel</mat-icon>
+                    </mat-chip>
                 </mat-chip-list>
             </div>
         </form>

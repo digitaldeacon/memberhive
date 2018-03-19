@@ -24,8 +24,8 @@ const initialState: SettingsState = {
   people: {
     list: ['email'],
     filter: {
-      current: '',
-      filters: []
+      term: '',
+      saved: []
     }
   },
   system: {
@@ -36,9 +36,11 @@ const initialState: SettingsState = {
   dashboard: {}
 };
 
-export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
+export function settingsReducer(state: SettingsState = initialState,
+                                action: SettingsActions): SettingsState {
   switch (action.type) {
 
+    case SettingsActionTypes.DELETE_PEOPLE_FILTER:
     case SettingsActionTypes.SAVE_PEOPLE_FILTER:
     case SettingsActionTypes.LIST_SETTINGS:
     case SettingsActionTypes.UPDATE_SETTINGS: {
@@ -131,14 +133,49 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
       });
     }
 
-    case SettingsActionTypes.PERSIST_PEOPLE_FILTER:{
+    case SettingsActionTypes.PERSIST_PEOPLE_FILTER: {
+      const savedFilters = state.people.hasOwnProperty('filter')
+          ? state.people.filter.saved :
+          [];
       return Object.assign({}, state, {
         people: {
           list: state.people.list,
-          filter: action.payload
+          filter: {
+              term: action.payload,
+              saved: savedFilters
+          }
         }
       });
     }
+
+    case SettingsActionTypes.SAVE_PEOPLE_FILTER_SUCCESS: {
+        return Object.assign({}, state, {
+            loading: false,
+            loaded: true,
+            people: {
+                list: state.people.list,
+                filter: {
+                    term: state.people.filter.term,
+                    saved: [...state.people.filter.saved, action.payload]
+                }
+            }
+        });
+    }
+
+      case SettingsActionTypes.DELETE_PEOPLE_FILTER_SUCCESS: {
+        return Object.assign({}, state, {
+            loading: false,
+            loaded: true,
+            people: {
+                list: state.people.list,
+                filter:  {
+                  term: state.people.filter.term,
+                  saved: state.people.filter.saved
+                      .filter((term: string) => term !== action.payload)
+                }
+            }
+        });
+      }
 
     case SettingsActionTypes.SET_TITLE: {
       return Object.assign({}, state, {

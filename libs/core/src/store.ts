@@ -145,8 +145,8 @@ export const getPeopleWithFilter: any = createSelector(
   getPeople,
   getPeopleFilterSettings,
   (people: person.Person[], filter: Filter) => {
-    if (filter && filter.hasOwnProperty('current')) {
-      return people.filter(search, filter.current.split(' '));
+    if (filter && filter.hasOwnProperty('term')) {
+      return people.filter(search, filter.term.split(' '));
     } else {
       return people;
     }
@@ -159,7 +159,6 @@ export const getPeopleWithFilter: any = createSelector(
               const sStatus = prs.status.some((s: tags.Tag) => s.text.includes(searchTerm));
               found = sFullname || sStatus;
           } else {
-              console.log('fieldSearch Term', fieldSearch);
                 const filterSet: FilterSet = person.personFilterSet
                     .filter((set: any) => set.label === fieldSearch[0].toLocaleLowerCase())[0];
                 if (filterSet.key === 'age') {
