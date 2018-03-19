@@ -39,7 +39,7 @@ class Sermon extends \yii\db\ActiveRecord
      */
     public function getSermonCategory()
     {
-        return $this->hasOne(SermonCategory::className(), ['sermonCategoryId' => 'id']);
+        return $this->hasOne(SermonCategory::class, ['sermonCategoryId' => 'id']);
     }
 
     public function getFiles()

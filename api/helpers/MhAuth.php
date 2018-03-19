@@ -17,7 +17,7 @@ namespace app\helpers;
  * {
  *     return [
  *         'bearerAuth' => [
- *             'class' => \yii\filters\auth\HttpBearerAuth::className(),
+ *             'class' => \yii\filters\auth\HttpBearerAuth::class,
  *         ],
  *     ];
  * }

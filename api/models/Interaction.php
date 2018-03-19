@@ -30,7 +30,7 @@ class Interaction extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className(),
+            \yii\behaviors\TimestampBehavior::class,
             [
                 'class' => UuidBehavior::class,
                 'version' => Uuid::V4,
@@ -71,23 +71,23 @@ class Interaction extends \yii\db\ActiveRecord
 
     public function getOwner()
     {
-        return $this->hasOne(Person::className(), ['uid' => 'refId']);
+        return $this->hasOne(Person::class, ['uid' => 'refId']);
     }
 
     public function getAuthor()
     {
-        return $this->hasOne(Person::className(), ['uid' => 'authorId']);
+        return $this->hasOne(Person::class, ['uid' => 'authorId']);
     }
 
     public function getRecipients()
     {
-        return $this->hasMany(Person::className(), ['id' => 'person_id'])
+        return $this->hasMany(Person::class, ['id' => 'person_id'])
             ->via('personInteractions');
     }
 
     public function getPersonInteractions()
     {
-        return $this->hasMany(PersonInteraction::className(), ['interaction_id' => 'id']);
+        return $this->hasMany(PersonInteraction::class, ['interaction_id' => 'id']);
     }
 
     public function toResponseArray($noMarkup = true)

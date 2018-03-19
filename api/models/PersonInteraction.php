@@ -38,10 +38,10 @@ class PersonInteraction extends \yii\db\ActiveRecord
             [['doneOn', 'completedOn', 'delegatedOn'], 'safe'],
             [['response'], 'string', 'max' => 255],
             [['interaction_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Interaction::className(),
+                'targetClass' => Interaction::class,
                 'targetAttribute' => ['interaction_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Person::className(),
+                'targetClass' => Person::class,
                 'targetAttribute' => ['person_id' => 'id']],
         ];
     }
@@ -68,7 +68,7 @@ class PersonInteraction extends \yii\db\ActiveRecord
      */
     public function getInteraction()
     {
-        return $this->hasOne(Interaction::className(), ['id' => 'interaction_id']);
+        return $this->hasOne(Interaction::class, ['id' => 'interaction_id']);
     }
 
     /**
@@ -76,7 +76,7 @@ class PersonInteraction extends \yii\db\ActiveRecord
      */
     public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'person_id']);
+        return $this->hasOne(Person::class, ['id' => 'person_id']);
     }
 
     public function afterSave($insert, $changedAttributes)

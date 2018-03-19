@@ -35,8 +35,8 @@ class PersonFamily extends \yii\db\ActiveRecord
             [['role','ref'], 'string', 'max' => 255],
             [['is_primary'], 'boolean'],
             [['person_id', 'family_id'], 'unique', 'targetAttribute' => ['person_id', 'family_id']],
-            [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::className(), 'targetAttribute' => ['family_id' => 'id']],
-            [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['person_id' => 'id']],
+            [['family_id'], 'exist', 'skipOnError' => true, 'targetClass' => Family::class, 'targetAttribute' => ['family_id' => 'id']],
+            [['person_id'], 'exist', 'skipOnError' => true, 'targetClass' => Person::class, 'targetAttribute' => ['person_id' => 'id']],
         ];
     }
 
@@ -53,7 +53,7 @@ class PersonFamily extends \yii\db\ActiveRecord
      */
     public function getFamily()
     {
-        return $this->hasOne(Family::className(), ['id' => 'family_id']);
+        return $this->hasOne(Family::class, ['id' => 'family_id']);
     }
 
     /**
@@ -61,6 +61,6 @@ class PersonFamily extends \yii\db\ActiveRecord
      */
     public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'person_id']);
+        return $this->hasOne(Person::class, ['id' => 'person_id']);
     }
 }

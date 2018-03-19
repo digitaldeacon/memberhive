@@ -21,10 +21,10 @@ class PersonTag extends \yii\db\ActiveRecord
             [['person_id', 'tag_id'], 'required'],
             [['person_id', 'tag_id'], 'integer'],
             [['tag_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Tag::className(),
+                'targetClass' => Tag::class,
                 'targetAttribute' => ['tag_id' => 'id']],
             [['person_id'], 'exist', 'skipOnError' => true,
-                'targetClass' => Person::className(),
+                'targetClass' => Person::class,
                 'targetAttribute' => ['person_id' => 'id']],
         ];
     }
@@ -42,7 +42,7 @@ class PersonTag extends \yii\db\ActiveRecord
      */
     public function getTag()
     {
-        return $this->hasOne(Tag::className(), ['id' => 'tag_id']);
+        return $this->hasOne(Tag::class, ['id' => 'tag_id']);
     }
 
     /**
@@ -50,7 +50,7 @@ class PersonTag extends \yii\db\ActiveRecord
      */
     public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'person_id']);
+        return $this->hasOne(Person::class, ['id' => 'person_id']);
     }
 
     public function afterSave($insert, $changedAttributes)

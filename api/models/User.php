@@ -86,7 +86,7 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getPerson()
     {
-        return $this->hasOne(Person::className(), ['id' => 'personId']);
+        return $this->hasOne(Person::class, ['id' => 'personId']);
     }
 
     /**

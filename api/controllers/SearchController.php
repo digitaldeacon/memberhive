@@ -9,7 +9,7 @@ class SearchController extends MHController
     {
         $behaviors = parent::behaviors();
         $behaviors['access'] = [
-            'class' => \yii\filters\AccessControl::className(),
+            'class' => \yii\filters\AccessControl::class,
             'rules' => [
                 [
                     'actions' => ['search'],

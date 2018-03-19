@@ -19,7 +19,7 @@ class Import extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            \yii\behaviors\TimestampBehavior::className()
+            \yii\behaviors\TimestampBehavior::class
         ];
     }
 
@@ -60,6 +60,6 @@ class Import extends \yii\db\ActiveRecord
 
     public function getPerson()
     {
-        return $this->hasMany(Person::className(), ['id' => 'refId']);
+        return $this->hasMany(Person::class, ['id' => 'refId']);
     }
 }

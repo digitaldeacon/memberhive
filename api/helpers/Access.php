@@ -1,6 +1,7 @@
 <?php
 
 namespace app\helpers;
+
 use app\models\User;
 
 class Access
@@ -47,7 +48,9 @@ class Access
      */
     public static function can($permission)
     {
-        if (!Access::loggedIn()) return false;
+        if (!Access::loggedIn()) {
+            return false;
+        }
         return Access::user()->can($permission);
     }
 
@@ -105,7 +108,7 @@ class Access
      */
     public static function console()
     {
-        return is_a(\Yii::$app,'yii\console\Application');
+        return is_a(\Yii::$app, 'yii\console\Application');
     }
 
     /**
@@ -116,5 +119,4 @@ class Access
     {
         return Access::code() == 'gitlab';
     }
-
 }
