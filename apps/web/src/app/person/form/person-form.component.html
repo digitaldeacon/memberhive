@@ -20,6 +20,27 @@
          fxLayout.xs="column">
         <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
             <legend i18n="@@form.personal">Personal</legend>
+            <div *ngIf="inCreateMode()" fxLayoutGap="25px" class="family-section">
+                <mat-form-field fxFlex>
+                    <mat-select formControlName="family"
+                                (change)="setFamily($event)"
+                                placeholder="Belongs to family"
+                                i18n-placeholder="@@form.belongsFamily">
+                        <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlex>
+                    <mat-select class="option-select"
+                                formControlName="familyRole"
+                                (change)="setFamilyRole($event)"
+                                placeholder="Select role"
+                                i18n-placeholder="@@family.role.select">
+                        <mat-option *ngFor="let role of familyRoles" [value]="role">
+                            {{role}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
             <div>
                 <mat-form-field fxFlex>
                     <input matInput fxFlex

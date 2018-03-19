@@ -1,7 +1,18 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { MatSelectChange } from '@angular/material';
 
-import { Person, PersonAddress, Tag, FormStatus, MaritalStatus, maritalStatusArray } from '@memberhivex/core';
+import {
+    Family,
+    FamilyRole,
+    Person,
+    PersonAddress,
+    Tag,
+    FormStatus,
+    MaritalStatus,
+    maritalStatusArray,
+    familyRoleArray
+} from '@memberhivex/core';
 
 import * as _moment from 'moment';
 const moment = _moment;
@@ -34,6 +45,7 @@ export class PersonFormComponent implements OnInit {
   get person(): Person {
     return this._person;
   }
+  @Input() families: Family[] = [];
 
   @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() saveStatus: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
@@ -41,9 +53,9 @@ export class PersonFormComponent implements OnInit {
   form: FormGroup;
   submitted: boolean;
   randomPassword: boolean = true;
-  persons: Array<Person>;
   address: PersonAddress = new PersonAddress();
   emailRegex: RegExp;
+  familyRoles: FamilyRole[] = familyRoleArray;
 
   constructor(private _fb: FormBuilder) {
     const regex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))';
@@ -83,6 +95,8 @@ export class PersonFormComponent implements OnInit {
     this._pwRandCheckbox = this._fb.control(this.randomPassword);
 
     this.form = this._fb.group({
+      family: [undefined],
+      familyRole: [undefined],
       firstName: [''],
       middleName: [''],
       lastName: [''],
@@ -153,6 +167,8 @@ export class PersonFormComponent implements OnInit {
       person.baptized = person.baptized ? moment(person.baptized) : undefined;
       person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
 
+      console.log(person, this.form)
+
       this.form.patchValue(person);
       this.toggleRandomPassword();
       this.savePerson.emit(person);
@@ -162,6 +178,19 @@ export class PersonFormComponent implements OnInit {
   changeStatus($event: Tag[]): void {
     this.person.status = [...$event];
     this.saveStatus.emit($event);
+  }
+
+  setFamily(data: MatSelectChange): void {
+    const family: Family = data.value;
+    this.form.get('lastName').patchValue(family.name.split(" (")[0]);
+  }
+
+  setFamilyRole(data: MatSelectChange): void {
+      const role: FamilyRole = data.value;
+      if (role === FamilyRole.CHILD) {
+          this.form.get('email').clearValidators();
+          this.form.get('email').setValidators([<any>Validators.pattern(this.emailRegex)]);
+      }
   }
 
   inCreateMode(): boolean {
