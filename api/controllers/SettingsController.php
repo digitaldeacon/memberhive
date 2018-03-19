@@ -3,8 +3,10 @@
 namespace app\controllers;
 
 use app\models\Settings;
-use yii\web\BadRequestHttpException;
 use app\helpers\Access;
+use yii\web\BadRequestHttpException;
+use yii\web\UnprocessableEntityHttpException;
+use app\enums\SettingSection;
 
 class SettingsController extends MHController
 {
@@ -15,7 +17,7 @@ class SettingsController extends MHController
             'class' => \yii\filters\AccessControl::className(),
             'rules' => [
                 [
-                    'actions' => ['list','upsert', 'upsert-people-filter'],
+                    'actions' => ['list','upsert', 'upsert-people-filter', 'delete-people-filter'],
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -29,10 +31,10 @@ class SettingsController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'update-or-create') {
+        $allowed = ['upsert-people-filter', 'delete-people-filter'];
+        if (in_array($action->id, $allowed)) {
             $this->enableCsrfValidation = false;
         }
-
         return parent::beforeAction($action);
     }
 
@@ -45,8 +47,7 @@ class SettingsController extends MHController
             ->all();
         foreach ($settings as $setting) {
             if ($setting->key == 'filter') {
-                $ret[$setting->section]['filter']['filters'][] = json_decode($setting->value);
-                // $ret[$setting->section]['filter']['current'] = '';
+                $ret[$setting->section]['filter']['saved'][] = json_decode($setting->value);
             } else {
                 $ret[$setting->section][$setting->key] = json_decode($setting->value);
             }
@@ -56,14 +57,55 @@ class SettingsController extends MHController
 
     public function actionUpsertPeopleFilter()
     {
-        $ret = [];
         $post = \Yii::$app->request->post();
-        $settings = $setting = Settings::findOne([
-            'section'=>'people',
-            'key'=>'filter',
-            'personId'=>Access::userId()]);
-        var_dump($post);
-        return $ret;
+        if (!isset($post['term'])) {
+            throw new BadRequestHttpException('Missing parameter "term"');
+        }
+        $term = trim($post['term']);
+        $setting = null;
+
+        try {
+            $settings = $setting = Settings::findOne([
+                'section'=>SettingSection::PEOPLE,
+                'key'=>'filter',
+                'value'=>json_encode($term),
+                'personId'=>Access::userId()]);
+            if (!$settings) {
+                $setting = new Settings();
+                $setting->section = SettingSection::PEOPLE;
+                $setting->personId = Access::userId();
+                $setting->key = 'filter';
+                $setting->value = json_encode($term);
+                $setting->save();
+            }
+        } catch (\Throwable $e) {
+            throw new UnprocessableEntityHttpException(json_encode($e->getMessage()));
+        }
+        return $setting->toResponseArray();
+    }
+
+    public function actionDeletePeopleFilter()
+    {
+        $post = \Yii::$app->request->post();
+        if (!isset($post['term'])) {
+            throw new BadRequestHttpException('Missing parameter "term"');
+        }
+        $term = trim($post['term']);
+        $setting = null;
+
+        try {
+            $settings = $setting = Settings::findOne([
+                'section'=>SettingSection::PEOPLE,
+                'key'=>'filter',
+                'value'=>json_encode($term),
+                'personId'=>Access::userId()]);
+            if ($settings) {
+                $setting->delete();
+            }
+        } catch (\Throwable $e) {
+            throw new UnprocessableEntityHttpException(json_encode($e->getMessage()));
+        }
+        return $term;
     }
 
     public function actionUpsert()

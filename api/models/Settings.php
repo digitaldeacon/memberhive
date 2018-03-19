@@ -33,6 +33,7 @@ class Settings extends \yii\db\ActiveRecord
             [['value'], 'string'],
             [['personId'], 'integer'],
             [['key'], 'string', 'max' => 255],
+            ['section', 'in', 'range'=>\app\enums\SettingSection::getValidValues()],
             [['personId'], 'exist', 'skipOnError' => true, 'targetClass' => Person::className(), 'targetAttribute' => ['personId' => 'id']],
         ];
     }

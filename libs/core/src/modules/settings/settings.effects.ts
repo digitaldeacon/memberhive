@@ -2,9 +2,10 @@ import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs/Observable';
-import { tap, switchMap, catchError, map } from 'rxjs/operators';
+import { tap, switchMap, catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs/observable/of';
 import { Title } from '@angular/platform-browser';
+import { Filter } from '../../common/common.model';
 
 import {
   SettingsActionTypes,
@@ -16,7 +17,9 @@ import {
   UpdateSettingFailureAction,
   SetTitleAction,
   SavePeopleFilterAction,
-  PersistPeopleFilterAction
+  DeletePeopleFilterAction,
+  DeletePeopleFilterSuccessAction,
+  SavePeopleFilterSuccessAction
 } from './settings.actions';
 import { HttpService } from '../../services/http.service';
 import { SettingsState } from './settings.reducer';
@@ -55,15 +58,29 @@ export class SettingsEffects {
   upsertPeopleFilterSetting$: Observable<Action> = this.actions$.pipe(
       ofType(SettingsActionTypes.SAVE_PEOPLE_FILTER),
       map((action: SavePeopleFilterAction) => action.payload),
-      switchMap((payload: string) =>
+      switchMap((payload: Filter) =>
           this.http
-              .post('settings/upsert-people-filter', JSON.stringify(payload))
+              .post('settings/upsert-people-filter', payload)
               .pipe(
-                  map((r: string) => new PersistPeopleFilterAction(payload)),
+                  map(() => new SavePeopleFilterSuccessAction(payload.term)),
                   catchError((r: any) => of(new UpdateSettingFailureAction(r)))
               )
       )
   );
+
+    @Effect()
+    deletePeopleFilterSetting$: Observable<Action> = this.actions$.pipe(
+        ofType(SettingsActionTypes.DELETE_PEOPLE_FILTER),
+        map((action: DeletePeopleFilterAction) => action.payload),
+        concatMap((payload: string) =>
+            this.http
+                .post('settings/delete-people-filter', {term: payload})
+                .pipe(
+                    map(() => new DeletePeopleFilterSuccessAction(payload)),
+                    catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+                )
+        )
+    );
 
   @Effect({ dispatch: false })
   setTitle$: Observable<String> = this.actions$.pipe(

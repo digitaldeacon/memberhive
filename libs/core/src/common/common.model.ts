@@ -40,8 +40,8 @@ export interface FilterSet {
 }
 
 export interface Filter {
-  current?: string;
-  filters?: string[];
+  term?: string;
+  saved?: string[];
 }
 
 export enum FormStatus {

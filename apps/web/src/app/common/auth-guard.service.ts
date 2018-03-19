@@ -25,7 +25,7 @@ export class AuthGuard implements CanActivate {
       isExpired = this._authSrv.isTokenExpired();
       if (authenticated && isExpired) {
         this._dialogSrv.login('Your session expired').subscribe((confirmed: any) => {
-          console.log(confirmed);
+          // console.log(confirmed);
         });
       } else if (!authenticated) {
         this._router.navigate(['/login']);

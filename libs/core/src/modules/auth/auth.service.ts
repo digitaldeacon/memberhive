@@ -102,6 +102,6 @@ export class AuthService {
   retryFailedRequests(): void {
     // retry the requests. this method can
     // be called after the token is refreshed
-    console.log(this._cachedRequests);
+    // console.log(this._cachedRequests);
   }
 }
