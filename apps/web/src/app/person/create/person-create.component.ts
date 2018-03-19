@@ -4,20 +4,21 @@ import { Router } from '@angular/router';
 
 import { Store } from '@ngrx/store';
 import {
-  AppState,
-  getPeopleSettings,
-  getTags,
-  getSysGoogleKey,
-  getLastCreatedPersonId,
-  Utils,
-  Tag,
-  Person,
-  CreatePersonAction,
-  ContextButton,
-  SetContextButtonsAction,
-  CalcPersonGeoAction,
-  SetTitleAction,
-  CalcGeoCodePayload
+    AppState,
+    getPeopleSettings,
+    getTags,
+    getSysGoogleKey,
+    getLastCreatedPersonId,
+    Utils,
+    Tag,
+    Family,
+    Person,
+    CreatePersonAction,
+    ContextButton,
+    SetContextButtonsAction,
+    CalcPersonGeoAction,
+    SetTitleAction,
+    CalcGeoCodePayload, getFamilies
 } from '@memberhivex/core';
 
 @Component({
@@ -31,11 +32,13 @@ export class PersonCreateComponent implements OnDestroy {
   googleApiKey: string;
   people: Person[];
   tags$: Observable<Tag[]>;
+  families$: Observable<Family[]>;
 
   constructor(private _store: Store<AppState>, private _router: Router) {
     this.settings$ = this._store.select(getPeopleSettings);
     // Selects the tags by fragment param
     this.tags$ = this._store.select(getTags);
+    this.families$ = this._store.select(getFamilies);
     this._store
       .select(getSysGoogleKey)
       .takeWhile(() => this._alive)

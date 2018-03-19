@@ -3,6 +3,7 @@
         <mh-person-form
                 [settings]="settings$ | async"
                 [tagSource]="tags$ | async"
+                [families]="families$ | async"
                 (savePerson)="savePerson($event)"></mh-person-form>
     </mat-card-content>
 </mat-card>
