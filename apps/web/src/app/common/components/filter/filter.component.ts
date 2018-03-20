@@ -18,7 +18,6 @@ import { Store } from '@ngrx/store';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FilterComponent {
-  private _deleteFilter: boolean = false;
 
   @Output() filters: EventEmitter<any> = new EventEmitter<any>();
 
@@ -31,8 +30,13 @@ export class FilterComponent {
       filter: ['']
     });
     this._store.select(getPeopleFilterSettings).subscribe((filter: any) => {
-      if (filter && filter.hasOwnProperty('saved') && filter.saved.length > 0) {
-        this.savedFilters = filter.saved;
+      console.log('getting filters', filter)
+      if (filter) {
+        if (filter.hasOwnProperty('saved') && filter.saved.length > 0) {
+            this.savedFilters = filter.saved;
+        }
+          this.form.get('filter').patchValue(filter.term);
+          this.hasFilter = !!filter.term;
       }
     });
   }
