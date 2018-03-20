@@ -167,7 +167,7 @@ export class PersonFormComponent implements OnInit {
       person.baptized = person.baptized ? moment(person.baptized) : undefined;
       person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
 
-      console.log(person, this.form)
+      // console.log(person, this.form)
 
       this.form.patchValue(person);
       this.toggleRandomPassword();

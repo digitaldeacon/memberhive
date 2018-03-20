@@ -30,7 +30,6 @@ export class FilterComponent {
       filter: ['']
     });
     this._store.select(getPeopleFilterSettings).subscribe((filter: any) => {
-      console.log('getting filters', filter)
       if (filter) {
         if (filter.hasOwnProperty('saved') && filter.saved.length > 0) {
             this.savedFilters = filter.saved;
