@@ -1,6 +1,8 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange, MatDatepickerInputEvent } from '@angular/material';
+import { MomentDateAdapter } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
 import {
     Family,
@@ -15,13 +17,30 @@ import {
 } from '@memberhivex/core';
 
 import * as _moment from 'moment';
+import { Moment } from 'moment';
 const moment = _moment;
+
+export const MY_FORMATS = {
+    parse: {
+        dateInput: 'L',
+    },
+    display: {
+        dateInput: 'L',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'L',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @Component({
   selector: 'mh-person-form',
   templateUrl: './person-form.component.html',
   styleUrls: ['./person-form.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [
+      {provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE]},
+      {provide: MAT_DATE_FORMATS, useValue: MY_FORMATS},
+  ]
 })
 export class PersonFormComponent implements OnInit {
   private _pwFormControl: FormControl;
@@ -189,8 +208,19 @@ export class PersonFormComponent implements OnInit {
       const role: FamilyRole = data.value;
       if (role === FamilyRole.CHILD) {
           this.form.get('email').clearValidators();
-          this.form.get('email').setValidators([<any>Validators.pattern(this.emailRegex)]);
+          //this.form.get('email').setValidators([<any>Validators.pattern(this.emailRegex)]);
+          this.form.get('email').updateValueAndValidity();
       }
+  }
+
+  setRequired(field: string): boolean {
+    return this.form.get(field)
+        && this.form.get(field).errors
+        && this.form.get(field).errors.required;
+  }
+
+  dateInput(control: any, event: MatDatepickerInputEvent<Moment>): void {
+    console.log(control, event);
   }
 
   inCreateMode(): boolean {

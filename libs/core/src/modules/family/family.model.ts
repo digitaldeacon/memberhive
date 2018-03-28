@@ -31,7 +31,7 @@ export interface FamilyPayload {
   isPrimary?: boolean;
 }
 
-export enum FamilyRole {
+export const enum FamilyRole {
   HUSBAND = 'husband',
   WIFE = 'wife',
   CHILD = 'child',

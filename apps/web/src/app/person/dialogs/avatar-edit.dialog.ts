@@ -1,6 +1,6 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { ImageCropperComponent, CropperSettings } from 'ng2-img-cropper';
+import { ImageCropperComponent, CropperSettings } from 'ngx-img-cropper';
 import { Person } from '@memberhivex/core';
 
 @Component({
