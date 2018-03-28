@@ -3,7 +3,7 @@ import { DatePipe } from '@angular/common';
 import { MhCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ImageCropperModule } from 'ng2-img-cropper';
+import { ImageCropperModule } from 'ngx-img-cropper';
 import { MatRadioModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
 
 import { InteractionModule } from '../interaction/interaction.module';

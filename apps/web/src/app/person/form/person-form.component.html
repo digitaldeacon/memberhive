@@ -47,7 +47,7 @@
                            type="text"
                            formControlName="firstName"
                            placeholder="First Name" i18n-placeholder="@@form.firstname"
-                           required>
+                           [required]="setRequired('firstName')">
                 </mat-form-field>
                 <mat-error *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine"
                            i18n="@@form.firstname.required">
@@ -66,7 +66,7 @@
                            type="text"
                            formControlName="lastName"
                            placeholder="Lastname" i18n-placeholder="@@form.lastname"
-                           required>
+                           [required]="setRequired('lastName')">
                 </mat-form-field>
                 <mat-error *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine"
                            i18n="@@form.lastname.required">
@@ -88,7 +88,8 @@
                            type="email"
                            formControlName="email"
                            placeholder="Email" i18n-placeholder="@@form.email"
-                           email required>
+                           email
+                           [required]="setRequired('email')">
                 </mat-form-field>
                 <mat-error *ngIf="form.get('email').invalid &&
                 form.get('email').dirty &&
@@ -130,8 +131,8 @@
                            [matDatepicker]="dpBirthday"
                            formControlName="birthday"
                            placeholder="Birthday" i18n-placeholder="@@birthday"
-                           fxFlex
-                           required>
+                           (dateInput)="dateInput('birthday', $event)"
+                           fxFlex>
                     <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
                 </mat-form-field>
                 <mat-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine"
@@ -171,9 +172,8 @@
                     <mat-form-field>
                         <input matInput
                                formControlName="username"
-                               placeholder="Username"
                                (keyup)="enablePasswordFields()"
-                               i18n-placeholder="@@form.username">
+                               placeholder="Username" i18n-placeholder="@@form.username">
                     </mat-form-field>
                     <mat-error *ngIf="!form.get('user.username').valid" i18n="@@form.username.required">
                         Username is required (minimum of 4 characters)
@@ -184,8 +184,7 @@
                         <input matInput
                                type="text"
                                formControlName="password"
-                               placeholder="Password"
-                               i18n-placeholder="@@form.password">
+                               placeholder="Password" i18n-placeholder="@@form.password">
                     </mat-form-field>
                 </div>
                 <div fxLayoutAlign="space-between">

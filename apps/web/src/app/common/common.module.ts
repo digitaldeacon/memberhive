@@ -37,7 +37,7 @@ import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.comp
 import { LoginDialogComponent } from '../login/components/login-dialog/login-dialog.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { MhTagsComponent } from './components/tags/tags.component';
+import { TagsComponent } from './components/tags/tags.component';
 
 const MATERIAL_MODULES: any[] = [
   MatButtonModule,
@@ -45,12 +45,12 @@ const MATERIAL_MODULES: any[] = [
   MatIconModule,
   MatDialogModule,
   MatDatepickerModule,
+  MatNativeDateModule,
   MatInputModule,
   MatMenuModule,
   MatListModule,
   MatExpansionModule,
   MatTooltipModule,
-  MatNativeDateModule,
   MatSnackBarModule,
   MatSelectModule,
   MatToolbarModule,
@@ -61,8 +61,16 @@ const MATERIAL_MODULES: any[] = [
   MatProgressSpinnerModule
 ];
 
+const CUSTOM_COMPONENTS: any[] = [
+    NotifyboxComponent,
+    FilterComponent,
+    ConfirmDialogComponent,
+    LoginDialogComponent,
+    TagsComponent
+];
+
 @NgModule({
-  declarations: [NotifyboxComponent, FilterComponent, ConfirmDialogComponent, LoginDialogComponent, MhTagsComponent],
+  declarations: [ CUSTOM_COMPONENTS ],
   imports: [
     MATERIAL_MODULES,
     CommonModule,
@@ -75,11 +83,7 @@ const MATERIAL_MODULES: any[] = [
   ],
   providers: [Title, AuthGuard, ShoutService, DialogService],
   exports: [
-    NotifyboxComponent,
-    FilterComponent,
-    ConfirmDialogComponent,
-    LoginDialogComponent,
-    MhTagsComponent,
+    CUSTOM_COMPONENTS,
     MATERIAL_MODULES,
     CommonModule,
     FlexLayoutModule,
