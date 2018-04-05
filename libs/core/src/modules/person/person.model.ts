@@ -1,6 +1,7 @@
 import { Address, FilterSet } from '../../common/common.model';
 import { Tag } from '../tags/tag.model';
 import { Moment } from 'moment';
+import { Family } from '../family/family.model';
 
 export enum MaritalStatus {
   MARRIED = 'married',
@@ -47,6 +48,7 @@ export interface Person {
   baptized?: Moment;
   anniversary?: Moment;
   age?: number;
+  ageFormatted?: string;
   avatar?: string;
   phoneHome?: string;
   phoneWork?: string;
@@ -55,6 +57,7 @@ export interface Person {
   address?: PersonAddress;
   socialContact?: any;
   status?: Tag[];
+  family?: Family;
 }
 
 export class PersonAddress {

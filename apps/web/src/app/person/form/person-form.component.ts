@@ -105,7 +105,7 @@ export class PersonFormComponent implements OnInit {
   initValidators(): void {
     this.form.get('firstName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
     this.form.get('lastName').setValidators([<any>Validators.required, <any>Validators.minLength(2)]);
-    this.form.get('email').setValidators([<any>Validators.required, <any>Validators.pattern(this.emailRegex)]);
+    this.form.get('email').setValidators([<any>Validators.pattern(this.emailRegex)]);
     this.form.get('gender').setValidators([<any>Validators.required]);
   }
 
@@ -179,14 +179,24 @@ export class PersonFormComponent implements OnInit {
     }
   }
 
+  findInvalidControls() {
+      const invalid = [];
+      const controls = this.form.controls;
+      for (const name in controls) {
+          if (controls[name].invalid) {
+              invalid.push(name);
+          }
+      }
+      return invalid;
+  }
+
   save(person: Person): void {
+    // console.log(this.findInvalidControls());
     if (this.form.valid) {
       this.submitted = true;
       person.birthday = person.birthday ? moment(person.birthday) : undefined;
       person.baptized = person.baptized ? moment(person.baptized) : undefined;
       person.anniversary = person.anniversary ? moment(person.anniversary) : undefined;
-
-      // console.log(person, this.form)
 
       this.form.patchValue(person);
       this.toggleRandomPassword();
@@ -206,21 +216,12 @@ export class PersonFormComponent implements OnInit {
 
   setFamilyRole(data: MatSelectChange): void {
       const role: FamilyRole = data.value;
-      if (role === FamilyRole.CHILD) {
-          this.form.get('email').clearValidators();
-          //this.form.get('email').setValidators([<any>Validators.pattern(this.emailRegex)]);
-          this.form.get('email').updateValueAndValidity();
-      }
   }
 
   setRequired(field: string): boolean {
     return this.form.get(field)
         && this.form.get(field).errors
         && this.form.get(field).errors.required;
-  }
-
-  dateInput(control: any, event: MatDatepickerInputEvent<Moment>): void {
-    console.log(control, event);
   }
 
   inCreateMode(): boolean {

@@ -88,7 +88,6 @@
                            type="email"
                            formControlName="email"
                            placeholder="Email" i18n-placeholder="@@form.email"
-                           email
                            [required]="setRequired('email')">
                 </mat-form-field>
                 <mat-error *ngIf="form.get('email').invalid &&
@@ -131,7 +130,6 @@
                            [matDatepicker]="dpBirthday"
                            formControlName="birthday"
                            placeholder="Birthday" i18n-placeholder="@@birthday"
-                           (dateInput)="dateInput('birthday', $event)"
                            fxFlex>
                     <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
                 </mat-form-field>

@@ -144,6 +144,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   savePerson(person: Person): void {
     person.uid = this.person.uid;
     this._store.dispatch(new UpdatePersonAction(person));
+    console.log('tried to update person', person)
     this._calcGeoCodes(person);
   }
 
