@@ -261,12 +261,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cebe/markdown.git",
-                "reference": "f681fee8303310415b746f3758eeda0a7ad08bda"
+                "reference": "579cb35d9292e34c4e0ae4506a33d7bfada19977"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cebe/markdown/zipball/f681fee8303310415b746f3758eeda0a7ad08bda",
-                "reference": "f681fee8303310415b746f3758eeda0a7ad08bda",
+                "url": "https://api.github.com/repos/cebe/markdown/zipball/579cb35d9292e34c4e0ae4506a33d7bfada19977",
+                "reference": "579cb35d9292e34c4e0ae4506a33d7bfada19977",
                 "shasum": ""
             },
             "require": {
@@ -313,7 +313,7 @@
                 "markdown",
                 "markdown-extra"
             ],
-            "time": "2015-03-06T05:21:16+00:00"
+            "time": "2018-03-26T11:22:46+00:00"
         },
         {
             "name": "elvanto/api-php",
@@ -775,12 +775,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-framework.git",
-                "reference": "e1e45d06f04acd90878aaff6af6078d6fe7a9c6f"
+                "reference": "289efc759751c3d9d20d3de2d94bf4cdd6dd1922"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/e1e45d06f04acd90878aaff6af6078d6fe7a9c6f",
-                "reference": "e1e45d06f04acd90878aaff6af6078d6fe7a9c6f",
+                "url": "https://api.github.com/repos/yiisoft/yii2-framework/zipball/289efc759751c3d9d20d3de2d94bf4cdd6dd1922",
+                "reference": "289efc759751c3d9d20d3de2d94bf4cdd6dd1922",
                 "shasum": ""
             },
             "require": {
@@ -867,7 +867,7 @@
                 "framework",
                 "yii2"
             ],
-            "time": "2018-03-16T14:54:20+00:00"
+            "time": "2018-03-31T13:17:16+00:00"
         },
         {
             "name": "yiisoft/yii2-coding-standards",
@@ -943,12 +943,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-composer.git",
-                "reference": "248f7065a352273b15a9f624be63830f360a59f2"
+                "reference": "58382e62e592b7cd800ab1e9f4a3cf54f3663cce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/248f7065a352273b15a9f624be63830f360a59f2",
-                "reference": "248f7065a352273b15a9f624be63830f360a59f2",
+                "url": "https://api.github.com/repos/yiisoft/yii2-composer/zipball/58382e62e592b7cd800ab1e9f4a3cf54f3663cce",
+                "reference": "58382e62e592b7cd800ab1e9f4a3cf54f3663cce",
                 "shasum": ""
             },
             "require": {
@@ -977,6 +977,10 @@
                 {
                     "name": "Qiang Xue",
                     "email": "qiang.xue@gmail.com"
+                },
+                {
+                    "name": "Carsten Brandt",
+                    "email": "mail@cebe.cc"
                 }
             ],
             "description": "The composer plugin for Yii extension installer",
@@ -985,7 +989,7 @@
                 "extension installer",
                 "yii2"
             ],
-            "time": "2017-08-01T14:22:25+00:00"
+            "time": "2018-03-21T16:16:19+00:00"
         }
     ],
     "packages-dev": [
@@ -2106,12 +2110,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/php-fig/log.git",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d"
+                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/php-fig/log/zipball/4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
-                "reference": "4ebe3a8bf773a19edfe0a84b6585ba3d401b724d",
+                "url": "https://api.github.com/repos/php-fig/log/zipball/3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
+                "reference": "3490ba5925e6dcbe6de950c5c6b8dce9f6e96eda",
                 "shasum": ""
             },
             "require": {
@@ -2145,7 +2149,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10T12:19:37+00:00"
+            "time": "2018-04-03T15:59:15+00:00"
         },
         {
             "name": "scrivo/highlight.php",
@@ -2348,16 +2352,15 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/environment.git",
-                "reference": "93ade88c83f9e70040fdb8d0b7396d47998dd9f3"
+                "reference": "cd35e43a53ec1c10424a5dec250c30e952e09ced"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/93ade88c83f9e70040fdb8d0b7396d47998dd9f3",
-                "reference": "93ade88c83f9e70040fdb8d0b7396d47998dd9f3",
+                "url": "https://api.github.com/repos/sebastianbergmann/environment/zipball/cd35e43a53ec1c10424a5dec250c30e952e09ced",
+                "reference": "cd35e43a53ec1c10424a5dec250c30e952e09ced",
                 "shasum": ""
             },
             "require": {
-                "ext-posix": "*",
                 "php": "^7.0"
             },
             "require-dev": {
@@ -2391,7 +2394,7 @@
                 "environment",
                 "hhvm"
             ],
-            "time": "2018-03-02T16:25:54+00:00"
+            "time": "2018-03-21T07:21:42+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -2847,12 +2850,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/yiisoft/yii2-bootstrap.git",
-                "reference": "0c74f9c383f366e8cd0892fccb2158bf52a0839e"
+                "reference": "8f5bdde6192b8f9a3950271754f9286f410cfdf4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/0c74f9c383f366e8cd0892fccb2158bf52a0839e",
-                "reference": "0c74f9c383f366e8cd0892fccb2158bf52a0839e",
+                "url": "https://api.github.com/repos/yiisoft/yii2-bootstrap/zipball/8f5bdde6192b8f9a3950271754f9286f410cfdf4",
+                "reference": "8f5bdde6192b8f9a3950271754f9286f410cfdf4",
                 "shasum": ""
             },
             "require": {
@@ -2899,7 +2902,7 @@
                 "bootstrap",
                 "yii2"
             ],
-            "time": "2018-03-14T22:31:15+00:00"
+            "time": "2018-04-03T14:07:30+00:00"
         },
         {
             "name": "yiisoft/yii2-debug",

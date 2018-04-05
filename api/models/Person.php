@@ -82,17 +82,9 @@ class Person extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [
-        ];
-    }
-
     public function toResponseArray()
     {
+        $interval = $this->ageInterval();
         return [
             'id' => $this->id,
             'uid' => $this->uid,
@@ -106,7 +98,8 @@ class Person extends \yii\db\ActiveRecord
             'birthday' => $this->birthday,
             'baptized' => $this->baptized,
             'anniversary' => $this->anniversary,
-            'age' => $this->age,
+            'age' => $this->getAge($interval),
+            'ageFormatted' => $this->getAgeFormatted($interval),
             'maritalStatus' => $this->maritalStatus,
             'avatar' => $this->avatar,
             'socialContact' => $this->socialContact,
@@ -233,15 +226,16 @@ class Person extends \yii\db\ActiveRecord
         return empty($url) ? $default : $url;
     }
 
-    public function getAge()
+    public function getAge($interval)
     {
-        if (empty($this->birthday)) {
+        if (empty($interval)) {
             return null;
         }
-        $now = new \DateTime();
-        $bDay = new \DateTime($this->birthday);
-        $interval = $bDay->diff($now);
-        return $interval->y;
+        $years = $interval->y;
+        if ($years < 1) {
+            $years = round($interval->days/365, 2);
+        }
+        return $years;
     }
 
     public function setRole($role)
@@ -289,6 +283,23 @@ class Person extends \yii\db\ActiveRecord
             $insert,
             $changedAttributes
         );
+    }
+
+    private function ageInterval() {
+        if (empty($this->birthday)) {
+            return null;
+        }
+        $now = new \DateTime();
+        $bDay = new \DateTime($this->birthday);
+        return $bDay->diff($now);
+    }
+
+    private function getAgeFormatted($interval) {
+        if (empty($interval)) {
+            return null;
+        }
+        $years = $interval->y;
+        return ($years < 1) ? $interval->format('%mm') : $years.'y';
     }
 
     private function emptyAddress()

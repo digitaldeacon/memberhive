@@ -21,7 +21,7 @@
                         <ng-container *ngFor="let opt of options">
                             <span matLine *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
                             <span matLine *ngIf="opt === 'email'">{{person.email}}</span>
-                            <span matLine *ngIf="opt === 'age'">{{person.age}}</span>
+                            <span matLine *ngIf="opt === 'age'">{{person.ageFormatted}}</span>
                             <span matLine *ngIf="opt === 'gender'">
                                 <b *ngIf="person.gender === 'f'" i18n="@@female">female</b>
                                 <b *ngIf="person.gender === 'm'" i18n="@@male">male</b>

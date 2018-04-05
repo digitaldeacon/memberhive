@@ -116,7 +116,8 @@ export class FamilyComponent implements OnDestroy {
   initFamily(): void {
     let familyName: string = this.person.lastName + ' (' + this.person.firstName + ')';
     if (this.families) {
-      this.family = this.families.filter((f: Family) => !!f.primary[this.person.uid])[0];
+      this.family = this.families.filter((f: Family) =>
+          !!f.primary[this.person.uid] || !!f.members[this.person.uid])[0];
       this.hasFamily$.next(!!this.family);
       if (this.family) {
         familyName = this.family.name;
@@ -216,11 +217,8 @@ export class FamilyComponent implements OnDestroy {
       member: m.person.uid
     };
     this._store.dispatch(new RemoveMemberFamilyAction(payload));
-    /*m.person.family = {
-            id: undefined,
-            role: ''
-        };*/
-    this._store.dispatch(new UpdatePersonAction(m.person));
+    //this._store.dispatch(new UpdatePersonAction(m.person));
+      console.log('tried to update person', m.person)
   }
 
   link(): void {
@@ -275,7 +273,8 @@ export class FamilyComponent implements OnDestroy {
     this._store.dispatch(new SetFamilyRoleAction(payload));
     if (!person.maritalStatus) {
       person.maritalStatus = MaritalStatus.MARRIED;
-      this._store.dispatch(new UpdatePersonAction(person));
+      //this._store.dispatch(new UpdatePersonAction(person));
+        console.log('tried to update person', person)
     }
   }
 

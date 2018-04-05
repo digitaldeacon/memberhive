@@ -4,6 +4,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/concatMap';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
@@ -15,6 +16,7 @@ import { of } from 'rxjs/observable/of';
 import { Effect, Actions } from '@ngrx/effects';
 
 import * as actions from './person.actions';
+import { UpdateFamilySuccessAction } from '../family/family.actions';
 import { Person, CalcGeoCodePayload, PersonAddress } from './person.model';
 import { GeocodeService } from '../../services/geocode.service';
 import { GeoCodes } from '../../common/common.model';
@@ -40,11 +42,13 @@ export class PersonEffects {
   updatePerson$ = this._actions$
     .ofType(actions.UPDATE_PERSON)
     .map((action: actions.UpdatePersonAction) => action.payload)
-    .mergeMap((data: any) =>
-      this._http
-        .post('api/person/update?id=' + data.uid, data)
-        .map((r: Person) => new actions.UpdatePersonSuccessAction(r))
-        .catch((r: HttpErrorResponse) => of(new actions.UpdatePersonFailureAction(r)))
+    .mergeMap((data: Person) => {
+        data.birthday = data.birthday.utc(true);
+        return this._http
+            .post('api/person/update?id=' + data.uid, data)
+            .map((r: Person) => new actions.UpdatePersonSuccessAction(r))
+            .catch((r: HttpErrorResponse) => of(new actions.UpdatePersonFailureAction(r)))
+    }
     );
 
   @Effect()
@@ -54,7 +58,12 @@ export class PersonEffects {
     .switchMap((data: Person) =>
       this._http
         .post('api/person/create', data)
-        .map((r: Person) => new actions.CreatePersonSuccessAction(r))
+        .switchMap((r: any) => {
+            return [
+                new actions.CreatePersonSuccessAction(r.person),
+                new UpdateFamilySuccessAction(r.family)
+            ]
+        })
         .catch((r: HttpErrorResponse) => of(new actions.CreatePersonFailureAction(r)))
     );
 
@@ -73,7 +82,7 @@ export class PersonEffects {
   calcPersonGeo$ = this._actions$
     .ofType<actions.CalcPersonGeoAction>(actions.CALC_PERSON_GEO)
     .map(action => action.payload)
-    .switchMap((payload: CalcGeoCodePayload) => {
+    .mergeMap((payload: CalcGeoCodePayload) => {
       const address: PersonAddress = payload.person.address;
 
       if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {

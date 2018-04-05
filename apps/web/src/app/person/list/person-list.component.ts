@@ -66,12 +66,12 @@ export class PersonListComponent implements OnDestroy {
   }
 
   familyName(id: number): string {
-    const fam: Family = this.families.find((f: Family) => !!f.primary[id]);
+    const fam: Family = this.families.find((f: Family) => !!f.primary[id] || !!f.members[id]);
     return fam ? fam.name : '';
   }
 
   isFamilyMember(id: string): boolean {
-    return this.families.some((f: Family) => !!f.primary[id]);
+    return this.families.some((f: Family) => !!f.primary[id] || !!f.members[id]);
   }
 
   private _setContextMenu(): void {

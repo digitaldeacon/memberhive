@@ -49,14 +49,6 @@ class Family extends \yii\db\ActiveRecord
     }
 
     /**
-     * @inheritdoc
-     */
-    public function attributeLabels()
-    {
-        return [];
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getPersonFamilies()
@@ -76,7 +68,6 @@ class Family extends \yii\db\ActiveRecord
     public function toResponseArray()
     {
         $prim = [];
-        $famMembers = [];
         $members = [];
         foreach ($this->personFamilies as $pfam) {
             if (empty($pfam->ref)) {
@@ -98,7 +89,7 @@ class Family extends \yii\db\ActiveRecord
             'id' => $this->id,
             'name' => $this->name,
             'primary' => $prim,
-            'members' => $famMembers,
+            'members' => $members,
             'unrelated' => json_decode($this->unrelated)
         ];
     }

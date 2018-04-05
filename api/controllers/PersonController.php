@@ -1,6 +1,7 @@
 <?php
 namespace app\controllers;
 
+use app\models\Family;
 use app\models\Person;
 use app\models\PersonFamily;
 use app\models\PersonTag;
@@ -167,6 +168,8 @@ class PersonController extends MHController
         $person = new Person(['scenario' => PERSON::SCENARIO_NEW]);
         $person = $this->setPerson($person, $post);
         $user = $this->setUser($person, $post);
+        $familyArray = [];
+
         if ($person->save()) {
             $this->saveTags($person, $post);
             if (isset($user)) {
@@ -177,7 +180,25 @@ class PersonController extends MHController
                     $this->sendCredentials($person, trim($post['user']['password']));
                 }
             }
-            return $person->toResponseArray();
+            if (isset($post['family']) && !empty($post['family'])) {
+                $family = Family::findOne($post['family']['id']);
+                if ($family) {
+                    $family->link('members', $person);
+                    $pfam = PersonFamily::find()->where([
+                        'family_id' => $family->id,
+                        'person_id' => $person->id
+                    ])->one();
+                    $pfam->role = $post['familyRole'];
+                    $pfam->ref = $person->uid;
+                    $pfam->save();
+                    unset($family->personFamilies);
+                }
+                $familyArray = Family::findOne($post['family']['id'])->toResponseArray();
+            }
+            return [
+                'person' => $person->toResponseArray(),
+                'family' => $familyArray
+            ];
         } else {
             throw new UnprocessableEntityHttpException(json_encode($person->errors));
         }
@@ -230,17 +251,16 @@ class PersonController extends MHController
 
     protected function setPerson($person, $post): Person
     {
-        // throw new BadRequestHttpException(json_encode($post));
         $person->firstName = $post['firstName'];
-        $person->middleName = $post['middleName'];
+        $person->middleName = $this->valOrNull($post['middleName']);
         $person->lastName = $post['lastName'];
-        $person->email = $post['email'];
+        $person->email = $this->valOrNull($post['email']);
         $person->gender = $post['gender'];
         $person->maritalStatus = $post['maritalStatus'];
         $person->address = json_encode($post['address']);
-        $person->phoneHome = $post['phoneHome'];
-        $person->phoneWork = $post['phoneWork'];
-        $person->phoneMobile = $post['phoneMobile'];
+        $person->phoneHome = $this->valOrNull($post['phoneHome']);
+        $person->phoneWork = $this->valOrNull($post['phoneWork']);
+        $person->phoneMobile = $this->valOrNull($post['phoneMobile']);
         $person->birthday = !empty($post['birthday'])
             ? date('Y-m-d', strtotime($post['birthday']))
             : null;
@@ -290,6 +310,10 @@ class PersonController extends MHController
             throw new NotFoundHttpException('The requested person does not exist.');
         }
         return $person;
+    }
+
+    private function valOrNull($value) {
+        return !empty($value) ? $value : null;
     }
 
     // TODO: make this into an authenticate process
