@@ -144,6 +144,7 @@ class PersonController extends MHController
         if ($person && $post) {
             $person = $this->setPerson($person, $post);
             $user = $this->setUser($person, $post);
+            // TODO: check if surname, name, address already exist, avoid duplication by erroneous calls
             if (!$person->save()) {
                 throw new UnprocessableEntityHttpException(json_encode($person->errors));
             }
@@ -168,6 +169,7 @@ class PersonController extends MHController
         $person = new Person(['scenario' => PERSON::SCENARIO_NEW]);
         $person = $this->setPerson($person, $post);
         $user = $this->setUser($person, $post);
+
         $familyArray = [];
 
         if ($person->save()) {
@@ -180,8 +182,8 @@ class PersonController extends MHController
                     $this->sendCredentials($person, trim($post['user']['password']));
                 }
             }
-            if (isset($post['family']) && !empty($post['family'])) {
-                $family = Family::findOne($post['family']['id']);
+            if (isset($post['familyId']) && !empty($post['familyId'])) {
+                $family = Family::findOne($post['familyId']);
                 if ($family) {
                     $family->link('members', $person);
                     $pfam = PersonFamily::find()->where([
@@ -193,7 +195,7 @@ class PersonController extends MHController
                     $pfam->save();
                     unset($family->personFamilies);
                 }
-                $familyArray = Family::findOne($post['family']['id'])->toResponseArray();
+                $familyArray = Family::findOne($post['familyId'])->toResponseArray();
             }
             return [
                 'person' => $person->toResponseArray(),
