@@ -4,6 +4,8 @@ import { MatSelectChange, MatDatepickerInputEvent } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 
+import { Store } from '@ngrx/store';
+
 import {
     Family,
     FamilyRole,
@@ -13,7 +15,7 @@ import {
     FormStatus,
     MaritalStatus,
     maritalStatusArray,
-    familyRoleArray
+    familyRoleArray, AppState, getPeople
 } from '@memberhivex/core';
 
 import * as _moment from 'moment';
@@ -76,7 +78,7 @@ export class PersonFormComponent implements OnInit {
   emailRegex: RegExp;
   familyRoles: FamilyRole[] = familyRoleArray;
 
-  constructor(private _fb: FormBuilder) {
+  constructor(private _fb: FormBuilder, private _store: Store<AppState>) {
     const regex = '^(([^<>()\\[\\]\\\\.,;:\\s@"]+(\\.[^<>()\\[\\]\\\\.,;:\\s@"]+)*)|(".+"))';
     const regex2 = '@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$';
     this.emailRegex = new RegExp(regex + regex2);
@@ -114,7 +116,7 @@ export class PersonFormComponent implements OnInit {
     this._pwRandCheckbox = this._fb.control(this.randomPassword);
 
     this.form = this._fb.group({
-      family: [undefined],
+      familyId: [undefined],
       familyRole: [undefined],
       firstName: [''],
       middleName: [''],
@@ -210,8 +212,13 @@ export class PersonFormComponent implements OnInit {
   }
 
   setFamily(data: MatSelectChange): void {
-    const family: Family = data.value;
+    let address: PersonAddress;
+    const family: Family = this.families.find((f: Family) => f.id === data.value);
     this.form.get('lastName').patchValue(family.name.split(" (")[0]);
+    this._store.select(getPeople).subscribe((people: Person[]) => {
+      address = people.find(person => person.uid === Object.keys(family.primary)[0]).address;
+      this.form.get('address').patchValue(address);
+    });
   }
 
   setFamilyRole(data: MatSelectChange): void {

@@ -58,6 +58,7 @@ export class PersonCreateComponent implements OnDestroy {
   }
 
   savePerson(person: Person): void {
+    // TODO: check if the surname, name combination exists and warn via modal dialog
     this._store.dispatch(new CreatePersonAction(person));
     // Cannot calculate the Geocodes here as we need the uid for the update action underneath
     // we hide the right part of the form in create mode (for now)

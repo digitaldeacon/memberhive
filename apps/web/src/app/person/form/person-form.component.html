@@ -22,11 +22,11 @@
             <legend i18n="@@form.personal">Personal</legend>
             <div *ngIf="inCreateMode()" fxLayoutGap="25px" class="family-section">
                 <mat-form-field fxFlex>
-                    <mat-select formControlName="family"
+                    <mat-select formControlName="familyId"
                                 (change)="setFamily($event)"
                                 placeholder="Belongs to family"
                                 i18n-placeholder="@@form.belongsFamily">
-                        <mat-option *ngFor="let family of families" [value]="family">{{family.name}}</mat-option>
+                        <mat-option *ngFor="let family of families" [value]="family.id">{{family.name}}</mat-option>
                     </mat-select>
                 </mat-form-field>
                 <mat-form-field fxFlex>
@@ -193,7 +193,7 @@
                                   i18n="@@form.credentials.nomail">Do not mail credentials</mat-checkbox>
                 </div>
             </fieldset>
-            <fieldset formGroupName="address" *ngIf="!inCreateMode()">
+            <fieldset formGroupName="address">
                 <legend i18n="@@form.address.title">Addresses</legend>
                 <div formGroupName="home">
                     <div fxLayout="row" fxLayoutAlign="space-between center">
