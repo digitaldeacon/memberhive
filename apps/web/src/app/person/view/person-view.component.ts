@@ -209,7 +209,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     this.dialogRef = this._dialog.open(AvatarEditDialogComponent, config);
     this.dialogRef.afterClosed().subscribe((result: any) => {
       if (result) {
-        this.person = result;
+        // this.person = result;
+          console.log(result);
       }
       this.dialogRef = undefined;
     });

@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { createSelector } from '@ngrx/store';
-import * as actions from './person.actions';
+import { PeopleActionTypes, PeopleActions } from './person.actions';
 import { Person, CalcGeoCodePayload } from './person.model';
 import * as common from '../../common/common.model';
 
@@ -20,22 +20,23 @@ const initialPersonState: PersonState = {
   personId: ''
 };
 
-export function personReducer(state: PersonState = initialPersonState, action: actions.PersonActions): PersonState {
+export function personReducer(state: PersonState = initialPersonState, action: PeopleActions): PersonState {
   switch (action.type) {
-    case actions.LIST_PEOPLE:
-    case actions.UPDATE_PERSON:
-    case actions.CREATE_PERSON:
-    case actions.DELETE_PERSON:
+    case PeopleActionTypes.LIST_PEOPLE:
+    case PeopleActionTypes.UPDATE_PERSON:
+    case PeopleActionTypes.CREATE_PERSON:
+    case PeopleActionTypes.DELETE_PERSON:
+    case PeopleActionTypes.UPLOAD_PERSON_AVATAR:
       return Object.assign({}, state, {
         loading: true
       });
 
-    case actions.CLEAR_PERSON_MESSAGE:
+    case PeopleActionTypes.CLEAR_PERSON_MESSAGE:
       return Object.assign({}, state, {
         message: undefined
       });
 
-    case actions.LIST_PEOPLE_SUCCESS: {
+    case PeopleActionTypes.LIST_PEOPLE_SUCCESS: {
       const payload: Person[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
@@ -44,13 +45,13 @@ export function personReducer(state: PersonState = initialPersonState, action: a
       });
     }
 
-    case actions.VIEW_PERSON: {
+    case PeopleActionTypes.VIEW_PERSON: {
       return Object.assign({}, state, {
         personId: action.payload
       });
     }
 
-    case actions.UPDATE_PERSON_SUCCESS: {
+    case PeopleActionTypes.UPDATE_PERSON_SUCCESS: {
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
@@ -67,7 +68,7 @@ export function personReducer(state: PersonState = initialPersonState, action: a
       };
     }
 
-    case actions.DELETE_PERSON_SUCCESS: {
+    case PeopleActionTypes.DELETE_PERSON_SUCCESS: {
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
@@ -81,10 +82,10 @@ export function personReducer(state: PersonState = initialPersonState, action: a
       });
     }
 
-    case actions.CALC_PERSON_GEO_FAILURE:
-    case actions.LIST_PEOPLE_FAILURE:
-    case actions.CREATE_PERSON_FAILURE:
-    case actions.DELETE_PERSON_FAILURE: {
+    case PeopleActionTypes.CALC_PERSON_GEO_FAILURE:
+    case PeopleActionTypes.LIST_PEOPLE_FAILURE:
+    case PeopleActionTypes.CREATE_PERSON_FAILURE:
+    case PeopleActionTypes.DELETE_PERSON_FAILURE:{
       const res: HttpErrorResponse = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
@@ -97,7 +98,7 @@ export function personReducer(state: PersonState = initialPersonState, action: a
       });
     }
 
-    case actions.CREATE_PERSON_SUCCESS: {
+    case PeopleActionTypes.CREATE_PERSON_SUCCESS: {
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
@@ -115,7 +116,7 @@ export function personReducer(state: PersonState = initialPersonState, action: a
     /**
      * @deprecated
      */
-    case actions.CALC_PERSON_GEO_SUCCESS: {
+    case PeopleActionTypes.CALC_PERSON_GEO_SUCCESS: {
       const payload: CalcGeoCodePayload = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,

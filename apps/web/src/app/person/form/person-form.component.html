@@ -9,7 +9,7 @@
       fxLayout="column"
       novalidate>
 
-    <fieldset fxFlex="100">
+    <fieldset fxLayout="column">
         <legend i18n="@@form.statustags">Status & Tags</legend>
         <mh-tags [source]="tagSource"
                  formControlName="status"
@@ -107,7 +107,7 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div fxLayout.gt-xs="row" fxLayout.xs="column">
+            <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="25px">
                 <mat-form-field>
                     <input matInput fxFlex type="tel" formControlName="phoneHome"
                            placeholder="Phone (Home)" i18n-placeholder="@@phone.home">
@@ -206,7 +206,7 @@
                                placeholder="Street"
                                i18n-placeholder="@@form.address.street">
                     </mat-form-field>
-                    <div fxLayout="row">
+                    <div fxLayout="row" fxLayoutGap="25px">
                         <mat-form-field>
                             <input matInput
                                    type="text"
@@ -234,7 +234,7 @@
                                placeholder="Street"
                                i18n-placeholder="@@form.address.street">
                     </mat-form-field>
-                    <div fxLayout="row">
+                    <div fxLayout="row" fxLayoutGap="25px">
                         <mat-form-field>
                             <input matInput
                                    type="text"

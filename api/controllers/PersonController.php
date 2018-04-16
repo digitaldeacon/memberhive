@@ -8,6 +8,7 @@ use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
 
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\NotFoundHttpException;
 use yii\web\ServerErrorHttpException;
@@ -15,13 +16,12 @@ use yii\web\UnprocessableEntityHttpException;
 
 class PersonController extends MHController
 {
-    private $_actions = [
-        'list' => ['get'],
-        'update' => ['post'],
-        'delete' => ['post'],
-        'create' => ['post'],
-        'search' => ['get'],
-        'avatar-upload' => ['post']
+    private $_getActions = ['list', 'search'];
+    private $_postActions = [
+        'update',
+        'delete',
+        'create',
+        'upload-avatar'
     ];
 
     public function behaviors()
@@ -29,13 +29,13 @@ class PersonController extends MHController
         $behaviors = parent::behaviors();
         $behaviors['verbs'] = [
             'class' => \yii\filters\VerbFilter::class,
-            'actions' => $this->_actions,
+            'actions' => ArrayHelper::merge($this->_getActions, $this->_postActions)
         ];
         $behaviors['access'] = [
             'class' => \yii\filters\AccessControl::class,
             'rules' => [
                 [
-                    'actions' => array_keys($this->_actions),
+                    'actions' => ArrayHelper::merge($this->_getActions, $this->_postActions),
                     'allow' => true,
                     'roles' => ['@'],
                 ],
@@ -49,11 +49,7 @@ class PersonController extends MHController
      */
     public function beforeAction($action)
     {
-        if ($action->id == 'update'
-            || $action->id == 'avatar-upload'
-            || $action->id == 'create'
-            || $action->id == 'delete'
-        ) {
+        if (in_array($action->id, $this->_postActions)) {
             $this->enableCsrfValidation = false;
         }
 
@@ -61,21 +57,25 @@ class PersonController extends MHController
     }
 
     // returns Person
-    public function actionAvatarUpload()
+    public function actionUploadAvatar()
     {
         $ret = [];
         $post = \Yii::$app->request->post();
-        $split = explode(',', $post['base']);
+        $split = explode(',', $post['image']);
         $data = null;
 
-        if (!isset($post['base'])) {
+        if (!isset($post['image'])) {
             throw new BadRequestHttpException('No image data received');
         }
-        if (!isset($post['id']) || empty($post['id'])) {
+        if (!isset($post['personId']) || empty($post['personId'])) {
             throw new BadRequestHttpException('No person id received');
         }
 
-        $person = Person::findOne(['uid'=>$post['id']]);
+        $person = Person::findOne(['uid'=>$post['personId']]);
+
+        if (empty($person)) {
+            throw new UnprocessableEntityHttpException('No person could be selected');
+        }
 
         // this freaky conversion is because we cannot (yet) pass the file type in avatar-edit.dialog.ts
         // additional downside: the image cropper wants to convert everything to .png!
@@ -88,10 +88,10 @@ class PersonController extends MHController
 
         // set the proper path to save so that Angular can read the image
         // should be ./assets/images/avatar, so that images get uploaded correctly on dev and prod?
-        $dir = file_exists(__DIR__ . '/../config/debug.php') ? 'web' : 'src';
+        $dir = file_exists(__DIR__ . '/../config/debug.php') ? 'apps/web/src/' : '';
 
-        $imagePath =  \Yii::getAlias('@webroot') . "/../$dir/assets/images/avatar/person/";
-        $image = $post['id'] . '.' . $type;
+        $imagePath =  \Yii::getAlias('@webroot') . '/../'.$dir.'assets/images/avatar/person/';
+        $image = $post['personId'] . '.' . $type;
 
         if (file_put_contents($imagePath . $image, $data)) {
             // don't store the actual url here, the app should define where the files are located
@@ -103,7 +103,7 @@ class PersonController extends MHController
             $ret[] = $person;
         }
 
-        return ['response' => $ret];
+        return $person->toResponseArray();
     }
 
     public function actionList()

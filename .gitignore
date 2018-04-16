@@ -54,6 +54,7 @@ mobile/typings/
 .log
 yarn-error.log
 /typings
+/apps/web/src/assets/images/avatar/person
 
 # e2e
 /e2e/*.js
