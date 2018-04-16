@@ -192,7 +192,7 @@ export class PersonFormComponent implements OnInit {
 
   listenFormChanges(): void {
     this.form.valueChanges
-      .debounceTime(2000)
+      .debounceTime(3000)
       .distinctUntilChanged()
       .subscribe((data: Person) => {
         const userCtrl: any = (<any>this.form).get("user").controls;
@@ -232,14 +232,11 @@ export class PersonFormComponent implements OnInit {
   }
 
   save(person: Person): void {
-    // console.log(this.findInvalidControls());
     if (this.form.valid) {
       this.submitted = true;
-      person.birthday = person.birthday ? moment(person.birthday) : undefined;
-      person.baptized = person.baptized ? moment(person.baptized) : undefined;
-      person.anniversary = person.anniversary
-        ? moment(person.anniversary)
-        : undefined;
+      person.birthday = person.birthday ? moment(person.birthday).utc(true) : undefined;
+      person.baptized = person.baptized ? moment(person.baptized).utc(true) : undefined;
+      person.anniversary = person.anniversary ? moment(person.anniversary).utc(true) : undefined;
 
       this.form.patchValue(person);
       this.toggleRandomPassword();
