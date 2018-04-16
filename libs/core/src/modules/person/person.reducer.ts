@@ -1,8 +1,8 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { createSelector } from '@ngrx/store';
-import { PeopleActionTypes, PeopleActions } from './person.actions';
-import { Person, CalcGeoCodePayload } from './person.model';
-import * as common from '../../common/common.model';
+import { HttpErrorResponse } from "@angular/common/http";
+import { createSelector } from "@ngrx/store";
+import { PeopleActionTypes, PeopleActions } from "./person.actions";
+import { Person, CalcGeoCodePayload } from "./person.model";
+import * as common from "../../common/common.model";
 
 export interface PersonState {
   loaded: boolean;
@@ -17,10 +17,13 @@ const initialPersonState: PersonState = {
   loaded: false,
   loading: false,
   people: [],
-  personId: ''
+  personId: ""
 };
 
-export function personReducer(state: PersonState = initialPersonState, action: PeopleActions): PersonState {
+export function personReducer(
+  state: PersonState = initialPersonState,
+  action: PeopleActions
+): PersonState {
   switch (action.type) {
     case PeopleActionTypes.LIST_PEOPLE:
     case PeopleActionTypes.UPDATE_PERSON:
@@ -55,7 +58,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated ' + payload.fullName
+        text: "Successfully updated " + payload.fullName
       };
       return {
         loaded: true,
@@ -72,7 +75,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully deleted this person'
+        text: "Successfully deleted this person"
       };
       return Object.assign({}, state, {
         loaded: true,
@@ -85,7 +88,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
     case PeopleActionTypes.CALC_PERSON_GEO_FAILURE:
     case PeopleActionTypes.LIST_PEOPLE_FAILURE:
     case PeopleActionTypes.CREATE_PERSON_FAILURE:
-    case PeopleActionTypes.DELETE_PERSON_FAILURE:{
+    case PeopleActionTypes.DELETE_PERSON_FAILURE: {
       const res: HttpErrorResponse = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
@@ -102,7 +105,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully created ' + payload.fullName
+        text: "Successfully created " + payload.fullName
       };
       return Object.assign({}, state, {
         loading: false,
@@ -120,14 +123,16 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: CalcGeoCodePayload = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated geocodes for ' + payload.person.fullName
+        text: "Successfully updated geocodes for " + payload.person.fullName
       };
       return {
         loading: false,
         loaded: true,
         message: message,
         people: state.people.map((p: Person) => {
-          return p.uid === payload.person.uid ? Object.assign({}, p, payload.person) : p;
+          return p.uid === payload.person.uid
+            ? Object.assign({}, p, payload.person)
+            : p;
         }),
         personId: payload.person.uid
       };
@@ -144,8 +149,13 @@ export const loadingPerson: any = (state: PersonState) => state.loading;
 export const messagePerson: any = (state: PersonState) => state.message;
 
 export const people: any = (state: PersonState) => state.people;
-export const lastCreatedPersonId: any = (state: PersonState) => state.lastCreated;
+export const lastCreatedPersonId: any = (state: PersonState) =>
+  state.lastCreated;
 export const selectedId: any = (state: PersonState) => state.personId;
-export const person: any = createSelector(people, selectedId, (ppl: any, uid: string) => {
-  return ppl.filter((p: Person) => p.uid === uid)[0];
-});
+export const person: any = createSelector(
+  people,
+  selectedId,
+  (ppl: any, uid: string) => {
+    return ppl.filter((p: Person) => p.uid === uid)[0];
+  }
+);

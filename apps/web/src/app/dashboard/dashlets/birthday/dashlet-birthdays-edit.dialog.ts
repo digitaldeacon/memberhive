@@ -1,9 +1,9 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { Component, Inject, OnInit } from "@angular/core";
+import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
 
 @Component({
-  selector: 'mh-dialog-dashlet-birthday-edit',
-  templateUrl: './dashlet-birthdays-edit.dialog.html'
+  selector: "mh-dialog-dashlet-birthday-edit",
+  templateUrl: "./dashlet-birthdays-edit.dialog.html"
 })
 export class DashletEditDialogComponent implements OnInit {
   range: number;

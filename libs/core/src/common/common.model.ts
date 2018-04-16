@@ -1,4 +1,4 @@
-import { Person } from '../modules/person/person.model';
+import { Person } from "../modules/person/person.model";
 
 export interface Message {
   type: MessageType;
@@ -45,14 +45,14 @@ export interface Filter {
 }
 
 export enum FormStatus {
-  EDIT = 'edit',
-  CREATE = 'create'
+  EDIT = "edit",
+  CREATE = "create"
 }
 
 export enum MessageType {
-  SUCCESS = 'success',
-  FAILURE = 'failure',
-  DEFAULT = ''
+  SUCCESS = "success",
+  FAILURE = "failure",
+  DEFAULT = ""
 }
 
 export const emptyMessage: Message = {

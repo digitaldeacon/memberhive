@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { HttpService } from './http.service';
-import { Address, GeoCodes } from '../common/common.model';
-import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
-import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
+import { Injectable } from "@angular/core";
+import { HttpService } from "./http.service";
+import { Address, GeoCodes } from "../common/common.model";
+import { Observable } from "rxjs/Observable";
+import { empty } from "rxjs/observable/empty";
+import { GoogleMapsAPIWrapper, MapsAPILoader } from "@agm/core";
 
 declare var google: any;
 
@@ -51,15 +51,15 @@ export class GeocodeService {
   }
 
   private _formatAddress(): string {
-    let adr = '';
+    let adr = "";
 
     if (!this._address) {
-      return '';
+      return "";
     }
 
-    adr = this._address.street ? this._address.street : '';
-    adr += this._address.zip ? ', ' + this._address.zip : '';
-    adr += this._address.city ? ' ' + this._address.city : '';
+    adr = this._address.street ? this._address.street : "";
+    adr += this._address.zip ? ", " + this._address.zip : "";
+    adr += this._address.city ? " " + this._address.city : "";
 
     return adr;
   }

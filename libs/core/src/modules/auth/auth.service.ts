@@ -1,20 +1,20 @@
-import { Injectable } from '@angular/core';
-import { HttpRequest } from '@angular/common/http';
-import * as jwt_decode_ from 'jwt-decode';
-import * as localForage from 'localforage';
+import { Injectable } from "@angular/core";
+import { HttpRequest } from "@angular/common/http";
+import * as jwt_decode_ from "jwt-decode";
+import * as localForage from "localforage";
 
 const jwt_decode = jwt_decode_;
 
-const TOKEN = 'token';
-const CLIENT = 'client';
-const UID = 'uid';
-const CREATEDAT = 'createdAt';
+const TOKEN = "token";
+const CLIENT = "client";
+const UID = "uid";
+const CREATEDAT = "createdAt";
 
 @Injectable()
 export class AuthService {
-  private _token: string = '';
-  private _clientToken: string = '';
-  private _uid: string = '';
+  private _token: string = "";
+  private _clientToken: string = "";
+  private _uid: string = "";
   private _createdAt: Date = null;
   private _cachedRequests: Array<HttpRequest<any>> = [];
 
@@ -68,8 +68,8 @@ export class AuthService {
   clearStore(): Promise<void> {
     this.createdAt = undefined;
     this._cachedRequests = [];
-    this.token = '';
-    this.personId = '';
+    this.token = "";
+    this.personId = "";
     return localForage.clear();
   }
 
@@ -78,7 +78,7 @@ export class AuthService {
       return undefined;
     }
     const decoded: any = jwt_decode(this.token);
-    if (!decoded.hasOwnProperty('exp')) {
+    if (!decoded.hasOwnProperty("exp")) {
       return undefined;
     }
     const date = new Date(0);

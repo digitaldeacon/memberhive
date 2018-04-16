@@ -1,6 +1,17 @@
-import { Component, OnDestroy, AfterViewInit, Input, forwardRef } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  AfterViewInit,
+  Input,
+  forwardRef
+} from "@angular/core";
 
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import {
+  FormControl,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  NG_VALIDATORS
+} from "@angular/forms";
 
 declare var tinymce: any;
 
@@ -18,13 +29,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: 'mh-tinymce',
-  templateUrl: 'tinymce.component.html',
-  styleUrls: ['tinymce.component.scss'],
+  selector: "mh-tinymce",
+  templateUrl: "tinymce.component.html",
+  styleUrls: ["tinymce.component.scss"],
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
-export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
-  @Input() _value: any = '';
+export class TinyMCEComponent
+  implements AfterViewInit, OnDestroy, ControlValueAccessor {
+  @Input() _value: any = "";
   @Input() inline: boolean = true;
   @Input() elementId: String;
 
@@ -70,24 +82,24 @@ export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueA
 
   ngAfterViewInit(): void {
     tinymce.init({
-      selector: '#' + this.elementId,
-      fixed_toolbar_container: '#toolbar',
-      plugins: ['link', 'paste', 'lists', 'autoresize'],
-      skin_url: '/assets/tiny/skins/light',
-      theme: 'modern',
+      selector: "#" + this.elementId,
+      fixed_toolbar_container: "#toolbar",
+      plugins: ["link", "paste", "lists", "autoresize"],
+      skin_url: "/assets/tiny/skins/light",
+      theme: "modern",
       menubar: false,
       elementpath: false,
       branding: false,
-      toolbar: 'undo redo | bold italic | bullist numlist | link',
+      toolbar: "undo redo | bold italic | bullist numlist | link",
       content_style:
         'body {font-family: Roboto, "Helvetica Neue", sans-serif !important;' +
-        'color: #202020 !important; font-size: 14px !important;}',
+        "color: #202020 !important; font-size: 14px !important;}",
       height: 200,
       inline: this.inline,
       // theme: 'inlite',
       setup: (editor: any) => {
         this.editor = editor;
-        editor.on('keyup', () => {
+        editor.on("keyup", () => {
           this.value = editor.getContent();
         });
       }

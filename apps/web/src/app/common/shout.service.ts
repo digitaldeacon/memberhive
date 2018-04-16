@@ -1,10 +1,15 @@
-import { Injectable } from '@angular/core';
-import { MatSnackBar, MatSnackBarConfig, MatSnackBarRef, SimpleSnackBar } from '@angular/material';
-import { MessageType } from '@memberhivex/core';
+import { Injectable } from "@angular/core";
+import {
+  MatSnackBar,
+  MatSnackBarConfig,
+  MatSnackBarRef,
+  SimpleSnackBar
+} from "@angular/material";
+import { MessageType } from "@memberhivex/core";
 
 @Injectable()
 export class ShoutService {
-  actionButtonLabel: string = 'OK';
+  actionButtonLabel: string = "OK";
   action: boolean = true;
   autoHide: number = 3000;
 
@@ -14,7 +19,7 @@ export class ShoutService {
     const config: MatSnackBarConfig = new MatSnackBarConfig();
     config.duration = this.autoHide;
     if (type) {
-      config.panelClass = ['shout-' + type];
+      config.panelClass = ["shout-" + type];
     }
     return this._snackBar.open(message, this.actionButtonLabel, config);
   }

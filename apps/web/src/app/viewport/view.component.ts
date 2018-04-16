@@ -1,27 +1,32 @@
-import { Component, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/takeWhile';
+import {
+  Component,
+  OnDestroy,
+  ChangeDetectionStrategy,
+  ViewChild
+} from "@angular/core";
+import { Router } from "@angular/router";
+import { Observable } from "rxjs/Observable";
+import { Subscription } from "rxjs/Subscription";
+import "rxjs/add/operator/takeWhile";
 
-import { MediaChange, ObservableMedia } from '@angular/flex-layout';
-import { MatSidenav } from '@angular/material';
+import { MediaChange, ObservableMedia } from "@angular/flex-layout";
+import { MatSidenav } from "@angular/material";
 
-import { ShoutService } from '../common/shout.service';
+import { ShoutService } from "../common/shout.service";
 
-import { Store } from '@ngrx/store';
-import * as core from '@memberhivex/core';
+import { Store } from "@ngrx/store";
+import * as core from "@memberhivex/core";
 // import { I18n } from '@ngx-translate/i18n-polyfill';
 
 const enum DrawerState {
-  OPENED = 'opened',
-  CLOSED = 'closed'
+  OPENED = "opened",
+  CLOSED = "closed"
 }
 
 @Component({
-  selector: 'mh-view',
-  templateUrl: './view.component.html',
-  styleUrls: ['./view.component.scss'],
+  selector: "mh-view",
+  templateUrl: "./view.component.html",
+  styleUrls: ["./view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ViewComponent implements OnDestroy {
@@ -30,14 +35,14 @@ export class ViewComponent implements OnDestroy {
   // TODO: @I18n
   routes: Object[] = [
     {
-      title: 'Dashboard', // this.i18n({ value: 'Dashboard', id: 'menu.dashboard' }),
-      route: '/dashboard',
-      icon: 'dashboard'
+      title: "Dashboard", // this.i18n({ value: 'Dashboard', id: 'menu.dashboard' }),
+      route: "/dashboard",
+      icon: "dashboard"
     },
     {
-      title: 'Mitglieder', //this.i18n({ value: 'People', id: 'menu.people' }),
-      route: '/person',
-      icon: 'people'
+      title: "Mitglieder", //this.i18n({ value: 'People', id: 'menu.people' }),
+      route: "/person",
+      icon: "people"
     },
     /*{
             title: 'Interactions', route: '/interaction', icon: 'forum'
@@ -49,9 +54,9 @@ export class ViewComponent implements OnDestroy {
             title: 'Groups', route: '', icon: 'people_outline'
         },*/
     {
-      title: 'Einstellungen', // this.i18n({ value: 'Settings', id: 'menu.settings' }),
-      route: '/settings',
-      icon: 'build'
+      title: "Einstellungen", // this.i18n({ value: 'Settings', id: 'menu.settings' }),
+      route: "/settings",
+      icon: "build"
     }
   ];
 
@@ -65,11 +70,11 @@ export class ViewComponent implements OnDestroy {
 
   watcher: Subscription;
   drawerState: DrawerState = DrawerState.OPENED;
-  drawerMode: string = 'side';
-  drawerClass: string = 'drawer-opened';
-  previousAlias: string = '';
+  drawerMode: string = "side";
+  drawerClass: string = "drawer-opened";
+  previousAlias: string = "";
 
-  @ViewChild('sidenav') private _sidenav: MatSidenav;
+  @ViewChild("sidenav") private _sidenav: MatSidenav;
 
   constructor(
     private _authSrv: core.AuthService,
@@ -80,9 +85,9 @@ export class ViewComponent implements OnDestroy {
   ) {
     this._initStore();
     this.watcher = _media.subscribe((change: MediaChange) => {
-      if (change.mqAlias === 'xs' && change.mqAlias !== this.previousAlias) {
+      if (change.mqAlias === "xs" && change.mqAlias !== this.previousAlias) {
         this._toggleMobile(true);
-      } else if (this.previousAlias === 'xs') {
+      } else if (this.previousAlias === "xs") {
         this._toggleMobile(false);
       }
       this.previousAlias = change.mqAlias;
@@ -101,9 +106,9 @@ export class ViewComponent implements OnDestroy {
 
   church(): string {
     return this.churchName
-      .split(' ')
+      .split(" ")
       .map(w => w[0])
-      .join('');
+      .join("");
   }
 
   openDrawer(): void {
@@ -122,14 +127,14 @@ export class ViewComponent implements OnDestroy {
 
   toggleDrawer(status: DrawerState = DrawerState.OPENED): void {
     this.drawerState = status;
-    this.drawerClass = 'drawer-' + status;
+    this.drawerClass = "drawer-" + status;
   }
 
   paddingClasses(): string {
-    if (this._sidenav.mode === 'over') {
-      return '';
+    if (this._sidenav.mode === "over") {
+      return "";
     }
-    return 'p-' + this.drawerState;
+    return "p-" + this.drawerState;
   }
 
   route(r: string, part?: string): void {
@@ -142,11 +147,11 @@ export class ViewComponent implements OnDestroy {
 
   private _toggleMobile(isMobile: boolean): void {
     if (isMobile) {
-      this.drawerMode = 'over';
+      this.drawerMode = "over";
       this._sidenav.close();
       this.toggleDrawer(DrawerState.OPENED);
     } else {
-      this.drawerMode = 'side';
+      this.drawerMode = "side";
       this._sidenav.open();
     }
   }
@@ -162,7 +167,7 @@ export class ViewComponent implements OnDestroy {
       .takeWhile(() => this._alive)
       .subscribe((visible: boolean) => {
         this.drawerState = visible ? DrawerState.OPENED : DrawerState.CLOSED;
-        this.drawerClass = 'drawer-' + this.drawerState;
+        this.drawerClass = "drawer-" + this.drawerState;
       });
     this._store
       .select(core.getAuthPerson)

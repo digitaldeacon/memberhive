@@ -1,7 +1,7 @@
-import { HttpErrorResponse } from '@angular/common/http';
-import { Family } from './family.model';
-import { FamilyActionTypes, FamilyActions } from './family.actions';
-import { Message, MessageType } from '../../common/common.model';
+import { HttpErrorResponse } from "@angular/common/http";
+import { Family } from "./family.model";
+import { FamilyActionTypes, FamilyActions } from "./family.actions";
+import { Message, MessageType } from "../../common/common.model";
 
 export interface FamilyState {
   loaded?: boolean;
@@ -14,7 +14,10 @@ const initialState: FamilyState = {
   families: []
 };
 
-export function familyReducer(state: FamilyState = initialState, action: FamilyActions): FamilyState {
+export function familyReducer(
+  state: FamilyState = initialState,
+  action: FamilyActions
+): FamilyState {
   switch (action.type) {
     case FamilyActionTypes.UPDATE_FAMILY:
     case FamilyActionTypes.REMOVE_MEMBER:
@@ -46,7 +49,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       const family: Family = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully updated family ' + family.name
+        text: "Successfully updated family " + family.name
       };
       return {
         loaded: true,
@@ -71,7 +74,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       const family: Family = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully added family ' + family.name
+        text: "Successfully added family " + family.name
       };
       return Object.assign({}, state, {
         loaded: true,

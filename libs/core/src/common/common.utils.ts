@@ -1,14 +1,18 @@
 // tslint:disable: no-unused-variable
-import { isEmpty } from 'lodash';
+import { isEmpty } from "lodash";
 // tslint:enable: no-unused-variable
 
 export class Utils {
-  static objEmptyProperties(o: any, part: string, search: string[] | string = ''): boolean {
+  static objEmptyProperties(
+    o: any,
+    part: string,
+    search: string[] | string = ""
+  ): boolean {
     if (!o || !o.hasOwnProperty(part)) {
       return true;
     }
-    if (typeof search === 'string') {
-      if (search === '') {
+    if (typeof search === "string") {
+      if (search === "") {
         return isEmpty(o[part]);
       }
       return isEmpty(o[part][search]);

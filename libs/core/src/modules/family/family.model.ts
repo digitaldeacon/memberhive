@@ -1,4 +1,4 @@
-import { Person } from '../person/person.model';
+import { Person } from "../person/person.model";
 
 export interface Member {
   id?: string;
@@ -32,16 +32,16 @@ export interface FamilyPayload {
 }
 
 export const enum FamilyRole {
-  HUSBAND = 'husband',
-  WIFE = 'wife',
-  CHILD = 'child',
-  MOTHER = 'mother',
-  FATHER = 'father',
-  BROTHER = 'brother',
-  SISTER = 'sister',
-  GRANDMOTHER = 'grandmother',
-  GRANDFATHER = 'grandfather',
-  INLAW = 'inlaw'
+  HUSBAND = "husband",
+  WIFE = "wife",
+  CHILD = "child",
+  MOTHER = "mother",
+  FATHER = "father",
+  BROTHER = "brother",
+  SISTER = "sister",
+  GRANDMOTHER = "grandmother",
+  GRANDFATHER = "grandfather",
+  INLAW = "inlaw"
 }
 
 export const familyRoleArray: FamilyRole[] = [

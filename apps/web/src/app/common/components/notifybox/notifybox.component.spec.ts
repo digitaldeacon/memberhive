@@ -1,8 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { NotifyboxComponent } from './notifybox.component';
+import { NotifyboxComponent } from "./notifybox.component";
 
-describe('NotifyboxComponent', () => {
+describe("NotifyboxComponent", () => {
   let component: NotifyboxComponent;
   let fixture: ComponentFixture<NotifyboxComponent>;
 
@@ -20,7 +20,7 @@ describe('NotifyboxComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should be created', () => {
+  it("should be created", () => {
     expect(component).toBeTruthy();
   });
 });
