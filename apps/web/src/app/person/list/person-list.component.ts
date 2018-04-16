@@ -1,5 +1,5 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
+import { Store } from "@ngrx/store";
 
 import {
   AppState,
@@ -14,13 +14,13 @@ import {
   ContextButton,
   SetContextButtonsAction,
   SetTitleAction
-} from '@memberhivex/core';
+} from "@memberhivex/core";
 
 @Component({
-  moduleId: 'mh-person',
-  selector: 'mh-person-list',
-  templateUrl: './person-list.component.html',
-  styleUrls: ['./person-list.component.scss'],
+  moduleId: "mh-person",
+  selector: "mh-person-list",
+  templateUrl: "./person-list.component.html",
+  styleUrls: ["./person-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonListComponent implements OnDestroy {
@@ -54,7 +54,7 @@ export class PersonListComponent implements OnDestroy {
       });
     this._setContextMenu();
     // TODO: @I18n
-    this._store.dispatch(new SetTitleAction('Mitglieder auflisten'));
+    this._store.dispatch(new SetTitleAction("Mitglieder auflisten"));
   }
 
   display(key: string): boolean {
@@ -66,19 +66,27 @@ export class PersonListComponent implements OnDestroy {
   }
 
   familyName(id: number): string {
-    const fam: Family = this.families.find((f: Family) => !!f.primary[id] || !!f.members[id]);
-    return fam ? fam.name : '';
+    const fam: Family = this.families.find(
+      (f: Family) => !!f.primary[id] || !!f.members[id]
+    );
+    return fam ? fam.name : "";
   }
 
   isFamilyMember(id: string): boolean {
-    return this.families.some((f: Family) => !!f.primary[id] || !!f.members[id]);
+    return this.families.some(
+      (f: Family) => !!f.primary[id] || !!f.members[id]
+    );
   }
 
   private _setContextMenu(): void {
     const buttons: ContextButton[] = [];
     // TODO: @I18n
-    buttons.push({ icon: 'person_pin', link: '/person/map', title: 'KARTE' });
-    buttons.push({ icon: 'person_add', link: '/person/create', title: 'HINZUFÜGEN' });
+    buttons.push({ icon: "person_pin", link: "/person/map", title: "KARTE" });
+    buttons.push({
+      icon: "person_add",
+      link: "/person/create",
+      title: "HINZUFÜGEN"
+    });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));
   }

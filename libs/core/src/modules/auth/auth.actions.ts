@@ -1,19 +1,19 @@
-import { Action } from '@ngrx/store';
-import { Credentials } from './auth.model';
-import { User } from '../person/person.model';
-import { HttpResponse, HttpErrorResponse } from '@angular/common/http';
+import { Action } from "@ngrx/store";
+import { Credentials } from "./auth.model";
+import { User } from "../person/person.model";
+import { HttpResponse, HttpErrorResponse } from "@angular/common/http";
 
-export const AUTHENTICATE = '[User] Authenticate';
-export const AUTHENTICATE_FAILURE = '[User] Authentication failure';
-export const AUTHENTICATE_SUCCESS = '[User] Authentication success';
-export const AUTHENTICATED = '[User] Authenticated';
-export const AUTHENTICATED_FAILURE = '[User] Authenticated failure';
-export const AUTHENTICATED_SUCCESS = '[User] Authenticated success';
-export const REAUTHENTICATE = '[User] Re-Authenticate';
-export const REAUTHENTICATION_SUCCESS = '[User] Re-Authentication Success';
-export const SIGN_OUT = '[User] Sign off';
-export const SIGN_OUT_FAILURE = '[User] Sign off failure';
-export const SIGN_OUT_SUCCESS = '[User] Sign off success';
+export const AUTHENTICATE = "[User] Authenticate";
+export const AUTHENTICATE_FAILURE = "[User] Authentication failure";
+export const AUTHENTICATE_SUCCESS = "[User] Authentication success";
+export const AUTHENTICATED = "[User] Authenticated";
+export const AUTHENTICATED_FAILURE = "[User] Authenticated failure";
+export const AUTHENTICATED_SUCCESS = "[User] Authenticated success";
+export const REAUTHENTICATE = "[User] Re-Authenticate";
+export const REAUTHENTICATION_SUCCESS = "[User] Re-Authentication Success";
+export const SIGN_OUT = "[User] Sign off";
+export const SIGN_OUT_FAILURE = "[User] Sign off failure";
+export const SIGN_OUT_SUCCESS = "[User] Sign off success";
 
 export class AuthenticateAction implements Action {
   readonly type = AUTHENTICATE;

@@ -1,15 +1,15 @@
-import { Component, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
-import { ShoutService } from '../common/shout.service';
-import { GLOBALS } from '../../config/globals.config';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
-import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/take';
+import { Component, AfterViewInit, OnDestroy } from "@angular/core";
+import { FormArray, FormBuilder, FormGroup } from "@angular/forms";
+import { ShoutService } from "../common/shout.service";
+import { GLOBALS } from "../../config/globals.config";
+import { DragulaService } from "ng2-dragula/ng2-dragula";
+import { Store } from "@ngrx/store";
+import "rxjs/add/operator/debounceTime";
+import "rxjs/add/operator/distinctUntilChanged";
+import "rxjs/add/operator/take";
 
-import { isEqual } from 'lodash';
-import * as core from '@memberhivex/core';
+import { isEqual } from "lodash";
+import * as core from "@memberhivex/core";
 
 /**
  * The Settings class can easily be extended with options simply by adding to the form:
@@ -29,27 +29,27 @@ import * as core from '@memberhivex/core';
  */
 
 @Component({
-  selector: 'mh-settings',
-  templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  selector: "mh-settings",
+  templateUrl: "./settings.component.html",
+  styleUrls: ["./settings.component.scss"]
 })
 export class SettingsComponent implements AfterViewInit, OnDestroy {
   private _alive: boolean = true;
   submitted: boolean = false;
   hideToggle: boolean = false;
   personAttrSet: Array<string> = [
-    'firstName',
-    'middleName',
-    'lastName',
-    'email',
-    'birthday',
-    'gender',
-    'phoneHome',
-    'phoneWork',
-    'phoneMobile',
-    'status',
-    'age',
-    'family'
+    "firstName",
+    "middleName",
+    "lastName",
+    "email",
+    "birthday",
+    "gender",
+    "phoneHome",
+    "phoneWork",
+    "phoneMobile",
+    "status",
+    "age",
+    "family"
   ];
   personAttr: Array<string>;
   personAttrSelected: Array<string>;
@@ -65,7 +65,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     private _shout: ShoutService,
     private _fb: FormBuilder
   ) {
-    this._store.dispatch(new core.SetTitleAction('All Settings'));
+    this._store.dispatch(new core.SetTitleAction("All Settings"));
 
     this._initStore();
     this._initDragula();
@@ -78,27 +78,27 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
   ngOnDestroy(): void {
     this._alive = false;
-    this._dragulaService.destroy('PEOPLE_LIST');
+    this._dragulaService.destroy("PEOPLE_LIST");
   }
 
   createForm(): void {
     this.settingsForm = this._fb.group({
       system: this._fb.group({
-        churchName: '',
+        churchName: "",
         churchAddress: this._fb.group({
-          street: '',
-          zip: '',
-          city: '',
+          street: "",
+          zip: "",
+          city: "",
           geocode: this._fb.group({
-            lat: '',
-            lng: ''
+            lat: "",
+            lng: ""
           })
         }),
         googleApiKey: GLOBALS.googleAPIKey
       }),
       people: this._fb.group({})
     });
-    this.settingsForm.get('system').patchValue(this.sysSettings);
+    this.settingsForm.get("system").patchValue(this.sysSettings);
     // this.settingsForm.get('people').patchValue(this.personSettings);
 
     this.settingsForm.valueChanges
@@ -115,7 +115,11 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
   save(data: core.SettingsState): void {
     this._store.dispatch(new core.UpdateSettingAction(data));
     if (
-      !core.Utils.objEmptyProperties(data.system, 'churchAddress', ['street', 'city', 'zip']) &&
+      !core.Utils.objEmptyProperties(
+        data.system,
+        "churchAddress",
+        ["street", "city", "zip"]
+      ) &&
       !isEqual(data.system.churchAddress, this.sysSettings.churchAddress)
     ) {
       this._calcGeoCodes(data.system.churchAddress);
@@ -130,12 +134,14 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
   filter(): void {
     this.personAttr = this.personAttrSet.filter((item: string) => {
-      return this.personAttrSelected ? this.personAttrSelected.indexOf(item) < 0 : false;
+      return this.personAttrSelected
+        ? this.personAttrSelected.indexOf(item) < 0
+        : false;
     });
   }
 
   onKey(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.submitted = true;
       this.save(this.settingsForm.getRawValue());
     }
@@ -173,7 +179,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
         system: this.sysSettings
       };
       this._store.dispatch(new core.UpdateSettingAction(payload));
-      this.settingsForm.get('system').patchValue(this.sysSettings);
+      this.settingsForm.get("system").patchValue(this.sysSettings);
     });
   }
   private _setContextMenu(): void {

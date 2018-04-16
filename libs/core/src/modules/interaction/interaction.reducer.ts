@@ -1,8 +1,8 @@
-import { HttpResponse } from '@angular/common/http';
-import { Interaction, InteractionCollection } from './interaction.model';
-import * as actions from './interaction.actions';
-import * as common from '../../common/common.model';
-import { Utils } from '../../common/common.utils';
+import { HttpResponse } from "@angular/common/http";
+import { Interaction, InteractionCollection } from "./interaction.model";
+import * as actions from "./interaction.actions";
+import * as common from "../../common/common.model";
+import { Utils } from "../../common/common.utils";
 
 export interface InteractionState {
   loaded?: boolean;
@@ -44,7 +44,7 @@ export function interactionReducer(
       const interaction: Interaction = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully added an interaction'
+        text: "Successfully added an interaction"
       };
       const newInteract: Interaction[] = [...state.interactions, interaction];
       newInteract.sort((i1: Interaction, i2: Interaction) => {
@@ -67,14 +67,16 @@ export function interactionReducer(
       const interaction: Interaction = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated this interaction'
+        text: "Successfully updated this interaction"
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         message: message,
         interactions: state.interactions.map((i: Interaction) => {
-          return i.uid === interaction.uid ? Object.assign({}, i, interaction) : i;
+          return i.uid === interaction.uid
+            ? Object.assign({}, i, interaction)
+            : i;
         })
       });
     }
@@ -82,13 +84,15 @@ export function interactionReducer(
     case actions.DELETE_INTERACTION_SUCCESS: {
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully deleted this interaction'
+        text: "Successfully deleted this interaction"
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         message: message,
-        interactions: state.interactions.filter((i: Interaction) => i.id !== action.payload)
+        interactions: state.interactions.filter(
+          (i: Interaction) => i.id !== action.payload
+        )
       });
     }
 
@@ -125,9 +129,12 @@ export function interactionReducer(
 }
 
 export const loadedInteraction: any = (state: InteractionState) => state.loaded;
-export const loadingInteraction: any = (state: InteractionState) => state.loading;
-export const messageInteraction: any = (state: InteractionState) => state.message;
+export const loadingInteraction: any = (state: InteractionState) =>
+  state.loading;
+export const messageInteraction: any = (state: InteractionState) =>
+  state.message;
 
-export const interactions: any = (state: InteractionState) => state.interactions;
+export const interactions: any = (state: InteractionState) =>
+  state.interactions;
 
 const selectedId: any = (state: InteractionState) => state.forPersonId;

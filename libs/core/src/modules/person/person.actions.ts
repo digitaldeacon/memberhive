@@ -1,26 +1,26 @@
-import { Action } from '@ngrx/store';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Person, CalcGeoCodePayload, AvatarPayload } from './person.model';
+import { Action } from "@ngrx/store";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Person, CalcGeoCodePayload, AvatarPayload } from "./person.model";
 
 export enum PeopleActionTypes {
-    LIST_PEOPLE = '[People] List',
-    LIST_PEOPLE_SUCCESS = '[People] List Success',
-    LIST_PEOPLE_FAILURE = '[People] List Failure',
-    UPDATE_PERSON = '[Person] Update',
-    UPDATE_PERSON_SUCCESS = '[Person] Update Success',
-    UPDATE_PERSON_FAILURE = '[Person] Update Failure',
-    VIEW_PERSON = '[Person] View',
-    CREATE_PERSON = '[Person] Create',
-    CREATE_PERSON_SUCCESS = '[Person] Create Success',
-    CREATE_PERSON_FAILURE = '[Person] Create Failure',
-    DELETE_PERSON = '[Person] Delete',
-    DELETE_PERSON_SUCCESS = '[Person] Delete Success',
-    DELETE_PERSON_FAILURE = '[Person] Delete Failure',
-    CLEAR_PERSON_MESSAGE = '[Person] Clear Message',
-    CALC_PERSON_GEO = '[Person] Calc Geo Codes',
-    CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success',
-    CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure',
-    UPLOAD_PERSON_AVATAR = '[Person] Upload person avatar'
+  LIST_PEOPLE = "[People] List",
+  LIST_PEOPLE_SUCCESS = "[People] List Success",
+  LIST_PEOPLE_FAILURE = "[People] List Failure",
+  UPDATE_PERSON = "[Person] Update",
+  UPDATE_PERSON_SUCCESS = "[Person] Update Success",
+  UPDATE_PERSON_FAILURE = "[Person] Update Failure",
+  VIEW_PERSON = "[Person] View",
+  CREATE_PERSON = "[Person] Create",
+  CREATE_PERSON_SUCCESS = "[Person] Create Success",
+  CREATE_PERSON_FAILURE = "[Person] Create Failure",
+  DELETE_PERSON = "[Person] Delete",
+  DELETE_PERSON_SUCCESS = "[Person] Delete Success",
+  DELETE_PERSON_FAILURE = "[Person] Delete Failure",
+  CLEAR_PERSON_MESSAGE = "[Person] Clear Message",
+  CALC_PERSON_GEO = "[Person] Calc Geo Codes",
+  CALC_PERSON_GEO_SUCCESS = "[Person] Calc Geo Codes Success",
+  CALC_PERSON_GEO_FAILURE = "[Person] Calc Geo Codes Failure",
+  UPLOAD_PERSON_AVATAR = "[Person] Upload person avatar"
 }
 
 export class ListPeopleAction implements Action {
@@ -108,8 +108,8 @@ export class CalcPersonGeoFailureAction implements Action {
 }
 
 export class UploadPersonAvatarAction implements Action {
-    readonly type = PeopleActionTypes.UPLOAD_PERSON_AVATAR;
-    constructor(public payload: any) {}
+  readonly type = PeopleActionTypes.UPLOAD_PERSON_AVATAR;
+  constructor(public payload: any) {}
 }
 
 export type PeopleActions =

@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Router } from "@angular/router";
 
-import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/filter';
+import { Observable } from "rxjs/Observable";
+import "rxjs/add/operator/takeWhile";
+import "rxjs/add/operator/filter";
 
-import { Store } from '@ngrx/store';
+import { Store } from "@ngrx/store";
 import {
   AppState,
   getAuthError,
@@ -19,12 +19,12 @@ import {
   ListInteractionsAction,
   ListTagsAction,
   ListFamiliesAction
-} from '@memberhivex/core';
+} from "@memberhivex/core";
 
 @Component({
-  selector: 'mh-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: "mh-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"]
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private alive: boolean = true;
@@ -34,7 +34,11 @@ export class LoginComponent implements OnInit, OnDestroy {
   form: FormGroup;
   closeError: boolean = false;
 
-  constructor(private _fb: FormBuilder, private _router: Router, private _store: Store<AppState>) {
+  constructor(
+    private _fb: FormBuilder,
+    private _router: Router,
+    private _store: Store<AppState>
+  ) {
     this._store
       .select(isAuth)
       .takeWhile(() => this.alive)
@@ -56,7 +60,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   onKey(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    if (event.key === "Enter") {
       this.submit();
     }
   }
@@ -64,14 +68,14 @@ export class LoginComponent implements OnInit, OnDestroy {
   initForm(): void {
     this.closeError = true;
     this.form = this._fb.group({
-      username: ['', Validators.required],
-      password: ['', Validators.required]
+      username: ["", Validators.required],
+      password: ["", Validators.required]
     });
   }
 
   submit(): void {
-    const username: string = this.form.get('username').value;
-    const password: string = this.form.get('password').value;
+    const username: string = this.form.get("username").value;
+    const password: string = this.form.get("password").value;
 
     this.closeError = false;
 
@@ -91,6 +95,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   home(): void {
-    this._router.navigate(['/dashboard']);
+    this._router.navigate(["/dashboard"]);
   }
 }
