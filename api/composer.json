@@ -1,18 +1,19 @@
 {
-    "name": "digitaldeacon/memberhive2",
-    "description": "The MemberHive Server",
-    "keywords": ["yii2"],
+    "name": "digitaldeacon/memberhive",
+    "description": "API for MemberHive",
+    "keywords": ["yii2 api rest"],
     "homepage": "http://www.memberhive.com/",
     "type": "project",
     "license": "GPLv3",
     "support": {
     },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "require": {
         "php": ">=7.0.0",
         "ext-mbstring": "*",
         "ext-simplexml": "*",
-        "yiisoft/yii2": ">=2.0.5",
+        "yiisoft/yii2": "^2.0.15",
         "yiisoft/yii2-coding-standards": "*",
         "boundstate/yii2-mailgun": "*",
         "elvanto/api-php": "*",
@@ -27,8 +28,21 @@
         "pahanini/yii2-rest-doc": "*"
     },
     "config": {
-        "process-timeout": 1800
+        "process-timeout": 1800,
+        "fxp-asset": {
+            "enabled": false
+        }
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/digitaldeacon/yii2-mailgun"
+        },
+        {
+            "type": "composer",
+            "url": "https://asset-packagist.org"
+        }
+    ],
     "scripts": {
         "post-create-project-cmd": [
             "yii\\composer\\Installer::postCreateProject"
@@ -50,7 +64,8 @@
         "asset-installer-paths": {
             "bower-asset-library": "vendor/bower"
         }
-    },"autoload": {
+    },
+    "autoload": {
         "files": [
             "globals.php",
             "clients.php"

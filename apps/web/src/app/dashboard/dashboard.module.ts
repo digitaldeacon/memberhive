@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { MhCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { MomentModule } from 'angular2-moment';
+import { MomentModule } from 'ngx-moment';
 import { DragulaModule } from 'ng2-dragula';
 
 import { DashboardComponent } from './dashboard.component';

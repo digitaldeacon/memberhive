@@ -88,6 +88,11 @@ export interface CalcGeoCodePayload {
   apiKey?: string;
 }
 
+export interface AvatarPayload {
+  image: string;
+  personId: string;
+}
+
 export const personFilterSet: FilterSet[] = [
     {key: 'firstName', label: 'name'},
     {key: 'lastName', label: 'nachname'},

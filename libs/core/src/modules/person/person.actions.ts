@@ -1,113 +1,121 @@
 import { Action } from '@ngrx/store';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Person, CalcGeoCodePayload } from './person.model';
+import { Person, CalcGeoCodePayload, AvatarPayload } from './person.model';
 
-export const LIST_PEOPLE = '[People] List';
-export const LIST_PEOPLE_SUCCESS = '[People] List Success';
-export const LIST_PEOPLE_FAILURE = '[People] List Failure';
-export const UPDATE_PERSON = '[Person] Update';
-export const UPDATE_PERSON_SUCCESS = '[Person] Update Success';
-export const UPDATE_PERSON_FAILURE = '[Person] Update Failure';
-export const VIEW_PERSON = '[Person] View';
-export const CREATE_PERSON = '[Person] Create';
-export const CREATE_PERSON_SUCCESS = '[Person] Create Success';
-export const CREATE_PERSON_FAILURE = '[Person] Create Failure';
-export const DELETE_PERSON = '[Person] Delete';
-export const DELETE_PERSON_SUCCESS = '[Person] Delete Success';
-export const DELETE_PERSON_FAILURE = '[Person] Delete Failure';
-export const CLEAR_PERSON_MESSAGE = '[Person] Clear Message';
-export const CALC_PERSON_GEO = '[Person] Calc Geo Codes';
-export const CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success';
-export const CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure';
+export enum PeopleActionTypes {
+    LIST_PEOPLE = '[People] List',
+    LIST_PEOPLE_SUCCESS = '[People] List Success',
+    LIST_PEOPLE_FAILURE = '[People] List Failure',
+    UPDATE_PERSON = '[Person] Update',
+    UPDATE_PERSON_SUCCESS = '[Person] Update Success',
+    UPDATE_PERSON_FAILURE = '[Person] Update Failure',
+    VIEW_PERSON = '[Person] View',
+    CREATE_PERSON = '[Person] Create',
+    CREATE_PERSON_SUCCESS = '[Person] Create Success',
+    CREATE_PERSON_FAILURE = '[Person] Create Failure',
+    DELETE_PERSON = '[Person] Delete',
+    DELETE_PERSON_SUCCESS = '[Person] Delete Success',
+    DELETE_PERSON_FAILURE = '[Person] Delete Failure',
+    CLEAR_PERSON_MESSAGE = '[Person] Clear Message',
+    CALC_PERSON_GEO = '[Person] Calc Geo Codes',
+    CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success',
+    CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure',
+    UPLOAD_PERSON_AVATAR = '[Person] Upload person avatar'
+}
 
 export class ListPeopleAction implements Action {
-  readonly type = LIST_PEOPLE;
+  readonly type = PeopleActionTypes.LIST_PEOPLE;
   constructor(public payload: any) {}
 }
 
-export class ListPeolpeSuccessAction implements Action {
-  readonly type = LIST_PEOPLE_SUCCESS;
+export class ListPeopleSuccessAction implements Action {
+  readonly type = PeopleActionTypes.LIST_PEOPLE_SUCCESS;
   constructor(public payload: Person[]) {}
 }
 
-export class ListPeolpeFailureAction implements Action {
-  readonly type = LIST_PEOPLE_FAILURE;
+export class ListPeopleFailureAction implements Action {
+  readonly type = PeopleActionTypes.LIST_PEOPLE_FAILURE;
   constructor(public payload: HttpErrorResponse) {}
 }
 
 export class ViewPersonAction implements Action {
-  readonly type = VIEW_PERSON;
+  readonly type = PeopleActionTypes.VIEW_PERSON;
   constructor(public payload: string) {}
 }
 
 export class UpdatePersonAction implements Action {
-  readonly type = UPDATE_PERSON;
+  readonly type = PeopleActionTypes.UPDATE_PERSON;
   constructor(public payload: any) {}
 }
 
 export class UpdatePersonSuccessAction implements Action {
-  readonly type = UPDATE_PERSON_SUCCESS;
+  readonly type = PeopleActionTypes.UPDATE_PERSON_SUCCESS;
   constructor(public payload: Person) {}
 }
 
 export class UpdatePersonFailureAction implements Action {
-  readonly type = UPDATE_PERSON_FAILURE;
+  readonly type = PeopleActionTypes.UPDATE_PERSON_FAILURE;
   constructor(public payload: HttpErrorResponse) {}
 }
 
 export class CreatePersonAction implements Action {
-  readonly type = CREATE_PERSON;
+  readonly type = PeopleActionTypes.CREATE_PERSON;
   constructor(public payload: Person) {}
 }
 
 export class CreatePersonSuccessAction implements Action {
-  readonly type = CREATE_PERSON_SUCCESS;
+  readonly type = PeopleActionTypes.CREATE_PERSON_SUCCESS;
   constructor(public payload: Person) {}
 }
 
 export class CreatePersonFailureAction implements Action {
-  readonly type = CREATE_PERSON_FAILURE;
+  readonly type = PeopleActionTypes.CREATE_PERSON_FAILURE;
   constructor(public payload: HttpErrorResponse) {}
 }
 
 export class DeletePersonAction implements Action {
-  readonly type = DELETE_PERSON;
+  readonly type = PeopleActionTypes.DELETE_PERSON;
   constructor(public payload: Person) {}
 }
 
 export class DeletePersonSuccessAction implements Action {
-  readonly type = DELETE_PERSON_SUCCESS;
+  readonly type = PeopleActionTypes.DELETE_PERSON_SUCCESS;
   constructor(public payload: any) {}
 }
 
 export class DeletePersonFailureAction implements Action {
-  readonly type = DELETE_PERSON_FAILURE;
+  readonly type = PeopleActionTypes.DELETE_PERSON_FAILURE;
   constructor(public payload: HttpErrorResponse) {}
 }
 
 export class ClearPersonMessageAction implements Action {
-  readonly type = CLEAR_PERSON_MESSAGE;
+  readonly type = PeopleActionTypes.CLEAR_PERSON_MESSAGE;
 }
 
 export class CalcPersonGeoAction implements Action {
-  readonly type = CALC_PERSON_GEO;
+  readonly type = PeopleActionTypes.CALC_PERSON_GEO;
   constructor(public payload: CalcGeoCodePayload) {}
 }
 
 export class CalcPersonGeoSuccessAction implements Action {
-  readonly type = CALC_PERSON_GEO_SUCCESS;
+  readonly type = PeopleActionTypes.CALC_PERSON_GEO_SUCCESS;
   constructor(public payload: CalcGeoCodePayload) {}
 }
 
 export class CalcPersonGeoFailureAction implements Action {
-  readonly type = CALC_PERSON_GEO_FAILURE;
+  readonly type = PeopleActionTypes.CALC_PERSON_GEO_FAILURE;
   constructor(public payload: HttpErrorResponse) {}
 }
 
-export type PersonActions =
+export class UploadPersonAvatarAction implements Action {
+    readonly type = PeopleActionTypes.UPLOAD_PERSON_AVATAR;
+    constructor(public payload: any) {}
+}
+
+export type PeopleActions =
   | ListPeopleAction
-  | ListPeolpeSuccessAction
-  | ListPeolpeFailureAction
+  | ListPeopleSuccessAction
+  | ListPeopleFailureAction
   | ViewPersonAction
   | UpdatePersonAction
   | UpdatePersonSuccessAction
@@ -121,4 +129,5 @@ export type PersonActions =
   | DeletePersonFailureAction
   | CalcPersonGeoAction
   | CalcPersonGeoSuccessAction
-  | CalcPersonGeoFailureAction;
+  | CalcPersonGeoFailureAction
+  | UploadPersonAvatarAction;
