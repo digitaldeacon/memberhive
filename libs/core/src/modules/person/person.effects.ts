@@ -68,7 +68,7 @@ export class PersonEffects {
   updatePerson$: Observable<Action> = this._actions$.pipe(
     ofType<UpdatePersonAction>(PeopleActionTypes.UPDATE_PERSON),
     map(action => action.payload),
-    mergeMap((data: Person) => {
+    switchMap((data: Person) => {
       data.birthday = data.birthday.utc(true);
       return this._http
         .post("api/person/update?id=" + data.uid, data)
