@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "rxjs-tslint-rules"
+  ],
   "rulesDirectory": [
     "node_modules/codelyzer",
     "node_modules/@nrwl/schematics/src/tslint"
@@ -16,6 +19,15 @@
       "rxjs",
       "rxjs/Rx"
     ],
+    "rxjs-no-add": { "severity": "error" },
+    "rxjs-no-unused-add": { "severity": "error" },
+    "rxjs-no-unsafe-switchmap": {
+      "options": [{
+        "disallow": ["add", "create", "delete", "post", "put", "remove", "set", "update"],
+        "observable": "action(s|\\$)?"
+      }],
+      "severity": "error"
+    },
     "interface-over-type-literal": true,
     "member-access": false,
     "member-ordering": [

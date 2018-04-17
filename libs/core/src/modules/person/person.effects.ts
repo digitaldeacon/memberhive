@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { HttpErrorResponse } from "@angular/common/http";
 
 import { Observable } from "rxjs/Observable";
-import { catchError, map, mergeMap, switchMap } from "rxjs/operators";
+import { catchError, map, mergeMap, concatMap, switchMap } from "rxjs/operators";
 import { empty } from "rxjs/observable/empty";
 import { of } from "rxjs/observable/of";
 
@@ -36,7 +36,8 @@ import {
   DeletePersonFailureAction,
   CalcPersonGeoAction,
   CalcPersonGeoFailureAction,
-  UploadPersonAvatarAction
+  UploadPersonAvatarAction,
+  CalcPersonGeoSuccessAction
 } from "./person.actions";
 import { UpdateFamilySuccessAction } from "../family/family.actions";
 
@@ -68,8 +69,7 @@ export class PersonEffects {
   updatePerson$: Observable<Action> = this._actions$.pipe(
     ofType<UpdatePersonAction>(PeopleActionTypes.UPDATE_PERSON),
     map(action => action.payload),
-    switchMap((data: Person) => {
-      data.birthday = data.birthday.utc(true);
+    mergeMap((data: Person) => {
       return this._http
         .post("api/person/update?id=" + data.uid, data)
         .pipe(
@@ -85,7 +85,7 @@ export class PersonEffects {
   createPerson$: Observable<Action> = this._actions$.pipe(
     ofType<CreatePersonAction>(PeopleActionTypes.CREATE_PERSON),
     map(action => action.payload),
-    switchMap((data: Person) =>
+    mergeMap((data: Person) =>
       this._http.post("api/person/create", data).pipe(
         switchMap((r: any) => {
           return [
@@ -104,7 +104,7 @@ export class PersonEffects {
   uploadAvatar$: Observable<Action> = this._actions$.pipe(
     ofType<UploadPersonAvatarAction>(PeopleActionTypes.UPLOAD_PERSON_AVATAR),
     map(action => action.payload),
-    switchMap((data: AvatarPayload) =>
+    mergeMap((data: AvatarPayload) =>
       this._http
         .post("api/person/upload-avatar", data)
         .pipe(
@@ -120,7 +120,7 @@ export class PersonEffects {
   deletePerson$: Observable<Action> = this._actions$.pipe(
     ofType<DeletePersonAction>(PeopleActionTypes.DELETE_PERSON),
     map(action => action.payload),
-    switchMap((data: Person) =>
+    mergeMap((data: Person) =>
       this._http
         .post("api/person/delete?id=" + data.uid, data)
         .pipe(
@@ -150,7 +150,7 @@ export class PersonEffects {
       return this._geoCoder.calc().pipe(
         map((data: GeoCodes) => {
           payload.person.address.home.geocode = data;
-          return new UpdatePersonAction(payload.person);
+          return new CalcPersonGeoSuccessAction(payload);
         }),
         catchError((error: HttpErrorResponse) =>
           of(new CalcPersonGeoFailureAction(error))

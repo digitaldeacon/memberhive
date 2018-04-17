@@ -26,7 +26,6 @@
                                 <b *ngIf="person.gender === 'f'" i18n="@@female">female</b>
                                 <b *ngIf="person.gender === 'm'" i18n="@@male">male</b>
                             </span>
-                            <!-- TODO: fix spacing issues -->
                             <span matLine *ngIf="opt === 'status' && person?.status.length > 0">
                                 <mat-basic-chip *ngFor="let tag of person?.status" class="status-chip">{{tag.text}}</mat-basic-chip>
                             </span>
@@ -40,19 +39,34 @@
             </a>
         </mat-card>
     <!--<mat-nav-list>
-        <a mat-list-item *ngFor="let person of people$ | async" [routerLink]="['/person/view', person.uid]">
-            <img mat-list-avatar src="{{person.avatar}}" alt="{{person.fullName}}" />
-            <div class="mat-list-text" fxLayout="row">
-                <h2 fxFlex="25">{{person.fullName}}</h2>
-                <div fxFlex matLine fxLayout="row" class="list-detail">
-                    <span *ngIf="display('birthday')">{{person.birthday | date: 'mediumDate'}}</span>
-                    <span *ngIf="display('email')">{{person.email}}</span>
-                    <mat-chip-list fxHide.xs *ngIf="display('status')">
-                    </mat-chip-list>
+        <a mat-list-item *ngFor="let person of peopleFiltered"
+           [routerLink]="['/person/view', person.uid]">
+            <div fxLayout.gt-sm="row" fxLayout.xs="column">
+                <img matListAvatar src="{{person.avatar}}" alt="{{person.fullName}}" fxFlex="50px" />
+                <div class="mat-list-text" fxFlex>
+                    <h2>{{person.fullName}}</h2>
+                    <div matLine class="list-detail" fxLayout.gt-sm="row" fxLayout.xs="column">
+                        <ng-container *ngFor="let opt of options">
+                            <span matLine *ngIf="opt === 'birthday'">{{person.birthday | date: 'mediumDate'}}</span>
+                            <span matLine *ngIf="opt === 'email'">{{person.email}}</span>
+                            <span matLine *ngIf="opt === 'age'">{{person.ageFormatted}}</span>
+                            <span matLine *ngIf="opt === 'gender'">
+                                <b *ngIf="person.gender === 'f'" i18n="@@female">female</b>
+                                <b *ngIf="person.gender === 'm'" i18n="@@male">male</b>
+                            </span>
+                            <span matLine *ngIf="opt === 'status' && person?.status.length > 0">
+                                <mat-basic-chip *ngFor="let tag of person?.status" class="status-chip">{{tag.text}}</mat-basic-chip>
+                            </span>
+                            <span matLine *ngIf="opt === 'family' && isFamilyMember(person.uid)">
+                                <mat-basic-chip class="family-chip">
+                                    <mat-icon>face</mat-icon>{{familyName(person.uid)}}</mat-basic-chip>
+                            </span>
+                        </ng-container>
+                    </div>
                 </div>
             </div>
         </a>
-        <mat-divider md-inset> </mat-divider>
+        <mat-divider [inset]="true"> </mat-divider>
     </mat-nav-list>-->
     </div>
 </div>

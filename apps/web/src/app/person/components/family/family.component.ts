@@ -237,8 +237,8 @@ export class FamilyComponent implements OnDestroy {
       member: m.person.uid
     };
     this._store.dispatch(new RemoveMemberFamilyAction(payload));
-    //this._store.dispatch(new UpdatePersonAction(m.person));
-    console.log("tried to update person", m.person);
+    this._store.dispatch(new UpdatePersonAction(m.person));
+    // console.log("tried to update person", m.person);
   }
 
   link(): void {
@@ -295,8 +295,8 @@ export class FamilyComponent implements OnDestroy {
     this._store.dispatch(new SetFamilyRoleAction(payload));
     if (!person.maritalStatus) {
       person.maritalStatus = MaritalStatus.MARRIED;
-      //this._store.dispatch(new UpdatePersonAction(person));
-      console.log("tried to update person", person);
+      this._store.dispatch(new UpdatePersonAction(person));
+      // console.log("tried to update person", person);
     }
   }
 
