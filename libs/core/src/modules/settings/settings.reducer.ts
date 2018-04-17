@@ -11,6 +11,7 @@ export interface SettingsState {
   system?: model.SystemSettings;
   profile?: any;
   dashboard?: any;
+  awaitFormSubmit?: boolean;
 }
 
 const initialState: SettingsState = {
@@ -33,7 +34,8 @@ const initialState: SettingsState = {
     googleApiKey: "AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo"
   },
   profile: {},
-  dashboard: {}
+  dashboard: {},
+  awaitFormSubmit: false
 };
 
 export function settingsReducer(
@@ -189,6 +191,12 @@ export function settingsReducer(
       });
     }
 
+    case SettingsActionTypes.AWAIT_FORM_SUBMIT: {
+        return Object.assign({}, state, {
+            awaitFormSubmit: action.payload
+        });
+    }
+
     default:
       return state;
   }
@@ -217,3 +225,6 @@ export const sysGoogleKey: any = (state: SettingsState) =>
 
 export const peopleFilterSettings: any = (state: SettingsState) =>
   state.people.filter;
+
+export const awaitingFormSubmit: any = (state: SettingsState) =>
+    state.awaitFormSubmit;

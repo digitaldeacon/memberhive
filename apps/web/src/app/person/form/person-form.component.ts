@@ -92,6 +92,7 @@ export class PersonFormComponent implements OnInit {
 
   @Output() savePerson: EventEmitter<Person> = new EventEmitter<Person>();
   @Output() saveStatus: EventEmitter<Tag[]> = new EventEmitter<Tag[]>();
+  @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   form: FormGroup;
   submitted: boolean;
@@ -192,7 +193,8 @@ export class PersonFormComponent implements OnInit {
 
   listenFormChanges(): void {
     this.form.valueChanges
-      .debounceTime(3000)
+      .do(() => { this.changed.emit(true) })
+      .debounceTime(2500)
       .distinctUntilChanged()
       .subscribe((data: Person) => {
         const userCtrl: any = (<any>this.form).get("user").controls;

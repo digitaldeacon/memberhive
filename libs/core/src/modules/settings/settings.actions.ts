@@ -19,7 +19,8 @@ export enum SettingsActionTypes {
   SAVE_PEOPLE_FILTER_SUCCESS = "[Settings:Filter] Save people filter success",
   PERSIST_PEOPLE_FILTER = "[Settings:Filter] Persist people filter",
   DELETE_PEOPLE_FILTER = "[Settings:Filter] Delete people filter",
-  DELETE_PEOPLE_FILTER_SUCCESS = "[Settings:Filter] Delete people filter success"
+  DELETE_PEOPLE_FILTER_SUCCESS = "[Settings:Filter] Delete people filter success",
+  AWAIT_FORM_SUBMIT = "[Settings] Await form submit",
 }
 
 export class ListSettingAction implements Action {
@@ -100,6 +101,11 @@ export class SavePeopleFilterSuccessAction implements Action {
   constructor(public payload: string) {}
 }
 
+export class AwaitFormSubmitAction implements Action {
+    readonly type = SettingsActionTypes.AWAIT_FORM_SUBMIT;
+    constructor(public payload: boolean) {}
+}
+
 export type SettingsActions =
   | ListSettingAction
   | ListSettingSuccessAction
@@ -117,4 +123,5 @@ export type SettingsActions =
   | UpdatePersonalSettingAction
   | DeletePeopleFilterAction
   | DeletePeopleFilterSuccessAction
-  | SavePeopleFilterSuccessAction;
+  | SavePeopleFilterSuccessAction
+  | AwaitFormSubmitAction;
