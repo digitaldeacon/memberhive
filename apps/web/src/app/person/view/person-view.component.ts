@@ -7,7 +7,7 @@ import {
 import { Router, ActivatedRoute, Params } from "@angular/router";
 import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material";
 import { Observable } from "rxjs/Observable";
-import "rxjs/add/operator/exhaustMap";
+import { exhaustMap, skipWhile, takeWhile, map } from "rxjs/operators";
 
 import { Store } from "@ngrx/store";
 
@@ -18,8 +18,8 @@ import {
   getTags,
   getPeopleWithFilter,
   getPeopleSysSettings,
+  isAwaitingFormSubmit,
   Person,
-  Family,
   Interaction,
   Tag,
   GeoMarker,
@@ -34,7 +34,8 @@ import {
   SetContextButtonsAction,
   CalcPersonGeoAction,
   DeleteInteractionAction,
-  AddInteractionAction
+  AddInteractionAction,
+  AwaitFormSubmitAction
 } from "@memberhivex/core";
 
 import { AvatarEditDialogComponent } from "../dialogs/avatar-edit.dialog";
@@ -60,6 +61,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   peopleFiltered: Person[];
   person?: Person;
   person$: Observable<Person>;
+  awaitsFormSubmit: boolean;
 
   interactions$: Observable<Interaction[]>;
   interactions: Array<Interaction>;
@@ -86,19 +88,22 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     // Selects the tags by fragment param
     this.tags$ = this._store.select(getTags);
 
+    this._store.select(isAwaitingFormSubmit).pipe(takeWhile(() => this._alive))
+        .subscribe((waiting: boolean) => this.awaitsFormSubmit = waiting);
+
     // Load all people for the back and forth buttons
     this._store
       .select(getPeopleWithFilter)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((people: Person[]) => {
-        this.people = people;
-        this.peopleFiltered = people;
+          this.people = people;
+          this.peopleFiltered = people;
       });
 
     // Fetch the combined settings for people and system
     this._store
       .select(getPeopleSysSettings)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((data: any) => {
         this.settings = data;
       });
@@ -106,12 +111,15 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this._route.params
-      .map((params: Params) => {
-        this._store.dispatch(new ViewPersonAction(params["id"]));
-        this._store.dispatch(new GetInteractionsPersonAction(params["id"]));
-      })
-      .exhaustMap(() => this.person$)
-      .takeWhile(() => this._alive)
+      .pipe(
+        //skipWhile(() => this.awaitsFormSubmit), //TODO: skip navigation when form is touched
+        map((params: Params) => {
+            this._store.dispatch(new ViewPersonAction(params["id"]));
+            this._store.dispatch(new GetInteractionsPersonAction(params["id"]));
+        }),
+        exhaustMap(() => this.person$),
+        takeWhile(() => this._alive)
+      )
       .subscribe((person: any) => {
         if (person) {
           this.person = person;
@@ -157,8 +165,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   savePerson(person: Person): void {
     person.uid = this.person.uid;
     this._store.dispatch(new UpdatePersonAction(person));
-    console.log("tried to update person", person);
     this._calcGeoCodes(person);
+    this._store.dispatch(new AwaitFormSubmitAction(false));
   }
 
   deletePerson(): void {
@@ -224,16 +232,17 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
     this.dialogRef = this._dialog.open(AvatarEditDialogComponent, config);
     this.dialogRef.afterClosed().subscribe((result: any) => {
-      if (result) {
-        // this.person = result;
-        console.log(result);
-      }
       this.dialogRef = undefined;
     });
   }
 
   createInteraction(): void {
     this._router.navigate(["/interaction/create"]);
+  }
+
+  formChanged(): void {
+    console.log("form changed. Don't naviagte away");
+    this._store.dispatch(new AwaitFormSubmitAction(true));
   }
 
   private _calcGeoCodes(person: Person): void {

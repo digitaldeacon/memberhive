@@ -103,7 +103,6 @@ export const getSysSettings: any = createSelector(
   getSettingsState,
   settings.sysSettings
 );
-
 export const getShowDrawer: any = createSelector(
   getSettingsState,
   settings.showDrawer
@@ -117,11 +116,14 @@ export const getSysGoogleKey: any = createSelector(
   getSettingsState,
   settings.sysGoogleKey
 );
-
 export const getPeopleSysSettings: any = createSelector(
   getPeopleSettings,
   getSysSettings,
   (people: any, system: any) => Object.assign({}, people, system)
+);
+export const isAwaitingFormSubmit: any = createSelector(
+    getSettingsState,
+    settings.awaitingFormSubmit
 );
 /**
  * Interaction Reducers

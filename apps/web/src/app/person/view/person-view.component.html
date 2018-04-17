@@ -40,10 +40,10 @@
             </mat-card-title-group>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-button (click)="prevPerson()" fxHide.xs>
+            <button mat-button (click)="prevPerson()" fxHide.xs [disabled]="awaitFormSubmit">
                 <mat-icon>chevron_left</mat-icon><span i18n="@@btn.prev">Prev</span>
             </button>
-            <button mat-button (click)="nextPerson()" fxHide.xs>
+            <button mat-button (click)="nextPerson()" fxHide.xs [disabled]="awaitFormSubmit">
                 <span i18n="@@btn.next">Next</span><mat-icon>chevron_right</mat-icon>
             </button>
             <button mat-raised-button (click)="createInteraction()" color="accent">
@@ -76,7 +76,8 @@
                            [person]="person$ | async"
                            [settings]="settings"
                            [tagSource]="tags$ | async"
-                           (savePerson)="savePerson($event)"></mh-person-form>
+                           (savePerson)="savePerson($event)"
+                           (changed)="formChanged()"></mh-person-form>
                 </mat-tab>
                 <mat-tab label="Family" i18n-label="@@tab.family">
                     <mh-person-family
