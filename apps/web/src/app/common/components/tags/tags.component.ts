@@ -45,20 +45,22 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TagsComponent implements ControlValueAccessor, OnChanges {
-  private _value: Tag[] = [];
 
   filteredSources: Tag[] = [];
 
   @ViewChild("chipInput") chipInput: MatInput;
   @ViewChild(MatAutocompleteTrigger) autoTrigger: MatAutocompleteTrigger;
 
+  @Input() _value: Tag[] = [];
   @Input() source: Tag[] = [];
   @Input() addNew: boolean = true;
+
   @Input()
   set value(v: Tag[]) {
     this.onChange(v);
   }
   get value(): Tag[] {
+    this.filteredSources = arrayDiffObj(this.source, this._value, "id");
     return this._value;
   }
   @Input() placeholder: string = "";

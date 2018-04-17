@@ -88,7 +88,8 @@ export function personReducer(
     case PeopleActionTypes.CALC_PERSON_GEO_FAILURE:
     case PeopleActionTypes.LIST_PEOPLE_FAILURE:
     case PeopleActionTypes.CREATE_PERSON_FAILURE:
-    case PeopleActionTypes.DELETE_PERSON_FAILURE: {
+    case PeopleActionTypes.DELETE_PERSON_FAILURE:
+    case PeopleActionTypes.UPDATE_PERSON_FAILURE: {
       const res: HttpErrorResponse = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
@@ -116,25 +117,17 @@ export function personReducer(
       });
     }
 
-    /**
-     * @deprecated
-     */
     case PeopleActionTypes.CALC_PERSON_GEO_SUCCESS: {
       const payload: CalcGeoCodePayload = action.payload;
-      const message: common.Message = {
-        type: common.MessageType.SUCCESS,
-        text: "Successfully updated geocodes for " + payload.person.fullName
-      };
       return {
-        loading: false,
-        loaded: true,
-        message: message,
+        ...state,
         people: state.people.map((p: Person) => {
-          return p.uid === payload.person.uid
-            ? Object.assign({}, p, payload.person)
-            : p;
-        }),
-        personId: payload.person.uid
+          if (p.uid === payload.person.uid) {
+            p.address = payload.person.address;
+            return p;
+          }
+          return p;
+        })
       };
     }
 

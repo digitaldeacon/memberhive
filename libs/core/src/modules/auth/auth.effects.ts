@@ -19,7 +19,6 @@ import { Credentials } from "./auth.model";
 import { User } from "../person/person.model";
 import { AuthService } from "./auth.service";
 import { AppState } from "../../store";
-//import { LoginComponent } from "@memberhivex/";
 
 @Injectable()
 export class AuthEffects {
@@ -34,7 +33,6 @@ export class AuthEffects {
           password: credentials.password
         })
         .map((r: any) => {
-          // this._db.insert('auth', [r.user.token, r.user.personId]);
           if (typeof r === "string") {
             return new actions.AuthenticationFailureAction(r);
           }
