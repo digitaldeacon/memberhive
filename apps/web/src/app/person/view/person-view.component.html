@@ -1,13 +1,13 @@
 <div class="flex-container" fxLayout='column' fxLayoutAlign="start space-around" fxLayoutGap="25px">
     <mh-filter></mh-filter>
     <div fxHide.gt-xs fxLayoutAlign="center center" fxLayout="row" class="mobile-avatar">
-        <a mat-button (click)="prevPerson()">
+        <button mat-button (click)="prevPerson()" [disabled]="awaitsFormSubmit">
             <mat-icon>chevron_left</mat-icon><span i18n="@@btn.prev">Prev</span>
-        </a>
+        </button>
         <img mat-card-avatar src="{{person?.avatar}}" alt="Avatar: {{person?.firstName}}" fxHide.gt-sm fxShow.xs>
-        <a mat-button (click)="nextPerson()">
+        <button mat-button (click)="nextPerson()" [disabled]="awaitsFormSubmit">
             <span i18n="@@btn.next">Next</span><mat-icon>chevron_right</mat-icon>
-        </a>
+        </button>
     </div>
     <mat-card class="person-card">
         <mat-card-header class="person-card-header">
@@ -40,10 +40,10 @@
             </mat-card-title-group>
         </mat-card-header>
         <mat-card-actions>
-            <button mat-button (click)="prevPerson()" fxHide.xs [disabled]="awaitFormSubmit">
+            <button mat-button (click)="prevPerson()" fxHide.xs [disabled]="awaitsFormSubmit">
                 <mat-icon>chevron_left</mat-icon><span i18n="@@btn.prev">Prev</span>
             </button>
-            <button mat-button (click)="nextPerson()" fxHide.xs [disabled]="awaitFormSubmit">
+            <button mat-button (click)="nextPerson()" fxHide.xs [disabled]="awaitsFormSubmit">
                 <span i18n="@@btn.next">Next</span><mat-icon>chevron_right</mat-icon>
             </button>
             <button mat-raised-button (click)="createInteraction()" color="accent">
