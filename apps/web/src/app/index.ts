@@ -1,2 +1,2 @@
-export { environment } from "./environment";
-export { AppModule } from "./app.module";
+export { environment } from './environment';
+export { AppModule } from './app.module';

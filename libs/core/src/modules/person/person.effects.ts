@@ -1,24 +1,19 @@
-import { Injectable } from "@angular/core";
-import { HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from "rxjs/Observable";
-import { catchError, map, mergeMap, concatMap, switchMap } from "rxjs/operators";
-import { empty } from "rxjs/observable/empty";
-import { of } from "rxjs/observable/of";
+import { Observable } from 'rxjs/Observable';
+import { catchError, map, mergeMap, concatMap, switchMap } from 'rxjs/operators';
+import { empty } from 'rxjs/observable/empty';
+import { of } from 'rxjs/observable/of';
 
-import { Effect, Actions, ofType } from "@ngrx/effects";
-import { Action } from "@ngrx/store";
+import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Action } from '@ngrx/store';
 
-import {
-  Person,
-  CalcGeoCodePayload,
-  PersonAddress,
-  AvatarPayload
-} from "./person.model";
-import { GeocodeService } from "../../services/geocode.service";
-import { GeoCodes } from "../../common/common.model";
-import { Utils } from "../../common/common.utils";
-import { HttpClient } from "@angular/common/http";
+import { Person, CalcGeoCodePayload, PersonAddress, AvatarPayload } from './person.model';
+import { GeocodeService } from '../../services/geocode.service';
+import { GeoCodes } from '../../common/common.model';
+import { Utils } from '../../common/common.utils';
+import { HttpClient } from '@angular/common/http';
 
 import {
   PeopleActionTypes,
@@ -38,16 +33,12 @@ import {
   CalcPersonGeoFailureAction,
   UploadPersonAvatarAction,
   CalcPersonGeoSuccessAction
-} from "./person.actions";
-import { UpdateFamilySuccessAction } from "../family/family.actions";
+} from './person.actions';
+import { UpdateFamilySuccessAction } from '../family/family.actions';
 
 @Injectable()
 export class PersonEffects {
-  constructor(
-    private _actions$: Actions,
-    private _http: HttpClient,
-    private _geoCoder: GeocodeService
-  ) {}
+  constructor(private _actions$: Actions, private _http: HttpClient, private _geoCoder: GeocodeService) {}
 
   @Effect()
   getPeople$: Observable<Action> = this._actions$.pipe(
@@ -55,12 +46,10 @@ export class PersonEffects {
     map(action => action.payload),
     switchMap(() =>
       this._http
-        .get("api/person/list")
+        .get('api/person/list')
         .pipe(
           map((r: Person[]) => new ListPeopleSuccessAction(r)),
-          catchError((r: HttpErrorResponse) =>
-            of(new ListPeopleFailureAction(r))
-          )
+          catchError((r: HttpErrorResponse) => of(new ListPeopleFailureAction(r)))
         )
     )
   );
@@ -71,12 +60,10 @@ export class PersonEffects {
     map(action => action.payload),
     mergeMap((data: Person) => {
       return this._http
-        .post("api/person/update?id=" + data.uid, data)
+        .post('api/person/update?id=' + data.uid, data)
         .pipe(
           map((r: Person) => new UpdatePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) =>
-            of(new UpdatePersonFailureAction(r))
-          )
+          catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
         );
     })
   );
@@ -86,16 +73,11 @@ export class PersonEffects {
     ofType<CreatePersonAction>(PeopleActionTypes.CREATE_PERSON),
     map(action => action.payload),
     mergeMap((data: Person) =>
-      this._http.post("api/person/create", data).pipe(
+      this._http.post('api/person/create', data).pipe(
         switchMap((r: any) => {
-          return [
-            new CreatePersonSuccessAction(r.person),
-            new UpdateFamilySuccessAction(r.family)
-          ];
+          return [new CreatePersonSuccessAction(r.person), new UpdateFamilySuccessAction(r.family)];
         }),
-        catchError((r: HttpErrorResponse) =>
-          of(new CreatePersonFailureAction(r))
-        )
+        catchError((r: HttpErrorResponse) => of(new CreatePersonFailureAction(r)))
       )
     )
   );
@@ -106,12 +88,10 @@ export class PersonEffects {
     map(action => action.payload),
     mergeMap((data: AvatarPayload) =>
       this._http
-        .post("api/person/upload-avatar", data)
+        .post('api/person/upload-avatar', data)
         .pipe(
           map((r: Person) => new UpdatePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) =>
-            of(new UpdatePersonFailureAction(r))
-          )
+          catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
         )
     )
   );
@@ -122,12 +102,10 @@ export class PersonEffects {
     map(action => action.payload),
     mergeMap((data: Person) =>
       this._http
-        .post("api/person/delete?id=" + data.uid, data)
+        .post('api/person/delete?id=' + data.uid, data)
         .pipe(
           map((r: any) => new DeletePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) =>
-            of(new DeletePersonFailureAction(r))
-          )
+          catchError((r: HttpErrorResponse) => of(new DeletePersonFailureAction(r)))
         )
     )
   );
@@ -139,9 +117,7 @@ export class PersonEffects {
     mergeMap((payload: CalcGeoCodePayload) => {
       const address: PersonAddress = payload.person.address;
 
-      if (
-        Utils.objEmptyProperties(address, "home", ["city", "street", "zip"])
-      ) {
+      if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
         return empty();
       }
 
@@ -152,9 +128,7 @@ export class PersonEffects {
           payload.person.address.home.geocode = data;
           return new CalcPersonGeoSuccessAction(payload);
         }),
-        catchError((error: HttpErrorResponse) =>
-          of(new CalcPersonGeoFailureAction(error))
-        )
+        catchError((error: HttpErrorResponse) => of(new CalcPersonGeoFailureAction(error)))
       );
     })
   );

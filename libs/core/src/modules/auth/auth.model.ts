@@ -1,4 +1,4 @@
-import { User } from "../person/person.model";
+import { User } from '../person/person.model';
 
 export interface Credentials {
   username: string;

@@ -1,8 +1,8 @@
-import { Component, ChangeDetectionStrategy, OnDestroy } from "@angular/core";
-import { Observable } from "rxjs/Observable";
-import { Router } from "@angular/router";
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { Router } from '@angular/router';
 
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 import {
   AppState,
   getPeopleSettings,
@@ -21,11 +21,11 @@ import {
   CalcGeoCodePayload,
   getFamilies,
   FamilyPayload
-} from "@memberhivex/core";
+} from '@memberhivex/core';
 
 @Component({
-  selector: "mh-person-create",
-  templateUrl: "./person-create.component.html",
+  selector: 'mh-person-create',
+  templateUrl: './person-create.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonCreateComponent implements OnDestroy {
@@ -52,11 +52,11 @@ export class PersonCreateComponent implements OnDestroy {
       .distinctUntilChanged()
       .subscribe((uid: string) => {
         if (uid) {
-          this._router.navigate(["/person/view", uid]);
+          this._router.navigate(['/person/view', uid]);
         }
       });
     this._setContextMenu();
-    this._store.dispatch(new SetTitleAction("Create Person"));
+    this._store.dispatch(new SetTitleAction('Create Person'));
   }
 
   savePerson(person: Person): void {
@@ -73,13 +73,7 @@ export class PersonCreateComponent implements OnDestroy {
 
   private _calcGeoCodes(person: Person): void {
     let gcPayload: CalcGeoCodePayload;
-    if (
-      !Utils.objEmptyProperties(person.address, "home", [
-        "street",
-        "city",
-        "zip"
-      ])
-    ) {
+    if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
       gcPayload = {
         person: person,
         apiKey: this.googleApiKey
@@ -90,7 +84,7 @@ export class PersonCreateComponent implements OnDestroy {
 
   private _setContextMenu(): void {
     const buttons: ContextButton[] = [];
-    buttons.push({ icon: "people", link: "/person", title: "LIST PEOPLE" });
+    buttons.push({ icon: 'people', link: '/person', title: 'LIST PEOPLE' });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));
   }

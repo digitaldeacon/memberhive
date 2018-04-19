@@ -1,16 +1,11 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import {
-  MatListModule,
-  MatIconModule,
-  MatToolbarModule,
-  MatButtonModule
-} from "@angular/material";
-import { FlexLayoutModule } from "@angular/flex-layout";
-import { MomentModule } from "ngx-moment";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MatListModule, MatIconModule, MatToolbarModule, MatButtonModule } from '@angular/material';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MomentModule } from 'ngx-moment';
 
-import { AuditLogComponent } from "./audit-log.component";
-import { AuditService } from "./audit.service";
+import { AuditLogComponent } from './audit-log.component';
+import { AuditService } from './audit.service';
 
 @NgModule({
   declarations: [AuditLogComponent],

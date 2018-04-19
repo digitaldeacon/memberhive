@@ -1,15 +1,15 @@
-import { Component, OnInit } from "@angular/core";
-import { FormControl } from "@angular/forms";
-import { SearchService } from "./search.service";
-import { Router } from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { SearchService } from './search.service';
+import { Router } from '@angular/router';
 
-import { Subject } from "rxjs/Subject";
-import { Observable } from "rxjs/Observable";
-import { MatAutocompleteSelectedEvent } from "@angular/material";
-import "rxjs/add/operator/debounceTime";
-import "rxjs/add/operator/distinctUntilChanged";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/do";
+import { Subject } from 'rxjs/Subject';
+import { Observable } from 'rxjs/Observable';
+import { MatAutocompleteSelectedEvent } from '@angular/material';
+import 'rxjs/add/operator/debounceTime';
+import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/do';
 
 interface SearchItem {
   id: number;
@@ -20,10 +20,10 @@ interface SearchItem {
 }
 
 @Component({
-  moduleId: "mh-search",
-  selector: "mh-search-box",
-  templateUrl: "./search-box.component.html",
-  styleUrls: ["./search-box.component.scss"]
+  moduleId: 'mh-search',
+  selector: 'mh-search-box',
+  templateUrl: './search-box.component.html',
+  styleUrls: ['./search-box.component.scss']
 })
 export class SearchBoxComponent implements OnInit {
   private _searchVisible: boolean = false;
@@ -66,7 +66,7 @@ export class SearchBoxComponent implements OnInit {
     const searchObj: SearchItem = event.option.value;
     if (searchObj.url.length === 2) {
       this.itemCtrl.reset();
-      this._router.navigate([searchObj.url[0] + "/" + searchObj.url[1]]);
+      this._router.navigate([searchObj.url[0] + '/' + searchObj.url[1]]);
     }
   }
 

@@ -1,17 +1,17 @@
-import { Component, Input, ChangeDetectorRef } from "@angular/core";
-import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material";
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
 
-import { Person } from "@memberhivex/core";
-import { DashletEditDialogComponent } from "./dashlet-birthdays-edit.dialog";
+import { Person } from '@memberhivex/core';
+import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';
 
-import { Moment } from "moment";
-import * as _moment from "moment";
+import { Moment } from 'moment';
+import * as _moment from 'moment';
 const moment = _moment;
 
 @Component({
-  selector: "mh-dashlet-birthdays",
-  templateUrl: "./dashlet-birthdays.component.html",
-  styleUrls: ["./dashlet-birthdays.component.scss"]
+  selector: 'mh-dashlet-birthdays',
+  templateUrl: './dashlet-birthdays.component.html',
+  styleUrls: ['./dashlet-birthdays.component.scss']
 })
 export class DashletBirthdaysComponent {
   private now: Moment = moment();
@@ -34,20 +34,20 @@ export class DashletBirthdaysComponent {
 
   filter(people: Person[]): void {
     if (people) {
-      const rangeDate: Moment = moment().add(this.range, "days");
+      const rangeDate: Moment = moment().add(this.range, 'days');
       this.peopleBdRange = people.filter((p: Person) => {
         const bday: Moment = moment(p.birthday);
         if (!p.birthday) {
           return false;
         }
-        bday.set("year", this._contextYear(bday));
+        bday.set('year', this._contextYear(bday));
         return bday > this.now && bday < rangeDate;
       });
       this.peopleBdRange.sort((p1: Person, p2: Person) => {
         const left: Moment = moment(p1.birthday);
         const right: Moment = moment(p2.birthday);
-        left.set("year", this._contextYear(left));
-        right.set("year", this._contextYear(right));
+        left.set('year', this._contextYear(left));
+        right.set('year', this._contextYear(right));
         return left.unix() - right.unix();
       });
       // Filter for today's birthdays
@@ -56,7 +56,7 @@ export class DashletBirthdaysComponent {
         if (!p.birthday) {
           return false;
         }
-        bday.set("year", this.now.year());
+        bday.set('year', this.now.year());
         return bday.unix() === this.now.unix();
       });
       // Sort it, closest date on top
@@ -87,16 +87,13 @@ export class DashletBirthdaysComponent {
 
   birthdayIn(birthday: string): string {
     const bday: Moment = moment(birthday);
-    bday.locale("de").set("year", this._contextYear(bday));
+    bday.locale('de').set('year', this._contextYear(bday));
     return bday.fromNow();
   }
 
   private _contextYear(d: Moment): number {
     let contextYr: number = this.now.year();
-    if (
-      d.month() < this.now.month() ||
-      (d.month() === this.now.month() && d.day() < this.now.day())
-    ) {
+    if (d.month() < this.now.month() || (d.month() === this.now.month() && d.day() < this.now.day())) {
       contextYr += 1;
     }
     return contextYr;

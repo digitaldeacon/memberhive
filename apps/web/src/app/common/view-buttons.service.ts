@@ -1,6 +1,6 @@
-import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs/BehaviorSubject";
-import { Observable } from "rxjs/Observable";
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ViewButtonsService {
@@ -23,8 +23,8 @@ export class ViewButtonsService {
 
   load(): void {
     this._dataStore.buttons.push({
-      icon: "person_add",
-      link: "/person/create"
+      icon: 'person_add',
+      link: '/person/create'
     });
     this._buttons.next(Object.assign({}, this._dataStore).buttons);
   }

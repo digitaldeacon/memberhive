@@ -1,26 +1,26 @@
-import { Action } from "@ngrx/store";
-import { ContextButton, SettingsPayload } from "./settings.model";
-import { SettingsState } from "./settings.reducer";
-import { Filter } from "../../common/common.model";
+import { Action } from '@ngrx/store';
+import { ContextButton, SettingsPayload } from './settings.model';
+import { SettingsState } from './settings.reducer';
+import { Filter } from '../../common/common.model';
 
 export enum SettingsActionTypes {
-  LIST_SETTINGS = "[Settings] List",
-  LIST_SETTINGS_SUCCESS = "[Settings] List Success",
-  LIST_SETTINGS_FAILURE = "[Settings] List Failure",
-  UPDATE_SETTINGS = "[Settings] Update",
-  UPDATE_PERSONAL_SETTINGS = "[Settings] Update personal settings",
-  UPDATE_SETTINGS_SUCCESS = "[Settings] Update Success",
-  UPDATE_SETTINGS_FAILURE = "[Settings] Update Failure",
-  TOGGLE_DRAWER = "[Settings:Layout] Toggle Drawer",
-  SET_TITLE = "[Settings:Title] Set title",
-  CLEAR_SETTINGS_MESSAGE = "[Settings] Clear Message",
-  SET_CONTEXT_BUTTONS = "[Settings:Context Buttons] Set Context Buttons",
-  SAVE_PEOPLE_FILTER = "[Settings:Filter] Save people filter",
-  SAVE_PEOPLE_FILTER_SUCCESS = "[Settings:Filter] Save people filter success",
-  PERSIST_PEOPLE_FILTER = "[Settings:Filter] Persist people filter",
-  DELETE_PEOPLE_FILTER = "[Settings:Filter] Delete people filter",
-  DELETE_PEOPLE_FILTER_SUCCESS = "[Settings:Filter] Delete people filter success",
-  AWAIT_FORM_SUBMIT = "[Settings] Await form submit",
+  LIST_SETTINGS = '[Settings] List',
+  LIST_SETTINGS_SUCCESS = '[Settings] List Success',
+  LIST_SETTINGS_FAILURE = '[Settings] List Failure',
+  UPDATE_SETTINGS = '[Settings] Update',
+  UPDATE_PERSONAL_SETTINGS = '[Settings] Update personal settings',
+  UPDATE_SETTINGS_SUCCESS = '[Settings] Update Success',
+  UPDATE_SETTINGS_FAILURE = '[Settings] Update Failure',
+  TOGGLE_DRAWER = '[Settings:Layout] Toggle Drawer',
+  SET_TITLE = '[Settings:Title] Set title',
+  CLEAR_SETTINGS_MESSAGE = '[Settings] Clear Message',
+  SET_CONTEXT_BUTTONS = '[Settings:Context Buttons] Set Context Buttons',
+  SAVE_PEOPLE_FILTER = '[Settings:Filter] Save people filter',
+  SAVE_PEOPLE_FILTER_SUCCESS = '[Settings:Filter] Save people filter success',
+  PERSIST_PEOPLE_FILTER = '[Settings:Filter] Persist people filter',
+  DELETE_PEOPLE_FILTER = '[Settings:Filter] Delete people filter',
+  DELETE_PEOPLE_FILTER_SUCCESS = '[Settings:Filter] Delete people filter success',
+  AWAIT_FORM_SUBMIT = '[Settings] Await form submit'
 }
 
 export class ListSettingAction implements Action {
@@ -102,8 +102,8 @@ export class SavePeopleFilterSuccessAction implements Action {
 }
 
 export class AwaitFormSubmitAction implements Action {
-    readonly type = SettingsActionTypes.AWAIT_FORM_SUBMIT;
-    constructor(public payload: boolean) {}
+  readonly type = SettingsActionTypes.AWAIT_FORM_SUBMIT;
+  constructor(public payload: boolean) {}
 }
 
 export type SettingsActions =

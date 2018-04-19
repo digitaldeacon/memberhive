@@ -1,5 +1,5 @@
-import * as actions from "./auth.actions";
-import { HttpErrorResponse } from "@angular/common/http";
+import * as actions from './auth.actions';
+import { HttpErrorResponse } from '@angular/common/http';
 
 export interface AuthState {
   authenticated: boolean;
@@ -13,16 +13,13 @@ export interface AuthState {
 
 const initialAuthState: AuthState = {
   authenticated: false,
-  personId: "",
+  personId: '',
   loading: false,
   loaded: false,
   status: 200
 };
 
-export function authReducer(
-  state: AuthState = initialAuthState,
-  action: actions.AuthActions
-): AuthState {
+export function authReducer(state: AuthState = initialAuthState, action: actions.AuthActions): AuthState {
   switch (action.type) {
     case actions.AUTHENTICATE:
       return Object.assign({}, state, {
@@ -34,8 +31,8 @@ export function authReducer(
 
       return {
         authenticated: user && user.token !== undefined,
-        token: user ? user.token : "",
-        personId: user ? user.personId : "",
+        token: user ? user.token : '',
+        personId: user ? user.personId : '',
         loaded: true,
         loading: false,
         status: 200
@@ -45,12 +42,9 @@ export function authReducer(
     case actions.AUTHENTICATE_FAILURE: {
       const res: any = action.payload;
       const rawStatus: number[] = [504, 404];
-      let error: string = typeof res === "string" ? res : "";
+      let error: string = typeof res === 'string' ? res : '';
       let status: number = 403;
-      if (
-        res instanceof HttpErrorResponse &&
-        rawStatus.indexOf(res.status) === -1
-      ) {
+      if (res instanceof HttpErrorResponse && rawStatus.indexOf(res.status) === -1) {
         error = res.message;
         status = res.status;
       }
@@ -59,7 +53,7 @@ export function authReducer(
         authenticated: false,
         loaded: false,
         loading: false,
-        personId: "",
+        personId: '',
         error: error,
         status: status
       };

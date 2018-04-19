@@ -3,7 +3,7 @@
   "project": {
     "name": "memberhivex",
     "npmScope": "memberhivex",
-    "latestMigration": "20180227-cleanup-scripts"
+    "latestMigration": "20180405-add-workspace-schematic-command"
   },
   "e2e": {
     "protractor": {
@@ -80,13 +80,15 @@
         "dev": "environments/environment.ts",
         "prod": "environments/environment.prod.ts",
         "hmr": "environments/environment.hmr.ts"
-      }
+      },
+      "tags": []
     },
     {
       "name": "core",
       "root": "libs/core/src",
       "test": "../../../test.js",
-      "appRoot": ""
+      "appRoot": "",
+      "tags": []
     }
   ]
 }

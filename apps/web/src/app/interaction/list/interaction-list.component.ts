@@ -1,31 +1,14 @@
-import {
-  Component,
-  OnInit,
-  Input,
-  Output,
-  EventEmitter,
-  ChangeDetectionStrategy
-} from "@angular/core";
-import {
-  style,
-  state,
-  trigger,
-  transition,
-  animate,
-  keyframes
-} from "@angular/animations";
-import { MatDialog } from "@angular/material";
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
+import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
+import { MatDialog } from '@angular/material';
 
-import { AuthService, Person, Interaction } from "@memberhivex/core";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { AuthService, Person, Interaction } from '@memberhivex/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
-  selector: "mh-interaction-list",
-  templateUrl: "interaction-list.component.html",
-  styleUrls: [
-    "interaction-list.component.scss",
-    "../interaction-common.styles.scss"
-  ],
+  selector: 'mh-interaction-list',
+  templateUrl: 'interaction-list.component.html',
+  styleUrls: ['interaction-list.component.scss', '../interaction-common.styles.scss'],
   /*animations: [
         trigger('signal', [
             state('void', style({
@@ -46,42 +29,36 @@ export class InteractionListComponent implements OnInit {
   @Input() refPerson: Person;
   @Input() people: Person[];
 
-  @Output()
-  deleteInteraction: EventEmitter<number> = new EventEmitter<number>();
-  @Output()
-  addInteraction: EventEmitter<Interaction> = new EventEmitter<Interaction>();
+  @Output() deleteInteraction: EventEmitter<number> = new EventEmitter<number>();
+  @Output() addInteraction: EventEmitter<Interaction> = new EventEmitter<Interaction>();
 
   quickNote: boolean = false;
   qnForm: FormGroup;
 
   // TODO: move these to settings
   types: any[] = [
-    { type: "interaction", iconString: "swap_vertical_circle" },
-    { type: "note", iconString: "comment" },
-    { type: "meeting", iconString: "forum" },
-    { type: "email", iconString: "email" },
-    { type: "phone", iconString: "contact_phone" }
+    { type: 'interaction', iconString: 'swap_vertical_circle' },
+    { type: 'note', iconString: 'comment' },
+    { type: 'meeting', iconString: 'forum' },
+    { type: 'email', iconString: 'email' },
+    { type: 'phone', iconString: 'contact_phone' }
   ];
   // TODO: fetch these from the auth groups DB
   visibility: any[] = [
-    { id: "PRIVATE", text: "Only Me", icon: "lock" },
-    { id: "SHEPHERD", text: "Shepherds", icon: "group" },
-    { id: "LEADER", text: "Leaders", icon: "group" },
-    { id: "STAFF", text: "Staff", icon: "group" },
-    { id: "ALL", text: "Users", icon: "person" }
+    { id: 'PRIVATE', text: 'Only Me', icon: 'lock' },
+    { id: 'SHEPHERD', text: 'Shepherds', icon: 'group' },
+    { id: 'LEADER', text: 'Leaders', icon: 'group' },
+    { id: 'STAFF', text: 'Staff', icon: 'group' },
+    { id: 'ALL', text: 'Users', icon: 'person' }
   ];
 
-  constructor(
-    private _auth: AuthService,
-    private _fb: FormBuilder,
-    public dialog: MatDialog
-  ) {}
+  constructor(private _auth: AuthService, private _fb: FormBuilder, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.authorId = this._auth.personId;
     this.qnForm = this._fb.group({
-      quickNoteText: ["", [<any>Validators.required]],
-      visibility: ["LEADER", [<any>Validators.required]]
+      quickNoteText: ['', [<any>Validators.required]],
+      visibility: ['LEADER', [<any>Validators.required]]
     });
   }
 
@@ -104,11 +81,11 @@ export class InteractionListComponent implements OnInit {
   saveQuickNote(): void {
     if (this.qnForm.valid) {
       const qnote: Interaction = {
-        type: "note",
-        text: this.qnForm.get("quickNoteText").value,
+        type: 'note',
+        text: this.qnForm.get('quickNoteText').value,
         author: { id: this.authorId },
         refId: this.refPerson.uid,
-        visibility: this.qnForm.get("visibility").value
+        visibility: this.qnForm.get('visibility').value
       };
       this.addInteraction.emit(qnote);
       this.qnForm.reset();
@@ -126,7 +103,7 @@ export class InteractionListComponent implements OnInit {
     if (Object.keys(p).length > 0) {
       return p.firstName.substring(0, 1).toUpperCase() + p.lastName; // .substring(0, 1).toUpperCase();
     }
-    return "";
+    return '';
   }
 
   private _person(uid: string): Person {

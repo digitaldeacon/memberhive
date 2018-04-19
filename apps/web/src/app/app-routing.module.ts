@@ -1,52 +1,52 @@
-import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { LoginComponent } from "./login/login.component";
-import { ViewComponent } from "./viewport/view.component";
-import { AuthGuard } from "./common/auth-guard.service";
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { LoginComponent } from './login/login.component';
+import { ViewComponent } from './viewport/view.component';
+import { AuthGuard } from './common/auth-guard.service';
 
 export const routes: Routes = [
   {
-    path: "",
+    path: '',
     component: ViewComponent,
     canActivate: [AuthGuard],
     children: [
       {
-        path: "",
-        redirectTo: "dashboard",
+        path: '',
+        redirectTo: 'dashboard',
         canActivate: [AuthGuard],
-        pathMatch: "full"
+        pathMatch: 'full'
       },
       {
-        path: "person",
+        path: 'person',
         canActivate: [AuthGuard],
-        loadChildren: "./person/person.module#PersonModule"
+        loadChildren: './person/person.module#PersonModule'
       },
       {
-        path: "interaction",
+        path: 'interaction',
         canActivate: [AuthGuard],
-        loadChildren: "./interaction/interaction.module#InteractionModule"
+        loadChildren: './interaction/interaction.module#InteractionModule'
       },
       {
-        path: "dashboard",
+        path: 'dashboard',
         canActivate: [AuthGuard],
-        loadChildren: "./dashboard/dashboard.module#DashboardModule"
+        loadChildren: './dashboard/dashboard.module#DashboardModule'
       },
       {
-        path: "settings",
+        path: 'settings',
         canActivate: [AuthGuard],
-        loadChildren: "./settings/settings.module#SettingsModule"
+        loadChildren: './settings/settings.module#SettingsModule'
       }
       // { path: '**', loadChildren: './dashboard/dashboard.module#DashboardModule' },
     ]
   },
   {
-    path: "login",
+    path: 'login',
     component: LoginComponent
   }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { initialNavigation: "enabled" })],
+  imports: [RouterModule.forRoot(routes, { initialNavigation: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

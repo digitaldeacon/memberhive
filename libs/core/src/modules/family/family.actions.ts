@@ -1,23 +1,23 @@
-import { Action } from "@ngrx/store";
-import { HttpErrorResponse } from "@angular/common/http";
-import { Family, FamilyPayload } from "./family.model";
+import { Action } from '@ngrx/store';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Family, FamilyPayload } from './family.model';
 
 export enum FamilyActionTypes {
-  LIST_FAMILIES = "[Family] List Families",
-  LIST_FAMILIES_SUCCESS = "[Family] List Success",
-  LIST_FAMILIES_FAILURE = "[Family] List Failure",
-  ADD_FAMILY = "[Family] Add new family",
-  ADD_FAMILY_SUCCESS = "[Family] Add new family Success",
-  ADD_FAMILY_FAILURE = "[Family] Add new Family Failure",
-  UPDATE_FAMILY = "[Family] Update Family",
-  UPDATE_FAMILY_SUCCESS = "[Family] Update Family Success",
-  UPDATE_FAMILY_FAILURE = "[Family] Update Family Failure",
-  LINK_PERSON_FAMILY = "[Family] Link person to family",
-  SET_FAMILY_ROLE = "[Family] Set role in family",
-  ACCEPT_MEMBER = "[Family] Accept suggested member",
-  IGNORE_MEMBER = "[Family] Ignore suggested member",
-  REMOVE_MEMBER = "[Family] Remove family member",
-  CLEAR_FAMILY_MESSAGE = "[Family] Clear Message"
+  LIST_FAMILIES = '[Family] List Families',
+  LIST_FAMILIES_SUCCESS = '[Family] List Success',
+  LIST_FAMILIES_FAILURE = '[Family] List Failure',
+  ADD_FAMILY = '[Family] Add new family',
+  ADD_FAMILY_SUCCESS = '[Family] Add new family Success',
+  ADD_FAMILY_FAILURE = '[Family] Add new Family Failure',
+  UPDATE_FAMILY = '[Family] Update Family',
+  UPDATE_FAMILY_SUCCESS = '[Family] Update Family Success',
+  UPDATE_FAMILY_FAILURE = '[Family] Update Family Failure',
+  LINK_PERSON_FAMILY = '[Family] Link person to family',
+  SET_FAMILY_ROLE = '[Family] Set role in family',
+  ACCEPT_MEMBER = '[Family] Accept suggested member',
+  IGNORE_MEMBER = '[Family] Ignore suggested member',
+  REMOVE_MEMBER = '[Family] Remove family member',
+  CLEAR_FAMILY_MESSAGE = '[Family] Clear Message'
 }
 
 export class ListFamiliesAction implements Action {

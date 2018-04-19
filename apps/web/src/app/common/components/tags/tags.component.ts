@@ -1,22 +1,6 @@
-import {
-  Component,
-  Input,
-  ViewChild,
-  forwardRef,
-  OnChanges,
-  SimpleChanges
-} from "@angular/core";
-import {
-  MatAutocompleteSelectedEvent,
-  MatAutocompleteTrigger,
-  MatInput
-} from "@angular/material";
-import {
-  FormControl,
-  ControlValueAccessor,
-  NG_VALUE_ACCESSOR,
-  NG_VALIDATORS
-} from "@angular/forms";
+import { Component, Input, ViewChild, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatInput } from '@angular/material';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 
 export interface Tag {
   id: number;
@@ -40,15 +24,14 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 };
 
 @Component({
-  selector: "mh-tags",
-  templateUrl: "./tags.component.html",
+  selector: 'mh-tags',
+  templateUrl: './tags.component.html',
   providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
 })
 export class TagsComponent implements ControlValueAccessor, OnChanges {
-
   filteredSources: Tag[] = [];
 
-  @ViewChild("chipInput") chipInput: MatInput;
+  @ViewChild('chipInput') chipInput: MatInput;
   @ViewChild(MatAutocompleteTrigger) autoTrigger: MatAutocompleteTrigger;
 
   @Input() _value: Tag[] = [];
@@ -60,10 +43,10 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
     this.onChange(v);
   }
   get value(): Tag[] {
-    this.filteredSources = arrayDiffObj(this.source, this._value, "id");
+    this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
     return this._value;
   }
-  @Input() placeholder: string = "";
+  @Input() placeholder: string = '';
 
   onChange = (_: any): void => {
     // mock
@@ -96,12 +79,12 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.source && (!this.chipInput || !this.chipInput.value)) {
-      this.filteredSources = arrayDiffObj(this.source, this._value, "id");
+      this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
     }
   }
 
   textChanged(text: string): void {
-    this.filteredSources = arrayDiffObj(this.source, this._value, "id").filter(
+    this.filteredSources = arrayDiffObj(this.source, this._value, 'id').filter(
       (obj: Tag) => obj.text.toLowerCase().indexOf(text.toLowerCase()) === 0
     );
   }
@@ -113,8 +96,7 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
   addTextChip(input: MatInput = this.chipInput): void {
     if (this.addNew) {
       if (input.value && !this.autoTrigger.activeOption) {
-        const newId: number =
-          Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
+        const newId: number = Math.floor(Math.random() * (100000 - 10000 + 1)) + 10000;
         const newTag: Tag = { id: newId, text: input.value };
         this.source.push(newTag);
         this._addTag(newTag);
@@ -124,26 +106,26 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
         this._addTag(this.filteredSources[0]);
       }
     }
-    this.chipInput["nativeElement"].value = "";
+    this.chipInput['nativeElement'].value = '';
   }
 
   remove(tag: Tag): void {
     this._value = this._value.filter((i: Tag) => i !== tag);
     this.value = this._value;
-    this.filteredSources = arrayDiffObj(this.source, this._value, "id");
-    this.chipInput["nativeElement"].blur();
+    this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
+    this.chipInput['nativeElement'].blur();
   }
 
   selectInput(event: MouseEvent): boolean {
     event.preventDefault();
     event.stopImmediatePropagation();
     this.textChanged(this.chipInput.value);
-    this.chipInput["nativeElement"].focus();
+    this.chipInput['nativeElement'].focus();
     return false;
   }
 
   displayFn(value: any): string {
-    return value && typeof value === "object" ? value.text : value;
+    return value && typeof value === 'object' ? value.text : value;
   }
 
   private _addTag(value: Tag): void {
@@ -153,17 +135,13 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
     if (!this._value) {
       this._value = [];
     }
-    if (
-      !value ||
-      !value.text ||
-      (this._value && this._value.indexOf(value) !== -1)
-    ) {
+    if (!value || !value.text || (this._value && this._value.indexOf(value) !== -1)) {
       return;
     }
     this._value.push(value);
     this.value = this._value;
-    this.chipInput.value = "";
-    this.filteredSources = arrayDiffObj(this.source, this._value, "id");
-    this.chipInput["nativeElement"].blur();
+    this.chipInput.value = '';
+    this.filteredSources = arrayDiffObj(this.source, this._value, 'id');
+    this.chipInput['nativeElement'].blur();
   }
 }
