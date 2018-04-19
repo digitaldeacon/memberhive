@@ -19,13 +19,28 @@
       "rxjs",
       "rxjs/Rx"
     ],
-    "rxjs-no-add": { "severity": "error" },
-    "rxjs-no-unused-add": { "severity": "error" },
+    "rxjs-no-add": {
+      "severity": "error"
+    },
+    "rxjs-no-unused-add": {
+      "severity": "error"
+    },
     "rxjs-no-unsafe-switchmap": {
-      "options": [{
-        "disallow": ["add", "create", "delete", "post", "put", "remove", "set", "update"],
-        "observable": "action(s|\\$)?"
-      }],
+      "options": [
+        {
+          "disallow": [
+            "add",
+            "create",
+            "delete",
+            "post",
+            "put",
+            "remove",
+            "set",
+            "update"
+          ],
+          "observable": "action(s|\\$)?"
+        }
+      ],
       "severity": "error"
     },
     "interface-over-type-literal": true,
@@ -102,12 +117,18 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-
     "nx-enforce-module-boundaries": [
       true,
       {
-        "lazyLoad": [],
-        "allow": []
+        "allow": [],
+        "depConstraints": [
+          {
+            "sourceTag": "*",
+            "onlyDependOnLibsWithTags": [
+              "*"
+            ]
+          }
+        ]
       }
     ]
   }

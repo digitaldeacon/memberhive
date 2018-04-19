@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { Action } from "@ngrx/store";
-import { Effect, Actions, ofType } from "@ngrx/effects";
-import { Observable } from "rxjs/Observable";
-import { tap, switchMap, catchError, map, concatMap } from "rxjs/operators";
-import { of } from "rxjs/observable/of";
-import { Title } from "@angular/platform-browser";
-import { Filter } from "../../common/common.model";
+import { Injectable } from '@angular/core';
+import { Action } from '@ngrx/store';
+import { Effect, Actions, ofType } from '@ngrx/effects';
+import { Observable } from 'rxjs/Observable';
+import { tap, switchMap, catchError, map, concatMap } from 'rxjs/operators';
+import { of } from 'rxjs/observable/of';
+import { Title } from '@angular/platform-browser';
+import { Filter } from '../../common/common.model';
 
 import {
   SettingsActionTypes,
@@ -20,9 +20,9 @@ import {
   DeletePeopleFilterAction,
   DeletePeopleFilterSuccessAction,
   SavePeopleFilterSuccessAction
-} from "./settings.actions";
-import { HttpService } from "../../services/http.service";
-import { SettingsState } from "./settings.reducer";
+} from './settings.actions';
+import { HttpService } from '../../services/http.service';
+import { SettingsState } from './settings.reducer';
 
 @Injectable()
 export class SettingsEffects {
@@ -32,7 +32,7 @@ export class SettingsEffects {
     tap(() => ListSettingAction),
     switchMap(() =>
       this.http
-        .get("settings/list") // TODO: add personId to fetch user settings too
+        .get('settings/list') // TODO: add personId to fetch user settings too
         .pipe(
           map((r: SettingsState) => new ListSettingSuccessAction(r)),
           catchError((r: any) => of(new ListSettingFailureAction(r)))
@@ -46,7 +46,7 @@ export class SettingsEffects {
     map((action: UpdateSettingAction) => action.payload),
     switchMap((payload: SettingsState) =>
       this.http
-        .post("settings/upsert", payload)
+        .post('settings/upsert', payload)
         .pipe(
           map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
           catchError((r: any) => of(new UpdateSettingFailureAction(r)))
@@ -60,7 +60,7 @@ export class SettingsEffects {
     map((action: SavePeopleFilterAction) => action.payload),
     switchMap((payload: Filter) =>
       this.http
-        .post("settings/upsert-people-filter", payload)
+        .post('settings/upsert-people-filter', payload)
         .pipe(
           map(() => new SavePeopleFilterSuccessAction(payload.term)),
           catchError((r: any) => of(new UpdateSettingFailureAction(r)))
@@ -74,7 +74,7 @@ export class SettingsEffects {
     map((action: DeletePeopleFilterAction) => action.payload),
     concatMap((payload: string) =>
       this.http
-        .post("settings/delete-people-filter", { term: payload })
+        .post('settings/delete-people-filter', { term: payload })
         .pipe(
           map(() => new DeletePeopleFilterSuccessAction(payload)),
           catchError((r: any) => of(new UpdateSettingFailureAction(r)))
@@ -86,12 +86,8 @@ export class SettingsEffects {
   setTitle$: Observable<String> = this.actions$.pipe(
     ofType(SettingsActionTypes.SET_TITLE),
     map((action: SetTitleAction) => action.payload),
-    tap((action: any) => this.browserTitle.setTitle(action + " - Memberhive"))
+    tap((action: any) => this.browserTitle.setTitle(action + ' - Memberhive'))
   );
 
-  constructor(
-    private actions$: Actions,
-    private http: HttpService,
-    private browserTitle: Title
-  ) {}
+  constructor(private actions$: Actions, private http: HttpService, private browserTitle: Title) {}
 }

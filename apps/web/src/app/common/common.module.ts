@@ -1,8 +1,8 @@
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { Title } from "@angular/platform-browser";
-import { FlexLayoutModule } from "@angular/flex-layout";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import {
   MatButtonModule,
   MatCardModule,
@@ -23,21 +23,21 @@ import {
   MatChipsModule,
   MatFormFieldModule,
   MatCheckboxModule
-} from "@angular/material";
+} from '@angular/material';
 
-import { GLOBALS } from "../../config/globals.config";
+import { GLOBALS } from '../../config/globals.config';
 
-import { ShoutService } from "./shout.service";
-import { DialogService } from "./dialog.service";
-import { AuthGuard } from "./auth-guard.service";
+import { ShoutService } from './shout.service';
+import { DialogService } from './dialog.service';
+import { AuthGuard } from './auth-guard.service';
 
-import { NotifyboxComponent } from "./components/notifybox/notifybox.component";
-import { FilterComponent } from "./components/filter/filter.component";
-import { ConfirmDialogComponent } from "./components/confirm/confirm-dialog.component";
-import { LoginDialogComponent } from "../login/components/login-dialog/login-dialog.component";
+import { NotifyboxComponent } from './components/notifybox/notifybox.component';
+import { FilterComponent } from './components/filter/filter.component';
+import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
+import { LoginDialogComponent } from '../login/components/login-dialog/login-dialog.component';
 
-import { AgmCoreModule } from "@agm/core";
-import { TagsComponent } from "./components/tags/tags.component";
+import { AgmCoreModule } from '@agm/core';
+import { TagsComponent } from './components/tags/tags.component';
 
 const MATERIAL_MODULES: any[] = [
   MatButtonModule,

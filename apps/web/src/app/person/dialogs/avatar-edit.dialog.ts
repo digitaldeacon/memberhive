@@ -1,24 +1,20 @@
-import { Component, ViewChild, OnInit, Inject } from "@angular/core";
-import { MatDialogRef, MAT_DIALOG_DATA } from "@angular/material";
-import { ImageCropperComponent, CropperSettings } from "ngx-img-cropper";
-import { Store } from "@ngrx/store";
-import {
-  AppState,
-  UploadPersonAvatarAction,
-  AvatarPayload
-} from "@memberhivex/core";
+import { Component, ViewChild, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { ImageCropperComponent, CropperSettings } from 'ngx-img-cropper';
+import { Store } from '@ngrx/store';
+import { AppState, UploadPersonAvatarAction, AvatarPayload } from '@memberhivex/core';
 
 @Component({
-  selector: "mh-dialog-avatar-edit",
-  templateUrl: "./avatar-edit.dialog.html",
-  styleUrls: ["./avatar-edit.dialog.scss"]
+  selector: 'mh-dialog-avatar-edit',
+  templateUrl: './avatar-edit.dialog.html',
+  styleUrls: ['./avatar-edit.dialog.scss']
 })
 export class AvatarEditDialogComponent implements OnInit {
   imageData: any;
   avatar: HTMLImageElement;
   cropperSettings: CropperSettings;
   file: File;
-  @ViewChild("cropper", undefined)
+  @ViewChild('cropper', undefined)
   cropper: ImageCropperComponent;
 
   constructor(
@@ -42,7 +38,7 @@ export class AvatarEditDialogComponent implements OnInit {
     if (this.dialogData.avatar) {
       this.avatar = new Image();
       this.avatar.src = this.dialogData.avatar;
-      this.avatar.addEventListener("load", (data: any) => {
+      this.avatar.addEventListener('load', (data: any) => {
         this.cropper.setImage(this.avatar);
         this.imageData.image = this.avatar;
         // this.file = new File(this.avatar,this.dialogData.avatar);
@@ -68,7 +64,7 @@ export class AvatarEditDialogComponent implements OnInit {
       image: JSON.stringify(this.imageData.image),
       personId: this.dialogData.id
     };
-    if (this.dialogData.context === "person") {
+    if (this.dialogData.context === 'person') {
       console.log(imagePayload);
       this._store.dispatch(new UploadPersonAvatarAction(imagePayload));
       this.dialogRef.close();

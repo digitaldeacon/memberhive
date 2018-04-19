@@ -1,37 +1,32 @@
-import { Action } from "@ngrx/store";
-import { HttpResponse } from "@angular/common/http";
+import { Action } from '@ngrx/store';
+import { HttpResponse } from '@angular/common/http';
 import {
   Interaction,
   InteractionCompletePayload,
   InteractionPayload,
   InteractionCollection
-} from "./interaction.model";
+} from './interaction.model';
 
-export const ADD_INTERACTION = "[Interaction] Add Interaction";
-export const ADD_INTERACTION_SUCCESS = "[Interaction] Add Interaction Success";
-export const ADD_INTERACTION_FAILURE = "[Interaction] Add Interaction Fail";
-export const DELETE_INTERACTION = "[Interaction] Delete Interaction";
-export const DELETE_INTERACTION_SUCCESS =
-  "[Interaction] Delete Interaction Success";
-export const DELETE_INTERACTION_FAILURE =
-  "[Interaction] Delete Interaction Fail";
-export const LIST_INTERACTIONS = "[Interaction] List Interactions";
-export const LIST_INTERACTIONS_SUCCESS =
-  "[Interaction] List Interactions Success";
-export const LIST_INTERACTIONS_FAILURE = "[Interaction] List Interactions Fail";
-export const UPDATE_INTERACTION = "[Interaction] Update Interaction";
-export const UPDATE_INTERACTION_SUCCESS =
-  "[Interaction] Update Interaction Success";
-export const UPDATE_INTERACTION_FAILURE =
-  "[Interaction] Update Interaction Fail";
-export const CLEAR_INTERACTION_MESSAGE = "[Interaction] Clear Message";
-export const COMPLETE_INTERACTION = "[Interaction] Complete";
-export const COMPLETE_INTERACTION_SUCCESS = "[Interaction] Complete Success";
-export const COMPLETE_INTERACTION_FAILURE = "[Interaction] Complete Failure";
-export const END_INTERACTION = "[Interaction] End";
-export const END_INTERACTION_SUCCESS = "[Interaction] End Success";
-export const END_INTERACTION_FAILURE = "[Interaction] End Failure";
-export const GET_FOR_PERSON = "[Interaction] Get interactions for person";
+export const ADD_INTERACTION = '[Interaction] Add Interaction';
+export const ADD_INTERACTION_SUCCESS = '[Interaction] Add Interaction Success';
+export const ADD_INTERACTION_FAILURE = '[Interaction] Add Interaction Fail';
+export const DELETE_INTERACTION = '[Interaction] Delete Interaction';
+export const DELETE_INTERACTION_SUCCESS = '[Interaction] Delete Interaction Success';
+export const DELETE_INTERACTION_FAILURE = '[Interaction] Delete Interaction Fail';
+export const LIST_INTERACTIONS = '[Interaction] List Interactions';
+export const LIST_INTERACTIONS_SUCCESS = '[Interaction] List Interactions Success';
+export const LIST_INTERACTIONS_FAILURE = '[Interaction] List Interactions Fail';
+export const UPDATE_INTERACTION = '[Interaction] Update Interaction';
+export const UPDATE_INTERACTION_SUCCESS = '[Interaction] Update Interaction Success';
+export const UPDATE_INTERACTION_FAILURE = '[Interaction] Update Interaction Fail';
+export const CLEAR_INTERACTION_MESSAGE = '[Interaction] Clear Message';
+export const COMPLETE_INTERACTION = '[Interaction] Complete';
+export const COMPLETE_INTERACTION_SUCCESS = '[Interaction] Complete Success';
+export const COMPLETE_INTERACTION_FAILURE = '[Interaction] Complete Failure';
+export const END_INTERACTION = '[Interaction] End';
+export const END_INTERACTION_SUCCESS = '[Interaction] End Success';
+export const END_INTERACTION_FAILURE = '[Interaction] End Failure';
+export const GET_FOR_PERSON = '[Interaction] Get interactions for person';
 
 export class ListInteractionsAction implements Action {
   readonly type = LIST_INTERACTIONS;

@@ -1,10 +1,10 @@
-import { Address, Filter } from "../../common/common.model";
+import { Address, Filter } from '../../common/common.model';
 
 export enum SettingType {
-  LAYOUT = "layout",
-  PEOPLE = "people",
-  SYSTEM = "system",
-  DASHBOARD = "dashboard"
+  LAYOUT = 'layout',
+  PEOPLE = 'people',
+  SYSTEM = 'system',
+  DASHBOARD = 'dashboard'
 }
 
 export interface SettingsPayload {

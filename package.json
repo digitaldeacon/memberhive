@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "test": "ng test",
-    "lint": "ng lint",
+    "lint": "./node_modules/.bin/nx lint && ng lint",
     "lint:api": "cd api && ./vendor/bin/phpcs --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
     "lint:api:fix": "cd api && ./vendor/bin/phpcbf --extensions=php --standard=./vendor/yiisoft/yii2-coding-standards/Yii2/  ./controllers ./models ./helpers ./config ./mail ./migrations ./commands",
     "e2e": "ng e2e",
@@ -28,7 +28,8 @@
     "postinstall": "./node_modules/.bin/nx migrate check && node version.js",
     "update": "./node_modules/.bin/nx update",
     "update:check": "./node_modules/.bin/nx update check",
-    "update:skip": "./node_modules/.bin/nx update skip"
+    "update:skip": "./node_modules/.bin/nx update skip",
+    "workspace-schematic": "./node_modules/.bin/nx workspace-schematic"
   },
   "private": true,
   "dependencies": {

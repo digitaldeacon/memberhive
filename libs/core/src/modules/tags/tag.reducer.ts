@@ -1,7 +1,7 @@
-import { HttpResponse } from "@angular/common/http";
-import { Tag } from "./tag.model";
-import * as actions from "./tag.actions";
-import * as common from "../../common/common.model";
+import { HttpResponse } from '@angular/common/http';
+import { Tag } from './tag.model';
+import * as actions from './tag.actions';
+import * as common from '../../common/common.model';
 
 export interface TagState {
   loaded?: boolean;
@@ -12,16 +12,13 @@ export interface TagState {
 
 const initialState: TagState = {
   tags: [
-    { id: 1, text: "Member", type: "status", context: "person" },
-    { id: 2, text: "Visitor", type: "status", context: "person" },
-    { id: 3, text: "Contact", type: "status", context: "person" }
+    { id: 1, text: 'Member', type: 'status', context: 'person' },
+    { id: 2, text: 'Visitor', type: 'status', context: 'person' },
+    { id: 3, text: 'Contact', type: 'status', context: 'person' }
   ]
 };
 
-export function tagReducer(
-  state: TagState = initialState,
-  action: actions.TagActions
-): TagState {
+export function tagReducer(state: TagState = initialState, action: actions.TagActions): TagState {
   switch (action.type) {
     case actions.UPDATE_TAGS:
     case actions.LIST_TAGS:
@@ -56,7 +53,7 @@ export function tagReducer(
       const payload: Tag[] = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: "Successfully updated tags"
+        text: 'Successfully updated tags'
       };
       return Object.assign({}, state, {
         loaded: true,

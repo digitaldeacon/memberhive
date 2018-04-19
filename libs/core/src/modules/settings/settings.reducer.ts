@@ -1,6 +1,6 @@
-import { SettingsActions, SettingsActionTypes } from "./settings.actions";
-import * as model from "./settings.model";
-import * as common from "../../common/common.model";
+import { SettingsActions, SettingsActionTypes } from './settings.actions';
+import * as model from './settings.model';
+import * as common from '../../common/common.model';
 
 export interface SettingsState {
   loaded?: boolean;
@@ -19,29 +19,26 @@ const initialState: SettingsState = {
   loading: false,
   layout: {
     showDrawer: true,
-    title: "",
-    module: ""
+    title: '',
+    module: ''
   },
   people: {
-    list: ["email"],
+    list: ['email'],
     filter: {
-      term: "",
+      term: '',
       saved: []
     }
   },
   system: {
-    churchName: "Your Church",
-    googleApiKey: "AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo"
+    churchName: 'Your Church',
+    googleApiKey: 'AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo'
   },
   profile: {},
   dashboard: {},
   awaitFormSubmit: false
 };
 
-export function settingsReducer(
-  state: SettingsState = initialState,
-  action: SettingsActions
-): SettingsState {
+export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
   switch (action.type) {
     case SettingsActionTypes.DELETE_PEOPLE_FILTER:
     case SettingsActionTypes.SAVE_PEOPLE_FILTER:
@@ -68,7 +65,7 @@ export function settingsReducer(
     case SettingsActionTypes.LIST_SETTINGS_FAILURE: {
       const message: common.Message = {
         type: common.MessageType.FAILURE,
-        text: "Setting failure: " + action.payload // TODO: @I18n
+        text: 'Setting failure: ' + action.payload // TODO: @I18n
       };
       return Object.assign({}, state, {
         loading: false,
@@ -84,7 +81,7 @@ export function settingsReducer(
 
       let msg: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: "Successfully updated settings" // TODO: @I18n
+        text: 'Successfully updated settings' // TODO: @I18n
       };
       let system: model.SystemSettings = state.system;
       let people: model.PersonSettings = state.people;
@@ -137,9 +134,7 @@ export function settingsReducer(
     }
 
     case SettingsActionTypes.PERSIST_PEOPLE_FILTER: {
-      const savedFilters = state.people.hasOwnProperty("filter")
-        ? state.people.filter.saved
-        : [];
+      const savedFilters = state.people.hasOwnProperty('filter') ? state.people.filter.saved : [];
       return Object.assign({}, state, {
         people: {
           list: state.people.list,
@@ -173,9 +168,7 @@ export function settingsReducer(
           list: state.people.list,
           filter: {
             term: state.people.filter.term,
-            saved: state.people.filter.saved.filter(
-              (term: string) => term !== action.payload
-            )
+            saved: state.people.filter.saved.filter((term: string) => term !== action.payload)
           }
         }
       });
@@ -192,9 +185,9 @@ export function settingsReducer(
     }
 
     case SettingsActionTypes.AWAIT_FORM_SUBMIT: {
-        return Object.assign({}, state, {
-            awaitFormSubmit: action.payload
-        });
+      return Object.assign({}, state, {
+        awaitFormSubmit: action.payload
+      });
     }
 
     default:
@@ -209,22 +202,16 @@ export const messageSettings: any = (state: SettingsState) => state.message;
 export const layoutSettings: any = (state: SettingsState) => state.layout;
 export const peopleSettings: any = (state: SettingsState) => state.people;
 export const sysSettings: any = (state: SettingsState) => state.system;
-export const peopleListSettings: any = (state: SettingsState) =>
-  state.people.list;
+export const peopleListSettings: any = (state: SettingsState) => state.people.list;
 export const profileSettings: any = (state: SettingsState) => state.profile;
 
-export const showDrawer: any = (state: SettingsState) =>
-  state.layout.showDrawer;
+export const showDrawer: any = (state: SettingsState) => state.layout.showDrawer;
 export const title: any = (state: SettingsState) => state.layout.title;
 export const module: any = (state: SettingsState) => state.layout.module;
-export const contextButtons: any = (state: SettingsState) =>
-  state.layout.contextButtons;
+export const contextButtons: any = (state: SettingsState) => state.layout.contextButtons;
 
-export const sysGoogleKey: any = (state: SettingsState) =>
-  state.system.googleApiKey;
+export const sysGoogleKey: any = (state: SettingsState) => state.system.googleApiKey;
 
-export const peopleFilterSettings: any = (state: SettingsState) =>
-  state.people.filter;
+export const peopleFilterSettings: any = (state: SettingsState) => state.people.filter;
 
-export const awaitingFormSubmit: any = (state: SettingsState) =>
-    state.awaitFormSubmit;
+export const awaitingFormSubmit: any = (state: SettingsState) => state.awaitFormSubmit;

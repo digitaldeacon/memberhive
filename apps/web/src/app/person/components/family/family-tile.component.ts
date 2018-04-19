@@ -1,24 +1,11 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  Input,
-  Output
-} from "@angular/core";
-import {
-  Person,
-  Member,
-  Family,
-  FamilyPayload,
-  FamilyRole,
-  familyRoleArray
-} from "@memberhivex/core";
-import { MatSelectChange } from "@angular/material";
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Person, Member, Family, FamilyPayload, FamilyRole, familyRoleArray } from '@memberhivex/core';
+import { MatSelectChange } from '@angular/material';
 
 @Component({
-  selector: "mh-family-tile",
-  templateUrl: "./family-tile.component.html",
-  styleUrls: ["./family-tile.component.scss"],
+  selector: 'mh-family-tile',
+  templateUrl: './family-tile.component.html',
+  styleUrls: ['./family-tile.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FamilyTileComponent {
@@ -28,8 +15,7 @@ export class FamilyTileComponent {
   @Input() member: Member;
   @Input() family: Family;
 
-  @Output()
-  setRole: EventEmitter<FamilyPayload> = new EventEmitter<FamilyPayload>();
+  @Output() setRole: EventEmitter<FamilyPayload> = new EventEmitter<FamilyPayload>();
   @Output() ignoreMember: EventEmitter<Member> = new EventEmitter<Member>();
   @Output() acceptMember: EventEmitter<Member> = new EventEmitter<Member>();
   @Output() removeMember: EventEmitter<Member> = new EventEmitter<Member>();

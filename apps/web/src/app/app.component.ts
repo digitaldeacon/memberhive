@@ -1,11 +1,11 @@
-import { Component, Inject, LOCALE_ID, Renderer2 } from "@angular/core";
-import { DomSanitizer } from "@angular/platform-browser";
-import { MatIconRegistry } from "@angular/material";
-import { DOCUMENT } from "@angular/common";
+import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
+import { MatIconRegistry } from '@angular/material';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
-  selector: "mh-app",
-  template: "<router-outlet></router-outlet>"
+  selector: 'mh-app',
+  template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
   constructor(
@@ -17,11 +17,9 @@ export class AppComponent {
   ) {
     // Register svgs
     this._iconRegistry.addSvgIconInNamespace(
-      "assets",
-      "memberhive",
-      this._domSanitizer.bypassSecurityTrustResourceUrl(
-        "assets/icons/memberhive.svg"
-      )
+      'assets',
+      'memberhive',
+      this._domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/memberhive.svg')
     );
   }
 }

@@ -1,20 +1,20 @@
-import { Address, FilterSet } from "../../common/common.model";
-import { Tag } from "../tags/tag.model";
-import { Moment } from "moment";
-import { FamilyRole } from "../family/family.model";
+import { Address, FilterSet } from '../../common/common.model';
+import { Tag } from '../tags/tag.model';
+import { Moment } from 'moment';
+import { FamilyRole } from '../family/family.model';
 
 export enum MaritalStatus {
-  MARRIED = "married",
-  SINGLE = "single",
-  WIDOWED = "widowed",
-  DIVORCED = "divorced",
-  SEPARATED = "separated",
-  ENGAGED = "engaged"
+  MARRIED = 'married',
+  SINGLE = 'single',
+  WIDOWED = 'widowed',
+  DIVORCED = 'divorced',
+  SEPARATED = 'separated',
+  ENGAGED = 'engaged'
 }
 
 export const enum Gender {
-  MALE = "m",
-  FEMALE = "f"
+  MALE = 'm',
+  FEMALE = 'f'
 }
 
 export const maritalStatusArray: MaritalStatus[] = [
@@ -63,15 +63,15 @@ export interface Person {
 
 export class PersonAddress {
   home: Address = {
-    street: "",
-    zip: "",
-    city: "",
+    street: '',
+    zip: '',
+    city: '',
     geocode: {}
   };
   postal: Address = {
-    street: "",
-    zip: "",
-    city: "",
+    street: '',
+    zip: '',
+    city: '',
     geocode: {}
   };
 
@@ -94,10 +94,10 @@ export interface AvatarPayload {
 }
 
 export const personFilterSet: FilterSet[] = [
-  { key: "firstName", label: "name" },
-  { key: "lastName", label: "nachname" },
-  { key: "email", label: "email" },
-  { key: "gender", label: "sex" },
-  { key: "status", label: "status" },
-  { key: "age", label: "alter" }
+  { key: 'firstName', label: 'name' },
+  { key: 'lastName', label: 'nachname' },
+  { key: 'email', label: 'email' },
+  { key: 'gender', label: 'sex' },
+  { key: 'status', label: 'status' },
+  { key: 'age', label: 'alter' }
 ];

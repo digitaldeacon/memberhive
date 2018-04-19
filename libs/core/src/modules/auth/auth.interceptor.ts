@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import {
   HttpEvent,
   HttpInterceptor,
@@ -6,31 +6,28 @@ import {
   HttpRequest,
   HttpResponse,
   HttpErrorResponse
-} from "@angular/common/http";
-import { Observable } from "rxjs/Observable";
-import { AuthService } from "./auth.service";
-import "rxjs/add/operator/do";
-import * as localForage from "localforage";
+} from '@angular/common/http';
+import { Observable } from 'rxjs/Observable';
+import { AuthService } from './auth.service';
+import 'rxjs/add/operator/do';
+import * as localForage from 'localforage';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
   constructor(private _auth: AuthService) {}
-  intercept(
-    req: HttpRequest<any>,
-    next: HttpHandler
-  ): Observable<HttpEvent<any>> {
+  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     const token: string = this._auth.token;
     if (token) {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
-          ContentType: "application/json; charset=utf-8"
+          ContentType: 'application/json; charset=utf-8'
         }
       });
     } else {
       req = req.clone({
         setHeaders: {
-          ContentType: "application/json; charset=utf-8"
+          ContentType: 'application/json; charset=utf-8'
         }
       });
     }

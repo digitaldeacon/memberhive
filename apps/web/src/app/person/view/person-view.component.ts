@@ -1,15 +1,10 @@
-import {
-  Component,
-  OnInit,
-  OnDestroy,
-  ChangeDetectionStrategy
-} from "@angular/core";
-import { Router, ActivatedRoute, Params } from "@angular/router";
-import { MatDialog, MatDialogRef, MatDialogConfig } from "@angular/material";
-import { Observable } from "rxjs/Observable";
-import { exhaustMap, skipWhile, takeWhile, map } from "rxjs/operators";
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { Observable } from 'rxjs/Observable';
+import { exhaustMap, skipWhile, takeWhile, map } from 'rxjs/operators';
 
-import { Store } from "@ngrx/store";
+import { Store } from '@ngrx/store';
 
 import {
   AppState,
@@ -36,22 +31,22 @@ import {
   DeleteInteractionAction,
   AddInteractionAction,
   AwaitFormSubmitAction
-} from "@memberhivex/core";
+} from '@memberhivex/core';
 
-import { AvatarEditDialogComponent } from "../dialogs/avatar-edit.dialog";
-import { PersonRelationsDialogComponent } from "../dialogs/person-relations.dialog";
-import { MapDialogComponent } from "../dialogs/map/map.dialog";
+import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
+import { PersonRelationsDialogComponent } from '../dialogs/person-relations.dialog';
+import { MapDialogComponent } from '../dialogs/map/map.dialog';
 
-import { ShoutService } from "../../common/shout.service";
-import { DialogService } from "../../common/dialog.service";
+import { ShoutService } from '../../common/shout.service';
+import { DialogService } from '../../common/dialog.service';
 
-import { isEqual } from "lodash";
+import { isEqual } from 'lodash';
 
 @Component({
-  moduleId: "mh-person",
-  selector: "mh-person-view",
-  templateUrl: "./person-view.component.html",
-  styleUrls: ["./person-view.component.scss"],
+  moduleId: 'mh-person',
+  selector: 'mh-person-view',
+  templateUrl: './person-view.component.html',
+  styleUrls: ['./person-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
@@ -88,16 +83,18 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     // Selects the tags by fragment param
     this.tags$ = this._store.select(getTags);
 
-    this._store.select(isAwaitingFormSubmit).pipe(takeWhile(() => this._alive))
-        .subscribe((waiting: boolean) => this.awaitsFormSubmit = waiting);
+    this._store
+      .select(isAwaitingFormSubmit)
+      .pipe(takeWhile(() => this._alive))
+      .subscribe((waiting: boolean) => (this.awaitsFormSubmit = waiting));
 
     // Load all people for the back and forth buttons
     this._store
       .select(getPeopleWithFilter)
       .pipe(takeWhile(() => this._alive))
       .subscribe((people: Person[]) => {
-          this.people = people;
-          this.peopleFiltered = people;
+        this.people = people;
+        this.peopleFiltered = people;
       });
 
     // Fetch the combined settings for people and system
@@ -114,8 +111,8 @@ export class PersonViewComponent implements OnInit, OnDestroy {
       .pipe(
         //skipWhile(() => this.awaitsFormSubmit), //TODO: skip navigation when form is touched
         map((params: Params) => {
-            this._store.dispatch(new ViewPersonAction(params["id"]));
-            this._store.dispatch(new GetInteractionsPersonAction(params["id"]));
+          this._store.dispatch(new ViewPersonAction(params['id']));
+          this._store.dispatch(new GetInteractionsPersonAction(params['id']));
         }),
         exhaustMap(() => this.person$),
         takeWhile(() => this._alive)
@@ -124,11 +121,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
         if (person) {
           this.person = person;
           this._store.dispatch(new SetTitleAction(this.person.fullName));
-          this.hasMap = !Utils.objEmptyProperties(
-            this.person.address,
-            "home",
-            "geocode"
-          );
+          this.hasMap = !Utils.objEmptyProperties(this.person.address, 'home', 'geocode');
         }
       });
     this._setContextMenu();
@@ -139,9 +132,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   prevPerson(): void {
-    let idx: number = this.peopleFiltered.findIndex(
-      (p: Person) => p.uid === this.person.uid
-    );
+    let idx: number = this.peopleFiltered.findIndex((p: Person) => p.uid === this.person.uid);
     idx = idx > 0 ? idx - 1 : this.peopleFiltered.length - 1;
     if (this.peopleFiltered[idx]) {
       this.gotoPerson(this.peopleFiltered[idx].uid);
@@ -149,9 +140,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   nextPerson(): void {
-    let idx: number = this.peopleFiltered.findIndex(
-      (p: Person) => p.uid === this.person.uid
-    );
+    let idx: number = this.peopleFiltered.findIndex((p: Person) => p.uid === this.person.uid);
     idx = idx < this.peopleFiltered.length - 1 ? idx + 1 : 0;
     if (this.peopleFiltered[idx]) {
       this.gotoPerson(this.peopleFiltered[idx].uid);
@@ -159,7 +148,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   gotoPerson(uid: string): void {
-    this._router.navigate(["/person/view", uid]);
+    this._router.navigate(['/person/view', uid]);
   }
 
   savePerson(person: Person): void {
@@ -171,14 +160,11 @@ export class PersonViewComponent implements OnInit, OnDestroy {
 
   deletePerson(): void {
     this._dialogSrv
-      .confirm(
-        "Deleting: " + this.person.fullName,
-        "Are you sure you want to do this?"
-      )
+      .confirm('Deleting: ' + this.person.fullName, 'Are you sure you want to do this?')
       .subscribe((confirmed: boolean) => {
         if (confirmed) {
           this._store.dispatch(new DeletePersonAction(this.person));
-          this._router.navigate(["/person"]);
+          this._router.navigate(['/person']);
         }
       });
   }
@@ -201,7 +187,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   openDlgMap(): void {
     const config: MatDialogConfig = new MatDialogConfig();
     const personMarker: GeoMarker = {
-      latlng: !Utils.objEmptyProperties(this.person.address, "home", "geocode")
+      latlng: !Utils.objEmptyProperties(this.person.address, 'home', 'geocode')
         ? this.person.address.home.geocode
         : undefined,
       title: this.person.fullName,
@@ -211,7 +197,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
       }
     };
     config.data = {
-      context: "person",
+      context: 'person',
       markers: [personMarker],
       initMarker: personMarker,
       initMarkerToMap: true
@@ -225,7 +211,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   openDlgAvatar(): void {
     const config: MatDialogConfig = new MatDialogConfig();
     config.data = {
-      context: "person",
+      context: 'person',
       id: this.person.uid,
       avatar: this.person.avatar
     };
@@ -237,7 +223,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   }
 
   createInteraction(): void {
-    this._router.navigate(["/interaction/create"]);
+    this._router.navigate(['/interaction/create']);
   }
 
   formChanged(): void {
@@ -253,23 +239,15 @@ export class PersonViewComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (
-      !Utils.objEmptyProperties(person.address, "home", [
-        "street",
-        "city",
-        "zip"
-      ])
-    ) {
+    if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
       gcPayload = {
         person: person,
         apiKey: this.settings.googleApiKey
       };
-      if (!Utils.objEmptyProperties(this.settings, "googleApiKey")) {
+      if (!Utils.objEmptyProperties(this.settings, 'googleApiKey')) {
         this._store.dispatch(new CalcPersonGeoAction(gcPayload));
       } else {
-        this._shout.error(
-          "There is no Google API key present. Go to settings and set one."
-        );
+        this._shout.error('There is no Google API key present. Go to settings and set one.');
       }
     }
   }
@@ -277,14 +255,14 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   private _setContextMenu(): void {
     const buttons: ContextButton[] = [];
     buttons.push({
-      icon: "person_pin",
-      link: "/person/map",
-      title: "PEOPLE MAP"
+      icon: 'person_pin',
+      link: '/person/map',
+      title: 'PEOPLE MAP'
     });
     buttons.push({
-      icon: "person_add",
-      link: "/person/create",
-      title: "ADD PERSON"
+      icon: 'person_add',
+      link: '/person/create',
+      title: 'ADD PERSON'
     });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

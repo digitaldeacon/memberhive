@@ -1,20 +1,20 @@
-import { Injectable } from "@angular/core";
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { Injectable } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
-import "rxjs/add/operator/map";
-import "rxjs/add/operator/catch";
-import "rxjs/add/operator/startWith";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/mergeMap";
-import "rxjs/add/operator/toArray";
-import "rxjs/add/observable/of";
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/toArray';
+import 'rxjs/add/observable/of';
 
-import { Observable } from "rxjs/Observable";
-import { of } from "rxjs/observable/of";
+import { Observable } from 'rxjs/Observable';
+import { of } from 'rxjs/observable/of';
 
-import { Effect, Actions } from "@ngrx/effects";
-import * as actions from "./family.actions";
-import { Family, FamilyPayload } from "./family.model";
+import { Effect, Actions } from '@ngrx/effects';
+import * as actions from './family.actions';
+import { Family, FamilyPayload } from './family.model';
 
 @Injectable()
 export class FamilyEffects {
@@ -26,11 +26,9 @@ export class FamilyEffects {
     .map((action: actions.ListFamiliesAction) => action.payload)
     .switchMap((data: any) => {
       return this._http
-        .get("api/family/list")
+        .get('api/family/list')
         .map((r: Family[]) => new actions.ListFamiliesSuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.ListFamiliesFailureAction(r))
-        );
+        .catch((r: HttpErrorResponse) => of(new actions.ListFamiliesFailureAction(r)));
     });
 
   @Effect()
@@ -39,13 +37,11 @@ export class FamilyEffects {
     .map((action: actions.AddNewFamilyAction) => action.payload)
     .switchMap((data: Family) => {
       return this._http
-        .post("api/family/new", data)
+        .post('api/family/new', data)
         .mergeMap((r: Family) => {
           return [new actions.AddNewFamilySuccessAction(r)];
         })
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.AddNewFamilyFailureAction(r))
-        );
+        .catch((r: HttpErrorResponse) => of(new actions.AddNewFamilyFailureAction(r)));
     });
 
   @Effect()
@@ -54,11 +50,9 @@ export class FamilyEffects {
     .map((action: actions.UpdateFamilyAction) => action.payload)
     .mergeMap((payload: Family) =>
       this._http
-        .post("api/family/update?id=" + payload.id, payload)
+        .post('api/family/update?id=' + payload.id, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 
   @Effect()
@@ -67,11 +61,9 @@ export class FamilyEffects {
     .map((action: actions.SetFamilyRoleAction) => action.payload)
     .mergeMap((payload: FamilyPayload) =>
       this._http
-        .post("api/family/set-role?id=" + payload.member, payload)
+        .post('api/family/set-role?id=' + payload.member, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 
   @Effect()
@@ -80,11 +72,9 @@ export class FamilyEffects {
     .map((action: actions.AcceptMemberFamilyAction) => action.payload)
     .mergeMap((payload: FamilyPayload) =>
       this._http
-        .post("api/family/accept?id=" + payload.member, payload)
+        .post('api/family/accept?id=' + payload.member, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 
   @Effect()
@@ -93,11 +83,9 @@ export class FamilyEffects {
     .map((action: actions.IgnoreMemberFamilyAction) => action.payload)
     .mergeMap((payload: FamilyPayload) =>
       this._http
-        .post("api/family/ignore?id=" + payload.member, payload)
+        .post('api/family/ignore?id=' + payload.member, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 
   @Effect()
@@ -106,11 +94,9 @@ export class FamilyEffects {
     .map((action: actions.RemoveMemberFamilyAction) => action.payload)
     .mergeMap((payload: FamilyPayload) =>
       this._http
-        .post("api/family/remove?id=" + payload.member, payload)
+        .post('api/family/remove?id=' + payload.member, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 
   @Effect()
@@ -119,10 +105,8 @@ export class FamilyEffects {
     .map((action: actions.LinkPersonFamilyAction) => action.payload)
     .mergeMap((payload: FamilyPayload) =>
       this._http
-        .post("api/family/link?id=" + payload.member, payload)
+        .post('api/family/link?id=' + payload.member, payload)
         .map((r: Family) => new actions.UpdateFamilySuccessAction(r))
-        .catch((r: HttpErrorResponse) =>
-          of(new actions.UpdateFamilyFailureAction(r))
-        )
+        .catch((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
     );
 }
