@@ -89,13 +89,13 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
 
       let i = 0;
       for (const section of types) {
-        if (section === model.SettingType[model.SettingType.PEOPLE]) {
+        if (section === model.SettingType.PEOPLE) {
           people = Object.assign({}, state.people, values[i]);
         }
-        if (section === model.SettingType[model.SettingType.SYSTEM]) {
+        if (section === model.SettingType.SYSTEM) {
           system = Object.assign({}, state.system, values[i]);
         }
-        if (section === model.SettingType[model.SettingType.LAYOUT]) {
+        if (section === model.SettingType.LAYOUT) {
           msg = undefined;
           layout = Object.assign({}, state.layout, values[i]);
         }
