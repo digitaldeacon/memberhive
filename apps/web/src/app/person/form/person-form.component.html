@@ -180,6 +180,17 @@
                 </div>
                 <div>
                     <mat-form-field>
+                        <mat-select name="role"
+                                    formControlName="role"
+                                    placeholder="User role" i18n-placeholder="@@userrole">
+                            <mat-option *ngFor="let role of userRoleArray" [value]="role">
+                                {{role | titlecase}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <mat-form-field>
                         <input matInput
                                type="text"
                                formControlName="password"
