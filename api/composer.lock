@@ -4,8 +4,59 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2af466be8040f8d8024ecec21e50588a",
+    "content-hash": "ecc40affb1fc4e5a775ea5813c7a9764",
     "packages": [
+        {
+            "name": "analyticsface/yii2-mailgun",
+            "version": "v1.1.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/analyticsface/yii2-mailgun.git",
+                "reference": "544814a9d5286b7e837c7da7eff0b31174527fba"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/analyticsface/yii2-mailgun/zipball/544814a9d5286b7e837c7da7eff0b31174527fba",
+                "reference": "544814a9d5286b7e837c7da7eff0b31174527fba",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/psr7": "^1.4",
+                "mailgun/mailgun-php": "^2.3",
+                "php-http/curl-client": "^1.7",
+                "yiisoft/yii2": "~2.0"
+            },
+            "type": "yii2-extension",
+            "extra": {
+                "asset-installer-paths": {
+                    "npm-asset-library": "vendor/npm",
+                    "bower-asset-library": "vendor/bower"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "aface\\mailgun\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Ivan Vladimirov",
+                    "email": "vladimirovii@aface.ru",
+                    "homepage": "https://aface.ru"
+                }
+            ],
+            "description": "Mailgun SDK PHP for Yii2 Framework.",
+            "keywords": [
+                "mailgun",
+                "yii 2",
+                "yii2"
+            ],
+            "time": "2018-03-16T03:42:17+00:00"
+        },
         {
             "name": "aracoool/yii2-uuid",
             "version": "1.1.1",
@@ -52,54 +103,6 @@
                 "yii2"
             ],
             "time": "2017-03-24T05:44:00+00:00"
-        },
-        {
-            "name": "boundstate/yii2-mailgun",
-            "version": "1.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/digitaldeacon/yii2-mailgun.git",
-                "reference": "e5a044f1f6e78e24d81a0bdf6e0baed41c85b058"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/digitaldeacon/yii2-mailgun/zipball/e5a044f1f6e78e24d81a0bdf6e0baed41c85b058",
-                "reference": "e5a044f1f6e78e24d81a0bdf6e0baed41c85b058",
-                "shasum": ""
-            },
-            "require": {
-                "mailgun/mailgun-php": "~2.3.3",
-                "yiisoft/yii2": ">=2.0.4"
-            },
-            "type": "yii2-extension",
-            "autoload": {
-                "psr-4": {
-                    "boundstate\\mailgun\\": ""
-                }
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Mike Peters",
-                    "email": "mikejpeters@gmail.com"
-                }
-            ],
-            "description": "Mailgun integration for the Yii framework",
-            "keywords": [
-                "email",
-                "extension",
-                "mail",
-                "mailer",
-                "mailgun",
-                "rackspace",
-                "yii2"
-            ],
-            "support": {
-                "source": "https://github.com/digitaldeacon/yii2-mailgun/tree/1.0"
-            },
-            "time": "2017-09-20T07:33:46+00:00"
         },
         {
             "name": "bower-asset/inputmask",
@@ -428,17 +431,82 @@
             "time": "2017-06-27T22:17:23+00:00"
         },
         {
-            "name": "mailgun/mailgun-php",
-            "version": "2.3.4",
+            "name": "guzzlehttp/psr7",
+            "version": "1.4.2",
             "source": {
                 "type": "git",
-                "url": "https://github.com/mailgun/mailgun-php.git",
-                "reference": "f58c5914aefa16fa6ed2b5cf9ee84d40cbda1b3a"
+                "url": "https://github.com/guzzle/psr7.git",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/mailgun/mailgun-php/zipball/f58c5914aefa16fa6ed2b5cf9ee84d40cbda1b3a",
-                "reference": "f58c5914aefa16fa6ed2b5cf9ee84d40cbda1b3a",
+                "url": "https://api.github.com/repos/guzzle/psr7/zipball/f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "reference": "f5b8a8512e2b58b0071a7280e39f14f72e05d87c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "psr/http-message": "~1.0"
+            },
+            "provide": {
+                "psr/http-message-implementation": "1.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "GuzzleHttp\\Psr7\\": "src/"
+                },
+                "files": [
+                    "src/functions_include.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Michael Dowling",
+                    "email": "mtdowling@gmail.com",
+                    "homepage": "https://github.com/mtdowling"
+                },
+                {
+                    "name": "Tobias Schultze",
+                    "homepage": "https://github.com/Tobion"
+                }
+            ],
+            "description": "PSR-7 message implementation that also provides common utility methods",
+            "keywords": [
+                "http",
+                "message",
+                "request",
+                "response",
+                "stream",
+                "uri",
+                "url"
+            ],
+            "time": "2017-03-20T17:10:46+00:00"
+        },
+        {
+            "name": "mailgun/mailgun-php",
+            "version": "2.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/mailgun/mailgun-php.git",
+                "reference": "0bd1d8bfc5c56a9e59deb8526422a04b9e83a80a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/mailgun/mailgun-php/zipball/0bd1d8bfc5c56a9e59deb8526422a04b9e83a80a",
+                "reference": "0bd1d8bfc5c56a9e59deb8526422a04b9e83a80a",
                 "shasum": ""
             },
             "require": {
@@ -472,7 +540,7 @@
                 }
             ],
             "description": "The Mailgun SDK provides methods for all API functions.",
-            "time": "2017-06-20T19:56:09+00:00"
+            "time": "2018-04-08T10:40:14+00:00"
         },
         {
             "name": "php-http/client-common",
@@ -534,6 +602,62 @@
                 "httplug"
             ],
             "time": "2017-11-30T11:06:59+00:00"
+        },
+        {
+            "name": "php-http/curl-client",
+            "version": "v1.7.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-http/curl-client.git",
+                "reference": "6341a93d00e5d953fc868a3928b5167e6513f2b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-http/curl-client/zipball/6341a93d00e5d953fc868a3928b5167e6513f2b6",
+                "reference": "6341a93d00e5d953fc868a3928b5167e6513f2b6",
+                "shasum": ""
+            },
+            "require": {
+                "ext-curl": "*",
+                "php": "^5.5 || ^7.0",
+                "php-http/discovery": "^1.0",
+                "php-http/httplug": "^1.0",
+                "php-http/message": "^1.2",
+                "php-http/message-factory": "^1.0.2"
+            },
+            "provide": {
+                "php-http/async-client-implementation": "1.0",
+                "php-http/client-implementation": "1.0"
+            },
+            "require-dev": {
+                "guzzlehttp/psr7": "^1.0",
+                "php-http/client-integration-tests": "^0.6",
+                "phpunit/phpunit": "^4.8.27",
+                "zendframework/zend-diactoros": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Http\\Client\\Curl\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Михаил Красильников",
+                    "email": "m.krasilnikov@yandex.ru"
+                }
+            ],
+            "description": "cURL client for PHP-HTTP",
+            "homepage": "http://php-http.org",
+            "keywords": [
+                "curl",
+                "http"
+            ],
+            "time": "2018-03-26T19:21:48+00:00"
         },
         {
             "name": "php-http/discovery",
@@ -1853,23 +1977,23 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.7.5",
+            "version": "1.7.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401"
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/dfd6be44111a7c41c2e884a336cc4f461b3b2401",
-                "reference": "dfd6be44111a7c41c2e884a336cc4f461b3b2401",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
+                "reference": "33a7e3c4fda54e912ff6338c48823bd5c0f0b712",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
                 "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
-                "sebastian/comparator": "^1.1|^2.0",
+                "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
             "require-dev": {
@@ -1912,7 +2036,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2018-02-19T10:16:54+00:00"
+            "time": "2018-04-18T13:57:24+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
