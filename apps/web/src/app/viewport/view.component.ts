@@ -2,7 +2,7 @@ import { Component, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angul
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/operator/takeWhile';
+import { takeWhile } from 'rxjs/operators';
 
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material';
@@ -65,6 +65,7 @@ export class ViewComponent implements OnDestroy {
 
   watcher: Subscription;
   drawerState: DrawerState = DrawerState.OPENED;
+  drawerOpen: boolean = true;
   drawerMode: string = 'side';
   drawerClass: string = 'drawer-opened';
   previousAlias: string = '';
@@ -123,6 +124,7 @@ export class ViewComponent implements OnDestroy {
   toggleDrawer(status: DrawerState = DrawerState.OPENED): void {
     this.drawerState = status;
     this.drawerClass = 'drawer-' + status;
+    this.drawerOpen = status === DrawerState.OPENED;
   }
 
   paddingClasses(): string {
@@ -158,29 +160,25 @@ export class ViewComponent implements OnDestroy {
     this.myOutstanding$ = this._store.select(core.getMyInteractions);
 
     this._store
-      .select(core.getShowDrawer)
-      .takeWhile(() => this._alive)
+      .select(core.getShowDrawer).pipe(takeWhile(() => this._alive))
       .subscribe((visible: boolean) => {
         this.drawerState = visible ? DrawerState.OPENED : DrawerState.CLOSED;
-        this.drawerClass = 'drawer-' + this.drawerState;
+        this.toggleDrawer(this.drawerState);
       });
     this._store
-      .select(core.getAuthPerson)
-      .takeWhile(() => this._alive)
+      .select(core.getAuthPerson).pipe(takeWhile(() => this._alive))
       .subscribe((p: core.Person) => {
         this.currentUser = p;
       });
     this._store
-      .select(core.getSysSettings)
-      .takeWhile(() => this._alive)
+      .select(core.getSysSettings).pipe(takeWhile(() => this._alive))
       .subscribe((data: core.SystemSettings) => {
         if (data) {
           this.churchName = data.churchName;
         }
       });
     this._store
-      .select(core.getMessage)
-      .takeWhile(() => this._alive)
+      .select(core.getMessage).pipe(takeWhile(() => this._alive))
       .subscribe((message: core.Message) => {
         if (message) {
           this._shout.out(message.text, message.type);

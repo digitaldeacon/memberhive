@@ -31,7 +31,7 @@ class SettingsController extends MHController
      */
     public function beforeAction($action)
     {
-        $allowed = ['upsert-people-filter', 'delete-people-filter'];
+        $allowed = ['upsert', 'upsert-people-filter', 'delete-people-filter'];
         if (in_array($action->id, $allowed)) {
             $this->enableCsrfValidation = false;
         }

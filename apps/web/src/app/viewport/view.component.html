@@ -42,7 +42,7 @@
             <mat-nav-list>
                 <a mat-list-item
                    routerLink="/person/view/{{currentUser.uid}}"
-                   *ngIf="drawerState == 'opened' && currentUser">
+                   *ngIf="currentUser">
                     <img matListAvatar src="{{currentUser.avatar}}" />
                     <span matLine>{{currentUser.firstName}}</span>
                 </a>
@@ -54,11 +54,11 @@
                     <span matLine>{{item.title}}</span>
                 </a>
                 <mat-divider></mat-divider>
-                <a mat-list-item (click)="closeDrawer()" *ngIf="drawerState == 'opened'">
+                <a mat-list-item (click)="closeDrawer()" *ngIf="drawerOpen">
                     <mat-icon matListIcon>first_page</mat-icon>
                     <span matLine i18n="@@btn.collapse">collapse</span>
                 </a>
-                <a mat-list-item (click)="openDrawer()" *ngIf="drawerState != 'opened'">
+                <a mat-list-item (click)="openDrawer()" *ngIf="!drawerOpen">
                     <mat-icon matListIcon>last_page</mat-icon>
                 </a>
             </mat-nav-list>
