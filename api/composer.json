@@ -14,10 +14,10 @@
         "ext-mbstring": "*",
         "ext-simplexml": "*",
         "yiisoft/yii2": "^2.0.15",
-        "yiisoft/yii2-coding-standards": "*",
-        "boundstate/yii2-mailgun": "*",
-        "elvanto/api-php": "*",
-        "aracoool/yii2-uuid": "*",
+        "yiisoft/yii2-coding-standards": "~2.0.3",
+        "analyticsface/yii2-mailgun" : "~1.1",
+        "elvanto/api-php": "~1.0.6",
+        "aracoool/yii2-uuid": "~1.1",
         "firebase/php-jwt": "~5.0.0"
     },
     "require-dev": {
@@ -34,10 +34,6 @@
         }
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/digitaldeacon/yii2-mailgun"
-        },
         {
             "type": "composer",
             "url": "https://asset-packagist.org"
@@ -60,9 +56,6 @@
             "generateCookieValidationKey": [
                 "config/web.php"
             ]
-        },
-        "asset-installer-paths": {
-            "bower-asset-library": "vendor/bower"
         }
     },
     "autoload": {
