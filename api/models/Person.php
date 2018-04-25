@@ -286,7 +286,8 @@ class Person extends \yii\db\ActiveRecord
         );
     }
 
-    private function ageInterval() {
+    private function ageInterval()
+    {
         if (empty($this->birthday)) {
             return null;
         }
@@ -295,12 +296,13 @@ class Person extends \yii\db\ActiveRecord
         return $bDay->diff($now);
     }
 
-    private function getAgeFormatted($interval) {
+    private function getAgeFormatted($interval)
+    {
         if (empty($interval)) {
             return null;
         }
         $years = $interval->y;
-        return ($years < 1) ? $interval->format('%mm') : $years.'y';
+        return ($years < 1) ? $interval->format('%mm') : $years . 'y';
     }
 
     private function emptyAddress()

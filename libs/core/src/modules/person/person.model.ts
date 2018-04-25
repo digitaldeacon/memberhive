@@ -13,9 +13,9 @@ export enum MaritalStatus {
 }
 
 export enum UserRole {
-    ADMIN = 'admin',
-    MEMBER = 'member',
-    STAFF = 'staff'
+  ADMIN = 'admin',
+  MEMBER = 'member',
+  STAFF = 'staff'
 }
 
 export const enum Gender {
@@ -32,11 +32,7 @@ export const maritalStatusArray: MaritalStatus[] = [
   MaritalStatus.ENGAGED
 ];
 
-export const userRoleArray: UserRole[] = [
-    UserRole.ADMIN,
-    UserRole.MEMBER,
-    UserRole.STAFF
-];
+export const userRoleArray: UserRole[] = [UserRole.ADMIN, UserRole.MEMBER, UserRole.STAFF];
 
 export interface User {
   username?: string;

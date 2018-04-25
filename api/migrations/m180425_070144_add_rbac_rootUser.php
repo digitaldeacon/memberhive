@@ -18,7 +18,7 @@ class m180425_070144_add_rbac_rootUser extends Migration
                 $auth = \Yii::$app->authManager;
                 $roleObject = $auth->getRole('admin');
                 if (!$roleObject) {
-                    throw new InvalidParamException("There is no role ADMIN.");
+                    throw new InvalidParamException('There is no role ADMIN.');
                 }
                 $auth->assign($roleObject, $user->id);
                 $user->role = 'admin';
@@ -40,10 +40,10 @@ class m180425_070144_add_rbac_rootUser extends Migration
                 $auth = \Yii::$app->authManager;
                 $roleObject = $auth->getRole('admin');
                 if (!$roleObject) {
-                    throw new InvalidParamException("There is no role ADMIN.");
+                    throw new InvalidParamException('There is no role ADMIN.');
                 }
                 $auth->removeAllAssignments();
-                $user->role = NULL;
+                $user->role = null;
                 $user->save();
             } catch (\Throwable $e) {
                 echo $e->getMessage();

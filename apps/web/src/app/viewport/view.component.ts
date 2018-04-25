@@ -160,25 +160,29 @@ export class ViewComponent implements OnDestroy {
     this.myOutstanding$ = this._store.select(core.getMyInteractions);
 
     this._store
-      .select(core.getShowDrawer).pipe(takeWhile(() => this._alive))
+      .select(core.getShowDrawer)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((visible: boolean) => {
         this.drawerState = visible ? DrawerState.OPENED : DrawerState.CLOSED;
         this.toggleDrawer(this.drawerState);
       });
     this._store
-      .select(core.getAuthPerson).pipe(takeWhile(() => this._alive))
+      .select(core.getAuthPerson)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((p: core.Person) => {
         this.currentUser = p;
       });
     this._store
-      .select(core.getSysSettings).pipe(takeWhile(() => this._alive))
+      .select(core.getSysSettings)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((data: core.SystemSettings) => {
         if (data) {
           this.churchName = data.churchName;
         }
       });
     this._store
-      .select(core.getMessage).pipe(takeWhile(() => this._alive))
+      .select(core.getMessage)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((message: core.Message) => {
         if (message) {
           this._shout.out(message.text, message.type);

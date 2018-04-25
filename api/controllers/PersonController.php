@@ -91,7 +91,7 @@ class PersonController extends MHController
         // should be ./assets/images/avatar, so that images get uploaded correctly on dev and prod?
         $dir = file_exists(__DIR__ . '/../config/debug.php') ? 'apps/web/src/' : '';
 
-        $imagePath =  \Yii::getAlias('@webroot') . '/../'.$dir.'assets/images/avatar/person/';
+        $imagePath =  \Yii::getAlias('@webroot') . '/../' . $dir . 'assets/images/avatar/person/';
         $image = $post['personId'] . '.' . $type;
 
         if (file_put_contents($imagePath . $image, $data)) {
@@ -326,7 +326,8 @@ class PersonController extends MHController
         return $person;
     }
 
-    private function valOrNull($value) {
+    private function valOrNull($value)
+    {
         return !empty($value) ? $value : null;
     }
 

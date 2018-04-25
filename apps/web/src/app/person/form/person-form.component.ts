@@ -254,18 +254,17 @@ export class PersonFormComponent implements OnInit {
     if (this.randomPassword) {
       this._pwFormControl.disable();
       this._pwFormControl.setValue('');
-    } else if (this.form.get('user.username').value &&
-        this.form.get('user.setPassword').value) {
+    } else if (this.form.get('user.username').value && this.form.get('user.setPassword').value) {
       this._pwFormControl.enable();
       this._pwFormControl.setValue(this.generateRandomPW());
-        this._pwRandCheckbox.patchValue('');
+      this._pwRandCheckbox.patchValue('');
     } else {
       this._pwRandCheckbox.patchValue('');
     }
   }
 
   enablePasswordFields(): void {
-    console.log('enable pw fields',this.form.get('user.username').value.length);
+    console.log('enable pw fields', this.form.get('user.username').value.length);
     if (this.form.get('user.username').value.length > 3) {
       this.form.get('user.setPassword').enable();
       this.form.get('user.noCredentials').enable();
@@ -276,28 +275,29 @@ export class PersonFormComponent implements OnInit {
   }
 
   private canSave(): boolean {
-      if (this.form.valid) {
-        if (this.form.get('user.username').value.length < 3 ||
-            !this.form.get('user.role').value) {
-          console.log('caSave FAIL: username,role');
-          return false;
-        }
-        if (!this.form.get('user.setPassword').disabled &&
-            this.form.get('user.setPassword').value &&
-            (!this.form.get('user.password').value ||
-            this.form.get('user.password').value.length < 6)) {
-            console.log('caSave FAIL: setPassword,password');
-            return false;
-        }
-        if (this.form.get('address.home.street').value.length > 6 &&
-            (this.form.get('address.home.zip').value.length < 4 ||
-            this.form.get('address.home.city').value.length < 4)) {
-            console.log('caSave FAIL: address,role');
-            return false;
-        }
-        return true;
+    if (this.form.valid) {
+      if (this.form.get('user.username').value.length < 3 || !this.form.get('user.role').value) {
+        console.log('caSave FAIL: username,role');
+        return false;
       }
-      return false;
+      if (
+        !this.form.get('user.setPassword').disabled &&
+        this.form.get('user.setPassword').value &&
+        (!this.form.get('user.password').value || this.form.get('user.password').value.length < 6)
+      ) {
+        console.log('caSave FAIL: setPassword,password');
+        return false;
+      }
+      if (
+        this.form.get('address.home.street').value.length > 6 &&
+        (this.form.get('address.home.zip').value.length < 4 || this.form.get('address.home.city').value.length < 4)
+      ) {
+        console.log('caSave FAIL: address,role');
+        return false;
+      }
+      return true;
+    }
+    return false;
   }
 
   private generateRandomPW(): string {
