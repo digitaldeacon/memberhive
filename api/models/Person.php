@@ -108,7 +108,8 @@ class Person extends \yii\db\ActiveRecord
             'phoneMobile' => $this->phoneMobile,
             'status' => $this->statusTags,
             'user' => [
-                'username' => $this->user ? $this->user->username : ''
+                'username' => $this->user ? $this->user->username : '',
+                'role' => $this->user ? $this->user->role : ''
             ]
         ];
     }

@@ -12,6 +12,12 @@ export enum MaritalStatus {
   ENGAGED = 'engaged'
 }
 
+export enum UserRole {
+    ADMIN = 'admin',
+    MEMBER = 'member',
+    STAFF = 'staff'
+}
+
 export const enum Gender {
   MALE = 'm',
   FEMALE = 'f'
@@ -26,11 +32,18 @@ export const maritalStatusArray: MaritalStatus[] = [
   MaritalStatus.ENGAGED
 ];
 
+export const userRoleArray: UserRole[] = [
+    UserRole.ADMIN,
+    UserRole.MEMBER,
+    UserRole.STAFF
+];
+
 export interface User {
-  token: string;
-  personId: string;
   username?: string;
   password?: string;
+  role?: UserRole;
+  token?: string;
+  personId?: string;
   expiresAt?: Moment;
 }
 

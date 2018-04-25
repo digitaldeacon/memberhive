@@ -7,6 +7,7 @@ use app\models\PersonFamily;
 use app\models\PersonTag;
 use app\models\Tag;
 use app\models\User;
+use app\enums\UserRole;
 
 use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
@@ -151,10 +152,12 @@ class PersonController extends MHController
             $this->saveTags($person, $post);
             if (isset($user)) {
                 $person->user = $user;
-                if (!isset($post['user']['noCredentials'])
-                    || empty($post['user']['noCredentials'])
-                ) {
-                    $this->sendCredentials($person, trim($post['user']['password']));
+                $password = isset($post['user']['password'])
+                    ? trim($post['user']['password'])
+                    : '';
+                $dontSendCreds = isset($post['user']['noCredentials']) && !empty($post['user']['noCredentials']);
+                if (!$dontSendCreds && !empty($password)) {
+                    $this->sendCredentials($person, $password);
                 }
             }
             return $person->toResponseArray();
@@ -278,18 +281,27 @@ class PersonController extends MHController
     protected function setUser($person, $post)
     {
         $user = null;
+        $role = isset($post['user']['role']) && !empty($post['user']['role'])
+            ? trim($post['user']['role'])
+            : UserRole::MEMBER;
         if (empty($person->user) && !empty($post['user']['password'])) {
             $user = new User();
             $user->personId = $person->id;
             $user->username = trim($post['user']['username']);
             $user->setPassword(trim($post['user']['password']));
+            $user->role = $role;
             if (!$user->save()) {
                 throw new UnprocessableEntityHttpException(json_encode($user->errors));
             }
-        } elseif (!empty($person->user) && !empty($post['user']['password'])) {
+            $user->setRole($role);
+        } elseif (!empty($person->user)) {
             $user = $person->user;
+            $user->role = $role;
             $user->username = trim($post['user']['username']);
-            $user->setPassword(trim($post['user']['password']));
+            if (!empty($post['user']['password'])) {
+                $user->setPassword(trim($post['user']['password']));
+            }
+            $user->setRole($role);
             if (!$user->save()) {
                 throw new UnprocessableEntityHttpException(json_encode($user->errors));
             }

@@ -14,7 +14,9 @@ import {
   Tag,
   FormStatus,
   MaritalStatus,
+  UserRole,
   maritalStatusArray,
+  userRoleArray,
   familyRoleArray,
   AppState,
   getPeople
@@ -55,10 +57,6 @@ export class PersonFormComponent implements OnInit {
   private _pwRandCheckbox: FormControl;
   private _person: Person;
 
-  maritalStatus: MaritalStatus[] = maritalStatusArray;
-  mode: FormStatus = FormStatus.EDIT;
-  hasMap: boolean = false;
-
   @Input() settings: any;
   @Input() tagSource: Tag[];
   @Input()
@@ -79,6 +77,10 @@ export class PersonFormComponent implements OnInit {
   @Output() changed: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   form: FormGroup;
+  maritalStatus: MaritalStatus[] = maritalStatusArray;
+  userRoleArray: UserRole[] = userRoleArray;
+  mode: FormStatus = FormStatus.EDIT;
+  hasMap: boolean = false;
   submitted: boolean;
   randomPassword: boolean = true;
   address: PersonAddress = new PersonAddress();
@@ -103,11 +105,12 @@ export class PersonFormComponent implements OnInit {
     if (person) {
       this.address = new PersonAddress(person['address']);
       this.form.patchValue(person);
-      this.listenFormChanges();
       this._person = person;
       if (person.address.hasOwnProperty('home') && person.address.home.hasOwnProperty('geocode')) {
         this.hasMap = Object.keys(person.address.home.geocode).length > 0;
       }
+      this.enablePasswordFields();
+      this.listenFormChanges();
     }
   }
 
@@ -143,6 +146,7 @@ export class PersonFormComponent implements OnInit {
       phoneMobile: [''],
       user: this._fb.group({
         username: [''],
+        role: [''],
         password: this._pwFormControl,
         setPassword: [{ value: undefined, disabled: true }],
         noCredentials: [{ value: undefined, disabled: true }]
@@ -206,7 +210,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   save(person: Person): void {
-    if (this.form.valid) {
+    if (this.canSave()) {
       this.submitted = true;
       person.birthday = person.birthday ? moment(person.birthday).utc(true) : undefined;
       person.baptized = person.baptized ? moment(person.baptized).utc(true) : undefined;
@@ -250,25 +254,53 @@ export class PersonFormComponent implements OnInit {
     if (this.randomPassword) {
       this._pwFormControl.disable();
       this._pwFormControl.setValue('');
-    } else if (this.form.get('user.username').value) {
+    } else if (this.form.get('user.username').value &&
+        this.form.get('user.setPassword').value) {
       this._pwFormControl.enable();
       this._pwFormControl.setValue(this.generateRandomPW());
+        this._pwRandCheckbox.patchValue('');
+    } else {
+      this._pwRandCheckbox.patchValue('');
     }
   }
 
   enablePasswordFields(): void {
+    console.log('enable pw fields',this.form.get('user.username').value.length);
     if (this.form.get('user.username').value.length > 3) {
       this.form.get('user.setPassword').enable();
       this.form.get('user.noCredentials').enable();
     } else {
-      if (!this.form.get('user.setPassword').disabled) {
-        this.form.get('user.setPassword').disable();
-        this.form.get('user.noCredentials').disable();
-      }
+      this.form.get('user.setPassword').disable();
+      this.form.get('user.noCredentials').disable();
     }
   }
 
-  generateRandomPW(): string {
+  private canSave(): boolean {
+      if (this.form.valid) {
+        if (this.form.get('user.username').value.length < 3 ||
+            !this.form.get('user.role').value) {
+          console.log('caSave FAIL: username,role');
+          return false;
+        }
+        if (!this.form.get('user.setPassword').disabled &&
+            this.form.get('user.setPassword').value &&
+            (!this.form.get('user.password').value ||
+            this.form.get('user.password').value.length < 6)) {
+            console.log('caSave FAIL: setPassword,password');
+            return false;
+        }
+        if (this.form.get('address.home.street').value.length > 6 &&
+            (this.form.get('address.home.zip').value.length < 4 ||
+            this.form.get('address.home.city').value.length < 4)) {
+            console.log('caSave FAIL: address,role');
+            return false;
+        }
+        return true;
+      }
+      return false;
+  }
+
+  private generateRandomPW(): string {
     return Math.random()
       .toString(36)
       .replace(/[^a-z]+/g, '')

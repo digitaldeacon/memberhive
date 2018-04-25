@@ -2,26 +2,11 @@
 namespace app\models;
 
 use Yii;
-use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
-/**
- * This is the model class for table "user".
- *
- * @property integer $id
- *
- * @property string $username
- * @property string $lastLogin
- * @property string $createdAt
- * @property string $updatedAt
- *
- * @property string $authKey
- * @property string $passwordHash
- * @property string $passwordResetToken
- * @property string $passwordResetExpireDate
- * @property string $accessToken
- */
+use app\enums\UserRole;
+
 class User extends ActiveRecord implements IdentityInterface
 {
     use \app\helpers\UserTrait;
@@ -80,7 +65,8 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             'token' => $this->getJWT(),
             'personId' => isset($this->person) ? $this->person->uid : '',
-            'expiresAt' => $this->getJwtExpirationDate()
+            'expiresAt' => $this->getJwtExpirationDate(),
+            'role' => $this->role
         ];
     }
 
@@ -138,6 +124,18 @@ class User extends ActiveRecord implements IdentityInterface
         if ($password ==! '') {
             $this->passwordHash = Yii::$app->security->generatePasswordHash($password);
         }
+    }
+
+    public function setRole($role)
+    {
+        $auth = \Yii::$app->authManager;
+        $roleObject = $auth->getRole($role);
+        if (!$roleObject) {
+            throw new InvalidParamException("There is no role as '$role'");
+        }
+        $auth->revokeAll($this->id);
+        $auth->assign($roleObject, $this->id);
+        $this->role = $role;
     }
 
     public function generateRandomPassword($length = 8)
