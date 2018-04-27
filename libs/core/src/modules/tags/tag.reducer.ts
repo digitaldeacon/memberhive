@@ -1,6 +1,6 @@
 import { HttpResponse } from '@angular/common/http';
 import { Tag } from './tag.model';
-import * as actions from './tag.actions';
+import { TagActions, TagActionTypes } from './tag.actions';
 import * as common from '../../common/common.model';
 
 export interface TagState {
@@ -18,16 +18,16 @@ const initialState: TagState = {
   ]
 };
 
-export function tagReducer(state: TagState = initialState, action: actions.TagActions): TagState {
+export function tagReducer(state: TagState = initialState, action: TagActions): TagState {
   switch (action.type) {
-    case actions.UPDATE_TAGS:
-    case actions.LIST_TAGS:
+    case TagActionTypes.UPDATE_TAGS:
+    case TagActionTypes.LIST_TAGS:
       return Object.assign({}, state, {
         loading: true
       });
 
-    case actions.UPDATE_TAGS_FAILURE:
-    case actions.LIST_TAGS_FAILURE: {
+    case TagActionTypes.UPDATE_TAGS_FAILURE:
+    case TagActionTypes.LIST_TAGS_FAILURE: {
       const res: HttpResponse<any> = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
@@ -40,7 +40,7 @@ export function tagReducer(state: TagState = initialState, action: actions.TagAc
       });
     }
 
-    case actions.LIST_TAGS_SUCCESS: {
+    case TagActionTypes.LIST_TAGS_SUCCESS: {
       const payload: Tag[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
@@ -49,7 +49,7 @@ export function tagReducer(state: TagState = initialState, action: actions.TagAc
       });
     }
 
-    case actions.UPDATE_TAGS_SUCCESS: {
+    case TagActionTypes.UPDATE_TAGS_SUCCESS: {
       const payload: Tag[] = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
