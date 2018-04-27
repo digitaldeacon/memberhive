@@ -18,7 +18,6 @@ import {
   UpdateFamilySuccessAction,
   UpdateFamilyFailureAction,
   SetFamilyRoleAction,
-  UpdateFamilySuccessAction,
   AcceptMemberFamilyAction,
   IgnoreMemberFamilyAction,
   RemoveMemberFamilyAction,
@@ -52,7 +51,8 @@ export class FamilyEffects {
       return this._http.post('api/family/new', data).pipe(
         mergeMap((r: Family) => {
           return [new AddNewFamilySuccessAction(r)];
-        }).catchError((r: HttpErrorResponse) => of(new AddNewFamilyFailureAction(r)))
+        }),
+        catchError((r: HttpErrorResponse) => of(new AddNewFamilyFailureAction(r)))
       );
     })
   );
