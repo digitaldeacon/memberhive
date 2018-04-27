@@ -6,7 +6,24 @@ import { Observable } from 'rxjs/Observable';
 import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import * as actions from './family.actions';
+import {
+  FamilyActionTypes,
+  ListFamiliesAction,
+  ListFamiliesSuccessAction,
+  ListFamiliesFailureAction,
+  AddNewFamilyAction,
+  AddNewFamilySuccessAction,
+  AddNewFamilyFailureAction,
+  UpdateFamilyAction,
+  UpdateFamilySuccessAction,
+  UpdateFamilyFailureAction,
+  SetFamilyRoleAction,
+  UpdateFamilySuccessAction,
+  AcceptMemberFamilyAction,
+  IgnoreMemberFamilyAction,
+  RemoveMemberFamilyAction,
+  LinkPersonFamilyAction
+} from './family.actions';
 import { Family, FamilyPayload } from './family.model';
 
 @Injectable()
@@ -15,111 +32,111 @@ export class FamilyEffects {
 
   @Effect()
   listFamilies = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.LIST_FAMILIES),
-    map((action: actions.ListFamiliesAction) => action.payload),
+    ofType<ListFamiliesAction>(FamilyActionTypes.LIST_FAMILIES),
+    map((action: ListFamiliesAction) => action.payload),
     switchMap((data: any) => {
       return this._http
         .get('api/family/list')
         .pipe(
-          map((r: Family[]) => new actions.ListFamiliesSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.ListFamiliesFailureAction(r)))
+          map((r: Family[]) => new ListFamiliesSuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new ListFamiliesFailureAction(r)))
         );
     })
   );
 
   @Effect()
   addNewFamily = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.ADD_FAMILY),
-    map((action: actions.AddNewFamilyAction) => action.payload),
+    ofType<AddNewFamilyAction>(FamilyActionTypes.ADD_FAMILY),
+    map((action: AddNewFamilyAction) => action.payload),
     switchMap((data: Family) => {
       return this._http.post('api/family/new', data).pipe(
         mergeMap((r: Family) => {
-          return [new actions.AddNewFamilySuccessAction(r)];
-        }).catchError((r: HttpErrorResponse) => of(new actions.AddNewFamilyFailureAction(r)))
+          return [new AddNewFamilySuccessAction(r)];
+        }).catchError((r: HttpErrorResponse) => of(new AddNewFamilyFailureAction(r)))
       );
     })
   );
 
   @Effect()
   updateFamily$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.UPDATE_FAMILY),
-    map((action: actions.UpdateFamilyAction) => action.payload),
+    ofType<UpdateFamilyAction>(FamilyActionTypes.UPDATE_FAMILY),
+    map((action: UpdateFamilyAction) => action.payload),
     mergeMap((payload: Family) =>
       this._http
         .post('api/family/update?id=' + payload.id, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
 
   @Effect()
   setFamilyRole$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.SET_FAMILY_ROLE),
-    map((action: actions.SetFamilyRoleAction) => action.payload),
+    ofType<SetFamilyRoleAction>(FamilyActionTypes.SET_FAMILY_ROLE),
+    map((action: SetFamilyRoleAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
       this._http
         .post('api/family/set-role?id=' + payload.member, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
 
   @Effect()
   acceptFamilyMember$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.ACCEPT_MEMBER),
-    map((action: actions.AcceptMemberFamilyAction) => action.payload),
+    ofType<AcceptMemberFamilyAction>(FamilyActionTypes.ACCEPT_MEMBER),
+    map((action: AcceptMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
       this._http
         .post('api/family/accept?id=' + payload.member, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
 
   @Effect()
   ignoreSuggestedMember$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.IGNORE_MEMBER),
-    map((action: actions.IgnoreMemberFamilyAction) => action.payload),
+    ofType<IgnoreMemberFamilyAction>(FamilyActionTypes.IGNORE_MEMBER),
+    map((action: IgnoreMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
       this._http
         .post('api/family/ignore?id=' + payload.member, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
 
   @Effect()
   removeMemberFamily$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.REMOVE_MEMBER),
-    map((action: actions.RemoveMemberFamilyAction) => action.payload),
+    ofType<RemoveMemberFamilyAction>(FamilyActionTypes.REMOVE_MEMBER),
+    map((action: RemoveMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
       this._http
         .post('api/family/remove?id=' + payload.member, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
 
   @Effect()
   linkMemberFamily$ = this._actions$.pipe(
-    ofType(actions.FamilyActionTypes.LINK_PERSON_FAMILY),
-    map((action: actions.LinkPersonFamilyAction) => action.payload),
+    ofType<LinkPersonFamilyAction>(FamilyActionTypes.LINK_PERSON_FAMILY),
+    map((action: LinkPersonFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
       this._http
         .post('api/family/link?id=' + payload.member, payload)
         .pipe(
-          map((r: Family) => new actions.UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new actions.UpdateFamilyFailureAction(r)))
+          map((r: Family) => new UpdateFamilySuccessAction(r)),
+          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
         )
     )
   );
