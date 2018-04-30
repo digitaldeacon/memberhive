@@ -5,6 +5,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs/Observable';
 import { ActivatedRoute } from '@angular/router';
 import { MatButtonToggleChange } from '@angular/material';
+import { takeWhile, take } from 'rxjs/operators';
 
 import {
   AppState,
@@ -57,7 +58,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     this.people$ = this._store.select(getPeople);
     this._store
       .select(getSelectedPerson)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((p: Person) => (this._refPerson = p));
 
     // TODO: @I18n
@@ -157,7 +158,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
     if (id) {
       this._store
         .select(getInteractions)
-        .take(1)
+        .pipe(take(1))
         .subscribe((interaction: Interaction[]) => {
           this.refInteraction = interaction.filter((i: Interaction) => i.uid === id)[0];
           this.form.get('refId').setValue(this.refInteraction.refId);

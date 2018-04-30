@@ -9,7 +9,7 @@ import {
 } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from './auth.service';
-import 'rxjs/add/operator/do';
+import { tap } from 'rxjs/operators';
 import * as localForage from 'localforage';
 
 @Injectable()
@@ -31,20 +31,22 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
     }
-    return next.handle(req).do(
-      (event: HttpEvent<any>) => {
-        if (event instanceof HttpResponse) {
-          // do stuff with response if you want
-        }
-      },
-      (err: any) => {
-        if (err instanceof HttpErrorResponse) {
-          if (err.status === 401) {
-            this._auth.collectFailedRequest(req);
-            // console.log(err);
+    return next.handle(req).pipe(
+      tap(
+        (event: HttpEvent<any>) => {
+          if (event instanceof HttpResponse) {
+            // do stuff with response if you want
+          }
+        },
+        (err: any) => {
+          if (err instanceof HttpErrorResponse) {
+            if (err.status === 401) {
+              this._auth.collectFailedRequest(req);
+              // console.log(err);
+            }
           }
         }
-      }
+      )
     );
   }
 }

@@ -3,8 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/takeWhile';
-import 'rxjs/add/operator/filter';
+import { takeWhile, filter } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import {
@@ -37,8 +36,7 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private _fb: FormBuilder, private _router: Router, private _store: Store<AppState>) {
     this._store
       .select(isAuth)
-      .takeWhile(() => this.alive)
-      .filter((authenticated: boolean) => authenticated)
+      .pipe(takeWhile(() => this.alive), filter((authenticated: boolean) => authenticated))
       .subscribe((value: boolean) => {
         this._store.dispatch(new ListPeopleAction({}));
         this._store.dispatch(new ListSettingAction());

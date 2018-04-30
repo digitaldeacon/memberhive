@@ -4,9 +4,7 @@ import { ShoutService } from '../common/shout.service';
 import { GLOBALS } from '../../config/globals.config';
 import { DragulaService } from 'ng2-dragula/ng2-dragula';
 import { Store } from '@ngrx/store';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/take';
+import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 
 import { isEqual } from 'lodash';
 import * as core from '@memberhivex/core';
@@ -102,8 +100,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     // this.settingsForm.get('people').patchValue(this.personSettings);
 
     this.settingsForm.valueChanges
-      .debounceTime(2000)
-      .distinctUntilChanged()
+      .pipe(debounceTime(2000), distinctUntilChanged())
       .subscribe((data: core.SettingsState) => {
         if (!this.submitted) {
           this.save(data);
@@ -144,7 +141,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
   private _initStore(): void {
     this._store
       .select(core.getSettingsState)
-      .take(1)
+      .pipe(take(1))
       .subscribe((data: any) => {
         this.personAttrSelected = data.people.list ? data.people.list : [];
         this.sysSettings = data.system;

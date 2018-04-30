@@ -1,4 +1,4 @@
-import * as actions from './auth.actions';
+import { AuthActionTypes, AuthActions } from './auth.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 
 export interface AuthState {
@@ -19,14 +19,14 @@ const initialAuthState: AuthState = {
   status: 200
 };
 
-export function authReducer(state: AuthState = initialAuthState, action: actions.AuthActions): AuthState {
+export function authReducer(state: AuthState = initialAuthState, action: AuthActions): AuthState {
   switch (action.type) {
-    case actions.AUTHENTICATE:
+    case AuthActionTypes.AUTHENTICATE:
       return Object.assign({}, state, {
         loading: true
       });
 
-    case actions.AUTHENTICATE_SUCCESS: {
+    case AuthActionTypes.AUTHENTICATE_SUCCESS: {
       const user: any = action.payload;
 
       return {
@@ -39,7 +39,7 @@ export function authReducer(state: AuthState = initialAuthState, action: actions
       };
     }
 
-    case actions.AUTHENTICATE_FAILURE: {
+    case AuthActionTypes.AUTHENTICATE_FAILURE: {
       const res: any = action.payload;
       const rawStatus: number[] = [504, 404];
       let error: string = typeof res === 'string' ? res : '';
@@ -59,7 +59,7 @@ export function authReducer(state: AuthState = initialAuthState, action: actions
       };
     }
 
-    case actions.SIGN_OUT_FAILURE:
+    case AuthActionTypes.SIGN_OUT_FAILURE:
       return Object.assign({}, state, {
         authenticated: true,
         loaded: true,
@@ -68,17 +68,17 @@ export function authReducer(state: AuthState = initialAuthState, action: actions
         personId: state.personId
       });
 
-    case actions.SIGN_OUT_SUCCESS: {
+    case AuthActionTypes.SIGN_OUT_SUCCESS: {
       return Object.assign({}, state, initialAuthState);
     }
 
-    case actions.REAUTHENTICATE:
+    case AuthActionTypes.REAUTHENTICATE:
       return Object.assign({}, state, {
         loading: true,
         token: action.payload
       });
 
-    case actions.REAUTHENTICATION_SUCCESS:
+    case AuthActionTypes.REAUTHENTICATION_SUCCESS:
       return Object.assign({}, state, {
         authenticated: true,
         token: action.payload.token,

@@ -1,6 +1,7 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Router } from '@angular/router';
+import { takeWhile, distinctUntilChanged } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 import {
@@ -43,13 +44,12 @@ export class PersonCreateComponent implements OnDestroy {
     this.families$ = this._store.select(getFamilies);
     this._store
       .select(getSysGoogleKey)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((key: string) => (this.googleApiKey = key));
 
     this._store
       .select(getLastCreatedPersonId)
-      .takeWhile(() => this._alive)
-      .distinctUntilChanged()
+      .pipe(takeWhile(() => this._alive), distinctUntilChanged())
       .subscribe((uid: string) => {
         if (uid) {
           this._router.navigate(['/person/view', uid]);

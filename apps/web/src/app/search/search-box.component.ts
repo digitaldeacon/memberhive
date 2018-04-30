@@ -6,10 +6,8 @@ import { Router } from '@angular/router';
 import { Subject } from 'rxjs/Subject';
 import { Observable } from 'rxjs/Observable';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
-import 'rxjs/add/operator/debounceTime';
-import 'rxjs/add/operator/distinctUntilChanged';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/do';
+
+import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 
 interface SearchItem {
   id: number;
@@ -47,12 +45,13 @@ export class SearchBoxComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.items = this._searchTermStream$
-      .debounceTime(300)
-      .distinctUntilChanged()
-      .do(() => (this.searching = true))
-      .switchMap((term: string) => this._searchService.search(term))
-      .do(() => (this.searching = false));
+    this.items = this._searchTermStream$.pipe(
+      debounceTime(300),
+      distinctUntilChanged(),
+      tap(() => (this.searching = true)),
+      switchMap((term: string) => this._searchService.search(term)),
+      tap(() => (this.searching = false))
+    );
   }
 
   searchClicked(): void {

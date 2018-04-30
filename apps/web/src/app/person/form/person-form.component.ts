@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { MatSelectChange, MatDatepickerInputEvent } from '@angular/material';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
+import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
@@ -170,11 +171,13 @@ export class PersonFormComponent implements OnInit {
 
   listenFormChanges(): void {
     this.form.valueChanges
-      .do(() => {
-        this.changed.emit(true);
-      })
-      .debounceTime(2500)
-      .distinctUntilChanged()
+      .pipe(
+        tap(() => {
+          this.changed.emit(true);
+        }),
+        debounceTime(2500),
+        distinctUntilChanged()
+      )
       .subscribe((data: Person) => {
         const userCtrl: any = (<any>this.form).get('user').controls;
         if (!this.submitted) {
@@ -264,7 +267,7 @@ export class PersonFormComponent implements OnInit {
   }
 
   enablePasswordFields(): void {
-    console.log('enable pw fields', this.form.get('user.username').value.length);
+    // console.log('enable pw fields', this.form.get('user.username').value.length);
     if (this.form.get('user.username').value.length > 3) {
       this.form.get('user.setPassword').enable();
       this.form.get('user.noCredentials').enable();
@@ -285,14 +288,14 @@ export class PersonFormComponent implements OnInit {
         this.form.get('user.setPassword').value &&
         (!this.form.get('user.password').value || this.form.get('user.password').value.length < 6)
       ) {
-        console.log('caSave FAIL: setPassword,password');
+        // console.log('caSave FAIL: setPassword,password');
         return false;
       }
       if (
         this.form.get('address.home.street').value.length > 6 &&
         (this.form.get('address.home.zip').value.length < 4 || this.form.get('address.home.city').value.length < 4)
       ) {
-        console.log('caSave FAIL: address,role');
+        // console.log('caSave FAIL: address,role');
         return false;
       }
       return true;

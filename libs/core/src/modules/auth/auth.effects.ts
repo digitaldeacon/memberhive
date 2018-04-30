@@ -9,7 +9,15 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { DataPersistence } from '@nrwl/nx';
 
-import * as actions from './auth.actions';
+import {
+  AuthActionTypes,
+  AuthenticateAction,
+  AuthenticationFailureAction,
+  AuthenticationSuccessAction,
+  ReAuthenticateAction,
+  ReAuthenticationSuccessAction,
+  SignOutSuccessAction
+} from './auth.actions';
 import { Credentials } from './auth.model';
 import { User } from '../person/person.model';
 import { AuthService } from './auth.service';
@@ -19,8 +27,8 @@ import { AppState } from '../../store';
 export class AuthEffects {
   @Effect()
   public login$: Observable<Action> = this._actions$.pipe(
-    ofType(actions.AUTHENTICATE),
-    map((action: actions.AuthenticateAction) => action.payload),
+    ofType<AuthenticateAction>(AuthActionTypes.AUTHENTICATE),
+    map((action: AuthenticateAction) => action.payload),
     switchMap((credentials: Credentials) =>
       this._http
         .post<User>('/api/login/login', {
@@ -30,36 +38,33 @@ export class AuthEffects {
         .pipe(
           map((r: any) => {
             if (typeof r === 'string') {
-              return new actions.AuthenticationFailureAction(r);
+              return new AuthenticationFailureAction(r);
             }
             this._authSrv.token = r.user.token;
             this._authSrv.personId = r.user.personId;
             this._authSrv.createdAt = new Date();
-            return new actions.AuthenticationSuccessAction(r.user);
+            return new AuthenticationSuccessAction(r.user);
           }),
-          catchError((response: HttpErrorResponse) => {
-            return Observable.of(new actions.AuthenticationFailureAction(response));
-          })
+          catchError((response: HttpErrorResponse) => of(new AuthenticationFailureAction(response)))
         )
     )
   );
 
   @Effect()
   public $reauth: Observable<Action> = this._actions$.pipe(
-    ofType(actions.REAUTHENTICATE),
-    map((action: actions.ReAuthenticateAction) => action.payload),
+    ofType<ReAuthenticateAction>(AuthActionTypes.REAUTHENTICATE),
+    map((action: ReAuthenticateAction) => action.payload),
     exhaustMap((token: string) => {
       return this._http.get('api/login/alive').pipe(
-        map((r: any) => {
-          return new actions.ReAuthenticationSuccessAction({
-            token: this._authSrv.token,
-            personId: this._authSrv.personId
-          });
-        }),
+        map(
+          (r: any) =>
+            new ReAuthenticationSuccessAction({
+              token: this._authSrv.token,
+              personId: this._authSrv.personId
+            })
+        ),
         tap(() => this._router.navigate(['/dashboard'])),
-        catchError((response: HttpErrorResponse) => {
-          return Observable.of(new actions.AuthenticationFailureAction(response));
-        }),
+        catchError((response: HttpErrorResponse) => of(new AuthenticationFailureAction(response))),
         tap(() => this._router.navigate(['/login']))
       );
     })
@@ -67,8 +72,8 @@ export class AuthEffects {
 
   @Effect()
   public signOut: Observable<Action> = this._actions$.pipe(
-    ofType(actions.SIGN_OUT),
-    map(value => new actions.SignOutSuccessAction()),
+    ofType<SignOutSuccessAction>(AuthActionTypes.SIGN_OUT),
+    map(value => new SignOutSuccessAction()),
     tap((v: any) => {
       this._router.navigate(['/login']);
     })

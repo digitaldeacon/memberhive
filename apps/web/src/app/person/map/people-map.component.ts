@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { takeWhile } from 'rxjs/operators';
 
 import {
   AppState,
@@ -38,13 +39,13 @@ export class PeopleMapComponent implements OnDestroy {
   constructor(private _store: Store<AppState>, private _shout: ShoutService) {
     this._store
       .select(getFamilies)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((families: Family[]) => {
         this.families = families;
       });
     this._store
       .select(getPeopleWithFilter)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((people: Person[]) => {
         this.markers = [];
         this.people = people.filter((p: Person) => !Utils.objEmptyProperties(p.address, 'home', 'geocode'));
@@ -87,7 +88,7 @@ export class PeopleMapComponent implements OnDestroy {
       });
     this._store
       .select(getSysSettings)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((data: SystemSettings) => {
         this.settings = data;
         if (this.validate()) {
