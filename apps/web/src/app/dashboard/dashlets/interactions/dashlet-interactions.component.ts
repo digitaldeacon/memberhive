@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs/Observable';
 import { Store } from '@ngrx/store';
+import { takeWhile } from 'rxjs/operators';
 
 import { AppState, getMyInteractions, Interaction, CompleteInteractionAction, AuthService } from '@memberhivex/core';
 
@@ -15,7 +16,6 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
 
   myId: string = '';
   myInteractions$: Observable<Interaction[]>;
-  myInteractions: Interaction[];
   myOutstanding: Interaction[];
   myCompleted: Interaction[];
 
@@ -25,7 +25,7 @@ export class DashletInteractionsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.myInteractions$ = this._store.select(getMyInteractions);
-    this.myInteractions$.takeWhile(() => this._alive).subscribe((data: Interaction[]) => {
+    this.myInteractions$.pipe(takeWhile(() => this._alive)).subscribe((data: Interaction[]) => {
       this.myOutstanding = data.filter(
         (i: Interaction) => !i.actions[this.myId].doneOn && !i.actions[this.myId].completedOn
       );

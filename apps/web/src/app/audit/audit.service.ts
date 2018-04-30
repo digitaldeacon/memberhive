@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@memberhivex/core';
 import { Observable } from 'rxjs/Observable';
-import 'rxjs/add/operator/publishReplay';
+import { publishReplay, refCount, map } from 'rxjs/operators';
 import { ActionLog } from './audit';
 
 @Injectable()
@@ -14,9 +14,7 @@ export class AuditService {
     if (!this._logs) {
       this._logs = this._http
         .get('action-log/list?id=' + id + '&context=person')
-        .map(this.deserializeList)
-        .publishReplay()
-        .refCount();
+        .pipe(map(this.deserializeList), publishReplay(), refCount());
     }
     return this._logs;
   }

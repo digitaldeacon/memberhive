@@ -1,5 +1,6 @@
 import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { takeWhile } from 'rxjs/operators';
 
 import {
   AppState,
@@ -37,18 +38,18 @@ export class PersonListComponent implements OnDestroy {
 
     this._store
       .select(getPeopleWithFilter)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((people: Person[]) => {
         this.people = people;
         this.peopleFiltered = people;
       });
     this._store
       .select(getFamilies)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((families: Family[]) => (this.families = families));
     this._store
       .select(getPeopleListSettings)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((data: string[]) => {
         this.options = data;
       });

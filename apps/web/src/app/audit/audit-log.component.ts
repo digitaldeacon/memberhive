@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { AuditService } from './audit.service';
 import { ActionLog } from './audit';
 import { Person } from '@memberhivex/core';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   moduleId: 'mh-audit',
@@ -18,7 +19,7 @@ export class AuditLogComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.route.params
-      .switchMap((params: Params) => this.auditService.getLogPerson(params['id']))
+      .pipe(switchMap((params: Params) => this.auditService.getLogPerson(params['id'])))
       .subscribe((logs: Array<ActionLog>) => {
         this.logs = logs;
       });

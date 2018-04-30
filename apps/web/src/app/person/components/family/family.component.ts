@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-import 'rxjs/add/operator/takeWhile';
+
+import { takeWhile } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';
 
@@ -94,7 +95,7 @@ export class FamilyComponent implements OnDestroy {
 
     this._store
       .select(getFamilies)
-      .takeWhile(() => this._alive)
+      .pipe(takeWhile(() => this._alive))
       .subscribe((families: Family[]) => {
         this.families = families;
         if (this.person) {
@@ -145,7 +146,6 @@ export class FamilyComponent implements OnDestroy {
       };
       this.members.push(m);
       this.members$.next(this.members);
-      // console.log(this.family);
       this.people.filter((p: Person) => this._isPrimaryMember(p.uid)).map((person: Person) => this._addMember(person));
       this.people.filter((p: Person) => this._isMember(p.uid)).map((person: Person) => this._addMember(person));
     }
@@ -270,12 +270,10 @@ export class FamilyComponent implements OnDestroy {
 
   changeRole(payload: FamilyPayload): void {
     const person: Person = this.people.find((p: Person) => p.uid === payload.member);
-
     this._store.dispatch(new SetFamilyRoleAction(payload));
     if (!person.maritalStatus) {
       person.maritalStatus = MaritalStatus.MARRIED;
       this._store.dispatch(new UpdatePersonAction(person));
-      // console.log("tried to update person", person);
     }
   }
 

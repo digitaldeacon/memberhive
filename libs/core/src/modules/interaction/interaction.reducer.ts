@@ -1,13 +1,14 @@
 import { HttpResponse } from '@angular/common/http';
-import { Interaction, InteractionCollection } from './interaction.model';
-import * as actions from './interaction.actions';
-import * as common from '../../common/common.model';
+import { Interaction } from './interaction.model';
+import { InteractionActions, InteractionActionTypes } from './interaction.actions';
+
+import { Message, MessageType } from '../../common/common.model';
 import { Utils } from '../../common/common.utils';
 
 export interface InteractionState {
   loaded?: boolean;
   loading?: boolean;
-  message?: common.Message;
+  message?: Message;
   forPersonId?: string;
   interactions: Interaction[];
   myInteractions: Interaction[];
@@ -20,18 +21,18 @@ const initialState: InteractionState = {
 
 export function interactionReducer(
   state: InteractionState = initialState,
-  action: actions.InteractionActions
+  action: InteractionActions
 ): InteractionState {
   switch (action.type) {
-    case actions.LIST_INTERACTIONS:
-    case actions.ADD_INTERACTION:
-    case actions.DELETE_INTERACTION:
-    case actions.COMPLETE_INTERACTION:
+    case InteractionActionTypes.LIST_INTERACTIONS:
+    case InteractionActionTypes.ADD_INTERACTION:
+    case InteractionActionTypes.DELETE_INTERACTION:
+    case InteractionActionTypes.COMPLETE_INTERACTION:
       return Object.assign({}, state, {
         loading: true
       });
 
-    case actions.LIST_INTERACTIONS_SUCCESS: {
+    case InteractionActionTypes.LIST_INTERACTIONS_SUCCESS: {
       const interact: Interaction[] = action.payload;
       return Object.assign({}, state, {
         loaded: true,
@@ -40,10 +41,10 @@ export function interactionReducer(
       });
     }
 
-    case actions.ADD_INTERACTION_SUCCESS: {
+    case InteractionActionTypes.ADD_INTERACTION_SUCCESS: {
       const interaction: Interaction = action.payload;
-      const message: common.Message = {
-        type: common.MessageType.SUCCESS,
+      const message: Message = {
+        type: MessageType.SUCCESS,
         text: 'Successfully added an interaction'
       };
       const newInteract: Interaction[] = [...state.interactions, interaction];
@@ -63,10 +64,10 @@ export function interactionReducer(
       });
     }
 
-    case actions.UPDATE_INTERACTION_SUCCESS: {
+    case InteractionActionTypes.UPDATE_INTERACTION_SUCCESS: {
       const interaction: Interaction = action.payload;
-      const message: common.Message = {
-        type: common.MessageType.SUCCESS,
+      const message: Message = {
+        type: MessageType.SUCCESS,
         text: 'Successfully updated this interaction'
       };
       return Object.assign({}, state, {
@@ -79,9 +80,9 @@ export function interactionReducer(
       });
     }
 
-    case actions.DELETE_INTERACTION_SUCCESS: {
-      const message: common.Message = {
-        type: common.MessageType.SUCCESS,
+    case InteractionActionTypes.DELETE_INTERACTION_SUCCESS: {
+      const message: Message = {
+        type: MessageType.SUCCESS,
         text: 'Successfully deleted this interaction'
       };
       return Object.assign({}, state, {
@@ -92,13 +93,13 @@ export function interactionReducer(
       });
     }
 
-    case actions.LIST_INTERACTIONS_FAILURE:
-    case actions.DELETE_INTERACTION_FAILURE:
-    case actions.UPDATE_INTERACTION_FAILURE:
-    case actions.ADD_INTERACTION_FAILURE: {
+    case InteractionActionTypes.LIST_INTERACTIONS_FAILURE:
+    case InteractionActionTypes.DELETE_INTERACTION_FAILURE:
+    case InteractionActionTypes.UPDATE_INTERACTION_FAILURE:
+    case InteractionActionTypes.ADD_INTERACTION_FAILURE: {
       const res: HttpResponse<any> = action.payload;
-      const message: common.Message = {
-        type: common.MessageType.FAILURE,
+      const message: Message = {
+        type: MessageType.FAILURE,
         text: res.statusText
       };
       return Object.assign({}, state, {
@@ -108,13 +109,13 @@ export function interactionReducer(
       });
     }
 
-    case actions.GET_FOR_PERSON: {
+    case InteractionActionTypes.GET_FOR_PERSON: {
       return Object.assign({}, state, {
         forPersonId: action.payload
       });
     }
 
-    case actions.CLEAR_INTERACTION_MESSAGE:
+    case InteractionActionTypes.CLEAR_INTERACTION_MESSAGE:
       return Object.assign({}, state, {
         message: undefined
       });
