@@ -33,7 +33,6 @@ class MhAuth extends \yii\filters\auth\AuthMethod
      */
     public $realm = 'api';
 
-
     /**
      * @inheritdoc
      */

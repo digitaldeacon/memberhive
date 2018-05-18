@@ -4,7 +4,7 @@
     "keywords": ["yii2 api rest"],
     "homepage": "http://www.memberhive.com/",
     "type": "project",
-    "license": "GPLv3",
+    "license": "AGPL-3.0-or-later",
     "support": {
     },
     "minimum-stability": "dev",

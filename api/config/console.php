@@ -21,7 +21,7 @@ function init()
         ],
         'components' => [
             'cache' => [
-                'class' => 'yii\caching\FileCache',
+                'class' => 'yii\caching\ApcCache',
             ],
             'authManager' => [
                 'class' => 'yii\rbac\DbManager',
