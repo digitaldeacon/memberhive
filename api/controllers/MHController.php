@@ -10,7 +10,6 @@ use yii\filters\auth\HttpBearerAuth;
 
 class MHController extends Controller
 {
-
     public function behaviors()
     {
         $behaviors = parent::behaviors();
@@ -33,7 +32,7 @@ class MHController extends Controller
             ],
         ];
         $behaviors['authenticator']['except'] = [
-            'options', 'login', 'signup', 'confirm',
+            'options', 'login',
             'password-reset-request',
             'password-reset-token-verification',
             'password-reset'];
