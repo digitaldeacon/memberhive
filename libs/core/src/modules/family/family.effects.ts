@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 
 import { catchError, map, switchMap, mergeMap } from 'rxjs/operators';
-import { Observable ,  of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
@@ -33,12 +33,10 @@ export class FamilyEffects {
     ofType<ListFamiliesAction>(FamilyActionTypes.LIST_FAMILIES),
     map((action: ListFamiliesAction) => action.payload),
     switchMap((data: any) => {
-      return this._http
-        .get('api/family/list')
-        .pipe(
-          map((r: Family[]) => new ListFamiliesSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new ListFamiliesFailureAction(r)))
-        );
+      return this._http.get('api/family/list').pipe(
+        map((r: Family[]) => new ListFamiliesSuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new ListFamiliesFailureAction(r)))
+      );
     })
   );
 
@@ -61,12 +59,10 @@ export class FamilyEffects {
     ofType<UpdateFamilyAction>(FamilyActionTypes.UPDATE_FAMILY),
     map((action: UpdateFamilyAction) => action.payload),
     mergeMap((payload: Family) =>
-      this._http
-        .post('api/family/update?id=' + payload.id, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/update?id=' + payload.id, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 
@@ -75,12 +71,10 @@ export class FamilyEffects {
     ofType<SetFamilyRoleAction>(FamilyActionTypes.SET_FAMILY_ROLE),
     map((action: SetFamilyRoleAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
-      this._http
-        .post('api/family/set-role?id=' + payload.member, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/set-role?id=' + payload.member, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 
@@ -89,12 +83,10 @@ export class FamilyEffects {
     ofType<AcceptMemberFamilyAction>(FamilyActionTypes.ACCEPT_MEMBER),
     map((action: AcceptMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
-      this._http
-        .post('api/family/accept?id=' + payload.member, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/accept?id=' + payload.member, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 
@@ -103,12 +95,10 @@ export class FamilyEffects {
     ofType<IgnoreMemberFamilyAction>(FamilyActionTypes.IGNORE_MEMBER),
     map((action: IgnoreMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
-      this._http
-        .post('api/family/ignore?id=' + payload.member, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/ignore?id=' + payload.member, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 
@@ -117,12 +107,10 @@ export class FamilyEffects {
     ofType<RemoveMemberFamilyAction>(FamilyActionTypes.REMOVE_MEMBER),
     map((action: RemoveMemberFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
-      this._http
-        .post('api/family/remove?id=' + payload.member, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/remove?id=' + payload.member, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 
@@ -131,12 +119,10 @@ export class FamilyEffects {
     ofType<LinkPersonFamilyAction>(FamilyActionTypes.LINK_PERSON_FAMILY),
     map((action: LinkPersonFamilyAction) => action.payload),
     mergeMap((payload: FamilyPayload) =>
-      this._http
-        .post('api/family/link?id=' + payload.member, payload)
-        .pipe(
-          map((r: Family) => new UpdateFamilySuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
-        )
+      this._http.post('api/family/link?id=' + payload.member, payload).pipe(
+        map((r: Family) => new UpdateFamilySuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdateFamilyFailureAction(r)))
+      )
     )
   );
 }

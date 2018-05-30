@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { SearchService } from './search.service';
 import { Router } from '@angular/router';
 
-import { Subject ,  Observable } from 'rxjs';
+import { Subject, Observable } from 'rxjs';
 import { MatAutocompleteSelectedEvent } from '@angular/material';
 
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
