@@ -100,7 +100,10 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     // this.settingsForm.get('people').patchValue(this.personSettings);
 
     this.settingsForm.valueChanges
-      .pipe(debounceTime(2000), distinctUntilChanged())
+      .pipe(
+        debounceTime(2000),
+        distinctUntilChanged()
+      )
       .subscribe((data: core.SettingsState) => {
         if (!this.submitted) {
           this.save(data);

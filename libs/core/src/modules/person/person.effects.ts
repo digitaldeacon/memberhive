@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { Observable , of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { catchError, map, mergeMap, concatMap, switchMap } from 'rxjs/operators';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
@@ -43,12 +43,10 @@ export class PersonEffects {
     ofType<ListPeopleAction>(PeopleActionTypes.LIST_PEOPLE),
     map(action => action.payload),
     switchMap(() =>
-      this._http
-        .get('api/person/list')
-        .pipe(
-          map((r: Person[]) => new ListPeopleSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new ListPeopleFailureAction(r)))
-        )
+      this._http.get('api/person/list').pipe(
+        map((r: Person[]) => new ListPeopleSuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new ListPeopleFailureAction(r)))
+      )
     )
   );
 
@@ -57,12 +55,10 @@ export class PersonEffects {
     ofType<UpdatePersonAction>(PeopleActionTypes.UPDATE_PERSON),
     map(action => action.payload),
     mergeMap((data: Person) => {
-      return this._http
-        .post('api/person/update?id=' + data.uid, data)
-        .pipe(
-          map((r: Person) => new UpdatePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
-        );
+      return this._http.post('api/person/update?id=' + data.uid, data).pipe(
+        map((r: Person) => new UpdatePersonSuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
+      );
     })
   );
 
@@ -85,12 +81,10 @@ export class PersonEffects {
     ofType<UploadPersonAvatarAction>(PeopleActionTypes.UPLOAD_PERSON_AVATAR),
     map(action => action.payload),
     mergeMap((data: AvatarPayload) =>
-      this._http
-        .post('api/person/upload-avatar', data)
-        .pipe(
-          map((r: Person) => new UpdatePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
-        )
+      this._http.post('api/person/upload-avatar', data).pipe(
+        map((r: Person) => new UpdatePersonSuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new UpdatePersonFailureAction(r)))
+      )
     )
   );
 
@@ -99,12 +93,10 @@ export class PersonEffects {
     ofType<DeletePersonAction>(PeopleActionTypes.DELETE_PERSON),
     map(action => action.payload),
     mergeMap((data: Person) =>
-      this._http
-        .post('api/person/delete?id=' + data.uid, data)
-        .pipe(
-          map((r: any) => new DeletePersonSuccessAction(r)),
-          catchError((r: HttpErrorResponse) => of(new DeletePersonFailureAction(r)))
-        )
+      this._http.post('api/person/delete?id=' + data.uid, data).pipe(
+        map((r: any) => new DeletePersonSuccessAction(r)),
+        catchError((r: HttpErrorResponse) => of(new DeletePersonFailureAction(r)))
+      )
     )
   );
 

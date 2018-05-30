@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Address, GeoCodes } from '../common/common.model';
-import { Observable , of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 

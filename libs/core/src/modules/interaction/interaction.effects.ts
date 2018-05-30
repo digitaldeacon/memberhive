@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 
 import { catchError, map, mergeMap, concatMap, switchMap } from 'rxjs/operators';
-import { Observable ,  of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import {
@@ -34,12 +34,10 @@ export class InteractionEffects {
     ofType<ListInteractionsAction>(InteractionActionTypes.LIST_INTERACTIONS),
     map((action: ListInteractionsAction) => action.payload),
     switchMap((data: InteractionPayload) =>
-      this._http
-        .get('interaction/list?')
-        .pipe(
-          map((r: Interaction[]) => new ListInteractionsSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new ListInteractionsFailureAction(r)))
-        )
+      this._http.get('interaction/list?').pipe(
+        map((r: Interaction[]) => new ListInteractionsSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new ListInteractionsFailureAction(r)))
+      )
     )
   );
 
@@ -48,12 +46,10 @@ export class InteractionEffects {
     ofType<AddInteractionAction>(InteractionActionTypes.ADD_INTERACTION),
     map((action: AddInteractionAction) => action.payload),
     switchMap((data: Interaction) =>
-      this._http
-        .post('interaction/save-person', data)
-        .pipe(
-          map((r: Interaction) => new AddInteractionSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new AddInteractionFailureAction(r)))
-        )
+      this._http.post('interaction/save-person', data).pipe(
+        map((r: Interaction) => new AddInteractionSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new AddInteractionFailureAction(r)))
+      )
     )
   );
 
@@ -62,12 +58,10 @@ export class InteractionEffects {
     ofType<UpdateInteractionAction>(InteractionActionTypes.UPDATE_INTERACTION),
     map((action: UpdateInteractionAction) => action.payload),
     switchMap((data: Interaction) =>
-      this._http
-        .post('interaction/save-person', data)
-        .pipe(
-          map((r: Interaction) => new UpdateInteractionSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new UpdateInteractionFailureAction(r)))
-        )
+      this._http.post('interaction/save-person', data).pipe(
+        map((r: Interaction) => new UpdateInteractionSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new UpdateInteractionFailureAction(r)))
+      )
     )
   );
 

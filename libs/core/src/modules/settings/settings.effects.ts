@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Observable ,  of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { tap, switchMap, catchError, map, concatMap } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { Filter } from '../../common/common.model';
@@ -44,12 +44,10 @@ export class SettingsEffects {
     ofType(SettingsActionTypes.UPDATE_SETTINGS),
     map((action: UpdateSettingAction) => action.payload),
     switchMap((payload: SettingsState) =>
-      this.http
-        .post('settings/upsert', payload)
-        .pipe(
-          map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
-          catchError((r: any) => of(new UpdateSettingFailureAction(r)))
-        )
+      this.http.post('settings/upsert', payload).pipe(
+        map((r: SettingsState) => new UpdateSettingSuccessAction(payload)),
+        catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+      )
     )
   );
 
@@ -58,12 +56,10 @@ export class SettingsEffects {
     ofType(SettingsActionTypes.SAVE_PEOPLE_FILTER),
     map((action: SavePeopleFilterAction) => action.payload),
     switchMap((payload: Filter) =>
-      this.http
-        .post('settings/upsert-people-filter', payload)
-        .pipe(
-          map(() => new SavePeopleFilterSuccessAction(payload.term)),
-          catchError((r: any) => of(new UpdateSettingFailureAction(r)))
-        )
+      this.http.post('settings/upsert-people-filter', payload).pipe(
+        map(() => new SavePeopleFilterSuccessAction(payload.term)),
+        catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+      )
     )
   );
 
@@ -72,12 +68,10 @@ export class SettingsEffects {
     ofType(SettingsActionTypes.DELETE_PEOPLE_FILTER),
     map((action: DeletePeopleFilterAction) => action.payload),
     concatMap((payload: string) =>
-      this.http
-        .post('settings/delete-people-filter', { term: payload })
-        .pipe(
-          map(() => new DeletePeopleFilterSuccessAction(payload)),
-          catchError((r: any) => of(new UpdateSettingFailureAction(r)))
-        )
+      this.http.post('settings/delete-people-filter', { term: payload }).pipe(
+        map(() => new DeletePeopleFilterSuccessAction(payload)),
+        catchError((r: any) => of(new UpdateSettingFailureAction(r)))
+      )
     )
   );
 

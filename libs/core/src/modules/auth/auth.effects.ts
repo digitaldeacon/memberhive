@@ -1,5 +1,5 @@
 import { catchError, map, tap, switchMap, exhaustMap } from 'rxjs/operators';
-import { of ,  Observable } from 'rxjs';
+import { of, Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
