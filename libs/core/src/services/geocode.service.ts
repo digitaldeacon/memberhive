@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { Address, GeoCodes } from '../common/common.model';
-import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
+import { Observable , of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { GoogleMapsAPIWrapper, MapsAPILoader } from '@agm/core';
 
@@ -35,7 +34,7 @@ export class GeocodeService {
       this._apiKey
     }`;
     if (!this._address.street && !this._address.zip && !this._address.city) {
-      return empty();
+      return of();
     }
     return this._http.getRaw(url).pipe(
       map((res: ServiceResults) => {

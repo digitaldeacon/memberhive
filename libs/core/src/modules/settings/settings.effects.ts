@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
+import { Observable ,  of } from 'rxjs';
 import { tap, switchMap, catchError, map, concatMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
 import { Title } from '@angular/platform-browser';
 import { Filter } from '../../common/common.model';
 

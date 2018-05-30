@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse } from '@angular/common/http';
 
-import { Observable } from 'rxjs/Observable';
+import { Observable , of } from 'rxjs';
 import { catchError, map, mergeMap, concatMap, switchMap } from 'rxjs/operators';
-import { empty } from 'rxjs/observable/empty';
-import { of } from 'rxjs/observable/of';
 
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
@@ -118,7 +116,7 @@ export class PersonEffects {
       const address: PersonAddress = payload.person.address;
 
       if (Utils.objEmptyProperties(address, 'home', ['city', 'street', 'zip'])) {
-        return empty();
+        return of();
       }
 
       this._geoCoder.apiKey = payload.apiKey;
