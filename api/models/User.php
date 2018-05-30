@@ -13,19 +13,19 @@ class User extends ActiveRecord implements IdentityInterface
 
     protected static function getSecretKey()
     {
-        $token = '';
-        if (file_exists('../.ssh/jwtRS256.key')) {
+        $token = \Yii::$app->params['jwt.secret'];
+        /*if (file_exists('../.ssh/jwtRS256.key')) {
             $token = file_get_contents('../.ssh/jwtRS256.key');
-        }
+        }*/
         return $token;
     }
 
     protected static function getPublicKey()
     {
         $token = '';
-        if (file_exists('../.ssh/jwtRS256.key.pub')) {
+        /*if (file_exists('../.ssh/jwtRS256.key.pub')) {
             $token = file_get_contents('../.ssh/jwtRS256.key.pub');
-        }
+        }*/
         return $token;
     }
 
