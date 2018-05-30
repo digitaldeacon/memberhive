@@ -96,7 +96,7 @@ trait UserTrait
      */
     public static function getAlgo()
     {
-        return 'RS256';
+        return 'HS256';
     }
     /**
      * Returns some 'id' to encode to token. By default is current model id.
