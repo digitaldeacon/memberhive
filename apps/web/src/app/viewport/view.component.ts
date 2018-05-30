@@ -1,7 +1,6 @@
 import { Component, OnDestroy, ChangeDetectionStrategy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
+import { Observable ,  Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 import { MediaChange, ObservableMedia } from '@angular/flex-layout';

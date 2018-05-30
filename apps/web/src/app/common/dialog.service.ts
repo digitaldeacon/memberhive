@@ -1,4 +1,4 @@
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { ConfirmDialogComponent } from './components/confirm/confirm-dialog.component';
 import { LoginDialogComponent } from '../login/components/login-dialog/login-dialog.component';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material';

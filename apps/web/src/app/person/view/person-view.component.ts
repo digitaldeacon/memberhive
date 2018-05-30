@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { exhaustMap, skipWhile, takeWhile, map } from 'rxjs/operators';
 
 import { Store } from '@ngrx/store';

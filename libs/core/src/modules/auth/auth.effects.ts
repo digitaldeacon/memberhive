@@ -1,12 +1,11 @@
 import { catchError, map, tap, switchMap, exhaustMap } from 'rxjs/operators';
-import { of } from 'rxjs/observable/of';
+import { of ,  Observable } from 'rxjs';
 
 import { Injectable } from '@angular/core';
 import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs/Observable';
 import { DataPersistence } from '@nrwl/nx';
 
 import {

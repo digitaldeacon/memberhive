@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from '@memberhivex/core';
-import { Observable } from 'rxjs/Observable';
+import { Observable } from 'rxjs';
 import { publishReplay, refCount, map } from 'rxjs/operators';
 import { ActionLog } from './audit';
 
