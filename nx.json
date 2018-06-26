@@ -1,0 +1,14 @@
+{
+  "npmScope": "memberhivex",
+  "projects": {
+    "web": {
+      "tags": []
+    },
+    "web-e2e": {
+      "tags": []
+    },
+    "core": {
+      "tags": []
+    }
+  }
+}
