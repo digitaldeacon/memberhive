@@ -93,7 +93,7 @@ export class DashletBirthdaysComponent {
 
   private _contextYear(d: Moment): number {
     let contextYr: number = this.now.year();
-    if (d.month() < this.now.month() || (d.month() === this.now.month() && d.day() < this.now.day())) {
+    if (d.month() < this.now.month() || (d.month() === this.now.month() && d.date() < this.now.date())) {
       contextYr += 1;
     }
     return contextYr;

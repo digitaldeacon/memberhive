@@ -77,7 +77,6 @@ export class PersonViewComponent implements OnInit, OnDestroy {
   ) {
     // Selects the current person by fragment param
     this.person$ = this._store.select(getSelectedPerson);
-    // this.person$.subscribe((data: Person) => console.log('person updated:', data));
     // Fetches all Interactions associated with this person
     this.interactions$ = this._store.select(getInteractionsPerson);
     // Selects the tags by fragment param

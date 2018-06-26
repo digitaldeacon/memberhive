@@ -11,7 +11,7 @@ class User extends ActiveRecord implements IdentityInterface
 {
     use \app\helpers\UserTrait;
 
-    /*protected static function getSecretKey()
+    protected static function getSecretKey()
     {
         $token = '';
         if (file_exists('../.ssh/jwtRS256.key')) {
@@ -27,7 +27,7 @@ class User extends ActiveRecord implements IdentityInterface
             $token = file_get_contents('../.ssh/jwtRS256.key.pub');
         }
         return $token;
-    }*/
+    }
 
     public function init()
     {
