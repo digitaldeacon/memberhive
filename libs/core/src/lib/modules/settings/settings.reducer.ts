@@ -31,7 +31,7 @@ const initialState: SettingsState = {
   },
   system: {
     churchName: 'Your Church',
-    googleApiKey: 'AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo'
+    googleApiKey: ''
   },
   profile: {},
   dashboard: {},
