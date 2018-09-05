@@ -12,11 +12,9 @@ export class AuditService {
 
   public getLogPerson(id: string): Observable<ActionLog[]> {
     if (!this._logs) {
-      this._logs = this._http.get('action-log/list?id=' + id + '&context=person').pipe(
-        map(this.deserializeList),
-        publishReplay(),
-        refCount()
-      );
+      this._logs = this._http
+        .get('action-log/list?id=' + id + '&context=person')
+        .pipe(map(this.deserializeList), publishReplay(), refCount());
     }
     return this._logs;
   }

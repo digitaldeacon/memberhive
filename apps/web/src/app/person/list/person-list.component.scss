@@ -1,4 +1,4 @@
-@import "../../../theme.scss";
+@import '../../../theme.scss';
 
 .list-detail span {
   margin-right: 10px;
@@ -18,13 +18,15 @@
   a {
     text-decoration: none;
   }
-  a:visited, a:active, a:link {
+  a:visited,
+  a:active,
+  a:link {
     color: inherit;
   }
 }
 .nav-list:hover {
-    color: inherit;
-    background-color: #f1f1f1 !important;
+  color: inherit;
+  background-color: #f1f1f1 !important;
 }
 
 .status-chip {

@@ -1,6 +1,5 @@
 .person-card {
   .person-card-header {
-
     img[mat-card-avatar] {
       height: 100px;
       width: 100px;
@@ -40,7 +39,7 @@
     text-align: center;
     width: 100px;
     color: #fff;
-    background: rgba(0, 0, 0, .4);
+    background: rgba(0, 0, 0, 0.4);
     border-radius: 50%;
     height: 100px;
     z-index: 2;

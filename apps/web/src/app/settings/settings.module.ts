@@ -9,7 +9,7 @@ import { SettingsRoutingModule } from './settings-routing.module';
 const NG_MODULES: Type<any>[] = [FormsModule, ReactiveFormsModule];
 
 @NgModule({
-  imports: [MhCommonModule, NG_MODULES, SettingsRoutingModule, DragulaModule],
+  imports: [MhCommonModule, NG_MODULES, SettingsRoutingModule, DragulaModule.forRoot()],
   declarations: [SettingsComponent]
 })
 export class SettingsModule {

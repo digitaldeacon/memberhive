@@ -86,7 +86,7 @@
                         <legend i18n="@@selected">Selected</legend>
                         <div class='container'
                              [dragula]='"PEOPLE_LIST"'
-                             [dragulaModel]='personAttrSelected'>
+                             [(dragulaModel)]='personAttrSelected'>
                             <div *ngFor="let element of personAttrSelected"
                                  class="div draggable-item"
                                  [innerHtml]='element'></div>
@@ -96,7 +96,7 @@
                         <legend i18n="@@available">Available</legend>
                         <div class="container"
                              [dragula]='"PEOPLE_LIST"'
-                             [dragulaModel]='personAttr'>
+                             [(dragulaModel)]='personAttr'>
                             <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
                         </div>
                     </fieldset>

@@ -1,10 +1,12 @@
-@import "../../../../theme.scss";
+@import '../../../../theme.scss';
 
 .mat-card {
   max-width: 220px;
   margin-bottom: 15px;
-  background-color: rgba(246, 246, 246, 0.30);
-  a:visited, a:active, a:link {
+  background-color: rgba(246, 246, 246, 0.3);
+  a:visited,
+  a:active,
+  a:link {
     color: inherit;
   }
   .mat-card-title {
@@ -20,12 +22,12 @@
   }
 }
 .suggestion-box {
-  border: 2px dashed #CCC;
+  border: 2px dashed #ccc;
 }
 .suggestion-label {
   padding-bottom: 10px;
   text-align: right;
-  color: #CCC;
+  color: #ccc;
   position: absolute;
   top: 5px;
   right: 15px;

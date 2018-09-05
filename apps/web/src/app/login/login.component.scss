@@ -1,15 +1,15 @@
-@import "../../theme.scss";
+@import '../../theme.scss';
 
 .mat-card {
   margin: 0;
-  padding: 48px
+  padding: 48px;
 }
 .mat-progress-bar {
   z-index: 10;
   height: 3px;
 }
 .login-container {
-  background-color: #D8D8D6;
+  background-color: #d8d8d6;
   background: url(/assets/images/login/bg/2.jpg) no-repeat center center fixed;
   background-size: cover;
   height: 100%;
@@ -22,7 +22,7 @@
     text-align: center;
     mat-icon {
       width: 80px;
-      height: 80px
+      height: 80px;
     }
   }
   .login-content {
@@ -34,7 +34,7 @@
     }
     margin: 20px auto;
 
-    background-color: rgba(255,255,255,0.9) !important;
+    background-color: rgba(255, 255, 255, 0.9) !important;
 
     .error {
       margin: 16px 0;

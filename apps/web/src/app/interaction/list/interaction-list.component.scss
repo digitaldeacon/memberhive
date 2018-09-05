@@ -1,11 +1,11 @@
 mat-list-item {
-  padding: 10px
+  padding: 10px;
 }
 mat-card-header {
   margin: -8px 0 4px;
   height: 24px;
   .mat-card-header-text {
-    height:24px;
+    height: 24px;
   }
 }
 mat-card-content {
@@ -15,27 +15,27 @@ mat-card-actions {
   padding: 0;
   button {
     mat-icon {
-      font-size: 18px
+      font-size: 18px;
     }
   }
 }
 .responsible-list {
-    margin-top: 10px;
-    font-size: 12px;
-    color: #999;
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999;
 }
 .responsible {
-    padding: 3px;
-    border: 1px solid #999;
-    margin-right: 2px
+  padding: 3px;
+  border: 1px solid #999;
+  margin-right: 2px;
 }
 .responsible.responsible-complete {
-    background-color: #cccccc !important;
-    color: #999;
-    border-color: #aeaeae;
+  background-color: #cccccc !important;
+  color: #999;
+  border-color: #aeaeae;
 }
 .responsible.responsible-done {
-    background-color: #9acb39 !important;
+  background-color: #9acb39 !important;
 }
 .quick-note {
   background-color: rgba(245, 245, 245, 0.38) !important;

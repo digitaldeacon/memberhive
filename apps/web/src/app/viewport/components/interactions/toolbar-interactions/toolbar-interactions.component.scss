@@ -1,18 +1,18 @@
-@import "../../../../../theme.scss";
+@import '../../../../../theme.scss';
 
 .mat-list-item {
-    font-size: 14px !important;
+  font-size: 14px !important;
 }
 .has-interactions {
-    background-color: mat-color($mh-app-warn, 400);
-    width: 30px;
-    height: 30px;
-    line-height: 0 !important;
+  background-color: mat-color($mh-app-warn, 400);
+  width: 30px;
+  height: 30px;
+  line-height: 0 !important;
 }
 .no-interactions {
-    text-align: center;
-    padding: 10px
+  text-align: center;
+  padding: 10px;
 }
 button.mat-menu-item {
-    text-align: center;
+  text-align: center;
 }

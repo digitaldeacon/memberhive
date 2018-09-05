@@ -19,7 +19,7 @@ import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-in
     DashletEditDialogComponent,
     DashletInteractionsComponent
   ],
-  imports: [MhCommonModule, DashboardRoutingModule, FlexLayoutModule, MomentModule, DragulaModule],
+  imports: [MhCommonModule, DashboardRoutingModule, FlexLayoutModule, MomentModule, DragulaModule.forRoot()],
   providers: [],
   entryComponents: [DashletEditDialogComponent]
 })
