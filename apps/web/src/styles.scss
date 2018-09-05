@@ -1,6 +1,7 @@
-@import "theme";
+@import 'theme';
 
-html, body {
+html,
+body {
   margin: 0;
   width: 100%;
   min-height: 100%;
@@ -80,7 +81,7 @@ mat-icon[matPrefix] {
 }
 
 /** input fields of type search display wrong in Safari (see https://github.com/angular/material2/issues/5008) **/
-input[type="search"] {
+input[type='search'] {
   -webkit-appearance: none;
 }
 
@@ -97,7 +98,8 @@ input[type="search"] {
     .list {
       .mat-nav-list {
         background: rgb(56, 53, 53);
-        .mat-list-item, .mat-icon {
+        .mat-list-item,
+        .mat-icon {
           color: #ffffff;
           h4 {
             font-size: 16px;

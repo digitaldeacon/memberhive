@@ -49,10 +49,7 @@ export class PersonCreateComponent implements OnDestroy {
 
     this._store
       .select(getLastCreatedPersonId)
-      .pipe(
-        takeWhile(() => this._alive),
-        distinctUntilChanged()
-      )
+      .pipe(takeWhile(() => this._alive), distinctUntilChanged())
       .subscribe((uid: string) => {
         if (uid) {
           this._router.navigate(['/person/view', uid]);

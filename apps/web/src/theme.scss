@@ -6,14 +6,13 @@
 @include mat-core();
 
 $mh-app-primary: mat-palette($mat-mh-blue);
-$mh-app-accent:  mat-palette($mat-orange);
+$mh-app-accent: mat-palette($mat-orange);
 
 // The warn palette is optional (defaults to red).
-$mh-app-warn:    mat-palette($mat-red);
-$mh-app-green:  mat-palette($mat-green);
+$mh-app-warn: mat-palette($mat-red);
+$mh-app-green: mat-palette($mat-green);
 
 // Create the theme object (a Sass map containing all of the palettes).
 $mh-app-theme: mat-light-theme($mh-app-primary, $mh-app-accent, $mh-app-warn);
-
 
 @include angular-material-theme($mh-app-theme);

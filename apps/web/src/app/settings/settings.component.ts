@@ -2,7 +2,7 @@ import { Component, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { ShoutService } from '../common/shout.service';
 import { GLOBALS } from '../../config/globals.config';
-import { DragulaService } from 'ng2-dragula/ng2-dragula';
+import { DragulaService } from 'ng2-dragula';
 import { Store } from '@ngrx/store';
 import { debounceTime, distinctUntilChanged, take } from 'rxjs/operators';
 
@@ -100,10 +100,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     // this.settingsForm.get('people').patchValue(this.personSettings);
 
     this.settingsForm.valueChanges
-      .pipe(
-        debounceTime(2000),
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(2000), distinctUntilChanged())
       .subscribe((data: core.SettingsState) => {
         if (!this.submitted) {
           this.save(data);
@@ -154,7 +151,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
       });
   }
   private _initDragula(): void {
-    this._dragulaService.dropModel.subscribe(() => {
+    this._dragulaService.dropModel('PEOPLE_LIST').subscribe(() => {
       this.submitted = true;
       this.personSettings.list = this.personAttrSelected;
       const payload: core.SettingsState = {

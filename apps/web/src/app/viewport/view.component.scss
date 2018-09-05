@@ -1,4 +1,4 @@
-@import "../../theme.scss";
+@import '../../theme.scss';
 
 .layout-fixed {
   position: fixed;
@@ -9,7 +9,8 @@
   display: flex;
   flex-direction: column;
 
-  .header, .footer {
+  .header,
+  .footer {
     max-height: 64px;
   }
 
@@ -35,7 +36,9 @@
   & {
     background: rgb(56, 53, 53);
   }
-  mat-nav-list, .mat-list-item, .mat-icon {
+  mat-nav-list,
+  .mat-list-item,
+  .mat-icon {
     color: #ffffff;
   }
   .mat-divider {

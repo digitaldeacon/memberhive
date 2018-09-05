@@ -1,21 +1,21 @@
-@import "../../../theme.scss";
+@import '../../../theme.scss';
 
 .person-form {
-    mat-form-field {
-        width: 100%;
+  mat-form-field {
+    width: 100%;
+  }
+  fieldset {
+    border: none;
+    margin-top: 10px;
+    legend {
+      padding: 10px 0 10px 0;
+      font-weight: 800;
+      font-size: 18px;
     }
-    fieldset {
-        border: none;
-        margin-top: 10px;
-        legend {
-            padding: 10px 0 10px 0;
-            font-weight: 800;
-            font-size: 18px
-        }
-    }
-    .family-section {
-        border: 6px solid #ccc;
-        padding: 10px;
-        margin-bottom: 10px;
-    }
+  }
+  .family-section {
+    border: 6px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
 }
