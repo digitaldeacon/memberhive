@@ -69,7 +69,7 @@ export class ViewComponent implements OnDestroy {
   drawerClass: string = 'drawer-opened';
   previousAlias: string = '';
 
-  @ViewChild('sidenav') private _sidenav: MatSidenav;
+  @ViewChild('sidenav', { static: true }) private _sidenav: MatSidenav;
 
   constructor(
     private _authSrv: core.AuthService,

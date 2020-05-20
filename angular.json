@@ -16,10 +16,7 @@
             "main": "apps/web/src/main.ts",
             "tsConfig": "apps/web/tsconfig.app.json",
             "polyfills": "apps/web/src/polyfills.ts",
-            "assets": [
-              "apps/web/src/assets",
-              "apps/web/src/favicon.ico"
-            ],
+            "assets": ["apps/web/src/assets", "apps/web/src/favicon.ico"],
             "styles": [
               "node_modules/roboto-fontface/css/roboto/sass/roboto-fontface-regular.scss",
               "node_modules/material-design-icons/iconfont/material-icons.css",
@@ -106,22 +103,14 @@
               "apps/web/src/styles.scss",
               "apps/web/src/theme.scss"
             ],
-            "assets": [
-              "apps/web/src/assets",
-              "apps/web/src/favicon.ico"
-            ]
+            "assets": ["apps/web/src/assets", "apps/web/src/favicon.ico"]
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/web/tsconfig.app.json",
-              "apps/web/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/web/tsconfig.app.json", "apps/web/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       },
@@ -142,12 +131,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "apps/web-e2e/tsconfig.e2e.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["apps/web-e2e/tsconfig.e2e.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       },
@@ -172,13 +157,8 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": [
-              "libs/core/tsconfig.lib.json",
-              "libs/core/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**"]
           }
         }
       },
@@ -190,6 +170,19 @@
     "warnings": {
       "typescriptMismatch": false
     },
-    "defaultCollection": "@nrwl/schematics"
+    "defaultCollection": "@nrwl/angular"
+  },
+  "schematics": {
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
+    }
   }
 }
