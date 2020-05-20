@@ -54,6 +54,7 @@
     "@ngrx/router-store": "8.1.0",
     "@ngrx/store": "8.1.0",
     "@ngx-translate/i18n-polyfill": "^1.0.0",
+    "@nrwl/angular": "8.4.8",
     "@types/jwt-decode": "^2.2.1",
     "@types/lodash": "^4.14.67",
     "core-js": "^2.5.4",
@@ -70,19 +71,21 @@
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.3.2",
     "tinymce": "^4.7.13",
-    "zone.js": "^0.9.1",
-    "@nrwl/angular": "8.4.8"
+    "zone.js": "^0.9.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.801.1",
-    "@angular/cli": "8.1.1",
+    "@angular/cli": "^9.1.6",
     "@angular/compiler-cli": "^8.0.0",
     "@angular/language-service": "^8.0.0",
+    "@ngrx/schematics": "8.1.0",
     "@ngrx/store-devtools": "8.1.0",
+    "@nrwl/workspace": "8.4.8",
     "@types/jasmine": "~3.3.5",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.12.18",
     "codelyzer": "~4.5.0",
+    "dotenv": "6.2.0",
     "git-describe": "^4.0.2",
     "jasmine-core": "~3.3.0",
     "jasmine-marbles": "0.4.1",
@@ -97,9 +100,6 @@
     "rxjs-tslint-rules": "^4.8.0",
     "ts-node": "~7.0.1",
     "tslint": "~5.12.0",
-    "typescript": "~3.4.5",
-    "dotenv": "6.2.0",
-    "@ngrx/schematics": "8.1.0",
-    "@nrwl/workspace": "8.4.8"
+    "typescript": "~3.4.5"
   }
 }
