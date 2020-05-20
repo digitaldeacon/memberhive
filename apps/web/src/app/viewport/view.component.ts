@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
-import { MediaChange, ObservableMedia } from '@angular/flex-layout';
+import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { MatSidenav } from '@angular/material';
 
 import { ShoutService } from '../common/shout.service';
@@ -76,17 +76,17 @@ export class ViewComponent implements OnDestroy {
     private _router: Router,
     private _shout: ShoutService,
     private _store: Store<core.AppState>,
-    private _media: ObservableMedia // public i18n: I18n
+    private _media: MediaObserver // public i18n: I18n
   ) {
     this._initStore();
-    this.watcher = _media.subscribe((change: MediaChange) => {
+    /*this.watcher = _media.subscribe((change: MediaChange) => {
       if (change.mqAlias === 'xs' && change.mqAlias !== this.previousAlias) {
         this._toggleMobile(true);
       } else if (this.previousAlias === 'xs') {
         this._toggleMobile(false);
       }
       this.previousAlias = change.mqAlias;
-    });
+    });*/
   }
 
   ngOnDestroy(): void {
