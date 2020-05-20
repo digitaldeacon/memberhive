@@ -4,7 +4,7 @@ import { SearchService } from './search.service';
 import { Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs';
-import { MatAutocompleteSelectedEvent } from '@angular/material';
+import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 
 import { debounceTime, distinctUntilChanged, switchMap, tap } from 'rxjs/operators';
 

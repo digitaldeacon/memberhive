@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { takeWhile } from 'rxjs/operators';
 
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
-import { MatSidenav } from '@angular/material';
+import { MatSidenav } from '@angular/material/sidenav';
 
 import { ShoutService } from '../common/shout.service';
 

@@ -4,7 +4,9 @@ import { MhCommonModule } from '../common/common.module';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ImageCropperModule } from 'ngx-img-cropper';
-import { MatRadioModule, MatCheckboxModule, MatTabsModule } from '@angular/material';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatTabsModule } from '@angular/material/tabs';
 
 import { InteractionModule } from '../interaction/interaction.module';
 import { AuditModule } from '../audit/audit.module';

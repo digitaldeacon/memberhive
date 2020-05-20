@@ -4,7 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { MhCommonModule } from '../common/common.module';
-import { MatAutocompleteModule } from '@angular/material';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 
 import { SearchBoxComponent } from './search-box.component';
 import { SearchService } from './search.service';

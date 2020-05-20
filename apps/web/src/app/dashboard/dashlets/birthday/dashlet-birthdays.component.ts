@@ -1,5 +1,5 @@
 import { Component, Input, ChangeDetectorRef } from '@angular/core';
-import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogRef, MatDialogConfig } from '@angular/material/dialog';
 
 import { Person } from '@memberhivex/core';
 import { DashletEditDialogComponent } from './dashlet-birthdays-edit.dialog';

@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatChipSelectionChange } from '@angular/material';
+import { MatChipSelectionChange } from '@angular/material/chips';
 import {
   AppState,
   getPeopleFilterSettings,
