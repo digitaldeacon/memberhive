@@ -14,7 +14,7 @@ export class AvatarEditDialogComponent implements OnInit {
   avatar: HTMLImageElement;
   cropperSettings: CropperSettings;
   file: File;
-  @ViewChild('cropper', undefined)
+  @ViewChild('cropper', /* TODO: add static flag */ undefined)
   cropper: ImageCropperComponent;
 
   constructor(

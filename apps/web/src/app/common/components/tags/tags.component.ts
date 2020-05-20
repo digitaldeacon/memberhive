@@ -31,8 +31,8 @@ const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
 export class TagsComponent implements ControlValueAccessor, OnChanges {
   filteredSources: Tag[] = [];
 
-  @ViewChild('chipInput') chipInput: MatInput;
-  @ViewChild(MatAutocompleteTrigger) autoTrigger: MatAutocompleteTrigger;
+  @ViewChild('chipInput', { static: true }) chipInput: MatInput;
+  @ViewChild(MatAutocompleteTrigger, { static: true }) autoTrigger: MatAutocompleteTrigger;
 
   @Input() _value: Tag[] = [];
   @Input() source: Tag[] = [];

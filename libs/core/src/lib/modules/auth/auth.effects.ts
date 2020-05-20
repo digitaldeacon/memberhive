@@ -6,7 +6,7 @@ import { HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Action } from '@ngrx/store';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 import { Router } from '@angular/router';
-import { DataPersistence } from '@nrwl/nx';
+import { DataPersistence } from '@nrwl/angular';
 
 import {
   AuthActionTypes,
