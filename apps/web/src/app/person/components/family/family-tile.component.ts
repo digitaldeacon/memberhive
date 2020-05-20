@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Person, Member, Family, FamilyPayload, FamilyRole, familyRoleArray } from '@memberhivex/core';
-import { MatSelectChange } from '@angular/material';
+import { MatSelectChange } from '@angular/material/select';
 
 @Component({
   selector: 'mh-family-tile',

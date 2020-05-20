@@ -1,6 +1,6 @@
 import { Component, Inject, LOCALE_ID, Renderer2 } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
-import { MatIconRegistry } from '@angular/material';
+import { MatIconRegistry } from '@angular/material/icon';
 import { DOCUMENT } from '@angular/common';
 
 @Component({

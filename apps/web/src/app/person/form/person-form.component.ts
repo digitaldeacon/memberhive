@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { MatSelectChange, MatDatepickerInputEvent } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatSelectChange } from '@angular/material/select';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { tap, distinctUntilChanged, debounceTime } from 'rxjs/operators';

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { style, state, trigger, transition, animate, keyframes } from '@angular/animations';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService, Person, Interaction } from '@memberhivex/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';

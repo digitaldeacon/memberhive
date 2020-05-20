@@ -1,5 +1,6 @@
 import { Component, Input, ViewChild, forwardRef, OnChanges, SimpleChanges } from '@angular/core';
-import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger, MatInput } from '@angular/material';
+import { MatAutocompleteSelectedEvent, MatAutocompleteTrigger } from '@angular/material/autocomplete';
+import { MatInput } from '@angular/material/input';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 
 export interface Tag {

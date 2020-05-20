@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { MatButtonToggleChange } from '@angular/material';
+import { MatButtonToggleChange } from '@angular/material/button-toggle';
 import { takeWhile, take } from 'rxjs/operators';
 
 import {

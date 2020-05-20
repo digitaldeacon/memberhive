@@ -4,7 +4,8 @@ import { NxModule } from '@nrwl/angular';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
-import { MatSidenavModule, MatProgressBarModule } from '@angular/material';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatSidenavModule } from '@angular/material/sidenav';
 import { MAT_DATE_LOCALE, DateAdapter } from '@angular/material/core';
 import { MomentDateAdapter } from '@angular/material-moment-adapter';
 import { ServiceWorkerModule } from '@angular/service-worker';

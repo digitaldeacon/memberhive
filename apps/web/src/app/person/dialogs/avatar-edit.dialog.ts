@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit, Inject } from '@angular/core';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ImageCropperComponent, CropperSettings } from 'ngx-img-cropper';
 import { Store } from '@ngrx/store';
 import { AppState, UploadPersonAvatarAction, AvatarPayload } from '@memberhivex/core';
