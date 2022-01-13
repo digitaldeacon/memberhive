@@ -11,7 +11,7 @@ export interface FamilyState {
 }
 
 const initialState: FamilyState = {
-  families: []
+  families: [],
 };
 
 export function familyReducer(state: FamilyState = initialState, action: FamilyActions): FamilyState {
@@ -24,7 +24,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
     case FamilyActionTypes.ADD_FAMILY:
     case FamilyActionTypes.LIST_FAMILIES:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
 
     case FamilyActionTypes.UPDATE_FAMILY_FAILURE:
@@ -33,12 +33,12 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       const res: HttpErrorResponse = action.payload;
       const message: Message = {
         type: MessageType.FAILURE,
-        text: res.message
+        text: res.message,
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        message: message
+        message: message,
       });
     }
 
@@ -46,7 +46,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       const family: Family = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully updated family ' + family.name
+        text: 'Successfully updated family ' + family.name,
       };
       return {
         loaded: true,
@@ -54,7 +54,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
         message: message,
         families: state.families.map((f: Family) => {
           return f.id === family.id ? Object.assign({}, f, family) : f;
-        })
+        }),
       };
     }
 
@@ -63,7 +63,7 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        families: [...fam]
+        families: [...fam],
       });
     }
 
@@ -71,19 +71,19 @@ export function familyReducer(state: FamilyState = initialState, action: FamilyA
       const family: Family = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully added family ' + family.name
+        text: 'Successfully added family ' + family.name,
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         message: message,
-        families: [...state.families, family]
+        families: [...state.families, family],
       });
     }
 
     case FamilyActionTypes.CLEAR_FAMILY_MESSAGE:
       return Object.assign({}, state, {
-        message: undefined
+        message: undefined,
       });
 
     default:

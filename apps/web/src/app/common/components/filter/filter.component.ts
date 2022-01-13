@@ -7,7 +7,7 @@ import {
   SavePeopleFilterAction,
   PersistPeopleFilterAction,
   DeletePeopleFilterAction,
-  Filter
+  Filter,
 } from '@memberhivex/core';
 import { Store } from '@ngrx/store';
 
@@ -15,7 +15,7 @@ import { Store } from '@ngrx/store';
   selector: 'mh-filter',
   templateUrl: './filter.component.html',
   styleUrls: ['./filter.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FilterComponent {
   @Output() filters: EventEmitter<any> = new EventEmitter<any>();
@@ -26,7 +26,7 @@ export class FilterComponent {
 
   constructor(private _fb: FormBuilder, private _store: Store<AppState>) {
     this.form = this._fb.group({
-      filter: ['']
+      filter: [''],
     });
     this._store.select(getPeopleFilterSettings).subscribe((filter: any) => {
       if (filter) {
@@ -92,7 +92,7 @@ export class FilterComponent {
   private filterPayload(): Filter {
     return {
       term: this.activeFilter(),
-      saved: this.savedFilters
+      saved: this.savedFilters,
     };
   }
 }

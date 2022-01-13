@@ -14,7 +14,7 @@ export enum AuthActionTypes {
   REAUTHENTICATION_SUCCESS = '[User] Re-Authentication Success',
   SIGN_OUT = '[User] Sign off',
   SIGN_OUT_FAILURE = '[User] Sign off failure',
-  SIGN_OUT_SUCCESS = '[User] Sign off success'
+  SIGN_OUT_SUCCESS = '[User] Sign off success',
 }
 
 export class AuthenticateAction implements Action {

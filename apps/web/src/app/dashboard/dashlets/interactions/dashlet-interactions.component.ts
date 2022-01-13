@@ -9,7 +9,7 @@ import { AppState, getMyInteractions, Interaction, CompleteInteractionAction, Au
 @Component({
   selector: 'mh-dashlet-interactions',
   templateUrl: './dashlet-interactions.component.html',
-  styleUrls: ['./dashlet-interactions.component.scss']
+  styleUrls: ['./dashlet-interactions.component.scss'],
 })
 export class DashletInteractionsComponent implements OnInit, OnDestroy {
   private _alive: boolean = true;

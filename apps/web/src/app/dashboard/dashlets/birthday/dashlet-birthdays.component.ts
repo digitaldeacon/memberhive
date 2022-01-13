@@ -11,7 +11,7 @@ const moment = _moment;
 @Component({
   selector: 'mh-dashlet-birthdays',
   templateUrl: './dashlet-birthdays.component.html',
-  styleUrls: ['./dashlet-birthdays.component.scss']
+  styleUrls: ['./dashlet-birthdays.component.scss'],
 })
 export class DashletBirthdaysComponent {
   private now: Moment = moment();
@@ -71,7 +71,7 @@ export class DashletBirthdaysComponent {
   settingsDlg(): void {
     const config: MatDialogConfig = new MatDialogConfig();
     config.data = {
-      range: this.range
+      range: this.range,
     };
     this.dialogRef = this._dialog.open(DashletEditDialogComponent, config);
     this.dialogRef.afterClosed().subscribe((result: string) => {

@@ -1,8 +1,8 @@
 <h2 matDialogTitle i18n="@@avatar.manage">Manage my profile picture</h2>
 <mat-dialog-content>
-    <div>
-        <div class="mat-input-wrapper file-upload">
-            <!--<td-file-upload defaultColor="accent"
+  <div>
+    <div class="mat-input-wrapper file-upload">
+      <!--<td-file-upload defaultColor="accent"
                             activeColor="warn"
                             cancelColor="primary"
                             (upload)="fileChangeListener($event)" #singleFileUpload
@@ -12,25 +12,17 @@
                     <mat-icon>attach_file</mat-icon><span i18n>Choose a file...</span>
                 </template>
             </td-file-upload>-->
-            <input id="avatar-input" type="file" (change)="fileChangeListener($event)">
-        </div>
-
-        <img-cropper #cropper [image]="imageData" [settings]="cropperSettings"></img-cropper>
-        <br>
-        <span class="result rounded" *ngIf="imageData.image" >
-                <img [src]="imageData.image"
-                     [width]="cropperSettings.croppedWidth"
-                     [height]="cropperSettings.croppedHeight">
-        </span>
+      <input id="avatar-input" type="file" (change)="fileChangeListener($event)" />
     </div>
+
+    <img-cropper #cropper [image]="imageData" [settings]="cropperSettings"></img-cropper>
+    <br />
+    <span class="result rounded" *ngIf="imageData.image">
+      <img [src]="imageData.image" [width]="cropperSettings.croppedWidth" [height]="cropperSettings.croppedHeight" />
+    </span>
+  </div>
 </mat-dialog-content>
 <mat-dialog-actions>
-    <button
-            mat-raised-button
-            color="primary"
-            matDialogClose i18n="@@btn.close">CLOSE</button>
-    <button
-            mat-button
-            color="secondary"
-            (click)="save()" i18n="@@btn.save">SAVE</button>
+  <button mat-raised-button color="primary" matDialogClose i18n="@@btn.close">CLOSE</button>
+  <button mat-button color="secondary" (click)="save()" i18n="@@btn.save">SAVE</button>
 </mat-dialog-actions>

@@ -1,17 +1,5 @@
 {
   "npmScope": "memberhivex",
-  "projects": {
-    "web": {
-      "tags": []
-    },
-    "web-e2e": {
-      "tags": [],
-      "implicitDependencies": ["web"]
-    },
-    "core": {
-      "tags": []
-    }
-  },
   "implicitDependencies": {
     "angular.json": "*",
     "package.json": "*",
@@ -26,5 +14,25 @@
         "cacheableOperations": ["build", "lint", "test", "e2e"]
       }
     }
-  }
+  },
+  "cli": {
+    "warnings": {
+      "typescriptMismatch": false
+    },
+    "defaultCollection": "@nrwl/angular"
+  },
+  "generators": {
+    "@nrwl/schematics:library": {
+      "unitTestRunner": "karma",
+      "framework": "angular"
+    },
+    "@nrwl/schematics:application": {
+      "unitTestRunner": "karma",
+      "e2eTestRunner": "protractor"
+    },
+    "@nrwl/schematics:node-application": {
+      "framework": "express"
+    }
+  },
+  "defaultProject": "web"
 }

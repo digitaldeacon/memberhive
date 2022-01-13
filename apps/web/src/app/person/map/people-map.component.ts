@@ -14,7 +14,7 @@ import {
   Utils,
   GeoMarker,
   ContextButton,
-  SetContextButtonsAction
+  SetContextButtonsAction,
 } from '@memberhivex/core';
 
 import { ShoutService } from '../../common/shout.service';
@@ -23,7 +23,7 @@ import { ShoutService } from '../../common/shout.service';
   selector: 'mh-people-map',
   templateUrl: './people-map.component.html',
   styleUrls: ['./people-map.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PeopleMapComponent implements OnDestroy {
   private _alive: boolean = true;
@@ -68,8 +68,8 @@ export class PeopleMapComponent implements OnDestroy {
                 info: {
                   title: family.name,
                   people: familyPeople,
-                  address: person.address.home
-                }
+                  address: person.address.home,
+                },
               };
             }
           } else {
@@ -79,8 +79,8 @@ export class PeopleMapComponent implements OnDestroy {
               icon: 'assets/icons/ic_person_pin_' + person.gender + '_36px.png',
               info: {
                 title: person.fullName,
-                address: person.address.home
-              }
+                address: person.address.home,
+              },
             };
           }
           this.markers.push(marker);
@@ -114,8 +114,8 @@ export class PeopleMapComponent implements OnDestroy {
       // icon: 'assets/icons/blue-dot.png',
       info: {
         title: this.settings.churchName,
-        address: this.settings.churchAddress
-      }
+        address: this.settings.churchAddress,
+      },
     };
     this.markers.push(this.initMarker);
   }
@@ -134,7 +134,7 @@ export class PeopleMapComponent implements OnDestroy {
     buttons.push({
       icon: 'person_add',
       link: '/person/create',
-      title: 'ADD PERSON'
+      title: 'ADD PERSON',
     });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

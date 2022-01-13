@@ -21,7 +21,7 @@ import {
   userRoleArray,
   familyRoleArray,
   AppState,
-  getPeople
+  getPeople,
 } from '@memberhivex/core';
 
 import * as _moment from 'moment';
@@ -30,14 +30,14 @@ const moment = _moment;
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'L'
+    dateInput: 'L',
   },
   display: {
     dateInput: 'L',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'L',
-    monthYearA11yLabel: 'MMMM YYYY'
-  }
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
 };
 
 @Component({
@@ -49,10 +49,10 @@ export const MY_FORMATS = {
     {
       provide: DateAdapter,
       useClass: MomentDateAdapter,
-      deps: [MAT_DATE_LOCALE]
+      deps: [MAT_DATE_LOCALE],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
-  ]
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class PersonFormComponent implements OnInit {
   private _pwFormControl: FormControl;
@@ -126,7 +126,7 @@ export class PersonFormComponent implements OnInit {
   initForm(): void {
     this._pwFormControl = this._fb.control({
       value: undefined,
-      disabled: this.randomPassword
+      disabled: this.randomPassword,
     });
     this._pwRandCheckbox = this._fb.control(this.randomPassword);
 
@@ -151,22 +151,22 @@ export class PersonFormComponent implements OnInit {
         role: [''],
         password: this._pwFormControl,
         setPassword: [{ value: undefined, disabled: true }],
-        noCredentials: [{ value: undefined, disabled: true }]
+        noCredentials: [{ value: undefined, disabled: true }],
       }),
       address: this._fb.group({
         home: this._fb.group({
           street: [this.address.home.street],
           zip: [this.address.home.zip],
           city: [this.address.home.city],
-          geocode: [this.address.home.geocode]
+          geocode: [this.address.home.geocode],
         }),
         postal: this._fb.group({
           street: [this.address.postal.street],
           zip: [this.address.postal.zip],
           city: [this.address.postal.city],
-          geocode: [this.address.postal.geocode]
-        })
-      })
+          geocode: [this.address.postal.geocode],
+        }),
+      }),
     });
   }
 
@@ -236,7 +236,7 @@ export class PersonFormComponent implements OnInit {
     const family: Family = this.families.find((f: Family) => f.id === data.value);
     this.form.get('lastName').patchValue(family.name.split(' (')[0]);
     this._store.select(getPeople).subscribe((people: Person[]) => {
-      address = people.find(person => person.uid === Object.keys(family.primary)[0]).address;
+      address = people.find((person) => person.uid === Object.keys(family.primary)[0]).address;
       this.form.get('address').patchValue(address);
     });
   }

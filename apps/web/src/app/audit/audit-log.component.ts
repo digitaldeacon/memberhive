@@ -9,7 +9,7 @@ import { switchMap } from 'rxjs/operators';
   moduleId: 'mh-audit',
   selector: 'mh-audit-log',
   templateUrl: './audit-log.component.html',
-  styleUrls: ['./audit-log.component.scss']
+  styleUrls: ['./audit-log.component.scss'],
 })
 export class AuditLogComponent implements OnInit, OnChanges {
   logs: Array<ActionLog>;

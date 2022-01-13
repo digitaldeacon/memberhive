@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 @Component({
   selector: 'mh-notifybox',
   templateUrl: './notifybox.component.html',
-  styleUrls: ['./notifybox.component.scss']
+  styleUrls: ['./notifybox.component.scss'],
 })
 export class NotifyboxComponent {
   @Input() message: any;

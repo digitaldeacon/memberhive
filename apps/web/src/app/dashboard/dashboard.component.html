@@ -1,20 +1,14 @@
-<div fxLayout.xs="column"
-     fxLayout.sm="column"
-     fxLayout.gt-sm="row"
-     fxFlexLayout="space-around center"
-     fxLayoutGap="10px">
-    <div [dragula]='"dashlet"'
-         [(dragulaModel)]='dashletsLeft'
-         [class.dropable]="showDropzone"
-         fxFlex.gt-sm="50">
-        <mh-dashlet-birthdays
-                [people]="people$ | async"
-                [user]="currentUser$ | async"></mh-dashlet-birthdays>
-    </div>
-    <div [dragula]='"dashlet"'
-         [(dragulaModel)]='dashletsRight'
-         [class.dropable]="showDropzone"
-         fxFlex.gt-sm="50">
-        <mh-dashlet-interactions></mh-dashlet-interactions>
-    </div>
- </div>
+<div
+  fxLayout.xs="column"
+  fxLayout.sm="column"
+  fxLayout.gt-sm="row"
+  fxFlexLayout="space-around center"
+  fxLayoutGap="10px"
+>
+  <div [dragula]="'dashlet'" [(dragulaModel)]="dashletsLeft" [class.dropable]="showDropzone" fxFlex.gt-sm="50">
+    <mh-dashlet-birthdays [people]="people$ | async" [user]="currentUser$ | async"></mh-dashlet-birthdays>
+  </div>
+  <div [dragula]="'dashlet'" [(dragulaModel)]="dashletsRight" [class.dropable]="showDropzone" fxFlex.gt-sm="50">
+    <mh-dashlet-interactions></mh-dashlet-interactions>
+  </div>
+</div>

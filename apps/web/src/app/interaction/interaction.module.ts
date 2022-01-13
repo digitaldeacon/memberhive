@@ -18,11 +18,11 @@ import { ViewComponent } from './view/view.component';
     TinyMCEComponent,
     InteractionFormComponent,
     InteractionComponent,
-    ViewComponent
+    ViewComponent,
   ],
   imports: [MhCommonModule, MatButtonToggleModule, FormsModule, ReactiveFormsModule, InteractionRoutingModule],
   exports: [InteractionListComponent, TinyMCEComponent],
-  entryComponents: []
+  entryComponents: [],
 })
 export class InteractionModule {
   constructor() {}

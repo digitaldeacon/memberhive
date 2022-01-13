@@ -9,19 +9,19 @@ declare var tinymce: any;
 const CUSTOM_INPUT_VALIDATORS: any = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => TinyMCEComponent),
-  multi: true
+  multi: true,
 };
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TinyMCEComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({
   selector: 'mh-tinymce',
   templateUrl: 'tinymce.component.html',
   styleUrls: ['tinymce.component.scss'],
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueAccessor {
   @Input() _value: any = '';
@@ -63,8 +63,8 @@ export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueA
       ? undefined
       : {
           tinyError: {
-            valid: false
-          }
+            valid: false,
+          },
         };
   }
 
@@ -90,7 +90,7 @@ export class TinyMCEComponent implements AfterViewInit, OnDestroy, ControlValueA
         editor.on('keyup', () => {
           this.value = editor.getContent();
         });
-      }
+      },
     });
   }
 

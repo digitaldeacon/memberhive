@@ -1,17 +1,17 @@
-<agm-map [latitude]="initMarker?.latlng.lat"
-         [longitude]="initMarker?.latlng.lng"
-         [zoom]="zoom">
-    <agm-marker *ngFor="let marker of markers"
-                [latitude]="marker?.latlng.lat"
-                [longitude]="marker?.latlng.lng"
-                [label]="marker?.label"
-                [title]="marker?.title">
-        <agm-info-window *ngIf="marker.info">
-            <strong>{{marker.info?.title}}</strong>
-            <p>
-                {{marker.info.address?.street}}<br>
-                {{marker.info.address?.zip}}, {{marker.info.address?.city}}
-            </p>
-        </agm-info-window>
-    </agm-marker>
+<agm-map [latitude]="initMarker?.latlng.lat" [longitude]="initMarker?.latlng.lng" [zoom]="zoom">
+  <agm-marker
+    *ngFor="let marker of markers"
+    [latitude]="marker?.latlng.lat"
+    [longitude]="marker?.latlng.lng"
+    [label]="marker?.label"
+    [title]="marker?.title"
+  >
+    <agm-info-window *ngIf="marker.info">
+      <strong>{{marker.info?.title}}</strong>
+      <p>
+        {{marker.info.address?.street}}<br />
+        {{marker.info.address?.zip}}, {{marker.info.address?.city}}
+      </p>
+    </agm-info-window>
+  </agm-marker>
 </agm-map>

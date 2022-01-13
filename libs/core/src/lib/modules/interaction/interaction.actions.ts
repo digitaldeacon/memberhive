@@ -22,7 +22,7 @@ export enum InteractionActionTypes {
   END_INTERACTION = '[Interaction] End',
   END_INTERACTION_SUCCESS = '[Interaction] End Success',
   END_INTERACTION_FAILURE = '[Interaction] End Failure',
-  GET_FOR_PERSON = '[Interaction] Get interactions for person'
+  GET_FOR_PERSON = '[Interaction] Get interactions for person',
 }
 
 export class ListInteractionsAction implements Action {

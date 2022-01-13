@@ -15,7 +15,7 @@ import {
   AuthenticationSuccessAction,
   ReAuthenticateAction,
   ReAuthenticationSuccessAction,
-  SignOutSuccessAction
+  SignOutSuccessAction,
 } from './auth.actions';
 import { Credentials } from './auth.model';
 import { User } from '../person/person.model';
@@ -32,7 +32,7 @@ export class AuthEffects {
       this._http
         .post<User>('/api/login/login', {
           username: credentials.username,
-          password: credentials.password
+          password: credentials.password,
         })
         .pipe(
           map((r: any) => {
@@ -59,7 +59,7 @@ export class AuthEffects {
           (r: any) =>
             new ReAuthenticationSuccessAction({
               token: this._authSrv.token,
-              personId: this._authSrv.personId
+              personId: this._authSrv.personId,
             })
         ),
         tap(() => this._router.navigate(['/dashboard'])),
@@ -72,7 +72,7 @@ export class AuthEffects {
   @Effect()
   public signOut: Observable<Action> = this._actions$.pipe(
     ofType<SignOutSuccessAction>(AuthActionTypes.SIGN_OUT),
-    map(value => new SignOutSuccessAction()),
+    map((value) => new SignOutSuccessAction()),
     tap((v: any) => {
       this._router.navigate(['/login']);
     })

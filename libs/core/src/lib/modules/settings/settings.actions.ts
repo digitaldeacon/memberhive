@@ -20,7 +20,7 @@ export enum SettingsActionTypes {
   PERSIST_PEOPLE_FILTER = '[Settings:Filter] Persist people filter',
   DELETE_PEOPLE_FILTER = '[Settings:Filter] Delete people filter',
   DELETE_PEOPLE_FILTER_SUCCESS = '[Settings:Filter] Delete people filter success',
-  AWAIT_FORM_SUBMIT = '[Settings] Await form submit'
+  AWAIT_FORM_SUBMIT = '[Settings] Await form submit',
 }
 
 export class ListSettingAction implements Action {

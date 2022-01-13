@@ -14,8 +14,8 @@ const initialState: TagState = {
   tags: [
     { id: 1, text: 'Member', type: 'status', context: 'person' },
     { id: 2, text: 'Visitor', type: 'status', context: 'person' },
-    { id: 3, text: 'Contact', type: 'status', context: 'person' }
-  ]
+    { id: 3, text: 'Contact', type: 'status', context: 'person' },
+  ],
 };
 
 export function tagReducer(state: TagState = initialState, action: TagActions): TagState {
@@ -23,7 +23,7 @@ export function tagReducer(state: TagState = initialState, action: TagActions): 
     case TagActionTypes.UPDATE_TAGS:
     case TagActionTypes.LIST_TAGS:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
 
     case TagActionTypes.UPDATE_TAGS_FAILURE:
@@ -31,12 +31,12 @@ export function tagReducer(state: TagState = initialState, action: TagActions): 
       const res: HttpResponse<any> = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
-        text: res.statusText
+        text: res.statusText,
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        message: message
+        message: message,
       });
     }
 
@@ -45,7 +45,7 @@ export function tagReducer(state: TagState = initialState, action: TagActions): 
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        tags: [...payload]
+        tags: [...payload],
       });
     }
 
@@ -53,12 +53,12 @@ export function tagReducer(state: TagState = initialState, action: TagActions): 
       const payload: Tag[] = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated tags'
+        text: 'Successfully updated tags',
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        message: message
+        message: message,
         /*tags: state.tags.map((i: Tag[]) => {
                     return i.uid === interaction.uid ? Object.assign({}, i, interaction) : i;
                 })*/

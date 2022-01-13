@@ -5,7 +5,7 @@ import {
   HttpHandler,
   HttpRequest,
   HttpResponse,
-  HttpErrorResponse
+  HttpErrorResponse,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
@@ -21,14 +21,14 @@ export class AuthInterceptor implements HttpInterceptor {
       req = req.clone({
         setHeaders: {
           Authorization: `Bearer ${token}`,
-          ContentType: 'application/json; charset=utf-8'
-        }
+          ContentType: 'application/json; charset=utf-8',
+        },
       });
     } else {
       req = req.clone({
         setHeaders: {
-          ContentType: 'application/json; charset=utf-8'
-        }
+          ContentType: 'application/json; charset=utf-8',
+        },
       });
     }
     return next.handle(req).pipe(

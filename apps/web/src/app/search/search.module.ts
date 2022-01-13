@@ -13,6 +13,6 @@ import { SearchService } from './search.service';
   declarations: [SearchBoxComponent],
   imports: [CommonModule, MhCommonModule, RouterModule, ReactiveFormsModule, MatAutocompleteModule],
   providers: [SearchService],
-  exports: [SearchBoxComponent]
+  exports: [SearchBoxComponent],
 })
 export class SearchModule {}

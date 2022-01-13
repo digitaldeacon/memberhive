@@ -13,13 +13,13 @@ const routes: Routes = [
       { path: '', component: InteractionListComponent },
       { path: 'list', component: InteractionListComponent },
       { path: 'create', component: InteractionFormComponent },
-      { path: 'edit/:id', component: InteractionFormComponent }
-    ]
-  }
+      { path: 'edit/:id', component: InteractionFormComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class InteractionRoutingModule {}

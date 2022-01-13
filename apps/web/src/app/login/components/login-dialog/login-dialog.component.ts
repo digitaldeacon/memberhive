@@ -7,7 +7,7 @@ import { AppState, Credentials, AuthenticateAction, SignOutAction, AuthService }
 @Component({
   selector: 'mh-login-dialog',
   templateUrl: './login-dialog.component.html',
-  styleUrls: ['./login-dialog.component.scss']
+  styleUrls: ['./login-dialog.component.scss'],
 })
 export class LoginDialogComponent {
   form: FormGroup;
@@ -21,7 +21,7 @@ export class LoginDialogComponent {
   ) {
     this.form = this._fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -34,7 +34,7 @@ export class LoginDialogComponent {
 
     const payload: Credentials = {
       username: username,
-      password: password
+      password: password,
     };
 
     this._store.dispatch(new AuthenticateAction(payload));

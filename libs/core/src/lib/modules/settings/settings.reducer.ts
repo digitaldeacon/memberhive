@@ -20,22 +20,22 @@ const initialState: SettingsState = {
   layout: {
     showDrawer: true,
     title: '',
-    module: ''
+    module: '',
   },
   people: {
     list: ['email'],
     filter: {
       term: '',
-      saved: []
-    }
+      saved: [],
+    },
   },
   system: {
     churchName: 'Your Church',
-    googleApiKey: 'AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo'
+    googleApiKey: 'AIzaSyDT14mzMDZMtIwMXa1zNUOxqVYYylPvLIo',
   },
   profile: {},
   dashboard: {},
-  awaitFormSubmit: false
+  awaitFormSubmit: false,
 };
 
 export function settingsReducer(state: SettingsState = initialState, action: SettingsActions): SettingsState {
@@ -45,13 +45,13 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
     case SettingsActionTypes.LIST_SETTINGS:
     case SettingsActionTypes.UPDATE_SETTINGS: {
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
     }
 
     case SettingsActionTypes.CLEAR_SETTINGS_MESSAGE:
       return Object.assign({}, state, {
-        message: undefined
+        message: undefined,
       });
 
     case SettingsActionTypes.LIST_SETTINGS_SUCCESS: {
@@ -65,12 +65,12 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
     case SettingsActionTypes.LIST_SETTINGS_FAILURE: {
       const message: common.Message = {
         type: common.MessageType.FAILURE,
-        text: 'Setting failure: ' + action.payload // TODO: @I18n
+        text: 'Setting failure: ' + action.payload, // TODO: @I18n
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        message: message
+        message: message,
       });
     }
 
@@ -81,7 +81,7 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
 
       let msg: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated settings' // TODO: @I18n
+        text: 'Successfully updated settings', // TODO: @I18n
       };
       let system: model.SystemSettings = state.system;
       let people: model.PersonSettings = state.people;
@@ -110,7 +110,7 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
         people: people,
         system: system,
         profile: state.profile,
-        dashboard: state.dashboard
+        dashboard: state.dashboard,
       });
     }
 
@@ -118,8 +118,8 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
       return Object.assign({}, state, {
         layout: {
           showDrawer: action.payload,
-          contextButtons: state.layout.contextButtons
-        }
+          contextButtons: state.layout.contextButtons,
+        },
       });
     }
 
@@ -128,8 +128,8 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
         layout: {
           showDrawer: state.layout.showDrawer,
           title: state.layout.title,
-          contextButtons: action.payload
-        }
+          contextButtons: action.payload,
+        },
       });
     }
 
@@ -140,9 +140,9 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
           list: state.people.list,
           filter: {
             term: action.payload,
-            saved: savedFilters
-          }
-        }
+            saved: savedFilters,
+          },
+        },
       });
     }
 
@@ -154,9 +154,9 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
           list: state.people.list,
           filter: {
             term: state.people.filter.term,
-            saved: [...state.people.filter.saved, action.payload]
-          }
-        }
+            saved: [...state.people.filter.saved, action.payload],
+          },
+        },
       });
     }
 
@@ -168,9 +168,9 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
           list: state.people.list,
           filter: {
             term: state.people.filter.term,
-            saved: state.people.filter.saved.filter((term: string) => term !== action.payload)
-          }
-        }
+            saved: state.people.filter.saved.filter((term: string) => term !== action.payload),
+          },
+        },
       });
     }
 
@@ -179,14 +179,14 @@ export function settingsReducer(state: SettingsState = initialState, action: Set
         layout: {
           showDrawer: state.layout.showDrawer,
           title: action.payload,
-          contextButtons: state.layout.contextButtons
-        }
+          contextButtons: state.layout.contextButtons,
+        },
       });
     }
 
     case SettingsActionTypes.AWAIT_FORM_SUBMIT: {
       return Object.assign({}, state, {
-        awaitFormSubmit: action.payload
+        awaitFormSubmit: action.payload,
       });
     }
 

@@ -30,7 +30,7 @@ import {
   CalcPersonGeoAction,
   DeleteInteractionAction,
   AddInteractionAction,
-  AwaitFormSubmitAction
+  AwaitFormSubmitAction,
 } from '@memberhivex/core';
 
 import { AvatarEditDialogComponent } from '../dialogs/avatar-edit.dialog';
@@ -47,7 +47,7 @@ import { isEqual } from 'lodash';
   selector: 'mh-person-view',
   templateUrl: './person-view.component.html',
   styleUrls: ['./person-view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonViewComponent implements OnInit, OnDestroy {
   private _alive: boolean = true;
@@ -193,14 +193,14 @@ export class PersonViewComponent implements OnInit, OnDestroy {
       title: this.person.fullName,
       info: {
         title: this.person.fullName,
-        address: this.person.address.home
-      }
+        address: this.person.address.home,
+      },
     };
     config.data = {
       context: 'person',
       markers: [personMarker],
       initMarker: personMarker,
-      initMarkerToMap: true
+      initMarkerToMap: true,
     };
     this.dialogRef = this._dialog.open(MapDialogComponent, config);
     this.dialogRef.afterClosed().subscribe((result: string) => {
@@ -213,7 +213,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     config.data = {
       context: 'person',
       id: this.person.uid,
-      avatar: this.person.avatar
+      avatar: this.person.avatar,
     };
 
     this.dialogRef = this._dialog.open(AvatarEditDialogComponent, config);
@@ -242,7 +242,7 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
       gcPayload = {
         person: person,
-        apiKey: this.settings.googleApiKey
+        apiKey: this.settings.googleApiKey,
       };
       if (!Utils.objEmptyProperties(this.settings, 'googleApiKey')) {
         this._store.dispatch(new CalcPersonGeoAction(gcPayload));
@@ -257,12 +257,12 @@ export class PersonViewComponent implements OnInit, OnDestroy {
     buttons.push({
       icon: 'person_pin',
       link: '/person/map',
-      title: 'PEOPLE MAP'
+      title: 'PEOPLE MAP',
     });
     buttons.push({
       icon: 'person_add',
       link: '/person/create',
-      title: 'ADD PERSON'
+      title: 'ADD PERSON',
     });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

@@ -7,7 +7,7 @@ import { AppState, UploadPersonAvatarAction, AvatarPayload } from '@memberhivex/
 @Component({
   selector: 'mh-dialog-avatar-edit',
   templateUrl: './avatar-edit.dialog.html',
-  styleUrls: ['./avatar-edit.dialog.scss']
+  styleUrls: ['./avatar-edit.dialog.scss'],
 })
 export class AvatarEditDialogComponent implements OnInit {
   imageData: any;
@@ -52,7 +52,7 @@ export class AvatarEditDialogComponent implements OnInit {
     this.file = $event.target.files[0]; // $event;
     const that: AvatarEditDialogComponent = this;
 
-    myReader.onloadend = function(loadEvent: any): void {
+    myReader.onloadend = function (loadEvent: any): void {
       image.src = loadEvent.target.result;
       that.cropper.setImage(image);
     };
@@ -62,7 +62,7 @@ export class AvatarEditDialogComponent implements OnInit {
   save(): void {
     const imagePayload: AvatarPayload = {
       image: JSON.stringify(this.imageData.image),
-      personId: this.dialogData.id
+      personId: this.dialogData.id,
     };
     if (this.dialogData.context === 'person') {
       console.log(imagePayload);

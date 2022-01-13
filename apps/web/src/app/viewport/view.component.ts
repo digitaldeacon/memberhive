@@ -14,14 +14,14 @@ import * as core from '@memberhivex/core';
 
 const enum DrawerState {
   OPENED = 'opened',
-  CLOSED = 'closed'
+  CLOSED = 'closed',
 }
 
 @Component({
   selector: 'mh-view',
   templateUrl: './view.component.html',
   styleUrls: ['./view.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ViewComponent implements OnDestroy {
   private _alive: boolean = true;
@@ -31,12 +31,12 @@ export class ViewComponent implements OnDestroy {
     {
       title: 'Dashboard', // this.i18n({ value: 'Dashboard', id: 'menu.dashboard' }),
       route: '/dashboard',
-      icon: 'dashboard'
+      icon: 'dashboard',
     },
     {
       title: 'Mitglieder', //this.i18n({ value: 'People', id: 'menu.people' }),
       route: '/person',
-      icon: 'people'
+      icon: 'people',
     },
     /*{
             title: 'Interactions', route: '/interaction', icon: 'forum'
@@ -50,8 +50,8 @@ export class ViewComponent implements OnDestroy {
     {
       title: 'Einstellungen', // this.i18n({ value: 'Settings', id: 'menu.settings' }),
       route: '/settings',
-      icon: 'build'
-    }
+      icon: 'build',
+    },
   ];
 
   currentUser: core.Person;
@@ -102,20 +102,20 @@ export class ViewComponent implements OnDestroy {
   church(): string {
     return this.churchName
       .split(' ')
-      .map(w => w[0])
+      .map((w) => w[0])
       .join('');
   }
 
   openDrawer(): void {
     const payload: core.SettingsState = {
-      layout: { showDrawer: true }
+      layout: { showDrawer: true },
     };
     this._store.dispatch(new core.UpdateSettingAction(payload));
   }
 
   closeDrawer(): void {
     const payload: core.SettingsState = {
-      layout: { showDrawer: false }
+      layout: { showDrawer: false },
     };
     this._store.dispatch(new core.UpdateSettingAction(payload));
   }

@@ -3,7 +3,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'mh-dialog-dashlet-birthday-edit',
-  templateUrl: './dashlet-birthdays-edit.dialog.html'
+  templateUrl: './dashlet-birthdays-edit.dialog.html',
 })
 export class DashletEditDialogComponent implements OnInit {
   range: number;
