@@ -10,7 +10,7 @@ const NG_MODULES: Type<any>[] = [FormsModule, ReactiveFormsModule];
 
 @NgModule({
   imports: [MhCommonModule, NG_MODULES, SettingsRoutingModule, DragulaModule.forRoot()],
-  declarations: [SettingsComponent]
+  declarations: [SettingsComponent],
 })
 export class SettingsModule {
   constructor() {}

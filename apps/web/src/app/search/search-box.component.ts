@@ -20,7 +20,7 @@ interface SearchItem {
   moduleId: 'mh-search',
   selector: 'mh-search-box',
   templateUrl: './search-box.component.html',
-  styleUrls: ['./search-box.component.scss']
+  styleUrls: ['./search-box.component.scss'],
 })
 export class SearchBoxComponent implements OnInit {
   private _searchVisible: boolean = false;

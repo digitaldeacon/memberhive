@@ -9,18 +9,18 @@ export enum MaritalStatus {
   WIDOWED = 'widowed',
   DIVORCED = 'divorced',
   SEPARATED = 'separated',
-  ENGAGED = 'engaged'
+  ENGAGED = 'engaged',
 }
 
 export enum UserRole {
   ADMIN = 'admin',
   MEMBER = 'member',
-  STAFF = 'staff'
+  STAFF = 'staff',
 }
 
 export const enum Gender {
   MALE = 'm',
-  FEMALE = 'f'
+  FEMALE = 'f',
 }
 
 export const maritalStatusArray: MaritalStatus[] = [
@@ -29,7 +29,7 @@ export const maritalStatusArray: MaritalStatus[] = [
   MaritalStatus.WIDOWED,
   MaritalStatus.DIVORCED,
   MaritalStatus.SEPARATED,
-  MaritalStatus.ENGAGED
+  MaritalStatus.ENGAGED,
 ];
 
 export const userRoleArray: UserRole[] = [UserRole.ADMIN, UserRole.MEMBER, UserRole.STAFF];
@@ -75,13 +75,13 @@ export class PersonAddress {
     street: '',
     zip: '',
     city: '',
-    geocode: {}
+    geocode: {},
   };
   postal: Address = {
     street: '',
     zip: '',
     city: '',
-    geocode: {}
+    geocode: {},
   };
 
   constructor(input?: any) {
@@ -108,5 +108,5 @@ export const personFilterSet: FilterSet[] = [
   { key: 'email', label: 'email' },
   { key: 'gender', label: 'sex' },
   { key: 'status', label: 'status' },
-  { key: 'age', label: 'alter' }
+  { key: 'age', label: 'alter' },
 ];

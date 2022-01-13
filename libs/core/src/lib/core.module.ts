@@ -26,11 +26,11 @@ import { AuthInterceptor } from './modules/auth/auth.interceptor';
   imports: [
     BrowserModule,
     StoreModule.forRoot(reducers),
-    EffectsModule.forRoot([PersonEffects, AuthEffects, SettingsEffects, InteractionEffects, TagEffects, FamilyEffects])
+    EffectsModule.forRoot([PersonEffects, AuthEffects, SettingsEffects, InteractionEffects, TagEffects, FamilyEffects]),
   ],
   declarations: [],
   exports: [],
-  providers: [TitleCasePipe]
+  providers: [TitleCasePipe],
 })
 export class MhCoreModule {
   static forRoot(): ModuleWithProviders {
@@ -44,9 +44,9 @@ export class MhCoreModule {
         {
           provide: HTTP_INTERCEPTORS,
           useClass: AuthInterceptor,
-          multi: true
-        }
-      ]
+          multi: true,
+        },
+      ],
     };
   }
 }

@@ -3,6 +3,33 @@
   "version": 1,
   "newProjectRoot": "",
   "projects": {
+    "core": {
+      "root": "libs/core",
+      "sourceRoot": "libs/core/src",
+      "projectType": "library",
+      "architect": {
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "libs/core/src/test.ts",
+            "karmaConfig": "libs/core/karma.conf.js",
+            "scripts": [],
+            "styles": [],
+            "assets": [],
+            "tsConfig": "libs/core/tsconfig.spec.json"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"],
+            "exclude": ["**/node_modules/**", "!libs/core/**"]
+          }
+        }
+      },
+      "prefix": "mh",
+      "tags": []
+    },
     "web": {
       "root": "apps/web",
       "sourceRoot": "apps/web/src",
@@ -26,7 +53,7 @@
             ],
             "scripts": [
               "node_modules/tinymce/tinymce.js",
-              "node_modules/tinymce/themes/modern/theme.js",
+              "node_modules/tinymce/themes/silver/index.js",
               "node_modules/tinymce/plugins/link/plugin.js",
               "node_modules/tinymce/plugins/paste/plugin.js",
               "node_modules/tinymce/plugins/autoresize/plugin.js",
@@ -114,7 +141,8 @@
           }
         }
       },
-      "prefix": "mh"
+      "prefix": "mh",
+      "tags": []
     },
     "web-e2e": {
       "root": "apps/web-e2e",
@@ -136,41 +164,10 @@
           }
         }
       },
-      "prefix": "mh"
-    },
-    "core": {
-      "root": "libs/core",
-      "sourceRoot": "libs/core/src",
-      "projectType": "library",
-      "architect": {
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "libs/core/src/test.ts",
-            "karmaConfig": "libs/core/karma.conf.js",
-            "scripts": [],
-            "styles": [],
-            "assets": [],
-            "tsConfig": "libs/core/tsconfig.spec.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": ["libs/core/tsconfig.lib.json", "libs/core/tsconfig.spec.json"],
-            "exclude": ["**/node_modules/**", "!libs/core/**"]
-          }
-        }
-      },
-      "prefix": "mh"
+      "prefix": "mh",
+      "tags": [],
+      "implicitDependencies": ["web"]
     }
-  },
-  "defaultProject": "web",
-  "cli": {
-    "warnings": {
-      "typescriptMismatch": false
-    },
-    "defaultCollection": "@nrwl/angular"
   },
   "schematics": {
     "@nrwl/schematics:library": {

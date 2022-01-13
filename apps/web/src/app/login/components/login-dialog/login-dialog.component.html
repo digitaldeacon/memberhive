@@ -1,62 +1,61 @@
 <mat-card fxLayout="column">
   <mat-card-title i18n="@@login.title">Sign In</mat-card-title>
   <mat-card-subtitle *ngIf="message">
-    {{message}}
+    {{ message }}
   </mat-card-subtitle>
   <mat-card-content fxFlex>
-    <form (ngSubmit)="submit()"
-            [formGroup]="form"
-            novalidate
-            fxLayout="column"
-            autocomplete="off">
-
+    <form (ngSubmit)="submit()" [formGroup]="form" novalidate fxLayout="column" autocomplete="off">
       <mat-form-field>
         <mat-icon matPrefix>email</mat-icon>
-        <input matInput
-               required
-               placeholder="Email OR Username"
-               i18n-placeholder="@@login.username"
-               autocorrect="off"
-               autocapitalize="off"
-               spellcheck="off"
-               formControlName="username"
-               [class.invalid]="form.controls.username?.errors && form.controls.username?.dirty">
+        <input
+          matInput
+          required
+          placeholder="Email OR Username"
+          i18n-placeholder="@@login.username"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="off"
+          formControlName="username"
+          [class.invalid]="form.controls.username?.errors && form.controls.username?.dirty"
+        />
       </mat-form-field>
 
       <mat-form-field>
         <mat-icon matPrefix>lock</mat-icon>
-        <input matInput
-               type="password"
-               placeholder="Password"
-               i18n-placeholder="@@form.password"
-               autocomplete="off"
-               autocorrect="off"
-               autocapitalize="off"
-               spellcheck="off"
-               formControlName="password"
-               [class.invalid]="form.controls.password?.errors && form.controls.password?.dirty">
+        <input
+          matInput
+          type="password"
+          placeholder="Password"
+          i18n-placeholder="@@form.password"
+          autocomplete="off"
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="off"
+          formControlName="password"
+          [class.invalid]="form.controls.password?.errors && form.controls.password?.dirty"
+        />
       </mat-form-field>
 
       <div fxLayout="column">
         <div fxLayout="row">
-          <button mat-raised-button
-                  color="primary"
-                  type="submit"
-                  fxFlex
-                  [disabled]="form.invalid"
-                  i18n="@@login.submit">LOGIN</button>
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            fxFlex
+            [disabled]="form.invalid"
+            i18n="@@login.submit"
+          >
+            LOGIN
+          </button>
         </div>
         <div fxLayout="row" fxLayoutAlign="center center" i18n="@@or">
           <span fxFlex>or</span>
         </div>
         <div fxLayout="row">
-          <button mat-button
-                  fxFlex
-                  (click)="cancel()"
-                  i18n="@@form.cancel">cancel</button>
+          <button mat-button fxFlex (click)="cancel()" i18n="@@form.cancel">cancel</button>
         </div>
       </div>
-
     </form>
   </mat-card-content>
 </mat-card>

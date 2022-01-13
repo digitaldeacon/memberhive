@@ -17,14 +17,12 @@ export class TagEffects {
   @Effect()
   getTags$ = this._actions$.pipe(
     ofType<ListTagsAction>(TagActionTypes.LIST_TAGS),
-    map(action => action.payload),
+    map((action) => action.payload),
     switchMap((data: any) => {
-      return this._http
-        .get('tag/list')
-        .pipe(
-          map((r: Tag[]) => new ListTagsSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new ListTagsFailureAction(r)))
-        );
+      return this._http.get('tag/list').pipe(
+        map((r: Tag[]) => new ListTagsSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new ListTagsFailureAction(r)))
+      );
     })
   );
 }

@@ -4,7 +4,7 @@
     "deploy": "plesk",
     "token": "dy7e73434C4aWiCr4PT77oRkyoGFusqbJk",
     "language": "de",
-    "timezone": "Europe\/Berlin",
+    "timezone": "Europe/Berlin",
     "db": {
       "dsn": "mysql:host=127.0.0.1;dbname=mh2_eckstein",
       "username": "mh2-db_eckstein",
@@ -18,7 +18,7 @@
     "deploy": "plesk",
     "token": "FQoVo2j4363b8HpdhoyRqdi8wd68wD8i",
     "language": "de",
-    "timezone": "Europe\/Berlin",
+    "timezone": "Europe/Berlin",
     "db": {
       "dsn": "mysql:host=127.0.0.1;dbname=mh2_eckstein",
       "username": "mh2-db_eckstein",
@@ -32,7 +32,7 @@
     "deploy": "",
     "token": "A3wji83HPosT8JB7Cwb3oTG9L2i2FW9jgZ",
     "language": "de",
-    "timezone": "Europe\/Berlin",
+    "timezone": "Europe/Berlin",
     "db": {
       "dsn": "mysql:host=127.0.0.1;dbname=memberhive",
       "username": "root",

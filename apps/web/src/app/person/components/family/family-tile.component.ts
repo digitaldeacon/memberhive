@@ -6,7 +6,7 @@ import { MatSelectChange } from '@angular/material/select';
   selector: 'mh-family-tile',
   templateUrl: './family-tile.component.html',
   styleUrls: ['./family-tile.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FamilyTileComponent {
   _member: Member;
@@ -41,7 +41,7 @@ export class FamilyTileComponent {
         family: this.family,
         member: member.person.uid,
         role: $event.value,
-        isPrimary: member.isPrimary
+        isPrimary: member.isPrimary,
       };
       this.setRole.emit(payload);
     }

@@ -13,10 +13,10 @@ export const VERSION = {
     patch: 0,
     prerelease: ['beta3'],
     build: [],
-    version: '2.0.0-beta3'
+    version: '2.0.0-beta3',
   },
   suffix: '31-gb643108-dirty',
   semverString: '2.0.0-beta3+31.gb643108',
-  version: '2.0.0-beta.1'
+  version: '2.0.0-beta.1',
 };
 /* tslint:enable */

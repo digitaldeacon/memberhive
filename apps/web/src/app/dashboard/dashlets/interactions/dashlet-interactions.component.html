@@ -1,59 +1,58 @@
 <mat-card class="dashlet-card">
-    <mat-card-header>
-        <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
-            <h3 i18n="@@interactions.my">My Interactions</h3>
-            <div>
-                <button mat-icon-button matTooltip="move dashlet">
-                    <mat-icon class="handle">tab_unselected</mat-icon>
-                </button>
-                <button mat-icon-button (click)="settingsDlg()"><mat-icon>more_vert</mat-icon></button>
-            </div>
-        </mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
-        <div>
-            <mat-card-subtitle>
-                <span i18n="@@interactions.tocomplete">To Complete</span> <mat-divider></mat-divider></mat-card-subtitle>
-            <mat-list>
-                <mat-list-item *ngFor="let interaction of myOutstanding">
-                    <mat-checkbox
-                            #todo
-                            fxFlex
-                            [class.completed]="todo.checked"
-                            (change)="complete(interaction.id, todo.checked)">
-                        <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
-                        {{interaction.text | slice:0:50}}
-                    </mat-checkbox>
-                    <span fxFlex="10" *ngIf="todo.checked">
-                        <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
-                            <mat-icon>close</mat-icon>
-                        </a>
-                    </span>
-                </mat-list-item>
-            </mat-list>
-        </div>
+  <mat-card-header>
+    <mat-card-title fxLayout="row" fxLayoutAlign="space-between center">
+      <h3 i18n="@@interactions.my">My Interactions</h3>
       <div>
-          <mat-card-subtitle><span i18n="@@interactions.completed">Completed</span>
-              <mat-divider></mat-divider>
-          </mat-card-subtitle>
-        <mat-list>
-          <mat-list-item *ngFor="let interaction of myCompleted">
-            <mat-checkbox
-              #todo
-              fxFlex
-              [class.completed]="todo.checked"
-              [checked]="true"
-              (change)="complete(interaction.id, todo.checked)">
-                <span *ngIf="interaction.actionType">{{interaction.actionType}}: </span>
-                {{interaction.text | slice:0:50}}
-            </mat-checkbox>
-            <span fxFlex="10" *ngIf="todo.checked">
-                <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
-                    <mat-icon>close</mat-icon>
-                </a>
-            </span>
-          </mat-list-item>
-        </mat-list>
+        <button mat-icon-button matTooltip="move dashlet">
+          <mat-icon class="handle">tab_unselected</mat-icon>
+        </button>
+        <button mat-icon-button (click)="settingsDlg()"><mat-icon>more_vert</mat-icon></button>
       </div>
-    </mat-card-content>
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <div>
+      <mat-card-subtitle>
+        <span i18n="@@interactions.tocomplete">To Complete</span> <mat-divider></mat-divider
+      ></mat-card-subtitle>
+      <mat-list>
+        <mat-list-item *ngFor="let interaction of myOutstanding">
+          <mat-checkbox #todo fxFlex [class.completed]="todo.checked" (change)="complete(interaction.id, todo.checked)">
+            <span *ngIf="interaction.actionType">{{ interaction.actionType }}: </span>
+            {{ interaction.text | slice: 0:50 }}
+          </mat-checkbox>
+          <span fxFlex="10" *ngIf="todo.checked">
+            <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
+              <mat-icon>close</mat-icon>
+            </a>
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+    <div>
+      <mat-card-subtitle
+        ><span i18n="@@interactions.completed">Completed</span>
+        <mat-divider></mat-divider>
+      </mat-card-subtitle>
+      <mat-list>
+        <mat-list-item *ngFor="let interaction of myCompleted">
+          <mat-checkbox
+            #todo
+            fxFlex
+            [class.completed]="todo.checked"
+            [checked]="true"
+            (change)="complete(interaction.id, todo.checked)"
+          >
+            <span *ngIf="interaction.actionType">{{ interaction.actionType }}: </span>
+            {{ interaction.text | slice: 0:50 }}
+          </mat-checkbox>
+          <span fxFlex="10" *ngIf="todo.checked">
+            <a mat-icon-button (click)="delete(interaction)" matTooltip="Delete">
+              <mat-icon>close</mat-icon>
+            </a>
+          </span>
+        </mat-list-item>
+      </mat-list>
+    </div>
+  </mat-card-content>
 </mat-card>

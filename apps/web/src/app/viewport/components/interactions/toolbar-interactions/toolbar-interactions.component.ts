@@ -5,7 +5,7 @@ import { Interaction, AuthService } from '@memberhivex/core';
   selector: 'mh-toolbar-interactions',
   templateUrl: './toolbar-interactions.component.html',
   styleUrls: ['./toolbar-interactions.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarInteractionsComponent {
   outstandingInteractions: Interaction[];
@@ -19,5 +19,9 @@ export class ToolbarInteractionsComponent {
     }
   }
 
-  constructor(private _auth: AuthService) {}
+  constructor(private _auth: AuthService) { }
+
+  personId() {
+    return this._auth.personId;
+  }
 }

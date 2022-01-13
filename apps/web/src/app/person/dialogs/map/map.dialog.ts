@@ -5,7 +5,7 @@ import { GeoCodes, GeoMarker } from '@memberhivex/core';
 @Component({
   selector: 'mh-dialog-map',
   templateUrl: './map.dialog.html',
-  styleUrls: ['./map.dialog.scss']
+  styleUrls: ['./map.dialog.scss'],
 })
 export class MapDialogComponent implements OnInit {
   initMarker: GeoMarker;

@@ -1,23 +1,23 @@
 <div class="mh-search-box" fxFlex>
-    <mat-form-field floatPlaceholder="never" [class.active]="searchInFocus">
-        <mat-icon matPrefix *ngIf="!searching">search</mat-icon>
-        <mat-spinner matPrefix *ngIf="searching"></mat-spinner>
-        <input matInput
-               type="search"
-               [matAutocomplete]="auto"
-               [formControl]="itemCtrl"
-               (focus)="searchInFocus = true"
-               (blur)="searchInFocus = false"
-               (keyup)="search(term.value)"
-               (clear)="toggleVisibility()" #term>
-    </mat-form-field>
-    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-        <mat-option *ngFor="let item of items | async"
-                   [value]="item"
-                   class="item"
-                   (click)="resultClicked(item)">
-            <img src="{{item.icon}}" alt="...">
-            <span class="text">{{ item.text }}</span>
-        </mat-option>
-    </mat-autocomplete>
+  <mat-form-field floatPlaceholder="never" [class.active]="searchInFocus">
+    <mat-icon matPrefix *ngIf="!searching">search</mat-icon>
+    <mat-spinner matPrefix *ngIf="searching"></mat-spinner>
+    <input
+      matInput
+      type="search"
+      [matAutocomplete]="auto"
+      [formControl]="itemCtrl"
+      (focus)="searchInFocus = true"
+      (blur)="searchInFocus = false"
+      (keyup)="search(term.value)"
+      (clear)="toggleVisibility()"
+      #term
+    />
+  </mat-form-field>
+  <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+    <mat-option *ngFor="let item of items | async" [value]="item" class="item" (click)="resultClicked(item)">
+      <img src="{{ item.icon }}" alt="..." />
+      <span class="text">{{ item.text }}</span>
+    </mat-option>
+  </mat-autocomplete>
 </div>

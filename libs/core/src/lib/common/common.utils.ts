@@ -23,7 +23,7 @@ export class Utils {
   }
 
   static arrayDiffObj(s: any[], v: any[], key: string) {
-    const reducedIds = v.map(o => o[key]);
+    const reducedIds = v.map((o) => o[key]);
     return s.filter((obj: any) => reducedIds.indexOf(obj[key]) === -1);
   }
 }

@@ -6,13 +6,11 @@ describe('PersonCreateComponent', () => {
   let component: PersonCreateComponent;
   let fixture: ComponentFixture<PersonCreateComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [PersonCreateComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [PersonCreateComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PersonCreateComponent);

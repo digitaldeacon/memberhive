@@ -8,7 +8,7 @@ export enum TagActionTypes {
   LIST_TAGS_FAILURE = '[Tags] List Failure',
   UPDATE_TAGS = '[Tags] Update Tags',
   UPDATE_TAGS_SUCCESS = '[Tags] Update Tags Success',
-  UPDATE_TAGS_FAILURE = '[Tags] Update Tags Fail'
+  UPDATE_TAGS_FAILURE = '[Tags] Update Tags Fail',
 }
 
 export class ListTagsAction implements Action {

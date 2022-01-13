@@ -21,13 +21,13 @@ import {
   SetTitleAction,
   CalcGeoCodePayload,
   getFamilies,
-  FamilyPayload
+  FamilyPayload,
 } from '@memberhivex/core';
 
 @Component({
   selector: 'mh-person-create',
   templateUrl: './person-create.component.html',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonCreateComponent implements OnDestroy {
   private _alive: boolean = true;
@@ -49,7 +49,10 @@ export class PersonCreateComponent implements OnDestroy {
 
     this._store
       .select(getLastCreatedPersonId)
-      .pipe(takeWhile(() => this._alive), distinctUntilChanged())
+      .pipe(
+        takeWhile(() => this._alive),
+        distinctUntilChanged()
+      )
       .subscribe((uid: string) => {
         if (uid) {
           this._router.navigate(['/person/view', uid]);
@@ -76,7 +79,7 @@ export class PersonCreateComponent implements OnDestroy {
     if (!Utils.objEmptyProperties(person.address, 'home', ['street', 'city', 'zip'])) {
       gcPayload = {
         person: person,
-        apiKey: this.googleApiKey
+        apiKey: this.googleApiKey,
       };
       this._store.dispatch(new CalcPersonGeoAction(gcPayload));
     }

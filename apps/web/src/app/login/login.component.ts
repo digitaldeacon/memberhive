@@ -17,13 +17,13 @@ import {
   ListSettingAction,
   ListInteractionsAction,
   ListTagsAction,
-  ListFamiliesAction
+  ListFamiliesAction,
 } from '@memberhivex/core';
 
 @Component({
   selector: 'mh-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit, OnDestroy {
   private alive: boolean = true;
@@ -36,7 +36,10 @@ export class LoginComponent implements OnInit, OnDestroy {
   constructor(private _fb: FormBuilder, private _router: Router, private _store: Store<AppState>) {
     this._store
       .select(isAuth)
-      .pipe(takeWhile(() => this.alive), filter((authenticated: boolean) => authenticated))
+      .pipe(
+        takeWhile(() => this.alive),
+        filter((authenticated: boolean) => authenticated)
+      )
       .subscribe((value: boolean) => {
         this._store.dispatch(new ListPeopleAction({}));
         this._store.dispatch(new ListSettingAction());
@@ -63,7 +66,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.closeError = true;
     this.form = this._fb.group({
       username: ['', Validators.required],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
     });
   }
 
@@ -78,7 +81,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     const payload: Credentials = {
       username: username,
-      password: password
+      password: password,
     };
 
     this._store.dispatch(new AuthenticateAction(payload));

@@ -29,7 +29,7 @@ import * as core from '@memberhivex/core';
 @Component({
   selector: 'mh-settings',
   templateUrl: './settings.component.html',
-  styleUrls: ['./settings.component.scss']
+  styleUrls: ['./settings.component.scss'],
 })
 export class SettingsComponent implements AfterViewInit, OnDestroy {
   private _alive: boolean = true;
@@ -47,7 +47,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
     'phoneMobile',
     'status',
     'age',
-    'family'
+    'family',
   ];
   personAttr: Array<string>;
   personAttrSelected: Array<string>;
@@ -89,12 +89,12 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
           city: '',
           geocode: this._fb.group({
             lat: '',
-            lng: ''
-          })
+            lng: '',
+          }),
         }),
-        googleApiKey: GLOBALS.googleAPIKey
+        googleApiKey: GLOBALS.googleAPIKey,
       }),
-      people: this._fb.group({})
+      people: this._fb.group({}),
     });
     this.settingsForm.get('system').patchValue(this.sysSettings);
     // this.settingsForm.get('people').patchValue(this.personSettings);
@@ -121,7 +121,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
 
   buildFormGroup(status?: string): FormGroup {
     return this._fb.group({
-      status: status
+      status: status,
     });
   }
 
@@ -155,7 +155,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
       this.submitted = true;
       this.personSettings.list = this.personAttrSelected;
       const payload: core.SettingsState = {
-        people: this.personSettings
+        people: this.personSettings,
       };
       this._store.dispatch(new core.UpdateSettingAction(payload));
     });
@@ -167,7 +167,7 @@ export class SettingsComponent implements AfterViewInit, OnDestroy {
       address.geocode = codes;
       this.sysSettings.churchAddress = address;
       const payload: core.SettingsState = {
-        system: this.sysSettings
+        system: this.sysSettings,
       };
       this._store.dispatch(new core.UpdateSettingAction(payload));
       this.settingsForm.get('system').patchValue(this.sysSettings);

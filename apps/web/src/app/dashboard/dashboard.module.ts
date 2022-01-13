@@ -17,10 +17,10 @@ import { DashletInteractionsComponent } from './dashlets/interactions/dashlet-in
     DashboardComponent,
     DashletBirthdaysComponent,
     DashletEditDialogComponent,
-    DashletInteractionsComponent
+    DashletInteractionsComponent,
   ],
   imports: [MhCommonModule, DashboardRoutingModule, FlexLayoutModule, MomentModule, DragulaModule.forRoot()],
   providers: [],
-  entryComponents: [DashletEditDialogComponent]
+  entryComponents: [DashletEditDialogComponent],
 })
 export class DashboardModule {}

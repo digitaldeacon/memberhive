@@ -6,13 +6,11 @@ describe('NotifyboxComponent', () => {
   let component: NotifyboxComponent;
   let fixture: ComponentFixture<NotifyboxComponent>;
 
-  beforeEach(
-    async(() => {
-      TestBed.configureTestingModule({
-        declarations: [NotifyboxComponent]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      declarations: [NotifyboxComponent],
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NotifyboxComponent);

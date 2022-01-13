@@ -17,7 +17,7 @@ const initialPersonState: PersonState = {
   loaded: false,
   loading: false,
   people: [],
-  personId: ''
+  personId: '',
 };
 
 export function personReducer(state: PersonState = initialPersonState, action: PeopleActions): PersonState {
@@ -28,12 +28,12 @@ export function personReducer(state: PersonState = initialPersonState, action: P
     case PeopleActionTypes.DELETE_PERSON:
     case PeopleActionTypes.UPLOAD_PERSON_AVATAR:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
 
     case PeopleActionTypes.CLEAR_PERSON_MESSAGE:
       return Object.assign({}, state, {
-        message: undefined
+        message: undefined,
       });
 
     case PeopleActionTypes.LIST_PEOPLE_SUCCESS: {
@@ -41,13 +41,13 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        people: payload
+        people: payload,
       });
     }
 
     case PeopleActionTypes.VIEW_PERSON: {
       return Object.assign({}, state, {
-        personId: action.payload
+        personId: action.payload,
       });
     }
 
@@ -55,7 +55,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully updated ' + payload.fullName
+        text: 'Successfully updated ' + payload.fullName,
       };
       return {
         loaded: true,
@@ -64,7 +64,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
         people: state.people.map((p: Person) => {
           return p.uid === payload.uid ? Object.assign({}, p, payload) : p;
         }),
-        personId: state.personId
+        personId: state.personId,
       };
     }
 
@@ -72,13 +72,13 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully deleted this person'
+        text: 'Successfully deleted this person',
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         message: message,
-        people: state.people.filter((p: Person) => p.id !== payload.id)
+        people: state.people.filter((p: Person) => p.id !== payload.id),
       });
     }
 
@@ -90,12 +90,12 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const res: HttpErrorResponse = action.payload;
       const message: common.Message = {
         type: common.MessageType.FAILURE,
-        text: res.message
+        text: res.message,
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        message: message
+        message: message,
       });
     }
 
@@ -103,14 +103,14 @@ export function personReducer(state: PersonState = initialPersonState, action: P
       const payload: Person = action.payload;
       const message: common.Message = {
         type: common.MessageType.SUCCESS,
-        text: 'Successfully created ' + payload.fullName
+        text: 'Successfully created ' + payload.fullName,
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: true,
         message: message,
         lastCreated: payload.uid,
-        people: [...state.people, payload]
+        people: [...state.people, payload],
       });
     }
 
@@ -124,7 +124,7 @@ export function personReducer(state: PersonState = initialPersonState, action: P
             return p;
           }
           return p;
-        })
+        }),
       };
     }
 

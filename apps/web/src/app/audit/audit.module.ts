@@ -19,10 +19,10 @@ import { AuditService } from './audit.service';
     MatButtonModule,
     MatToolbarModule,
     FlexLayoutModule,
-    MomentModule
+    MomentModule,
   ],
   providers: [AuditService],
-  exports: [AuditLogComponent]
+  exports: [AuditLogComponent],
 })
 export class AuditModule {
   constructor() {}

@@ -46,15 +46,15 @@ export interface Filter {
 
 export enum FormStatus {
   EDIT = 'edit',
-  CREATE = 'create'
+  CREATE = 'create',
 }
 
 export enum MessageType {
   SUCCESS = 'success',
   FAILURE = 'failure',
-  DEFAULT = ''
+  DEFAULT = '',
 }
 
 export const emptyMessage: Message = {
-  type: MessageType.DEFAULT
+  type: MessageType.DEFAULT,
 };

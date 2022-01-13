@@ -47,14 +47,14 @@ const MH_COMPONENTS: Type<any>[] = [
   AvatarEditDialogComponent,
   MapDialogComponent,
   FamilyComponent,
-  FamilyTileComponent
+  FamilyTileComponent,
 ];
 
 @NgModule({
   declarations: [KeysPipe, MH_COMPONENTS],
   imports: [NG_MODULES, MH_MODULES, MAT_MODULES, ImageCropperModule],
   providers: [ShoutService, DatePipe, KeysPipe],
-  entryComponents: [PersonRelationsDialogComponent, AvatarEditDialogComponent, MapDialogComponent]
+  entryComponents: [PersonRelationsDialogComponent, AvatarEditDialogComponent, MapDialogComponent],
 })
 export class PersonModule {
   constructor() {}

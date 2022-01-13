@@ -10,13 +10,13 @@ import {
   ContextButton,
   Person,
   SetContextButtonsAction,
-  SetTitleAction
+  SetTitleAction,
 } from '@memberhivex/core';
 
 @Component({
   selector: 'mh-dashboard',
   styleUrls: ['./dashboard.component.scss'],
-  templateUrl: './dashboard.component.html'
+  templateUrl: './dashboard.component.html',
 })
 export class DashboardComponent implements OnDestroy {
   private _alive: boolean = true;
@@ -48,9 +48,9 @@ export class DashboardComponent implements OnDestroy {
 
   private initDragServices(): void {
     this._dragulaService.createGroup('dashlet', {
-      moves: function(el: any, container: any, handle: any): boolean {
+      moves: function (el: any, container: any, handle: any): boolean {
         return handle.className.indexOf('handle') > -1;
-      }
+      },
     });
     this._dragulaService.drag('dashlet').subscribe((value: any) => {
       this.showDropzone = true;

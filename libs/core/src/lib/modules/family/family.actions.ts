@@ -17,7 +17,7 @@ export enum FamilyActionTypes {
   ACCEPT_MEMBER = '[Family] Accept suggested member',
   IGNORE_MEMBER = '[Family] Ignore suggested member',
   REMOVE_MEMBER = '[Family] Remove family member',
-  CLEAR_FAMILY_MESSAGE = '[Family] Clear Message'
+  CLEAR_FAMILY_MESSAGE = '[Family] Clear Message',
 }
 
 export class ListFamiliesAction implements Action {

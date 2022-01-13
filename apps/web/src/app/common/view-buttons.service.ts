@@ -23,7 +23,7 @@ export class ViewButtonsService {
   load(): void {
     this._dataStore.buttons.push({
       icon: 'person_add',
-      link: '/person/create'
+      link: '/person/create',
     });
     this._buttons.next(Object.assign({}, this._dataStore).buttons);
   }

@@ -41,7 +41,7 @@ export const enum FamilyRole {
   SISTER = 'sister',
   GRANDMOTHER = 'grandmother',
   GRANDFATHER = 'grandfather',
-  INLAW = 'inlaw'
+  INLAW = 'inlaw',
 }
 
 export const familyRoleArray: FamilyRole[] = [
@@ -54,5 +54,5 @@ export const familyRoleArray: FamilyRole[] = [
   FamilyRole.SISTER,
   FamilyRole.INLAW,
   FamilyRole.GRANDFATHER,
-  FamilyRole.GRANDMOTHER
+  FamilyRole.GRANDMOTHER,
 ];

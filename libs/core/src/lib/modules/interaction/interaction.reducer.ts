@@ -16,7 +16,7 @@ export interface InteractionState {
 
 const initialState: InteractionState = {
   interactions: [],
-  myInteractions: []
+  myInteractions: [],
 };
 
 export function interactionReducer(
@@ -29,7 +29,7 @@ export function interactionReducer(
     case InteractionActionTypes.DELETE_INTERACTION:
     case InteractionActionTypes.COMPLETE_INTERACTION:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
 
     case InteractionActionTypes.LIST_INTERACTIONS_SUCCESS: {
@@ -37,7 +37,7 @@ export function interactionReducer(
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
-        interactions: interact
+        interactions: interact,
       });
     }
 
@@ -45,7 +45,7 @@ export function interactionReducer(
       const interaction: Interaction = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully added an interaction'
+        text: 'Successfully added an interaction',
       };
       const newInteract: Interaction[] = [...state.interactions, interaction];
       newInteract.sort((i1: Interaction, i2: Interaction) => {
@@ -60,7 +60,7 @@ export function interactionReducer(
         loaded: true,
         loading: false,
         message: message,
-        interactions: newInteract
+        interactions: newInteract,
       });
     }
 
@@ -68,7 +68,7 @@ export function interactionReducer(
       const interaction: Interaction = action.payload;
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully updated this interaction'
+        text: 'Successfully updated this interaction',
       };
       return Object.assign({}, state, {
         loaded: true,
@@ -76,20 +76,20 @@ export function interactionReducer(
         message: message,
         interactions: state.interactions.map((i: Interaction) => {
           return i.uid === interaction.uid ? Object.assign({}, i, interaction) : i;
-        })
+        }),
       });
     }
 
     case InteractionActionTypes.DELETE_INTERACTION_SUCCESS: {
       const message: Message = {
         type: MessageType.SUCCESS,
-        text: 'Successfully deleted this interaction'
+        text: 'Successfully deleted this interaction',
       };
       return Object.assign({}, state, {
         loaded: true,
         loading: false,
         message: message,
-        interactions: state.interactions.filter((i: Interaction) => i.id !== action.payload)
+        interactions: state.interactions.filter((i: Interaction) => i.id !== action.payload),
       });
     }
 
@@ -100,24 +100,24 @@ export function interactionReducer(
       const res: HttpResponse<any> = action.payload;
       const message: Message = {
         type: MessageType.FAILURE,
-        text: res.statusText
+        text: res.statusText,
       };
       return Object.assign({}, state, {
         loading: false,
         loaded: false,
-        message: message
+        message: message,
       });
     }
 
     case InteractionActionTypes.GET_FOR_PERSON: {
       return Object.assign({}, state, {
-        forPersonId: action.payload
+        forPersonId: action.payload,
       });
     }
 
     case InteractionActionTypes.CLEAR_INTERACTION_MESSAGE:
       return Object.assign({}, state, {
-        message: undefined
+        message: undefined,
       });
 
     default:

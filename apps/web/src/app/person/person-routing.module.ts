@@ -16,13 +16,13 @@ const routes: Routes = [
       { path: 'list', component: PersonListComponent },
       { path: 'create', component: PersonCreateComponent },
       { path: 'map', component: PeopleMapComponent },
-      { path: 'view/:id', component: PersonViewComponent }
-    ]
-  }
+      { path: 'view/:id', component: PersonViewComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class PersonRoutingModule {}

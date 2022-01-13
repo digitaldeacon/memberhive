@@ -23,7 +23,7 @@ export class HttpService {
     const headers: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
     const options: any = {
       headers: headers,
-      withCredentials: false
+      withCredentials: false,
     };
     return this._http.post('/api/' + url, body, options);
   }
@@ -37,7 +37,7 @@ export class HttpService {
     const options: any = {
       body: body,
       headers: h,
-      withCredentials: true
+      withCredentials: true,
     };
 
     return this._http.request<any>(method, '/api/' + url, options);

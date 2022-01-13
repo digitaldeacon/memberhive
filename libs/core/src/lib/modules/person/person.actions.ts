@@ -20,7 +20,7 @@ export enum PeopleActionTypes {
   CALC_PERSON_GEO = '[Person] Calc Geo Codes',
   CALC_PERSON_GEO_SUCCESS = '[Person] Calc Geo Codes Success',
   CALC_PERSON_GEO_FAILURE = '[Person] Calc Geo Codes Failure',
-  UPLOAD_PERSON_AVATAR = '[Person] Upload person avatar'
+  UPLOAD_PERSON_AVATAR = '[Person] Upload person avatar',
 }
 
 export class ListPeopleAction implements Action {

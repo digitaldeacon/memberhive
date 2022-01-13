@@ -1,7 +1,3 @@
 <div id="toolbar"></div>
-<div id="{{elementId}}"
-     name="text"
-    *ngIf="inline">
-
-</div>
-<textarea id="{{elementId}}" [(value)]="value" *ngIf="!inline"></textarea>
+<div id="{{ elementId }}" name="text" *ngIf="inline"></div>
+<textarea id="{{ elementId }}" [(value)]="value" *ngIf="!inline"></textarea>

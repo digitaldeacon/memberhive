@@ -1495,8 +1495,8 @@ i.mce-i-resize {
 .mce-ico,
 i.mce-i-checkbox {
   zoom: expression(
-    this.runtimeStyle['zoom'] = '1',
-    this.innerHTML = this.currentStyle['-ie7-icon'].substr(1, 1) + '&nbsp;'
+    this.runtimeStyle[ 'zoom' ] = '1',
+    this.innerHTML = this.currentStyle[ '-ie7-icon' ].substr(1, 1) + '&nbsp;'
   );
 }
 .mce-i-save {

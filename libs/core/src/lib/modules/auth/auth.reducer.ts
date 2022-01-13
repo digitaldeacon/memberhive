@@ -16,14 +16,14 @@ const initialAuthState: AuthState = {
   personId: '',
   loading: false,
   loaded: false,
-  status: 200
+  status: 200,
 };
 
 export function authReducer(state: AuthState = initialAuthState, action: AuthActions): AuthState {
   switch (action.type) {
     case AuthActionTypes.AUTHENTICATE:
       return Object.assign({}, state, {
-        loading: true
+        loading: true,
       });
 
     case AuthActionTypes.AUTHENTICATE_SUCCESS: {
@@ -35,7 +35,7 @@ export function authReducer(state: AuthState = initialAuthState, action: AuthAct
         personId: user ? user.personId : '',
         loaded: true,
         loading: false,
-        status: 200
+        status: 200,
       };
     }
 
@@ -55,7 +55,7 @@ export function authReducer(state: AuthState = initialAuthState, action: AuthAct
         loading: false,
         personId: '',
         error: error,
-        status: status
+        status: status,
       };
     }
 
@@ -65,7 +65,7 @@ export function authReducer(state: AuthState = initialAuthState, action: AuthAct
         loaded: true,
         loading: false,
         error: action.payload,
-        personId: state.personId
+        personId: state.personId,
       });
 
     case AuthActionTypes.SIGN_OUT_SUCCESS: {
@@ -75,7 +75,7 @@ export function authReducer(state: AuthState = initialAuthState, action: AuthAct
     case AuthActionTypes.REAUTHENTICATE:
       return Object.assign({}, state, {
         loading: true,
-        token: action.payload
+        token: action.payload,
       });
 
     case AuthActionTypes.REAUTHENTICATION_SUCCESS:
@@ -85,7 +85,7 @@ export function authReducer(state: AuthState = initialAuthState, action: AuthAct
         personId: action.payload.personId,
         loaded: true,
         loading: false,
-        status: 200
+        status: 200,
       });
 
     default: {

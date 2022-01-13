@@ -1,107 +1,112 @@
 <div class="main-content">
-    <form [formGroup]="settingsForm"
-          (keyup)="onKey($event)"
-          novalidate
-          fxFlex>
-        <h4 i18n="@@settings.title.system">System</h4>
-        <mat-accordion formGroupName="system">
-            <mat-expansion-panel #sysToolbar [hideToggle]="hideToggle">
-                <mat-expansion-panel-header i18n="@@settings.church.details">Church Details</mat-expansion-panel-header>
-                <div fxLayout="column">
-                    <div fxLayout="row">
-                        <mat-form-field fxFlex>
-                            <input matInput
-                                   fxFlex
-                                   type="text"
-                                   placeholder="Name of Church"
-                                   i18n-placeholder="@@settings.church.name"
-                                   formControlName="churchName">
-                        </mat-form-field>
-                    </div>
-                    <div formGroupName="churchAddress" fxFlex>
-                        <div fxLayout="row">
-                            <mat-form-field fxFlex>
-                                <input matInput
-                                       type="text"
-                                       formControlName="street"
-                                       placeholder="Street"
-                                       i18n-placeholder="@@settings.church.street">
-                            </mat-form-field>
-                        </div>
-                        <div fxLayout="row">
-                            <mat-form-field>
-                                <input matInput
-                                       type="text"
-                                       formControlName="zip"
-                                       placeholder="Postal Code"
-                                       i18n-placeholder="@@settings.church.zip">
-                            </mat-form-field>
-                            <mat-form-field>
-                                <input matInput
-                                       type="text"
-                                       formControlName="city"
-                                       placeholder="City"
-                                       i18n-placeholder="@@settings.church.city">
-                            </mat-form-field>
-                            <div formGroupName="geocode" fxLayout="row">
-                                <mat-form-field>
-                                    <input matInput
-                                           type="text"
-                                           formControlName="lat"
-                                           placeholder="Latitude"
-                                           i18n-placeholder="@@latitude">
-                                </mat-form-field>
-                                <mat-form-field>
-                                    <input matInput
-                                           type="text"
-                                           formControlName="lng"
-                                           placeholder="Longitude"
-                                           i18n-placeholder="@@longitude">
-                                </mat-form-field>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </mat-expansion-panel>
-            <mat-expansion-panel #sysGeneral [hideToggle]="hideToggle">
-                <mat-expansion-panel-header i18n="@@settings.title.general">General</mat-expansion-panel-header>
-                <div fxLayout="row">
-                    <mat-form-field fxFlex>
-                        <input matInput
-                               fxFlex
-                               type="text"
-                               placeholder="Google API Key"
-                               i18n-placeholder="@@settings.api.google"
-                               formControlName="googleApiKey">
-                    </mat-form-field>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-        <h4 i18n="@@settings.title.person">Person</h4>
-        <mat-accordion formGroupName="people">
-            <mat-expansion-panel #personPanelList [hideToggle]="hideToggle">
-                <mat-expansion-panel-header i18n="@@settings.person.list">List People</mat-expansion-panel-header>
-                <div fxLayout="row" fxLayoutGap="10px">
-                    <fieldset fxFlex="50">
-                        <legend i18n="@@selected">Selected</legend>
-                        <div class='container'
-                             [dragula]='"PEOPLE_LIST"'
-                             [(dragulaModel)]='personAttrSelected'>
-                            <div *ngFor="let element of personAttrSelected"
-                                 class="div draggable-item"
-                                 [innerHtml]='element'></div>
-                        </div>
-                    </fieldset>
-                    <fieldset fxFlex="50">
-                        <legend i18n="@@available">Available</legend>
-                        <div class="container"
-                             [dragula]='"PEOPLE_LIST"'
-                             [(dragulaModel)]='personAttr'>
-                            <div *ngFor="let element of personAttr" class="div" [innerHtml]='element'></div>
-                        </div>
-                    </fieldset>
-                </div>
-            </mat-expansion-panel>
-        </mat-accordion>
-    </form>
+  <form [formGroup]="settingsForm" (keyup)="onKey($event)" novalidate fxFlex>
+    <h4 i18n="@@settings.title.system">System</h4>
+    <mat-accordion formGroupName="system">
+      <mat-expansion-panel #sysToolbar [hideToggle]="hideToggle">
+        <mat-expansion-panel-header i18n="@@settings.church.details">Church Details</mat-expansion-panel-header>
+        <div fxLayout="column">
+          <div fxLayout="row">
+            <mat-form-field fxFlex>
+              <input
+                matInput
+                fxFlex
+                type="text"
+                placeholder="Name of Church"
+                i18n-placeholder="@@settings.church.name"
+                formControlName="churchName"
+              />
+            </mat-form-field>
+          </div>
+          <div formGroupName="churchAddress" fxFlex>
+            <div fxLayout="row">
+              <mat-form-field fxFlex>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="street"
+                  placeholder="Street"
+                  i18n-placeholder="@@settings.church.street"
+                />
+              </mat-form-field>
+            </div>
+            <div fxLayout="row">
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="zip"
+                  placeholder="Postal Code"
+                  i18n-placeholder="@@settings.church.zip"
+                />
+              </mat-form-field>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="text"
+                  formControlName="city"
+                  placeholder="City"
+                  i18n-placeholder="@@settings.church.city"
+                />
+              </mat-form-field>
+              <div formGroupName="geocode" fxLayout="row">
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="lat"
+                    placeholder="Latitude"
+                    i18n-placeholder="@@latitude"
+                  />
+                </mat-form-field>
+                <mat-form-field>
+                  <input
+                    matInput
+                    type="text"
+                    formControlName="lng"
+                    placeholder="Longitude"
+                    i18n-placeholder="@@longitude"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </mat-expansion-panel>
+      <mat-expansion-panel #sysGeneral [hideToggle]="hideToggle">
+        <mat-expansion-panel-header i18n="@@settings.title.general">General</mat-expansion-panel-header>
+        <div fxLayout="row">
+          <mat-form-field fxFlex>
+            <input
+              matInput
+              fxFlex
+              type="text"
+              placeholder="Google API Key"
+              i18n-placeholder="@@settings.api.google"
+              formControlName="googleApiKey"
+            />
+          </mat-form-field>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+    <h4 i18n="@@settings.title.person">Person</h4>
+    <mat-accordion formGroupName="people">
+      <mat-expansion-panel #personPanelList [hideToggle]="hideToggle">
+        <mat-expansion-panel-header i18n="@@settings.person.list">List People</mat-expansion-panel-header>
+        <div fxLayout="row" fxLayoutGap="10px">
+          <fieldset fxFlex="50">
+            <legend i18n="@@selected">Selected</legend>
+            <div class="container" [dragula]="'PEOPLE_LIST'" [(dragulaModel)]="personAttrSelected">
+              <div *ngFor="let element of personAttrSelected" class="div draggable-item" [innerHtml]="element"></div>
+            </div>
+          </fieldset>
+          <fieldset fxFlex="50">
+            <legend i18n="@@available">Available</legend>
+            <div class="container" [dragula]="'PEOPLE_LIST'" [(dragulaModel)]="personAttr">
+              <div *ngFor="let element of personAttr" class="div" [innerHtml]="element"></div>
+            </div>
+          </fieldset>
+        </div>
+      </mat-expansion-panel>
+    </mat-accordion>
+  </form>
 </div>

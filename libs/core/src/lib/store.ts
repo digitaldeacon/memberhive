@@ -24,7 +24,7 @@ export const reducers: ActionReducerMap<AppState> = {
   settings: settings.settingsReducer,
   tags: tags.tagReducer,
   family: family.familyReducer,
-  auth: auth.authReducer
+  auth: auth.authReducer,
 };
 
 /**

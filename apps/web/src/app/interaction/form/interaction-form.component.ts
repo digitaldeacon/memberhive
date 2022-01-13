@@ -19,14 +19,14 @@ import {
   Person,
   AddInteractionAction,
   UpdateInteractionAction,
-  SetTitleAction
+  SetTitleAction,
 } from '@memberhivex/core';
 
 @Component({
   selector: 'mh-interaction-form',
   templateUrl: './interaction-form.component.html',
   styleUrls: ['./interaction-form.component.scss', '../interaction-common.styles.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class InteractionFormComponent implements OnInit, OnDestroy {
   private _alive: boolean = true;
@@ -68,14 +68,14 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
           {
             type: 'interaction',
             label: 'Dialog',
-            iconString: 'swap_vertical_circle'
+            iconString: 'swap_vertical_circle',
           },
           { type: 'note', label: 'Notiz', iconString: 'comment' },
           { type: 'meeting', label: 'Treffen', iconString: 'forum' },
           { type: 'email', label: 'E-Mail', iconString: 'email' },
-          { type: 'phone', label: 'Telefon', iconString: 'contact_phone' }
-        ]
-      }
+          { type: 'phone', label: 'Telefon', iconString: 'contact_phone' },
+        ],
+      },
     };
 
     // TODO: fetch these from the auth groups DB
@@ -85,7 +85,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
       { id: 'SHEPHERD', text: 'Hirten', icon: 'group' },
       { id: 'LEADER', text: 'Leiter', icon: 'group' },
       { id: 'STAFF', text: 'Mitarbeiter', icon: 'group' },
-      { id: 'ALL', text: 'Benutzer', icon: 'person' }
+      { id: 'ALL', text: 'Benutzer', icon: 'person' },
     ];
 
     // TODO: @I18n
@@ -101,7 +101,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
       refId: [undefined, [<any>Validators.required]],
       recipients: [undefined],
       dueOn: [undefined],
-      visibility: ['LEADER', [<any>Validators.required]]
+      visibility: ['LEADER', [<any>Validators.required]],
     });
     this.initDefaults();
   }
@@ -140,7 +140,7 @@ export class InteractionFormComponent implements OnInit, OnDestroy {
   save(model: Interaction, isValid: boolean): void {
     if (isValid) {
       model.author = {
-        id: this._authorId
+        id: this._authorId,
       };
       if (!this.editMode) {
         this._store.dispatch(new AddInteractionAction(model));

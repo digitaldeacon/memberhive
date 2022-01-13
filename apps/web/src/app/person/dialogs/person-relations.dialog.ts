@@ -3,7 +3,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dial
 
 @Component({
   selector: 'mh-dialog-person-relations',
-  templateUrl: './person-relations.dialog.html'
+  templateUrl: './person-relations.dialog.html',
 })
 export class PersonRelationsDialogComponent {
   constructor(public dialogRef: MatDialogRef<PersonRelationsDialogComponent>) {}

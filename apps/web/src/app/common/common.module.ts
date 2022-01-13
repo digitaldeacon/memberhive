@@ -56,7 +56,7 @@ const MATERIAL_MODULES: any[] = [
   MatChipsModule,
   MatFormFieldModule,
   MatCheckboxModule,
-  MatProgressSpinnerModule
+  MatProgressSpinnerModule,
 ];
 
 const CUSTOM_COMPONENTS: any[] = [
@@ -64,7 +64,7 @@ const CUSTOM_COMPONENTS: any[] = [
   FilterComponent,
   ConfirmDialogComponent,
   LoginDialogComponent,
-  TagsComponent
+  TagsComponent,
 ];
 
 @NgModule({
@@ -76,8 +76,8 @@ const CUSTOM_COMPONENTS: any[] = [
     FormsModule,
     ReactiveFormsModule,
     AgmCoreModule.forRoot({
-      apiKey: GLOBALS.googleAPIKey
-    })
+      apiKey: GLOBALS.googleAPIKey,
+    }),
   ],
   providers: [Title, AuthGuard, ShoutService, DialogService],
   exports: [
@@ -87,8 +87,8 @@ const CUSTOM_COMPONENTS: any[] = [
     FlexLayoutModule,
     ReactiveFormsModule,
     FormsModule,
-    AgmCoreModule
+    AgmCoreModule,
   ],
-  entryComponents: [ConfirmDialogComponent, LoginDialogComponent]
+  entryComponents: [ConfirmDialogComponent, LoginDialogComponent],
 })
 export class MhCommonModule {}

@@ -1,28 +1,32 @@
 <div fxLayout="column" fxLayoutGap="25px">
-    <mh-filter></mh-filter>
-    <div fxFlex>
-        <agm-map [latitude]="initMarker?.latlng.lat"
-                 [longitude]="initMarker?.latlng.lng"
-                 [zoom]="zoom"
-                 fullscreenControl="true"
-                 usePanning="true">
-            <agm-marker *ngFor="let marker of markers"
-                        [latitude]="marker?.latlng?.lat"
-                        [longitude]="marker?.latlng?.lng"
-                        [label]="marker?.label"
-                        [title]="marker?.title"
-                        [iconUrl]="marker?.icon">
-                <agm-info-window *ngIf="marker.info">
-                    <strong>{{marker.info?.title}}</strong>
-                    <div *ngFor="let member of marker.info?.people">
-                        <a [routerLink]="['/person/view', member.uid]">{{member.fullName}}</a>
-                    </div>
-                    <p>
-                        {{marker.info.address?.street}}<br>
-                        {{marker.info.address?.zip}}, {{marker.info.address?.city}}
-                    </p>
-                </agm-info-window>
-            </agm-marker>
-        </agm-map>
-    </div>
+  <mh-filter></mh-filter>
+  <div fxFlex>
+    <agm-map
+      [latitude]="initMarker?.latlng.lat"
+      [longitude]="initMarker?.latlng.lng"
+      [zoom]="zoom"
+      fullscreenControl="true"
+      usePanning="true"
+    >
+      <agm-marker
+        *ngFor="let marker of markers"
+        [latitude]="marker?.latlng?.lat"
+        [longitude]="marker?.latlng?.lng"
+        [label]="marker?.label"
+        [title]="marker?.title"
+        [iconUrl]="marker?.icon"
+      >
+        <agm-info-window *ngIf="marker.info">
+          <strong>{{ marker.info?.title }}</strong>
+          <div *ngFor="let member of marker.info?.people">
+            <a [routerLink]="['/person/view', member.uid]">{{ member.fullName }}</a>
+          </div>
+          <p>
+            {{ marker.info.address?.street }}<br />
+            {{ marker.info.address?.zip }}, {{ marker.info.address?.city }}
+          </p>
+        </agm-info-window>
+      </agm-marker>
+    </agm-map>
+  </div>
 </div>

@@ -14,7 +14,7 @@ import {
   ListPeopleAction,
   ContextButton,
   SetContextButtonsAction,
-  SetTitleAction
+  SetTitleAction,
 } from '@memberhivex/core';
 
 @Component({
@@ -22,7 +22,7 @@ import {
   selector: 'mh-person-list',
   templateUrl: './person-list.component.html',
   styleUrls: ['./person-list.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PersonListComponent implements OnDestroy {
   private _alive: boolean = true;
@@ -82,7 +82,7 @@ export class PersonListComponent implements OnDestroy {
     buttons.push({
       icon: 'person_add',
       link: '/person/create',
-      title: 'HINZUFÜGEN'
+      title: 'HINZUFÜGEN',
     });
 
     this._store.dispatch(new SetContextButtonsAction(buttons));

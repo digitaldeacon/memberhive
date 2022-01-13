@@ -31,7 +31,7 @@ $layout-breakpoint-lg: 1920px !default;
   }
 }
 
-@mixin flex-order-for-name($sizes:null) {
+@mixin flex-order-for-name($sizes: null) {
   @if $sizes == null {
     $sizes: '';
 
@@ -60,7 +60,7 @@ $layout-breakpoint-lg: 1920px !default;
   }
 }
 
-@mixin offset-for-name($sizes:null) {
+@mixin offset-for-name($sizes: null) {
   @if $sizes == null {
     $sizes: '';
   }
@@ -469,7 +469,7 @@ $layout-breakpoint-lg: 1920px !default;
   }
 }
 
-@mixin layouts_for_breakpoint($name:null) {
+@mixin layouts_for_breakpoint($name: null) {
   @include flex-order-for-name($name);
   @include offset-for-name($name);
   @include layout-align-for-name($name);

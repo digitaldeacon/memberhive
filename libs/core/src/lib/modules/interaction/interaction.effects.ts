@@ -19,7 +19,7 @@ import {
   DeleteInteractionAction,
   DeleteInteractionSuccessAction,
   DeleteInteractionFailureAction,
-  CompleteInteractionAction
+  CompleteInteractionAction,
 } from './interaction.actions';
 import { Interaction, InteractionPayload, InteractionCompletePayload } from './interaction.model';
 import { HttpService } from '../../services/http.service';
@@ -34,12 +34,10 @@ export class InteractionEffects {
     ofType<ListInteractionsAction>(InteractionActionTypes.LIST_INTERACTIONS),
     map((action: ListInteractionsAction) => action.payload),
     switchMap((data: InteractionPayload) =>
-      this._http
-        .get('interaction/list?')
-        .pipe(
-          map((r: Interaction[]) => new ListInteractionsSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new ListInteractionsFailureAction(r)))
-        )
+      this._http.get('interaction/list?').pipe(
+        map((r: Interaction[]) => new ListInteractionsSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new ListInteractionsFailureAction(r)))
+      )
     )
   );
 
@@ -48,12 +46,10 @@ export class InteractionEffects {
     ofType<AddInteractionAction>(InteractionActionTypes.ADD_INTERACTION),
     map((action: AddInteractionAction) => action.payload),
     switchMap((data: Interaction) =>
-      this._http
-        .post('interaction/save-person', data)
-        .pipe(
-          map((r: Interaction) => new AddInteractionSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new AddInteractionFailureAction(r)))
-        )
+      this._http.post('interaction/save-person', data).pipe(
+        map((r: Interaction) => new AddInteractionSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new AddInteractionFailureAction(r)))
+      )
     )
   );
 
@@ -62,12 +58,10 @@ export class InteractionEffects {
     ofType<UpdateInteractionAction>(InteractionActionTypes.UPDATE_INTERACTION),
     map((action: UpdateInteractionAction) => action.payload),
     switchMap((data: Interaction) =>
-      this._http
-        .post('interaction/save-person', data)
-        .pipe(
-          map((r: Interaction) => new UpdateInteractionSuccessAction(r)),
-          catchError((r: HttpResponse<any>) => of(new UpdateInteractionFailureAction(r)))
-        )
+      this._http.post('interaction/save-person', data).pipe(
+        map((r: Interaction) => new UpdateInteractionSuccessAction(r)),
+        catchError((r: HttpResponse<any>) => of(new UpdateInteractionFailureAction(r)))
+      )
     )
   );
 
@@ -79,7 +73,7 @@ export class InteractionEffects {
       this._http
         .post('interaction/delete', {
           id: interactionId,
-          author: this._auth.personId
+          author: this._auth.personId,
         })
         .pipe(
           map((r: any) => new DeleteInteractionSuccessAction(r)),
@@ -97,7 +91,7 @@ export class InteractionEffects {
         .post('interaction/complete', {
           id: payload.id,
           author: this._auth.personId,
-          complete: payload.complete
+          complete: payload.complete,
         })
         .pipe(
           map((r: Interaction) => new UpdateInteractionSuccessAction(r)),

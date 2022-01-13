@@ -16,18 +16,18 @@ export function arrayDiffObj(s: any[], v: any[], key: string): any[] {
 const CUSTOM_INPUT_VALIDATORS: any = {
   provide: NG_VALIDATORS,
   useExisting: forwardRef(() => TagsComponent),
-  multi: true
+  multi: true,
 };
 const CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR: any = {
   provide: NG_VALUE_ACCESSOR,
   useExisting: forwardRef(() => TagsComponent),
-  multi: true
+  multi: true,
 };
 
 @Component({
   selector: 'mh-tags',
   templateUrl: './tags.component.html',
-  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR]
+  providers: [CUSTOM_INPUT_CONTROL_VALUE_ACCESSOR],
 })
 export class TagsComponent implements ControlValueAccessor, OnChanges {
   filteredSources: Tag[] = [];
@@ -73,8 +73,8 @@ export class TagsComponent implements ControlValueAccessor, OnChanges {
       ? undefined
       : {
           tinyError: {
-            valid: false
-          }
+            valid: false,
+          },
         };
   }
 

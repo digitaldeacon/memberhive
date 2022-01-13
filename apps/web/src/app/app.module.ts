@@ -44,10 +44,10 @@ import { ToolbarInteractionsComponent } from './viewport/components/interactions
     MatProgressBarModule,
 
     SearchModule,
-    InteractionModule
+    InteractionModule,
   ],
   bootstrap: [AppComponent],
-  providers: []
+  providers: [],
 })
 export class AppModule {
   constructor() {}

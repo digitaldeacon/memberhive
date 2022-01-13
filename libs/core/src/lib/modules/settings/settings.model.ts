@@ -4,7 +4,7 @@ export enum SettingType {
   LAYOUT = 'layout',
   PEOPLE = 'people',
   SYSTEM = 'system',
-  DASHBOARD = 'dashboard'
+  DASHBOARD = 'dashboard',
 }
 
 export interface SettingsPayload {

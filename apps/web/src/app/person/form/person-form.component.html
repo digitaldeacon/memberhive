@@ -1,274 +1,352 @@
 <mat-toolbar *ngIf="!inCreateMode()">
-    <h3 fxFlex><ng-container i18n="@@edit">Edit</ng-container> <small>{{person.fullName}}</small></h3>
+  <h3 fxFlex>
+    <ng-container i18n="@@edit">Edit</ng-container> <small>{{ person.fullName }}</small>
+  </h3>
 </mat-toolbar>
-<form class="person-form"
-      #personEditForm="ngForm"
-      [formGroup]="form"
-      (ngSubmit)="save(form.value)"
-      (keyup)="onKey($event)"
-      fxLayout="column"
-      novalidate>
+<form
+  class="person-form"
+  #personEditForm="ngForm"
+  [formGroup]="form"
+  (ngSubmit)="save(form.value)"
+  (keyup)="onKey($event)"
+  fxLayout="column"
+  novalidate
+>
+  <fieldset fxFlex="100">
+    <legend i18n="@@form.statustags">Status & Tags</legend>
+    <mh-tags [source]="tagSource" formControlName="status" placeholder="Status" style="display: flex"></mh-tags>
+  </fieldset>
 
-    <fieldset fxFlex="100">
-        <legend i18n="@@form.statustags">Status & Tags</legend>
-        <mh-tags [source]="tagSource"
-                 formControlName="status"
-                 placeholder="Status"
-                 style="display: flex"></mh-tags>
+  <div fxLayout.gt-sm="row" fxLayout.xs="column">
+    <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
+      <legend i18n="@@form.personal">Personal</legend>
+      <div *ngIf="inCreateMode()" fxLayoutGap="25px" class="family-section">
+        <mat-form-field fxFlex>
+          <mat-select
+            formControlName="familyId"
+            (change)="setFamily($event)"
+            placeholder="Belongs to family"
+            i18n-placeholder="@@form.belongsFamily"
+          >
+            <mat-option *ngFor="let family of families" [value]="family.id">{{ family.name }}</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <mat-form-field fxFlex>
+          <mat-select
+            class="option-select"
+            formControlName="familyRole"
+            (change)="setFamilyRole($event)"
+            placeholder="Select role"
+            i18n-placeholder="@@family.role.select"
+          >
+            <mat-option *ngFor="let role of familyRoles" [value]="role">
+              {{ role }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field fxFlex>
+          <input
+            matInput
+            fxFlex
+            type="text"
+            formControlName="firstName"
+            placeholder="First Name"
+            i18n-placeholder="@@form.firstname"
+            [required]="setRequired('firstName')"
+          />
+        </mat-form-field>
+        <mat-error
+          *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine"
+          i18n="@@form.firstname.required"
+        >
+          First name is required (minimum 2 characters).
+        </mat-error>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            type="text"
+            formControlName="middleName"
+            placeholder="Middle Name"
+            i18n-placeholder="@@form.middlename"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            fxFlex
+            type="text"
+            formControlName="lastName"
+            placeholder="Lastname"
+            i18n-placeholder="@@form.lastname"
+            [required]="setRequired('lastName')"
+          />
+        </mat-form-field>
+        <mat-error
+          *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine"
+          i18n="@@form.lastname.required"
+        >
+          Lastname is required (minimum of 2 characters)
+        </mat-error>
+      </div>
+      <div class="mh-input-wrapper">
+        <mat-radio-group formControlName="gender" fxFlex>
+          <mat-radio-button value="f" i18n="@@female">Female</mat-radio-button>
+          <mat-radio-button value="m" i18n="@@male">Male</mat-radio-button>
+        </mat-radio-group>
+        <mat-error *ngIf="form.get('gender').invalid" i18n="@@form.gender.required">
+          Please provide a gender
+        </mat-error>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            matInput
+            fxFlex
+            type="email"
+            formControlName="email"
+            placeholder="Email"
+            i18n-placeholder="@@form.email"
+            [required]="setRequired('email')"
+          />
+        </mat-form-field>
+        <mat-error
+          *ngIf="form.get('email').invalid && form.get('email').dirty && form.get('email').hasError('pattern')"
+          i18n="@@form.email.valid"
+        >
+          Please provide a proper email address
+        </mat-error>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-select
+            name="maritalStatus"
+            formControlName="maritalStatus"
+            placeholder="Marital Status"
+            i18n-placeholder="@@maritalstatus"
+          >
+            <mat-option *ngFor="let mstatus of maritalStatus" [value]="mstatus">
+              {{ mstatus | titlecase }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="25px">
+        <mat-form-field>
+          <input
+            matInput
+            fxFlex
+            type="tel"
+            formControlName="phoneHome"
+            placeholder="Phone (Home)"
+            i18n-placeholder="@@phone.home"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            fxFlex
+            type="tel"
+            formControlName="phoneMobile"
+            placeholder="Phone (Mobile)"
+            i18n-placeholder="@@phone.mobile"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <input
+            type="tel"
+            matInput
+            fxFlex
+            type="tel"
+            formControlName="phoneWork"
+            placeholder="Phone (Work)"
+            i18n-placeholder="@@phone.work"
+          />
+        </mat-form-field>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-icon matPrefix>cake</mat-icon>
+          <input
+            matInput
+            [matDatepicker]="dpBirthday"
+            formControlName="birthday"
+            placeholder="Birthday"
+            i18n-placeholder="@@birthday"
+            fxFlex
+          />
+          <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-error
+          *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine"
+          i18n="@@form.birthday.required"
+        >
+          Birthday is required.
+        </mat-error>
+        <mat-datepicker #dpBirthday></mat-datepicker>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-icon matPrefix>opacity</mat-icon>
+          <input
+            matInput
+            [matDatepicker]="dpBaptized"
+            formControlName="baptized"
+            placeholder="Baptized"
+            i18n-placeholder="@@baptized"
+            fxFlex
+          />
+          <mat-datepicker-toggle matSuffix [for]="dpBaptized"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #dpBaptized></mat-datepicker>
+      </div>
+      <div>
+        <mat-form-field>
+          <mat-icon matPrefix>alarm</mat-icon>
+          <input
+            matInput
+            fxFlex
+            [matDatepicker]="dpAnniversary"
+            formControlName="anniversary"
+            placeholder="Anniversary"
+            i18n-placeholder="@@anniversary"
+          />
+          <mat-datepicker-toggle matSuffix [for]="dpAnniversary"></mat-datepicker-toggle>
+        </mat-form-field>
+        <mat-datepicker #dpAnniversary></mat-datepicker>
+      </div>
     </fieldset>
-
-    <div fxLayout.gt-sm="row"
-         fxLayout.xs="column">
-        <fieldset fxFlex.xs="100" fxFlex.gt-sm="50">
-            <legend i18n="@@form.personal">Personal</legend>
-            <div *ngIf="inCreateMode()" fxLayoutGap="25px" class="family-section">
-                <mat-form-field fxFlex>
-                    <mat-select formControlName="familyId"
-                                (change)="setFamily($event)"
-                                placeholder="Belongs to family"
-                                i18n-placeholder="@@form.belongsFamily">
-                        <mat-option *ngFor="let family of families" [value]="family.id">{{family.name}}</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field fxFlex>
-                    <mat-select class="option-select"
-                                formControlName="familyRole"
-                                (change)="setFamilyRole($event)"
-                                placeholder="Select role"
-                                i18n-placeholder="@@family.role.select">
-                        <mat-option *ngFor="let role of familyRoles" [value]="role">
-                            {{role}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field fxFlex>
-                    <input matInput fxFlex
-                           type="text"
-                           formControlName="firstName"
-                           placeholder="First Name" i18n-placeholder="@@form.firstname"
-                           [required]="setRequired('firstName')">
-                </mat-form-field>
-                <mat-error *ngIf="!form.get('firstName').valid && !form.get('firstName').pristine"
-                           i18n="@@form.firstname.required">
-                    First name is required (minimum 2 characters).
-                </mat-error>
-            </div>
-            <div>
-                <mat-form-field>
-                    <input matInput type="text" formControlName="middleName"
-                           placeholder="Middle Name" i18n-placeholder="@@form.middlename">
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field>
-                    <input matInput fxFlex
-                           type="text"
-                           formControlName="lastName"
-                           placeholder="Lastname" i18n-placeholder="@@form.lastname"
-                           [required]="setRequired('lastName')">
-                </mat-form-field>
-                <mat-error *ngIf="!form.get('lastName').valid && !form.get('lastName').pristine"
-                           i18n="@@form.lastname.required">
-                    Lastname is required (minimum of 2 characters)
-                </mat-error>
-            </div>
-            <div class="mh-input-wrapper">
-                <mat-radio-group formControlName="gender" fxFlex>
-                    <mat-radio-button value="f" i18n="@@female">Female</mat-radio-button>
-                    <mat-radio-button value="m" i18n="@@male">Male</mat-radio-button>
-                </mat-radio-group>
-                <mat-error *ngIf="form.get('gender').invalid" i18n="@@form.gender.required">
-                    Please provide a gender
-                </mat-error>
-            </div>
-            <div>
-                <mat-form-field>
-                    <input matInput fxFlex
-                           type="email"
-                           formControlName="email"
-                           placeholder="Email" i18n-placeholder="@@form.email"
-                           [required]="setRequired('email')">
-                </mat-form-field>
-                <mat-error *ngIf="form.get('email').invalid &&
-                form.get('email').dirty &&
-                form.get('email').hasError('pattern')" i18n="@@form.email.valid">
-                    Please provide a proper email address
-                </mat-error>
-            </div>
-            <div>
-                <mat-form-field>
-                    <mat-select name="maritalStatus"
-                                formControlName="maritalStatus"
-                                placeholder="Marital Status" i18n-placeholder="@@maritalstatus">
-                        <mat-option *ngFor="let mstatus of maritalStatus" [value]="mstatus">
-                            {{mstatus | titlecase}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-            </div>
-            <div fxLayout.gt-xs="row" fxLayout.xs="column" fxLayoutGap="25px">
-                <mat-form-field>
-                    <input matInput fxFlex type="tel" formControlName="phoneHome"
-                           placeholder="Phone (Home)" i18n-placeholder="@@phone.home">
-                </mat-form-field>
-                <mat-form-field>
-                    <input matInput fxFlex type="tel" formControlName="phoneMobile"
-                           placeholder="Phone (Mobile)" i18n-placeholder="@@phone.mobile">
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field>
-                    <input type="tel" matInput fxFlex type="tel" formControlName="phoneWork"
-                           placeholder="Phone (Work)" i18n-placeholder="@@phone.work">
-                </mat-form-field>
-            </div>
-            <div>
-                <mat-form-field>
-                    <mat-icon matPrefix>cake</mat-icon>
-                    <input matInput
-                           [matDatepicker]="dpBirthday"
-                           formControlName="birthday"
-                           placeholder="Birthday" i18n-placeholder="@@birthday"
-                           fxFlex>
-                    <mat-datepicker-toggle matSuffix [for]="dpBirthday"></mat-datepicker-toggle>
-                </mat-form-field>
-                <mat-error *ngIf="!form.get('birthday').valid && !form.get('birthday').pristine"
-                           i18n="@@form.birthday.required">
-                    Birthday is required.
-                </mat-error>
-                <mat-datepicker #dpBirthday></mat-datepicker>
-            </div>
-            <div>
-                <mat-form-field>
-                    <mat-icon matPrefix>opacity</mat-icon>
-                    <input matInput
-                           [matDatepicker]="dpBaptized"
-                           formControlName="baptized"
-                           placeholder="Baptized" i18n-placeholder="@@baptized"
-                           fxFlex>
-                    <mat-datepicker-toggle matSuffix [for]="dpBaptized"></mat-datepicker-toggle>
-                </mat-form-field>
-                <mat-datepicker #dpBaptized></mat-datepicker>
-            </div>
-            <div>
-                <mat-form-field>
-                    <mat-icon matPrefix>alarm</mat-icon>
-                    <input matInput fxFlex
-                           [matDatepicker]="dpAnniversary"
-                           formControlName="anniversary"
-                           placeholder="Anniversary" i18n-placeholder="@@anniversary">
-                    <mat-datepicker-toggle matSuffix [for]="dpAnniversary"></mat-datepicker-toggle>
-                </mat-form-field>
-                <mat-datepicker #dpAnniversary></mat-datepicker>
-            </div>
-        </fieldset>
-        <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
-            <fieldset formGroupName="user">
-                <legend i18n="@@form.account">Account</legend>
-                <div>
-                    <mat-form-field>
-                        <input matInput
-                               formControlName="username"
-                               (keyup)="enablePasswordFields()"
-                               placeholder="Username" i18n-placeholder="@@form.username">
-                    </mat-form-field>
-                    <mat-error *ngIf="!form.get('user.username').valid" i18n="@@form.username.required">
-                        Username is required (minimum of 4 characters)
-                    </mat-error>
-                </div>
-                <div>
-                    <mat-form-field>
-                        <mat-select name="role"
-                                    formControlName="role"
-                                    placeholder="User role" i18n-placeholder="@@userrole">
-                            <mat-option *ngFor="let role of userRoleArray" [value]="role">
-                                {{role | titlecase}}
-                            </mat-option>
-                        </mat-select>
-                    </mat-form-field>
-                </div>
-                <div>
-                    <mat-form-field>
-                        <input matInput
-                               type="text"
-                               formControlName="password"
-                               placeholder="Password" i18n-placeholder="@@form.password">
-                    </mat-form-field>
-                </div>
-                <div fxLayoutAlign="space-between">
-                    <mat-checkbox formControlName="setPassword"
-                                  (change)="toggleRandomPassword($event)"
-                                  i18n="@@form.password.setnew">Set new Password</mat-checkbox>
-                    <mat-checkbox formControlName="noCredentials"
-                                  i18n="@@form.credentials.nomail">Do not mail credentials</mat-checkbox>
-                </div>
-            </fieldset>
-            <fieldset formGroupName="address">
-                <legend i18n="@@form.address.title">Addresses</legend>
-                <div formGroupName="home">
-                    <div fxLayout="row" fxLayoutAlign="space-between center">
-                        <h4 i18n="@@form.address.home">Home</h4>
-                    </div>
-                    <mat-form-field>
-                        <input matInput
-                               type="text"
-                               formControlName="street"
-                               placeholder="Street"
-                               i18n-placeholder="@@form.address.street">
-                    </mat-form-field>
-                    <div fxLayout="row" fxLayoutGap="25px">
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="zip"
-                                   placeholder="Postal Code"
-                                   i18n-placeholder="@@form.address.zip">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="city"
-                                   placeholder="City"
-                                   i18n-placeholder="@@form.address.city">
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div formGroupName="postal">
-                    <h4>
-                        <ng-container i18n="The postal address@@form.address.postal">Postal</ng-container>
-                        <small i18n="@@form.address.postal.note">(if it differs from home address)</small></h4>
-                    <mat-form-field>
-                        <input matInput
-                               type="text"
-                               formControlName="street"
-                               placeholder="Street"
-                               i18n-placeholder="@@form.address.street">
-                    </mat-form-field>
-                    <div fxLayout="row" fxLayoutGap="25px">
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="zip"
-                                   placeholder="Postal Code"
-                                   i18n-placeholder="@@form.address.zip">
-                        </mat-form-field>
-                        <mat-form-field>
-                            <input matInput
-                                   type="text"
-                                   formControlName="city"
-                                   placeholder="City"
-                                   i18n-placeholder="@@form.address.city">
-                        </mat-form-field>
-                    </div>
-                </div>
-            </fieldset>
-            <button mat-raised-button
-                    *ngIf="inCreateMode()"
-                    type="submit"
-                    class="mh-submit"
-                    i18n="@@form.submit">SUBMIT</button>
+    <div fxFlex.gt-sm="50" fxFlexOffset.gt-sm="20px">
+      <fieldset formGroupName="user">
+        <legend i18n="@@form.account">Account</legend>
+        <div>
+          <mat-form-field>
+            <input
+              matInput
+              formControlName="username"
+              (keyup)="enablePasswordFields()"
+              placeholder="Username"
+              i18n-placeholder="@@form.username"
+            />
+          </mat-form-field>
+          <mat-error *ngIf="!form.get('user.username').valid" i18n="@@form.username.required">
+            Username is required (minimum of 4 characters)
+          </mat-error>
         </div>
+        <div>
+          <mat-form-field>
+            <mat-select name="role" formControlName="role" placeholder="User role" i18n-placeholder="@@userrole">
+              <mat-option *ngFor="let role of userRoleArray" [value]="role">
+                {{ role | titlecase }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <div>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              formControlName="password"
+              placeholder="Password"
+              i18n-placeholder="@@form.password"
+            />
+          </mat-form-field>
+        </div>
+        <div fxLayoutAlign="space-between">
+          <mat-checkbox
+            formControlName="setPassword"
+            (change)="toggleRandomPassword($event)"
+            i18n="@@form.password.setnew"
+            >Set new Password</mat-checkbox
+          >
+          <mat-checkbox formControlName="noCredentials" i18n="@@form.credentials.nomail"
+            >Do not mail credentials</mat-checkbox
+          >
+        </div>
+      </fieldset>
+      <fieldset formGroupName="address">
+        <legend i18n="@@form.address.title">Addresses</legend>
+        <div formGroupName="home">
+          <div fxLayout="row" fxLayoutAlign="space-between center">
+            <h4 i18n="@@form.address.home">Home</h4>
+          </div>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              formControlName="street"
+              placeholder="Street"
+              i18n-placeholder="@@form.address.street"
+            />
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutGap="25px">
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                formControlName="zip"
+                placeholder="Postal Code"
+                i18n-placeholder="@@form.address.zip"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                formControlName="city"
+                placeholder="City"
+                i18n-placeholder="@@form.address.city"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <div formGroupName="postal">
+          <h4>
+            <ng-container i18n="The postal address@@form.address.postal">Postal</ng-container>
+            <small i18n="@@form.address.postal.note">(if it differs from home address)</small>
+          </h4>
+          <mat-form-field>
+            <input
+              matInput
+              type="text"
+              formControlName="street"
+              placeholder="Street"
+              i18n-placeholder="@@form.address.street"
+            />
+          </mat-form-field>
+          <div fxLayout="row" fxLayoutGap="25px">
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                formControlName="zip"
+                placeholder="Postal Code"
+                i18n-placeholder="@@form.address.zip"
+              />
+            </mat-form-field>
+            <mat-form-field>
+              <input
+                matInput
+                type="text"
+                formControlName="city"
+                placeholder="City"
+                i18n-placeholder="@@form.address.city"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+      </fieldset>
+      <button mat-raised-button *ngIf="inCreateMode()" type="submit" class="mh-submit" i18n="@@form.submit">
+        SUBMIT
+      </button>
     </div>
+  </div>
 </form>

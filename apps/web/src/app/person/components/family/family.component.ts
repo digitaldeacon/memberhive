@@ -25,7 +25,7 @@ import {
   SetFamilyRoleAction,
   AcceptMemberFamilyAction,
   UpdatePersonAction,
-  UpdateFamilyAction
+  UpdateFamilyAction,
 } from '@memberhivex/core';
 
 import { isEqual } from 'lodash';
@@ -39,7 +39,7 @@ interface MemberRole {
   selector: 'mh-person-family',
   templateUrl: './family.component.html',
   styleUrls: ['./family.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FamilyComponent implements OnDestroy {
   private _person: Person;
@@ -78,19 +78,19 @@ export class FamilyComponent implements OnDestroy {
 
   constructor(private _store: Store<AppState>, private _fb: FormBuilder) {
     this.addFamilyForm = this._fb.group({
-      familyName: ['', [<any>Validators.required]]
+      familyName: ['', [<any>Validators.required]],
     });
     this.linkFamilyForm = this._fb.group({
       family: [undefined, [<any>Validators.required]],
-      role: ['', [<any>Validators.required]]
+      role: ['', [<any>Validators.required]],
     });
     this.addFamilyMemberForm = this._fb.group({
       member: ['', [<any>Validators.required]],
-      role: ['', [<any>Validators.required]]
+      role: ['', [<any>Validators.required]],
     });
     this.editFamilyForm = this._fb.group({
       familyName: ['', [<any>Validators.required]],
-      unrelated: []
+      unrelated: [],
     });
 
     this._store
@@ -142,7 +142,7 @@ export class FamilyComponent implements OnDestroy {
         person: this.person,
         isSuggestion: false,
         role: this._role(this.person.uid),
-        isPrimary: true
+        isPrimary: true,
       };
       this.members.push(m);
       this.members$.next(this.members);
@@ -168,7 +168,7 @@ export class FamilyComponent implements OnDestroy {
             person: person,
             isSuggestion: true,
             role: meta.role,
-            isPrimary: meta.isPrimary
+            isPrimary: meta.isPrimary,
           };
           this.members.push(m);
           this.members$.next(this.members);
@@ -185,7 +185,7 @@ export class FamilyComponent implements OnDestroy {
       const payload: FamilyPayload = {
         family: this.family,
         member: this.addFamilyMemberForm.get('member').value,
-        role: this.addFamilyMemberForm.get('role').value
+        role: this.addFamilyMemberForm.get('role').value,
       };
       this._store.dispatch(new AcceptMemberFamilyAction(payload));
       this.displayAddMember = false;
@@ -198,7 +198,7 @@ export class FamilyComponent implements OnDestroy {
       family: this.family,
       member: m.person.uid,
       role: m.role,
-      isPrimary: m.isPrimary
+      isPrimary: m.isPrimary,
     };
     this._store.dispatch(new AcceptMemberFamilyAction(payload));
   }
@@ -206,7 +206,7 @@ export class FamilyComponent implements OnDestroy {
   ignore(m: Member): void {
     const payload: FamilyPayload = {
       family: this.family,
-      member: m.person.uid
+      member: m.person.uid,
     };
     this._store.dispatch(new IgnoreMemberFamilyAction(payload));
   }
@@ -215,7 +215,7 @@ export class FamilyComponent implements OnDestroy {
     let payload: FamilyPayload;
     payload = {
       family: this.family,
-      member: m.person.uid
+      member: m.person.uid,
     };
     this._store.dispatch(new RemoveMemberFamilyAction(payload));
     this._store.dispatch(new UpdatePersonAction(m.person));
@@ -228,7 +228,7 @@ export class FamilyComponent implements OnDestroy {
       payload = {
         family: this.linkFamilyForm.get('family').value,
         member: this.person.uid,
-        role: this.linkFamilyForm.get('role').value
+        role: this.linkFamilyForm.get('role').value,
       };
       this._store.dispatch(new LinkPersonFamilyAction(payload));
       this.displayAddFamily = false;
@@ -240,11 +240,11 @@ export class FamilyComponent implements OnDestroy {
     if (this.addFamilyForm.valid) {
       const members: Members = {};
       members[this.person.uid] = {
-        role: this._defaults(this.person).role
+        role: this._defaults(this.person).role,
       };
       const family: Family = {
         name: this.addFamilyForm.get('familyName').value,
-        members: members
+        members: members,
       };
       this._store.dispatch(new AddNewFamilyAction(family));
       this.displayAddFamily = false;
@@ -259,7 +259,7 @@ export class FamilyComponent implements OnDestroy {
       const family: Family = {
         id: this.family.id,
         name: this.editFamilyForm.get('familyName').value,
-        unrelated: unrelated
+        unrelated: unrelated,
       };
       this._store.dispatch(new UpdateFamilyAction(family));
       this.displayAddFamily = false;
@@ -286,7 +286,7 @@ export class FamilyComponent implements OnDestroy {
         person: person,
         isSuggestion: false,
         role: this._role(person.uid),
-        isPrimary: false
+        isPrimary: false,
       };
       this.members.push(member);
       this.members$.next(this.members);
@@ -304,7 +304,7 @@ export class FamilyComponent implements OnDestroy {
   private _defaults(p: Person): MemberRole {
     const mrole: MemberRole = {
       role: FamilyRole.CHILD,
-      isPrimary: true
+      isPrimary: true,
     };
     let roleUsed: boolean = false;
     if (p.maritalStatus === MaritalStatus.MARRIED) {
