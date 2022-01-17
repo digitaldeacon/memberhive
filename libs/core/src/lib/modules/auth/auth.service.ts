@@ -1,9 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest } from '@angular/common/http';
-import * as jwt_decode_ from 'jwt-decode';
+import jwt_decode from 'jwt-decode';
 import * as localForage from 'localforage';
-
-const jwt_decode = jwt_decode_;
 
 const TOKEN = 'token';
 const CLIENT = 'client';
