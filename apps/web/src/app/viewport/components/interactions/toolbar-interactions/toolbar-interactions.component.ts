@@ -19,7 +19,7 @@ export class ToolbarInteractionsComponent {
     }
   }
 
-  constructor(private _auth: AuthService) { }
+  constructor(private _auth: AuthService) {}
 
   personId() {
     return this._auth.personId;

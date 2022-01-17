@@ -19,7 +19,7 @@
     "rootDir": "."
   },
   "angularCompilerOptions": {
-    "strictTemplates": true,
+    "strictTemplates": true
   },
   "exclude": ["node_modules", "tmp"]
 }
