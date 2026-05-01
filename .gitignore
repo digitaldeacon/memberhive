@@ -1,0 +1,15 @@
+/.idea
+/.vscode
+/.DS_Store
+/node_modules
+/vendor
+/.env
+/.env.*
+!/.env.example
+/storage/*.key
+/bootstrap/cache/*
+/public/build
+/public/hot
+/coverage
+/.phpunit.cache
+/.pest.cache
