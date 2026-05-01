@@ -1,10 +1,10 @@
 # Rework Development Boundaries
 
-These boundaries are intended for the future `memberhive-rework` repository and for any agent starting implementation work from the legacy code.
+These boundaries are intended for the clean `rework/laravel-inertia-vue` branch and for any agent starting implementation work from the legacy code.
 
 ## Repository Boundary
 
-This repository is legacy/reference. The new implementation should live in a clean Laravel repository, tentatively `memberhive-rework`.
+This branch is the clean Laravel/Inertia rework line inside the public `digitaldeacon/memberhive` repository. The old Angular/Yii implementation is preserved by tag and historical branches.
 
 Use this repository for:
 
@@ -13,7 +13,9 @@ Use this repository for:
 - Migration mapping.
 - Historical UI/workflow reference.
 
-Do not add the new Laravel/Inertia application inside this old Angular/Nx workspace unless that decision is explicitly reversed.
+Do not revive the old Angular/Nx workspace on this branch. Scaffold the Laravel/Inertia app directly on this clean branch when implementation starts.
+
+The landlord/admin context lives in the same Laravel app as the tenant-aware MemberHive context. Use central routes/pages for landlord administration and tenant routes/pages for organization CRM work.
 
 ## Spec-First Workflow
 
@@ -42,6 +44,7 @@ resources/js/
   components/
     ui/                  # shadcn-vue primitives
     shared/              # reusable app-level components
+    landlord/
     people/
     households/
     activities/
@@ -55,6 +58,7 @@ resources/js/
     activities/
     shared/
   pages/
+    landlord/
     people/
     households/
     activities/
@@ -100,6 +104,7 @@ Organize Laravel by domain, while staying idiomatic:
 ```text
 app/
   Actions/
+    Landlord/
     People/
     Households/
     Activities/
@@ -107,10 +112,13 @@ app/
   Enums/
   Http/
     Controllers/
+      Landlord/
+      Tenant/
       People/
       Households/
       Activities/
     Requests/
+      Landlord/
       People/
       Households/
       Activities/

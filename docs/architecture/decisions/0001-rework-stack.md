@@ -10,7 +10,7 @@ The intended future product should support a strong PWA web app and a focused mo
 
 ## Decision
 
-Create a new repository, tentatively named `memberhive-rework`, and use this repository as the legacy/reference source.
+Use the public `digitaldeacon/memberhive` repository as the active product repo. Keep the rework on the clean orphan branch `rework/laravel-inertia-vue`, then make it the default branch when the Laravel/Inertia app is viable. The old Angular/Yii code remains preserved by tag and historical branches.
 
 Use this stack for the new repository:
 
@@ -28,6 +28,27 @@ Use this stack for the new repository:
 - Vitest and Vue Test Utils for frontend tests.
 - Laravel Boost should be installed and kept current.
 - Icons should come from Lucide first; Hugeicons may be added for gaps or brand-specific needs.
+
+The landlord/admin app should live inside the same Laravel application as the tenant-aware MemberHive product. With `stancl/tenancy`, the central landlord context and tenant context are two modes of one app, not separate products. Do not revive `hives` as the active landlord application.
+
+Use the ESRA Bible landlord app at `/Applications/MAMP/htdocs/ebtc/esra-bibel/apps/landlord` as the primary tenancy/provisioning reference. Copy concepts selectively, not code wholesale.
+
+Reusable ESRA concepts:
+
+- `stancl/tenancy` central/tenant migration split.
+- `Tenant` with `HasDatabase` and `HasDomains`.
+- Tenant lifecycle: active, suspended, archived.
+- Deploy targets for local Docker and SSH execution.
+- Tenant onboarding jobs.
+- Tenant health checks.
+- Tenant backup and restore jobs.
+- Service-control and tenant-operation run tracking.
+
+Do not bring ESRA editor-specific features into the MemberHive MVP:
+
+- plugin artifacts and plugin rollouts.
+- collaboration namespaces and Hocuspocus topology.
+- editor command naming and editor integration checks.
 
 ## Database
 
@@ -69,3 +90,5 @@ Do not copy Eigenfy product-specific domain code. Copy conventions and tooling p
 The old NgRx/store work becomes a domain and workflow reference, not code to port directly.
 
 The rework agent should implement from specs first, consult legacy code second, and preserve legacy behavior only when the spec says it still matters.
+
+The old `digitaldeacon/hives` repository should become a legacy infrastructure archive. It can keep a clean `main` branch with a README pointing to MemberHive's integrated landlord context.

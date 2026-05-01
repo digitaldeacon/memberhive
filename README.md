@@ -25,6 +25,8 @@ The legacy Angular/Nx + Yii2 application is preserved at:
 
 Implement from specs first and consult legacy code second.
 
+The landlord/admin area lives in this Laravel app too. The old `digitaldeacon/hives` repository is legacy infrastructure history; use the ESRA Bible landlord app as the reference for modern tenant provisioning patterns.
+
 Start with:
 
 - `docs/rework-feature-overview.md`

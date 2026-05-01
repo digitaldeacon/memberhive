@@ -21,6 +21,7 @@ Recommended spec files:
 - `pwa.md`
 - `mobile-companion.md`
 - `legacy-migration.md`
+- `landlord-tenancy.md`
 
 Each feature spec should include:
 
@@ -41,3 +42,5 @@ Initial architecture decisions:
 
 - See `../architecture/decisions/0001-rework-stack.md`.
 - See `../architecture/rework-boundaries.md`.
+
+The landlord/tenancy spec should treat `/Applications/MAMP/htdocs/ebtc/esra-bibel/apps/landlord` as the main implementation reference for tenant lifecycle, deploy targets, onboarding, health checks, backups, and service operations. Treat `digitaldeacon/hives` as legacy infrastructure history only.
